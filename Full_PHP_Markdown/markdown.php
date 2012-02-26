@@ -612,6 +612,7 @@ class Full_PHP_Markdown_Parser
 	 * @param string $text The text to be parsed
 	 * @return string The text parsed
 	 * @see _stripLinkDefinitions_callback()
+	 * @todo Manage attributes (not working for now)
 	 */
 	function stripLinkDefinitions($text) 
 	{
@@ -641,7 +642,10 @@ class Full_PHP_Markdown_Parser
 							  [ ]*
 							(?:				  # Attributes = $5
 								(?<=\s)	  # lookbehind for whitespace
-								((\S+?[=]\S+?)|(\S+?[=]".*?"))*
+								(
+									([ ]*\n)?
+									((?:\S+?=\S+?)|(?:.+?=.+?)|(?:.+?=".*?")|(?:\S+?=".*?"))
+								)
 							  [ ]*
 							)?	        # attributes are optional
 							(\n+|\Z)
@@ -657,7 +661,6 @@ class Full_PHP_Markdown_Parser
 	 */
 	function _stripLinkDefinitions_callback($matches) 
 	{
-//var_export($matches);
 		$link_id = strtolower($matches[1]);
 		$url = $matches[2] == '' ? $matches[3] : $matches[2];
 		$this->urls[$link_id] = $url;
@@ -1543,6 +1546,9 @@ class Full_PHP_Markdown_Parser
 				$title = $this->encodeAttribute($title);
 				$result .=  " title=\"$title\"";
 			}
+			if (isset($this->attributes[$link_id])) {
+				$result .= $this->doAttributes( $this->attributes[$link_id] );
+			}
 		
 			$link_text = $this->runSpanGamut($link_text);
 			$result .= ">$link_text</a>";
@@ -1671,8 +1677,7 @@ class Full_PHP_Markdown_Parser
 				$result .=  " title=\"$title\"";
 			}
 			if (isset($this->attributes[$link_id])) {
-				$attributes = $this->attributes[$link_id];
-				$result .= $this->doAttributes($attributes);
+				$result .= $this->doAttributes( $this->attributes[$link_id] );
 			}
 			$result .= $this->empty_element_suffix;
 			$result = $this->hashPart($result);
@@ -1686,7 +1691,7 @@ class Full_PHP_Markdown_Parser
 	}
 
 	/**
-	 * @param array $matches A set of results of the `deImages` function
+	 * @param array $matches A set of results of the `doImages` function
 	 * @return string The text parsed
 	 * @see encodeAttribute()
 	 * @see hashPart()
@@ -3265,9 +3270,14 @@ class Full_PHP_Markdown_Parser
 	 */
 	function doAttributes($attributes)
 	{
-		$attributes = preg_match('/(\S+)="(.*?)"/', " $1=\"$2\"", $attributes);
-		$attributes = preg_match('/(\S+)=(\S+)/', " $1=\"$2\"", $attributes);	
-		return $attributes;
+		return preg_replace('{
+			(\S+)=
+			(["\']?)                  # $2: simple or double quote or nothing
+			(?:
+				([^"|\']\S+|.*?[^"|\']) # anything but quotes
+			)
+			\\2                       # rematch $2
+			}xsi', " $1=\"$3\"", $attributes);
 	}
 
 	/**

@@ -56,7 +56,7 @@ if (!empty($_GET) && isset($_GET['type'])) {
 			require 'Full_PHP_Markdown/markdown.php';
 			break;
 
-		case 'miniminifullphpmarkdown':
+		case 'minifullphpmarkdown':
 			require 'Full_PHP_Markdown/markdown.mini.php';
 			break;
 

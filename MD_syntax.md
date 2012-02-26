@@ -274,7 +274,7 @@ An self-reference link: `[link text][anchor]` will refer to `My text[anchor]` (e
 
 A referenced link image with attributes: `[mylink][]` will refer to reference `[mylink]: http://test.com/ "Optional title" class=external style="border: solid black 1px;"`
 
-Example: [mylink][]
+Example: [mylink][] and [mylink2][] and [mylink3][]
 
 An embedded image with attributes: `![myimage][]` will refer to reference `[myimage]: http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px`
 
@@ -285,7 +285,9 @@ A referenced embedded image with attributes: `![alternative text][myimage]` will
 Example: ![my image][myimage]
 
 [myimage]: http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px
-[mylink]: http://test.com/ "Optional title" class=external 
+[mylink]: http://test.com/ "Optional title" class=external rel=external
+[mylink2]: http://test.com/ "Optional title" class=external rel=external style="border: solid black 1px;"
+[mylink3]: http://test.com/ "Optional title" class=external rel="external" 
 	style="border: solid black 1px;"
 
 ## HTML
