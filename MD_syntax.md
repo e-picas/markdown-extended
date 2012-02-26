@@ -1,11 +1,12 @@
 Title:   A Sample MultiMarkdown Document
-Author:  Fletcher T. Penney
-Date:    February 9, 2011
+Author:  Pierre Cassat
+Date:    February 20, 2012
 Comment: This is a comment intended to demonstrate
          metadata that spans multiple lines, yet
          is treated as a single value.
 Test:    And this is a new key-value pair
 Base Header Level:  2
+Quotes Language: french
 
 # Basic tags from the original Markdown
 
@@ -169,7 +170,6 @@ A definition:
 Example:
 
 Term 1
-
 :   This is a definition with two paragraphs. Lorem ipsum 
     dolor sit amet, consectetuer adipiscing elit. Aliquam 
     hendrerit mi posuere lectus.
@@ -181,7 +181,6 @@ Term 1
     because of the blank line preceding it.
 
 Term 2
-
 :   This definition has a code block, a blockquote and a list.
 
         code block.
@@ -271,18 +270,23 @@ Nothing new ...
 
 ## Links and images
 
-An self-reference link: `[link text][anchor]` will refer to `My text[anchor]` (example: [link text][mynewanchor] or [atitleanchor][])
+An self-reference link: `[link text][anchor]` will refer to `My text[anchor]` (example: [link text][#mynewanchor] or [atitleanchor][])
 
-An embedded image with attributs: `![my image][]` will refer to reference `[myimage] http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px`
+A referenced link image with attributes: `[mylink][]` will refer to reference `[mylink]: http://test.com/ "Optional title" class=external style="border: solid black 1px;"`
 
-Example: ![my image](http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px)
+Example: [mylink][]
 
-A referenced embedded image with attributs: `![my image][]` will refer to reference `[myimage] http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px`
+An embedded image with attributes: `![myimage][]` will refer to reference `[myimage]: http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px`
+
+Example: ![myimage][]
+
+A referenced embedded image with attributes: `![alternative text][myimage]` will refer to reference `[myimage]: http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px`
 
 Example: ![my image][myimage]
 
 [myimage]: http://test.com/data1/images/1.jpg "Optional image title" width=40px height=40px
-
+[mylink]: http://test.com/ "Optional title" class=external 
+	style="border: solid black 1px;"
 
 ## HTML
 

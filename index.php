@@ -1,6 +1,10 @@
 <?php
 /**
  * Application in development ....
+ *
+ * Command to process multimarkdown version:
+ *
+ *     ~$ multimarkdown -o MD_syntax.html MD_syntax.md
  */
 
 // ------------------------------
@@ -11,7 +15,8 @@
 ini_set('display_errors','1'); error_reporting(E_ALL ^ E_NOTICE);
 
 // set a default timezone to avoid PHP5 warnings
-date_default_timezone_set('Europe/Paris');
+$tmz = date_default_timezone_get();
+date_default_timezone_set( !empty($tmz) ? $tmz : 'Europe/Paris' );
 
 // ------------------------------
 // PROCESS
@@ -33,12 +38,18 @@ if (!empty($_GET) && isset($_GET['type'])) {
 
 		case 'multimarkdown':
 			$ok = exec('which multimarkdown');
-			if (empty($ok))
+			if (!empty($ok)) {
+				$pwd = realpath( dirname(__FILE__) );
+				$md_content = exec("cd $pwd && $ok $test_file", $md_content_tbl);
+				if (!empty($md_content_tbl)) $md_content = join("\n", $md_content_tbl);
+				else trigger_error( "An error occured while processing 'multimarkdown' command !", E_USER_ERROR );
+			} else {
+				$html = 'MD_syntax.html';
+				if (file_exists($html))
+					$md_content = file_get_contents($html);
+				else
 				trigger_error( "Command 'multimarkdown' not found in your system ! (see https://github.com/fletcher/peg-multimarkdown/downloads/)", E_USER_ERROR );
-			$pwd = realpath( dirname(__FILE__) );
-			$md_content = exec("cd $pwd && $ok $test_file", $md_content_tbl);
-			if (!empty($md_content_tbl)) $md_content = join("\n", $md_content_tbl);
-			else trigger_error( "An error occured while processing 'multimarkdown' command !", E_USER_ERROR );
+			}
 			break;
 
 		case 'fullphpmarkdown':
