@@ -1,6 +1,6 @@
 <?php
 /**
- * Full PHP Markdown
+ * PHP Extended Markdown
  * Copyright (c) 2004-2012 Pierre Cassat
  *
  * original MultiMarkdown
@@ -65,13 +65,13 @@
 // -----------------------------------
 
 /**
- * Initialize the parser and return the result of its transform method.
+ * Initialize the parser and return the result of its transform method
  */
 function Markdown($text) {
-	// Setup static parser variable.
+	// Setup static parser variable
 	static $parser;
-	if (!isset($parser)) $parser = new Full_PHP_Markdown_Parser;
-	// Transform text using parser.
+	if (!isset($parser)) $parser = new PHP_Extended_Markdown_Parser;
+	// Transform text using parser
 	return $parser->transform($text);
 }
 
@@ -81,9 +81,37 @@ function Markdown($text) {
 // -----------------------------------
 
 /**
- * New PHP Markdown Extra Parser Class
+ * PHP Extended Markdown Mother Class
  */
-class Full_PHP_Markdown_Parser
+class PHP_Extended_Markdown
+{
+	/**
+	 * Class infos
+	 */
+	static $class_name = 'PHP Extended Markdown';
+	static $class_version = '1.0';
+	static $class_sources = 'https://github.com/PieroWbmstr/Extended_Markdown';
+
+	static function info( $html=false )
+	{
+		return 
+			( $html ? '<strong>' : '' )
+			.PHP_Extended_Markdown::$class_name
+			.( $html ? '</strong>' : '' )
+			.' version '.PHP_Extended_Markdown::$class_version
+			.' ('
+			.( $html ? '<a href="'.PHP_Extended_Markdown::$class_sources.'" target="_blank" title="See online">' : '' )
+			.PHP_Extended_Markdown::$class_sources
+			.( $html ? '</a>' : '' )
+			.')';
+	}
+
+}
+
+/**
+ * PHP Extended Markdown Parser Class
+ */
+class PHP_Extended_Markdown_Parser extends PHP_Extended_Markdown
 {
 
 	/**
@@ -253,7 +281,7 @@ class Full_PHP_Markdown_Parser
 	/**
 	 * Constructor function. Initialize the parser object.
 	 */
-	function Full_PHP_Markdown_Parser() 
+	function PHP_Extended_Markdown_Parser() 
 	{
 		$this->_initDetab();
 		$this->prepareItalicsAndBold();
@@ -334,7 +362,7 @@ class Full_PHP_Markdown_Parser
 	
 	
 // ----------------------------------
-// GLOBAL PROCESS
+// USER INTERFACE
 // ----------------------------------
 	
 	/**

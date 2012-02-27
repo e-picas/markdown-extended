@@ -1,6 +1,6 @@
 <?php
 /**
- * Application in development ....
+ * Work in progress ....
  *
  * Command to process multimarkdown version:
  *
@@ -49,21 +49,22 @@ if (!empty($_GET) && isset($_GET['type'])) {
 				if (file_exists($html))
 					$md_content = file_get_contents($html);
 				else
-				trigger_error( "Command 'multimarkdown' not found in your system ! (see https://github.com/fletcher/peg-multimarkdown/downloads/)", E_USER_ERROR );
+					trigger_error( "Command 'multimarkdown' not found in your system ! (see https://github.com/fletcher/peg-multimarkdown/downloads/)", E_USER_ERROR );
 			}
 			break;
 
-		case 'fullphpmarkdown':
-			require 'Full_PHP_Markdown/markdown.php';
+		case 'phpextendedmarkdown':
+			require 'PHP_Extended_Markdown/markdown.php';
+			$alt_content = '<p>'.PHP_Extended_Markdown::info(true).'</p><hr />';
 			break;
 
-		case 'minifullphpmarkdown':
-			require 'Full_PHP_Markdown/markdown.mini.php';
+		case 'miniphpextendedmarkdown':
+			require 'PHP_Extended_Markdown/markdown.mini.php';
 			break;
 
 		case 'reminders':
-			require 'Full_PHP_Markdown/markdown.php';
-			$alt_content = file_get_contents( 'Full_PHP_Markdown/markdown_cheat_sheet.html' );
+			require 'PHP_Extended_Markdown/markdown.php';
+			$alt_content = file_get_contents( 'PHP_Extended_Markdown/markdown_cheat_sheet.html' );
 			break;
 
 		default:break;
@@ -142,9 +143,9 @@ function fullphpmdcs_popup(url){
 	<a href="index.php?type=markdown">PHP Markdown 1.0.1o</a> | 
 	<a href="index.php?type=markdownextra">PHP Markdown Extra 1.2.5</a> | 
 	<a href="index.php?type=multimarkdown">Multi Markdown</a> | 
-	<a href="index.php?type=fullphpmarkdown">Full PHP Markdown</a> | 
-	<a href="index.php?type=minifullphpmarkdown">Full PHP Markdown minified (<em>if so ...</em>)</a> | 
-	<a href="Full_PHP_Markdown/markdown_cheat_sheet.html" onclick="return fullphpmdcs_popup('Full_PHP_Markdown/markdown_cheat_sheet.html');" title="Markdown syntax cheat sheet (new floated window)" target="_blank">
+	<a href="index.php?type=phpextendedmarkdown">PHP Extended Markdown</a> | 
+	<a href="index.php?type=miniphpextendedmarkdown">PHP Extended Markdown minified (<em>if so ...</em>)</a> | 
+	<a href="PHP_Extended_Markdown/markdown_cheat_sheet.html" onclick="return fullphpmdcs_popup('PHP_Extended_Markdown/markdown_cheat_sheet.html');" title="Markdown syntax cheat sheet (new floated window)" target="_blank">
     Markdown syntax cheat sheet</a> 
 	 [ <a href="index.php?type=reminders" title="test the inclusion of the cheat sheet in a full page">test inclusion</a> ]
 	<hr />
