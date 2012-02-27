@@ -24,6 +24,7 @@ date_default_timezone_set( !empty($tmz) ? $tmz : 'Europe/Paris' );
 
 $test_file = 'MD_syntax.md';
 $file_content = file_get_contents( $test_file );
+$alt_content = '';
 
 if (!empty($_GET) && isset($_GET['type'])) {
 	switch($_GET['type']) {
@@ -58,6 +59,11 @@ if (!empty($_GET) && isset($_GET['type'])) {
 
 		case 'minifullphpmarkdown':
 			require 'Full_PHP_Markdown/markdown.mini.php';
+			break;
+
+		case 'reminders':
+			require 'Full_PHP_Markdown/markdown.php';
+			$alt_content = file_get_contents( 'Full_PHP_Markdown/markdown_cheat_sheet.html' );
 			break;
 
 		default:break;
@@ -118,6 +124,16 @@ pre code        { border: none; text-indent:0; padding: 0; }
 
 #wrapper     { margin: 0 1em; min-height: 100%; padding: 10px; position: relative; }
 	</style>
+	<script type="text/javascript"><!--//
+function fullphpmdcs_popup(url){
+	if (!url) url='markdown_cheat_sheet.html?popup';
+	if (url.lastIndexOf("popup")==-1) url += (url.lastIndexOf("?")!=-1) ? '&popup' : '?popup';
+	var new_f = window.open(url, 'markdown_cheat_sheet', 
+       'directories=0,menubar=0,status=0,location=1,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
+	new_f.focus();
+	return false; 
+}
+	//--></script>
 </head>
 <body>
 	<div id="wrapper">
@@ -128,7 +144,11 @@ pre code        { border: none; text-indent:0; padding: 0; }
 	<a href="index.php?type=multimarkdown">Multi Markdown</a> | 
 	<a href="index.php?type=fullphpmarkdown">Full PHP Markdown</a> | 
 	<a href="index.php?type=minifullphpmarkdown">Full PHP Markdown minified (<em>if so ...</em>)</a> | 
+	<a href="Full_PHP_Markdown/markdown_cheat_sheet.html" onclick="return fullphpmdcs_popup('Full_PHP_Markdown/markdown_cheat_sheet.html');" title="Markdown syntax cheat sheet (new floated window)" target="_blank">
+    Markdown syntax cheat sheet</a> 
+	 [ <a href="index.php?type=reminders" title="test the inclusion of the cheat sheet in a full page">test inclusion</a> ]
 	<hr />
+	{$alt_content}
 	{$md_content}
 	</div>
 </body>

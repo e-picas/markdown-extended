@@ -1,9 +1,11 @@
 <?php
 /**
- * MY PHP Markdown
- *
- * MY PHP Markdown
+ * Full PHP Markdown
  * Copyright (c) 2004-2012 Pierre Cassat
+ *
+ * original MultiMarkdown
+ * Copyright (c) 2005-2009 Fletcher T. Penney
+ * <http://fletcherpenney.net/>
  *
  * original PHP Markdown & Extra
  * Copyright (c) 2004-2012 Michel Fortin  
@@ -13,7 +15,6 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-
 
 // -----------------------------------
 // GLOBAL DEFAULT SETTINGS
