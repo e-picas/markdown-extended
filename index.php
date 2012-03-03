@@ -29,59 +29,14 @@ $alt_content = '';
 if (!empty($_GET) && isset($_GET['type'])) {
 	switch($_GET['type']) {
 
-		case 'markdown':
-			require 'PHP_Markdown_1.0.1o/markdown.php';
-			break;
-
-		case 'markdownextra':
-			require 'PHP_Markdown_Extra_1.2.5/markdown.php';
-			break;
-
-		case 'multimarkdown':
-			$ok = exec('which multimarkdown');
-			if (!empty($ok)) {
-				$pwd = realpath( dirname(__FILE__) );
-				$md_content = exec("cd $pwd && $ok $test_file", $md_content_tbl);
-				if (!empty($md_content_tbl)) $md_content = join("\n", $md_content_tbl);
-				else trigger_error( "An error occured while processing 'multimarkdown' command !", E_USER_ERROR );
-			} else {
-				$html = 'MD_syntax.html';
-				if (file_exists($html))
-					$md_content = file_get_contents($html);
-				else
-					trigger_error( "Command 'multimarkdown' not found in your system ! (see https://github.com/fletcher/peg-multimarkdown/downloads/)", E_USER_ERROR );
-			}
-			break;
-
-		case 'phpextendedmarkdown':
-			require 'PHP_Extended_Markdown/markdown.php';
-			$alt_content = '<p>'.PHP_Extended_Markdown::info(true).'</p><hr />';
-			break;
-
-		case 'miniphpextendedmarkdown':
-			require 'PHP_Extended_Markdown/markdown.mini.php';
-			break;
-
 		case 'reminders':
-			require 'PHP_Extended_Markdown/markdown.php';
-			$alt_content = file_get_contents( 'PHP_Extended_Markdown/markdown_reminders.html' );
+			require 'Markdown_Extended/markdown.php';
+			$alt_content = file_get_contents( 'Markdown_Extended/markdown_reminders.html' );
 			break;
 
 		case 'ooextendedmarkdown':
-			require 'OO_Extended_Markdown/markdown.php';
+			require 'Markdown_Extended/markdown.php';
 			$alt_content = '<p>'.Markdown_Extended::info(true).'</p><hr />';
-			break;
-
-		case 'doc':
-			require 'OO_Extended_Markdown/markdown.php';
-			$class = isset($_GET['class']) ? $_GET['class'] : null;
-			$method = isset($_GET['method']) ? $_GET['method'] : null;
-			if (!empty($class) && !empty($method))
-				$md_content = Markdown_Documentation($class,$method);
-			elseif (!empty($class))
-				$md_content = Markdown_Documentation($class);
-			else
-				$md_content = Markdown_Documentation();
 			break;
 
 		default:break;
@@ -157,14 +112,8 @@ function emdreminders_popup(url){
 	<div id="wrapper">
 	<h2>MENU</h2>
 	<a href="index.php">original Markdown file</a> | 
-	<a href="index.php?type=markdown">PHP Markdown 1.0.1o</a> | 
-	<a href="index.php?type=markdownextra">PHP Markdown Extra 1.2.5</a> | 
-	<a href="index.php?type=multimarkdown">Multi Markdown</a> | 
-	<a href="index.php?type=phpextendedmarkdown">PHP Extended Markdown</a> | 
 	<a href="index.php?type=ooextendedmarkdown">OO Extended Markdown</a> | 
-	<a href="index.php?type=doc">OO doc</a> | 
-	<a href="index.php?type=miniphpextendedmarkdown">PHP Extended Markdown minified (<em>if so ...</em>)</a> | 
-	<a href="PHP_Extended_Markdown/markdown_reminders.html" onclick="return emdreminders_popup('PHP_Extended_Markdown/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">
+	<a href="Markdown_Extended/markdown_reminders.html" onclick="return emdreminders_popup('Markdown_Extended/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">
     Markdown syntax reminders</a> 
 	 [ <a href="index.php?type=reminders" title="test the inclusion of the reminders in a full page">test inclusion</a> ]
 	<hr />
