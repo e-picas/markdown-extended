@@ -1,14 +1,14 @@
-Title:   A Sample MultiMarkdown Document
-Author:  Pierre Cassat
-Date:    February 20, 2012
+Title:   A Sample MultiMarkdown Document  
+Author:  Pierre Cassat  
+Date:    February 20, 2012  
 Comment: This is a comment intended to demonstrate
          metadata that spans multiple lines, yet
-         is treated as a single value.
-Test:    And this is a new key-value pair
-Base Header Level:  2
-Quotes Language: french
+         is treated as a single value.  
+Test:    And this is a new key-value pair  
+Base Header Level:  2  
+Quotes Language: french  
 
-# Basic tags from the original Markdown
+# Basic tags from the original *Markdown*
 
 ## Blocks and structural elements
 
@@ -90,7 +90,7 @@ Example:
 1.   second item
 
 
-# Advanced tags from the Markdown Extra feature
+# Advanced tags from *Markdown Extra*
 
 ## Blocks and structural elements
 
@@ -224,7 +224,7 @@ Example: A text whit HTML expression.
 #### Anchor for tests with a specific anchor `{#myanchor}` ... {#myanchor}
 
 
-# Advanced tags from the Multi Markdown feature
+# Advanced tags from *Multi Markdown*
 
 ## Blocks and structural elements
 
@@ -314,7 +314,6 @@ Content Cell  | **Cell**      | **Cell**     |
 
 New section   |   More        |         Data |
 And more      |           And more          ||
-[prototype table]
 
 New example:
 
@@ -329,12 +328,51 @@ New section   |   More        |         Data |
 And more      |           And more          ||
 And more                     || And more     |
 
+Same example with caption after the table:
+
+|             | Grouping                    ||
+First Header  | Second Header | Third header |
+First comment  | Second comment | Third comment |
+------------- | ------------: | :----------: |
+Content Cell  |  *Long Cell*                ||
+Content Cell  | **Cell**      | **Cell**     |
+New section   |   More        |         Data |
+And more      |           And more          ||
+And more                     || And more     |
+[prototype *table*]
+
 
 ----
 
 #### Anchor for tests ... [atitleanchor]
 
 This paragrpah contains a `[mynewanchor]` info [mynewanchor], so it can be referenced ...
+
+
+# Other features gleaned on the web
+
+## Blocks and structural elements
+
+Adding a reference URL to w blockquote:
+
+    > (http://test.com) this is my citation extracted from the content
+    > of the page at http://test.com URL
+
+Example:
+
+> (http://test.com) this is my citation extracted from the content
+> of the page at http://test.com URL
+
+Fenced code block with information about the language: a line of tildes (at least 3) followed by language name (without space)
+
+    ~~~~html
+    My code here
+    ~~~~
+
+Example:
+~~~~html
+My code here
+~~~~
 
 
 # Some inline HTML for tests

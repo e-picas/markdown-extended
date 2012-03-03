@@ -64,7 +64,24 @@ if (!empty($_GET) && isset($_GET['type'])) {
 
 		case 'reminders':
 			require 'PHP_Extended_Markdown/markdown.php';
-			$alt_content = file_get_contents( 'PHP_Extended_Markdown/markdown_cheat_sheet.html' );
+			$alt_content = file_get_contents( 'PHP_Extended_Markdown/markdown_reminders.html' );
+			break;
+
+		case 'ooextendedmarkdown':
+			require 'OO_Extended_Markdown/markdown.php';
+			$alt_content = '<p>'.Markdown_Extended::info(true).'</p><hr />';
+			break;
+
+		case 'doc':
+			require 'OO_Extended_Markdown/markdown.php';
+			$class = isset($_GET['class']) ? $_GET['class'] : null;
+			$method = isset($_GET['method']) ? $_GET['method'] : null;
+			if (!empty($class) && !empty($method))
+				$md_content = Markdown_Documentation($class,$method);
+			elseif (!empty($class))
+				$md_content = Markdown_Documentation($class);
+			else
+				$md_content = Markdown_Documentation();
 			break;
 
 		default:break;
@@ -126,10 +143,10 @@ pre code        { border: none; text-indent:0; padding: 0; }
 #wrapper     { margin: 0 1em; min-height: 100%; padding: 10px; position: relative; }
 	</style>
 	<script type="text/javascript"><!--//
-function fullphpmdcs_popup(url){
-	if (!url) url='markdown_cheat_sheet.html?popup';
+function emdreminders_popup(url){
+	if (!url) url='markdown_reminders.html?popup';
 	if (url.lastIndexOf("popup")==-1) url += (url.lastIndexOf("?")!=-1) ? '&popup' : '?popup';
-	var new_f = window.open(url, 'markdown_cheat_sheet', 
+	var new_f = window.open(url, 'markdown_reminders', 
        'directories=0,menubar=0,status=0,location=1,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
 	new_f.focus();
 	return false; 
@@ -144,10 +161,12 @@ function fullphpmdcs_popup(url){
 	<a href="index.php?type=markdownextra">PHP Markdown Extra 1.2.5</a> | 
 	<a href="index.php?type=multimarkdown">Multi Markdown</a> | 
 	<a href="index.php?type=phpextendedmarkdown">PHP Extended Markdown</a> | 
+	<a href="index.php?type=ooextendedmarkdown">OO Extended Markdown</a> | 
+	<a href="index.php?type=doc">OO doc</a> | 
 	<a href="index.php?type=miniphpextendedmarkdown">PHP Extended Markdown minified (<em>if so ...</em>)</a> | 
-	<a href="PHP_Extended_Markdown/markdown_cheat_sheet.html" onclick="return fullphpmdcs_popup('PHP_Extended_Markdown/markdown_cheat_sheet.html');" title="Markdown syntax cheat sheet (new floated window)" target="_blank">
-    Markdown syntax cheat sheet</a> 
-	 [ <a href="index.php?type=reminders" title="test the inclusion of the cheat sheet in a full page">test inclusion</a> ]
+	<a href="PHP_Extended_Markdown/markdown_reminders.html" onclick="return emdreminders_popup('PHP_Extended_Markdown/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">
+    Markdown syntax reminders</a> 
+	 [ <a href="index.php?type=reminders" title="test the inclusion of the reminders in a full page">test inclusion</a> ]
 	<hr />
 	{$alt_content}
 	{$md_content}

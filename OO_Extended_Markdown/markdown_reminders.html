@@ -1,6 +1,6 @@
 <!--//
 /**
- * Markdown syntax cheat sheet (for PHP Extended Markdown class)
+ * Markdown syntax reminders (for PHP Extended Markdown class)
  *
  * This document is a standalone HTML page presenting a complete review of the Markdown syntax
  * used with the **PHP Extended Markdown** version (*PHP class*).
@@ -11,26 +11,28 @@
  * To open this document as a helper in a new browser window, you can use:
  *
  *    <script type="text/javascript">
- *    var phpemdcs_window; // use this variable to interact with the cheat sheet window
- *    function phpemdcs_popup(url){
- *    	if (!url) url='markdown_cheat_sheet.html?popup';
+ *    var emdreminders_window; // use this variable to interact with the cheat sheet window
+ *    function emdreminders_popup(url){
+ *    	if (!url) url='markdown_reminders.html?popup';
  *    	if (url.lastIndexOf("popup")==-1) url += (url.lastIndexOf("?")!=-1) ? '&popup' : '?popup';
- *    	phpemdcs_window = window.open(url, 'markdown_cheat_sheet', 
+ *    	emdreminders_window = window.open(url, 'markdown_reminders', 
  *           'directories=0,menubar=0,status=0,location=1,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
- *    	phpemdcs_window.focus();
+ *    	emdreminders_window.focus();
  *    	return false; 
  *    }
  *    </script>
- *    <a href="markdown_cheat_sheet.html" onclick="return phpemdcs_popup();" title="Markdown syntax cheat sheet (new floated window)" target="_blank">
- *        Markdown syntax cheat sheet</a> 
+ *    <a href="markdown_reminders.html" onclick="return emdreminders_popup();" title="Markdown syntax reminders (new floated window)" target="_blank">
+ *        Markdown syntax reminders</a> 
  *
  * You can add arguments when constructing the Javascript handler object for two special features:
  * -   `?popup`: a closer link will be add,
  * -   `?plaintext`: content will be written as plain text (no hidden content).
  *
- * To do so, you can pass a GET argument in the URL if it is a popup, or define a `ExtendedmdcsInit` variable.
+ * To do so, you can pass a GET argument in the URL if it is a popup, or define a `EMDremindersInit` variable.
  *
- *     var ExtendedmdcsInit='plaintext';
+ *     var EMDremindersInit='plaintext';
+ *
+ * This tool was largely inspired by GitHub's wiki editor (sic).
  *
  * @author      Pierre Cassat - Les Ateliers Pierrot <http://www.ateliers-pierrot.fr/>
  * @see         Markdown, written by John Gruber <http://daringfireball.net/>
@@ -41,110 +43,110 @@
 //-->
 <style type="text/css">
 <!--//
-#phpemdcs         { display: block; position: relative; margin: 0px; padding: 0px; }
-#phpemdcs_wrapper { 
+#emdreminders         { display: block; position: relative; margin: 0px; padding: 0px; }
+#emdreminders_wrapper { 
   display: block; position: relative; margin: 10px; padding: 8px 12px; width: 784px; height: 324px;
   font: 13px/1.4em Helvetica, Arial, freesans, sans-serif !important; color: #404040;
   background-color: #f9f9f9; border: 1px solid #EEEEEE; line-height: 1.4em;
   -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
-#phpemdcs_wrapper, #phpemdcs_wrapper li, #phpemdcs_wrapper a,
-#phpemdcs_wrapper th, #phpemdcs_wrapper td, #phpemdcs_wrapper p { 
+#emdreminders_wrapper, #emdreminders_wrapper li, #emdreminders_wrapper a,
+#emdreminders_wrapper th, #emdreminders_wrapper td, #emdreminders_wrapper p { 
   font: 13px/1.4em Helvetica, Arial, freesans, sans-serif; color: #404040; }
-#phpemdcs_wrapper ul, #phpemdcs_wrapper li { list-style-type: none; margin: 0px; padding: 0px; }
-#phpemdcs_wrapper a { font: inherit; text-decoration: none; color: #4183c4; }
-#phpemdcs_wrapper a:hover, #phpemdcs_wrapper a:active { text-decoration: underline }
-#phpemdcs_wrapper code { 
+#emdreminders_wrapper ul, #emdreminders_wrapper li { list-style-type: none; margin: 0px; padding: 0px; }
+#emdreminders_wrapper a { font: inherit; text-decoration: none; color: #4183c4; }
+#emdreminders_wrapper a:hover, #emdreminders_wrapper a:active { text-decoration: underline }
+#emdreminders_wrapper code { 
 	font: 11px normal Monaco, Verdana, Sans-serif; background-color: #f9f9f9; border: 1px solid #D0D0D0; color: #002166; 
 	padding: 1px 8px; display: inline; }
-#phpemdcs_wrapper pre      { 
+#emdreminders_wrapper pre      { 
   font-family: Monaco, Verdana, Sans-serif; display: block; overflow: auto; width: auto !important; background-color: #f9f9f9; }
-#phpemdcs_wrapper pre code { border: none; padding: 4px; display: block; }
-#phpemdcs_wrapper table    { border: none; padding: 0px; margin:0px; font: inherit; }
-#phpemdcs_wrapper th, #phpemdcs_wrapper td   { border: 1px dotted #ccc; padding: 2px; }
-.phpemdcs_entry    { display: none; height: 142px; }
+#emdreminders_wrapper pre code { border: none; padding: 4px; display: block; }
+#emdreminders_wrapper table    { border: none; padding: 0px; margin:0px; font: inherit; }
+#emdreminders_wrapper th, #emdreminders_wrapper td   { border: 1px dotted #ccc; padding: 2px; }
+.emdreminders_entry    { display: none; height: 142px; }
 .clear                { clear: both; }
-.phpemdcs_subblock { display:none; }
-#phpemdcs_title    { display: block; }
-#phpemdcs_title h2 { 
+.emdreminders_subblock { display:none; }
+#emdreminders_title    { display: block; }
+#emdreminders_title h2 { 
   margin: 0px; padding: 0px 0px 4px 0px; font: inherit; font-weight: bold; color: #999999; display: inline-block; float: left; }
-#phpemdcs_closer   { float: right; display: none; }
+#emdreminders_closer   { float: right; display: none; }
 
 /* Specifics for JS */
-#phpemdcs.js #phpemdcs_block1, 
-#phpemdcs.js #phpemdcs_block2, 
-#phpemdcs.js #phpemdcs_block3, 
-#phpemdcs.js #phpemdcs_infos { 
+#emdreminders.js #emdreminders_block1, 
+#emdreminders.js #emdreminders_block2, 
+#emdreminders.js #emdreminders_block3, 
+#emdreminders.js #emdreminders_infos { 
   position: relative; margin: 0px; overflow: auto; padding: 0px 0px 10px 0px;
   background-color: #f9f9f9; font: inherit; display: inline-block;  }
-#phpemdcs.js #phpemdcs_block1, 
-#phpemdcs.js #phpemdcs_block2, 
-#phpemdcs.js #phpemdcs_block3 { 
+#emdreminders.js #emdreminders_block1, 
+#emdreminders.js #emdreminders_block2, 
+#emdreminders.js #emdreminders_block3 { 
   float: left; height: 200px; border: 1px solid #EEEEEE; border-left: 0px; overflow-x: hidden }
-#phpemdcs.js #phpemdcs_block1   { width: 160px; border-left: 1px solid #EEEEEE;  }
-#phpemdcs.js #phpemdcs_block2   { width: 160px; }
-#phpemdcs.js #phpemdcs_block3   { height: 198px; width: 436px; background: #fff; padding: 0px 12px 12px 12px; font: inherit; }
-#phpemdcs.js #phpemdcs_infos    { width: 782px; height: 72px; position: relative; margin-top: 10px; }
-#phpemdcs.js #phpemdcs_infos ul { margin-top: 10px; }
-#phpemdcs.js #phpemdcs_reset    { float: right; margin: 2px 12px; }
-#phpemdcs_block1 ul, #phpemdcs_block2 ul, #phpemdcs_infos ul { list-style-type: none; margin: 0px; padding: 0px; }
-#phpemdcs_infos li { padding-left: 12px; font-size: 11px }
-#phpemdcs_block1 li a, #phpemdcs_block2 li a { 
+#emdreminders.js #emdreminders_block1   { width: 160px; border-left: 1px solid #EEEEEE;  }
+#emdreminders.js #emdreminders_block2   { width: 160px; }
+#emdreminders.js #emdreminders_block3   { height: 198px; width: 436px; background: #fff; padding: 0px 12px 12px 12px; font: inherit; }
+#emdreminders.js #emdreminders_infos    { width: 782px; height: 72px; position: relative; margin-top: 10px; }
+#emdreminders.js #emdreminders_infos ul { margin-top: 10px; }
+#emdreminders.js #emdreminders_reset    { float: right; margin: 2px 12px; }
+#emdreminders_block1 ul, #emdreminders_block2 ul, #emdreminders_infos ul { list-style-type: none; margin: 0px; padding: 0px; }
+#emdreminders_infos li { padding-left: 12px; font-size: 11px }
+#emdreminders_block1 li a, #emdreminders_block2 li a { 
 	display: block; margin: 0px; padding: 4px 12px; font: inherit; font-weight: bold; width: 136px; }
-#phpemdcs_block1 li a.active, #phpemdcs_block2 li a.active,
-#phpemdcs_block1 li a:hover, #phpemdcs_block2 li a:hover { 
+#emdreminders_block1 li a.active, #emdreminders_block2 li a.active,
+#emdreminders_block1 li a:hover, #emdreminders_block2 li a:hover { 
 	padding: 3px 12px; font: inherit; font-weight: bold; color: #404040;
 	background-color: #fff; text-decoration: none; border: 1px solid #f0f0f0;
 	border-right: 0px; border-left: 0px; }
-#phpemdcs.js div.phpemdcs_entry   { height: 142px; width: 426px; padding-top: 0px; }
-#phpemdcs.js .phpemdcs_title,
-#phpemdcs.js .phpemdcs_backtop    { display: none; }
+#emdreminders.js div.emdreminders_entry   { height: 142px; width: 426px; padding-top: 0px; }
+#emdreminders.js .emdreminders_title,
+#emdreminders.js .emdreminders_backtop    { display: none; }
 
 /* Specifics for no JS */
-#phpemdcs.nojs .phpemdcs_subblock    { display:block; }
-#phpemdcs.nojs .phpemdcs_entry       { display: block; height: auto !important;background: #fff; padding: 4px 8px; }
-#phpemdcs.nojs #phpemdcs_wrapper     { width: 784px; height: auto !important; }
-#phpemdcs.nojs .phpemdcs_title       { font-weight: bold; color: #4183c4; padding-bottom: 4px; }
-#phpemdcs.nojs .phpemdcs_backtop     { text-align: right; font-size: 10px; }
-#phpemdcs.nojs #phpemdcs_reset       { display: none; }
-#phpemdcs.nojs .phpemdcs_subblock li { padding-left: 22px; }
-#phpemdcs.nojs #phpemdcs_block1, 
-#phpemdcs.nojs .phpemdcs_subblock, 
-#phpemdcs.nojs .phpemdcs_entry, 
-#phpemdcs.nojs #phpemdcs_infos {
+#emdreminders.nojs .emdreminders_subblock    { display:block; }
+#emdreminders.nojs .emdreminders_entry       { display: block; height: auto !important;background: #fff; padding: 4px 8px; }
+#emdreminders.nojs #emdreminders_wrapper     { width: 784px; height: auto !important; }
+#emdreminders.nojs .emdreminders_title       { font-weight: bold; color: #4183c4; padding-bottom: 4px; }
+#emdreminders.nojs .emdreminders_backtop     { text-align: right; font-size: 10px; }
+#emdreminders.nojs #emdreminders_reset       { display: none; }
+#emdreminders.nojs .emdreminders_subblock li { padding-left: 22px; }
+#emdreminders.nojs #emdreminders_block1, 
+#emdreminders.nojs .emdreminders_subblock, 
+#emdreminders.nojs .emdreminders_entry, 
+#emdreminders.nojs #emdreminders_infos {
   margin-bottom: 12px; padding-bottom: 4px; border-bottom: 1px dotted #EEEEEE; }
 
 /* Specifics for the helper */
-#phpemdcs_closer a.helper,
-#phpemdcs_reset a.helper              { position: relative; font-size: 11px; text-decoration: none; }
-#phpemdcs_closer a.helper span,
-#phpemdcs_reset a.helper span         { display: none; text-decoration: none; }
-#phpemdcs_closer a.helper:hover, 
-#phpemdcs_closer a.helper:active,
-#phpemdcs_reset a.helper:hover, 
-#phpemdcs_reset a.helper:active       { background: none; /* bug IE */ z-index: 100; cursor: help; text-decoration: none; }
-#phpemdcs_closer a.helper.href:hover, 
-#phpemdcs_closer a.helper.href:active,
-#phpemdcs_reset a.helper.href:hover, 
-#phpemdcs_reset a.helper.href:active  { cursor: pointer; }
-#phpemdcs_closer a.helper:hover span, 
-#phpemdcs_closer a.helper:active span,
-#phpemdcs_reset a.helper:hover span, 
-#phpemdcs_reset a.helper:active span  { 
+#emdreminders_closer a.helper,
+#emdreminders_reset a.helper              { position: relative; font-size: 11px; text-decoration: none; }
+#emdreminders_closer a.helper span,
+#emdreminders_reset a.helper span         { display: none; text-decoration: none; }
+#emdreminders_closer a.helper:hover, 
+#emdreminders_closer a.helper:active,
+#emdreminders_reset a.helper:hover, 
+#emdreminders_reset a.helper:active       { background: none; /* bug IE */ z-index: 100; cursor: help; text-decoration: none; }
+#emdreminders_closer a.helper.href:hover, 
+#emdreminders_closer a.helper.href:active,
+#emdreminders_reset a.helper.href:hover, 
+#emdreminders_reset a.helper.href:active  { cursor: pointer; }
+#emdreminders_closer a.helper:hover span, 
+#emdreminders_closer a.helper:active span,
+#emdreminders_reset a.helper:hover span, 
+#emdreminders_reset a.helper:active span  { 
   display: inline-block; position: absolute;  top: -12px; right: 18px; padding: 6px;
   text-decoration: none; color: #404040; width: 420px !important; height: auto;
   background: #EEEEEE; border: 1px solid #ffffff; font-size: 11px;
   -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
-#phpemdcs_closer a.helper:hover span, 
-#phpemdcs_closer a.helper:active span { width: 120px !important; }
-#phpemdcs_wrapper a.helper:hover, #phpemdcs_wrapper a.helper:active,
-#phpemdcs_wrapper a.helper:hover span, #phpemdcs_wrapper a.helper:active span { 
+#emdreminders_closer a.helper:hover span, 
+#emdreminders_closer a.helper:active span { width: 120px !important; }
+#emdreminders_wrapper a.helper:hover, #emdreminders_wrapper a.helper:active,
+#emdreminders_wrapper a.helper:hover span, #emdreminders_wrapper a.helper:active span { 
   text-decoration: none !important; }
 //-->
 </style>
 <script type="text/javascript">
 <!--//
 
-function ExtendedMarkdownCheatSheet(){}
+function ExtendedMarkdownReminders(){}
 (function() {
 // Constructor / Init
 	this._this = null; // singleton
@@ -152,15 +154,15 @@ function ExtendedMarkdownCheatSheet(){}
 	this._options = {
 		debug: false,
 		special_key: 72, // 'h' or 'H'
-		blocks_class: "phpemdcs_block",
-		premenu_block: "phpemdcs_block1",
-		menu_block: "phpemdcs_block2",
-		content_block: "phpemdcs_block3",
-		link_hide: "phpemdcs_menuitem",
-		link_show: "phpemdcs_menuitem active",
+		blocks_class: "emdreminders_block",
+		premenu_block: "emdreminders_block1",
+		menu_block: "emdreminders_block2",
+		content_block: "emdreminders_block3",
+		link_hide: "emdreminders_menuitem",
+		link_show: "emdreminders_menuitem active",
 		display_show: "inline-block",
 		display_hide: "none",
-		closer: "phpemdcs_closer"
+		closer: "emdreminders_closer"
 	};
 	this._actives = {};
 	this._opened = {};
@@ -190,7 +192,7 @@ function ExtendedMarkdownCheatSheet(){}
 		return this._no_object;
 	};
 	this.keyPressed = function(e){
-		var event = e || window.event, _this = ExtendedMarkdownCheatSheet._init();
+		var event = e || window.event, _this = ExtendedMarkdownReminders._init();
 		if (event.keyCode == _this.getOpt('special_key'))
 			_this._specialKey = true;
 	};
@@ -448,70 +450,70 @@ function ExtendedMarkdownCheatSheet(){}
 			else this.clearBlock( this._blocks[i], false );
 		}
 	};
-}).apply(ExtendedMarkdownCheatSheet);
+}).apply(ExtendedMarkdownReminders);
 
 //-->
 </script>
-<div id="phpemdcs" class="nojs">
-<div id="phpemdcs_wrapper">
+<div id="emdreminders" class="nojs">
+<div id="emdreminders_wrapper">
 
-	<div id="phpemdcs_title">
-		<h2>Extended Markdown syntax cheat sheet</h2>
-		<div id="phpemdcs_closer">
-			<a class="helper href" href="#" onclick="return closeCheatSheet();"><big>&nbsp;&Chi;&nbsp;</big><span><strong>Close this window</strong></span></a>
+	<div id="emdreminders_title">
+		<h2>Extended Markdown syntax reminders</h2>
+		<div id="emdreminders_closer">
+			<a class="helper href" href="#" onclick="return closeReminders();"><big>&nbsp;&Chi;&nbsp;</big><span><strong>Close this window</strong></span></a>
 		</div>
 	</div>
 	<br class="clear" />
-	<div id="phpemdcs_block1" class="phpemdcs_block">
+	<div id="emdreminders_block1" class="emdreminders_block">
 		<ul>
-			<li><a class="phpemdcs_menuitem" href="#blockelements" onclick="return openBlock('blockelements', 'phpemdcs_block2', this);" title="See this section">Block Elements</a></li>
-			<li><a class="phpemdcs_menuitem" href="#spanelements" onclick="return openBlock('spanelements', 'phpemdcs_block2', this);" title="See this section">Span Elements</a></li>
-			<li><a class="phpemdcs_menuitem" href="#miscellaneous" onclick="return openBlock('miscellaneous', 'phpemdcs_block2', this);" title="See this section">Miscellaneous</a></li>
+			<li><a class="emdreminders_menuitem" href="#blockelements" onclick="return openBlock('blockelements', 'emdreminders_block2', this);" title="See this section">Block Elements</a></li>
+			<li><a class="emdreminders_menuitem" href="#spanelements" onclick="return openBlock('spanelements', 'emdreminders_block2', this);" title="See this section">Span Elements</a></li>
+			<li><a class="emdreminders_menuitem" href="#miscellaneous" onclick="return openBlock('miscellaneous', 'emdreminders_block2', this);" title="See this section">Miscellaneous</a></li>
 		</ul>
 	</div>
 
-	<div id="phpemdcs_block2" class="phpemdcs_block">
+	<div id="emdreminders_block2" class="emdreminders_block">
 
-		<div id="blockelements" class="phpemdcs_subblock">
+		<div id="blockelements" class="emdreminders_subblock">
 			<ul>
-				<li><a class="phpemdcs_menuitem" href="#paragraphsandbreaks" onclick="return openBlock('paragraphsandbreaks', 'phpemdcs_block3', this);" title="See this section">Paragraphs & Breaks</a></li>
-				<li><a class="phpemdcs_menuitem" href="#headers" onclick="return openBlock('headers', 'phpemdcs_block3', this);" title="See this section">Headers</a></li>
-				<li><a class="phpemdcs_menuitem" href="#blockquotes" onclick="return openBlock('blockquotes', 'phpemdcs_block3', this);" title="See this section">Blockquotes</a></li>
-				<li><a class="phpemdcs_menuitem" href="#lists" onclick="return openBlock('lists', 'phpemdcs_block3', this);" title="See this section">Lists</a></li>
-				<li><a class="phpemdcs_menuitem" href="#codeblocks" onclick="return openBlock('codeblocks', 'phpemdcs_block3', this);" title="See this section">Code Blocks</a></li>
-				<li><a class="phpemdcs_menuitem" href="#horizontalrule" onclick="return openBlock('horizontalrule', 'phpemdcs_block3', this);" title="See this section">Horizontal Rules</a></li>
-				<li><a class="phpemdcs_menuitem" href="#definitions" onclick="return openBlock('definitions', 'phpemdcs_block3', this);" title="See this section">Definitions Lists</a></li>
-				<li><a class="phpemdcs_menuitem" href="#tables" onclick="return openBlock('tables', 'phpemdcs_block3', this);" title="See this section">Tables</a></li>
+				<li><a class="emdreminders_menuitem" href="#paragraphsandbreaks" onclick="return openBlock('paragraphsandbreaks', 'emdreminders_block3', this);" title="See this section">Paragraphs & Breaks</a></li>
+				<li><a class="emdreminders_menuitem" href="#headers" onclick="return openBlock('headers', 'emdreminders_block3', this);" title="See this section">Headers</a></li>
+				<li><a class="emdreminders_menuitem" href="#blockquotes" onclick="return openBlock('blockquotes', 'emdreminders_block3', this);" title="See this section">Blockquotes</a></li>
+				<li><a class="emdreminders_menuitem" href="#lists" onclick="return openBlock('lists', 'emdreminders_block3', this);" title="See this section">Lists</a></li>
+				<li><a class="emdreminders_menuitem" href="#codeblocks" onclick="return openBlock('codeblocks', 'emdreminders_block3', this);" title="See this section">Code Blocks</a></li>
+				<li><a class="emdreminders_menuitem" href="#horizontalrule" onclick="return openBlock('horizontalrule', 'emdreminders_block3', this);" title="See this section">Horizontal Rules</a></li>
+				<li><a class="emdreminders_menuitem" href="#definitions" onclick="return openBlock('definitions', 'emdreminders_block3', this);" title="See this section">Definitions Lists</a></li>
+				<li><a class="emdreminders_menuitem" href="#tables" onclick="return openBlock('tables', 'emdreminders_block3', this);" title="See this section">Tables</a></li>
 			</ul>
 		</div>
 
-		<div id="spanelements" class="phpemdcs_subblock">
+		<div id="spanelements" class="emdreminders_subblock">
 			<ul>
-				<li><a class="phpemdcs_menuitem" href="#emphasis" onclick="return openBlock('emphasis', 'phpemdcs_block3', this);" title="See this section">Emphasis</a></li>
-				<li><a class="phpemdcs_menuitem" href="#code" onclick="return openBlock('code', 'phpemdcs_block3', this);" title="See this section">Codes</a></li>
-				<li><a class="phpemdcs_menuitem" href="#links" onclick="return openBlock('links', 'phpemdcs_block3', this);" title="See this section">Links</a></li>
-				<li><a class="phpemdcs_menuitem" href="#images" onclick="return openBlock('images', 'phpemdcs_block3', this);" title="See this section">Images</a></li>
-				<li><a class="phpemdcs_menuitem" href="#anchors" onclick="return openBlock('anchors', 'phpemdcs_block3', this);" title="See this section">Anchors</a></li>
-				<li><a class="phpemdcs_menuitem" href="#abbreviations" onclick="return openBlock('abbreviations', 'phpemdcs_block3', this);" title="See this section">Abbreviations</a></li>
-				<li><a class="phpemdcs_menuitem" href="#footnotes" onclick="return openBlock('footnotes', 'phpemdcs_block3', this);" title="See this section">Footnotes</a></li>
+				<li><a class="emdreminders_menuitem" href="#emphasis" onclick="return openBlock('emphasis', 'emdreminders_block3', this);" title="See this section">Emphasis</a></li>
+				<li><a class="emdreminders_menuitem" href="#code" onclick="return openBlock('code', 'emdreminders_block3', this);" title="See this section">Codes</a></li>
+				<li><a class="emdreminders_menuitem" href="#links" onclick="return openBlock('links', 'emdreminders_block3', this);" title="See this section">Links</a></li>
+				<li><a class="emdreminders_menuitem" href="#images" onclick="return openBlock('images', 'emdreminders_block3', this);" title="See this section">Images</a></li>
+				<li><a class="emdreminders_menuitem" href="#anchors" onclick="return openBlock('anchors', 'emdreminders_block3', this);" title="See this section">Anchors</a></li>
+				<li><a class="emdreminders_menuitem" href="#abbreviations" onclick="return openBlock('abbreviations', 'emdreminders_block3', this);" title="See this section">Abbreviations</a></li>
+				<li><a class="emdreminders_menuitem" href="#footnotes" onclick="return openBlock('footnotes', 'emdreminders_block3', this);" title="See this section">Footnotes</a></li>
 			</ul>
 		</div>
 
-		<div id="miscellaneous" class="phpemdcs_subblock">
+		<div id="miscellaneous" class="emdreminders_subblock">
 			<ul>
-				<li><a class="phpemdcs_menuitem" href="#automaticlinks" onclick="return openBlock('automaticlinks', 'phpemdcs_block3', this);" title="See this section">Automatic Links</a></li>
-				<li><a class="phpemdcs_menuitem" href="#references" onclick="return openBlock('references', 'phpemdcs_block3', this);" title="See this section">References</a></li>
-				<li><a class="phpemdcs_menuitem" href="#specialnotes" onclick="return openBlock('specialnotes', 'phpemdcs_block3', this);" title="See this section">Special Notes</a></li>
-				<li><a class="phpemdcs_menuitem" href="#escaping" onclick="return openBlock('escaping', 'phpemdcs_block3', this);" title="See this section">Escaping</a></li>
+				<li><a class="emdreminders_menuitem" href="#automaticlinks" onclick="return openBlock('automaticlinks', 'emdreminders_block3', this);" title="See this section">Automatic Links</a></li>
+				<li><a class="emdreminders_menuitem" href="#references" onclick="return openBlock('references', 'emdreminders_block3', this);" title="See this section">References</a></li>
+				<li><a class="emdreminders_menuitem" href="#specialnotes" onclick="return openBlock('specialnotes', 'emdreminders_block3', this);" title="See this section">Special Notes</a></li>
+				<li><a class="emdreminders_menuitem" href="#escaping" onclick="return openBlock('escaping', 'emdreminders_block3', this);" title="See this section">Escaping</a></li>
 			</ul>
 		</div>
 
 	</div>
 
-	<div id="phpemdcs_block3" class="phpemdcs_block">
+	<div id="emdreminders_block3" class="emdreminders_block">
 
-		<div id="paragraphsandbreaks" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Paragraphs & Breaks</div>
+		<div id="paragraphsandbreaks" class="emdreminders_entry">
+			<div class="emdreminders_title">Paragraphs & Breaks</div>
 			<p>A paragraph is just some consecutive lines of text, wrapped between blank lines (<em>or equivalent</em>).</p>
 			<pre><code>
 This is my first paragraph.
@@ -522,11 +524,11 @@ on two lines ...
 			<p>This means that if you want to see a line-break, you will have to write it litterally :</p>
 			<pre><code>This is a paragraph.
 &lt;br /&gt;with a line-break ...</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="headers" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Headers</div>
+		<div id="headers" class="emdreminders_entry">
+			<div class="emdreminders_title">Headers</div>
 			<p>Markdown supports two styles of headers, <a href="http://docutils.sourceforge.net/mirror/setext.html">Setext</a> and <a href="http://www.aaronsw.com/2002/atx/">atx</a>.</p>
 			<p><strong>Setext style:</strong>
 				First-level titles are underlined by equal signs and second level by dashes.
@@ -541,11 +543,11 @@ my title level 2
 			</p>
 			<pre><code># my title level 1
 ### my title level 3</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="blockquotes" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Blockquotes</div>
+		<div id="blockquotes" class="emdreminders_entry">
+			<div class="emdreminders_title">Blockquotes</div>
 			<p>Begin each line with a <code>&gt;</code> sign.</p>
 			<pre><code>> This is my blockquote
 > and a second line ...</code></pre>
@@ -555,11 +557,11 @@ my title level 2
 > With a paragraph and some `code`
 >
 >     and even a preformatted string</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="lists" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Lists</div>
+		<div id="lists" class="emdreminders_entry">
+			<div class="emdreminders_title">Lists</div>
 			<p>Begin each entry by an asterisk <code>*</code>, a plus <code>+</code> or an hyphen <code>-</code> followed by 3 spaces.</p>
 			<pre><code>-   first item
 -   second item</code></pre>
@@ -572,11 +574,11 @@ my title level 2
 			<pre><code>1.   first item
 1.   second item</code></pre>
 			<p>Other span and block elements are allowed inside each <em>list item</em> as long as you indent all these blocks.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="codeblocks" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Code Blocks</div>
+		<div id="codeblocks" class="emdreminders_entry">
+			<div class="emdreminders_title">Code Blocks</div>
 			<p>Pre-formatted content are constructed by beginning each line with 4 spaces</p>
 			<pre><code>    // this is my "pre" block
     $var = val_fct();</code></pre>
@@ -584,20 +586,20 @@ my title level 2
 			<pre><code>~~~~
 My code here
 ~~~~</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="horizontalrule" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Horizontal Rule</div>
+		<div id="horizontalrule" class="emdreminders_entry">
+			<div class="emdreminders_title">Horizontal Rule</div>
 			<p>Write 3 or more hyphens <code>-</code>, asterisks <code>*</code> or underscores <code>_</code> on a line.</p>
 			<pre><code>My end of a paragraph ....
 ----
 And this is my rest ...</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="definitions" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Definitions Lists</div>
+		<div id="definitions" class="emdreminders_entry">
+			<div class="emdreminders_title">Definitions Lists</div>
 			<p>To build some definitions lists, just write each term on a seperate line, and each definition on a new line, beginning with colon followed by 3 or more spaces.</p>
 			<p>You can write many definitions for a single term.</p>
 			<pre><code>Word
@@ -605,11 +607,11 @@ And this is my rest ...</code></pre>
     with a two-lines text
 
 :   Second definition for this term...</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="tables" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Tables</div>
+		<div id="tables" class="emdreminders_entry">
+			<div class="emdreminders_title">Tables</div>
 			<p>Tables are constructed by visual resemblance. The first line (<em>the headers</em>) and the second one (<em>the separator</em>) are required.</p>
 			<pre><code>[an optional caption]
 | First Header  | Second Header | Third Header |
@@ -640,11 +642,11 @@ And this is my rest ...</code></pre>
 </table>
 </code></pre>
 			<p>Use colons around seperate line to manage alignment of a column (colon on the right is right-aligned, on the left is left-aligned and on both sides is center-aligned). Tables can have many lines of headers and many body sections by passing a blank line between them.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="emphasis" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Emphasis</div>
+		<div id="emphasis" class="emdreminders_entry">
+			<div class="emdreminders_title">Emphasis</div>
 			<p>Emphasis is written by surrounding word or expression between asterisks <code>*</code> or underscores <code>_</code>.</p>
 			<p>Bold text takes 2 of them.</p>
 			<pre><code>**my content** or __my content__</code></pre>
@@ -652,34 +654,34 @@ And this is my rest ...</code></pre>
 			<pre><code>*my content* or _my content_</code></pre>
 			<p>Expressions or terms with underscores in emphasis span will be escaped.</p>
 			<pre><code>"_my_underscored_content_" will produce "<em>my_underscored_content</em>" and not "<em>my</em> underscored <em>content</em>"</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="code" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Code</div>
+		<div id="code" class="emdreminders_entry">
+			<div class="emdreminders_title">Code</div>
 			<p>Surround your code between backtick quotes <code>`</code>.</p>
 			<pre><code>This is a `function()` in a text.</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="links" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Links</div>
+		<div id="links" class="emdreminders_entry">
+			<div class="emdreminders_title">Links</div>
 			<p>Hypertext links this rule:</p>
 			<pre><code>There is my text with [an hypertext link](http://example.com/ "Optional link title") you can follow ...</code></pre>
-			<p>The URL can be absolute or relative. <a href="#reference" onclick="return openAndFollow('references', 'phpemdcs_block3');" title="See this section">References</a> can be used to make your content more readable.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<p>The URL can be absolute or relative. <a href="#reference" onclick="return openAndFollow('references', 'emdreminders_block3');" title="See this section">References</a> can be used to make your content more readable.</p>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="images" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Images</div>
+		<div id="images" class="emdreminders_entry">
+			<div class="emdreminders_title">Images</div>
 			<p>Embedded images followed almost the same syntax rule as links:</p>
 			<pre><code>this is my image: ![Alt text](/path/to/img.jpg "Optional image title")</code></pre>
-			<p>The URL can be absolute or relative. <a href="#reference" onclick="return openAndFollow('references', 'phpemdcs_block3');" title="See this section">References</a> can be used to make your content more readable.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<p>The URL can be absolute or relative. <a href="#reference" onclick="return openAndFollow('references', 'emdreminders_block3');" title="See this section">References</a> can be used to make your content more readable.</p>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="anchors" class="phpemdcs_entry">
-			<div class="phpemdcs_title">In-page Anchors</div>
+		<div id="anchors" class="emdreminders_entry">
+			<div class="emdreminders_title">In-page Anchors</div>
 			<p>Write your anchor ID between curly brackets.</p>
 			<pre><code>A paragraph with [a link]{#anchor} in context.
 
@@ -687,33 +689,33 @@ And this is my rest ...</code></pre>
 
 ## my title {#anchor}</code></pre>
 			<p>Anchors can just be set on titles.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="abbreviations" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Abbreviations</div>
-			<p>Abbreviations are written like <a href="#reference" onclick="return openAndFollow('references', 'phpemdcs_block3');" title="See this section">references</a>, beginning by an asterisk <code>*</code>.</p>
+		<div id="abbreviations" class="emdreminders_entry">
+			<div class="emdreminders_title">Abbreviations</div>
+			<p>Abbreviations are written like <a href="#reference" onclick="return openAndFollow('references', 'emdreminders_block3');" title="See this section">references</a>, beginning by an asterisk <code>*</code>.</p>
 			<pre><code>A paragraph with the word HTML.
 
 *[HTML]: Hyper-Text Markup Language</code></pre>
 			<p>Abbreviations are automatically replaced in text as they are defined anywhere in the document.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="footnotes" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Footnotes</div>
-			<p>Footnotes are written like <a href="#reference" onclick="return openAndFollow('references', 'phpemdcs_block3');" title="See this section">references</a>, with an ID beginning by a circumflex <code>^</code>.</p>
+		<div id="footnotes" class="emdreminders_entry">
+			<div class="emdreminders_title">Footnotes</div>
+			<p>Footnotes are written like <a href="#reference" onclick="return openAndFollow('references', 'emdreminders_block3');" title="See this section">references</a>, with an ID beginning by a circumflex <code>^</code>.</p>
 			<pre><code>A paragraph with the a footnote[^footnote_one] note.
 
 [^footnote_one]: Footnote content</code></pre>
 			<p>Footnotes can be listed at the end of each block. Just use <code>[^id]</code> in content.</p>
 			<p>Other span and block elements are allowed inside a <em>footnote</em> block as long as you do not pass a blank line.</p>
-			<p>You can create a <strong>glossary</strong> or a <strong>bibliography</strong> using features of <a href="#specialnotes" onclick="return openAndFollow('specialnotes', 'phpemdcs_block3');" title="See this section">Special Notes</a>.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<p>You can create a <strong>glossary</strong> or a <strong>bibliography</strong> using features of <a href="#specialnotes" onclick="return openAndFollow('specialnotes', 'emdreminders_block3');" title="See this section">Special Notes</a>.</p>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="automaticlinks" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Automatic Links</div>
+		<div id="automaticlinks" class="emdreminders_entry">
+			<div class="emdreminders_title">Automatic Links</div>
 			<p>Markdown will automatically transform URLs or email addresses in "href" or "mailto" links.</p>
 			<pre><code>My paragraph with a link to &lt;http://example.com/&gt; and an email &lt;address@email.com&gt; to contact.
 
@@ -722,11 +724,11 @@ And this is my rest ...</code></pre>
 My paragraph with a link to <a href="http://example.com/">http://example.com/</a> and an email <a href="mailto:address@email.com">address@email.com</a> to contact.
 </code></pre>
 			<p>Email addresses are automatically anti-spammed.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="references" class="phpemdcs_entry">
-			<div class="phpemdcs_title">References</div>
+		<div id="references" class="emdreminders_entry">
+			<div class="emdreminders_title">References</div>
 			<p>You can use references for links or images. This allows you to write some more easy-to-read content by writing the attributes of the element after this content.</p>
 			<pre><code>A paragraph with a referenced [hypertext link][myid] and some more text embedding an image: ![image for the test][myimage].
 
@@ -735,11 +737,11 @@ My paragraph with a link to <a href="http://example.com/">http://example.com/</a
 			<p>References are basically constructed by writting the ID of the definition in content and this definition anywhere in the document, on a single line, with no space to begin and writting first the ID between brackets followed by a colon and the classic definition of the object.</p>
 			<p>This way you can write all your references at the end of your document, for example, and make multi-calls of each reference.</p>
 			<p>The references allows you to add some attributes for the generated tag. Just write them at the end of the reference line.</p>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="specialnotes" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Special Notes</div>
+		<div id="specialnotes" class="emdreminders_entry">
+			<div class="emdreminders_title">Special Notes</div>
 			<p>You can construct a <strong>glossary</strong> or a <strong>bibliography</strong> by using special footnotes.</p>
 			<p><strong>Glossary notes</strong> are constructed like a footnote, except that the first line of the note will contain <code>glossary:</code> followed by the term defined. The associated definition has to be placed on a second line.</p>
 			<pre><code>A paragraph with a referenced [glossary term][myterm] ...
@@ -750,11 +752,11 @@ My paragraph with a link to <a href="http://example.com/">http://example.com/</a
 			<pre><code>This is a statement that should be attributed to its source [p. 23][#Doe:2006].
 
 [#Doe:2006]: John Doe. *Some Big Fancy Book*.  Vanity Press, 2006.</code></pre>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
-		<div id="escaping" class="phpemdcs_entry">
-			<div class="phpemdcs_title">Escaping</div>
+		<div id="escaping" class="emdreminders_entry">
+			<div class="emdreminders_title">Escaping</div>
 			<p>As Markdown is based on simple syntax wrapping parts of content between special signs, to use them literally, these signs must be escaped with a backslash <code>\</code>:</p>
 			<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
@@ -774,13 +776,13 @@ My paragraph with a link to <a href="http://example.com/">http://example.com/</a
 				<td><code>{}</code> curly brackets</td>
 			</tr>
 			</table>
-			<div class="phpemdcs_backtop"><a href="#phpemdcs" title="Back to top">top</a></div>
+			<div class="emdreminders_backtop"><a href="#emdreminders" title="Back to top">top</a></div>
 		</div>
 
 	</div>
 	<br class="clear" />
-	<div id="phpemdcs_infos">
-		<div id="phpemdcs_reset">
+	<div id="emdreminders_infos">
+		<div id="emdreminders_reset">
 			<a class="helper href" href="#" onclick="return clearBlocks();"><big>&nbsp;&#8617;&nbsp;</big><span><strong>Reset this page</strong><br />By clicking on this link, document will be reloaded without any opened link.</span></a>
 			<br />
 			<a class="helper" href="javascript:void(0);"><big>&nbsp;&oplus;&nbsp;</big><span><strong>Keyboard chortcut ['H' = 'href']</strong><br />A keyboard shortcut is set to load the URL links in the navigation bar of your browser by pressing letter 'H' (<em>case-insensitive</em>) when clicking on a link.</span></a>
@@ -799,18 +801,18 @@ My paragraph with a link to <a href="http://example.com/">http://example.com/</a
 <script type="text/javascript">
 <!--//
 // the cheat sheet object
-var phpemdcs_obj = ExtendedMarkdownCheatSheet._init( typeof(ExtendedmdcsInit)=='undefined' ? null : ExtendedmdcsInit );
-function openBlock(a,b,c){ return phpemdcs_obj.isEmpty() || phpemdcs_obj.openBlock(a,b,c); }
-function clearBlocks(){ return phpemdcs_obj.isEmpty() || phpemdcs_obj.clearBlocks(); }
-function openAndFollow(a){ return phpemdcs_obj.isEmpty() || phpemdcs_obj.openAndFollow(a); }
-function closeCheatSheet(){ window.close(); var _opnr=window.opener; if(_opnr)_opnr.focus(); return false; }
-if (!phpemdcs_obj.isEmpty()){
+var emdreminders_obj = ExtendedMarkdownReminders._init( typeof(EMDremindersInit)=='undefined' ? null : EMDremindersInit );
+function openBlock(a,b,c){ return emdreminders_obj.isEmpty() || emdreminders_obj.openBlock(a,b,c); }
+function clearBlocks(){ return emdreminders_obj.isEmpty() || emdreminders_obj.clearBlocks(); }
+function openAndFollow(a){ return emdreminders_obj.isEmpty() || emdreminders_obj.openAndFollow(a); }
+function closeReminders(){ window.close(); var _opnr=window.opener; if(_opnr)_opnr.focus(); return false; }
+if (!emdreminders_obj.isEmpty()){
 	// for accessibility
-	document.getElementById("phpemdcs").className="js";
+	document.getElementById("emdreminders").className="js";
 	// for keyboard shortcut
-	document.onkeydown = phpemdcs_obj.keyPressed;
+	document.onkeydown = emdreminders_obj.keyPressed;
 	// launch deep linking when doc is loaded
-	window.onload = phpemdcs_obj.deepLinker();
+	window.onload = emdreminders_obj.deepLinker();
 }
 //-->
 </script>

@@ -1421,6 +1421,7 @@ class PHP_Extended_Markdown_Parser extends PHP_Extended_Markdown
 			  (								# Wrap whole match in $1
 				(?>
 				  ^[ ]*>[ ]?		# ">" at the start of a line
+					(?:\((.+?)\))?
 					.+\n					# rest of the first line
 				  (.+\n)*				# subsequent consecutive lines
 				  \n*						# blanks
@@ -1441,8 +1442,9 @@ class PHP_Extended_Markdown_Parser extends PHP_Extended_Markdown
 	function _doBlockQuotes_callback($matches) 
 	{
 		$bq = $matches[1];
+		$cite = $matches[2];
 		// trim one level of quoting - trim whitespace-only lines
-		$bq = preg_replace('/^[ ]*>[ ]?|^[ ]+$/m', '', $bq);
+		$bq = preg_replace('/^[ ]*>[ ]?(\((.+?)\))?|^[ ]+$/m', '', $bq);
 		$bq = $this->runBlockGamut($bq);		# recurse
 
 		$bq = preg_replace('/^/m', "  ", $bq);
@@ -1450,7 +1452,9 @@ class PHP_Extended_Markdown_Parser extends PHP_Extended_Markdown
 		// so we need to fix that:
 		$bq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', array(&$this, '_doBlockQuotes_callback2'), $bq);
 
-		return "\n". $this->hashBlock("<blockquote>\n$bq\n</blockquote>")."\n\n";
+		return "\n". $this->hashBlock("<blockquote"
+			.( !empty($cite) ? " cite=\"$cite\"" : '' )
+			.">\n$bq\n</blockquote>")."\n\n";
 	}
 
 	/**
@@ -2414,23 +2418,19 @@ class PHP_Extended_Markdown_Parser extends PHP_Extended_Markdown
 		$less_than_tab = $this->tab_width;
 		
 		return preg_replace_callback('{
-				(?:\n|\A)
-				                    # 1: Opening marker
+				(?:\n|\A)           # 1: Opening marker
 				(
 					~{3,}             # Marker: three tilde or more.
 				)
+				(\w+)?              # 2: Language
 				[ ]* \n             # Whitespace and newline following marker.
-				
-				# 2: Content
-				(
+				(                   # 3: Content
 					(?>
 						(?!\1 [ ]* \n)	# Not a closing marker.
 						.*\n+
 					)+
 				)
-				
-				                    # Closing marker.
-				\1 [ ]* \n
+				\1 [ ]* \n          # Closing marker
 			}xm',
 			array(&$this, '_doFencedCodeBlocks_callback'), $text);
 	}
@@ -2445,10 +2445,13 @@ class PHP_Extended_Markdown_Parser extends PHP_Extended_Markdown
 	 */
 	function _doFencedCodeBlocks_callback($matches) 
 	{
-		$codeblock = $matches[2];
+		$codeblock = $matches[3];
+		$language  = $matches[2];
 		$codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
 		$codeblock = preg_replace_callback('/^\n+/', array(&$this, '_doFencedCodeBlocks_newlines'), $codeblock);
-		$codeblock = "<pre><code>$codeblock</code></pre>";
+		$codeblock = "<pre><code"
+			.( !empty($language) ? " class=\"language-$language\"" : '' )
+			.">$codeblock</code></pre>";
 		return "\n\n".$this->hashBlock($codeblock)."\n\n";
 	}
 
@@ -3361,4 +3364,3 @@ class PHP_Extended_Markdown_Parser extends PHP_Extended_Markdown
 }
 
 // Endfile
-?>
