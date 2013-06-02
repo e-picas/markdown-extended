@@ -8,27 +8,9 @@ $dtmz = date_default_timezone_get();
 date_default_timezone_set( !empty($dtmz) ? $dtmz:'Europe/Paris' );
 
 // arguments settings
-$arg_dir = isset($_GET['dir']) ? rtrim($_GET['dir'], '/').'/' : 'parts/';
-$img_dir = isset($_GET['img_dir']) ? rtrim($_GET['img_dir'], '/').'/' : 'photos/';
-$vidz_dir = isset($_GET['videos_dir']) ? rtrim($_GET['videos_dir'], '/').'/' : 'videos/';
-$arg_root = isset($_GET['root']) ? $_GET['root'] : __DIR__;
-$arg_i = isset($_GET['i']) ? $_GET['i'] : 0;
+$doc = isset($_GET['doc']) ? $_GET['doc'] : null;
+$md = isset($_GET['md']) ? $_GET['md'] : 'none';
 $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
-
-require_once __DIR__.'/../src/SplClassLoader.php';
-$classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/../src');
-$classLoader->register();
-
-$page = 'MD_syntax.md';
-$content = file_get_contents($page);
-$markdown = \MarkdownExtended\MarkdownExtended::getInstance();
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-    $content = file_get_contents($page);
-	$parser = $markdown::get('\MarkdownExtended\Parser', $options);
-    $md_content = $parser->transform($content);
-}
-
 ?><!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -74,12 +56,14 @@ function emdreminders_popup(url){
 	<nav>
 		<h2>Map of the package</h2>
         <ul id="navigation_menu" class="menu" role="navigation">
-            <li><a href="index.html">Homepage</a><ul>
-                <li><a href="index.php?page=MD_syntax.md">MD_syntax.md</a></li>
-                <li><a href="index.php?page=testMD_syntax_deux.md">testMD_syntax_deux.md</a></li>
-                <li><a href="index.php?page=testMD_syntax_trois.md">testMD_syntax_trois.md</a></li>
-                <li><a href="index.php?page=testMD_syntax_un.md">testMD_syntax_un.md</a></li>
-                <li><a href="index.php?page=test.rtf">test.rtf</a></li>
+            <li><a href="index.php">Usage</a></li>
+            <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
+                <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
+                <li><a href="index.php?doc=MD_syntax.md&md=process">markdown parsed version</a></li>
+            </ul></li>
+            <li><a href="index.php?doc=../README.md">Package README.md</a><ul>
+                <li><a href="index.php?doc=../README.md">plain text version</a></li>
+                <li><a href="index.php?doc=../README.md&md=process">markdown parsed version</a></li>
             </ul></li>
             <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
         </ul>
@@ -93,21 +77,55 @@ function emdreminders_popup(url){
 	</nav>
 
     <div id="content" role="main">
-
-        <div class="info">
-            <p><strong>Current class infos:</strong></p>
-            <p><?php echo $markdown::info(true); ?></p>
-        </div>
-
-        <article>
 <?php
-if (!empty($md_content)) {
-    echo $md_content;
+if (!is_null($doc)) {
+    $info = $error = $content = '';
+    // get the Composer autoloader
+    if (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
+        require_once $b;
+        $info = '<p><strong>Current class infos:</strong></p><p>'.\MarkdownExtended\MarkdownExtended::info(true).'</p>';
+        $options = array();
+        if (file_exists($doc)) {
+            $source_content = file_get_contents($doc);
+            switch ($md) {
+                case 'none'; default:
+                    $content = '<pre>'.$source_content.'</pre>'; 
+                    break;
+                case 'process';
+                    $content = \MarkdownExtended\MarkdownExtended::getInstance()
+                        ->get('\MarkdownExtended\Parser', $options)
+                        ->transform($source_content);
+                    break;
+            }
+        } else {
+            $error = 'Markdown document source "'.$doc.'" not found!';
+        }
+    } else {
+        $error = 'You need to run Composer on your project to use this interface!';
+    }
 } else {
-    echo '<pre>'.$content.'</pre>'; 
+    $content = file_get_contents('usage.html');
 }
 ?>
-        </article>
+
+<?php if (!empty($error)) : ?>
+    <div class="message error">
+        <?php echo $error; ?>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($info)) : ?>
+    <div class="info">
+        <?php echo $info; ?>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($content)) : ?>
+    <article>
+        <?php echo $content; ?>
+    </article>
+<?php endif; ?>
+
     </div>
 
     <footer id="footer">

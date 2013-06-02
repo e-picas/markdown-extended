@@ -1,0 +1,30 @@
+
+
+<h2 id="notes">First notes</h2>
+<p>All these classes works in a PHP version 5.3 minus environment. They are included in the <em>Namespace</em> <strong>MarkdownExtended</strong>.</p>
+<p>For clarity, the examples below are NOT written as a working PHP code when it seems not necessary. For example, rather than write <var>echo "my_string";</var> we would write <var>echo my_string</var> or rather than <var>var_export($data);</var> we would write <var>echo $data</var>. The main code for these classes'usage is written strictly.</p>
+<p>As a reminder, and because it's always useful, have a look at the <a href="http://pear.php.net/manual/<?php echo $arg_ln; ?>/standards.php">PHP common coding standards</a>.</p>
+
+<h2 id="tests">Tests & documentation</h2>
+
+<h3>Include the <var>MarkdownExtended</var> namespace</h3>
+
+<p>As the package classes names are built following the <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PHP Framework Interoperability Group recommandations</a>, we use the <a href="https://gist.github.com/jwage/221634">SplClassLoader</a> to load package classes. The loader is included in the package but you can use your own.</p>
+
+<pre class="code" data-language="php">
+require_once ".../src/SplClassLoader.php"; // if required, a copy is proposed in the package
+$classLoader = new SplClassLoader("MarkdownExtended", "/path/to/package/src");
+$classLoader->register();
+</pre>
+
+<p>But the package is designed to use <a href="http://getcomposer.org/" title="See online">Composer</a> and include its autoloader:</p>
+
+<pre class="code" data-language="php">
+// run in a console
+~$ cd path/to/package && path/to/composer.phar install
+...
+
+// then include the autoloader in your scripts
+&lt;?php
+require_once "path/to/package/vendor/autoload.php";
+</pre>
