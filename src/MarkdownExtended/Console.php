@@ -253,11 +253,17 @@ class Console
 	{
 //  --filter-html           filter out raw HTML (except styles)
 //  --filter-styles         filter out HTML styles
+        $class_name = MarkdownExtended::$class_name;
+        $class_version = MarkdownExtended::$class_version;
+        $class_sources = MarkdownExtended::$class_sources;
 		$help_str = <<<EOT
-[ Markdown Extended CLI ]
+[ {$class_name} {$class_version} - CLI interface ]
+
+Converts text(s) in specified file(s) (or stdin) from markdown syntax.
+By default, result is written through stdin in HTML format.
 
 Usage:
-  ~$ php path/to/emd_console [OPTION ...] [INPUT FILE(S) OR STRING(S)]
+  ~$ php path/to/mde_console [OPTION ...] [INPUT FILE(S) OR STRING(S)]
 
 Options:
   -v | --version          get Markdown version information
@@ -271,9 +277,7 @@ Options:
   --nofilter=A,B          specify a list of filters that will be ignored during Markdown parsing
   --extract[=META]        extract some (specific if sepcified) metadata from the Markdown input
 
-Converts text(s) in specified file(s) (or stdin) from markdown syntax.
-By default, result is written through stdin in HTML format.
-
+More infos at <{$class_sources}>
 EOT;
 		self::write( $help_str );
 		self::endRun();
