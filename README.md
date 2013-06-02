@@ -19,7 +19,7 @@ As I would say, **Markdown** is a set of writing rules to build some human reada
 This syntax has become one of the most common standards of rich-text contents, used for example by [GitHub](http://github.com) as one of the proposed syntaxes for informational files (such like this one).
 
 
-## A short history of Markdown
+### A short history of Markdown
 
 The first idea was from [John Gruber](http://daringfireball.net/), coded in *Perl* script.
 
@@ -28,12 +28,84 @@ An extended implementation, known as **Markdown Extra**, has been written by [Mi
 Another extended implementation, known as **Multi Markdown**, has been written by [Fletcher T. Penney](http://fletcherpenney.net/), coded in *Perl* script.
 
 
-## So why a new version of Markdown?
+### So why a new version of Markdown?
 
 -   This version, known as **PHP Markdown Extended**, tries to collect the different rules and tags used by the three versions listed above.
 -   It is a PHP script that can be used in any PHP project.
 -   It can be used in command line interface, with a full set of options.
 -   It can be configured for specific needs.
+
+
+## How-to
+
+As for all our work, we try to follow the coding standards and naming rules most commonly in use:
+
+-   the [PEAR coding standards](http://pear.php.net/manual/en/standards.php)
+-   the [PHP Framework Interoperability Group standards](https://github.com/php-fig/fig-standards).
+
+Knowing that, all classes are named and organized in an architecture to allow the use of the
+[standard SplClassLoader](https://gist.github.com/jwage/221634).
+
+The whole package is embedded in the `MarkdownExtended` namespace.
+
+
+### Installation
+
+You can use this package in your work in many ways.
+
+First, you can clone the [GitHub](https://github.com/atelierspierrot/markdown-extended) repository
+and include it "as is" in your poject:
+
+    https://github.com/atelierspierrot/markdown-extended
+
+You can also download an [archive](https://github.com/atelierspierrot/markdown-extended/downloads)
+from Github.
+
+Then, to use the package classes, you just need to register the `MarkdownExtended` namespace directory
+using the [SplClassLoader](https://gist.github.com/jwage/221634) or any other custom autoloader:
+
+    require_once '.../src/SplClassLoader.php'; // if required, a copy is proposed in the package
+    $classLoader = new SplClassLoader('MarkdownExtended', '/path/to/package/src');
+    $classLoader->register();
+
+If you are a [Composer](http://getcomposer.org/) user, just add the package to your requirements
+in your `composer.json`:
+
+    "require": {
+        ...
+        "atelierspierrot/markdown-extended": "dev-master"
+    }
+
+The namespace will be automatically added to the project Composer autoloader.
+
+
+### Usage
+
+#### PHP usage
+
+The `MarkdownExtended` package can be simply call writing:
+
+    // creation of the singelton instance of \MarkdownExtended\MarkdownExtended
+    $content = \MarkdownExtended\MarkdownExtended::getInstance()
+        // get the \MarkdownExtended\Parser object passing it some options (optional)
+        ->get('\MarkdownExtended\Parser', $options)
+        // launch the transformation of a source string
+        ->transform($source);
+
+This will load in `$content` the parsed HTML version of your original Markdown `$source`.
+
+NOTE - To keep the package compatible with old versions of Markdown, an interface is 
+embedded with the common `Markdown($content)` function ; to use it, just include the file
+`src/markdown.php`.
+
+#### Command line usage
+
+A short CLI interface is proposed in the package running:
+
+    ~$ bin/mde_console --help
+
+The console allows you to parse one or more files, extract some informations from sources,
+write the results in files and some other stuff.
 
 
 ## Licenses
@@ -43,7 +115,7 @@ This software, as the original Markdown, is licensed under the terms of the BSD 
 You can use, transform and distribute this software and its dependencies as you wish, as long as you mention the copyrights below:
 
     Markdown Extended
-    Copyright © 2012 Pierre Cassat & contributors
+    Copyright © 2004-2013 Pierre Cassat & contributors
     All rights reserved.
 
     MultiMarkdown
