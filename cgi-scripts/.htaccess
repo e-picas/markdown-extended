@@ -1,0 +1,25 @@
+########################################################################
+#                                                                      #
+# Automatic Parsing of Markdown texte files                            #
+#                                                                      #
+# =======================================                              #
+# PHP Extended Markdown                                                #
+# Copyright (c) 2012-2013 Pierre Cassat                                #
+# http://www.ateliers-pierrot.fr - contact@ateliers-pierrot.fr         #
+########################################################################
+
+
+# We autorize CGIs
+Options +ExecCGI
+#AllowOverride All
+
+# We include 'sh' in exec scripts
+AddHandler cgi-script .sh
+
+# To display '.md' files as text if something went wrong 
+AddType text/html .md
+
+# Treat '.md' files by the Markdown handler
+# CAUTION - this requires to know exactly where the CGI is ...
+AddHandler MarkDown .md
+Action MarkDown /GitHub_projects/markdown-extended/cgi-scripts/mde_apacheHandler.sh virtual
