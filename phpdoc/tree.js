@@ -1,7 +1,5 @@
 var tree = [["[Global Namespace]",,"",
-                [["PHP_Extended_Markdown_OutputFormat","PHP_Extended_Markdown_OutputFormat.html","",
-                [        ]],["PHP_Extended_Markdown_OutputFormat_HTML","PHP_Extended_Markdown_OutputFormat_HTML.html","",
-                [        ]],["SplClassLoader","SplClassLoader.html","",
+                [["SplClassLoader","SplClassLoader.html","",
                 [        ]]        ]],["MarkdownExtended","MarkdownExtended.html","",
                 [["Grammar","MarkdownExtended\/Grammar.html","",
                 [["Filter","MarkdownExtended\/Grammar\/Filter.html","",
