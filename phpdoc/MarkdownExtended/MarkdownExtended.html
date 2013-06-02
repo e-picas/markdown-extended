@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\MarkdownExtended | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\MarkdownExtended</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>MarkdownExtended</strong></p>
+
+            <div class="description">
+            <p>PHP Extended Markdown Mother Class</p>
+            <p>This is the global <em>MarkdownExtended</em> class and process. It contains mostly
+static methods that can be called from anywhere writing something like:</p>
+
+<pre><code>MarkdownExtended::my_method();
+</code></pre>
+</p>
+        </div>
+    
+            <h2>Constants</h2>
+
+            <table>
+                    <tr>
+                <td>MARKDOWN_CONFIGFILE</td>
+                <td class="last">
+                    <p><em>Default options INI file (path from <strong>DIR</strong>)</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+            </table>
+
+    
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_class_name">
+                    static                                        
+                </td>
+                <td>$class_name</td>
+                <td class="last">Class infos</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_class_version">
+                    static                                        
+                </td>
+                <td>$class_version</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_class_sources">
+                    static                                        
+                </td>
+                <td>$class_sources</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getInstance">getInstance</a>()
+                    <p>Get the Markdown Extended instance</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_debug">debug</a>($a = &#039;&#039;, $what = null, $exit = true)
+                    <p>Debug function</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_info">info</a>($html = false)
+                    <p>Get information string about the current Markdown Extended object</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_addProcessedContent">addProcessedContent</a>(<a href="../MarkdownExtended/Parser.html"><abbr title="MarkdownExtended\Parser">Parser</abbr></a> $markdown, $key = null)
+                    <p>Add a new processed content in the contents stack</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_load">load</a>($class)
+                    <p>Load a dependency</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_factory">factory</a>($class, $params = null)
+                    <p>Get a dependency instance</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_get">get</a>($class, $params = null)
+                    <p>Get a loader object from registry / load it if absent</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getConfig">getConfig</a>($var)
+                    <p>Get a configuration entry from registry</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_setConfig">setConfig</a>($var, $val)
+                    <p>Set a configuration entry in registry</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_addConfig">addConfig</a>($var, $val)
+                    <p>Add to a configuration entry in registry</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getVar">getVar</a>($var)
+                    <p>Get a parser entry from registry</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_setVar">setVar</a>($var, $val)
+                    <p>Set a parser entry in registry</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_addVar">addVar</a>($var, $val)
+                    <p>Add to a parser entry in registry</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_unsetVar">unsetVar</a>($var, $val = null)
+                    <p>Unset a parser entry in registry</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_getInstance">
+        <div class="location">at line 74</div>
+        <code>        static    public            
+    <strong>getInstance</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the Markdown Extended instance</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_debug">
+        <div class="location">at line 91</div>
+        <code>            public            
+    <strong>debug</strong>($a = &#039;&#039;, $what = null, $exit = true)</code>
+    </h3>
+    <div class="details">
+        <p>Debug function</p>
+        <p>WARNING: first argument is not used (to allow <code>debug</code> from Gamut stacks)</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$a</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$what</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$exit</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_info">
+        <div class="location">at line 106</div>
+        <code>        static    public            
+    <strong>info</strong>($html = false)</code>
+    </h3>
+    <div class="details">
+        <p>Get information string about the current Markdown Extended object</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$html</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_addProcessedContent">
+        <div class="location">at line 127</div>
+        <code>        static    public            
+    <strong>addProcessedContent</strong>(<a href="../MarkdownExtended/Parser.html"><abbr title="MarkdownExtended\Parser">Parser</abbr></a> $markdown, $key = null)</code>
+    </h3>
+    <div class="details">
+        <p>Add a new processed content in the contents stack</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Parser.html"><abbr title="MarkdownExtended\Parser">Parser</abbr></a></td>
+                <td>$markdown</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$key</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_load">
+        <div class="location">at line 149</div>
+        <code>        static    public            
+    <strong>load</strong>($class)</code>
+    </h3>
+    <div class="details">
+        <p>Load a dependency</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$class</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_factory">
+        <div class="location">at line 160</div>
+        <code>        static    public            
+    <strong>factory</strong>($class, $params = null)</code>
+    </h3>
+    <div class="details">
+        <p>Get a dependency instance</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$class</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$params</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_get">
+        <div class="location">at line 175</div>
+        <code>        static    public            
+    <strong>get</strong>($class, $params = null)</code>
+    </h3>
+    <div class="details">
+        <p>Get a loader object from registry / load it if absent</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$class</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$params</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getConfig">
+        <div class="location">at line 185</div>
+        <code>        static    public            
+    <strong>getConfig</strong>($var)</code>
+    </h3>
+    <div class="details">
+        <p>Get a configuration entry from registry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setConfig">
+        <div class="location">at line 193</div>
+        <code>        static    public            
+    <strong>setConfig</strong>($var, $val)</code>
+    </h3>
+    <div class="details">
+        <p>Set a configuration entry in registry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$val</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_addConfig">
+        <div class="location">at line 201</div>
+        <code>        static    public            
+    <strong>addConfig</strong>($var, $val)</code>
+    </h3>
+    <div class="details">
+        <p>Add to a configuration entry in registry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$val</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getVar">
+        <div class="location">at line 209</div>
+        <code>        static    public            
+    <strong>getVar</strong>($var)</code>
+    </h3>
+    <div class="details">
+        <p>Get a parser entry from registry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setVar">
+        <div class="location">at line 217</div>
+        <code>        static    public            
+    <strong>setVar</strong>($var, $val)</code>
+    </h3>
+    <div class="details">
+        <p>Set a parser entry in registry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$val</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_addVar">
+        <div class="location">at line 225</div>
+        <code>        static    public            
+    <strong>addVar</strong>($var, $val)</code>
+    </h3>
+    <div class="details">
+        <p>Add to a parser entry in registry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$val</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_unsetVar">
+        <div class="location">at line 233</div>
+        <code>        static    public            
+    <strong>unsetVar</strong>($var, $val = null)</code>
+    </h3>
+    <div class="details">
+        <p>Unset a parser entry in registry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$val</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>PHP_Extended_Markdown_OutputFormat_HTML | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="classes.html">Classes</a></li>
+                            <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="interfaces.html">Interfaces</a></li>
+            <li><a href="doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href=".html"></a>PHP_Extended_Markdown_OutputFormat_HTML</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>PHP_Extended_Markdown_OutputFormat_HTML</strong>        implements
+        <a href="PHP_Extended_Markdown_OutputFormat.html"><abbr title="PHP_Extended_Markdown_OutputFormat">PHP_Extended_Markdown_OutputFormat</abbr></a></p>
+
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_render">render</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildTag">buildTag</a>(string $text, string $tag, array $attributes = array(), bool $close = false)
+                    <p>Builder of HTML tags :     &lt;TAG ATTR1="ATTR_VAL1" ...</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string|array
+                </td>
+                <td class="last">
+                    <a href="#method_encodeEmailAddress">encodeEmailAddress</a>(string $addr, bool $return_array = false)
+                    <p>Input: an email address, e.g.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildMailto">buildMailto</a>($address, $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildAbbreviation">buildAbbreviation</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildAnchor">buildAnchor</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildLink">buildLink</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildBlockquote">buildBlockquote</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildCodeBlock">buildCodeBlock</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildCodeSpan">buildCodeSpan</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildDefinitionList">buildDefinitionList</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildDefinitionTerm">buildDefinitionTerm</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildDefinitionDescription">buildDefinitionDescription</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildEmphasis">buildEmphasis</a>(string $type, string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildHeader">buildHeader</a>(string $text, int $level = 1, string $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildImage">buildImage</a>(array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildParagraph">buildParagraph</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildUnorderedList">buildUnorderedList</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildOrderedList">buildOrderedList</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildListItem">buildListItem</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildSup">buildSup</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildSpan">buildSpan</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildDiv">buildDiv</a>(string $text, array $attrs = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_render">
+        <div class="location">at line 30</div>
+        <code>            public            
+    <strong>render</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildTag">
+        <div class="location">at line 44</div>
+        <code>        static    public            string
+    <strong>buildTag</strong>(string $text, string $tag, array $attributes = array(), bool $close = false)</code>
+    </h3>
+    <div class="details">
+        <p>Builder of HTML tags :     &lt;TAG ATTR1="ATTR_VAL1" ...</p>
+        <p><blockquote>
+  <p>TEXT </TAG></p>
+</blockquote>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The content of the tag</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$tag</td>
+                <td>The tag name</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>An array of attributes constructed by "variable=>value" pairs</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$close</td>
+                <td>Is it a closed tag ? (FALSE by default)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The built tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_encodeEmailAddress">
+        <div class="location">at line 93</div>
+        <code>        static    public            string|array
+    <strong>encodeEmailAddress</strong>(string $addr, bool $return_array = false)</code>
+    </h3>
+    <div class="details">
+        <p>Input: an email address, e.g.</p>
+        <p>"foo@example.com"</p>
+
+<pre><code>Output: the email address as a mailto link, with each character
+    of the address encoded as either a decimal or hex entity, in
+    the hopes of foiling most address harvesting spam bots. E.g.:
+
+  &lt;p&gt;&lt;a href="&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x66;o&amp;#111;
+   &amp;#x40;&amp;#101;&amp;#x78;&amp;#97;&amp;#x6d;&amp;#112;&amp;#x6c;&amp;#101;&amp;#46;&amp;#x63;&amp;#111;
+   &amp;#x6d;"&gt;&amp;#x66;o&amp;#111;&amp;#x40;&amp;#101;&amp;#x78;&amp;#97;&amp;#x6d;&amp;#112;&amp;#x6c;
+   &amp;#101;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
+
+Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
+</code></pre>
+
+<p>With some optimizations by Milian Wolff.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$addr</td>
+                <td>The email address to encode</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$return_array</td>
+                <td>May we return an array like ( 'mailto:link' , 'link' ) for display ? (FALSE by default)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|array</td>
+            <td>The encoded address, and the address to display if $return_array is TRUE</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildMailto">
+        <div class="location">at line 127</div>
+        <code>        static    public            string
+    <strong>buildMailto</strong>($address, $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$address</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$attrs</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The mailto link tag string (transformed</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildAbbreviation">
+        <div class="location">at line 139</div>
+        <code>        static    public            string
+    <strong>buildAbbreviation</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The abbreviation text</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The abbreviation attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The abbreviation tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildAnchor">
+        <div class="location">at line 149</div>
+        <code>        static    public            string
+    <strong>buildAnchor</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The anchor text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The anchor attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The anchor tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildLink">
+        <div class="location">at line 159</div>
+        <code>        static    public            string
+    <strong>buildLink</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The link text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The link attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The link tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildBlockquote">
+        <div class="location">at line 169</div>
+        <code>        static    public            string
+    <strong>buildBlockquote</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The blockquote text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The blockquote attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The blockquote tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildCodeBlock">
+        <div class="location">at line 179</div>
+        <code>        static    public            string
+    <strong>buildCodeBlock</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The code block text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The code block attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The code block tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildCodeSpan">
+        <div class="location">at line 191</div>
+        <code>        static    public            string
+    <strong>buildCodeSpan</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The code span text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The code span attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The code span tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildDefinitionList">
+        <div class="location">at line 201</div>
+        <code>        static    public            string
+    <strong>buildDefinitionList</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The definition list text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The definition list attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The definition list tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildDefinitionTerm">
+        <div class="location">at line 211</div>
+        <code>        static    public            string
+    <strong>buildDefinitionTerm</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The definition term text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The definition term attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The definition term tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildDefinitionDescription">
+        <div class="location">at line 221</div>
+        <code>        static    public            string
+    <strong>buildDefinitionDescription</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The definition description text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The definition description attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The definition description tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildEmphasis">
+        <div class="location">at line 232</div>
+        <code>        static    public            string
+    <strong>buildEmphasis</strong>(string $type, string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$type</td>
+                <td>The emphasis type : 'em', 'strong' or 'both'</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The emphasis text</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The emphasis attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The emphasis tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildHeader">
+        <div class="location">at line 252</div>
+        <code>        static    public            string
+    <strong>buildHeader</strong>(string $text, int $level = 1, string $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The header content (title)</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$level</td>
+                <td>The header level</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$attrs</td>
+                <td>The attributes array of the built header tag</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The header tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildImage">
+        <div class="location">at line 261</div>
+        <code>        static    public            string
+    <strong>buildImage</strong>(array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The image attributes</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The image tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildParagraph">
+        <div class="location">at line 271</div>
+        <code>        static    public            string
+    <strong>buildParagraph</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The paragraph text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The paragraph attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The paragraph tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildUnorderedList">
+        <div class="location">at line 281</div>
+        <code>        static    public            string
+    <strong>buildUnorderedList</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The unordered list content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The unordered list attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The unordered list tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildOrderedList">
+        <div class="location">at line 291</div>
+        <code>        static    public            string
+    <strong>buildOrderedList</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The ordered list content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The ordered list attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The ordered list tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildListItem">
+        <div class="location">at line 301</div>
+        <code>        static    public            string
+    <strong>buildListItem</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The list item content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The list item attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The list item tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildSup">
+        <div class="location">at line 311</div>
+        <code>        static    public            string
+    <strong>buildSup</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The sup text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The sup attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The sup tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildSpan">
+        <div class="location">at line 321</div>
+        <code>        static    public            string
+    <strong>buildSpan</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The span text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The span attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The span tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildDiv">
+        <div class="location">at line 331</div>
+        <code>        static    public            string
+    <strong>buildDiv</strong>(string $text, array $attrs = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The div text content</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attrs</td>
+                <td>The div attributes if so</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The div tag string</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>
