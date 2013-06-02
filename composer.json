@@ -14,6 +14,9 @@
             "name": "Michel Fortin",
             "homepage": "http://michelf.com/"
         },{
+            "name": "Fletcher T. Penney",
+            "homepage": "http://fletcherpenney.net/"
+        },{
             "name": "Les Ateliers Pierrot & contributors",
             "email": "contact@ateliers-pierrot.fr",
             "homepage": "http://www.ateliers-pierrot.fr/"
@@ -22,7 +25,6 @@
             "email": "piero.wbmstr@gmail.com",
             "homepage": "https://github.com/PieroWbmstr"
     }],
-    "minimum-stability": "dev",
     "require": { "php": ">=5.3.0" },
     "require-dev": { "sami/sami": "dev-master" },
     "autoload": { "psr-0": { "MarkdownExtended": "src" } },
