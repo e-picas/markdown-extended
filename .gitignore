@@ -32,8 +32,8 @@ phpdoc/*
 
 # for development ...
 # this may be commented on the "wip" branch
-#dev/*
-#build/*
+dev/*
+build/*
 
 # any "tmp*" file or dir
 tmp*
