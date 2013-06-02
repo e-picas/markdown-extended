@@ -1,0 +1,40 @@
+# Hack to allow keeping an empty directory
+!.gitkeep
+
+# OS & software files
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+Icon
+._*
+*~
+*~lock*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Les Ateliers specifics:
+
+# the composer lock file
+composer.lock
+
+# user defined files
+user/*
+
+# the external packages installed by Composer, Template Engine or others
+vendor/*
+
+# the documentation, that is NOT under version-control by default
+# this may be commented on the "dev" branch
+phpdoc/*
+
+# for development ...
+# this may be commented on the "wip" branch
+#dev/*
+#build/*
+
+# any "tmp*" file or dir
+tmp*
+demo/tmp*

@@ -1,0 +1,13 @@
+/*
+Styles to port in CSS the old HTML4 tags
+*/
+
+.big        {font-size:larger}
+.blink      {text-decoration:blink}
+.center     {text-align:center; margin-left:auto; margin-right:auto;}
+.left       {text-align:left; margin-left:0; margin-right:auto;}
+.right      {text-align:right; margin-left:auto; margin-right:0;}
+.s          {text-decoration:line-through}
+.strike     {text-decoration:line-through}
+.tt         {font-family:monospace}
+.u          {text-decoration:underline}
