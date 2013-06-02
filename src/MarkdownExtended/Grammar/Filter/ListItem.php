@@ -120,8 +120,8 @@ class ListItem extends Filter
 		$list .= "\n";
 		$result = self::transformItems($list, $marker_any_re);
 		
-		$result = parent::hashBlock("<$list_type>\n" . $result . "</$list_type>");
-		return "\n". $result ."\n\n";
+		$result = parent::hashBlock("<$list_type>\n$result</$list_type>");
+		return "\n$result\n\n";
 	}
 
 	/**
@@ -207,7 +207,7 @@ class ListItem extends Filter
 			$item = parent::runGamut('span_gamut', $item);
 		}
 
-		return "<li>" . $item . "</li>\n";
+		return "<li>$item</li>\n";
 	}
 
 }

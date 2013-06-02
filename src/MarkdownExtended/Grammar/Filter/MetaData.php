@@ -23,14 +23,29 @@ use \MarkdownExtended\MarkdownExtended,
 class MetaData extends Filter
 {
 
-	protected $metadata=array();
+    /**
+     * @var array
+     */
+	protected $metadata;
+
+    /**
+     * @var array
+     */
+	protected $special_metadata;
 	
-	protected static $inMetaData=0;
+    /**
+     * @static int
+     */
+	protected static $inMetaData = -1;
 	
-	// SPECIAL METADATA
-	var $specials = array(
-		'baseheaderlevel', 'quoteslanguage'
-	);
+	public function _setup()
+	{
+		MarkdownExtended::setVar('metadata', array());
+	    $this->metadata = array();
+	    $this->special_metadata = MarkdownExtended::getConfig('special_metadata');
+	    if (empty($this->special_metadata)) $this->special_metadata = array();
+	    self::$inMetaData = -1;
+	}
 
 	/**
 	 * @param string $text Text to parse
@@ -39,22 +54,24 @@ class MetaData extends Filter
 	public function strip($text) 
 	{
 		$lines = preg_split('/\n/', $text);
-		$text='';
-		self::$inMetaData=1;
-		foreach ($lines as $line) {
-			if (self::$inMetaData===0) {
-				$text .= $line."\n";
-			} else {
-				$text .= self::transform($line);
-				if (preg_match('/^$/', $line)) {
-					self::$inMetaData = 0;
-				}
-			}
+		$first_line = $lines[0];
+		if (preg_match('/^([a-zA-Z0-9][0-9a-zA-Z _-]*?):\s*(.*)$/', $first_line)) {
+    		$text='';
+			self::$inMetaData = 1;
+            foreach ($lines as $line) {
+                if (self::$inMetaData === 0) {
+                    $text .= $line."\n";
+                } else {
+                    $text .= self::transform($line);
+                    if (preg_match('/^$/', $line)) {
+                        self::$inMetaData = 0;
+                    }
+                }
+            }
 		}
-		
-		if (!empty($this->metadata))
+		if (!empty($this->metadata)) {
 			MarkdownExtended::setVar('metadata', $this->metadata);
-
+		}
 		return $text;
 	}
 
@@ -67,11 +84,10 @@ class MetaData extends Filter
 		$line = preg_replace_callback(
 			'{^([a-zA-Z0-9][0-9a-zA-Z _-]*?):\s*(.*)$}i',
 			array($this, '_callback'), $line);
-
-		if (strlen($line))
+		if (strlen($line)) {
 			$line = preg_replace_callback(
 				'/^\s*(.+)$/', array($this, '_callback_nextline'), $line);
-
+        }
 		if (strlen($line)) $line .= "\n";
 		return $line;
 	}
@@ -84,6 +100,9 @@ class MetaData extends Filter
 	{
 		$meta_key = strtolower(str_replace(' ', '', $matches[1]));
 		$this->metadata[$meta_key] = trim($matches[2]);
+		if (in_array($meta_key, $this->special_metadata)) {
+		    MarkdownExtended::setVar($meta_key, $this->metadata[$meta_key]);
+		}
 		return '';
 	}
 
@@ -93,7 +112,7 @@ class MetaData extends Filter
 	 */
 	protected function _callback_nextline($matches) 
 	{
-		$meta_key = array_search(end($this->metadata), $this->metadata );
+		$meta_key = array_search(end($this->metadata), $this->metadata);
 		$this->metadata[$meta_key] .= ' '.trim($matches[1]);
 		return '';
 	}
@@ -101,12 +120,11 @@ class MetaData extends Filter
 	public function append($text)
 	{
 		$metadata = MarkdownExtended::getVar('metadata');
-		MarkdownExtended::unsetVar('metadata');
 		if (!empty($metadata)) {
 			$metadata_str='';
 			foreach($metadata as $meta_name=>$meta_value) {
 				if (!empty($meta_name) && is_string($meta_name)) {
-					if (in_array($meta_name, $this->specials))
+					if (in_array($meta_name, $this->special_metadata))
 						MarkdownExtended::setConfig($meta_name, $meta_value);
 					else
 						$metadata_str .= "\n".

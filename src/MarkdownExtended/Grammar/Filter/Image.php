@@ -132,9 +132,9 @@ class Image extends Filter
 	protected function _inline_callback($matches) 
 	{
 		$whole_match	= $matches[1];
-		$alt_text		  = $matches[2];
-		$url			    = $matches[3] == '' ? $matches[4] : $matches[3];
-		$title			  =& $matches[7];
+		$alt_text		= $matches[2];
+		$url			= $matches[3] == '' ? $matches[4] : $matches[3];
+		$title			=& $matches[7];
 
 		$alt_text = parent::runGamut('tool:EncodeAttribute', $alt_text);
 		$url = parent::runGamut('tool:EncodeAttribute', $url);

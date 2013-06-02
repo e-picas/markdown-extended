@@ -54,11 +54,6 @@ class Note extends Filter
 		self::$notes_counter = 0;
 	}
 
-	public function _teardown()
-	{
-		self::_setup();
-	}
-
 	/**
 	 * Strips link definitions from text, stores the URLs and titles in hash references.
 	 *
@@ -129,6 +124,7 @@ class Note extends Filter
 			MarkdownExtended::addVar('citations', array(
 				(MarkdownExtended::getConfig('fnc_id_prefix') . substr($matches[1],1)) => parent::runGamut('tool:outdent', $matches[2])
 			));
+
 		} else {
 			MarkdownExtended::addVar('footnotes', array(
 				(MarkdownExtended::getConfig('fn_id_prefix') . $matches[1]) => parent::runGamut('tool:outdent', $matches[2])
@@ -187,8 +183,8 @@ class Note extends Filter
 	
 		if (!empty(self::$notes_ordered)) 
 		{
-			$text .= "\n\n" . "<div class=\"footnotes\">\n"
-				. "<hr". MarkdownExtended::getConfig('empty_element_suffix') ."\n" . "<ol>\n\n";
+			$text .= "\n\n<div class=\"footnotes\">\n<hr"
+			    . MarkdownExtended::getConfig('empty_element_suffix') ."\n<ol>\n\n";
 
 			while (!empty(self::$notes_ordered)) 
 			{
@@ -209,7 +205,7 @@ class Note extends Filter
 					$text .= self::transformCitation( $note_id );
 			}
 
-			$text .= "</ol>\n" . "</div>";
+			$text .= "</ol>\n</div>";
 		}
 		return $text;
 	}
@@ -231,9 +227,9 @@ class Note extends Filter
 		{
 			$footnote = $footnotes[$note_id];
 			$attr = " rev=\"footnote\"";
-			if (MarkdownExtended::getConfig('fn_backlink_class') != "")
+			if (MarkdownExtended::getConfig('fn_backlink_class') != '')
 				$attr .= " class=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fn_backlink_class') )."\"";
-			if (MarkdownExtended::getConfig('fn_backlink_title') != "")
+			if (MarkdownExtended::getConfig('fn_backlink_title') != '')
 				$attr .= " title=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fn_backlink_title') )."\"";
 			
 			$footnote .= "\n"; // Need to append newline before parsing.
@@ -253,7 +249,7 @@ class Note extends Filter
 				$footnote .= "\n\n<p>$backlink</p>";
 			}
 				
-			$text = "<li id=\"fn:$note_id\">\n" . $footnote . "\n" . "</li>\n\n";
+			$text = "<li id=\"fn:$note_id\">\n$footnote\n</li>\n\n";
 		}
 		return $text;
 	}
@@ -275,9 +271,9 @@ class Note extends Filter
 		{
 			$glossary = substr( $glossaries[$note_id], strlen('glossary:') );				
 			$attr = " rev=\"glossary\"";
-			if (MarkdownExtended::getConfig('fng_backlink_class') != "")
+			if (MarkdownExtended::getConfig('fng_backlink_class') != '')
 				$attr .= " class=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fng_backlink_class') )."\"";
-			if (MarkdownExtended::getConfig('fng_backlink_title') != "")
+			if (MarkdownExtended::getConfig('fng_backlink_title') != '')
 				$attr .= " title=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fng_backlink_title') )."\"";
 			
 			$glossary = preg_replace_callback('{
@@ -305,7 +301,7 @@ class Note extends Filter
 				$glossary .= "\n\n<p>$backlink</p>";
 			}
 				
-			$text = "<li id=\"fng:$note_id\">\n" . $glossary . "\n" . "</li>\n\n";
+			$text = "<li id=\"fng:$note_id\">\n$glossary\n</li>\n\n";
 		}
 		return $text;
 	}
@@ -327,9 +323,9 @@ class Note extends Filter
 		{
 			$citation = $citations[$note_id];
 			$attr = " rev=\"bibliography\"";
-			if (MarkdownExtended::getConfig('fnc_backlink_class') != "")
+			if (MarkdownExtended::getConfig('fnc_backlink_class') != '')
 				$attr .= " class=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fnc_backlink_class') )."\"";
-			if (MarkdownExtended::getConfig('fnc_backlink_title') != "")
+			if (MarkdownExtended::getConfig('fnc_backlink_title') != '')
 				$attr .= " title=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fnc_backlink_title') )."\"";
 			
 			$citation = preg_replace_callback('{
@@ -357,7 +353,7 @@ class Note extends Filter
 				$citation .= "\n\n<p>$backlink</p>";
 			}
 				
-			$text = "<li id=\"fnc:$note_id\">\n" . $citation . "\n" . "</li>\n\n";
+			$text = "<li id=\"fnc:$note_id\">\n$citation\n</li>\n\n";
 		}
 		return $text;
 	}
@@ -386,7 +382,7 @@ class Note extends Filter
 	protected function _citation_callback($matches)
 	{
 		return 
-			"<span class=\"bibliography name\">".trim($matches[1])."</span>"."\n\n".$matches[2];
+			"<span class=\"bibliography name\">".trim($matches[1])."</span>\n\n".$matches[2];
 	}
 
 	/**
@@ -412,17 +408,14 @@ class Note extends Filter
 			$num = array_key_exists($node_id, self::$written_notes) ?
 				self::$written_notes[$node_id] : self::$footnote_counter++;
 			$attr = " rel=\"footnote\"";
-			if (MarkdownExtended::getConfig('fn_link_class') != "")
+			if (MarkdownExtended::getConfig('fn_link_class') != '')
 				$attr .= " class=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fn_link_class') )."\"";
-			if (MarkdownExtended::getConfig('fn_link_title') != "")
+			if (MarkdownExtended::getConfig('fn_link_title') != '')
 				$attr .= " title=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fn_link_title') )."\"";
 			$attr = str_replace("%%", $num, $attr);
 			$node_id = parent::runGamut('tool:EncodeAttribute', $node_id);
 			
-			return
-				"<sup id=\"fnref:$node_id\">".
-				"<a href=\"#fn:$node_id\"$attr>$num</a>".
-				"</sup>";
+			return "<sup id=\"fnref:$node_id\"><a href=\"#fn:$node_id\"$attr>$num</a></sup>";
 		}
 		
 		// Create glossary marker only if it has a corresponding note *and*
@@ -435,17 +428,14 @@ class Note extends Filter
 			$num = array_key_exists($matches[1], self::$written_notes) ?
 				self::$written_notes[$matches[1]] : self::$footnote_counter++;
 			$attr = " rel=\"glossary\"";
-			if (MarkdownExtended::getConfig('fng_link_class') != "")
+			if (MarkdownExtended::getConfig('fng_link_class') != '')
 				$attr .= " class=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fng_link_class') )."\"";
-			if (MarkdownExtended::getConfig('fng_link_title') != "")
+			if (MarkdownExtended::getConfig('fng_link_title') != '')
 				$attr .= " title=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fng_link_title') )."\"";
 			$attr = str_replace("%%", $num, $attr);
 			$glossary_node_id = parent::runGamut('tool:EncodeAttribute', $glossary_node_id);
 			
-			return
-				"<sup id=\"fngref:$glossary_node_id\">".
-				"<a href=\"#fng:$glossary_node_id\"$attr>$num</a>".
-				"</sup>";
+			return "<sup id=\"fngref:$glossary_node_id\"><a href=\"#fng:$glossary_node_id\"$attr>$num</a></sup>";
 		}
 
 		// Create citation marker only if it has a corresponding note *and*
@@ -458,17 +448,14 @@ class Note extends Filter
 			$num = array_key_exists($matches[1], self::$written_notes) ?
 				self::$written_notes[$matches[1]] : self::$footnote_counter++;
 			$attr = " rel=\"bibliography\"";
-			if (MarkdownExtended::getConfig('fnc_link_class') != "")
+			if (MarkdownExtended::getConfig('fnc_link_class') != '')
 				$attr .= " class=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fnc_link_class') )."\"";
-			if (MarkdownExtended::getConfig('fnc_link_title') != "")
+			if (MarkdownExtended::getConfig('fnc_link_title') != '')
 				$attr .= " title=\"".parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig('fnc_link_title') )."\"";
 			$attr = str_replace("%%", $num, $attr);
 			$citation_node_id = parent::runGamut('tool:EncodeAttribute', $citation_node_id);
 			
-			return
-				"<sup id=\"fncref:$citation_node_id\">".
-				"<a href=\"#fnc:$citation_node_id\"$attr>$num</a>".
-				"</sup>";
+			return "<sup id=\"fncref:$citation_node_id\"><a href=\"#fnc:$citation_node_id\"$attr>$num</a></sup>";
 		}
 
 		return "[^".$matches[1]."]";

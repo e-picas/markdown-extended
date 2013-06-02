@@ -25,6 +25,11 @@ class Header extends Filter
 	
 	public $ids = array();
 	
+	public function _setup()
+	{
+        MarkdownExtended::setVar('menu', array());
+    }
+
 	/**
 	 * Redefined to add id attribute support.
 	 *
@@ -92,9 +97,11 @@ class Header extends Filter
 	{
 		if ($matches[3] == '-' && preg_match('{^- }', $matches[1]))
 			return $matches[0];
-		$level = $matches[3]{0} == '=' ? 1 : 2;
+		$level = ($matches[3]{0} == '=' ? 1 : 2)  + $this->getRebasedHeaderLevel();
 		$attr  = self::_attributes($id =& $matches[2]);
-		$block = "<h$level$attr>".parent::runGamut('span_gamut', $matches[1])."</h$level>";
+		$title = parent::runGamut('span_gamut', $matches[1]);
+        MarkdownExtended::addVar('menu', array($id=>array('level'=>$level,'text'=>$title)));
+		$block = "<h$level$attr>$title</h$level>";
 		return "\n" . parent::hashBlock($block) . "\n\n";
 	}
 
@@ -114,12 +121,14 @@ class Header extends Filter
 	 */
 	protected function _atx_callback($matches) 
 	{
-		$level = strlen($matches[1]);
+		$level = strlen($matches[1]) + $this->getRebasedHeaderLevel();
 		if (!empty($matches[3]))
     		$attr  = self::_attributes($id =& $matches[3]);
 		else
 			$attr  = self::_attributes($id =& parent::runGamut('tool:Header2Label', $matches[2]));
-		$block = "<h$level$attr>".parent::runGamut('span_gamut', $matches[2])."</h$level>";
+		$title = parent::runGamut('span_gamut', $matches[2]);
+        MarkdownExtended::addVar('menu', array($id=>array('level'=>$level,'text'=>parent::unhash($title))));
+		$block = "<h$level$attr>$title</h$level>";
 		return "\n" . parent::hashBlock($block) . "\n\n";
 	}
 
@@ -143,6 +152,12 @@ class Header extends Filter
 		$this->ids[] = $id;
 		return " id=\"$id\"";
 	}
+
+    protected function getRebasedHeaderLevel()
+    {
+        $base_level = MarkdownExtended::getVar('baseheaderlevel');
+        return !empty($base_level) ? $base_level-1 : 0;
+    }
 
 }
 

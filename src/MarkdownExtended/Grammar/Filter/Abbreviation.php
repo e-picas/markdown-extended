@@ -28,7 +28,7 @@ class Abbreviation extends Filter
 		MarkdownExtended::setVar('abbr_desciptions', array());
 		MarkdownExtended::setVar('abbr_word_re', '');
 		$abbr_word_re='';
-		$abbr_desciptions=array();
+		$abbr_desciptions = array();
 		foreach (MarkdownExtended::getVar('predef_abbr') as $abbr_word => $abbr_desc) {
 			if ($abbr_word_re) $abbr_word_re .= '|';
 			$abbr_word_re .= preg_quote($abbr_word);

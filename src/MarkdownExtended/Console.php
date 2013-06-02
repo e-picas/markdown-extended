@@ -534,12 +534,14 @@ EOT;
 			if ($ok = $_emd->transform($md_content, array('special_gamut'=>array(
 				'filter:MetaData:strip'=>1
 			)))) {
-				$metadata = $_emd::getVar('metadata');
+				$metadata = MarkdownExtended::getVar('metadata');
 				self::info("OK [entries: ".count($metadata)."]");
 				$md_output = '';
 				foreach ($metadata as $_metan=>$_metav) {
 					if (is_string($extract)) {
-						if ($extract==$_metan) $md_output = $_metav;
+						if ($extract == $_metan) {
+						    $md_output = $_metav;
+						}
 					} else {
 						$md_output .= PHP_EOL.$_metan.' : '.$_metav;
 					}

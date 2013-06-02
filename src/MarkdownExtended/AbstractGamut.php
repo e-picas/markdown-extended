@@ -34,6 +34,39 @@ abstract class AbstractGamut
 		return $_gmt->runGamut($gamut, $text);
 	}
 	
+// ----------------------------------
+// HASHES
+// ----------------------------------
+
+    /**
+     * @static array
+     */
+    protected static $html_hashes = array();
+
+    /**
+     * Reset the hash table
+     */
+    public function resetHash()
+    {
+        self::$html_hashes = array();
+    }
+
+    /**
+     * Reference a new hash
+     */
+    public function setHash($key, $text)
+    {
+        self::$html_hashes[$key] = $text;
+    }
+	
+    /**
+     * Retrieve a hash
+     */
+    public function getHash($key)
+    {
+        return self::$html_hashes[$key];
+    }
+
 }
 
 // Endfile

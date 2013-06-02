@@ -68,7 +68,7 @@ abstract class Filter
 		// Then hash the block.
 		static $i = 0;
 		$key = "$boundary\x1A" . ++$i . $boundary;
-		MarkdownExtended::addVar('html_hashes', array( $key=>$text ));
+		$this->setHash($key, $text);
 		return $key; // String that will replace the tag.
 	}
 
@@ -116,8 +116,7 @@ abstract class Filter
 	 */
 	protected function _unhash_callback($matches) 
 	{
-		$html_hashes = MarkdownExtended::getVar('html_hashes');
-		return $html_hashes[$matches[0]];
+		return $this->getHash($matches[0]);
 	}
 
 }

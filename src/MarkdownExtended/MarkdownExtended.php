@@ -45,14 +45,19 @@ class MarkdownExtended
     const MARKDOWN_CONFIGFILE = 'config/markdown_config.ini';
 
 	/**
-	 * @var \MarkdownExtended\MarkdownExtended
+	 * @static \MarkdownExtended\MarkdownExtended
 	 */
 	private static $_instance;
 
 	/**
-	 * @var \MarkdownExtended\Registry
+	 * @static \MarkdownExtended\Registry
 	 */
 	private static $registry;
+
+    /**
+     * @static array
+     */
+    private static $contents;
 
 	/**
 	 * Private constructor: initialize the registry
@@ -60,6 +65,7 @@ class MarkdownExtended
 	private function __construct()
 	{
 	 	self::$registry = new Registry;
+        self::$contents = array();
 	}
 
 	/**
@@ -72,6 +78,10 @@ class MarkdownExtended
 	 	}
 	 	return self::$_instance;
 	}
+
+// ----------------------------------
+// DEBUG & INFO
+// ----------------------------------
 
 	/**
 	 * Debug function
@@ -107,6 +117,32 @@ class MarkdownExtended
 			.')';
 	}
 
+// ----------------------------------
+// PROCESSED CONTENTS
+// ----------------------------------
+
+    /**
+     * Add a new processed content in the contents stack
+     */
+    public static function addProcessedContent(Parser $markdown, $key = null)
+    {
+
+echo '<pre>';
+var_export(func_get_args());
+echo '</pre>';
+exit('yo');
+
+        if (empty($key)) $key = uniqid();
+        self::$contents[$key] = array(
+            'original'=>$original,
+            'markdown'=>$markdown
+        );
+    }
+	
+// --------------
+// REGISTRY USER INTERFACE
+// --------------
+
 	/**
 	 * Load a dependency
 	 */
@@ -132,10 +168,6 @@ class MarkdownExtended
 		self::$registry->set($class, $_obj, 'loaded');
 		return $_obj;
 	}
-
-// --------------
-// REGISTRY USER INTERFACE
-// --------------
 
 	/**
 	 * Get a loader object from registry / load it if absent

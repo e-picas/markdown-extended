@@ -262,7 +262,6 @@ class HTML extends Filter
 				// (don't check for markdown attribute)
 				list($block_text, $text) = 
 					$this->_hashBlocks_inHTML($tag . $text, "hashClean", false);
-				
 				$parsed .= $block_text;
 			}
 
@@ -271,18 +270,15 @@ class HTML extends Filter
 				# Same name as enclosing tag.
 				preg_match('{^</?(?:'.$enclosing_tag_re.')\b}', $tag))
 			{
-
 				// Increase/decrease nested tag count.
-				if ($tag{1} == '/')						        $depth--;
+				if ($tag{1} == '/')						$depth--;
 				else if ($tag{strlen($tag)-2} != '/')	$depth++;
-
 				if ($depth < 0) {
 					// Going out of parent element. Clean up and break so we
 					// return to the calling function.
 					$text = $tag . $text;
 					break;
 				}
-				
 				$parsed .= $tag;
 			}
 			else {
@@ -441,7 +437,7 @@ class HTML extends Filter
 					
 					// Append tag content to parsed text.
 					if (!$span_mode)	$parsed .= "\n\n$block_text\n\n";
-					else				      $parsed .= "$block_text";
+					else				$parsed .= "$block_text";
 					
 					// Start over a new block.
 					$block_text = "";

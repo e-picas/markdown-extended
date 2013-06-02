@@ -84,7 +84,7 @@ class DefinitionList extends Filter
 		// Re-usable patterns to match list item bullets and number markers:
 		$list = $matches[1];
 		$result = trim(self::transformItems($list));
-		$result = "<dl>\n" . $result . "\n</dl>";
+		$result = "<dl>\n$result\n</dl>";
 		return parent::hashBlock($result) . "\n\n";
 	}
 
@@ -154,7 +154,7 @@ class DefinitionList extends Filter
 		$text = '';
 		foreach ($terms as $term) {
 			$term = parent::runGamut('span_gamut', trim($term));
-			$text .= "\n<dt>" . $term . "</dt>";
+			$text .= "\n<dt>$term</dt>";
 		}
 		return $text . "\n";
 	}
@@ -177,14 +177,14 @@ class DefinitionList extends Filter
 			// Replace marker with the appropriate whitespace indentation
 			$def = str_repeat(' ', strlen($marker_space)) . $def;
 			$def = parent::runGamut('html_block_gamut', parent::runGamut('tool:outdent', $def . "\n\n"));
-			$def = "\n". $def ."\n";
+			$def = "\n$def\n";
 		}
 		else {
 			$def = rtrim($def);
 			$def = parent::runGamut('span_gamut', parent::runGamut('tool:outdent', $def));
 		}
 
-		return "\n<dd>" . $def . "</dd>\n";
+		return "\n<dd>$def</dd>\n";
 	}
 
 }

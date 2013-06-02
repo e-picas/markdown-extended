@@ -26,6 +26,18 @@ class Parser
 {
 
 	/**
+	 * Original content
+	 * @var string
+	 */
+    protected $source_content;
+
+	/**
+	 * Final content
+	 * @var string
+	 */
+    protected $parsed_content;
+
+	/**
 	 * Predefined urls, titles and abbreviations for reference links and images.
 	 */
 	public $predef_urls = array();
@@ -40,6 +52,18 @@ class Parser
 	protected $titles = array();
 	protected $attributes = array();
 	protected $ids = array();
+
+    /**
+     * @var array
+     */
+	protected $all_gamuts;
+
+    /**
+     * @static array
+     */
+    public static $definable = array(
+        'predef_urls', 'predef_titles', 'predef_attributes', 'predef_abbr'
+     );
 
 // ----------------------------------
 // CONSTRUCTORS
@@ -88,13 +112,23 @@ class Parser
 
 		if (!empty($config) && is_array($config)) {
 			foreach ($config as $_opt_name=>$_opt_value) {
-				MarkdownExtended::setConfig($_opt_name, $_opt_value);
+			    if (in_array($_opt_name, self::$definable)) {
+			        if (is_array($_opt_value)) {
+    			        $this->{$_opt_name} = array_merge($this->{$_opt_name}, $_opt_value);
+    			    }
+			    } else {
+    				MarkdownExtended::setConfig($_opt_name, $_opt_value);
+    			}
 			}
 		}
 		// Initial gamuts
-		self::runGamuts('initial_gamut');
+		$this->runGamuts('initial_gamut');
 	}
 
+// ----------------------------------
+// GAMUTS
+// ----------------------------------
+	
     /**
      * Get the global Gamut object
      */	
@@ -108,6 +142,9 @@ class Parser
 	 */
 	protected function _setup() 
 	{
+        $this->source_content = null;
+        $this->parsed_content = null;
+
 		// Clear global hashes.
 		MarkdownExtended::setVar('cross_references', array());
 		MarkdownExtended::setVar('urls', $this->predef_urls);
@@ -117,7 +154,7 @@ class Parser
 		MarkdownExtended::setVar('html_hashes', array());
 
 		// Launch all dependencies '_setup'
-		$this->getGamut()->runGamutsMethod(self::getAllGamuts(), '_setup');
+		$this->getGamut()->runGamutsMethod($this->getAllGamuts(), '_setup');
 	}
 	
 	/**
@@ -133,18 +170,34 @@ class Parser
 		MarkdownExtended::setVar('html_hashes', array());
 
 		// Launch all dependencies '_teardown'
-		$this->getGamut()->runGamutsMethod(self::getAllGamuts(), '_teardown');
+		$this->getGamut()->runGamutsMethod($this->getAllGamuts(), '_teardown');
 	}
 	
+	/**
+	 * @return array
+	 */
 	public function getAllGamuts()
 	{
-		return array_merge(
-			MarkdownExtended::getConfig('initial_gamut'),
-			MarkdownExtended::getConfig('transform_gamut'),
-			MarkdownExtended::getConfig('document_gamut'),
-			MarkdownExtended::getConfig('span_gamut'),
-			MarkdownExtended::getConfig('block_gamut')
-		);
+	    if (empty($this->all_gamuts)) {
+            $this->all_gamuts = array();
+            $full_gamuts = array_merge(
+                MarkdownExtended::getConfig('initial_gamut'),
+                MarkdownExtended::getConfig('transform_gamut'),
+                MarkdownExtended::getConfig('document_gamut'),
+                MarkdownExtended::getConfig('span_gamut'),
+                MarkdownExtended::getConfig('block_gamut')
+            );
+            foreach ($full_gamuts as $name=>$p) {
+                @list($type, $class, $method) = explode(':', $name);
+                if (!empty($class)) {
+                    $newgamut_name = $type.':'.$class;
+                    if (!array_key_exists($newgamut_name, $this->all_gamuts)) {
+                        $this->all_gamuts[$newgamut_name] = $p;
+                    }
+                }
+            }
+        }
+        return $this->all_gamuts;
 	}
 
 // ----------------------------------
@@ -164,22 +217,42 @@ class Parser
 	 */
 	public function transform($text) 
 	{
-		self::_setup();
+		$this->_setup();
+        $this->source_content = $text;
 
 		// Run first transform gamut methods
-		$text = self::runGamuts('transform_gamut', $text);
+		$text = $this->runGamuts('transform_gamut', $text);
 
 		// If 'special_gamut', run only this
 		$special_gamut = MarkdownExtended::getConfig('special_gamut');
 		if (!empty($special_gamut)) {
-			$text = self::runGamuts('special_gamut', $text);
+			$text = $this->runGamuts('special_gamut', $text);
 		} else {
 		// Else run document gamut methods
-			$text = self::runGamuts('document_gamut', $text);
+			$text = $this->runGamuts('document_gamut', $text);
 		}
 
-		self::_teardown();
-		return $text . "\n";
+        $this->parsed_content = $text . "\n";
+/*
+$data = array(
+//    'original'=>$this->source_content,
+//    'parsed'=>$this->parsed_content,
+    'menu'=>MarkdownExtended::getVar('menu'),
+    'urls'=>MarkdownExtended::getVar('urls'),
+	'metadata'=>MarkdownExtended::getVar('metadata'),
+	'footnotes'=>MarkdownExtended::getVar('footnotes'),
+	'glossaries'=>MarkdownExtended::getVar('glossaries'),
+	'citations'=>MarkdownExtended::getVar('citations'),
+);
+
+echo '<pre>';
+var_export($data);
+echo '</pre>';
+//exit('yo');
+*/
+//        MarkdownExtended::addProcessedContent($this);
+		$this->_teardown();
+		return $this->parsed_content;
 	}
 
 	/**
@@ -190,7 +263,7 @@ class Parser
 		if (empty($gamuts)) return $text;
 
 		if (is_string($gamuts)) {
-			$gamuts = MarkdownExtended::getConfig( $gamuts );
+			$gamuts = MarkdownExtended::getConfig($gamuts);
 			if (empty($gamuts) || !is_array($gamuts)) {
 				throw new UnexpectedValueException(sprintf(
   	  				"Called gamut table can't be found, get <%s>!", $gamuts
@@ -200,9 +273,8 @@ class Parser
 
 		if (!empty($gamuts) && is_array($gamuts)) {
 			return $this->getGamut()->runGamuts($gamuts, $text);
-		} else {
-			return $text;
 		}
+		return $text;
 	}
 
 }

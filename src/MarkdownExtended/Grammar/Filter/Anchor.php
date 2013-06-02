@@ -128,7 +128,6 @@ class Anchor extends Filter
 		if (isset($urls[$link_id])) {
 			$url = $urls[$link_id];
 			$url = parent::runGamut('tool:EncodeAttribute', $url);
-			
 			$result = "<a href=\"$url\"";
 			if ( isset( $titles[$link_id] ) ) {
 				$title = $titles[$link_id];
@@ -138,7 +137,6 @@ class Anchor extends Filter
 			if (isset($attributes[$link_id])) {
 				$result .= parent::runGamut('tool:RebuildAttribute', $attributes[$link_id] );
 			}
-		
 			$link_text = parent::runGamut('span_gamut', $link_text);
 			$result .= ">$link_text</a>";
 			$result = parent::hashPart($result);
@@ -162,15 +160,12 @@ class Anchor extends Filter
 		$link_text		=  parent::runGamut('span_gamut', $matches[2]);
 		$url		    =  $matches[3] == '' ? $matches[4] : $matches[3];
 		$title			=& $matches[7];
-
 		$url = parent::runGamut('tool:EncodeAttribute', $url);
-
 		$result = "<a href=\"$url\"";
 		if (isset($title)) {
 			$title = parent::runGamut('tool:EncodeAttribute', $title);
 			$result .=  " title=\"$title\"";
 		}
-		
 		$link_text = parent::runGamut('span_gamut', $link_text);
 		$result .= ">$link_text</a>";
 		return parent::hashPart($result);

@@ -122,9 +122,9 @@ class Table extends Filter
 	protected function _leadingPipe_callback($matches) 
 	{
 		$head		    = $matches[1];
-		$underline	= $matches[2];
-		$content	  = $matches[3];
-		$content	  = preg_replace('/^ *[|]/m', '', $content);
+		$underline	    = $matches[2];
+		$content	    = $matches[3];
+		$content	    = preg_replace('/^ *[|]/m', '', $content);
 		return self::_callback(array($matches[0], $head, $underline, $content));
 	}
 
@@ -177,11 +177,11 @@ class Table extends Filter
 		foreach ($headers as $_header) {
 			// Parsing span elements, including code spans, character escapes, 
 			// and inline HTML tags, so that pipes inside those gets ignored.
-			$_header		= parent::runGamut('filter:Span', $_header);
+			$_header	= parent::runGamut('filter:Span', $_header);
 
 			// Split row by cell.
-			$_header		= preg_replace('/[|] *$/m', '', $_header);
-			$_headers	  = preg_split('/[|]/', $_header);
+			$_header    = preg_replace('/[|] *$/m', '', $_header);
+			$_headers	= preg_split('/[|]/', $_header);
 			$col_count	= count($_headers);
 
 			// Write column headers.
@@ -238,8 +238,7 @@ class Table extends Filter
 			}
 			$text .= "</tr>\n";
 		}
-		$text .= "</tbody>\n";
-		$text .= "</table>";
+		$text .= "</tbody>\n</table>";
 		
 		return parent::hashBlock($text) . "\n";
 	}
