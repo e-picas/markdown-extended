@@ -124,6 +124,13 @@ iframe { border: 1px dotted #ccc; }
     border-bottom-right-radius: 8px; text-align:left; overflow-y: auto; opacity: 0.9; filter: alpha(opacity=90); }
 .msg_box span { display: block; font-weight: bold; padding: 6px 0 0 20px; }
 
+.atGitHub { background: url("gist_18_16.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 16px;
+    line-height: 16px !important;
+    overflow: hidden;
+    width: 18px;}
+
 /* tablesorter */
 table.tablesorter {
 	font-family:arial; background-color: #CDCDCD; margin:10px 0pt 15px; font-size: 1em; width: 100%; text-align: left;}

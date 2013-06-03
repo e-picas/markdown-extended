@@ -1,3 +1,5 @@
+baseheaderlevel: 2
+
 Markdown Extended Apache module - HOW TO
 ========================================
 
@@ -16,7 +18,7 @@ To allow this script to work on your webserver, you need the following environme
 -   [PHP 5.3](http://php.net/) or higher.
 
 As the package uses some internal Apache's features, you will need to enable the following
-Apache modules (*see the [FAQ](#faq) section below fo an "how-to"*):
+Apache modules (*see the [FAQ](#faq) section below for an "how-to"*):
 
 -   [mod_rewrite](http://httpd.apache.org/docs/2.2/en/mod/mod_rewrite.html)
 -   [mod_actions](http://httpd.apache.org/docs/trunk/en/mod/mod_actions.html)
@@ -27,7 +29,12 @@ Apache modules (*see the [FAQ](#faq) section below fo an "how-to"*):
 
 ## Apache configuration
 
-### Sample `.htaccess` file
+To allow Apache cgi-script handling of Markdown files, you need to set up some options in
+your [virtual host](http://httpd.apache.org/docs/2.2/en/vhosts/), in its configuration file
+or in an `.htaccess` file in the directory containing your Markdown files **AND** in the 
+directory containing the shell handler.
+
+### Setting up an `.htaccess` file
 
     # any environment variable beginning with `MDE_` will be fetched to the app
     #SetEnv MDE_TPL /{ SERVER ABSOLUTE PATH TO }/markdown-extended/user/template.html
@@ -49,17 +56,11 @@ Apache modules (*see the [FAQ](#faq) section below fo an "how-to"*):
     Action MarkDown /{ SERVER ABSOLUTE PATH TO }/extended-markdown/cgi-scripts/mde_apacheHandler.sh virtual
 
 
-### Setting up the virtual host
-
-For more infos about virtual hosts in Apache, how to define them and how to enable the related 
-new domain see: <http://httpd.apache.org/docs/2.2/en/vhosts/>.
-
-To allow the handler to work, you may have to define a new virtual host defining a directory for
-web classic access to your `www/` directory and a CGI access to the `cgi-scripts/` directory.
+### Setting up a new virtual host
 
 Depending on your system and your version of Apache, the virtual host definition may be added
 in the `/etc/apache2/httpd.conf` file or in a new file `/etc/apache/sites-available/your.domain`.
-In this second case, after defining your host, you will need to enables it and restart the
+In this second case, after defining your host, you will need to enable it and restart the
 Apache server on your system. See the [FAQ](#faq) section below for more infos.
 
 This is a classic virtual host configuration:
@@ -70,6 +71,13 @@ This is a classic virtual host configuration:
     
         DocumentRoot /your/document/root/path/www
         <Directory "/your/document/root/path/www">
+
+            Options +ExecCGI
+            AddHandler cgi-script .sh
+            AddType text/html .md {you may add here your Markdown files extension(s)}
+            AddHandler MarkDown .md {you may add here your Markdown files extension(s)}
+            Action MarkDown /your/document/root/path/cgi-scripts/mde_apacheHandler.sh virtual
+
             AllowOverride All
             Order allow,deny
             allow from all
@@ -77,6 +85,17 @@ This is a classic virtual host configuration:
     
         ScriptAlias /cgi-bin/ /your/document/root/path/cgi-scripts/
         <Directory "/your/document/root/path/cgi-scripts">
+
+            # any environment variable beginning with `MDE_` will be fetched to the app
+            #SetEnv MDE_TPL /{ SERVER ABSOLUTE PATH TO }/template.html
+            #SetEnv MDE_CHARSET iso-8859-11
+
+            Options +ExecCGI
+            AddHandler cgi-script .sh
+            AddType text/html .md {you may add here your Markdown files extension(s)}
+            AddHandler MarkDown .md {you may add here your Markdown files extension(s)}
+            Action MarkDown /your/document/root/path/cgi-scripts/mde_apacheHandler.sh virtual
+
             AllowOverride All
             Order allow,deny
             allow from all
