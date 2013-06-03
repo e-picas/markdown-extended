@@ -109,10 +109,10 @@ write the results in files and some other stuff.
 
 #### Apache handler usage
 
-A special direct [Apache](http://www.apache.org/) handler is designed in the `cgi-scripts/`
+A sample of direct [Apache](http://www.apache.org/) handler is designed in the `demo/cgi-scripts/`
 directory of the package. It allows you to automatically transform Markdown content files
 in HTML thru a browser classic navigation. To learn more about this feature, please see the
-dedicated [How-To](cgi-scripts/HOWTO.md).
+dedicated [How-To](demo/Apache-Handler-HOWTO.md).
 
 
 ## Licenses
@@ -122,7 +122,7 @@ This software, as the original Markdown, is licensed under the terms of the BSD 
 You can use, transform and distribute this software and its dependencies as you wish, as long as you mention the copyrights below:
 
     Markdown Extended
-    Copyright © 2004-2013 Pierre Cassat & contributors
+    Copyright © 2008-2013 Pierre Cassat & contributors
     All rights reserved.
 
     MultiMarkdown

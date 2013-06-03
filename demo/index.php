@@ -1,5 +1,4 @@
 <?php
-
 // show errors at least initially
 @ini_set('display_errors','1'); @error_reporting(E_ALL ^ E_NOTICE);
 
@@ -11,6 +10,9 @@ date_default_timezone_set( !empty($dtmz) ? $dtmz:'Europe/Paris' );
 $doc = isset($_GET['doc']) ? $_GET['doc'] : null;
 $md = isset($_GET['md']) ? $_GET['md'] : 'none';
 $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
+
+// contents settings
+$js_code = false;
 ?><!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -43,7 +45,8 @@ function emdreminders_popup(url){
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
 
-    <header id="top" role="banner">
+    <a id="top"></a>
+    <header role="banner">
         <hgroup>
             <h1>The PHP "<em>MarkdownExtended</em>" package</h1>
             <h2 class="slogan">A complete PHP 5.3 version of the Markdown syntax parser.</h2>
@@ -57,6 +60,8 @@ function emdreminders_popup(url){
 		<h2>Map of the package</h2>
         <ul id="navigation_menu" class="menu" role="navigation">
             <li><a href="index.php">Usage</a></li>
+            <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
+            <li><a href="index.php?doc=Apache-Handler-HOWTO.md&md=process">Apache Handler HOWTO</a></li>
             <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
                 <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
                 <li><a href="index.php?doc=MD_syntax.md&md=process">markdown parsed version</a></li>
@@ -65,12 +70,25 @@ function emdreminders_popup(url){
                 <li><a href="index.php?doc=../README.md">plain text version</a></li>
                 <li><a href="index.php?doc=../README.md&md=process">markdown parsed version</a></li>
             </ul></li>
-            <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
         </ul>
 
         <div class="info">
             <p><a href="https://github.com/atelierspierrot/markdown-extended">See online on GitHub</a></p>
             <p class="comment">The sources of this plugin are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
+        </div>
+
+        <div class="info">
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+            <a href="https://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
+                <span class="at16nc at300bs at15nc atGitHub"></span>
+            </a>
+            <a class="addthis_button_email"></a>
+            <a class="addthis_button_print"></a>
+            <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+            <!-- AddThis Button END -->
         </div>
 
     	<p class="credits" id="user_agent"></p>
@@ -87,6 +105,7 @@ if (!is_null($doc)) {
         $options = array();
         if (file_exists($doc)) {
             $source_content = file_get_contents($doc);
+            $info .= '<p><a href="'.$doc.'?plain" title="See plain text version of the file">See the original content of <em>'.$doc.'</em></a></p>';
             switch ($md) {
                 case 'none'; default:
                     $content = '<pre>'.$source_content.'</pre>'; 
@@ -105,6 +124,7 @@ if (!is_null($doc)) {
     }
 } else {
     $content = file_get_contents('usage.html');
+    $js_code = true;
 }
 ?>
 
@@ -140,11 +160,14 @@ if (!is_null($doc)) {
     <div class="back_menu" id="short_navigation">
         <a href="#" title="See navigation menu" id="short_menu_handler"><span class="text">Navigation Menu</span></a>
         &nbsp;|&nbsp;
+        <a href="#bottom" title="Go to the bottom of the page"><span class="text">Go to bottom&nbsp;</span>&darr;</a>
+        &nbsp;|&nbsp;
         <a href="#top" title="Back to the top of the page"><span class="text">Back to top&nbsp;</span>&uarr;</a>
         <ul id="short_menu" class="menu" role="navigation"></ul>
     </div>
 
     <div id="message_box" class="msg_box"></div>
+    <a id="bottom"></a>
 
 <!-- jQuery lib -->
 <script src="assets/js/jquery-1.9.1.min.js"></script>
@@ -173,5 +196,52 @@ $(function() {
     $('pre.code').highlight({source:0, indent:'tabs', code_lang: 'data-language'});
 });
 </script>
+<?php if ($js_code) : ?>
+<script id="js_code">
+$(function() {
+
+// list manifest content
+    initHandler( 'manifest' );
+    var manifest_url = '../composer.json';
+    var manifest_ul = $('#manifest').find('ul');
+    getPluginManifest(manifest_url, function(data){
+        manifest_ul.append( getNewInfoItem( data.title, 'title' ) );
+        manifest_ul.append( getNewInfoItem( data.version, 'version' ) );
+        manifest_ul.append( getNewInfoItem( data.description, 'description' ) );
+        manifest_ul.append( getNewInfoItem( data.license, 'license' ) );
+        manifest_ul.append( getNewInfoItem( data.homepage, 'homepage', data.homepage ) );
+    });
+
+// list GitHub infos
+    initHandler( 'github' );
+    var github = 'https://api.github.com/repos/atelierspierrot/markdown-extended/';
+    // commits list
+    var github_commits = $('#github').find('#commits_list');
+    getGitHubCommits(github, function(data){
+        if (data!==undefined && data!==null) {
+            $.each(data, function(i,o) {
+                if (o!==null && typeof o==='object' && o.commit.message!==undefined && o.commit.message.length)
+                    github_commits.append( getNewInfoItem( o.commit.message, (o.commit.committer.date || ''), (o.commit.url || '') ) );
+            });
+        } else {
+            github_commits.append( getNewInfoItem( 'No commit for now.', '' ) );
+        }
+    });
+    // bugs list
+    var github_bugs = $('#github').find('#bugs_list');
+    getGitHubBugs(github, function(data){
+        if (data!==undefined && data!==null) {
+            $.each(data, function(i,o) {
+                if (o!==null && typeof o==='object' && o.title!==undefined && o.title.length)
+                    github_bugs.append( getNewInfoItem( o.title, (o.created_at || ''), (o.html_url || '') ) );
+            });
+        } else {
+            github_bugs.append( getNewInfoItem( 'No opened bug for now.', '' ) );
+        }
+    });
+
+});
+</script>
+<?php endif; ?>
 </body>
 </html>

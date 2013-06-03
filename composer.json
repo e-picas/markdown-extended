@@ -5,7 +5,7 @@
     "description": "A complete PHP 5.3 version of the Markdown syntax parser",
     "keywords": [ "markdown", "parser" ],
     "homepage": "https://github.com/atelierspierrot/markdown-extended",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "license": "GPL-3.0",
     "authors": [{
             "name": "John Gruber",
