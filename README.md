@@ -107,6 +107,13 @@ A short CLI interface is proposed in the package running:
 The console allows you to parse one or more files, extract some informations from sources,
 write the results in files and some other stuff.
 
+#### Apache handler usage
+
+A special direct [Apache](http://www.apache.org/) handler is designed in the `cgi-scripts/`
+directory of the package. It allows you to automatically transform Markdown content files
+in HTML thru a browser classic navigation. To learn more about this feature, please see the
+dedicated [How-To](cgi-scripts/HOWTO.md).
+
 
 ## Licenses
 
