@@ -26,7 +26,10 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
 } elseif (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
     require_once $b;
 } else {
-    throw new \Exception('You need to run Composer on your project to use this interface!');
+    throw new \Exception(
+        'You need to run Composer on the project to build dependencies and auto-loading'
+        .' (see: <a href="http://getcomposer.org/doc/00-intro.md#using-composer">http://getcomposer.org/doc/00-intro.md#using-composer</a>)!'
+    );
 }
 
 // -----------------------------------

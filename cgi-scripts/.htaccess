@@ -8,6 +8,9 @@
 # http://www.ateliers-pierrot.fr - contact@ateliers-pierrot.fr         #
 ########################################################################
 
+# any environment variable beginning with `MDE_` will be fetched to the app
+#SetEnv MDE_TPL /GitHub_projects/markdown-extended/user/template.html
+#SetEnv MDE_CHARSET iso-8859-11
 
 # We autorize CGIs
 Options +ExecCGI
