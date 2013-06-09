@@ -22,6 +22,7 @@ composer.lock
 
 # user defined files
 user/*
+demo/user/*
 
 # the external packages installed by Composer, Template Engine or others
 vendor/*
