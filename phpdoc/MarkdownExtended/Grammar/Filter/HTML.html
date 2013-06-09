@@ -91,7 +91,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>Hashify HTML Blocks and "clean tags".</p>
+                    <p>Must process the filter on a text</p>
                 </td>
                 <td></td>
             </tr>
@@ -172,18 +172,9 @@
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Hashify HTML Blocks and "clean tags".</p>
-        <p>We only want to do this for block-level HTML tags, such as headers,
-lists, and tables. That's because we still want to wrap <p>s around
-"paragraphs" that are wrapped in non-block-level tags, such as anchors,
-phrase emphasis, and spans. The list of tags we're looking for is
-hard-coded.</p>
-
-<p>This works by calling <em>HashHTMLBlocks</em>InMarkdown, which then calls
-<em>HashHTMLBlocks</em>InHTML when it encounter block tags. When the markdown="1" 
-attribute is found whitin a tag, <em>HashHTMLBlocks</em>InHTML calls back
- <em>HashHTMLBlocks</em>InMarkdown to handle the Markdown syntax within the tag.
-These two functions are calling each other. It's recursive!</p>
+        <p>Must process the filter on a text</p>
+        <p>
+</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
