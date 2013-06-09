@@ -1,6 +1,8 @@
 Markdown Extended Road-map
 ==========================
 
+This document is for developers usage.
+
 
 ## What we want to do
 
