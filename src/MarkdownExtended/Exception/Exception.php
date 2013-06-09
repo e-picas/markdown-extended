@@ -15,16 +15,10 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-namespace MarkdownExtended;
+namespace MarkdownExtended\Exception;
 
-interface GamutInterface
+class Exception extends \Exception
 {
-
-    /**
-     * Must return a method name
-     * @return string
-     */
-	public static function getDefaultMethod();
 
 }
 

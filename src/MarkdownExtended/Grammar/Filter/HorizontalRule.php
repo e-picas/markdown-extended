@@ -17,32 +17,35 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown horizontal rules
+ */
 class HorizontalRule extends Filter
 {
 	
 	/**
-	 * @param string $text The text to be parsed
-	 * @return string The text parsed
-	 * @see hashBlock()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
-		// Do Horizontal Rules:
 		return preg_replace(
 			'{
-				^[ ]{0,3}	  # Leading space
-				([-*_])		  # $1: First marker
+				^[ ]{0,3}	    # Leading space
+				([-*_])		    # $1: First marker
 				(?>			    # Repeated marker group
 					[ ]{0,2}	# Zero, one, or two spaces.
-					\1			  # Marker character
+					\1			# Marker character
 				){2,}		    # Group repeated at least twice
 				[ ]*		    # Tailing spaces
-				$			      # End of line.
+				$			    # End of line.
 			}mx',
-			"\n".parent::hashBlock("<hr".MarkdownExtended::getConfig('empty_element_suffix'))."\n", 
+			"\n".parent::hashBlock(MarkdownExtended::get('OutputFormatBag')->buildTag('horizontal_rule'))."\n", 
 			$text);
 	}
 

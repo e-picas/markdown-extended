@@ -17,9 +17,14 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown emphasis: bold & italic
+ */
 class Emphasis extends Filter
 {
 	
@@ -71,10 +76,8 @@ class Emphasis extends Filter
 	}
 	
 	/**
-	 * @param string $text The text to be parsed
-	 * @return string The text parsed
-	 * @see span_gamut()
-	 * @see hashPart()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
@@ -111,9 +114,11 @@ class Emphasis extends Filter
 				if ($token_len == 3) {
 					// Three-char closing marker, close em and strong.
 					array_shift($token_stack);
-					$span = array_shift($text_stack);
-					$span = parent::runGamut('span_gamut', $span);
-					$span = "<strong><em>$span</em></strong>";
+					$span = parent::runGamut('span_gamut', array_shift($text_stack));
+                    $span = MarkdownExtended::get('OutputFormatBag')
+                        ->buildTag('em', $span);
+                    $span = MarkdownExtended::get('OutputFormatBag')
+                        ->buildTag('strong', $span);
 					$text_stack[0] .= parent::hashPart($span);
 					$em = '';
 					$strong = '';
@@ -121,10 +126,10 @@ class Emphasis extends Filter
 					// Other closing marker: close one em or strong and
 					// change current token state to match the other
 					$token_stack[0] = str_repeat($token{0}, 3-$token_len);
-					$tag = $token_len == 2 ? "strong" : "em";
-					$span = $text_stack[0];
-					$span = parent::runGamut('span_gamut', $span);
-					$span = "<$tag>$span</$tag>";
+					$tag = $token_len == 2 ? "strong" : "italic";
+					$span = parent::runGamut('span_gamut', $text_stack[0]);
+                    $span = MarkdownExtended::get('OutputFormatBag')
+                        ->buildTag($tag, $span);
 					$text_stack[0] = parent::hashPart($span);
 					$$tag = ''; // $$tag stands for $em or $strong
 				}
@@ -135,10 +140,10 @@ class Emphasis extends Filter
 					// Closing strong marker:
 					for ($i = 0; $i < 2; ++$i) {
 						$shifted_token = array_shift($token_stack);
-						$tag = strlen($shifted_token) == 2 ? "strong" : "em";
-						$span = array_shift($text_stack);
-						$span = parent::runGamut('span_gamut', $span);
-						$span = "<$tag>$span</$tag>";
+						$tag = strlen($shifted_token) == 2 ? "strong" : "italic";
+						$span = parent::runGamut('span_gamut', array_shift($text_stack));
+                        $span = MarkdownExtended::get('OutputFormatBag')
+                            ->buildTag($tag, $span);
 						$text_stack[0] .= parent::hashPart($span);
 						$$tag = ''; // $$tag stands for $em or $strong
 					}
@@ -160,9 +165,9 @@ class Emphasis extends Filter
 					}
 					// Closing strong marker:
 					array_shift($token_stack);
-					$span = array_shift($text_stack);
-					$span = parent::runGamut('span_gamut', $span);
-					$span = "<strong>$span</strong>";
+					$span = parent::runGamut('span_gamut', array_shift($text_stack));
+                    $span = MarkdownExtended::get('OutputFormatBag')
+                        ->buildTag('strong', $span);
 					$text_stack[0] .= parent::hashPart($span);
 					$strong = '';
 				} else {
@@ -176,9 +181,9 @@ class Emphasis extends Filter
 					if (strlen($token_stack[0]) == 1) {
 						// Closing emphasis marker:
 						array_shift($token_stack);
-						$span = array_shift($text_stack);
-						$span = parent::runGamut('span_gamut', $span);
-						$span = "<em>$span</em>";
+						$span = parent::runGamut('span_gamut', array_shift($text_stack));
+                        $span = MarkdownExtended::get('OutputFormatBag')
+                            ->buildTag('em', $span);
 						$text_stack[0] .= parent::hashPart($span);
 						$em = '';
 					} else {

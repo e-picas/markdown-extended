@@ -15,8 +15,13 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-namespace MarkdownExtended;
+namespace MarkdownExtended\Grammar;
 
+use MarkdownExtended\MarkdownExtended;
+
+/**
+ * The base class for all Filters and Tools
+ */
 abstract class AbstractGamut
 {
 
@@ -30,8 +35,7 @@ abstract class AbstractGamut
 	 */
 	public function runGamut($gamut, $text)
 	{
-		$_gmt = MarkdownExtended::get('\MarkdownExtended\Gamut');
-		return $_gmt->runGamut($gamut, $text);
+		return MarkdownExtended::get('Grammar\Gamut')->runGamut($gamut, $text);
 	}
 	
 // ----------------------------------
@@ -53,6 +57,9 @@ abstract class AbstractGamut
 
     /**
      * Reference a new hash
+     *
+     * @param string $key
+     * @param string $text
      */
     public function setHash($key, $text)
     {
@@ -60,7 +67,9 @@ abstract class AbstractGamut
     }
 	
     /**
-     * Retrieve a hash
+     * Retrieve a hash by its key
+     *
+     * @param string $key
      */
     public function getHash($key)
     {

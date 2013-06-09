@@ -2,7 +2,7 @@
     "name": "atelierspierrot/markdown-extended",
     "type": "library",
     "title": "PHP Markdown Extended",
-    "description": "A complete PHP 5.3 version of the Markdown syntax parser",
+    "description": "A complete PHP 5.3 package of Markdown syntax parser (extended version)",
     "keywords": [ "markdown", "parser" ],
     "homepage": "https://github.com/atelierspierrot/markdown-extended",
     "version": "0.0.3",
@@ -28,5 +28,5 @@
     "require": { "php": ">=5.3.0" },
     "require-dev": { "sami/sami": "dev-master" },
     "autoload": { "psr-0": { "MarkdownExtended": "src" } },
-    "bin": [ "bin/mde_console" ]
+    "bin": [ "bin/markdown_extended" ]
 }

@@ -17,10 +17,13 @@
  */
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\AbstractGamut,    
-    \MarkdownExtended\GamutInterface;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\AbstractGamut,    
+    MarkdownExtended\Grammar\GamutInterface;
 
+/**
+ * Base class for all Filters
+ */
 abstract class Filter
     extends AbstractGamut implements GamutInterface
 {
@@ -58,13 +61,13 @@ abstract class Filter
 	 * @param string $text The text to be parsed
 	 * @param string $boundary A one letter boundary
 	 * @return string The text parsed
-	 * @see unhash()
+	 * @see self::unhash()
 	 */
 	public function hashPart($text, $boundary = 'X') 
 	{
 		// Swap back any tag hash found in $text so we do not have to `unhash`
 		// multiple times at the end.
-		$text = self::unhash($text);
+		$text = $this->unhash($text);
 		// Then hash the block.
 		static $i = 0;
 		$key = "$boundary\x1A" . ++$i . $boundary;
@@ -77,7 +80,7 @@ abstract class Filter
 	 *
 	 * @param string $text The text to be parsed
 	 * @return function Pass results of the `hashPart()` function
-	 * @see hashPart()
+	 * @see self::hashPart()
 	 */
 	public function hashBlock($text) 
 	{
@@ -91,7 +94,7 @@ abstract class Filter
 	 *
 	 * @param string $text Text to parse
 	 * @return string Text parsed
-	 * @see hashPart()
+	 * @see self::hashPart()
 	 */
 	public function hashClean($text) 
 	{
@@ -103,7 +106,7 @@ abstract class Filter
 	 *
 	 * @param string $text The text to be parsed
 	 * @return function Pass results of the `_unhash_callback()` function
-	 * @see _unhash_callback()
+	 * @see self::_unhash_callback()
 	 */
 	public function unhash($text) 
 	{

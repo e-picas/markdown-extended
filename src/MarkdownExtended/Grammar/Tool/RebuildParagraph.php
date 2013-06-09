@@ -17,8 +17,8 @@
  */
 namespace MarkdownExtended\Grammar\Tool;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Tool;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Tool;
 
 class RebuildParagraph extends Tool
 {
@@ -28,8 +28,6 @@ class RebuildParagraph extends Tool
 	 *
 	 * @param string $text The text to parse
 	 * @return string The text parsed
-	 * @see span_gamut()
-	 * @see unhash()
 	 */
 	public function run($text) 
 	{
@@ -46,8 +44,10 @@ class RebuildParagraph extends Tool
 			// Clean tag hashes & block tag hashes are left alone.
 			$is_p = !preg_match('/^B\x1A[0-9]+B|^C\x1A[0-9]+C$/', $value);
 			
-			if ($is_p)
-				$value = "<p>$value</p>";
+			if ($is_p) {
+                $value = MarkdownExtended::get('OutputFormatBag')
+                    ->buildTag('paragraph', $value);
+            }
 			$grafs[$key] = $value;
 		}
 		

@@ -15,8 +15,15 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-namespace MarkdownExtended;
+namespace MarkdownExtended\CommandLine;
 
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
+
+/**
+ * Command line controller/interface for MarkdownExtended
+ */
 class Console 
 {
 
@@ -80,6 +87,44 @@ class Console
 	);
 	/**#@-*/
 
+    /**
+     * @static array
+     */
+    public static $extract_presets = array(
+        'body'=>array(
+            'getter'=>'getBody',
+            'gamuts'=>null
+        ),
+        'meta'=>array(
+            'getter'=>'getMetadata',
+            'gamuts'=>array('filter:MetaData:strip'=>1)
+        ),
+        'notes'=>array(
+            'getter'=>'getNotes',
+            'gamuts'=>null
+        ),
+        'footnotes'=>array(
+            'getter'=>'getFootnotes',
+            'gamuts'=>null
+        ),
+        'glossary'=>array(
+            'getter'=>'getGlossaries',
+            'gamuts'=>null
+        ),
+        'citations'=>array(
+            'getter'=>'getCitations',
+            'gamuts'=>null
+        ),
+        'urls'=>array(
+            'getter'=>'getUrls',
+            'gamuts'=>null
+        ),
+        'menu'=>array(
+            'getter'=>'getMenu',
+            'gamuts'=>null
+        ),
+	);
+	
 	/**
 	 * Internal counter
 	 */
@@ -98,8 +143,8 @@ class Console
 			exit('<!-- NOT IN CLI -->');
 		self::getOptions();
 		if (empty($this->options) && empty($this->input)) 
-			self::error( "No argument found - nothing to do!" );
-		self::runOption_config(MarkdownExtended::MARKDOWN_CONFIGFILE);
+			self::error("No argument found - nothing to do!");
+		self::runOption_config(MarkdownExtended::FULL_CONFIGFILE);
 		self::runOptions();
 	}
 
@@ -114,7 +159,7 @@ class Console
 	 */
 	public function write($str, $new_line = true)
 	{
-    	fwrite($this->stdout, $str.( $new_line===true ? PHP_EOL : '' ));
+    	fwrite($this->stdout, $str.($new_line===true ? PHP_EOL : ''));
     	fflush($this->stdout);
 	}
 	
@@ -125,7 +170,7 @@ class Console
 	 */
 	public function info($str, $new_line = true)
 	{
-		if ($this->verbose===true) self::write( ". ".$str." ...", $new_line );
+		if ($this->verbose===true) self::write(". ".$str." ...", $new_line);
 	}
 	
 	/**
@@ -138,8 +183,8 @@ class Console
 		if ($this->quiet===true)
 			self::write( $str );
 		else {
-			self::write( PHP_EOL.">> ".$str.PHP_EOL );
-			self::write( "( run '--help' option to get information )" );
+			self::write(PHP_EOL.">> ".$str.PHP_EOL);
+			self::write("( run '--help' option to get information )");
 		}
 		if ($code>0) {
 			self::endRun();
@@ -200,17 +245,17 @@ class Console
 				$ok = $this->$_opt_method( $_opt_v );
 			} else {
 				if (count($this->options)==1)
-					self::error( "Unknown argument '$_opt_n'!" );
+					self::error("Unknown argument '$_opt_n'!");
 				else
-					self::info( "Unknown argument '$_opt_n'! (argument ignored)" );
+					self::info("Unknown argument '$_opt_n'! (argument ignored)");
 			}
 		}
 
 		if (!empty($this->input)) {
 			if ($this->multi===true)
-				self::info( "Input files are setted on `".join(', ', $this->input)."`" );
+				self::info("Input files are setted on `".join(', ', $this->input)."`");
 			else
-				self::info( "Input file is setted on `{$this->input[0]}`" );
+				self::info("Input file is setted on `{$this->input[0]}`");
 		}
 	}
 
@@ -224,25 +269,25 @@ class Console
 	public function run()
 	{
 		if ($this->verbose===true)
-			self::write( PHP_EOL.">>>> let's go for the parsing ...".PHP_EOL );
+			self::write(PHP_EOL.">>>> let's go for the parsing ...".PHP_EOL);
 		if (!empty($this->input)) {
 			if ($this->multi===true) {
 				$myoutput = $this->output;
 				foreach ($this->input as $_input) {
 					if (!empty($this->output))
-						$this->output = self::buildOutputFilename( $myoutput );
+						$this->output = self::_buildOutputFilename( $myoutput );
 					$_ok = self::runStoryOnOneFile($_input);
 				}
 				if ($this->verbose===true)
-					self::write( "  -------------------------------------------" );
+					self::write("  -------------------------------------------");
 			} else {
 					$_ok = self::runStoryOnOneFile($this->input[0]);
 			}
 		} else {
-			self::error( "No input markdown file entered!" );
+			self::error("No input markdown file entered!");
 		}
 		if ($this->verbose===true)
-			self::write( PHP_EOL.">>>> the parsing is complete.".PHP_EOL );
+			self::write(PHP_EOL.">>>> the parsing is complete.".PHP_EOL);
 		self::endRun(1);
 	}
 
@@ -253,9 +298,9 @@ class Console
 	{
 //  --filter-html           filter out raw HTML (except styles)
 //  --filter-styles         filter out HTML styles
-        $class_name = MarkdownExtended::$class_name;
-        $class_version = MarkdownExtended::$class_version;
-        $class_sources = MarkdownExtended::$class_sources;
+        $class_name = MarkdownExtended::MDE_NAME;
+        $class_version = MarkdownExtended::MDE_VERSION;
+        $class_sources = MarkdownExtended::MDE_SOURCES;
 		$help_str = <<<EOT
 [ {$class_name} {$class_version} - CLI interface ]
 
@@ -263,7 +308,7 @@ Converts text(s) in specified file(s) (or stdin) from markdown syntax.
 By default, result is written through stdin in HTML format.
 
 Usage:
-  ~$ php path/to/mde_console [OPTION ...] [INPUT FILE(S) OR STRING(S)]
+  ~$ php path/to/markdown_extended [OPTION ...] [INPUT FILE(S) OR STRING(S)]
 
 Options:
   -v | --version          get Markdown version information
@@ -279,7 +324,7 @@ Options:
 
 More infos at <{$class_sources}>
 EOT;
-		self::write( $help_str );
+		self::write($help_str);
 		self::endRun();
 		exit(0);
 	}
@@ -289,7 +334,7 @@ EOT;
 	 */
 	public function runOption_version()
 	{
-		self::write( MarkdownExtended::info() );
+		self::write(MDE_Helper::info());
 		self::endRun();
 		exit(0);
 	}
@@ -300,7 +345,7 @@ EOT;
 	public function runOption_verbose()
 	{
 		$this->verbose = true;
-		self::info( "Enabling 'verbose' mode" );
+		self::info("Enabling 'verbose' mode");
 	}
 
 	/**
@@ -310,7 +355,7 @@ EOT;
 	{
 		$this->quiet = true;
 		error_reporting(0); 
-		self::info( "Enabling 'quiet' mode, no PHP error will be written" );
+		self::info("Enabling 'quiet' mode, no PHP error will be written");
 	}
 
 	/**
@@ -328,7 +373,7 @@ EOT;
 	public function runOption_output($file)
 	{
 		$this->output = $file;
-		self::info( "Setting 'output' on `$this->output`, parsed content will be written in file(s)" );
+		self::info("Setting 'output' on `$this->output`, parsed content will be written in file(s)");
 	}
 
 	/**
@@ -337,7 +382,7 @@ EOT;
 	protected function runOption_config($file)
 	{
 		$this->config = $file;
-		self::info( "Setting Markdown config file on `$this->config`" );
+		self::info("Setting Markdown config file on `$this->config`");
 	}
 
 	/**
@@ -346,7 +391,7 @@ EOT;
 	public function runOption_filter_html()
 	{
 		$this->filter_html = true;
-		self::info( "Enabling HTML filter, all HTML will be parsed" );
+		self::info("Enabling HTML filter, all HTML will be parsed");
 	}
 
 	/**
@@ -355,19 +400,20 @@ EOT;
 	public function runOption_filter_styles()
 	{
 		$this->filter_styles = true;
-		self::info( "Enabling HTML styles filter, will try to parse styles" );
+		self::info("Enabling HTML styles filter, will try to parse styles");
 	}
 
 	/**
 	 * Run the extract option
 	 */
-	public function runOption_extract($meta = true)
+	public function runOption_extract($type)
 	{
-		$this->extract = is_bool($meta) ? true : $meta;
-		if ($this->extract===true)
-			self::info( "Enabling 'extract' mode, only metadata will be parsed" );
-		else
-			self::info( "Setting 'extract' on `$this->extract`, only this metadata will be parsed" );
+	    if (empty($type)) $type = 'meta';
+	    if (!array_key_exists($type, self::$extract_presets)) {
+            self::error("Unknown extract option '$type'!");
+	    }
+		$this->extract = $type;
+		self::info("Setting 'extract' on `$this->extract`, only this part will be parsed");
 	}
 
 	/**
@@ -376,7 +422,7 @@ EOT;
 	public function runOption_nofilter($str)
 	{
 		$this->nofilter = explode(',', $str);
-		self::info( "Setting 'nofilter' on `".join(', ', $this->nofilter)."`, these will be ignored during parsing" );
+		self::info("Setting 'nofilter' on `".join(', ', $this->nofilter)."`, these will be ignored during parsing");
 	}
 
 	/**
@@ -385,9 +431,9 @@ EOT;
 	protected function runOption_gamuts($name = null)
 	{
 		if (empty($name))
-			self::info( "Getting lists of Gamuts from Markdown parser with current config" );
+			self::info("Getting lists of Gamuts from Markdown parser with current config");
 		else
-			self::info( "Getting $name list of Gamuts from Markdown parser with current config" );
+			self::info("Getting $name list of Gamuts from Markdown parser with current config");
 		$_emd = $this->getEmdInstance();
 		$str='';
 		if (!empty($name)) {
@@ -395,9 +441,9 @@ EOT;
 			$gamuts = array( $name );
 			if (empty($gamut)) {
 				$gamut = $_emd->getOption($name.'Gamut');
-				$gamuts = array( $name.'Gamut' );
+				$gamuts = array($name.'Gamut');
 				if (empty($gamut)) {
-					self::error( "Unknown Gamut '$name'!" );
+					self::error("Unknown Gamut '$name'!");
 				}
 			}
 		} else {
@@ -411,7 +457,7 @@ EOT;
 				$str .= '    '.str_pad( $_gamut_name, $max_td_length ).'    '.$priority.PHP_EOL;
 			}
 		}
-		self::write( $str );
+		self::write($str);
 		self::endRun();
 		exit(0);
 	}
@@ -421,22 +467,20 @@ EOT;
 // -------------------
 
 	/**
-	 * Use of the PHP Extended Markdown class as a singleton
+	 * Use of the PHP Markdown Extended class as a singleton
 	 */
-	protected function getEmdInstance()
+	protected function getEmdInstance(array $config = array())
 	{
 		if (empty(self::$emd_instance)) {
-			$_options = array(
-				'skip_filters'=>$this->nofilter
-			);
+			$config['skip_filters'] = $this->nofilter;
 			if (false!==$this->config) {
-				$_options['config_file'] = $this->config;
+				$config['config_file'] = $this->config;
 			}
-			self::info( "Creating a MarkdownExtended instance with options ["
+			self::info("Creating a MarkdownExtended instance with options ["
 				.str_replace("\n", '', var_export($_options,1))
-				."]", false );
-			$markdown = MarkdownExtended::getInstance();
-        	self::$emd_instance = $markdown::get('\MarkdownExtended\Parser', $_options);
+				."]", false);
+        	self::$emd_instance = MarkdownExtended::create()
+        	    ->get('Parser', $config);
 		}
 		return self::$emd_instance;
 	}
@@ -447,7 +491,7 @@ EOT;
 			$infos = self::runOneFile($input, null, $this->extract);
 			if ($this->quiet!==true) {
 				self::endRun(0, ">> Infos extracted from input `$input`"
-					.( is_string($this->extract) ? " for tag `$this->extract`" : '' )
+					.(is_string($this->extract) ? " for tag `$this->extract`" : '')
 					.' : '.$infos);
 			} else {
 				self::endRun(0, $infos);
@@ -470,20 +514,19 @@ EOT;
 		if (!empty($input)) {
 			$num = self::$parsedfiles_counter;
 			if ($this->verbose===true)
-				self::write( "  -------------------------------------------" );
+				self::write("  -------------------------------------------");
 			self::info( "[$num] >> parsing file `$input`" );
 			if ($md_content = self::getInput($input)) {
 				if (!is_null($extract)) {
-					$return = self::extractContent($md_content, $extract);
+					$md_parsed_content = self::extractContent($md_content, $extract);
 				} else {
-					if ($md_parsed_content = self::parseContent($md_content)) {
-						if (!empty($output)) {
-							$return = self::writeOutputFile($md_parsed_content, $output);
-						} else {
-							$return = self::writeOutput($md_parsed_content);
-						}
-					}
+					$md_parsed_content = self::parseContent($md_content);
 				}
+                if (!empty($output)) {
+                    $return = self::writeOutputFile($md_parsed_content, $output);
+                } else {
+                    $return = self::writeOutput($md_parsed_content);
+                }
 			}
 			self::$parsedfiles_counter++;
 		}
@@ -495,15 +538,15 @@ EOT;
 		$md_content=null;
 		if (!empty($input)) {
 			if (@file_exists($input)) {
-				self::info( "Reading input file `$input`", false );
+				self::info("Reading input file `$input`", false);
 				if ($md_content = @file_get_contents( $input )) {
 					$this->md_content .= $md_content;
-					self::info( "OK [strlen: ".strlen($md_content)."]" );
+					self::info("OK [strlen: ".strlen($md_content)."]");
 				} else {
-					self::error( "Could not open input file `$input`!" );
+					self::error("Could not open input file `$input`!");
 				}
 			} else {
-				self::error( "Entered input markdown file `$input` not found!" );
+				self::error("Entered input markdown file `$input` not found!");
 			}
 		}
 		return $md_content;
@@ -513,13 +556,14 @@ EOT;
 	{
 		$md_output=null;
 		if (!empty($md_content)) {
-			self::info( "Parsing Mardkown content", false );
+			self::info("Parsing Mardkown content", false);
             $_emd = $this->getEmdInstance();
-			if ($md_output = $_emd->transform($md_content)) {
+			if ($md_content = $_emd->parse(new \MarkdownExtended\Content($md_content))) {
+			    $md_output = $md_content->getContent()->getFullContent();
 				$this->md_parsed_content .= $md_output;
 				self::info("OK [strlen: ".strlen($md_output)."]");
 			} else {
-				self::error( "An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown.php ...`)" );
+				self::error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown.php ...`)");
 			}
 		}
 		return $md_output;
@@ -527,27 +571,31 @@ EOT;
 
 	public function extractContent($md_content, $extract)
 	{
-		$md_output=null;
-		if (!empty($md_content)) {
-			self::info( "Extracting Mardkown metadata", false );
-			$_emd = $this->getEmdInstance();
-			if ($ok = $_emd->transform($md_content, array('special_gamut'=>array(
-				'filter:MetaData:strip'=>1
-			)))) {
-				$metadata = MarkdownExtended::getVar('metadata');
-				self::info("OK [entries: ".count($metadata)."]");
-				$md_output = '';
-				foreach ($metadata as $_metan=>$_metav) {
-					if (is_string($extract)) {
-						if ($extract == $_metan) {
-						    $md_output = $_metav;
-						}
-					} else {
-						$md_output .= PHP_EOL.$_metan.' : '.$_metav;
-					}
+		$md_output = '';
+		$preset = self::$extract_presets[$extract];
+		if (!empty($preset) && !empty($md_content)) {
+			self::info("Extracting Mardkown $extract", false);
+			$options = array();
+			if (!empty($preset['gamuts'])) {
+			    $options['special_gamut'] = $preset['gamuts'];
+			}
+			$_emd = $this->getEmdInstance($options);
+			if ($ok = $_emd->parse(
+			    new \MarkdownExtended\Content($md_content)
+			)) {
+				$output = call_user_func(
+				    array(MarkdownExtended::getInstance()->getContent(),
+				        ucfirst($preset['getter']))
+				);
+				$md_output .= $this->_prepareOutput($output);
+                if (is_string($output)) {
+                    $length = strlen($output);
+                } elseif (is_array($output)) {
+                    $length = count($output);
 				}
+				self::info("OK [entries: ".$length."]");
 			} else {
-				self::error( "An error occured while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown.php ...`)" );
+				self::error("An error occured while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown.php ...`)");
 			}
 		}
 		return $md_output;
@@ -557,12 +605,12 @@ EOT;
 	{
 		$fsize=null;
 		if (!empty($output) && !empty($output_file)) {
-			self::info( "Writing parsed content in output file `$output_file`", false );
+			self::info("Writing parsed content in output file `$output_file`", false);
 			if ($ok = @file_put_contents( $output_file, $output )) {
-				$fsize = self::getFileSize( $output_file );
-				self::info( "OK [file size: $fsize]" );
+				$fsize = self::_getFileSize( $output_file );
+				self::info("OK [file size: $fsize]");
 			} else {
-				self::error( "Can not write output file `$output_file` ! (try to run `sudo ...`)" );
+				self::error("Can not write output file `$output_file` ! (try to run `sudo ...`)");
 			}
 		}
 		return $fsize;
@@ -573,10 +621,10 @@ EOT;
 		$clength=null;
 		if (!empty($output)) {
 			$clength = strlen($output);
-			self::info( "Rendering parsed content [strlen: $clength]" );
+			self::info("Rendering parsed content [strlen: $clength]");
 			if ($this->verbose===true)
-				self::write( "  -------------------------------------------" );
-			self::write( $output );
+				self::write("  -------------------------------------------");
+			self::write($output);
 		}
 		return $clength;
 	}
@@ -585,7 +633,7 @@ EOT;
 // Utilities
 // ----------------------
 
-	protected static function getFileSize( $file )
+	protected static function _getFileSize($file)
 	{
 		$size = @filesize($file);
 		if (empty($size)) return null;
@@ -600,11 +648,26 @@ EOT;
     	}
 	}
 
-	protected function buildOutputFilename( $filename )
+	protected function _buildOutputFilename($filename)
 	{
 		$ext = strrchr($filename, '.');
 		$_f = str_replace($ext, '', $filename);
 		return $_f.'_'.self::$parsedfiles_counter.$ext;
+	}
+
+	protected function _prepareOutput($content, $indent = 0)
+	{
+	    $text = '';
+	    if (is_string($content) || is_numeric($content)) {
+	        $text .= $content;
+	    } elseif (is_array($content)) {
+            foreach ($content as $var=>$val) {
+    	        $text .= PHP_EOL
+    	            .($indent>0 ? str_repeat('    ', $indent) : '')
+    	            .$var.': '.$this->_prepareOutput($val, ($indent+1));
+    	    }
+	    }
+		return $text;
 	}
 
 }
