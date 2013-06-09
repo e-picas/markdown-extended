@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Content | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\Content</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>Content</strong>        implements
+        <a href="../MarkdownExtended/ContentInterface.html"><abbr title="MarkdownExtended\ContentInterface">ContentInterface</abbr></a></p>
+
+            <div class="description">
+            <p>Class defining a content object for the Parser</p>
+            <p>
+</p>
+        </div>
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>(string $source = null, string $filepath = null, <abbr title="MarkdownExtended\misc">misc</abbr> $id = null)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___call">__call</a>($name, array $arguments = null)
+                    <p>Magic method to handle any <code>getXX()</code>, <code>setXX()</code> or <code>addXX()</code> method call on the object</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setId">setId</a>(<abbr title="MarkdownExtended\misc">misc</abbr> $id)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="MarkdownExtended\misc">misc</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_getId">getId</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getSource">getSource</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_hasDomId">hasDomId</a>(string $reference)
+                    <p>Verify if a reference is already defined in the DOM IDs register</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="MarkdownExtended\str">str</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_getDomId">getDomId</a>($reference, $id = null)
+                    <p>Get a DOM unique ID</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array|<abbr title="MarkdownExtended\str">str</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_setNewDomId">setNewDomId</a>(string $id, string $reference = null, bool $return_array = true)
+                    <p>Create and get a new DOM unique ID</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getFullContent">getFullContent</a>($full_html = true, $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)
+                    <p>Get a complete version of parsed content, including metadata, body and notes</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">at line 130</div>
+        <code>            public            
+    <strong>__construct</strong>(string $source = null, string $filepath = null, <abbr title="MarkdownExtended\misc">misc</abbr> $id = null)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$source</td>
+                <td>A string implementing Markdown syntax</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$filepath</td>
+                <td>The path of a file where to get content to parse</td>
+            </tr>
+                    <tr>
+                <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
+                <td>$id</td>
+                <td>The ID of the content item</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method___call">
+        <div class="location">at line 149</div>
+        <code>            public            
+    <strong>__call</strong>($name, array $arguments = null)</code>
+    </h3>
+    <div class="details">
+        <p>Magic method to handle any <code>getXX()</code>, <code>setXX()</code> or <code>addXX()</code> method call on the object</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$arguments</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                            <h4>See also</h4>
+
+                    <table>
+                    <tr>
+                <td>self::getVariable()</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>self::setVariable()</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>self::addVariable()</td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+                <h3 id="method_setId">
+        <div class="location">at line 231</div>
+        <code>            public            
+    <strong>setId</strong>(<abbr title="MarkdownExtended\misc">misc</abbr> $id)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
+                <td>$id</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getId">
+        <div class="location">at line 240</div>
+        <code>            public            <abbr title="MarkdownExtended\misc">misc</abbr>
+    <strong>getId</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getSource">
+        <div class="location">at line 252</div>
+        <code>            public            string
+    <strong>getSource</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if the file can not be found or red</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasDomId">
+        <div class="location">at line 281</div>
+        <code>            public            bool
+    <strong>hasDomId</strong>(string $reference)</code>
+    </h3>
+    <div class="details">
+        <p>Verify if a reference is already defined in the DOM IDs register</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$reference</td>
+                <td>The reference to search</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>True if the reference exists in the register, false otherwise</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getDomId">
+        <div class="location">at line 293</div>
+        <code>            public            <abbr title="MarkdownExtended\str">str</abbr>
+    <strong>getDomId</strong>($reference, $id = null)</code>
+    </h3>
+    <div class="details">
+        <p>Get a DOM unique ID</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$reference</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$id</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\str">str</abbr></td>
+            <td>The unique ID created or the existing one for the reference if so</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setNewDomId">
+        <div class="location">at line 311</div>
+        <code>            public            array|<abbr title="MarkdownExtended\str">str</abbr>
+    <strong>setNewDomId</strong>(string $id, string $reference = null, bool $return_array = true)</code>
+    </h3>
+    <div class="details">
+        <p>Create and get a new DOM unique ID</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$id</td>
+                <td>A string that will be used to construct the ID</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$reference</td>
+                <td>A reference used to store the ID (and retrieve it - by default <code>$id</code>)</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$return_array</td>
+                <td>Allow to return an array in case of existaing reference</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array|<abbr title="MarkdownExtended\str">str</abbr></td>
+            <td>The unique ID created if the reference was empty An array like (id=>XXX, reference=>YYY) if it was not</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getFullContent">
+        <div class="location">at line 346</div>
+        <code>            public            string
+    <strong>getFullContent</strong>($full_html = true, $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Get a complete version of parsed content, including metadata, body and notes</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$full_html</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$html_tag</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

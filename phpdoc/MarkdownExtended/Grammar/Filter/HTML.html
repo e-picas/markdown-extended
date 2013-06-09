@@ -24,6 +24,11 @@
         <div class="content">
                 <p>class    <strong>HTML</strong>        extends <a href="../../../MarkdownExtended/Grammar/Filter.html"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></p>
 
+            <div class="description">
+            <p>Process Markdown in-text HTML</p>
+            <p>
+</p>
+        </div>
     
     
             <h2>Properties</h2>
@@ -136,7 +141,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_getDefaultMethod">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 32</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 35</div>
         <code>        static    public            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
@@ -162,7 +167,7 @@
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 71</div>
+        <div class="location">at line 75</div>
         <code>            public            string
     <strong>transform</strong>(string $text)</code>
     </h3>
@@ -186,7 +191,8 @@ These two functions are calling each other. It's recursive!</p>
                     <tr>
                 <td>string</td>
                 <td>$text</td>
-                <td>The text to be parsed</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -196,26 +202,18 @@ These two functions are calling each other. It's recursive!</p>
                     <table>
         <tr>
             <td>string</td>
-            <td>The text parsed</td>
+            <td>
+</td>
         </tr>
     </table>
 
             
             
-                            <h4>See also</h4>
-
-                    <table>
-                    <tr>
-                <td>_hashHTMLBlocks_inMarkdown()</td>
-                <td></td>
-            </tr>
-            </table>
-
                     </div>
     </div>
 
                 <h3 id="method_hashPart">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 63</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 66</div>
         <code>            public            string
     <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
     </h3>
@@ -260,7 +258,7 @@ that are word separators and "X" is used in the general case.</p>
 
                     <table>
                     <tr>
-                <td>unhash()</td>
+                <td>self::unhash()</td>
                 <td></td>
             </tr>
             </table>
@@ -269,7 +267,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashBlock">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 82</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 85</div>
         <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>hashBlock</strong>(string $text)</code>
     </h3>
@@ -304,7 +302,7 @@ that are word separators and "X" is used in the general case.</p>
 
                     <table>
                     <tr>
-                <td>hashPart()</td>
+                <td>self::hashPart()</td>
                 <td></td>
             </tr>
             </table>
@@ -313,7 +311,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashClean">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 96</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 99</div>
         <code>            public            string
     <strong>hashClean</strong>(string $text)</code>
     </h3>
@@ -348,7 +346,7 @@ that are word separators and "X" is used in the general case.</p>
 
                     <table>
                     <tr>
-                <td>hashPart()</td>
+                <td>self::hashPart()</td>
                 <td></td>
             </tr>
             </table>
@@ -357,7 +355,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_unhash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 108</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 111</div>
         <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>unhash</strong>(string $text)</code>
     </h3>
@@ -392,7 +390,7 @@ that are word separators and "X" is used in the general case.</p>
 
                     <table>
                     <tr>
-                <td>_unhash_callback()</td>
+                <td>self::_unhash_callback()</td>
                 <td></td>
             </tr>
             </table>

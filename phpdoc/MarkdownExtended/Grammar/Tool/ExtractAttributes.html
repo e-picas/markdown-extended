@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Grammar\Tool\RebuildParagraph | Markdown Extended</title>
+        <title>MarkdownExtended\Grammar\Tool\ExtractAttributes | Markdown Extended</title>
                     <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
                             </head>
         <body id="class">
@@ -19,10 +19,10 @@
         <div id="title">Markdown Extended</div>
 
             <div class="type">Class</div>
-    <h1><a href="../../../MarkdownExtended/Grammar/Tool.html">MarkdownExtended\Grammar\Tool</a>\RebuildParagraph</h1>
+    <h1><a href="../../../MarkdownExtended/Grammar/Tool.html">MarkdownExtended\Grammar\Tool</a>\ExtractAttributes</h1>
     </div>
         <div class="content">
-                <p>class    <strong>RebuildParagraph</strong>        extends <a href="../../../MarkdownExtended/Grammar/Tool.html"><abbr title="MarkdownExtended\Grammar\Tool">Tool</abbr></a></p>
+                <p>class    <strong>ExtractAttributes</strong>        extends <a href="../../../MarkdownExtended/Grammar/Tool.html"><abbr title="MarkdownExtended\Grammar\Tool">Tool</abbr></a></p>
 
     
     
@@ -45,8 +45,8 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_run">run</a>(string $text)
-                    <p>Process paragraphs</p>
+                    <a href="#method_run">run</a>(string $attributes)
+                    <p>Extract attributes from string 'a="b"'</p>
                 </td>
                 <td></td>
             </tr>
@@ -84,10 +84,10 @@
                 <h3 id="method_run">
         <div class="location">at line 32</div>
         <code>            public            string
-    <strong>run</strong>(string $text)</code>
+    <strong>run</strong>(string $attributes)</code>
     </h3>
     <div class="details">
-        <p>Process paragraphs</p>
+        <p>Extract attributes from string 'a="b"'</p>
         <p>
 </p>
         <div class="tags">
@@ -96,8 +96,8 @@
                     <table>
                     <tr>
                 <td>string</td>
-                <td>$text</td>
-                <td>The text to parse</td>
+                <td>$attributes</td>
+                <td>The attributes to parse</td>
             </tr>
             </table>
 
@@ -107,7 +107,7 @@
                     <table>
         <tr>
             <td>string</td>
-            <td>The text parsed</td>
+            <td>The attributes processed</td>
         </tr>
     </table>
 

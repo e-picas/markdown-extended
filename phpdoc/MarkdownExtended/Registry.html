@@ -35,7 +35,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>()
+                    <a href="#method___construct">__construct</a>(bool $is_extendable = true, bool $is_removable = true)
                     <p>Initialize the registry</p>
                 </td>
                 <td></td>
@@ -45,7 +45,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_set">set</a>($var, $val, $stack)
+                    <a href="#method_set">set</a>($var, $val)
                     <p>Set or reset a new instance in global registry</p>
                 </td>
                 <td></td>
@@ -55,7 +55,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_add">add</a>($var, $val, $stack)
+                    <a href="#method_add">add</a>($var, $val)
                     <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>
                 </td>
                 <td></td>
@@ -65,7 +65,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_remove">remove</a>($var, $val = null, $stack = null)
+                    <a href="#method_remove">remove</a>($var, $index = null)
                     <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>
                 </td>
                 <td></td>
@@ -75,18 +75,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_get">get</a>($var, $stack, $default = null)
+                    <a href="#method_get">get</a>($var, $default = null)
                     <p>Get an entry from the global registry</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_extend">extend</a>($what, $add)
-                    <p>Extend a value with another, if types match</p>
                 </td>
                 <td></td>
             </tr>
@@ -96,15 +86,32 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 48</div>
+        <div class="location">at line 49</div>
         <code>            public            
-    <strong>__construct</strong>()</code>
+    <strong>__construct</strong>(bool $is_extendable = true, bool $is_removable = true)</code>
     </h3>
     <div class="details">
         <p>Initialize the registry</p>
         <p>
 </p>
         <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>bool</td>
+                <td>$is_extendable</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$is_removable</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
             
             
             
@@ -112,9 +119,9 @@
     </div>
 
                 <h3 id="method_set">
-        <div class="location">at line 58</div>
+        <div class="location">at line 66</div>
         <code>            public            
-    <strong>set</strong>($var, $val, $stack)</code>
+    <strong>set</strong>($var, $val)</code>
     </h3>
     <div class="details">
         <p>Set or reset a new instance in global registry</p>
@@ -136,24 +143,27 @@
                 <td>
 </td>
             </tr>
-                    <tr>
-                <td></td>
-                <td>$stack</td>
-                <td>
-</td>
-            </tr>
             </table>
 
             
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if <code>$val</code> is not an object in the 'loaded' stack</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_add">
-        <div class="location">at line 100</div>
+        <div class="location">at line 78</div>
         <code>            public            
-    <strong>add</strong>($var, $val, $stack)</code>
+    <strong>add</strong>($var, $val)</code>
     </h3>
     <div class="details">
         <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>
@@ -175,24 +185,27 @@
                 <td>
 </td>
             </tr>
-                    <tr>
-                <td></td>
-                <td>$stack</td>
-                <td>
-</td>
-            </tr>
             </table>
 
             
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
+                <td>if trying to add an entry of a non-extendable object</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_remove">
-        <div class="location">at line 136</div>
+        <div class="location">at line 96</div>
         <code>            public            
-    <strong>remove</strong>($var, $val = null, $stack = null)</code>
+    <strong>remove</strong>($var, $index = null)</code>
     </h3>
     <div class="details">
         <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>
@@ -210,13 +223,7 @@
             </tr>
                     <tr>
                 <td></td>
-                <td>$val</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td></td>
-                <td>$stack</td>
+                <td>$index</td>
                 <td>
 </td>
             </tr>
@@ -229,9 +236,9 @@
     </div>
 
                 <h3 id="method_get">
-        <div class="location">at line 178</div>
+        <div class="location">at line 116</div>
         <code>            public            
-    <strong>get</strong>($var, $stack, $default = null)</code>
+    <strong>get</strong>($var, $default = null)</code>
     </h3>
     <div class="details">
         <p>Get an entry from the global registry</p>
@@ -249,46 +256,7 @@
             </tr>
                     <tr>
                 <td></td>
-                <td>$stack</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td></td>
                 <td>$default</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_extend">
-        <div class="location">at line 206</div>
-        <code>            public            
-    <strong>extend</strong>($what, $add)</code>
-    </h3>
-    <div class="details">
-        <p>Extend a value with another, if types match</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td></td>
-                <td>$what</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td></td>
-                <td>$add</td>
                 <td>
 </td>
             </tr>

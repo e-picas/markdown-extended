@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\CommandLine\Console | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/CommandLine.html">MarkdownExtended\CommandLine</a>\Console</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>Console</strong></p>
+
+            <div class="description">
+            <p>Command line controller/interface for MarkdownExtended</p>
+            <p>
+</p>
+        </div>
+    
+    
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_stdout">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDOUT">STDOUT</abbr>
+                </td>
+                <td>$stdout</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_stdin">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDIN">STDIN</abbr>
+                </td>
+                <td>$stdin</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_extract_presets">
+                    static                                        
+                </td>
+                <td>$extract_presets</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>()
+                    <p>Constructor Setup the input/output, verify that we are in CLI mode and that something is requested</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_write">write</a>(string $str, bool $new_line = true)
+                    <p>Write an info to CLI output</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_info">info</a>(string $str, bool $new_line = true)
+                    <p>Write an info in verbose mode</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_error">error</a>(string $str, int $code = 1)
+                    <p>Write an error info and exit</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_run">run</a>()
+                    <p>Run the whole script depending on options setted</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_help">runOption_help</a>()
+                    <p>Get the help string</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_version">runOption_version</a>()
+                    <p>Run the version option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_verbose">runOption_verbose</a>()
+                    <p>Run the verbose option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_quiet">runOption_quiet</a>()
+                    <p>Run the quiet option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_multi">runOption_multi</a>()
+                    <p>Run the multi option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_output">runOption_output</a>($file)
+                    <p>Run the output option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_filter_html">runOption_filter_html</a>()
+                    <p>Run the HTML filter option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_filter_styles">runOption_filter_styles</a>()
+                    <p>Run the styles filter option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_extract">runOption_extract</a>($type)
+                    <p>Run the extract option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_nofilter">runOption_nofilter</a>($str)
+                    <p>Run the no-filter option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runStoryOnOneFile">runStoryOnOneFile</a>($input)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOneFile">runOneFile</a>($input, $output = null, $extract = null)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getInput">getInput</a>($input)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_parseContent">parseContent</a>($md_content)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_extractContent">extractContent</a>($md_content, $extract)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_writeOutputFile">writeOutputFile</a>($output, $output_file)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_writeOutput">writeOutput</a>($output, $exit = false)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">at line 138</div>
+        <code>            public            
+    <strong>__construct</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Constructor Setup the input/output, verify that we are in CLI mode and that something is requested</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                            <h4>See also</h4>
+
+                    <table>
+                    <tr>
+                <td>self::runOptions()</td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+                <h3 id="method_write">
+        <div class="location">at line 160</div>
+        <code>            public            
+    <strong>write</strong>(string $str, bool $new_line = true)</code>
+    </h3>
+    <div class="details">
+        <p>Write an info to CLI output</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The information to write</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$new_line</td>
+                <td>May we pass a line after writing the info</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_info">
+        <div class="location">at line 171</div>
+        <code>            public            
+    <strong>info</strong>(string $str, bool $new_line = true)</code>
+    </h3>
+    <div class="details">
+        <p>Write an info in verbose mode</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The information to write</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$new_line</td>
+                <td>May we pass a line after writing the info</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_error">
+        <div class="location">at line 181</div>
+        <code>            public            
+    <strong>error</strong>(string $str, int $code = 1)</code>
+    </h3>
+    <div class="details">
+        <p>Write an error info and exit</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The information to write</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$code</td>
+                <td>The error code used to exit the script</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_run">
+        <div class="location">at line 269</div>
+        <code>            public            
+    <strong>run</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the whole script depending on options setted</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_help">
+        <div class="location">at line 297</div>
+        <code>            public            
+    <strong>runOption_help</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the help string</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_version">
+        <div class="location">at line 335</div>
+        <code>            public            
+    <strong>runOption_version</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the version option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_verbose">
+        <div class="location">at line 345</div>
+        <code>            public            
+    <strong>runOption_verbose</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the verbose option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_quiet">
+        <div class="location">at line 354</div>
+        <code>            public            
+    <strong>runOption_quiet</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the quiet option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_multi">
+        <div class="location">at line 364</div>
+        <code>            public            
+    <strong>runOption_multi</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the multi option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_output">
+        <div class="location">at line 373</div>
+        <code>            public            
+    <strong>runOption_output</strong>($file)</code>
+    </h3>
+    <div class="details">
+        <p>Run the output option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$file</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_filter_html">
+        <div class="location">at line 391</div>
+        <code>            public            
+    <strong>runOption_filter_html</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the HTML filter option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_filter_styles">
+        <div class="location">at line 400</div>
+        <code>            public            
+    <strong>runOption_filter_styles</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the styles filter option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_extract">
+        <div class="location">at line 409</div>
+        <code>            public            
+    <strong>runOption_extract</strong>($type)</code>
+    </h3>
+    <div class="details">
+        <p>Run the extract option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$type</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_nofilter">
+        <div class="location">at line 422</div>
+        <code>            public            
+    <strong>runOption_nofilter</strong>($str)</code>
+    </h3>
+    <div class="details">
+        <p>Run the no-filter option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$str</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runStoryOnOneFile">
+        <div class="location">at line 488</div>
+        <code>            public            
+    <strong>runStoryOnOneFile</strong>($input)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$input</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOneFile">
+        <div class="location">at line 511</div>
+        <code>            public            
+    <strong>runOneFile</strong>($input, $output = null, $extract = null)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$input</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$extract</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getInput">
+        <div class="location">at line 536</div>
+        <code>            public            
+    <strong>getInput</strong>($input)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$input</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseContent">
+        <div class="location">at line 555</div>
+        <code>            public            
+    <strong>parseContent</strong>($md_content)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$md_content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_extractContent">
+        <div class="location">at line 572</div>
+        <code>            public            
+    <strong>extractContent</strong>($md_content, $extract)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$md_content</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$extract</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeOutputFile">
+        <div class="location">at line 604</div>
+        <code>            public            
+    <strong>writeOutputFile</strong>($output, $output_file)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$output_file</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeOutput">
+        <div class="location">at line 619</div>
+        <code>            public            
+    <strong>writeOutput</strong>($output, $exit = false)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$exit</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>
