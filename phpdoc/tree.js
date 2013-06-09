@@ -1,6 +1,7 @@
 var tree = [["MarkdownExtended","MarkdownExtended.html","",
                 [["CommandLine","MarkdownExtended\/CommandLine.html","",
-                [["Console","MarkdownExtended\/CommandLine\/Console.html","",
+                [["AbstractConsole","MarkdownExtended\/CommandLine\/AbstractConsole.html","",
+                [        ]],["Console","MarkdownExtended\/CommandLine\/Console.html"," < AbstractConsole",
                 [        ]]        ]],["Exception","MarkdownExtended\/Exception.html","",
                 [["DomainException","MarkdownExtended\/Exception\/DomainException.html"," < DomainException",
                 [        ]],["Exception","MarkdownExtended\/Exception\/Exception.html"," < Exception",
