@@ -3,34 +3,44 @@ PHP Markdown Extended
 
 A complete PHP 5.3 package of Markdown syntax parser (extended version).
 
-**PHP Markdown Extended** is a PHP class to transform Markdown text files or strings in HTML. This new version of a Markdown parser tries to purpose a complete set of Markdown syntax tags and rules and to be PHP5 compliant.
+**PHP Markdown Extended** is a PHP class to transform Markdown text files or strings in HTML.
+This new version of a Markdown parser tries to propose a complete set of Markdown syntax tags
+and rules and to be PHP5 compliant.
 
 
 ## What is Markdown?
 
-Created by [John Gruber](http://daringfireball.net/projects/markdown/) in 2004, **Markdown** is, as he says:
+Created by [John Gruber](http://daringfireball.net/projects/markdown/) in 2004, **Markdown** is,
+as he says:
 
 >    a text-to-HTML conversion tool for web writers. Markdown allows you 
 >    to write using an easy-to-read, easy-to-write plain text format, then convert it 
 >    to structurally valid XHTML (or HTML).
 
-As I would say, **Markdown** is a set of writing rules to build some human readable text contents, such as `.txt` common files, which can be parsed to build some HTML valid content, structurally and typographically.
+As I would say, **Markdown** is a set of writing rules to build some human readable text contents,
+such as `.txt` common files, which can be parsed to build some HTML valid content, structurally
+and typographically.
 
-This syntax has become one of the most common standards of rich-text contents, used for example by [GitHub](http://github.com) as one of the proposed syntaxes for informational files (such like this one).
+This syntax has become one of the most common standards of rich-text contents, used for
+example by [GitHub](http://github.com) as one of the proposed syntaxes for informational
+files (such like this one).
 
 
 ### A short history of Markdown
 
 The first idea was from [John Gruber](http://daringfireball.net/), coded in *Perl* script.
 
-An extended implementation, known as **Markdown Extra**, has been written by [Michel Fortin](http://michelf.com/), coded in *PHP* script.
+An extended implementation, known as **Markdown Extra**, has been written by [Michel Fortin](http://michelf.com/),
+coded in *PHP* script.
 
-Another extended implementation, known as **Multi Markdown**, has been written by [Fletcher T. Penney](http://fletcherpenney.net/), coded in *Perl* script.
+Another extended implementation, known as **Multi Markdown**, has been written by 
+[Fletcher T. Penney](http://fletcherpenney.net/), coded in *Perl* script.
 
 
 ### So why a new version of Markdown?
 
--   This version, known as **PHP Markdown Extended**, tries to collect the different rules and tags used by the three versions listed above.
+-   This version, known as **PHP Markdown Extended**, tries to collect the different rules
+    and tags used by the three versions listed above.
 -   It is a PHP script that can be used in any PHP project.
 -   It can be used in command line interface, with a full set of options.
 -   It can be configured for specific needs.
@@ -85,14 +95,19 @@ The namespace will be automatically added to the project Composer autoloader.
 
 The `MarkdownExtended` package can be simply call writing:
 
-    // creation of the singelton instance of \MarkdownExtended\MarkdownExtended
-    $content = \MarkdownExtended\MarkdownExtended::getInstance()
+    // creation of the singleton instance of \MarkdownExtended\MarkdownExtended
+    $content = \MarkdownExtended\MarkdownExtended::create()
         // get the \MarkdownExtended\Parser object passing it some options (optional)
-        ->get('\MarkdownExtended\Parser', $options)
+        ->get('Parser', $options)
         // launch the transformation of a source string
-        ->transform($source);
+        ->transform($source)
+        // get the result content object
+        ->getContent();
 
 This will load in `$content` the parsed HTML version of your original Markdown `$source`.
+To get the part you need from the content:
+
+    echo $content->getBody();
 
 NOTE - To keep the package compatible with old versions of Markdown, an interface is 
 embedded with the common `Markdown($content)` function ; to use it, just include the file
@@ -102,7 +117,7 @@ embedded with the common `Markdown($content)` function ; to use it, just include
 
 A short CLI interface is proposed in the package running:
 
-    ~$ bin/mde_console --help
+    ~$ bin/markdown_extended --help
 
 The console allows you to parse one or more files, extract some informations from sources,
 write the results in files and some other stuff.
@@ -115,14 +130,45 @@ in HTML thru a browser classic navigation. To learn more about this feature, ple
 dedicated [How-To](demo/Apache-Handler-HOWTO.md).
 
 
+## Open-Source & Community
+
+This plugin is a free software, available under [BSD license](http://en.wikipedia.org/wiki/BSD_licenses) ; 
+you can freely use it, for yourself or a commercial use, modify its source code according to your needs, 
+freely distribute your work and propose it to the community, as long as you let an information about its first author.
+
+As the sources are hosted on a [GIT](http://git-scm.com/) repository on [GitHub](https://github.com/atelierspierrot/markdown-extended),
+you can modify it, to ameliorate a feature or correct an error, by [creating your own fork](https://help.github.com/articles/fork-a-repo)
+of this repository, modifying it and [asking to pull your modifications](https://github.com/atelierspierrot/markdown-extended/pulls) on
+the original branch.
+
+Please note that the "master" branch is **always the latest stable version** of the code. 
+Development is done on branch "wip" and you can create a new one for your own developments.
+
+
+## Development
+
+To install all PHP packages for development, just run:
+
+    ~$ composer install --dev
+
+A documentation can be generated with [Sami](https://github.com/fabpot/Sami) running:
+
+    ~$ php vendor/sami/sami/sami.php render sami.config.php
+
+The latest version of this documentation is available online at <http://docs.ateliers-pierrot.fr/markdown-extended/>.
+
+
 ## Licenses
 
-This software, as the original Markdown, is licensed under the terms of the BSD open source license.
+This software, as the original Markdown, is licensed under the terms of the
+[BSD open source license](http://en.wikipedia.org/wiki/BSD_licenses).
 
-You can use, transform and distribute this software and its dependencies as you wish, as long as you mention the copyrights below:
+You can use, transform and distribute this software and its dependencies as you wish, as
+long as you mention the copyrights below:
 
-    Markdown Extended
-    Copyright © 2008-2013 Pierre Cassat & contributors
+    Mardown
+    Copyright © 2004-2006, John Gruber
+    http://daringfireball.net/
     All rights reserved.
 
     MultiMarkdown
@@ -135,9 +181,8 @@ You can use, transform and distribute this software and its dependencies as you 
     http://michelf.com/projects/php-markdown/
     All rights reserved.
 
-    Mardown
-    Copyright © 2004-2006, John Gruber
-    http://daringfireball.net/
+    Markdown Extended
+    Copyright © 2008-2013 Pierre Cassat & contributors
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without modification, are permitted 
