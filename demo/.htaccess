@@ -8,9 +8,14 @@
 # http://www.ateliers-pierrot.fr - contact@ateliers-pierrot.fr         #
 ########################################################################
 
+#
+# Any path of this file must be relative to your virtual host DOCUMENT_ROOT
+#
+
 # any environment variable beginning with `MDE_` will be fetched to the app
-#SetEnv MDE_TPL /GitHub_projects/markdown-extended/user/template.html
+#SetEnv MDE_TPL /GitHub_projects/markdown-extended/demo/user/template.html
 #SetEnv MDE_CHARSET iso-8859-11
+#SetEnv MDE_CONSOLE_OPTIONS --extract
 
 # We autorize CGIs
 Options +ExecCGI
@@ -25,4 +30,6 @@ AddType text/html .md
 # Treat '.md' files by the Markdown handler
 # CAUTION - this requires to know exactly where the CGI is ...
 AddHandler MarkDown .md
-Action MarkDown /GitHub_projects/markdown-extended/cgi-scripts/mde_apacheHandler.sh virtual
+Action MarkDown /GitHub_projects/markdown-extended/demo/cgi-scripts/mde_apacheHandler.sh virtual
+
+# Endfile

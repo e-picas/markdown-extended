@@ -77,6 +77,13 @@ function getGitHubBugs( github, callback ) {
     });
 }
 
+function getUrlFilenameAndQuery( url ){
+    var filename, qm = url.lastIndexOf('#');
+    if (qm!==-1) { filename = url.substr(0,qm); }
+    else { filename = url; }
+    return filename.substring(filename.lastIndexOf('/')+1);
+}
+
 function getUrlFilename( url ){
     var filename, qm = url.lastIndexOf('?');
     if (qm!==-1) { filename = url.substr(0,qm); }
@@ -85,7 +92,8 @@ function getUrlFilename( url ){
 }
 
 function activateMenuItem() {
-    var page = getUrlFilename( window.location.href );
+    var _done = false,
+        query = getUrlFilenameAndQuery( window.location.href );
     $('nav li').each(function(i,o){
         var atag = $(o).find('a').first();
         if (atag) {
@@ -97,9 +105,19 @@ function activateMenuItem() {
                 $(this).addClass('active');
                 updateBacklinks();
             });
-            if (atag.attr('href')===page) { atag.addClass('active'); }
+            if (atag.attr('href')===query) {
+                atag.addClass('active');
+                _done = true;
+            }
         }
     });
+    if (!_done) {
+        var page = getUrlFilename( window.location.href );
+        $('nav li').each(function(i,o){
+            var atag = $(o).find('a').first();
+            if (atag && atag.attr('href')===page) { atag.addClass('active'); }
+        });
+    }
 }
 
 function getToHash(){

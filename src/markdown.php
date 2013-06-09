@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2004-2013 Pierre Cassat
+ * Copyright (c) 2008-2013 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -75,7 +75,7 @@ function MarkdownFromSource($file_name, $options = null) {
 /**
  * Use the MarkdownExtended command line interface
  */
-function Markdown_CLI() {
+function MarkdownCli() {
 	\MarkdownExtended\MarkdownExtended::getInstance()
 	    ->get('CommandLine\Console')
 	    ->run();

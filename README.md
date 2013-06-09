@@ -124,10 +124,10 @@ write the results in files and some other stuff.
 
 #### Apache handler usage
 
-A special direct [Apache](http://www.apache.org/) handler is designed in the `cgi-scripts/`
+A sample of direct [Apache](http://www.apache.org/) handler is designed in the `demo/cgi-scripts/`
 directory of the package. It allows you to automatically transform Markdown content files
 in HTML thru a browser classic navigation. To learn more about this feature, please see the
-dedicated [How-To](cgi-scripts/HOWTO.md).
+dedicated [How-To](demo/Apache-Handler-HOWTO.md).
 
 
 ## Open-Source & Community

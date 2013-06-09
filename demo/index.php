@@ -1,5 +1,4 @@
 <?php
-
 // show errors at least initially
 @ini_set('display_errors','1'); @error_reporting(E_ALL ^ E_NOTICE);
 
@@ -142,7 +141,8 @@ function emdreminders_popup(url){
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
 
-    <header id="top" role="banner">
+    <a id="top"></a>
+    <header role="banner">
         <hgroup>
             <h1>The PHP "<em>MarkdownExtended</em>" package</h1>
             <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
@@ -156,6 +156,8 @@ function emdreminders_popup(url){
 		<h2>Map of the package</h2>
         <ul id="navigation_menu" class="menu" role="navigation">
             <li><a href="index.php">Usage</a></li>
+            <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
+            <li><a href="index.php?doc=Apache-Handler-HOWTO.md&md=process">Apache Handler HOWTO</a></li>
             <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
                 <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
                 <li><a href="index.php?doc=MD_syntax.md&md=process">markdown parsed version</a></li>
@@ -164,7 +166,6 @@ function emdreminders_popup(url){
                 <li><a href="index.php?doc=../README.md">plain text version</a></li>
                 <li><a href="index.php?doc=../README.md&md=process">markdown parsed version</a></li>
             </ul></li>
-            <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
         </ul>
 
         <div class="info">
@@ -172,40 +173,24 @@ function emdreminders_popup(url){
             <p class="comment">The sources of this plugin are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
         </div>
 
+        <div class="info">
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+            <a href="https://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
+                <span class="at16nc at300bs at15nc atGitHub"></span>
+            </a>
+            <a class="addthis_button_email"></a>
+            <a class="addthis_button_print"></a>
+            <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+            <!-- AddThis Button END -->
+        </div>
+
     	<p class="credits" id="user_agent"></p>
 	</nav>
 
     <div id="content" role="main">
-<?php
-if (!is_null($doc)) {
-    $info = $error = $content = '';
-    // get the Composer autoloader
-    if (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
-        require_once $b;
-        $info = '<p><strong>Current class infos:</strong></p><p>'.\MarkdownExtended\MarkdownExtended::info(true).'</p>';
-        $options = array();
-        if (file_exists($doc)) {
-            $source_content = file_get_contents($doc);
-            switch ($md) {
-                case 'none'; default:
-                    $content = '<pre>'.$source_content.'</pre>'; 
-                    break;
-                case 'process';
-                    $content = \MarkdownExtended\MarkdownExtended::getInstance()
-                        ->get('\MarkdownExtended\Parser', $options)
-                        ->transform($source_content);
-                    break;
-            }
-        } else {
-            $error = 'Markdown document source "'.$doc.'" not found!';
-        }
-    } else {
-        $error = 'You need to run Composer on your project to use this interface!';
-    }
-} else {
-    $content = file_get_contents('usage.html');
-}
-?>
 
 <?php if (!empty($error)) : ?>
     <div class="message error">
@@ -288,11 +273,14 @@ $current_level = null;
     <div class="back_menu" id="short_navigation">
         <a href="#" title="See navigation menu" id="short_menu_handler"><span class="text">Navigation Menu</span></a>
         &nbsp;|&nbsp;
+        <a href="#bottom" title="Go to the bottom of the page"><span class="text">Go to bottom&nbsp;</span>&darr;</a>
+        &nbsp;|&nbsp;
         <a href="#top" title="Back to the top of the page"><span class="text">Back to top&nbsp;</span>&uarr;</a>
         <ul id="short_menu" class="menu" role="navigation"></ul>
     </div>
 
     <div id="message_box" class="msg_box"></div>
+    <a id="bottom"></a>
 
 <!-- jQuery lib -->
 <script src="assets/js/jquery-1.9.1.min.js"></script>
@@ -329,5 +317,52 @@ $(function() {
     initHandler('plaintext', true);
 });
 </script>
+<?php if ($js_code) : ?>
+<script id="js_code">
+$(function() {
+
+// list manifest content
+    initHandler( 'manifest' );
+    var manifest_url = '../composer.json';
+    var manifest_ul = $('#manifest').find('ul');
+    getPluginManifest(manifest_url, function(data){
+        manifest_ul.append( getNewInfoItem( data.title, 'title' ) );
+        manifest_ul.append( getNewInfoItem( data.version, 'version' ) );
+        manifest_ul.append( getNewInfoItem( data.description, 'description' ) );
+        manifest_ul.append( getNewInfoItem( data.license, 'license' ) );
+        manifest_ul.append( getNewInfoItem( data.homepage, 'homepage', data.homepage ) );
+    });
+
+// list GitHub infos
+    initHandler( 'github' );
+    var github = 'https://api.github.com/repos/atelierspierrot/markdown-extended/';
+    // commits list
+    var github_commits = $('#github').find('#commits_list');
+    getGitHubCommits(github, function(data){
+        if (data!==undefined && data!==null) {
+            $.each(data, function(i,o) {
+                if (o!==null && typeof o==='object' && o.commit.message!==undefined && o.commit.message.length)
+                    github_commits.append( getNewInfoItem( o.commit.message, (o.commit.committer.date || ''), (o.commit.url || '') ) );
+            });
+        } else {
+            github_commits.append( getNewInfoItem( 'No commit for now.', '' ) );
+        }
+    });
+    // bugs list
+    var github_bugs = $('#github').find('#bugs_list');
+    getGitHubBugs(github, function(data){
+        if (data!==undefined && data!==null) {
+            $.each(data, function(i,o) {
+                if (o!==null && typeof o==='object' && o.title!==undefined && o.title.length)
+                    github_bugs.append( getNewInfoItem( o.title, (o.created_at || ''), (o.html_url || '') ) );
+            });
+        } else {
+            github_bugs.append( getNewInfoItem( 'No opened bug for now.', '' ) );
+        }
+    });
+
+});
+</script>
+<?php endif; ?>
 </body>
 </html>
