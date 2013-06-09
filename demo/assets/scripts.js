@@ -1,12 +1,14 @@
 /* Scripts for demo */
 
-function initHandler( _name ){
+function initHandler( _name, opened ){
     var elt_handler = $('#'+_name+'_handler'),
         elt_block = $('#'+_name);
-    elt_block.hide();
+    if (opened==undefined || opened==false) {
+        elt_block.hide();
+    } else {
+        elt_handler.addClass('down');
+    }
     elt_handler.click(function(){ 
-        var tltp = elt_handler.accesskey ? elt_handler.accesskey('getTooltip') : false;
-        if (tltp && elt_block.is(':visible')) { tltp.hide(); }
         elt_block.toggle('slow');
         elt_handler.toggleClass('down');
     });

@@ -17,51 +17,69 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown definitions lists
+ *
+ * Definitions lists may be written as:
+ *
+ *       Term 1
+ *        :   This is a definition with two paragraphs. Lorem ipsum 
+ *            dolor sit amet, consectetuer adipiscing elit. Aliquam 
+ *            hendrerit mi posuere lectus.
+ *
+ *           Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+ *          vitae, risus.
+ *
+ *        :   Second definition for term 1, also wrapped in a paragraph
+ *            because of the blank line preceding it.
+ *
+ *        Term 2
+ *        :   This definition has a code block, a blockquote and a list. 
+ */
 class DefinitionList extends Filter
 {
 
 	/**
 	 * Form HTML definition lists.
 	 *
-	 * @param string $text The text to parse
-	 * @return string The text parsed
-	 * @see _doDefLists_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
-		$less_than_tab = MarkdownExtended::getConfig('tab_width') - 1;
-
+		$less_than_tab = MarkdownExtended::getConfig('less_than_tab');
 		// Re-usable pattern to match any entire dl list:
 		$whole_list_re = '(?>
-			(								                    # $1 = whole list
-			  (								                  # $2
+			(								            # $1 = whole list
+			  (								            # $2
 				[ ]{0,'.$less_than_tab.'}
 				((?>.*\S.*\n)+)				            # $3 = defined term
 				\n?
-				[ ]{0,'.$less_than_tab.'}:[ ]+    # colon starting definition
+				[ ]{0,'.$less_than_tab.'}:[ ]+          # colon starting definition
 			  )
 			  (?s:.+?)
-			  (								                  # $4
+			  (								            # $4
 				  \z
 				|
 				  \n{2,}
 				  (?=\S)
-				  (?!						                 # Negative lookahead for another term
+				  (?!						            # Negative lookahead for another term
 					[ ]{0,'.$less_than_tab.'}
-					(?: \S.*\n )+?			           # defined term
+					(?: \S.*\n )+?			            # defined term
 					\n?
-					[ ]{0,'.$less_than_tab.'}:[ ]+ # colon starting definition
+					[ ]{0,'.$less_than_tab.'}:[ ]+      # colon starting definition
 				  )
-				  (?!						                 # Negative lookahead for another definition
-					[ ]{0,'.$less_than_tab.'}:[ ]+ # colon starting definition
+				  (?!						            # Negative lookahead for another definition
+					[ ]{0,'.$less_than_tab.'}:[ ]+      # colon starting definition
 				  )
 			  )
 			)
 		)'; // mx
-
 		return preg_replace_callback('{
 				(?>\A\n?|(?<=\n\n))
 				'.$whole_list_re.'
@@ -73,18 +91,15 @@ class DefinitionList extends Filter
 	 * Turn double returns into triple returns, so that we can make a
 	 * paragraph for the last item in a list, if necessary
 	 *
-	 * @param array $matches The results form the doDefLists()` `preg_replace_callback()` command
-	 * @return function Pass its result to the `hashBlock()` function
-	 * @see hashBlock()
-	 * @see doDefLists()
-	 * @see processDefListItems()
+	 * @param array $matches The results form the `transform()` method
+	 * @return string
 	 */
 	protected function _callback($matches) 
 	{
 		// Re-usable patterns to match list item bullets and number markers:
-		$list = $matches[1];
-		$result = trim(self::transformItems($list));
-		$result = "<dl>\n$result\n</dl>";
+		$result = trim(self::transformItems($matches[1]));
+        $result = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('definition_list', "\n$result\n");
 		return parent::hashBlock($result) . "\n\n";
 	}
 
@@ -93,43 +108,38 @@ class DefinitionList extends Filter
 	 * Process the contents of a single definition list, splitting it
 	 * into individual term and definition list items.
 	 *
-	 * @param string $list_str The result string form the _doDefLists_callback()` function
-	 * @return string Parsed list string
-	 * @see _doDefLists_callback()
-	 * @see _processDefListItems_callback_dt()
-	 * @see _processDefListItems_callback_dd()
+	 * @param string $list_str The result string form the `_callback()` function
+	 * @return string
 	 */
 	public function transformItems($list_str) 
 	{
-		$less_than_tab = MarkdownExtended::getConfig('tab_width') - 1;
-		
+		$less_than_tab = MarkdownExtended::getConfig('less_than_tab');		
 		// trim trailing blank lines:
 		$list_str = preg_replace("/\n{2,}\\z/", "\n", $list_str);
-
 		// Process definition terms.
 		$list_str = preg_replace_callback('{
 			(?>\A\n?|\n\n+)					    # leading line
-			(								            # definition terms = $1
-				[ ]{0,'.$less_than_tab.'}	# leading whitespace
+			(								    # definition terms = $1
+				[ ]{0,'.$less_than_tab.'}	    # leading whitespace
 				(?![:][ ]|[ ])				    # negative lookahead for a definition 
-											            # mark (colon) or more whitespace.
+											    # mark (colon) or more whitespace.
 				(?> \S.* \n)+?				    # actual term (not whitespace).	
 			)			
-			(?=\n?[ ]{0,3}:[ ])				  # lookahead for following line feed 
-											            # with a definition mark.
+			(?=\n?[ ]{0,3}:[ ])				    # lookahead for following line feed 
+											    # with a definition mark.
 			}xm',
 			array($this, '_item_callback_dt'), $list_str);
 
 		// Process actual definitions.
 		$list_str = preg_replace_callback('{
-			\n(\n+)?						        # leading line = $1
-			(								            # marker space = $2
-				[ ]{0,'.$less_than_tab.'}	# whitespace before colon
-				[:][ ]+						        # definition mark (colon)
+			\n(\n+)?						    # leading line = $1
+			(								    # marker space = $2
+				[ ]{0,'.$less_than_tab.'}	    # whitespace before colon
+				[:][ ]+						    # definition mark (colon)
 			)
-			((?s:.+?))					 	      # definition text = $3
-			(?= \n+ 						        # stop at next definition mark,
-				(?:							          # next term or end of text
+			((?s:.+?))					 	    # definition text = $3
+			(?= \n+ 						    # stop at next definition mark,
+				(?:							    # next term or end of text
 					[ ]{0,'.$less_than_tab.'} [:][ ]	|
 					<dt> | \z
 				)						
@@ -143,10 +153,8 @@ class DefinitionList extends Filter
 	/**
 	 * Process the dt contents.
 	 *
-	 * @param array $matches The results form the `processDefListItems()` function
-	 * @return string Parsed dt string
-	 * @see processDefListItems()
-	 * @see span_gamut()
+	 * @param array $matches
+	 * @return string
 	 */
 	protected function _item_callback_dt($matches) 
 	{
@@ -154,7 +162,8 @@ class DefinitionList extends Filter
 		$text = '';
 		foreach ($terms as $term) {
 			$term = parent::runGamut('span_gamut', trim($term));
-			$text .= "\n<dt>$term</dt>";
+			$text .= "\n" . MarkdownExtended::get('OutputFormatBag')
+                ->buildTag('definition_list_item_term', $term);
 		}
 		return $text . "\n";
 	}
@@ -162,10 +171,8 @@ class DefinitionList extends Filter
 	/**
 	 * Process the dd contents.
 	 *
-	 * @param array $matches The results form the `processDefListItems()` function
-	 * @return string Parsed dd string
-	 * @see processDefListItems()
-	 * @see span_gamut()
+	 * @param array $matches
+	 * @return string
 	 */
 	protected function _item_callback_dd($matches) 
 	{
@@ -178,13 +185,13 @@ class DefinitionList extends Filter
 			$def = str_repeat(' ', strlen($marker_space)) . $def;
 			$def = parent::runGamut('html_block_gamut', parent::runGamut('tool:outdent', $def . "\n\n"));
 			$def = "\n$def\n";
-		}
-		else {
+		} else {
 			$def = rtrim($def);
 			$def = parent::runGamut('span_gamut', parent::runGamut('tool:outdent', $def));
 		}
 
-		return "\n<dd>$def</dd>\n";
+        return "\n" . MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('definition_list_item_definition', $def) . "\n";
 	}
 
 }

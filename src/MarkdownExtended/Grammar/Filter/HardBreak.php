@@ -17,31 +17,35 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown hard breaks
+ *
+ * Hard breaks are written as one or more block line(s).
+ */
 class HardBreak extends Filter
 {
 
 	/**
-	 * @param string $text The text to be parsed
-	 * @return string The text parsed
-	 * @see _doHardBreaks_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
-		// Do hard breaks:
 		return preg_replace_callback('/ {2,}\n/', array($this, '_callback'), $text);
 	}
 
 	/**
-	 * @param array $matches A set of results of the `doHardBreak()` function
-	 * @return string The text parsed
-	 * @see hashPart()
+	 * @param array $matches A set of results of the `transform()` function
+	 * @return string
 	 */
 	protected function _callback($matches) 
 	{
-		return parent::hashPart("<br".MarkdownExtended::getConfig('empty_element_suffix')."\n");
+		return parent::hashPart(MarkdownExtended::get('OutputFormatBag')->buildTag('new_line')."\n");
 	}
 
 }

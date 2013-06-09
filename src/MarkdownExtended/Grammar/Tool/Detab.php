@@ -17,8 +17,8 @@
  */
 namespace MarkdownExtended\Grammar\Tool;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Tool;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Tool;
 
 class Detab extends Tool
 {

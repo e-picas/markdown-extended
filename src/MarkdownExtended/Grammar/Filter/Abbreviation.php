@@ -17,27 +17,47 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown abbreviations
+ *
+ * Process abbreviations written like:
+ *
+ *      *[abbr]: definition
+ *
+ * You can pre-define a set of abbreviation descriptions in the config entry `predef_abbr`.
+ * This must be define as an array of `term => description` values.
+ *
+ */
 class Abbreviation extends Filter
 {
 
+    /**
+     * Prepare masks for predefined abbreviations and descriptions
+     */
 	public function _setup()
 	{
-		MarkdownExtended::setVar('abbr_desciptions', array());
-		MarkdownExtended::setVar('abbr_word_re', '');
 		$abbr_word_re='';
 		$abbr_desciptions = array();
-		foreach (MarkdownExtended::getVar('predef_abbr') as $abbr_word => $abbr_desc) {
-			if ($abbr_word_re) $abbr_word_re .= '|';
-			$abbr_word_re .= preg_quote($abbr_word);
-			$abbr_desciptions[$abbr_word] = trim($abbr_desc);
-		}
+		$predef_abbr = MarkdownExtended::getVar('predef_abbr');
+		if (!empty($predef_abbr)) {
+            foreach ($predef_abbr as $abbr_word => $abbr_desc) {
+                if ($abbr_word_re) $abbr_word_re .= '|';
+                $abbr_word_re .= preg_quote($abbr_word);
+                $abbr_desciptions[$abbr_word] = trim($abbr_desc);
+            }
+        }
 		MarkdownExtended::setVar('abbr_word_re', $abbr_word_re);
 		MarkdownExtended::setVar('abbr_desciptions', $abbr_desciptions);
 	}
 
+    /**
+     * Reset masks created by the `_setup()` method
+     */
 	public function _teardown()
 	{
 		MarkdownExtended::setVar('abbr_desciptions', array());
@@ -45,11 +65,10 @@ class Abbreviation extends Filter
 	}
 
 	/**
-	 * Find defined abbreviations in text and wrap them in <abbr> elements.
+	 * Find defined abbreviations in text and wrap them in <abbr> elements
 	 *
-	 * @param string $text The text to parse
-	 * @return string The text parsed
-	 * @see _doAbbreviations_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
@@ -69,42 +88,39 @@ class Abbreviation extends Filter
 	/**
 	 * Process each abbreviation
 	 *
-	 * @param array $matches One set of results form the `doAbbreviations()` function
-	 * @return string The abbreviation entry parsed
-	 * @see hashPart()
-	 * @see encodeAttribute()
+	 * @param array $matches One set of results form the `transform()` function
+	 * @return string
 	 */
 	protected function _callback($matches) 
 	{
 		$abbr = $matches[0];
 		$abbr_desciptions = MarkdownExtended::getConfig('abbr_desciptions');
 		if (isset($abbr_desciptions[$abbr])) {
-			$desc = $abbr_desciptions[$abbr];
-			if (empty($desc)) {
-				return parent::hashPart("<abbr>$abbr</abbr>");
-			} else {
-				$desc = parent::runGamut('tool:EncodeAttribute', $desc);
-				return parent::hashPart("<abbr title=\"$desc\">$abbr</abbr>");
+		    $attributes = array();
+			$desc = trim($abbr_desciptions[$abbr]);
+			if (!empty($desc)) {
+			    $attributes['title'] = parent::runGamut('tool:EncodeAttribute', $desc);
 			}
+            $abbr = MarkdownExtended::get('OutputFormatBag')
+                ->buildTag('abbreviation', $abbr, $attributes);
+            return parent::hashBlock($abbr);
 		} else {
-			return $matches[0];
+			return $abbr;
 		}
 	}
 
 	/**
 	 * Strips abbreviations from text, stores titles in hash references.
 	 *
-	 * Link defs are in the form: [id]*: url "optional title"
-	 *
-	 * @param string $text The text to parse
-	 * @return string The text parsed
-	 * @see _stripAbbreviations_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function strip($text) 
 	{
-		$less_than_tab = MarkdownExtended::getConfig('tab_width') - 1;
 		return preg_replace_callback('{
-				^[ ]{0,'.$less_than_tab.'}\*\[(.+?)\][ ]?:	# abbr_id = $1
+				^[ ]{0,'.
+				MarkdownExtended::getConfig('less_than_tab')
+				.'}\*\[(.+?)\][ ]?:	# abbr_id = $1
 				(.*)					# text = $2 (no blank lines allowed)	
 			}xm',
 			array($this, '_strip_callback'),
@@ -114,8 +130,8 @@ class Abbreviation extends Filter
 	/**
 	 * Strips abbreviations from text, stores titles in hash references.
 	 *
-	 * @param array $matches Results from the `stripAbbreviations()` function
-	 * @return string The text parsed
+	 * @param array $matches Results from the `strip()` function
+	 * @return string The replacement text
 	 */
 	protected function _strip_callback($matches) 
 	{
@@ -123,7 +139,7 @@ class Abbreviation extends Filter
 			(MarkdownExtended::getConfig('abbr_word_re') ? '|' : '' ).preg_quote($matches[1])
 		);
 		MarkdownExtended::addConfig('abbr_desciptions', array($matches[1] => trim($matches[2])));
-		return ''; // String that will replace the block
+		return '';
 	}
 	
 }

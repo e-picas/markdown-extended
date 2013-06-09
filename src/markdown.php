@@ -25,6 +25,14 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
     require_once $a;
 } elseif (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
     require_once $b;
+
+// else try to register `MarkdownExtended` namespace
+} elseif (file_exists($c = __DIR__.'/src/SplClassLoader.php')) {
+    require_once $c;
+    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/src');
+    $classLoader->register();
+
+// else error, classes can't be found
 } else {
     throw new \Exception(
         'You need to run Composer on the project to build dependencies and auto-loading'
@@ -46,8 +54,8 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
  */
 function Markdown($text, $options = null) {
 	\MarkdownExtended\MarkdownExtended::getInstance()
-	    ->get('\MarkdownExtended\Parser', $options)
-	    ->transform($text);
+	    ->transformString($text, $options)
+	    ->getFullContent();
 }
 
 /**
@@ -57,19 +65,11 @@ function Markdown($text, $options = null) {
  * @param misc $options
  *
  * @return string
- *
- * @throws InvalidArumgentException if $file_name not found
  */
 function MarkdownFromSource($file_name, $options = null) {
-    if (file_exists($file_name)) {
-    	\MarkdownExtended\MarkdownExtended::getInstance()
-	        ->get('\MarkdownExtended\Parser', $options)
-	        ->transform(file_get_contents($file_name));
-	} else {
-	    throw new \InvalidArgumentException(
-	        sprintf('Source file "%s" not found!', $file_name)
-	    );
-	}
+	\MarkdownExtended\MarkdownExtended::getInstance()
+	    ->transformSource($file_name, $options)
+	    ->getFullContent();
 }
 
 /**
@@ -77,7 +77,7 @@ function MarkdownFromSource($file_name, $options = null) {
  */
 function Markdown_CLI() {
 	\MarkdownExtended\MarkdownExtended::getInstance()
-	    ->get('\MarkdownExtended\Console')
+	    ->get('CommandLine\Console')
 	    ->run();
 }
 

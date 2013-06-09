@@ -17,9 +17,14 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown spans
+ */
 class Span extends Filter
 {
 	
@@ -27,14 +32,12 @@ class Span extends Filter
 	 * Take the string $str and parse it into tokens, hashing embeded HTML,
 	 * escaped characters and handling code spans.
 	 *
-	 * @param string $str The text to be parsed
-	 * @return string The text parsed
-	 * @see handleSpanToken()
+	 * @param string $str
+	 * @return string
 	 */
 	function transform($str) 
 	{
 		$output = '';
-		
 		$span_re = '{
 				(
 					\\\\'.MarkdownExtended::getConfig('escape_chars_re').'
@@ -73,8 +76,7 @@ class Span extends Filter
 			if (isset($parts[1])) {
 				$output .= self::handleSpanToken($parts[1], $parts[2]);
 				$str = $parts[2];
-			}
-			else {
+			} else {
 				break;
 			}
 		}
@@ -86,10 +88,9 @@ class Span extends Filter
 	 * Handle $token provided by parseSpan by determining its nature and 
 	 * returning the corresponding value that should replace it.
 	 *
-	 * @param string $token The token string to use
-	 * @param string $str The text to be parsed (by reference)
-	 * @return string The text parsed
-	 * @see hashPart()
+	 * @param string $token
+	 * @param string $str
+	 * @return string
 	 */
 	function handleSpanToken($token, &$str) 
 	{
@@ -99,8 +100,8 @@ class Span extends Filter
 			case "`":
 				// Search for end marker in remaining text.
 				if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm', 
-					$str, $matches))
-				{
+					$str, $matches)
+				) {
 					$str = $matches[2];
 					$codespan = parent::runGamut('filter:CodeBlock:span', $matches[1]);
 					return parent::hashPart($codespan);

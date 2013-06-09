@@ -17,9 +17,14 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown in-text HTML
+ */
 class HTML extends Filter
 {
 	
@@ -64,9 +69,8 @@ class HTML extends Filter
 	 *  _HashHTMLBlocks_InMarkdown to handle the Markdown syntax within the tag.
 	 * These two functions are calling each other. It's recursive!
 	 *
-	 * @param string $text The text to be parsed
-	 * @return string The text parsed
-	 * @see _hashHTMLBlocks_inMarkdown()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
@@ -104,9 +108,8 @@ class HTML extends Filter
 	 * @param int $indent The indentation to use
 	 * @param string $enclosing_tag_re The closing tag to use
 	 * @param bool $span Are we in a span element (false by default)
+	 *
 	 * @return array ( processed text , remaining text )
-	 * @see hashPart()
-	 * @see _hashHTMLBlocks_inHTML()
 	 */
 	protected function _hashBlocks_inMarkdown($text, $indent = 0, $enclosing_tag_re = '', $span = false)
 	{
@@ -302,8 +305,8 @@ class HTML extends Filter
 	 * @param string $text The text to be parsed
 	 * @param string $hash_method The method to execute
 	 * @param string $md_attr The attributes to add
+	 *
 	 * @return array ( processed text , remaining text )
-	 * @see _hashHTMLBlocks_inMarkdown()
 	 */
 	protected function _hashBlocks_inHTML($text, $hash_method, $md_attr) 
 	{

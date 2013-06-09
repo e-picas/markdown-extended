@@ -17,60 +17,59 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown headers
+ *
+ * Setext-style headers:
+ *
+ *	  Header 1  {#header1}
+ *	  ========
+ *  
+ *	  Header 2  {#header2}
+ *	  --------
+ *
+ * ATX-style headers:
+ *
+ *	# Header 1        {#header1}
+ *	## Header 2       {#header2}
+ *	## Header 2 with closing hashes ##  {#header3}
+ *	...
+ *	###### Header 6   {#header2}
+ *
+ */
 class Header extends Filter
 {
 	
-	public $ids = array();
-	
-	public function _setup()
-	{
-        MarkdownExtended::setVar('menu', array());
-    }
-
 	/**
 	 * Redefined to add id attribute support.
 	 *
-	 * Setext-style headers:
-	 *	  Header 1  {#header1}
-	 *	  ========
-	 *  
-	 *	  Header 2  {#header2}
-	 *	  --------
-	 *
-	 * ATX-style headers:
-	 *	# Header 1        {#header1}
-	 *	## Header 2       {#header2}
-	 *	## Header 2 with closing hashes ##  {#header3}
-	 *	...
-	 *	###### Header 6   {#header2}
-	 *
-	 * @param string $text Text to parse
-	 * @return string Text with all headers parsed
-	 * @see _doHeaders_callback_setext()
-	 * @see _doHeaders_callback_atx()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
 		// Setext-style headers:
 		$text = preg_replace_callback(
 			'{
-				(^.+?)								            # $1: Header text
-				(?:[ ]+\{\#([-_:a-zA-Z0-9]+)\})?	# $2: Id attribute
-				[ ]*\n(=+|-+)[ ]*\n+				      # $3: Header footer
+				(^.+?)								    # $1: Header text
+				(?:[ ]+\{\#([-_:a-zA-Z0-9]+)\})?	    # $2: Id attribute
+				[ ]*\n(=+|-+)[ ]*\n+				    # $3: Header footer
 			}mx',
 			array($this, '_setext_callback'), $text);
 
 		// atx-style headers:
 		$text = preg_replace_callback('{
-				^(\#{1,6})	                     # $1 = string of #\'s
+				^(\#{1,6})	                            # $1 = string of #\'s
 				[ ]*
-				(.+?)		                         # $2 = Header text
+				(.+?)		                            # $2 = Header text
 				[ ]*
-				\#*			                         # optional closing #\'s (not counted)
-				(?:[ ]+\{\#([-_:a-zA-Z0-9]+)\})? # id attribute
+				\#*			                            # optional closing #\'s (not counted)
+				(?:[ ]+\{\#([-_:a-zA-Z0-9]+)\})?        # id attribute
 				[ ]*
 				\n+
 			}xm',
@@ -80,79 +79,58 @@ class Header extends Filter
 	}
 
 	/**
-	 * Process setext-style headers:
-	 *	  Header 1  {#header1}
-	 *	  ========
-	 *  
-	 *	  Header 2  {#header2}
-	 *	  --------
+	 * Process setext-style headers
 	 *
-	 * @param array $matches The results from the `doHeaders()` function
-	 * @return string Text with header parsed
-	 * @see _doHeaders_attr()
-	 * @see span_gamut()
-	 * @see hashBlock()
+	 * @param array $matches The results from the `transform()` function
+	 * @return string
 	 */
 	protected function _setext_callback($matches) 
 	{
-		if ($matches[3] == '-' && preg_match('{^- }', $matches[1]))
+		if ($matches[3] == '-' && preg_match('{^- }', $matches[1])) {
 			return $matches[0];
+		}
 		$level = ($matches[3]{0} == '=' ? 1 : 2)  + $this->getRebasedHeaderLevel();
-		$attr  = self::_attributes($id =& $matches[2]);
+    	$id  = MarkdownExtended::getContent()->setNewDomId($matches[2], null, false);
 		$title = parent::runGamut('span_gamut', $matches[1]);
-        MarkdownExtended::addVar('menu', array($id=>array('level'=>$level,'text'=>$title)));
-		$block = "<h$level$attr>$title</h$level>";
+        MarkdownExtended::getContent()
+            ->addMenu(array('level'=>$level,'text'=>$title), $id);
+		$block = MarkdownExtended::get('OutputFormatBag')
+		    ->buildTag('title', $title, array(
+		        'level'=>$level,
+		        'id'=>$id
+		    ));
 		return "\n" . parent::hashBlock($block) . "\n\n";
 	}
 
 	/**
-	 * Process ATX-style headers:
-	 *	# Header 1        {#header1}
-	 *	## Header 2       {#header2}
-	 *	## Header 2 with closing hashes ##  {#header3}
-	 *	...
-	 *	###### Header 6   {#header2}
+	 * Process ATX-style headers
 	 *
-	 * @param array $matches The results from the `doHeaders()` function
-	 * @return string Text with header parsed
-	 * @see _doHeaders_attr()
-	 * @see span_gamut()
-	 * @see hashBlock()
+	 * @param array $matches The results from the `transform()` function
+	 * @return string
 	 */
 	protected function _atx_callback($matches) 
 	{
 		$level = strlen($matches[1]) + $this->getRebasedHeaderLevel();
-		if (!empty($matches[3]))
-    		$attr  = self::_attributes($id =& $matches[3]);
-		else
-			$attr  = self::_attributes($id =& parent::runGamut('tool:Header2Label', $matches[2]));
+    	$id  = !empty($matches[3]) ?
+    	    $matches[3]
+    	    :
+			MDE_Helper::header2Label($matches[2]);
+    	$id  = MarkdownExtended::getContent()->setNewDomId($id, null, false);
 		$title = parent::runGamut('span_gamut', $matches[2]);
-        MarkdownExtended::addVar('menu', array($id=>array('level'=>$level,'text'=>parent::unhash($title))));
-		$block = "<h$level$attr>$title</h$level>";
+        MarkdownExtended::getContent()
+            ->addMenu(array('level'=>$level,'text'=>parent::unhash($title)), $id);
+		$block = MarkdownExtended::get('OutputFormatBag')
+		    ->buildTag('title', $title, array(
+		        'level'=>$level,
+		        'id'=>$id
+		    ));
+
 		return "\n" . parent::hashBlock($block) . "\n\n";
 	}
 
-	/**
-	 * Adding headers attributes if so 
-	 *
-	 * @param str $attr The attributes string
-	 * @return string Text to add in the header tag
-	 */
-	protected function _attributes($attr) 
-	{
-		if (empty($attr)) return '';
-		$id = $attr;
-		if (in_array($id, $this->ids)) {
-			$i=0;
-			while (in_array($id, $this->ids)) {
-				$i++;
-				$id = (string)$attr.$i;
-			}
-		}
-		$this->ids[] = $id;
-		return " id=\"$id\"";
-	}
-
+    /**
+     * Rebase a header level according to the `baseheaderlevel` config value
+     */
     protected function getRebasedHeaderLevel()
     {
         $base_level = MarkdownExtended::getVar('baseheaderlevel');

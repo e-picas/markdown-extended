@@ -17,18 +17,22 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown code blocks
+ */
 class CodeBlock extends Filter
 {
 
 	/**
 	 *	Process Markdown `<pre><code>` blocks.
 	 *
-	 * @param string $text Text to parse
-	 * @return string The text parsed
-	 * @see _doCodeBlocks_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
@@ -36,7 +40,7 @@ class CodeBlock extends Filter
 				(?:\n\n|\A\n?)
 				(	                                      # $1 = the code block -- one or more lines, starting with a space/tab
 				  (?>
-					[ ]{'.MarkdownExtended::getConfig('tab_width').'}             # Lines must start with a tab or a tab-width of spaces
+					[ ]{'.MarkdownExtended::getConfig('tab_width').'} # Lines must start with a tab or a tab-width of spaces
 					.*\n+
 				  )+
 				)
@@ -48,35 +52,31 @@ class CodeBlock extends Filter
 	/**
 	 * Build `<pre><code>` blocks.
 	 *
-	 * @param array $matches A set of results of the `doCodeBlocks()` function
-	 * @return string Text parsed
-	 * @see hashBlock()
+	 * @param array $matches A set of results of the `transform()` function
+	 * @return string
 	 */
 	protected function _callback($matches) 
 	{
-		$codeblock = $matches[1];
-
-		$codeblock = parent::runGamut('tool:outdent', $codeblock);
-		$codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
-
+		$codeblock = parent::runGamut('tool:outdent', $matches[1]);
+		$codeblock = MDE_Helper::escapeCodeContent($codeblock);
 		# trim leading newlines and trailing newlines
 		$codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
-
-		$codeblock = "<pre><code>$codeblock\n</code></pre>";
+        $codeblock = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('preformated', $codeblock);
 		return "\n\n".parent::hashBlock($codeblock)."\n\n";
 	}
 
 	/**
 	 * Create a code span markup for $code. Called from handleSpanToken.
 	 *
-	 * @param string $text Text to parse
-	 * @return string The text parsed
-	 * @see hashPart()
+	 * @param string $text
+	 * @return string
 	 */
 	public function span($code) 
 	{
-		$code = htmlspecialchars(trim($code), ENT_NOQUOTES);
-		return parent::hashPart("<code>$code</code>");
+        $codeblock = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('code', MDE_Helper::escapeCodeContent(trim($code)));
+		return parent::hashPart($codeblock);
 	}
 
 }

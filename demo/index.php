@@ -11,6 +11,97 @@ date_default_timezone_set( !empty($dtmz) ? $dtmz:'Europe/Paris' );
 $doc = isset($_GET['doc']) ? $_GET['doc'] : null;
 $md = isset($_GET['md']) ? $_GET['md'] : 'none';
 $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
+
+// contents settings
+$js_code = false;
+$parse_options = array();
+$templater_options = array();
+
+// process
+if (!is_null($doc)) {
+    $info = $error = $content = '';
+    // get the Composer autoloader
+    if (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
+        require_once $b;
+        $class_info = \MarkdownExtended\Helper::info(true);
+        $info = <<<EOT
+    <p><a id="classinfo_handler" class="handler" title="Infos from the MarkdownExtended class">Current class infos</a></p>
+    <div id="classinfo"><p>$class_info</p></div>
+EOT;
+        $options = array();
+        if (file_exists($doc)) {
+            $info .= <<<EOT
+    <p><a id="plaintext_handler" class="handler" title="See plain text link">Original <em>$doc</em> document</a></p>
+    <div id="plaintext"><ul>
+        <li><a href="$doc" title="See original standalone parsed version of the file">See the standalone version of <em>$doc</em></a></li>
+        <li><a href="$doc?plain" title="See plain text version of the file">See the original content of <em>$doc</em></a></li>
+    </ul></div>
+EOT;
+            switch ($md) {
+                case 'none'; default:
+                    $content = '<pre>'.file_get_contents($doc).'</pre>'; 
+                    break;
+                case 'process';
+/*
+                    $content = \MarkdownExtended\MarkdownExtended::getInstance()
+                        ->get('\MarkdownExtended\Parser', $options)
+                        ->transform($source_content);
+*/
+//                    $source_content = file_get_contents($doc);
+                    $mde_content = \MarkdownExtended\MarkdownExtended::create()
+                        ->transformSource($doc)
+//                        ->transformString($source_content)
+//                        ->get('Parser', $parse_options)
+//                        ->getContent()
+//                        ->getContent()->getBody()
+//                        ->getTemplater($templater_options)
+//                        ->parse()
+//                        ->getContent()
+                        ;
+
+
+                    $tpl = \MarkdownExtended\MarkdownExtended::getInstance()
+                        ->getTemplater($templater_options);
+//var_export($tpl);
+echo $tpl;
+exit();
+/*
+
+                    $tpl = \MarkdownExtended\MarkdownExtended::getInstance()
+                        ->getTemplater($templater_options);
+//var_export($tpl);
+echo $tpl;
+exit();
+
+echo "<html><head>"
+    .$mde_content->getMetadataHtml() // the content metadata
+    ."</head><body>"
+    .$mde_content->getBody() // the content HTML body
+    ."<hr />"
+    .$mde_content->getNotesHtml() // the content footnotes
+    ."</body></html>";
+exit();
+
+
+
+echo '<pre>';
+var_export($mde_content);
+echo '</pre>';
+exit('yo');
+*/
+                    break;
+            }
+        } else {
+            $error = 'Markdown document source "'.$doc.'" not found!';
+        }
+    } else {
+        $error = 'You need to run Composer on your project to use this interface!';
+    }
+} else {
+    $content = file_get_contents('usage.html');
+    $js_code = true;
+}
+
 ?><!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -19,7 +110,20 @@ $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<?php $title_done = false; ?>
+<?php if (!empty($mde_content) && $mde_content->getMetadata()) : ?>
+    <?php foreach ($mde_content->getMetadata() as $meta_name=>$meta_content) : ?>
+		<?php if ($meta_name=='title'): ?>
+    <title><?php echo $meta_content; ?></title>
+            <?php $title_done = true; ?>
+		<?php else: ?>
+    <meta name="<?php echo $meta_name; ?>" content="<?php echo $meta_content; ?>" />
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+<?php if (!$title_done) : ?>
     <title>Test & documentation of PHP "MarkdownExtended" package</title>
+<?php endif; ?>
     <meta name="description" content="A complete PHP 5.3 version of the Markdown syntax parser" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="assets/html5boilerplate/css/normalize.css" />
@@ -46,7 +150,7 @@ function emdreminders_popup(url){
     <header id="top" role="banner">
         <hgroup>
             <h1>The PHP "<em>MarkdownExtended</em>" package</h1>
-            <h2 class="slogan">A complete PHP 5.3 version of the Markdown syntax parser.</h2>
+            <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
         </hgroup>
         <div class="hat">
             <p>These pages show and demonstrate the use and functionality of the <a href="https://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> PHP package you just downloaded.</p>
@@ -120,7 +224,56 @@ if (!is_null($doc)) {
     </div>
 <?php endif; ?>
 
-<?php if (!empty($content)) : ?>
+<?php if (!empty($mde_content)) : ?>
+    <article>
+
+<?php
+$menu = $mde_content->getMenu();
+$depth = 0;
+$current_level = null;
+?>
+<?php if (!empty($menu)) : ?>
+<aside id="page_menu">
+    <h2>Table of contents</h2>
+    <ul class="menu">
+    <?php foreach ($menu as $item_id=>$menu_item) : ?>
+        <?php $diff = $menu_item['level']-(is_null($current_level) ? $menu_item['level'] : $current_level); ?>
+        <?php if ($diff > 0) : ?>
+            <?php for ($i=0; $i<$diff; $i++) : ?>
+            <ul>
+                <li>
+            <?php endfor; ?>
+        <?php elseif ($diff < 0) : ?>
+            <?php for ($i=0; $i>$diff; $i--) : ?>
+                </li>
+            </ul></li>
+            <li>
+            <?php endfor; ?>
+        <?php else : ?>
+            <?php if (!is_null($current_level)) : ?>
+            </li>
+            <?php endif; ?>
+            <li>
+        <?php endif; ?>
+                <a href="#<?php echo $item_id; ?>"><?php echo $menu_item['text']; ?></a>
+        <?php $current_level = $menu_item['level']; ?>
+    <?php endforeach; ?>
+    </ul>
+</aside>  
+<?php endif; ?>
+
+        <?php echo $mde_content->getBody(); ?>
+        <?php if ($mde_content->getNotes()) : ?>
+		<div class="footnotes">
+			<ol>
+            <?php foreach ($mde_content->getNotes() as $id=>$note_content) : ?>
+			    <li id="<?php echo $note_content['note-id']; ?>"><?php echo $note_content['text']; ?></li>
+            <?php endforeach; ?>
+            </ol>
+        </div>
+        <?php endif; ?>
+    </article>
+<?php elseif (!empty($content)) : ?>
     <article>
         <?php echo $content; ?>
     </article>
@@ -170,7 +323,15 @@ $(function() {
     addCSSValidatorLink('assets/styles.css');
     addHTMLValidatorLink();
     $("#user_agent").html( navigator.userAgent );
-    $('pre.code').highlight({source:0, indent:'tabs', code_lang: 'data-language'});
+    $('pre').each(function(i,o) {
+        var dl = $(this).attr('data-language');
+        if (dl) {
+            $(this).addClass('code')
+                .highlight({indent:'tabs', code_lang: 'data-language'});
+        }
+    });
+    initHandler('classinfo', true);
+    initHandler('plaintext', true);
 });
 </script>
 </body>

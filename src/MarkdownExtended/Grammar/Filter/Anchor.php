@@ -17,12 +17,29 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown links
+ *
+ * Process the links written like:
+ *
+ * -    reference-style links: `[link text] [id]`
+ * -    inline-style links: `[link text](url "optional title")`
+ * -    reference-style shortcuts: `[link text]` with a reference
+ *
+ * Each link attributes will be completed if needed adding it a `title` constructed using
+ * the `link_mask_title` config entry, filled with the link URL.
+ */
 class Anchor extends Filter
 {
-	
+
+    /**
+     * Set up the `in_anchor` config flag on `false`
+     */	
 	public function _setup()
 	{
 		MarkdownExtended::setVar('in_anchor', false);
@@ -31,11 +48,8 @@ class Anchor extends Filter
 	/**
 	 * Turn Markdown link shortcuts into XHTML <a> tags.
 	 *
-	 * @param string $text Text to parse
-	 * @return string The text parsed
-	 * @see _doAnchors_reference_callback()
-	 * @see _doAnchors_inline_callback()
-	 * @see _doAnchors_reference_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
@@ -44,13 +58,13 @@ class Anchor extends Filter
 		
 		// First, handle reference-style links: [link text] [id]
 		$text = preg_replace_callback('{
-			(					                        # wrap whole match in $1
+			(					                    # wrap whole match in $1
 			  \[
 				('.MarkdownExtended::getConfig('nested_brackets_re').')	# link text = $2
 			  \]
 
 			  [ ]?				                    # one optional space
-			  (?:\n[ ]*)?		                  # one optional newline followed by spaces
+			  (?:\n[ ]*)?		                    # one optional newline followed by spaces
 
 			  \[
 				(.*?)		                        # id = $3
@@ -61,24 +75,24 @@ class Anchor extends Filter
 
 		// Next, inline-style links: [link text](url "optional title")
 		$text = preg_replace_callback('{
-			(				                                    # wrap whole match in $1
+			(				                                # wrap whole match in $1
 			  \[
-				('.MarkdownExtended::getConfig('nested_brackets_re').')	          # link text = $2
+				('.MarkdownExtended::getConfig('nested_brackets_re').') # link text = $2
 			  \]
-			  \(			                                  # literal paren
+			  \(			                                # literal paren
 				[ \n]*
 				(?:
 					<(.+?)>	                                # href = $3
 				|
-					('.MarkdownExtended::getConfig('nested_url_parenthesis_re').')	# href = $4
+					('.MarkdownExtended::getConfig('nested_url_parenthesis_re').') # href = $4
 				)
 				[ \n]*
-				(			                                    # $5
+				(			                                # $5
 				  ([\'"])	                                # quote char = $6
 				  (.*?)		                                # Title = $7
-				  \6		                                  # matching quote
+				  \6		                                # matching quote
 				  [ \n]*	                                # ignore any spaces/tabs between closing quote and )
-				)?			                                  # title is optional
+				)?			                                # title is optional
 			  \)
 			)
 			}xs',
@@ -88,7 +102,7 @@ class Anchor extends Filter
 		// These must come last in case you've also got [link text][1]
 		// or [link text](/foo)
 		$text = preg_replace_callback('{
-			(					      # wrap whole match in $1
+			(				    # wrap whole match in $1
 			  \[
 				([^\[\]]+)		# link text = $2; can\'t contain [ or ]
 			  \]
@@ -101,11 +115,8 @@ class Anchor extends Filter
 	}
 
 	/**
-	 * @param array $matches A set of results of the `doAnchors` function
-	 * @return string The text parsed
-	 * @see encodeAttribute()
-	 * @see span_gamut()
-	 * @see hashPart()
+	 * @param array $matches A set of results of the `transform` function
+	 * @return string
 	 */
 	protected function _reference_callback($matches) 
 	{
@@ -113,63 +124,75 @@ class Anchor extends Filter
 		$link_text   =  $matches[2];
 		$link_id     =& $matches[3];
 
-		if ($link_id == "") {
-			// for shortcut links like [this][] or [this].
+		// for shortcut links like [this][] or [this]
+		if (empty($link_id)) {
 			$link_id = $link_text;
 		}
 		
 		// lower-case and turn embedded newlines into spaces
-		$link_id = strtolower($link_id);
-		$link_id = preg_replace('{[ ]?\n}', ' ', $link_id);
+		$link_id = preg_replace('{[ ]?\n}', ' ', strtolower($link_id));
 
 		$urls = MarkdownExtended::getVar('urls');
 		$titles = MarkdownExtended::getVar('titles');
-		$attributes = MarkdownExtended::getVar('attributes');
+		$predef_attributes = MarkdownExtended::getVar('attributes');
 		if (isset($urls[$link_id])) {
-			$url = $urls[$link_id];
-			$url = parent::runGamut('tool:EncodeAttribute', $url);
-			$result = "<a href=\"$url\"";
-			if ( isset( $titles[$link_id] ) ) {
-				$title = $titles[$link_id];
-				$title = parent::runGamut('tool:EncodeAttribute', $title);
-				$result .=  " title=\"$title\"";
+		    $attributes = array();
+			$attributes['href'] = parent::runGamut('tool:EncodeAttribute', $urls[$link_id]);
+			if (!empty($titles[$link_id])) {
+				$attributes['title'] = parent::runGamut('tool:EncodeAttribute', $titles[$link_id]);
 			}
-			if (isset($attributes[$link_id])) {
-				$result .= parent::runGamut('tool:RebuildAttribute', $attributes[$link_id] );
+			if (!empty($predef_attributes[$link_id])) {
+				$attributes = array_merge(
+				    parent::runGamut('tool:ExtractAttributes', $predef_attributes[$link_id]),
+				    $attributes
+				);
 			}
-			$link_text = parent::runGamut('span_gamut', $link_text);
-			$result .= ">$link_text</a>";
-			$result = parent::hashPart($result);
-		}
-		else {
+			$this->_validateLinkAttributes($attributes);
+            $block = MarkdownExtended::get('OutputFormatBag')
+                ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
+            $result = parent::hashPart($block);
+		} else {
 			$result = $whole_match;
 		}
 		return $result;
 	}
 
 	/**
-	 * @param array $matches A set of results of the `doAnchors` function
-	 * @return string The text parsed
-	 * @see encodeAttribute()
-	 * @see span_gamut()
-	 * @see hashPart()
+	 * @param array $matches A set of results of the `transform` function
+	 * @return string
 	 */
 	protected function _inline_callback($matches) 
 	{
 		$whole_match	=  $matches[1];
-		$link_text		=  parent::runGamut('span_gamut', $matches[2]);
+		$link_text		=  $matches[2];
 		$url		    =  $matches[3] == '' ? $matches[4] : $matches[3];
 		$title			=& $matches[7];
-		$url = parent::runGamut('tool:EncodeAttribute', $url);
-		$result = "<a href=\"$url\"";
-		if (isset($title)) {
-			$title = parent::runGamut('tool:EncodeAttribute', $title);
-			$result .=  " title=\"$title\"";
+
+        $attributes = array();
+		$attributes['href'] = parent::runGamut('tool:EncodeAttribute', $url);
+		if (!empty($title)) {
+			$attributes['title'] = parent::runGamut('tool:EncodeAttribute', $title);
 		}
-		$link_text = parent::runGamut('span_gamut', $link_text);
-		$result .= ">$link_text</a>";
-		return parent::hashPart($result);
+		$this->_validateLinkAttributes($attributes);        
+        $block = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
+        return parent::hashPart($block);
 	}
+
+    /**
+     * Be sure to have a full attributes set (add a title if needed)
+     *
+     * @param array $attributes Passed by reference
+     */
+    protected function _validateLinkAttributes(array &$attributes)
+    {
+        if (empty($attributes['title']) && MarkdownExtended::getConfig('link_mask_title')) {
+            $attributes['title'] = MDE_Helper::fillPlaceholders(
+                MarkdownExtended::getConfig('link_mask_title'),
+                !empty($attributes['href']) ? $attributes['href'] : ''
+            );
+        }
+    }
 
 }
 

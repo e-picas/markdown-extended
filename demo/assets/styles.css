@@ -23,6 +23,7 @@ var         {margin: 0; padding: 0 .6em; display: inline;}
 code, pre   {background-color: #f9f9f9; border: 1px solid #D0D0D0; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; display: block; margin: 1em 0; padding: .6em;}
 code        {padding: 0 .6em; display: inline; margin: 0;}
 pre code    {border: none; text-indent:0; padding: 0;}
+blockquote  {padding-left: 1em; border-left: 8px solid #D0D0D0;}
 td, th      {padding: .5em;}
 form, fieldset {padding: 1em; margin: .4em;}
 fieldset    {border: 1px dotted #ddd;}
@@ -74,7 +75,6 @@ nav .info ul {margin-top: 12px;}
 nav .info li {font-size:.9em;}
 nav .info li a {font-size:1em;}
 nav h2      {font-size: 1.4em;}
-
 
 aside           {float:left; line-height:1.4em; width:20%; padding: 8px; padding-bottom: 15px;margin: 0.4em 1em 0.4em 0;background: #F9F9F9;font-size: .9em;}
 aside a:hover   {text-decoration:none;}
