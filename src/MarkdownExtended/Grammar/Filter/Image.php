@@ -17,34 +17,37 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown images
+ */
 class Image extends Filter
 {
 
 	/**
 	 * Turn Markdown image shortcuts into <img> tags.
 	 *
-	 * @param string $text Text to parse
-	 * @return string The text parsed
-	 * @see _doImages_reference_callback()
-	 * @see _doImages_inline_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
 		// First, handle reference-style labeled images: ![alt text][id]
 		$text = preg_replace_callback('{
-			(				                            # wrap whole match in $1
+			(				                        # wrap whole match in $1
 			  !\[
-				('.MarkdownExtended::getConfig('nested_brackets_re').')		# alt text = $2
+				('.MarkdownExtended::getConfig('nested_brackets_re').') # alt text = $2
 			  \]
 
-			  [ ]?				                      # one optional space
+			  [ ]?				                    # one optional space
 			  (?:\n[ ]*)?		                    # one optional newline followed by spaces
 
 			  \[
-				(.*?)		                          # id = $3
+				(.*?)		                        # id = $3
 			  \]
 
 			)
@@ -54,12 +57,12 @@ class Image extends Filter
 		// Next, handle inline images:  ![alt text](url "optional title")
 		// Don't forget: encode * and _
 		$text = preg_replace_callback('{
-			(				                                  # wrap whole match in $1
+			(				                          # wrap whole match in $1
 			  !\[
-				('.MarkdownExtended::getConfig('nested_brackets_re').')		      # alt text = $2
+				('.MarkdownExtended::getConfig('nested_brackets_re').') # alt text = $2
 			  \]
-			  \s?			                                # One optional whitespace character
-			  \(			                                # literal paren
+			  \s?			                          # One optional whitespace character
+			  \(			                          # literal paren
 				[ \n]*
 				(?:
 					<(\S*)>	# src url = $3
@@ -67,12 +70,12 @@ class Image extends Filter
 					('.MarkdownExtended::getConfig('nested_url_parenthesis_re').')	# src url = $4
 				)
 				[ \n]*
-				(			                                  # $5
-				  ([\'"])	                              # quote char = $6
-				  (.*?)		                              # title = $7
-				  \6		                                # matching quote
+				(			                          # $5
+				  ([\'"])	                          # quote char = $6
+				  (.*?)		                          # title = $7
+				  \6		                          # matching quote
 				  [ \n]*
-				)?			                                # title is optional
+				)?			                          # title is optional
 			  \)
 			)
 			}xs',
@@ -82,10 +85,8 @@ class Image extends Filter
 	}
 
 	/**
-	 * @param array $matches A set of results of the `deImages` function
-	 * @return string The text parsed
-	 * @see encodeAttribute()
-	 * @see hashPart()
+	 * @param array $matches A set of results of the `transform` function
+	 * @return string
 	 */
 	protected function _reference_callback($matches) 
 	{
@@ -99,24 +100,26 @@ class Image extends Filter
 
 		$urls = MarkdownExtended::getVar('urls');
 		$titles = MarkdownExtended::getVar('titles');
-		$attributes = MarkdownExtended::getVar('attributes');
+		$predef_attributes = MarkdownExtended::getVar('attributes');
 		$alt_text = parent::runGamut('tool:EncodeAttribute', $alt_text);
 		if (isset($urls[$link_id])) {
-			$url = parent::runGamut('tool:EncodeAttribute', $urls[$link_id]);
-			$result = "<img src=\"$url\" alt=\"$alt_text\"";
-			if (isset($titles[$link_id])) {
-				$title = $titles[$link_id];
-				$title = parent::runGamut('tool:EncodeAttribute', $title);
-				$result .=  " title=\"$title\"";
+            $attributes = array();
+            $attributes['alt'] = $alt_text;
+            $attributes['src'] = parent::runGamut('tool:EncodeAttribute', $urls[$link_id]);
+            if (!empty($titles[$link_id])) {
+                $attributes['title'] = parent::runGamut('tool:EncodeAttribute', $titles[$link_id]);
+            }
+			if (!empty($predef_attributes[$link_id])) {
+				$attributes = array_merge(
+				    parent::runGamut('tool:ExtractAttributes', $predef_attributes[$link_id]),
+				    $attributes);
 			}
-			if (isset($attributes[$link_id])) {
-				$result .= parent::runGamut('tool:RebuildAttribute', $attributes[$link_id] );
-			}
-			$result .= MarkdownExtended::getConfig('empty_element_suffix');
-			$result = parent::hashPart($result);
+            $block = MarkdownExtended::get('OutputFormatBag')
+                ->buildTag('image', null, $attributes);
+            $result = parent::hashPart($block);
 		}
 		else {
-			// If there's no such link ID, leave intact:
+			// If there's no such link ID, leave intact
 			$result = $whole_match;
 		}
 
@@ -124,10 +127,8 @@ class Image extends Filter
 	}
 
 	/**
-	 * @param array $matches A set of results of the `doImages` function
-	 * @return string The text parsed
-	 * @see encodeAttribute()
-	 * @see hashPart()
+	 * @param array $matches A set of results of the `transform` function
+	 * @return string
 	 */
 	protected function _inline_callback($matches) 
 	{
@@ -136,16 +137,15 @@ class Image extends Filter
 		$url			= $matches[3] == '' ? $matches[4] : $matches[3];
 		$title			=& $matches[7];
 
-		$alt_text = parent::runGamut('tool:EncodeAttribute', $alt_text);
-		$url = parent::runGamut('tool:EncodeAttribute', $url);
-		$result = "<img src=\"$url\" alt=\"$alt_text\"";
-		if (isset($title)) {
-			$title = parent::runGamut('tool:EncodeAttribute', $title);
-			$result .=  " title=\"$title\""; # $title already quoted
+        $attributes = array();
+		$attributes['alt'] = parent::runGamut('tool:EncodeAttribute', $alt_text);
+		$attributes['src'] = parent::runGamut('tool:EncodeAttribute', $url);
+		if (!empty($title)) {
+			$attributes['title'] = parent::runGamut('tool:EncodeAttribute', $title);
 		}
-		$result .= MarkdownExtended::getConfig('empty_element_suffix');
-
-		return parent::hashPart($result);
+		$block = MarkdownExtended::get('OutputFormatBag')
+		    ->buildTag('image', null, $attributes);
+		return parent::hashPart($block);
 	}
 
 }

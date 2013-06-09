@@ -17,63 +17,67 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown definitions links
+ *
+ * Link defs are in the form:
+ *
+ *      ^[id]: url "optional title"
+ */
 class LinkDefinition extends Filter
 {
 	
- /**
-  * Mandatory method
-  */
+    /**
+     * Mandatory method
+     */
 	public function transform($text) { return $text; }
 	
 	/**
-	 * Strips link definitions from text, stores the URLs and titles in
-	 * hash references.
+	 * Strips link definitions from text, stores the URLs and titles in hash references
 	 *
-	 * Link defs are in the form: ^[id]: url "optional title"
-	 *
-	 * @param string $text The text to be parsed
-	 * @return string The text parsed
-	 * @see _stripLinkDefinitions_callback()
+	 * @param string $text
+	 * @return string
 	 * @todo Manage attributes (not working for now)
 	 */
 	public function strip($text) 
 	{
-		$less_than_tab = MarkdownExtended::getConfig('tab_width') - 1;
 		return preg_replace_callback('{
-							^[ ]{0,'.$less_than_tab.'}\[(.+)\][ ]?:	# id = $1
-							  [ ]*
-							  \n?				# maybe *one* newline
-							  [ ]*
-							(?:
-							  <(.+?)>		# url = $2
-							|
-							  (\S+?)		# url = $3
-							)
-							  [ ]*
-							  \n?				# maybe one newline
-							  [ ]*
-							(?:
-								(?<=\s)		# lookbehind for whitespace
-								["(]
-								(.*?)			# title = $4
-								[")]
-								[ ]*
-							)?	        # title is optional
-							  [ ]*
-							  \n?				# maybe one newline
-							  [ ]*
-							(?:				  # Attributes = $5
-								(?<=\s)	  # lookbehind for whitespace
-								(
-									([ ]*\n)?
-									((?:\S+?=\S+?)|(?:.+?=.+?)|(?:.+?=".*?")|(?:\S+?=".*?"))
-								)
-							  [ ]*
-							)?	        # attributes are optional
-							(\n+|\Z)
+                ^[ ]{0,'.MarkdownExtended::getConfig('less_than_tab').'}\[(.+)\][ ]?:	# id = $1
+                  [ ]*
+                  \n?				    # maybe *one* newline
+                  [ ]*
+                (?:
+                  <(.+?)>		        # url = $2
+                |
+                  (\S+?)		        # url = $3
+                )
+                  [ ]*
+                  \n?				    # maybe one newline
+                  [ ]*
+                (?:
+                    (?<=\s)		        # lookbehind for whitespace
+                    ["(]
+                    (.*?)			    # title = $4
+                    [")]
+                    [ ]*
+                )?	                    # title is optional
+                  [ ]*
+                  \n?				    # maybe one newline
+                  [ ]*
+                (?:				        # Attributes = $5
+                    (?<=\s)	            # lookbehind for whitespace
+                    (
+                        ([ ]*\n)?
+                        ((?:\S+?=\S+?)|(?:.+?=.+?)|(?:.+?=".*?")|(?:\S+?=".*?"))
+                    )
+                  [ ]*
+                )?	                    # attributes are optional
+                (\n+|\Z)
 			}xm',
 			array($this, '_strip_callback'), $text);
 	}
@@ -81,7 +85,7 @@ class LinkDefinition extends Filter
 	/**
 	 * Add each link reference to `$urls` and `$titles` tables with index `$link_id`
 	 *
-	 * @param array $matches A set of results of the `stripLinkDefinitions()` function
+	 * @param array $matches A set of results of the `transform()` function
 	 * @return empty
 	 */
 	protected function _strip_callback($matches) 
@@ -91,7 +95,8 @@ class LinkDefinition extends Filter
 		MarkdownExtended::addVar('urls', array($link_id=>$url));
 		MarkdownExtended::addVar('titles', array($link_id=>$matches[4]));
 		MarkdownExtended::addVar('attributes', array($link_id=>$matches[5]));
-		return ''; // String that will replace the block
+		MarkdownExtended::getContent()->addUrl($url, $link_id);
+		return '';
 	}
 
 }

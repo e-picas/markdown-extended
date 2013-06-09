@@ -1,7 +1,7 @@
 PHP Markdown Extended
 =====================
 
-A complete PHP 5.3 version of the Markdown syntax parser.
+A complete PHP 5.3 package of Markdown syntax parser (extended version).
 
 **PHP Markdown Extended** is a PHP class to transform Markdown text files or strings in HTML. This new version of a Markdown parser tries to purpose a complete set of Markdown syntax tags and rules and to be PHP5 compliant.
 

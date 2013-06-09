@@ -17,28 +17,35 @@
  */
 namespace MarkdownExtended\Grammar\Tool;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Tool;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Tool;
 
-class RebuildAttribute extends Tool
+class ExtractAttributes extends Tool
 {
 
 	/**
-	 * Rebuild attributes string 'a="b"'.
+	 * Extract attributes from string 'a="b"'
 	 *
 	 * @param string $attributes The attributes to parse
 	 * @return string The attributes processed
 	 */
 	public function run($attributes)
 	{
-		return preg_replace('{
+	    $this->img_attrs = array();
+		$text = preg_replace_callback('{
 			(\S+)=
 			(["\']?)                  # $2: simple or double quote or nothing
 			(?:
 				([^"|\']\S+|.*?[^"|\']) # anything but quotes
 			)
 			\\2                       # rematch $2
-			}xsi', " $1=\"$3\"", $attributes);
+			}xsi', array($this, '_callback'), $attributes);
+		return $this->img_attrs;
+	}
+
+    protected function _callback($matches)
+    {
+	    $this->img_attrs[$matches[1]] = $matches[3];
 	}
 
 }

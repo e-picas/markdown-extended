@@ -17,11 +17,13 @@
  */
 namespace MarkdownExtended;
 
-use \InvalidArgumentException, \RuntimeException;
-use \MarkdownExtended\Registry;
+use MarkdownExtended\Registry,
+    MarkdownExtended\Config,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
 /**
- * PHP Extended Markdown Mother Class
+ * PHP Markdown Extended Mother Class
  *
  * This is the global *MarkdownExtended* class and process. It contains mostly
  * static methods that can be called from anywhere writing something like:
@@ -29,20 +31,25 @@ use \MarkdownExtended\Registry;
  *     MarkdownExtended::my_method();
  *
  */
-class MarkdownExtended
+final class MarkdownExtended
 {
 
 	/**
 	 * Class infos
 	 */
-	public static $class_name = 'PHP Markdown Extended';
-	public static $class_version = '0.0.2';
-	public static $class_sources = 'https://github.com/atelierspierrot/markdown-extended';
+	const MDE_NAME = 'PHP Markdown Extended';
+	const MDE_VERSION = '0.0.3';
+	const MDE_SOURCES = 'https://github.com/atelierspierrot/markdown-extended';
 
 	/**
-	 * Default options INI file (path from __DIR__)
+	 * Default full options INI file
 	 */
-    const MARKDOWN_CONFIGFILE = 'config/markdown_config.ini';
+    const FULL_CONFIGFILE = 'markdown_config.full.ini';
+
+	/**
+	 * Default simple options INI file (i.e. for fields)
+	 */
+    const SIMPLE_CONFIGFILE = 'markdown_config.simple.ini';
 
 	/**
 	 * @static \MarkdownExtended\MarkdownExtended
@@ -50,26 +57,39 @@ class MarkdownExtended
 	private static $_instance;
 
 	/**
+	 * Dependencies registry
 	 * @static \MarkdownExtended\Registry
 	 */
 	private static $registry;
 
     /**
-     * @static array
+     * @static array of \MarkdownExtended\Content processed items
      */
     private static $contents;
 
+    /**
+     * @static misc
+     */
+    private static $current;
+
 	/**
-	 * Private constructor: initialize the registry
+	 * Initialize the registry and flush the contents stack
+	 *
+	 * The best practice is to use the class as a singleton calling `getInstance()` or
+	 * `create()`.
 	 */
-	private function __construct()
+	public function __construct()
 	{
-	 	self::$registry = new Registry;
+	 	self::$registry = new Registry(false,false);
+	 	// load dependencies
+		self::factory('Registry');
+		self::factory('Config');
         self::$contents = array();
 	}
 
 	/**
 	 * Get the Markdown Extended instance
+	 * @return self
 	 */
 	public static function getInstance()
 	{
@@ -79,64 +99,97 @@ class MarkdownExtended
 	 	return self::$_instance;
 	}
 
-// ----------------------------------
-// DEBUG & INFO
-// ----------------------------------
-
 	/**
-	 * Debug function
-	 *
-	 * WARNING: first argument is not used (to allow `debug` from Gamut stacks)
+	 * Create a new singleton instance
+	 * @return self
 	 */
-	public function debug($a = '', $what = null, $exit = true) 
+	public static function create()
 	{
-		echo '<pre>';
-		if (!is_null($what)) var_export($what);
-		else {
-			$mde = self::getInstance();
-			var_export($mde::$registry);
-		}
-		echo '</pre>';
-		if ($exit) exit(0);
-	}
-	
-	/**
-	 * Get information string about the current Markdown Extended object
-	 */
-	public static function info($html = false)
-	{
-		return 
-			( $html ? '<strong>' : '' )
-			.MarkdownExtended::$class_name
-			.( $html ? '</strong>' : '' )
-			.' version '.MarkdownExtended::$class_version
-			.' ('
-			.( $html ? '<a href="'.MarkdownExtended::$class_sources.'" target="_blank" title="See online">' : '' )
-			.MarkdownExtended::$class_sources
-			.( $html ? '</a>' : '' )
-			.')';
+	 	self::$_instance = new self;
+	 	return self::$_instance;
 	}
 
 // ----------------------------------
-// PROCESSED CONTENTS
+// CONTENTS PROCESSOR
 // ----------------------------------
 
     /**
-     * Add a new processed content in the contents stack
+     * Transform a Markdown source string
+     *
+     * @param string $source
+     * @param string|array $parser_options
+     * @param string|null $key
+     * @param bool $secondary Set it to `true` if parsed content may not be stored as current one
+     *
+     * @return \MarkdownExtended\Content
      */
-    public static function addProcessedContent(Parser $markdown, $key = null)
+    public static function transformString($source, $parser_options = null, $key = null, $secondary = false)
     {
+        $content = new \MarkdownExtended\Content($source);
+        $content->setId($key);
+	    return self::getInstance()
+    	    ->get('Parser', $parser_options)
+	        ->parse($content, $secondary)
+            ->getContent();
+    }
+	
+    /**
+     * Transform a Markdown source file content
+     *
+     * @param string $filename
+     * @param string|array $parser_options
+     * @param string|null $key
+     * @param bool $secondary Set it to `true` if parsed content may not be stored as current one
+     *
+     * @return \MarkdownExtended\Content
+     */
+    public static function transformSource($filename, $parser_options = null, $key = null, $secondary = false)
+    {
+        $content = new \MarkdownExtended\Content(null, $filename);
+        $content->setId($key);
+	    return self::getInstance()
+    	    ->get('Parser', $parser_options)
+	        ->parse($content, $secondary)
+            ->getContent();
+    }
+	
+// --------------
+// CONTENTS
+// --------------
 
-echo '<pre>';
-var_export(func_get_args());
-echo '</pre>';
-exit('yo');
-
-        if (empty($key)) $key = uniqid();
-        self::$contents[$key] = array(
-            'original'=>$original,
-            'markdown'=>$markdown
-        );
+    /**
+     * Add a new processed content in the contents stack
+     *
+     * @param object MarkdownExtended\Content object
+     * @param bool $secondary Set it to `true` if parsed content may not be stored as current one
+     */
+    public static function addProcessedContent(Content $content, $secondary = false)
+    {
+        self::$contents[$content->getId()] =& $content;
+        if (!$secondary) self::$current = $content->getId();
+    }
+	
+    /**
+     * Get current processed content
+     *
+     * @return object \MarkdownExtended\Content
+     */
+    public static function getContent($id = null)
+    {
+        if (is_null($id)) $id = self::$current;
+        return isset(self::$contents[$id]) ? self::$contents[$id] : null;
+    }
+	
+    /**
+     * Get current processed content in a Templater
+     *
+     * @param array $config
+     *
+     * @return object \MarkdownExtended\Templater
+     */
+    public static function getTemplater(array $config = null)
+    {
+        return self::get('Templater', $config)->load(self::getContent());
     }
 	
 // --------------
@@ -145,94 +198,139 @@ exit('yo');
 
 	/**
 	 * Load a dependency
+	 *
+	 * @param string $class The class name to instanciate ; will be completed with current
+	 *                      namespace if necessary
+	 *
+	 * @throws MarkdownExtended\Exception\InvalidArgumentException it the class doesn't exist
+	 *
+	 * @return bool
 	 */
 	public static function load($class)
 	{
+	    $class = MDE_Helper::getAbsoluteClassname($class);
 		if (@class_exists($class)) return true;
-        throw new InvalidArgumentException(sprintf(
-            "Class '%s' not found in '%s'!", $class, $_f
-        ));
+        throw new MDE_Exception\InvalidArgumentException(
+            sprintf('Class "%s" not found in "%s"!', $class, $_f)
+        );
 	}
 
 	/**
-	 * Get a dependency instance
+	 * Build, retain and get a dependency instance
+	 *
+	 * @param string $class The class name to instanciate ; will be completed with current
+	 *                      namespace if necessary
+	 * @param array $params Parameters to use for `$class` object instanciation
+	 *
+	 * @return object
 	 */
 	public static function factory($class, $params = null)
 	{
+	    $class = MDE_Helper::getAbsoluteClassname($class);
+		$class_name = MDE_Helper::getRelativeClassname($class);
 		self::load($class);
-		if (!is_null($params)) {
-		    $_obj = new $class($params);
-		} else {
-		    $_obj = new $class;
-		}
-		self::$registry->set($class, $_obj, 'loaded');
+		$_obj = !is_null($params) ? new $class($params) : new $class;
+	 	self::$registry->set($class_name, $_obj);
 		return $_obj;
 	}
 
 	/**
 	 * Get a loader object from registry / load it if absent
+	 *
+	 * @param string $class The class name to instanciate ; will be completed with current
+	 *                      namespace if necessary
+	 * @param array $params Parameters to use for `$class` object instanciation
+	 *
+	 * @return object
 	 */
 	public static function get($class, $params = null)
 	{
-		$obj = self::$registry->get($class, 'loaded');
+		$class_name = MDE_Helper::getRelativeClassname($class);
+		$obj = self::$registry->get($class_name);
 		if (!empty($obj)) return $obj;
-		else return self::factory($class, $params);
+		else return self::factory($class_name, $params);
 	}
 
 	/**
 	 * Get a configuration entry from registry
+	 *
+	 * @param string $var
+	 * @return misc
 	 */
 	public static function getConfig($var)
 	{
-		return self::$registry->get($var, 'config');
+		return self::get('Config')->get($var);
 	}
 
 	/**
 	 * Set a configuration entry in registry
+	 *
+	 * @param string $var
+	 * @param misc $val
+	 * @return misc
 	 */
 	public static function setConfig($var, $val)
 	{
-		return self::$registry->set($var, $val, 'config');
+		return self::get('Config')->set($var, $val);
 	}
 
 	/**
 	 * Add to a configuration entry in registry
+	 *
+	 * @param string $var
+	 * @param misc $val
+	 * @return misc
 	 */
 	public static function addConfig($var, $val)
 	{
-		return self::$registry->add($var, $val, 'config');
+		return self::get('Config')->add($var, $val);
 	}
 
 	/**
 	 * Get a parser entry from registry
+	 *
+	 * @param string $var
+	 * @return misc
 	 */
 	public static function getVar($var)
 	{
-		return self::$registry->get($var, 'parser');
+		return self::get('Registry')->get($var);
 	}
 
 	/**
 	 * Set a parser entry in registry
+	 *
+	 * @param string $var
+	 * @param misc $val
+	 * @return misc
 	 */
 	public static function setVar($var, $val)
 	{
-		return self::$registry->set($var, $val, 'parser');
+		return self::get('Registry')->set($var, $val);
 	}
 
 	/**
 	 * Add to a parser entry in registry
+	 *
+	 * @param string $var
+	 * @param misc $val
+	 * @return misc
 	 */
 	public static function addVar($var, $val)
 	{
-		return self::$registry->add($var, $val, 'parser');
+		return self::get('Registry')->add($var, $val);
 	}
 
 	/**
 	 * Unset a parser entry in registry
+	 *
+	 * @param string $var
+	 * @param misc $val
+	 * @return misc
 	 */
 	public static function unsetVar($var, $val = null)
 	{
-		return self::$registry->remove($var, $val, 'parser');
+		return self::get('Registry')->remove($var, $val);
 	}
 
 }

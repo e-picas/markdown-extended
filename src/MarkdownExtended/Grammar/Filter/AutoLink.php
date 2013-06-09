@@ -17,17 +17,20 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown automatic links
+ */
 class AutoLink extends Filter
 {
 	
 	/**
-	 * @param string $text Text to parse
-	 * @return string The text parsed
-	 * @see _doAutoLinks_url_callback()
-	 * @see _doAutoLinks_email_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
@@ -57,29 +60,38 @@ class AutoLink extends Filter
 	}
 
 	/**
-	 * @param array $matches A set of results of the `doAutoLinks` function
-	 * @return string The text parsed
-	 * @see encodeAttribute()
-	 * @see hashPart()
+	 * @param array $matches A set of results of the `transform` function
+	 * @return string
 	 */
 	protected function _url_callback($matches) 
 	{
 		$url = parent::runGamut('tool:EncodeAttribute', $matches[1]);
-		$link = "<a href=\"$url\">$url</a>";
-		return parent::hashPart($link);
+		MarkdownExtended::getContent()->addUrl($url);
+        $block = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('link', $url, array(
+		        'href' => $url,
+                'title' => MDE_Helper::fillPlaceholders(
+                    MarkdownExtended::getConfig('link_mask_title'), $url)
+            ));
+        return parent::hashPart($block);
 	}
 
 	/**
-	 * @param array $matches A set of results of the `doAutoLinks` function
-	 * @return string The text parsed
-	 * @see encodeEmailAddress()
-	 * @see hashPart()
+	 * @param array $matches A set of results of the `transform` function
+	 * @return string
 	 */
 	protected function _email_callback($matches) 
 	{
 		$address = $matches[1];
-		$link = parent::runGamut('tool:EncodeEmailAddress', $address);
-		return parent::hashPart($link);
+		list($address_link, $address_text) = MDE_Helper::encodeEmailAddress($address);
+		MarkdownExtended::getContent()->addUrl($address_text);
+        $block = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('link', $address_text, array(
+		        'href' => $address_link,
+                'title' => MDE_Helper::fillPlaceholders(
+                    MarkdownExtended::getConfig('mailto_mask_title'), $address_text)
+            ));
+		return parent::hashPart($block);
 	}
 
 }

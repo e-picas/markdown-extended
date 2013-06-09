@@ -17,217 +17,105 @@
  */
 namespace MarkdownExtended;
 
-use \InvalidArgumentException, \RuntimeException;
+use MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
 /**
  */
 class Registry
 {
 
-	/**
-	 * Loaded objects stack registry
-	 * @var array
-	 */
-	private $loaded;
+    /**
+     * @var bool
+     */
+    protected $is_extendable;
+
+    /**
+     * @var bool
+     */
+    protected $is_removable;
 
 	/**
-	 * Config entries stack registry
 	 * @var array
 	 */
-	private $config;
-
-	/**
-	 * Parser variables stack registry
-	 * @var array
-	 */
-	private $parser;
+	protected $data;
 
 	/**
 	 * Initialize the registry
+	 *
+	 * @param bool $is_extendable
+	 * @param bool $is_removable
 	 */
-	public function __construct()
+	public function __construct($is_extendable = true, $is_removable = true)
 	{
-	 	$this->loaded = array();
-	 	$this->config = array();
-	 	$this->parser = array();
+	    $this->is_extendable = $is_extendable;
+	    $this->is_removable = $is_removable;
+        $this->data = array();
 	}
+
+// ------------------
+// Setters / Getters
+// ------------------
 
 	/**
 	 * Set or reset a new instance in global registry
+	 *
+	 * @throws MarkdownExtended\Exception\InvalidArgumentException if `$val` is not an 
+	 *          object in the 'loaded' stack
 	 */
-	public function set($var, $val, $stack)
+	public function set($var, $val)
 	{
-		if (!empty($stack) && is_string($stack)) {
-			if (is_string($var) && ctype_alnum( str_replace(array('_', '\\'), '', $var) )) {
-				if (isset($this->{$stack})){
-					switch ($stack) {
-						case 'loaded':
-							if (is_object($val))
-								$this->loaded[$var] = $val;
-							else
-								throw new InvalidArgumentException(sprintf(
-  			  	  					"New registry entry in the 'loaded' stack must be an object instance, <%s> given!", gettype($val)
-			  	  	  			));
-							break;
-						case 'config':
-							$this->config[$var] = $val;
-							break;
-						case 'parser':
-							$this->parser[$var] = $val;
-							break;
-						default: break;
-					}
-				} else{
-					throw new InvalidArgumentException(sprintf(
-  		  				"Unknown stack <%s> in registry!", $stack
-		  	  		));
-				}
-			} else {
-				throw new InvalidArgumentException(sprintf(
-    				"New registry entry must be named by alpha-numeric string, <%s> given!", $var
-	    		));
-			}
-		} else {
-			throw new InvalidArgumentException(sprintf(
-    			"No stack for new registry entry <%s>!", $var
-	    	));
+		if (MDE_Helper::validateVarname($var)) {
+            $this->data[$var] = $val;
 		}
 	}
 
 	/**
 	 * Add something to an existing entry of the global registry, the entry is created if it not exist
+	 *
+	 * @throws MarkdownExtended\Exception\RuntimeException if trying to add an entry of a non-extendable object
 	 */
-	public function add($var, $val, $stack)
+	public function add($var, $val)
 	{
-		if (!empty($stack) && is_string($stack)) {
-			if (is_string($var) && ctype_alnum( str_replace(array('_', '\\'), '', $var) )) {
-				if (isset($this->{$stack})){
-					switch ($stack) {
-						case 'loaded':
-							throw new RuntimeException(
-  			  					"Registry entry in the 'load' stack can not be extended!"
-			  		  		);
-							break;
-						case 'config': case 'parser':
-							$this->{$stack}[$var] = $this->extend($this->{$stack}[$var], $val);
-							break;
-						default: break;
-					}
-				} else{
-					throw new InvalidArgumentException(sprintf(
-  		  				"Unknown stack <%s> in registry!", $stack
-		  	  		));
-				}
-			} else {
-				throw new InvalidArgumentException(sprintf(
-    				"New registry entry must be named by alpha-numeric string, <%s> given!", $var
-	    		));
-			}
-		} else {
-			throw new InvalidArgumentException(sprintf(
-    			"No stack for new registry entry <%s>!", $var
-	    	));
+		if (MDE_Helper::validateVarname($var)) {
+		    if ($this->is_extendable) {
+		        if (isset($this->data[$var])) {
+                    $this->data[$var] = MDE_Helper::extend($this->data[$var], $val);
+                } else {
+                    $this->data[$var] = $val;
+                }
+		    } else {
+                throw new MDE_Exception\RuntimeException("Registry entry can not be extended!");
+		    }
 		}
 	}
 
 	/**
 	 * Remove something to an existing entry of the global registry, the entry is created if it not exist
 	 */
-	public function remove($var, $val = null, $stack = null)
+	public function remove($var, $index = null)
 	{
-		if (!empty($stack) && is_string($stack)) {
-			if (is_string($var) && ctype_alnum( str_replace(array('_', '\\'), '', $var) )) {
-				if (isset($this->{$stack})) {
-					switch ($stack) {
-						case 'loaded':
-							throw new RuntimeException(
-  			  					"Registry entry in the 'load' stack can not be extended!"
-			  		  		);
-							break;
-						case 'config': case 'parser':
-							if ($val) {
-								if (isset($this->{$stack}[$var]) && isset($this->{$stack}[$var][$val]))
-									unset($this->{$stack}[$var][$val]);
-							} else {
-								if (isset($this->{$stack}[$var]))
-									unset($this->{$stack}[$var]);
-							}
-							break;
-						default: break;
-					}
-				} else {
-					throw new InvalidArgumentException(sprintf(
-  		  				"Unknown stack <%s> in registry!", $stack
-		  	  		));
-				}
-			} else {
-				throw new InvalidArgumentException(sprintf(
-    				"New registry entry must be named by alpha-numeric string, <%s> given!", $var
-	    		));
-			}
-		} else {
-			throw new InvalidArgumentException(sprintf(
-    			"No stack for new registry entry <%s>!", $var
-	    	));
-		}
+		if ($this->is_removable) {
+            if (isset($this->data[$var])) {
+                if ($index) {
+                    if (isset($this->data[$var][$index])) {
+                        unset($this->data[$var][$index]);
+                    }
+                } else {
+                    unset($this->data[$var]);
+                }
+            }
+        } else {
+            throw new MDE_Exception\RuntimeException("Registry entry can not be removed!");
+        }
 	}
 
 	/**
 	 * Get an entry from the global registry
 	 */
-	public function get($var, $stack, $default = null)
+	public function get($var, $default = null)
 	{
-		if (!empty($stack) && is_string($stack)) {
-			if (is_string($var) && ctype_alnum( str_replace(array('_', '\\'), '', $var) )) {
-				if (isset($this->{$stack})){
-					if (isset($this->{$stack}[$var]))
-						return $this->{$stack}[$var];
-				} else {
-					throw new InvalidArgumentException(sprintf(
-  		  				"Unknown stack <%s> in registry!", $stack
-		  	  		));
-				}
-			} else {
-				throw new InvalidArgumentException(sprintf(
-  	  				"Registry entry must be retrieved by alpha-numeric string, <%s> given!", $var
-	  	  		));
-			}
-		} else {
-			throw new InvalidArgumentException(sprintf(
-    			"No stack for retreiving registry entry <%s>!", $var
-	    	));
-		}
-		return $default;
-	}
-
-	/**
-	 * Extend a value with another, if types match
-	 */
-	public function extend($what, $add)
-	{
-		if (empty($what)) return $add;
-		switch (gettype($what)) {
-			case 'string': return $what.$add; break;
-			case 'numeric': return ($what+$add); break;
-			case 'array': 
-				if (is_array($add)) {
-					$what += $add;
-					return $what; 
-				} else {
-					throw new InvalidArgumentException(
-    					"Trying to extend an array with not an array!"
-			    	);
-				}
-				break;
-			case 'object': 
-				throw new InvalidArgumentException("Trying to extend an object!");
-				break;
-			default: 
-				throw new InvalidArgumentException(sprintf(
-  	  				"No extending definition found for type <%s>!", gettype($what)
-		    	));
-				break;
-		}
+        return isset($this->data[$var]) ? $this->data[$var] : $default;
 	}
 
 }

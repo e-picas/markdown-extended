@@ -38,3 +38,6 @@ phpdoc/*
 # any "tmp*" file or dir
 tmp*
 demo/tmp*
+
+# for now ...
+MANIFEST.md

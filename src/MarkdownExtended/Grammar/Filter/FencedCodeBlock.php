@@ -17,41 +17,43 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown fenced code blocks
+ *
+ * Fenced code blocks may be written like:
+ *
+ *      ~~~~(language)
+ *      my content ...
+ *      ~~~~
+ */
 class FencedCodeBlock extends Filter
 {
 
 	/**
-	 * Adding the fenced code block syntax to regular Markdown:
-	 *
-	 *     ~~~
-	 *     Code block
-	 *     ~~~
-	 *
-	 * @param string $text The text to parse
-	 * @return string The text parsed
-	 * @see _doFencedCodeBlocks_callback()
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($text) 
 	{
-		$less_than_tab = MarkdownExtended::getConfig('tab_width');
-		
 		return preg_replace_callback('{
-				(?:\n|\A)           # 1: Opening marker
+				(?:\n|\A)               # 1: Opening marker
 				(
-					~{3,}             # Marker: three tilde or more.
+					~{3,}               # Marker: three tilde or more.
 				)
-				(\w+)?              # 2: Language
-				[ ]* \n             # Whitespace and newline following marker.
-				(                   # 3: Content
+				(\w+)?                  # 2: Language
+				[ ]* \n                 # Whitespace and newline following marker.
+				(                       # 3: Content
 					(?>
 						(?!\1 [ ]* \n)	# Not a closing marker.
 						.*\n+
 					)+
 				)
-				\1 [ ]* \n          # Closing marker
+				\1 [ ]* \n              # Closing marker
 			}xm',
 			array($this, '_callback'), $text);
 	}
@@ -59,32 +61,35 @@ class FencedCodeBlock extends Filter
 	/**
 	 * Process the fenced code blocks
 	 *
-	 * @param array $matches Results form the `doFencedCodeBlocks()` function
-	 * @return string The text parsed
-	 * @see _doFencedCodeBlocks_newlines()
-	 * @see hashBlock()
+	 * @param array $matches Results form the `transform()` function
+	 * @return string
 	 */
 	protected function _callback($matches) 
 	{
-		$codeblock = $matches[3];
 		$language  = $matches[2];
-		$codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
+		$codeblock = MDE_Helper::escapeCodeContent($matches[3]);
 		$codeblock = preg_replace_callback('/^\n+/', array($this, '_newlines'), $codeblock);
-		$codeblock = "<pre><code"
-			.( !empty($language) ? " class=\"language-$language\"" : '' )
-			.">$codeblock</code></pre>";
+
+        $attributes = array();
+		if (!empty($language)) {
+            $attribute = MarkdownExtended::getConfig('fcb_language_attribute');
+		    $attributes[$attribute] = MDE_Helper::fillPlaceholders(
+		        MarkdownExtended::getConfig('fcb_attribute_value_mask'), $language);
+		}
+        $codeblock = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('preformated', $codeblock, $attributes);
 		return "\n\n".parent::hashBlock($codeblock)."\n\n";
 	}
 
 	/**
 	 * Process the fenced code blocks new lines
 	 *
-	 * @param array $matches Results form the `doFencedCodeBlocks()` function (passed from the `_doFencedCodeBlocks_callback()` function)
-	 * @return string The block parsed
+	 * @param array $matches
+	 * @return string
 	 */
 	protected function _newlines($matches) 
 	{
-		return str_repeat( "<br".MarkdownExtended::getConfig('empty_element_suffix'), strlen($matches[0]) );
+		return str_repeat(MarkdownExtended::get('OutputFormatBag')->buildTag('new_line'), strlen($matches[0]));
 	}
 
 

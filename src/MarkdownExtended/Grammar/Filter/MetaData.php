@@ -17,9 +17,14 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\MarkdownExtended,
-    \MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\Grammar\Filter,
+    MarkdownExtended\Helper as MDE_Helper,
+    MarkdownExtended\Exception as MDE_Exception;
 
+/**
+ * Process Markdown meta data
+ */
 class MetaData extends Filter
 {
 
@@ -38,6 +43,9 @@ class MetaData extends Filter
      */
 	protected static $inMetaData = -1;
 	
+	/**
+	 * Prepare object with configuration
+	 */
 	public function _setup()
 	{
 		MarkdownExtended::setVar('metadata', array());
@@ -48,8 +56,8 @@ class MetaData extends Filter
 	}
 
 	/**
-	 * @param string $text Text to parse
-	 * @return string The text parsed
+	 * @param string $text
+	 * @return string
 	 */
 	public function strip($text) 
 	{
@@ -71,13 +79,14 @@ class MetaData extends Filter
 		}
 		if (!empty($this->metadata)) {
 			MarkdownExtended::setVar('metadata', $this->metadata);
+			MarkdownExtended::getContent()->setMetadata($this->metadata);
 		}
 		return $text;
 	}
 
 	/**
-	 * @param string $text Text to parse
-	 * @return string The text parsed
+	 * @param string $text
+	 * @return string
 	 */
 	public function transform($line) 
 	{
@@ -94,7 +103,7 @@ class MetaData extends Filter
 
 	/**
 	 * @param array $matches A set of results of the `transform` function
-	 * @return string The text parsed
+	 * @return string
 	 */
 	protected function _callback($matches) 
 	{
@@ -108,7 +117,7 @@ class MetaData extends Filter
 
 	/**
 	 * @param array $matches A set of results of the `transform` function
-	 * @return string The text parsed
+	 * @return string
 	 */
 	protected function _callback_nextline($matches) 
 	{
@@ -117,6 +126,9 @@ class MetaData extends Filter
 		return '';
 	}
 
+    /**
+     * Build meta data strings
+     */
 	public function append($text)
 	{
 		$metadata = MarkdownExtended::getVar('metadata');
@@ -124,14 +136,24 @@ class MetaData extends Filter
 			$metadata_str='';
 			foreach($metadata as $meta_name=>$meta_value) {
 				if (!empty($meta_name) && is_string($meta_name)) {
-					if (in_array($meta_name, $this->special_metadata))
+					if (in_array($meta_name, $this->special_metadata)) {
 						MarkdownExtended::setConfig($meta_name, $meta_value);
-					else
-						$metadata_str .= "\n".
-							$this->runGamut('tool:BuildMetaData', "$meta_name:$meta_value");
+					} else {
+                        if ($meta_name=='title') {
+                            MarkdownExtended::getContent()
+                                ->setTitle($meta_value);
+                        } else {
+    						$metadata_str .= "\n" . MarkdownExtended::get('OutputFormatBag')
+                                ->buildTag('meta_data', null, array(
+                                    'name'=>$meta_name,
+                                    'content'=>$meta_value
+                                ));
+                        }
+					}
 				}
 			}
-			$text = $metadata_str."\n\n".$text;
+		    MarkdownExtended::getContent()
+		        ->setMetadataHtml($metadata_str);
 		}
 		return $text;
 	}
