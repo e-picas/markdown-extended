@@ -51,7 +51,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>Must process the filter on a text</p>
+                    <p>Form HTML ordered (numbered) and unordered (bulleted) lists.</p>
                 </td>
                 <td></td>
             </tr>
@@ -101,7 +101,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_transformItems">transformItems</a>(<abbr title="MarkdownExtended\Grammar\Filter\str">str</abbr> $list_str, <abbr title="MarkdownExtended\Grammar\Filter\str">str</abbr> $marker_any_re)
-                    <p>Process the contents of a single ordered or unordered list, splitting it    into individual list items.</p>
+                    <p>Process the contents of a single ordered or unordered list, splitting it  into individual list items.</p>
                 </td>
                 <td></td>
             </tr>
@@ -142,7 +142,7 @@
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Must process the filter on a text</p>
+        <p>Form HTML ordered (numbered) and unordered (bulleted) lists.</p>
         <p>
 </p>
         <div class="tags">
@@ -365,7 +365,7 @@ that are word separators and "X" is used in the general case.</p>
     <strong>transformItems</strong>(<abbr title="MarkdownExtended\Grammar\Filter\str">str</abbr> $list_str, <abbr title="MarkdownExtended\Grammar\Filter\str">str</abbr> $marker_any_re)</code>
     </h3>
     <div class="details">
-        <p>Process the contents of a single ordered or unordered list, splitting it    into individual list items.</p>
+        <p>Process the contents of a single ordered or unordered list, splitting it  into individual list items.</p>
         <p>The self::$list_level global keeps track of when we're inside a list.
 Each time we enter a list, we increment it; when we leave a list,
 we decrement. If it's zero, we're not in a list anymore.</p>
@@ -373,9 +373,9 @@ we decrement. If it's zero, we're not in a list anymore.</p>
 <p>We do this because when we're not inside a list, we want to treat
 something like this:</p>
 
-<pre><code>    I recommend upgrading to version
-    8. Oops, now this line is treated
-    as a sub-list.
+<pre><code> I recommend upgrading to version
+ 8. Oops, now this line is treated
+ as a sub-list.
 </code></pre>
 
 <p>As a single paragraph, despite the fact that the second line starts
