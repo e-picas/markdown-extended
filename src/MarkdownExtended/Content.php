@@ -378,7 +378,7 @@ class Content implements ContentInterface
         if ($full_html) $content .= "</head><body>\n";
 
         // body
-        if ($this->getNotes()) {
+        if ($this->getBody()) {
 			$content .= $this->getBody();
         }
 
