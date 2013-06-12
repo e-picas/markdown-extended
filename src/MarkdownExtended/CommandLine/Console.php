@@ -433,7 +433,8 @@ EOT;
             $_emd = $this->getEmdInstance();
 			$this->info("Parsing Mardkown content ... ", false);
 			if ($md_content = $_emd->parse(new \MarkdownExtended\Content($md_content))) {
-			    $md_output = $md_content->getContent()->getFullContent();
+			    $md_content_object = $md_content->getContent();
+			    $md_output = \MarkdownExtended\Helper::getFullContent($md_content_object);
 				$this->md_parsed_content .= $md_output;
 				$this->info("OK [strlen: ".strlen($md_output)."]", true, false);
 			} else {
