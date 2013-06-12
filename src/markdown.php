@@ -27,9 +27,9 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
     require_once $b;
 
 // else try to register `MarkdownExtended` namespace
-} elseif (file_exists($c = __DIR__.'/src/SplClassLoader.php')) {
+} elseif (file_exists($c = __DIR__.'/SplClassLoader.php')) {
     require_once $c;
-    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/src');
+    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__);
     $classLoader->register();
 
 // else error, classes can't be found
@@ -53,9 +53,9 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
  * @return string
  */
 function Markdown($text, $options = null) {
-	\MarkdownExtended\MarkdownExtended::getInstance()
-	    ->transformString($text, $options)
-	    ->getFullContent();
+	$content = \MarkdownExtended\MarkdownExtended::getInstance()
+	    ->transformString($text, $options);
+	return \MarkdownExtended\Helper::getFullContent($content);
 }
 
 /**
@@ -67,9 +67,9 @@ function Markdown($text, $options = null) {
  * @return string
  */
 function MarkdownFromSource($file_name, $options = null) {
-	\MarkdownExtended\MarkdownExtended::getInstance()
-	    ->transformSource($file_name, $options)
-	    ->getFullContent();
+	$content = \MarkdownExtended\MarkdownExtended::getInstance()
+	    ->transformSource($file_name, $options);
+	return \MarkdownExtended\Helper::getFullContent($content);
 }
 
 /**
