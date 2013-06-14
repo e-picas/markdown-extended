@@ -209,7 +209,7 @@ final class MarkdownExtended
 	public static function load($class)
 	{
 	    $class = MDE_Helper::getAbsoluteClassname($class);
-		if (@class_exists($class)) return true;
+		if (class_exists($class)) return true;
         throw new MDE_Exception\InvalidArgumentException(
             sprintf('Class "%s" not found in "%s"!', $class, $_f)
         );

@@ -53,6 +53,7 @@ class Console extends AbstractConsole
 	protected $filter_styles =false;
 	protected $nofilter      =false;
 	protected $extract       =false;
+	protected $format        ='HTML';
 	/**#@-*/
 
 	/**
@@ -66,6 +67,7 @@ class Console extends AbstractConsole
 		'o:'=>'output:', 
 		'm'=>'multi', 
 		'c:'=>'config:', 
+		'f:'=>'format:', 
 		'gamuts::', 
 //		'filter-html', 
 //		'filter-styles', 
@@ -209,6 +211,7 @@ Options:
     -m | --multi            multi-files input (automatic if multiple file names found)
     -o | --output=FILE      specify a file (or a file mask) to write generated content in
     -c | --config=FILE      configuration file to use for Markdown instance (INI format)
+    -f | --format=NAME      format of the output (default is HTML)
     --gamuts[=NAME]         get the list of gamuts (or just one if specified) processed on Markdown input
     --nofilter=A,B          specify a list of filters that will be ignored during Markdown parsing
     --extract[=META]        extract some data (the meta data array by default) from the Markdown input
@@ -298,6 +301,15 @@ EOT;
 	}
 
 	/**
+	 * Run the format option
+	 */
+	public function runOption_format($str)
+	{
+		$this->format = $str;
+		$this->info("Setting 'format' on `".$this->format."`");
+	}
+
+	/**
 	 * Run the gamuts option : list gamuts pile of the parser
 	 */
 	protected function runOption_gamuts($name = null)
@@ -351,6 +363,9 @@ EOT;
 			if (false!==$this->config) {
 				$config['config_file'] = $this->config;
 			}
+			if (!empty($this->format)) {
+				$config['output_format'] = $this->format;
+			}			
 			$this->info("Creating a MarkdownExtended instance with options ["
 				.str_replace("\n", '', var_export($_options,1))
 				."]");
