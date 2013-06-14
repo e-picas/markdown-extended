@@ -231,6 +231,9 @@ class Content implements ContentInterface
     public function setId($id)
     {
         $this->id = $id;
+        if (empty($this->id) || (!is_string($this->id) && !is_numeric($this->id))) {
+            $this->id = uniqid();
+        }
         return $this;
     }
 
@@ -239,9 +242,6 @@ class Content implements ContentInterface
      */
     public function getId()
     {
-        if (empty($this->id)) {
-            $this->setId(uniqid());
-        }
         return $this->id;
     }
 

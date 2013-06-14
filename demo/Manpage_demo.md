@@ -1,13 +1,12 @@
-Title:   COFFEE
+Man:   Coffee Manual
+Name:    COFFEE
 Author:  Frederic Culot
 Date:    February 20, 2012  
 Version: 1.0
 
-#  COFFEE
-
 ## NAME
 
-Coffee \- USB coffee-machine controller
+Coffee - USB coffee-machine controller
 
 ## SYNOPSIS
 
@@ -23,34 +22,28 @@ quantity, and last but not least, you can have a crepe and even specify its flav
 
 The following options are supported:
 
-### **-s** , **--sugar**
+**-s** , **--sugar**
+:   Specify the quantity of sugar you want. 
 
-Specify the quantity of sugar you want. 
+**-t** , **--temp**
+:   Specify the temperature you want for your coffee.
 
-### **-t** , **--temp**
+:   *Note:* beware that choosing 'hot' could lead to severe injuries.
 
-Specify the temperature you want for your coffee.
+**-o** , **--origin**
+:   You can choose where your coffee comes from. Possible choices are:
+    *colombia*, *ethiopia*, *carrouf*.
 
-*Note:* beware that choosing 'hot' could lead to severe injuries.
+**-c** , **--crepe**
+:   Specify the crepe flavor you want. Available flavors are *rhum* and
+    *whisky* for now on.
 
-### **-o** , **--origin**
+**-h**, **--help**
+:   Print a short help text describing the supported command-line options,
+    and then exit. 
 
-You can choose where your coffee comes from. Possible choices are:
-*colombia*, *ethiopia*, *carrouf*.
-
-### **-c** , **--crepe**
-
-Specify the crepe flavor you want. Available flavors are *rhum* and
-*whisky* for now on.
-
-### **-h**, **--help**
-
-Print a short help text describing the supported command-line options,
-and then exit. 
-
-### **-v**, **--version**
-
-Display **coffee** version and exit.
+**-v**, **--version**
+:   Display **coffee** version and exit.
 
 ## LICENSE
 

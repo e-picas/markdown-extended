@@ -53,9 +53,9 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
  * @return string
  */
 function Markdown($text, $options = null) {
-	$content = \MarkdownExtended\MarkdownExtended::getInstance()
-	    ->transformString($text, $options);
-	return \MarkdownExtended\Helper::getFullContent($content);
+    $content = \MarkdownExtended\MarkdownExtended::getInstance()
+        ->transformString($text, $options);
+    return \MarkdownExtended\MarkdownExtended::getFullContent($content);
 }
 
 /**
@@ -67,18 +67,18 @@ function Markdown($text, $options = null) {
  * @return string
  */
 function MarkdownFromSource($file_name, $options = null) {
-	$content = \MarkdownExtended\MarkdownExtended::getInstance()
-	    ->transformSource($file_name, $options);
-	return \MarkdownExtended\Helper::getFullContent($content);
+    return \MarkdownExtended\MarkdownExtended::getInstance()
+        ->transformSource($file_name, $options)
+        ->getFullContent();
 }
 
 /**
  * Use the MarkdownExtended command line interface
  */
 function MarkdownCli() {
-	\MarkdownExtended\MarkdownExtended::getInstance()
-	    ->get('CommandLine\Console')
-	    ->run();
+    \MarkdownExtended\MarkdownExtended::getInstance()
+        ->get('CommandLine\Console')
+        ->run();
 }
 
 // Endfile

@@ -24,15 +24,40 @@ use MarkdownExtended\MarkdownExtended,
     MarkdownExtended\Exception as MDE_Exception;
 
 /**
- * Format a content in full HTML
+ * Format a content in UNIX Manpage format
+ *
+ * Use special meta data to complete the manpage headers:
+ *
+ * -   `name`: the name of the program/command
+ * -   `section`: the man pages section number (default is "3" for libraries)
+ * -   `version`: the program/command version number
+ * -   `date`: the date of this version
+ * -   `man`: the name of the manpage
+ *
+ * Usage:
+ *
+ *      ~$ ./bin/markdown_extended -o MANPAGENAME.man -f man path/to/original.md
+ * 
  */
 class Man 
     implements OutputFormatInterface
 {
 
+    /**
+     * List of classic manpages sections
+     * @static array
+     */
     public static $sections = array(
-        'name', 'synopsys', 'description', 'options', 'files', 'environement', 'diagnosis', 'bugs', 'author', 'see also', 
+        'name', 'synopsis', 'description', 'options', 'files', 'environment', 'diagnosis', 'bugs', 'author', 'see also', 
         'examples', 'standards', 'license', 'history'
+    );
+
+    /**
+     * List of special metadata to build manpage headers
+     * @static array
+     */
+    public static $headers_meta_data = array(
+        'name', 'version', 'date', 'section', 'man'
     );
 
     /**
@@ -54,203 +79,124 @@ class Man
         $this->new_line = "\n";
     }
 
-	/**
-	 * This will try to call a method `builTagName()` if it exists, then will try to use
-	 * the object `$tags_map` static to automatically find what to do, and then call the 
-	 * default `getTagString()` method passing it the arguments.
-	 *
-	 * @param string $tag_name
-	 * @param string $content
-	 * @param array $attributes An array of attributes constructed like "variable=>value" pairs
-	 *
-	 * @return string
-	 */
-	public function buildTag($tag_name, $content = null, array $attributes = array())
-	{
-	    $_method = 'build'.MDE_Helper::toCamelCase($tag_name);
-	    if (method_exists($this, $_method)) {
-	        return call_user_func_array(
-	            array($this, $_method),
-	            array($content, $attributes)
-	        );
-	    } else {
-	        return call_user_func_array(
-	            array($this, 'getTagString'),
-	            array($content, $tag_name, $attributes)
-	        );
-	    }
-	}
-	
-	/**
-	 * @param string $content
-	 * @param string $tag_name
-	 * @param array $attributes An array of attributes constructed like "variable=>value" pairs
-	 *
-	 * @return string
-	 */
-	public function getTagString($content, $tag_name, array $attributes = array())
-	{
-	    return $content;
-	}
+    /**
+     * This will try to call a method `builTagName()` if it exists, then will try to use
+     * the object `$tags_map` static to automatically find what to do, and then call the 
+     * default `getTagString()` method passing it the arguments.
+     *
+     * @param string $tag_name
+     * @param string $content
+     * @param array $attributes An array of attributes constructed like "variable=>value" pairs
+     *
+     * @return string
+     */
+    public function buildTag($tag_name, $content = null, array $attributes = array())
+    {
+        $_method = 'build'.MDE_Helper::toCamelCase($tag_name);
+        if (method_exists($this, $_method)) {
+            return call_user_func_array(
+                array($this, $_method),
+                array($content, $attributes)
+            );
+        } else {
+            return call_user_func_array(
+                array($this, 'getTagString'),
+                array($content, $tag_name, $attributes)
+            );
+        }
+    }
+    
+    /**
+     * @param string $content
+     * @param string $tag_name
+     * @param array $attributes An array of attributes constructed like "variable=>value" pairs
+     *
+     * @return string
+     */
+    public function getTagString($content, $tag_name, array $attributes = array())
+    {
+        return $content;
+    }
 
 // -------------------
 // Tag specific builder
 // -------------------
 
-	public function buildTitle($text, array $attributes = array())
-	{
-	    if (in_array(strtolower($text), self::$sections)) {
-			return $this->new_line . '.SH ' . strtoupper($text) . $this->new_line;
-	    } else {
-			return $this->new_line . '.B ' . strtoupper($text) . $this->new_line;
-	    }
-	}
-	
-	public function buildMetaData($text = null, array $attributes = array())
-	{
-	    if (!empty($attributes['name'])) {
-    	    if (empty($attributes['content']) && !empty($text)) {
-    	        $attributes['content'] = $text;
-    	    }
-    	    return '.\" ' . $attributes['name'] . ': ' . $attributes['content'] . $this->new_line;
-	    }
-	    return '.\" ' . $text . $this->new_line;
-	}
+    public function buildTitle($text, array $attributes = array())
+    {
+        if (in_array(strtolower($text), self::$sections)) {
+            return $this->new_line . '.SH ' . strtoupper($text) . $this->new_line;
+        } else {
+            return $this->new_line . '.B ' . strtoupper($text) . $this->new_line;
+        }
+    }
+    
+    public function buildMetaData($text = null, array $attributes = array())
+    {
+        if (!empty($attributes['name'])) {
+            if (empty($attributes['content']) && !empty($text)) {
+                $attributes['content'] = $text;
+            }
+            return '.\" ' . $attributes['name'] . ': ' . $attributes['content'] . $this->new_line;
+        }
+        return '.\" ' . $text . $this->new_line;
+    }
 
-	public function buildMetaTitle($text = null, array $attributes = array())
-	{
-	    return '.TH ' . $text . $this->new_line;
-	}
+    public function buildMetaTitle($text = null, array $attributes = array())
+    {
+        return '.TH '
+            . ' "' . (!empty($attributes['name']) ? $attributes['name'] : '') . '"'
+            . ' "' . (!empty($attributes['section']) ? $attributes['section'] : '3') . '"'
+            . ' "' . (!empty($attributes['date']) ? $attributes['date'] : '') . '"'
+            . ' "' . (!empty($attributes['version']) ? 'Version '.str_replace(array('version', 'Version'), '', $attributes['version']) : '') . '"'
+            . ' "' . (!empty($attributes['man']) ? $attributes['man'] : '') . '"'
+            . $this->new_line;
+    }
 
-	public function buildBlock($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
+    public function buildParagraph($text = null, array $attributes = array())
+    {
+        return $this->new_line . '.PP' . $this->new_line . $text . $this->new_line;
+    }
 
-	public function buildParagraph($text = null, array $attributes = array())
-	{
-		return $this->new_line . '.PP' . $this->new_line . $text . $this->new_line;
-	}
+    public function buildBold($text = null, array $attributes = array())
+    {
+        return '\fB' . trim($text) . $this->ending_tag;
+    }
 
-	public function buildBold($text = null, array $attributes = array())
-	{
-		return '\fB' . $text . $this->ending_tag;
-	}
+    public function buildItalic($text = null, array $attributes = array())
+    {
+        return '\fI' . trim($text) . $this->ending_tag;
+    }
 
-	public function buildItalic($text = null, array $attributes = array())
-	{
-		return '\fI' . $text . $this->ending_tag;
-	}
+    public function buildPreformated($text = null, array $attributes = array())
+    {
+        return '`' . $text . '`';
+    }
 
-	public function buildPreformated($text = null, array $attributes = array())
-	{
-		return '`' . $text . '`';
-	}
+    public function buildAbbreviation($text = null, array $attributes = array())
+    {
+        return $text . (!empty($attributes['title']) ? ' (' . $attributes['title'] . ')' : '');
+    }
 
-	public function buildLink($text = null, array $attributes = array())
-	{
-		return '<' . $text . '>';
-	}
+    public function buildDefinitionListItemTerm($text = null, array $attributes = array())
+    {
+        return '.TP' . $this->new_line . $text;
+    }
 
-	public function buildAbbreviation($text = null, array $attributes = array())
-	{
-		return $text . (!empty($attributes['title']) ? ' (' . $attributes['title'] . ')' : '');
-	}
+    public function buildNewLine($text = null, array $attributes = array())
+    {
+        return '.br' . $this->new_line;
+    }
 
-	public function buildDefinitionList($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
+    public function buildHorizontalRule($text = null, array $attributes = array())
+    {
+        return '';
+    }
 
-	public function buildDefinitionListItemTerm($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildDefinitionListItemDefinition($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildList($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildListItem($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildUnorderedList($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildUnorderedListItem($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildOrderedList($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildOrderedListItem($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildTableCaption($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildTableHeader($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildTableBody($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildTableFooter($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildTableLine($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildTableCell($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildTableCellHead($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildImage($text = null, array $attributes = array())
-	{
-	    return $text;
-	}
-
-	public function buildNewLine($text = null, array $attributes = array())
-	{
-		return '.br' . $this->new_line;
-	}
-
-	public function buildHorizontalRule($text = null, array $attributes = array())
-	{
-	    return '';
-	}
+    public function buildComment($text = null, array $attributes = array())
+    {
+        return '.\"' . $text;
+    }
 
 }
 

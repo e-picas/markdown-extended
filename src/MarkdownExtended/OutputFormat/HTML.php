@@ -119,7 +119,7 @@ class HTML
             'closable'=>true,
         ),
     );
-		
+        
     /**
      * @var string
      */
@@ -133,63 +133,68 @@ class HTML
         $this->empty_element_suffix = MarkdownExtended::getConfig('html_empty_element_suffix');
     }
 
-	/**
-	 * Builder of HTML tags :
-	 *     <TAG ATTR1="ATTR_VAL1" ... > TEXT </TAG>
-	 *
-	 * @param string $text The content of the tag
-	 * @param string $tag The tag name
-	 * @param array $attributes An array of attributes constructed by "variable=>value" pairs
-	 * @param bool $close Is it a closed tag ? (FALSE by default)
-	 *
-	 * @return string The built tag string
-	 */
-	public function getTagString($text, $tag, array $attributes = array(), $close = false)
-	{
-		$attr='';
-		if (!empty($attributes)) {
-			foreach ($attributes as $variable=>$value) {
-				if (!empty($value)) {
-					if (is_string($variable)) {
-						$attr .= " {$variable}=\"{$value}\"";
-					} else {
-						$attr .= ' '.trim($value);
-					}
-				}
-			}
-		}
-		if (true===$close) {
-			return "<{$tag}{$attr}" . $this->empty_element_suffix;
-		} else {
-			return "<{$tag}{$attr}>{$text}</{$tag}>";
-		}
-	}
+    /**
+     * Builder of HTML tags :
+     *     <TAG ATTR1="ATTR_VAL1" ... > TEXT </TAG>
+     *
+     * @param string $text The content of the tag
+     * @param string $tag The tag name
+     * @param array $attributes An array of attributes constructed by "variable=>value" pairs
+     * @param bool $close Is it a closed tag ? (FALSE by default)
+     *
+     * @return string The built tag string
+     */
+    public function getTagString($text, $tag, array $attributes = array(), $close = false)
+    {
+        $attr='';
+        if (!empty($attributes)) {
+            foreach ($attributes as $variable=>$value) {
+                if (!empty($value)) {
+                    if (is_string($variable)) {
+                        $attr .= " {$variable}=\"{$value}\"";
+                    } else {
+                        $attr .= ' '.trim($value);
+                    }
+                }
+            }
+        }
+        if (true===$close) {
+            return "<{$tag}{$attr}" . $this->empty_element_suffix;
+        } else {
+            return "<{$tag}{$attr}>{$text}</{$tag}>";
+        }
+    }
 
 // -------------------
 // Tag specific builder
 // -------------------
 
-	public function buildTitle($text, array $attributes = array())
-	{
-	    if (isset($attributes['level'])) {
-    	    $tag = 'h' . $attributes['level'];
-    	    unset($attributes['level']);
-	    } else {
-    	    $tag = 'h' . MarkdownExtended::getVar('baseheaderlevel');
-	    }	    
-	    return $this->getTagString($text, $tag, $attributes);
-	}
-	
-	public function buildMetaData($text = null, array $attributes = array())
-	{
-	    if (!empty($attributes['name'])) {
-    	    if (empty($attributes['content']) && !empty($text)) {
-    	        $attributes['content'] = $text;
-    	    }
-    	    return $this->getTagString($text, 'meta', $attributes, true);
-	    }
-	    return $text;
-	}
+    public function buildTitle($text, array $attributes = array())
+    {
+        if (isset($attributes['level'])) {
+            $tag = 'h' . $attributes['level'];
+            unset($attributes['level']);
+        } else {
+            $tag = 'h' . MarkdownExtended::getVar('baseheaderlevel');
+        }       
+        return $this->getTagString($text, $tag, $attributes);
+    }
+    
+    public function buildMetaData($text = null, array $attributes = array())
+    {
+        if (!empty($attributes['name'])) {
+            if (empty($attributes['content']) && !empty($text)) {
+                $attributes['content'] = $text;
+            }
+            return $this->getTagString($text, 'meta', $attributes, true);
+        }
+        return $text;
+    }
+
+    public function buildComment($text = null, array $attributes = array())
+    {
+        return sprintf('<!-- %s -->', $text);
+    }
 
 }
 

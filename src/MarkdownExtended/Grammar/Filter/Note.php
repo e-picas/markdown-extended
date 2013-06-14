@@ -24,6 +24,8 @@ use MarkdownExtended\MarkdownExtended,
 
 /**
  * Process Markdown notes: footnotes, glossary and bibliography notes
+ *
+ * @todo write the right reference for second call of the same note
  */
 class Note extends Filter
 {
