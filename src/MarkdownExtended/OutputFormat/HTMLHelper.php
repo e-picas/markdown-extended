@@ -113,34 +113,42 @@ class HTMLHelper implements OutputFormatHelperInterface
      *
      * @return string
      */
-    public function getToc(Content $md_content, OutputFormatInterface $formater)
+    public function getToc(Content $md_content, OutputFormatInterface $formater, array $attributes = null)
     {
         $menu = $md_content->getMenu();
-        $content = '';
+        $content = $list_content = '';
         if (!empty($menu)) {
             $depth = 0;
             $current_level = null;
-            $content .= '<h4 id="toc">Table of contents</h4>';
-            $content .= '<ul class="toc-menu">';
             foreach ($menu as $item_id=>$menu_item) {
                 $diff = $menu_item['level']-(is_null($current_level) ? $menu_item['level'] : $current_level);
                 if ($diff > 0) {
-                    $content .= str_repeat('<ul><li>', $diff);
+                    $list_content .= str_repeat('<ul><li>', $diff);
                 } elseif ($diff < 0) {
-                    $content .= str_repeat('</li></ul></li>', -$diff);
-                    $content .= '<li>';
+                    $list_content .= str_repeat('</li></ul></li>', -$diff);
+                    $list_content .= '<li>';
                 } else {
-                    if (!is_null($current_level)) $content .= '</li>';
-                    $content .= '<li>';
+                    if (!is_null($current_level)) $list_content .= '</li>';
+                    $list_content .= '<li>';
                 }
                 $depth += $diff;
-                $content .= '<a href="#'.$item_id.'">'.$menu_item['text'].'</a>';
+                $list_content .= $formater->buildTag('link', $menu_item['text'], array(
+                    'href'=>'#'.$item_id,
+                    'title'=>'Reach this section'
+                ));
                 $current_level = $menu_item['level'];
             }
             if ($depth!=0) {
-                $content .= str_repeat('</ul></li>', $depth);
+                $list_content .= str_repeat('</ul></li>', $depth);
             }
-            $content .= '</ul>';
+
+            $content .= $formater->buildTag('title', 'Table of contents', array(
+                'level'=>isset($attributes['title_level']) ? $attributes['title_level'] : '4',
+                'id'=>isset($attributes['title_id']) ? $attributes['title_id'] : 'toc'
+            ));
+            $content .= $formater->buildTag('unordered_list', $list_content, array(
+                'class'=>isset($attributes['class']) ? $attributes['class'] : 'toc-menu',
+            ));
         }
         return $content;
     }

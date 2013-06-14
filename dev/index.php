@@ -26,8 +26,6 @@ echo '<pre>';
 echo MarkdownFromSource($test_file);
 echo '</pre>';
 
-exit('yo');
-
 echo '<h3>Test of "Markdown"</h3>';
 echo '<pre>';
 echo Markdown(file_get_contents($test_file));

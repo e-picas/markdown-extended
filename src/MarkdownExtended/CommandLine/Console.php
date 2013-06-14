@@ -198,7 +198,7 @@ class Console extends AbstractConsole
 
 Converts text(s) in specified file(s) (or stdin) from markdown syntax source(s).
 The rendering can be the full parsed content or just a part of this content.
-By default, result is written through stdin in HTML format.
+By default, result is written through stdout in HTML format.
 
 Usage:
     ~$ php path/to/markdown_extended [OPTIONS ...] [INPUT FILE(S) OR STRING(S)]

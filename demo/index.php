@@ -230,37 +230,15 @@ function emdreminders_popup(url){
     <article>
 
 <?php
-$menu = $mde_content->getMenu();
-$depth = 0;
-$current_level = null;
+$output_bag = \MarkdownExtended\MarkdownExtended::get('OutputFormatBag');
+$menu = $output_bag->getHelper()
+    ->getToc($mde_content, $output_bag->getFormater(), array(
+        'title_level'=>'2', 'class'=>'menu'
+    ));
 ?>
 <?php if (!empty($menu)) : ?>
 <aside id="page_menu">
-    <h2>Table of contents</h2>
-    <ul class="menu">
-    <?php foreach ($menu as $item_id=>$menu_item) : ?>
-        <?php $diff = $menu_item['level']-(is_null($current_level) ? $menu_item['level'] : $current_level); ?>
-        <?php if ($diff > 0) : ?>
-            <?php for ($i=0; $i<$diff; $i++) : ?>
-            <ul>
-                <li>
-            <?php endfor; ?>
-        <?php elseif ($diff < 0) : ?>
-            <?php for ($i=0; $i>$diff; $i--) : ?>
-                </li>
-            </ul></li>
-            <li>
-            <?php endfor; ?>
-        <?php else : ?>
-            <?php if (!is_null($current_level)) : ?>
-            </li>
-            <?php endif; ?>
-            <li>
-        <?php endif; ?>
-                <a href="#<?php echo $item_id; ?>"><?php echo $menu_item['text']; ?></a>
-        <?php $current_level = $menu_item['level']; ?>
-    <?php endforeach; ?>
-    </ul>
+    <?php echo $menu; ?>
 </aside>  
 <?php endif; ?>
 

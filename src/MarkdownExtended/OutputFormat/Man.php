@@ -49,7 +49,7 @@ class Man
      */
     public static $sections = array(
         'name', 'synopsis', 'description', 'options', 'files', 'environment', 'diagnosis', 'bugs', 'author', 'see also', 
-        'examples', 'standards', 'license', 'history'
+        'examples', 'standards', 'license', 'history', 'exit status', 'copyright', 'reporting bugs'
     );
 
     /**
@@ -170,7 +170,12 @@ class Man
 
     public function buildPreformated($text = null, array $attributes = array())
     {
-        return '`' . $text . '`';
+        return '    ' . str_replace("\n", $this->buildTag('new_line') . '    ', $text);
+    }
+
+    public function buildCode($text = null, array $attributes = array())
+    {
+        return '`\fS' . $text . $this->ending_tag . '`';
     }
 
     public function buildAbbreviation($text = null, array $attributes = array())
@@ -185,7 +190,7 @@ class Man
 
     public function buildNewLine($text = null, array $attributes = array())
     {
-        return '.br' . $this->new_line;
+        return $this->new_line . '.br' . $this->new_line;
     }
 
     public function buildHorizontalRule($text = null, array $attributes = array())
