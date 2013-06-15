@@ -69,10 +69,18 @@ class HTMLHelper implements OutputFormatHelperInterface
                     }
                 }
             }
+            // last update
+            if ($md_content->getLastUpdate()) {
+                $content .= $formater->buildTag('meta_data', null, array(
+                    'http-equiv'=>'last-modified',
+                    'content'=>
+                        gmdate('D, d M Y H:i:s \G\M\T', $md_content->getLastUpdate()->getTimestamp())
+                )) . "\n";
+            }
         }
 
         // force title if so
-        if (!$title_done && $md_content->getTitle()) {
+        if ($full_html && !$title_done && $md_content->getTitle()) {
             $content .= $formater->buildTag('meta_title', $md_content->getTitle()) . "\n";
         }
 
@@ -98,6 +106,11 @@ class HTMLHelper implements OutputFormatHelperInterface
             }
             $notes_content = $formater->buildTag('ordered_list', $notes_content) . "\n";
             $content .= $formater->buildTag('block', $notes_content, array('class'=>'footnotes')) . "\n";
+        }
+
+        // last update
+        if ($md_content->getLastUpdate()) {
+            $content .= $formater->buildTag('paragraph', 'Last updated at '.$md_content->getLastUpdate()->format('r')) . "\n";
         }
 
         if ($full_html) $content .= "</body>\n</html>\n";

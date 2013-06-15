@@ -59,6 +59,13 @@ class BlockInclusion extends Filter
 	{
 		$filename = $matches[1];
 		try {
+		    $base_dirname = \MarkdownExtended\MarkdownExtended::getInstance()
+		        ->getContent()
+		        ->getDirname();
+		    if (!file_exists($filename)) {
+		        $filename = rtrim($base_dirname, DIRECTORY_SEPARATOR)
+		            . DIRECTORY_SEPARATOR . $filename;
+		    }
             $content = new \MarkdownExtended\Content(null, $filename);
             $content_id = $content->getId();
             $parsed_content = \MarkdownExtended\MarkdownExtended::getInstance()

@@ -19,10 +19,9 @@ A complete PHP 5.3 package of Markdown syntax parser (extended version) - Comman
 
 ## DESCRIPTION
 
-**Markdown Extended** converts text(s) in specified file(s) (or stdin) from
-markdown syntax source(s). The rendering can be the full parsed content or
-just a part of this content. By default, result is written through STDOUT in
-HTML format.
+**Markdown Extended** converts markdown syntax text(s) source(s) in specified file(s)
+(or STDIN). The rendering can be the full parsed content or just a part of this content.
+By default, result is written through STDOUT in HTML format.
 
 ## OPTIONS
 
@@ -45,25 +44,25 @@ The following options are supported:
 :   Treat multi-files input ; this options is automatically enables if multiple file
     names are found as arguments.
 
-**-o**, **--output** = *FILENAME*
+**-o**, **--output** =<filename>
 :   Specify a single file name or a file name mask to write generated content in ; by
     default, files are generated in current working directory.
 
-**-c** , **--config** = *FILENAME*
+**-c** , **--config** =<filename>
 :   Define a specific configuration filename to use for the Markdown Parser ;
     configuration files must be in `INI` format.
 
-**-f** , **--format** = *TYPE*
+**-f** , **--format** =<type>
 :   Define the output format to use to generate final rendering ; formats are stored in
     PHP namespace `\\MarkdownExtended\\OutputFormat` ; default is `HTML`.
 
-**--gamuts** [= *NAME*]
+**--gamuts** [=<name>]
 :   Define a single gamut or a list of gamuts to execute on Markdown content parsing.
 
-**--nofilter** = *NAME-A,NAME-B*
+**--nofilter** =<name-a,name-b>
 :   Define a coma separated list of filters to disable during Markdown content parsing.
 
-**--extract** [= *META*]
+**--extract** [=<meta>]
 :   Define a content block to extract ; default extracted block is `metadata`.
 
 ## EXAMPLES

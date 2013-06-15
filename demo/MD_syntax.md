@@ -10,6 +10,8 @@ Quotes Language: french
 
 # Basic tags from the original *Markdown*
 
+{% TOC %}
+
 ## Blocks and structural elements
 
 Titles: `#my title level 1` or `###my title level 3` (example: just above)
@@ -221,9 +223,6 @@ Example: A text whit HTML expression.
 
 ----
 
-#### Anchor for tests with a specific anchor `{#myanchor}` ... {#myanchor}
-
-
 # Advanced tags from *Multi Markdown*
 
 ## Blocks and structural elements
@@ -266,7 +265,6 @@ My text with a footnote ref [^glossaryfootnote].
 ## Typography
 
 Nothing new ...
-
 
 ## Links and images
 
@@ -344,16 +342,11 @@ And more                     || And more     |
 
 ----
 
-#### Anchor for tests ... [atitleanchor]
-
-This paragrpah contains a `[mynewanchor]` info [mynewanchor], so it can be referenced ...
-
-
 # Other features gleaned on the web
 
 ## Blocks and structural elements
 
-Adding a reference URL to w blockquote:
+Adding a reference URL to blockquote:
 
     > (http://example.com) this is my citation extracted from the content
     > of the page at http://example.com URL
@@ -373,6 +366,72 @@ Example:
 ~~~~html
 My code here
 ~~~~
+
+----
+
+# New features of Extended version
+
+
+## Test of block inclusion
+
+Inclusion of a third-party file content writing (*path is relative to original source*):
+
+    <!-- @inclusion-test.md@ -->
+
+Below may happend the parsed content of `demo/inclusion-test.md`:
+
+----
+
+<!-- @inclusion-test.md@ -->
+
+----
+
+In case of error, the error info is written as HTML comment:
+
+    <!-- @not-found-file.md@ -->
+
+----
+
+<!-- @not-found-file.md@ -->
+
+
+    If you look in the HTML source, you may find here:
+    <!-- ERROR while parsing ./not-found-file.md : 'Source file "./not-found-file.md" not found or is not readable!' -->
+
+----
+
+## Tests of markdown tags
+
+Contents blocks can be inserted from the Markdown Parser result writing:
+
+    ...
+    {% TOC %}
+    ...
+
+See the `\MarkdownExtended\Content` class object for a list of available blocks.
+
+For example, this document have a `TOC` tag just after the head title, and an inserted
+`NOTESHTML` tag two sections below ...
+
+## Tests of anchors
+
+### Anchor for tests ... [atitleanchor]
+
+This paragrpah contains a `[mynewanchor]` info [mynewanchor], so it can be referenced ...
+
+### Anchor for tests with a specific anchor `{#myanchor}` ... {#myanchor}
+
+----
+
+## Footnotes / Glossary notes / Bibliography notes
+
+In the standalone version of this document, all footnotes should be written below as
+a tag `{% NOTESHTML %}` is present, and should not be added at the end of the document
+as they are already written:
+
+{% NOTESHTML %}
+
+----
 
 
 # Some inline HTML for tests
@@ -400,4 +459,3 @@ Below is the same table as above with argument `markdown="1"`.
 </table>
 
 This is another regular paragraph.
-

@@ -37,6 +37,11 @@ class Content implements ContentInterface
     protected $filepath = '';
 
     /**
+     * @var object \DateTime
+     */
+    protected $last_update = null;
+
+    /**
      * @var string
      */
     protected $source = '';
@@ -246,6 +251,40 @@ class Content implements ContentInterface
     }
 
     /**
+     * @return string|null
+     */
+    public function getDirname()
+    {
+        return !empty($this->filepath) ? dirname($this->filepath) : null;
+    }
+
+    /**
+     * @param misc $date timestamp / date / DateTime object
+     */
+    public function setLastUpdate($date)
+    {
+        if (!is_object($date)) {
+            if (is_int($date)) {
+                $date = @\DateTime::createFromFormat('U', $date);
+            } else {
+                $date = @new \DateTime($date);
+            }
+        }
+        if (!empty($date)) {
+            $this->date_update = $date;
+        }
+        return $this;
+    }
+
+    /**
+     * @return null|DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->date_update;
+    }
+
+    /**
      * @return string
      * @throws InvalidArgumentException if the file can not be found or red
      */
@@ -257,7 +296,10 @@ class Content implements ContentInterface
         if (!empty($this->filepath)) {
             if (file_exists($this->filepath) && is_readable($this->filepath)) {
                 $this->source = file_get_contents($this->filepath);
-                $this->id = $this->filepath;
+                $this->setLastUpdate(filemtime($this->filepath));
+                if (empty($this->id)) {
+                    $this->setId($this->filepath);
+                }
                 return $this->source;
             } else {
                 throw new MDE_Exception\InvalidArgumentException(

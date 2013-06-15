@@ -202,7 +202,8 @@ class ListItem extends Filter
         }
 
         return MarkdownExtended::get('OutputFormatBag')
-            ->buildTag('list_item', $item) . "\n";
+//            ->buildTag('list_item', $item) . "\n";
+            ->buildTag('list_item', $item);
     }
 
 }

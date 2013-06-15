@@ -92,6 +92,13 @@ In case of a simple source (such as a textarea field):
 
     echo $markdown->getBody();
 
+## TODOS
+
+-   test the command line interface with direct stdin input
+-   issue on footnotes
+-   issue on tables with caption at its bottom
+-   build a list of figures (?) : images, tables ...
+
 
 
 ----

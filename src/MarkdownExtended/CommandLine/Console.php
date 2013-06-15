@@ -409,7 +409,7 @@ EOT;
                 if (!is_null($extract)) {
                     $return = $this->extractContent($md_content, $extract);
                 } else {
-                    $md_parsed_content = $this->parseContent($md_content);
+                    $md_parsed_content = $this->parseSource($input);
                     if (!empty($output)) {
                         $return = $this->writeOutputFile($md_parsed_content, $output);
                     } else {
@@ -448,6 +448,23 @@ EOT;
             $_emd = $this->getEmdInstance();
             $this->info("Parsing Mardkown content ... ", false);
             if ($md_content = $_emd->parse(new \MarkdownExtended\Content($md_content))) {
+                $md_output = $md_content->getFullContent($md_content_object);
+                $this->md_parsed_content .= $md_output;
+                $this->info("OK [strlen: ".strlen($md_output)."]", true, false);
+            } else {
+                $this->error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown_extended ...`)");
+            }
+        }
+        return $md_output;
+    }
+
+    public function parseSource($md_content_filepath)
+    {
+        $md_output=null;
+        if (!empty($md_content_filepath)) {
+            $_emd = $this->getEmdInstance();
+            $this->info("Parsing Mardkown content ... ", false);
+            if ($md_content = $_emd->parse(new \MarkdownExtended\Content(null, $md_content_filepath))) {
                 $md_output = $md_content->getFullContent($md_content_object);
                 $this->md_parsed_content .= $md_output;
                 $this->info("OK [strlen: ".strlen($md_output)."]", true, false);

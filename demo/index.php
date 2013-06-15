@@ -252,6 +252,11 @@ $menu = $output_bag->getHelper()
             </ol>
         </div>
         <?php endif; ?>
+        <?php if ($mde_content->getLastUpdate()) : ?>
+            <p class="credits">Last update of this page <time datetime="<?php
+                echo $mde_content->getLastUpdate()->format('c')
+            ?>"><?php echo $mde_content->getLastUpdate()->format('F j, Y, g:i a'); ?></time>.</p>
+        <?php endif; ?>
     </article>
 <?php elseif (!empty($content)) : ?>
     <article>

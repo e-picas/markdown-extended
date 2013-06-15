@@ -45,7 +45,7 @@ class HorizontalRule extends Filter
 				[ ]*		    # Tailing spaces
 				$			    # End of line.
 			}mx',
-			"\n".parent::hashBlock(MarkdownExtended::get('OutputFormatBag')->buildTag('horizontal_rule'))."\n", 
+			"\n" . parent::hashBlock(MarkdownExtended::get('OutputFormatBag')->buildTag('horizontal_rule')) . "\n", 
 			$text);
 	}
 

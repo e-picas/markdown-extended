@@ -52,7 +52,8 @@ class RebuildParagraph extends Tool
 		}
 		
 		// Join grafs in one text, then unhash HTML tags. 
-		$text = implode("\n\n", $grafs);
+//		$text = implode("\n\n", $grafs);
+		$text = implode('', $grafs);
 		
 		// Finish by removing any tag hashes still present in $text.
 		$text = parent::runGamut('filter:HTML:unhash', $text);

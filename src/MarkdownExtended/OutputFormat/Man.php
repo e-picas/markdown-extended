@@ -115,7 +115,7 @@ class Man
      */
     public function getTagString($content, $tag_name, array $attributes = array())
     {
-        return $content;
+        return html_entity_decode($content);
     }
 
 // -------------------
@@ -124,6 +124,7 @@ class Man
 
     public function buildTitle($text, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         if (in_array(strtolower($text), self::$sections)) {
             return $this->new_line . '.SH ' . strtoupper($text) . $this->new_line;
         } else {
@@ -133,6 +134,7 @@ class Man
     
     public function buildMetaData($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         if (!empty($attributes['name'])) {
             if (empty($attributes['content']) && !empty($text)) {
                 $attributes['content'] = $text;
@@ -144,7 +146,7 @@ class Man
 
     public function buildMetaTitle($text = null, array $attributes = array())
     {
-        return '.TH '
+        return "\n" . '.TH '
             . ' "' . (!empty($attributes['name']) ? $attributes['name'] : '') . '"'
             . ' "' . (!empty($attributes['section']) ? $attributes['section'] : '3') . '"'
             . ' "' . (!empty($attributes['date']) ? $attributes['date'] : '') . '"'
@@ -155,37 +157,50 @@ class Man
 
     public function buildParagraph($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         return $this->new_line . '.PP' . $this->new_line . $text . $this->new_line;
     }
 
     public function buildBold($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         return '\fB' . trim($text) . $this->ending_tag;
     }
 
     public function buildItalic($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         return '\fI' . trim($text) . $this->ending_tag;
     }
 
     public function buildPreformated($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         return '    ' . str_replace("\n", $this->buildTag('new_line') . '    ', $text);
     }
 
     public function buildCode($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         return '`\fS' . $text . $this->ending_tag . '`';
     }
 
     public function buildAbbreviation($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         return $text . (!empty($attributes['title']) ? ' (' . $attributes['title'] . ')' : '');
     }
 
     public function buildDefinitionListItemTerm($text = null, array $attributes = array())
     {
-        return '.TP' . $this->new_line . $text;
+        $text = html_entity_decode($text);
+        return '.TP' . $this->new_line . trim($text);
+    }
+
+    public function buildDefinitionListItemDefinition($text = null, array $attributes = array())
+    {
+        $text = html_entity_decode($text);
+        return $this->new_line . trim($text);
     }
 
     public function buildNewLine($text = null, array $attributes = array())
@@ -200,6 +215,7 @@ class Man
 
     public function buildComment($text = null, array $attributes = array())
     {
+        $text = html_entity_decode($text);
         return '.\"' . $text;
     }
 

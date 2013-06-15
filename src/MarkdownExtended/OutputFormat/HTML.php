@@ -182,10 +182,10 @@ class HTML
     
     public function buildMetaData($text = null, array $attributes = array())
     {
-        if (!empty($attributes['name'])) {
-            if (empty($attributes['content']) && !empty($text)) {
-                $attributes['content'] = $text;
-            }
+        if (empty($attributes['content']) && !empty($text)) {
+            $attributes['content'] = $text;
+        }
+        if (!empty($attributes['name']) || !empty($attributes['http-equiv'])) {
             return $this->getTagString($text, 'meta', $attributes, true);
         }
         return $text;
@@ -194,6 +194,11 @@ class HTML
     public function buildComment($text = null, array $attributes = array())
     {
         return sprintf('<!-- %s -->', $text);
+    }
+
+    public function buildParagraph($text = null, array $attributes = array())
+    {
+        return "\n" . $this->getTagString($text, 'p', $attributes) . "\n";
     }
 
 }

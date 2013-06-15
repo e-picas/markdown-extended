@@ -78,7 +78,7 @@ class FencedCodeBlock extends Filter
 		}
         $codeblock = MarkdownExtended::get('OutputFormatBag')
             ->buildTag('preformated', $codeblock, $attributes);
-		return "\n\n".parent::hashBlock($codeblock)."\n\n";
+		return "\n\n" . parent::hashBlock($codeblock) . "\n\n";
 	}
 
 	/**

@@ -8,6 +8,12 @@ HTML. This new version of a Markdown parser tries to propose a complete set of M
 syntax tags and rules and to be PHP-5.3 compliant.
 
 
+**WARNINGS** - This package is still in development and not yet proposed in a "stable" version ;
+some works remains before version 1.0. To get informed about the first stable version, you
+can "Watch" the development by clicking the "Watch" button on the GitHub repository homepage
+at <http://github.com/atelierspierrot/markdown-extended>.
+
+
 ## What is Markdown?
 
 Created by [John Gruber](http://daringfireball.net/projects/markdown/) in 2004, 
@@ -123,6 +129,11 @@ A short command line interface is proposed in the package running:
 
 This interface allows you to parse one or more files, extract some informations from sources,
 write the results in files and some other stuff.
+
+To generate a man-page from file `MANPAGE.md` with the interface itself, run:
+
+    ~$ bin/markdown_extended -f man -o bin/markdown_extended.man MANPAGE.md
+    ~$ man ./bin/markdown_extended.man
 
 #### Apache handler usage
 
