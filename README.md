@@ -7,12 +7,14 @@ A complete PHP 5.3 package of Markdown syntax parser (extended version).
 HTML. This new version of a Markdown parser tries to propose a complete set of Markdown
 syntax tags and rules and to be PHP-5.3 compliant.
 
+----
 
-**WARNINGS** - This package is still in development and not yet proposed in a "stable" version ;
+**WARNING - This package is still in development and not yet proposed in a "stable" version ;
 some works remains before version 1.0. To get informed about the first stable version, you
 can "Watch" the development by clicking the "Watch" button on the GitHub repository homepage
-at <http://github.com/atelierspierrot/markdown-extended>.
+at <http://github.com/atelierspierrot/markdown-extended>.**
 
+----
 
 ## What is Markdown?
 
@@ -48,14 +50,18 @@ Another extended implementation, known as **Multi Markdown**, has been written b
 -   This version, known as **PHP Markdown Extended**, tries to collect the different rules
     and tags used by the three versions listed above.
 -   It is a PHP script that can be used in any PHP project.
--   It is coded following the PHP 5.3 coding standards.
+-   It is coded following the PHP 5.3 coding standards and is [Composer](http://getcomposer.org/)
+    compliant.
 -   It can be used in command line interface, with a full set of options.
 -   It can be configured for specific needs.
+-   It is built to construct complex parsing by creating some single-key-unit objects for 
+    all important Markdown stuff (content, configuration, parser, template and rules).
 
 
 ## How-to
 
-As for all our work, we try to follow the coding standards and naming rules most commonly in use:
+As for all our packages, we try to follow the coding standards and naming rules most
+commonly in use:
 
 -   the [PEAR coding standards](http://pear.php.net/manual/en/standards.php)
 -   the [PHP Framework Interoperability Group standards](https://github.com/php-fig/fig-standards).
@@ -70,12 +76,12 @@ The whole package is embedded in the `MarkdownExtended` namespace.
 
 You can use this package in your work in many ways.
 
-First, you can clone the [GitHub](https://github.com/atelierspierrot/markdown-extended)
+First, you can clone the [GitHub](http://github.com/atelierspierrot/markdown-extended)
 repository and include it "as is" in your poject:
 
-    wget --no-check-certificate https://github.com/atelierspierrot/markdown-extended
+    ~$ wget --no-check-certificate http://github.com/atelierspierrot/markdown-extended
 
-You can also download an [archive](https://github.com/atelierspierrot/markdown-extended/downloads)
+You can also download an [archive](http://github.com/atelierspierrot/markdown-extended/downloads)
 from Github.
 
 Then, to use the package classes, you just need to register the `MarkdownExtended`
@@ -99,7 +105,7 @@ The namespace will be automatically added to the project's Composer autoloader.
 
 ### Usage
 
-#### PHP usage
+#### PHP script usage
 
 The `MarkdownExtended` package can be simply call writing:
 
@@ -107,8 +113,8 @@ The `MarkdownExtended` package can be simply call writing:
     $content = \MarkdownExtended\MarkdownExtended::create()
         // get the \MarkdownExtended\Parser object passing it some options (optional)
         ->get('Parser', $options)
-        // launch the transformation of a source string
-        ->transform($source)
+        // launch the transformation of a source content
+        ->parse( new \MarkdownExtended\Content($source) )
         // get the result content object
         ->getContent();
 
@@ -117,9 +123,33 @@ To get the part you need from the content:
 
     echo $content->getBody();
 
-NOTE - To keep the package compatible with old versions of Markdown, an interface is 
-embedded with the common `Markdown($content)` function ; to use it, just include the file
-`src/markdown.php`.
+For simplest usage, some aliases are designed in the `MarkdownExtended` kernel:
+
+    // to parse a string content:
+    \MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
+    
+    // to parse a file content:
+    \MarkdownExtended\MarkdownExtended::transformSource($filename [, $parser_options]);
+
+These two methods returns a `\MarkdownExtended\Content` object. To finally get an HTML
+version, write:
+
+    \MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
+    echo \MarkdownExtended\MarkdownExtended::getFullContent();
+
+#### Old parsers compatibility
+
+To keep the package compatible with old versions of Markdown, an interface is embedded
+with the common `Markdown($content)` function ; to use it, just include the file
+`src/markdown.php`:
+
+    require_once 'path/to/src/markdown.php';
+    
+    // to get result of a string parsing:
+    echo Markdown($string [, $options]);
+
+    // to get result of a file content parsing:
+    echo MarkdownFromSource($file_name [, $options]);
 
 #### Command line usage
 
@@ -130,9 +160,9 @@ A short command line interface is proposed in the package running:
 This interface allows you to parse one or more files, extract some informations from sources,
 write the results in files and some other stuff.
 
-To generate a man-page from file `MANPAGE.md` with the interface itself, run:
+To generate a man-page from file `docs/MANPAGE.md` with the interface itself, run:
 
-    ~$ bin/markdown_extended -f man -o bin/markdown_extended.man MANPAGE.md
+    ~$ bin/markdown_extended -f man -o bin/markdown_extended.man docs/MANPAGE.md
     ~$ man ./bin/markdown_extended.man
 
 #### Apache handler usage
@@ -140,7 +170,7 @@ To generate a man-page from file `MANPAGE.md` with the interface itself, run:
 A sample of direct [Apache](http://www.apache.org/) handler is designed in the `demo/cgi-scripts/`
 directory of the package. It allows you to automatically transform Markdown content files
 in HTML thru a browser classic navigation. To learn more about this feature, please see the
-dedicated [How-To](demo/Apache-Handler-HOWTO.md).
+dedicated [How-To](docs/Apache-Handler-HOWTO.md).
 
 
 ## Open-Source & Community
@@ -151,27 +181,18 @@ to your needs, freely distribute your work and propose it to the community, as l
 let an information about its first authors.
 
 As the sources are hosted on a [GIT](http://git-scm.com/) repository on
-[GitHub](https://github.com/atelierspierrot/markdown-extended), you can modify it, to
-ameliorate a feature or correct an error, by [creating your own fork](https://help.github.com/articles/fork-a-repo)
-of this repository, modifying it and [asking to pull your modifications](https://github.com/atelierspierrot/markdown-extended/pulls)
+[GitHub](http://github.com/atelierspierrot/markdown-extended), you can modify it, to
+ameliorate a feature or correct an error, by [creating your own fork](http://help.github.com/articles/fork-a-repo)
+of this repository, modifying it and [asking to pull your modifications](http://github.com/atelierspierrot/markdown-extended/pulls)
 on the original branch.
 
 Please note that the "master" branch is **always the latest stable version** of the code. 
 Development is done on branch "wip" and you can create a new one for your own developments.
+A developer help and roadmap is provided [in the docs](docs/ROADMAP.md).
+The latest version of the package documentation is available online at
+<http://docs.ateliers-pierrot.fr/markdown-extended/>.
 
-
-## Development
-
-To install all PHP packages for development, just run:
-
-    ~$ composer install --dev
-
-A documentation can be generated with [Sami](https://github.com/fabpot/Sami) running:
-
-    ~$ php vendor/sami/sami/sami.php render sami.config.php
-
-The latest version of this documentation is available online at <http://docs.ateliers-pierrot.fr/markdown-extended/>.
-
+Note that the package is integrated with [Travis CI](http://travis-ci.org/).
 
 ## Licenses
 

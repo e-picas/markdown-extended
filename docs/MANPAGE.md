@@ -109,7 +109,7 @@ Copyright (c) 2004-2006 John Gruber
 
 ## BUGS
 
-To transmit bugs, see <https://github.com/atelierspierrot/markdown-extended/issues>.
+To transmit bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.
 
 ## AUTHOR
 

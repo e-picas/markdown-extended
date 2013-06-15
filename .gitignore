@@ -20,6 +20,11 @@ Desktop.ini
 # the composer lock file
 composer.lock
 
+# specific MDE files
+#bin/markdown_extended.man
+bin/sami.php
+bin/phpunit
+
 # user defined files
 user/*
 demo/user/*
@@ -35,6 +40,7 @@ phpdoc/*
 # this may be commented on the "wip" branch
 #dev/*
 #build/*
+#tests/*
 
 # any "tmp*" file or dir
 tmp*

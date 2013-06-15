@@ -170,7 +170,7 @@ function emdreminders_popup(url){
             <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
         </hgroup>
         <div class="hat">
-            <p>These pages show and demonstrate the use and functionality of the <a href="https://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> PHP package you just downloaded.</p>
+            <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> PHP package you just downloaded.</p>
         </div>
     </header>
 
@@ -191,14 +191,14 @@ function emdreminders_popup(url){
         </ul>
 
         <div class="info">
-            <p><a href="https://github.com/atelierspierrot/markdown-extended">See online on GitHub</a></p>
+            <p><a href="http://github.com/atelierspierrot/markdown-extended">See online on GitHub</a></p>
             <p class="comment">The sources of this plugin are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
         </div>
 
         <div class="info">
             <!-- AddThis Button BEGIN -->
             <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
-            <a href="https://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
+            <a href="http://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
                 <span class="at16nc at300bs at15nc atGitHub"></span>
             </a>
             <a class="addthis_button_email"></a>
@@ -271,7 +271,7 @@ $menu = $output_bag->getHelper()
             This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
         </div>
         <div class="credits float-right">
-            <a href="https://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/PieroWbmstr">Piero Wbmstr</a> under <a href="http://opensource.org/licenses/GPL-3.0">GNU GPL v.3</a> license.
+            <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/PieroWbmstr">Piero Wbmstr</a> under <a href="http://opensource.org/licenses/GPL-3.0">GNU GPL v.3</a> license.
         </div>
     </footer>
 

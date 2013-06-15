@@ -78,7 +78,7 @@ final class MarkdownExtended
      */
     const MDE_NAME = 'PHP Markdown Extended';
     const MDE_VERSION = '0.0.3';
-    const MDE_SOURCES = 'https://github.com/atelierspierrot/markdown-extended';
+    const MDE_SOURCES = 'http://github.com/atelierspierrot/markdown-extended';
 
     /**
      * Default full options INI file
