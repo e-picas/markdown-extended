@@ -138,6 +138,24 @@ abstract class AbstractConsole
 		if ($exit==true) exit(0);
 	}
 
+	/**
+	 * Write a catched exception
+	 * @param object $e Exception thrown
+	 */
+	public function catched($e)
+	{
+	    $str = sprintf(
+	        'Catched "%s" [file %s - line %d]: "%s"',
+	        get_class($e),
+	        str_replace(realpath(__DIR__.'/../../../'), '', $e->getFile()),
+	        $e->getLine(), $e->getMessage()
+	    );
+		if ($this->verbose===true) {
+	        $str .= PHP_EOL.PHP_EOL.$e->getTraceAsString();
+	    }
+        return $this->error($str, $e->getCode());
+	}
+	
 // -------------------
 // Options
 // -------------------

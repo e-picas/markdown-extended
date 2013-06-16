@@ -165,8 +165,8 @@ class Console extends AbstractConsole
             if ($this->multi===true) {
                 $myoutput = $this->output;
                 foreach ($this->input as $_input) {
-                    if (!empty($this->output)) {
-                        $this->output = $this->_buildOutputFilename( $myoutput );
+                    if (!empty($this->output) && count($this->input)>1) {
+                        $this->output = $this->_buildOutputFilename($myoutput);
                     }
                     $_ok = $this->runStoryOnOneFile($_input);
                 }
@@ -175,7 +175,7 @@ class Console extends AbstractConsole
                 $_ok = $this->runStoryOnOneFile($this->input[0]);
             }
         } else {
-            $this->error("No input markdown file entered!");
+            $this->error("No input markdown file or string entered!");
         }
         $this->info(PHP_EOL.">>>> the parsing is complete.".PHP_EOL, true, false);
         $this->endRun(1);
@@ -216,7 +216,8 @@ Options:
     --nofilter=A,B          specify a list of filters that will be ignored during Markdown parsing
     --extract[=META]        extract some data (the meta data array by default) from the Markdown input
 
-More infos at <{$class_sources}>
+For a full manual, try `~$ man ./path/to/markdown_extended.man`.
+More infos at <{$class_sources}>.
 EOT;
         $this->write($help_str);
         $this->endRun();
@@ -369,9 +370,9 @@ EOT;
             $this->info("Creating a MarkdownExtended instance with options ["
                 .str_replace("\n", '', var_export($_options,1))
                 ."]");
-            self::$emd_instance = MarkdownExtended::create()
-                ->get('Parser', $config);
+            self::$emd_instance = MarkdownExtended::create();
         }
+        self::$emd_instance->get('Parser', $config);
         return self::$emd_instance;
     }
     
@@ -393,7 +394,7 @@ EOT;
                 $this->endRun(0, "OK - File `$this->output` ($fsize) written with parsed content from file `$input`");
             return $fsize;
         } else {
-            $clength = $this->runOneFile( $this->input[0] );
+            $clength = $this->runOneFile($input);
             return $clength;
         }
     }
@@ -405,11 +406,11 @@ EOT;
             $num = self::$parsedfiles_counter;
             $this->separator();
             $this->info( "[$num] >> parsing file `$input`" );
-            if ($md_content = self::getInput($input)) {
+            if ($md_content = $this->getInput($input)) {
                 if (!is_null($extract)) {
                     $return = $this->extractContent($md_content, $extract);
                 } else {
-                    $md_parsed_content = $this->parseSource($input);
+                    $md_parsed_content = $this->parseContent($md_content);
                     if (!empty($output)) {
                         $return = $this->writeOutputFile($md_parsed_content, $output);
                     } else {
@@ -422,35 +423,89 @@ EOT;
         return $return;
     }
 
+    /**
+     * Creates a `\MarkdownExtended\Content` object from filename or string
+     * @param string $input
+     * @return \MarkdownExtended\Content
+     * @throws any catched exception
+     */
     public function getInput($input)
     {
         $md_content=null;
         if (!empty($input)) {
             if (@file_exists($input)) {
-                $this->info("Reading input file `$input` ... ", false);
-                if ($md_content = @file_get_contents( $input )) {
-                    $this->md_content .= $md_content;
-                    $this->info("OK [strlen: ".strlen($md_content)."]", true, false);
-                } else {
-                    $this->error("Could not open input file `$input`!");
+                $this->info("Loading input file `$input` ... ");
+                try {
+                    $md_content = new \MarkdownExtended\Content(null, $input);
+                } catch (\MarkdownExtended\Exception\DomainException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\Exception $e) {
+                    $this->catched($e);
+                } catch (\Exception $e) {
+                    $this->catched($e);
+                }
+            } elseif (!empty($input) && is_string($input)) {
+                $this->info("Loading Markdown string from STDIN [strlen: ".strlen($input)."] ... ");
+                try {
+                    $md_content = new \MarkdownExtended\Content($input);
+                } catch (\MarkdownExtended\Exception\DomainException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+                    $this->catched($e);
+                } catch (\MarkdownExtended\Exception\Exception $e) {
+                    $this->catched($e);
+                } catch (\Exception $e) {
+                    $this->catched($e);
                 }
             } else {
-                $this->error("Entered input markdown file `$input` not found!");
+                $this->error("Entered input seems to be neither a file (not found) nor a well-formed string!");
             }
         }
         return $md_content;
     }
 
-    public function parseContent($md_content)
+    /**
+     * Process a Content parsing
+     * @param object $md_content \MarkdownExtended\Content instance
+     * @return string
+     * @throws any catched exception
+     */
+    public function parseContent(\MarkdownExtended\Content $md_content)
     {
         $md_output=null;
         if (!empty($md_content)) {
             $_emd = $this->getEmdInstance();
             $this->info("Parsing Mardkown content ... ", false);
-            if ($md_content = $_emd->parse(new \MarkdownExtended\Content($md_content))) {
-                $md_output = $md_content->getFullContent($md_content_object);
+            try {
+                $md_output = $_emd->get('Parser')
+                    ->parse($md_content)
+                    ->getFullContent();
+            } catch (\MarkdownExtended\Exception\DomainException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\Exception $e) {
+                $this->catched($e);
+            } catch (\Exception $e) {
+                $this->catched($e);
+            }
+            if ($md_output) {
                 $this->md_parsed_content .= $md_output;
-                $this->info("OK [strlen: ".strlen($md_output)."]", true, false);
+                $this->info("OK", true, false);
             } else {
                 $this->error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown_extended ...`)");
             }
@@ -458,24 +513,13 @@ EOT;
         return $md_output;
     }
 
-    public function parseSource($md_content_filepath)
-    {
-        $md_output=null;
-        if (!empty($md_content_filepath)) {
-            $_emd = $this->getEmdInstance();
-            $this->info("Parsing Mardkown content ... ", false);
-            if ($md_content = $_emd->parse(new \MarkdownExtended\Content(null, $md_content_filepath))) {
-                $md_output = $md_content->getFullContent($md_content_object);
-                $this->md_parsed_content .= $md_output;
-                $this->info("OK [strlen: ".strlen($md_output)."]", true, false);
-            } else {
-                $this->error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown_extended ...`)");
-            }
-        }
-        return $md_output;
-    }
-
-    public function extractContent($md_content, $extract)
+    /**
+     * Process a Content parsing just for special gamuts
+     * @param object $md_content \MarkdownExtended\Content instance
+     * @return string
+     * @throws any catched exception
+     */
+    public function extractContent(\MarkdownExtended\Content $md_content, $extract)
     {
         $md_output = '';
         $preset = self::$extract_presets[$extract];
@@ -486,14 +530,28 @@ EOT;
             }
             $_emd = $this->getEmdInstance($options);
             $this->info("Extracting Mardkown $extract ... ", false);
-            if ($ok = $_emd->parse(
-                new \MarkdownExtended\Content($md_content)
-            )) {
+            try {
+                $md_content_parsed = $_emd->get('Parser')
+                    ->parse($md_content)
+                    ->getContent();
                 $output = call_user_func(
-                    array(MarkdownExtended::getInstance()->getContent(),
-                        ucfirst($preset['getter']))
+                    array($md_content_parsed, ucfirst($preset['getter']))
                 );
                 $md_output = $this->_renderOutput($output);
+            } catch (\MarkdownExtended\Exception\DomainException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+                $this->catched($e);
+            } catch (\MarkdownExtended\Exception\Exception $e) {
+                $this->catched($e);
+            } catch (\Exception $e) {
+                $this->catched($e);
+            }
+            if ($output) {
                 if (is_string($output)) {
                     $length = strlen($output);
                 } elseif (is_array($output)) {
@@ -540,9 +598,12 @@ EOT;
 
     protected function _buildOutputFilename($filename)
     {
-        $ext = strrchr($filename, '.');
-        $_f = str_replace($ext, '', $filename);
-        return $_f.'_'.self::$parsedfiles_counter.$ext;
+        if (file_exists($filename)) {
+            $ext = strrchr($filename, '.');
+            $_f = str_replace($ext, '', $filename);
+            return $_f.'_'.self::$parsedfiles_counter.$ext;
+        }
+        return $filename;
     }
 
     /**
