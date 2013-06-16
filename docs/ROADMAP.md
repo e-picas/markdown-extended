@@ -66,6 +66,14 @@ You can verify that your package passes all tests running:
 
     ~$ php bin/phpunit
 
+### MarkdownExtended auto-update
+
+For auto-update of the Container class constants based on the actual `composer.json` values,
+a pre-commit hook is defined in `pre-commit-hook.sh`. To use it, run:
+
+    ~$ mkdir .git/hooks && cp pre-commit-hook.sh .git/hooks/pre-commit
+    ~$ chmod +x .git/hooks/pre-commit
+
 
 ----
 
