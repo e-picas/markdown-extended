@@ -29,115 +29,115 @@ class Helper
 // DEBUG & INFO
 // ----------------------------------
 
-	/**
-	 * Debug function
-	 *
-	 * WARNING: first argument is not used (to allow `debug` from Gamut stacks)
-	 */
-	public function debug($a = '', $what = null, $exit = true) 
-	{
-		echo '<pre>';
-		if (!is_null($what)) var_export($what);
-		else {
-			$mde = MarkdownExtended::getInstance();
-			var_export($mde::$registry);
-		}
-		echo '</pre>';
-		if ($exit) exit(0);
-	}
-	
-	/**
-	 * Get information string about the current Markdown Extended object
-	 */
-	public static function info($html = false)
-	{
-		return (sprintf(
-    		$html ? 
+    /**
+     * Debug function
+     *
+     * WARNING: first argument is not used (to allow `debug` from Gamut stacks)
+     */
+    public function debug($a = '', $what = null, $exit = true) 
+    {
+        echo '<pre>';
+        if (!is_null($what)) var_export($what);
+        else {
+            $mde = MarkdownExtended::getInstance();
+            var_export($mde::$registry);
+        }
+        echo '</pre>';
+        if ($exit) exit(0);
+    }
+    
+    /**
+     * Get information string about the current Markdown Extended object
+     */
+    public static function info($html = false)
+    {
+        return (sprintf(
+            $html ? 
                 '<strong>%1$s</strong> version %2$s (<a href="%3$s" target="_blank" title="See online">%3$s</a>)'
                 :
                 '%1$s version %2$s (%3$s)',
             MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
-		));
-	}
+        ));
+    }
 
 // --------------
 // Strings
 // --------------
 
-	/**
-	 * Escape the code blocks contents to get HTML entities
-	 *
-	 * @param string $code
-	 * @return string
-	 */
-	public static function escapeCodeContent($code) 
-	{
+    /**
+     * Escape the code blocks contents to get HTML entities
+     *
+     * @param string $code
+     * @return string
+     */
+    public static function escapeCodeContent($code) 
+    {
         return htmlspecialchars($code, ENT_NOQUOTES);
-	}
+    }
 
     /**
      * @param string $text
      * @param string $replacement
      */
-	public static function fillPlaceholders($text, $replacement) 
-	{
-		return str_replace('%%', $replacement, $text);
-	}
+    public static function fillPlaceholders($text, $replacement) 
+    {
+        return str_replace('%%', $replacement, $text);
+    }
 
     /**
      * @param string $text
      */
-	public static function header2Label($text) 
-	{
-      	// strip all Markdown characters
-  	    $text = str_replace( 
-      		array("'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"), 
-      		"", strtolower($text) );
-      	// strip the rest for visual signification
-  	    $text = str_replace( array("#", " ", "__", "/", "\\"), "_", $text );
-		// strip non-ascii characters
-		return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $text);
-	}
+    public static function header2Label($text) 
+    {
+        // strip all Markdown characters
+        $text = str_replace( 
+            array("'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"), 
+            "", strtolower($text) );
+        // strip the rest for visual signification
+        $text = str_replace( array("#", " ", "__", "/", "\\"), "_", $text );
+        // strip non-ascii characters
+        return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $text);
+    }
 
-	/**
-	 *	Input: an email address, e.g. "foo@example.com"
-	 *
-	 *	Output: the email address as a mailto link, with each character
-	 *		of the address encoded as either a decimal or hex entity, in
-	 *		the hopes of foiling most address harvesting spam bots. E.g.:
-	 *
-	 *	  <p><a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;o&#111;
-	 *        &#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#111;
-	 *        &#x6d;">&#x66;o&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;
-	 *        &#101;&#46;&#x63;&#111;&#x6d;</a></p>
-	 *
-	 *	Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
-	 *   With some optimizations by Milian Wolff.
-	 *
-	 * @param string $addr The email address to encode
-	 * @return string The encoded address
-	 */
-	public static function encodeEmailAddress($addr) 
-	{
-		$addr = "mailto:" . $addr;
-		$chars = preg_split('/(?<!^)(?!$)/', $addr);
-		$seed = (int)abs(crc32($addr) / strlen($addr)); // Deterministic seed.
-		foreach ($chars as $key => $char) {
-			$ord = ord($char);
-			// Ignore non-ascii chars.
-			if ($ord < 128) {
-				$r = ($seed * (1 + $key)) % 100; // Pseudo-random function.
-				// roughly 10% raw, 45% hex, 45% dec
-				// '@' *must* be encoded. I insist.
-				if ($r > 90 && $char != '@') /* do nothing */;
-				else if ($r < 45) $chars[$key] = '&#x'.dechex($ord).';';
-				else              $chars[$key] = '&#'.$ord.';';
-			}
-		}
-		$addr = implode('', $chars);
-		$text = implode('', array_slice($chars, 7)); // text without `mailto:`
-		return array($addr, $text);
-	}
+    /**
+     *  Input: an email address, e.g. "foo@example.com"
+     *
+     *  Output: the email address as a mailto link, with each character
+     *      of the address encoded as either a decimal or hex entity, in
+     *      the hopes of foiling most address harvesting spam bots. E.g.:
+     *
+     *    <p><a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;o&#111;
+     *        &#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#111;
+     *        &#x6d;">&#x66;o&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;
+     *        &#101;&#46;&#x63;&#111;&#x6d;</a></p>
+     *
+     *  Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
+     *   With some optimizations by Milian Wolff.
+     *
+     * @param string $addr The email address to encode
+     * @return string The encoded address
+     */
+    public static function encodeEmailAddress($addr) 
+    {
+        $addr = "mailto:" . $addr;
+        $chars = preg_split('/(?<!^)(?!$)/', $addr);
+        $seed = (int)abs(crc32($addr) / strlen($addr)); // Deterministic seed.
+        foreach ($chars as $key => $char) {
+            $ord = ord($char);
+            // Ignore non-ascii chars.
+            if ($ord < 128) {
+                $r = ($seed * (1 + $key)) % 100; // Pseudo-random function.
+                // roughly 10% raw, 45% hex, 45% dec
+                // '@' *must* be encoded. I insist.
+                if ($r > 90 && $char != '@') /* do nothing */;
+                else if ($r < 45) $chars[$key] = '&#x'.dechex($ord).';';
+                else              $chars[$key] = '&#'.$ord.';';
+            }
+        }
+        $addr = implode('', $chars);
+        $text = implode('', array_slice($chars, 7)); // text without `mailto:`
+        return array($addr, $text);
+    }
 
 // --------------
 // Regular expressions
@@ -276,52 +276,52 @@ class Helper
 // Variables manipulation
 // --------------
 
-	/**
-	 * Extend a value with another, if types match
-	 *
-	 * @return misc
-	 *
-	 * @throws MarkdownExtended\Exception\InvalidArgumentException if trying to extend an 
-	 *          array with not an array
-	 * @throws MarkdownExtended\Exception\InvalidArgumentException if trying to extend an object
-	 * @throws MarkdownExtended\Exception\InvalidArgumentException if type unknown
-	 */
-	public static function extend($what, $add)
-	{
-		if (empty($what)) return $add;
-		switch (gettype($what)) {
-			case 'string': return $what.$add; break;
-			case 'numeric': return ($what+$add); break;
-			case 'array': 
-				if (is_array($add)) {
-					$what += $add;
-					return $what; 
-				} else {
-					throw new MDE_Exception\InvalidArgumentException(
-    					"Trying to extend an array with not an array!"
-			    	);
-				}
-				break;
-			case 'object': 
-				throw new MDE_Exception\InvalidArgumentException("Trying to extend an object!");
-				break;
-			default: 
-				throw new MDE_Exception\InvalidArgumentException(sprintf(
-  	  				"No extending definition found for type <%s>!", gettype($what)
-		    	));
-				break;
-		}
-	}
+    /**
+     * Extend a value with another, if types match
+     *
+     * @return misc
+     *
+     * @throws MarkdownExtended\Exception\InvalidArgumentException if trying to extend an 
+     *          array with not an array
+     * @throws MarkdownExtended\Exception\InvalidArgumentException if trying to extend an object
+     * @throws MarkdownExtended\Exception\InvalidArgumentException if type unknown
+     */
+    public static function extend($what, $add)
+    {
+        if (empty($what)) return $add;
+        switch (gettype($what)) {
+            case 'string': return $what.$add; break;
+            case 'numeric': return ($what+$add); break;
+            case 'array': 
+                if (is_array($add)) {
+                    $what += $add;
+                    return $what; 
+                } else {
+                    throw new MDE_Exception\InvalidArgumentException(
+                        "Trying to extend an array with not an array!"
+                    );
+                }
+                break;
+            case 'object': 
+                throw new MDE_Exception\InvalidArgumentException("Trying to extend an object!");
+                break;
+            default: 
+                throw new MDE_Exception\InvalidArgumentException(sprintf(
+                    "No extending definition found for type <%s>!", gettype($what)
+                ));
+                break;
+        }
+    }
 
-	/**
-	 * Validate a var name
-	 *
-	 * @return bool
-	 *
-	 * @throws MarkdownExtended\Exception\InvalidArgumentException if the var name is not an alpha-numeric string
-	 */
-	public static function validateVarname($var)
-	{
+    /**
+     * Validate a var name
+     *
+     * @return bool
+     *
+     * @throws MarkdownExtended\Exception\InvalidArgumentException if the var name is not an alpha-numeric string
+     */
+    public static function validateVarname($var)
+    {
         if (!is_string($var) || !ctype_alnum(str_replace(array('_', '\\'), '', $var))) {
             throw new MDE_Exception\InvalidArgumentException(sprintf(
                 'Registry entry must be named by alpha-numeric string, <%s> given!', $var
@@ -329,7 +329,7 @@ class Helper
             return false;
         }
         return true;
-	}
+    }
 
 // --------------
 // Variables manipulation
@@ -340,9 +340,9 @@ class Helper
      * @param string $file_path
      * @return string
      */
-	public static function getFileSize($file_path)
-	{
-	    if (@file_exists($file_path)) {
+    public static function getFileSize($file_path)
+    {
+        if (@file_exists($file_path)) {
             $size = @filesize($file_path);
             if (!empty($size)) {
                 if ($size < 1024) {
@@ -357,7 +357,7 @@ class Helper
             }
         }
         return '';
-	}
+    }
 
 // -------------------------
 // HACK : full formated HTML content

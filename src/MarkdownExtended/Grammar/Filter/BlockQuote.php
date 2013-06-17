@@ -78,7 +78,8 @@ class BlockQuote extends Filter
             $attributes['cite'] = $cite;
         }        
         $block = MarkdownExtended::get('OutputFormatBag')
-            ->buildTag('blockquote', "\n$bq\n", $attributes);
+//            ->buildTag('blockquote', "\n$bq\n", $attributes);
+            ->buildTag('blockquote', $bq, $attributes);
         return "\n" . parent::hashBlock($block) . "\n\n";
     }
 

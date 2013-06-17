@@ -165,7 +165,7 @@ virtual host's domain name, try the following:
     like `/etc/apache/sites-available/your.domain`)
 
 -   if you still have an error, come to ask us explaining your system & configuration at
-    <https://github.com/atelierspierrot/markdown-extended/issues>.
+    <http://github.com/atelierspierrot/markdown-extended/issues>.
 
 
 [^1]: Some features requires Apache from version 2.0.23 but may not render an error with

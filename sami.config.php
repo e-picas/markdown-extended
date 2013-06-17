@@ -5,10 +5,10 @@
  * See https://github.com/fabpot/Sami
  *
  * To build doc, run:
- *     $ php vendor/sami/sami/sami.php render sami.config.php
+ *     $ php bin/sami.php render sami.config.php
  *
  * To update it, run:
- *     $ php vendor/sami/sami/sami.php update sami.config.php
+ *     $ php bin/sami.php update sami.config.php
  *
  */
 

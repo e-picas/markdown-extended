@@ -99,7 +99,8 @@ class DefinitionList extends Filter
         // Re-usable patterns to match list item bullets and number markers:
         $result = trim(self::transformItems($matches[1]));
         $result = MarkdownExtended::get('OutputFormatBag')
-            ->buildTag('definition_list', "\n$result\n");
+//            ->buildTag('definition_list', "\n$result\n");
+            ->buildTag('definition_list', $result);
         return parent::hashBlock($result) . "\n\n";
     }
 
@@ -184,14 +185,17 @@ class DefinitionList extends Filter
             // Replace marker with the appropriate whitespace indentation
             $def = str_repeat(' ', strlen($marker_space)) . $def;
             $def = parent::runGamut('html_block_gamut', parent::runGamut('tool:Outdent', $def . "\n\n"));
-            $def = "\n$def\n";
+//            $def = "\n$def\n";
         } else {
             $def = rtrim($def);
             $def = parent::runGamut('span_gamut', parent::runGamut('tool:Outdent', $def));
         }
-
+/*
         return "\n" . MarkdownExtended::get('OutputFormatBag')
             ->buildTag('definition_list_item_definition', $def) . "\n";
+*/
+        return MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('definition_list_item_definition', $def);
     }
 
 }

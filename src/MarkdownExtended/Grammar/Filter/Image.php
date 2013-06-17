@@ -117,8 +117,7 @@ class Image extends Filter
             $block = MarkdownExtended::get('OutputFormatBag')
                 ->buildTag('image', null, $attributes);
             $result = parent::hashPart($block);
-		}
-		else {
+		} else {
 			// If there's no such link ID, leave intact
 			$result = $whole_match;
 		}

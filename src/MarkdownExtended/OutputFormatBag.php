@@ -31,6 +31,7 @@ class OutputFormatBag
      * @static array
      */
     public static $tag_names = array(
+        'comment',
         'meta_title', 'meta_data',
         'bold', 'italic',
         'new_line', 'horizontal_rule',
@@ -51,7 +52,14 @@ class OutputFormatBag
     protected $formater;
 
     /**
+     * @var object MarkdownExtended\OutputFormatHelperInterface
+     */
+    protected $helper;
+
+    /**
      * Loads a new formater
+     *
+     * @param string $format The formater name
      *
      * @throws MarkdownExtended\Exception\DomainException if the formater class doesn't
      *          implement `\MarkdownExtended\OutputFormatInterface`
@@ -60,15 +68,26 @@ class OutputFormatBag
     {
         $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format);
         $_obj = MarkdownExtended::get($class_name);
-        $interfaces = class_implements($_obj);
-        if (in_array('MarkdownExtended\OutputFormatInterface', $interfaces)) {
-                $this->formater =& $_obj;
-        } else {
-            throw new MDE_Exception\DomainException(sprintf(
-                'Gamut class "%s" must implements interface "%s"!',
-                $class, '\MarkdownExtended\OutputFormatInterface'
-            ));
+        $this->setFormater($_obj);
+        $this->loadHelper($format);
+    }
+
+    /**
+     * Loads a formater helper if it exists
+     *
+     * @param string $format The formater name
+     *
+     * @throws MarkdownExtended\Exception\DomainException if the helper class doesn't
+     *          implement `\MarkdownExtended\OutputFormatHelperInterface`
+     */    
+    public function loadHelper($format)
+    {
+        $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format).'Helper';
+        if (!class_exists($class_name)) {
+            $class_name = 'MarkdownExtended\OutputFormat\\DefaultHelper';
         }
+        $_obj = MarkdownExtended::get($class_name);
+        $this->setHelper($_obj);
     }
 
     /**
@@ -81,18 +100,60 @@ class OutputFormatBag
     {
         if (empty($this->formater)) return;
 
-        if (method_exists($this->formater, $name)) {
+        if (method_exists($this->getFormater(), $name)) {
             if (!empty($arguments)) {
-                return call_user_func_array(array($this->formater, $name), $arguments);
+                return call_user_func_array(array($this->getFormater(), $name), $arguments);
             } else {
-                return call_user_func(array($this->formater, $name));
+                return call_user_func(array($this->getFormater(), $name));
             }
         } else {
             throw new MDE_Exception\InvalidArgumentException(sprintf(
                 'Call to undefined method "%s" on formater "%s"!',
-                $name, get_class($this->formater)
+                $name, get_class($this->getFormater())
             ));
         }
+    }
+
+    /**
+     * Set the current formater
+     *
+     * @param object MarkdownExtended\OutputFormatInterface
+     */
+    public function setFormater(\MarkdownExtended\OutputFormatInterface $formater)
+    {
+        $this->formater = $formater;
+        return $this;
+    }
+
+    /**
+     * Get current formater
+     *
+     * @return object MarkdownExtended\OutputFormatInterface
+     */
+    public function getFormater()
+    {
+        return $this->formater;
+    }
+
+    /**
+     * Set the current formater helper
+     *
+     * @param object MarkdownExtended\OutputFormatHelperInterface
+     */
+    public function setHelper(\MarkdownExtended\OutputFormatHelperInterface $helper)
+    {
+        $this->helper = $helper;
+        return $this;
+    }
+
+    /**
+     * Get current formater helper
+     *
+     * @return object MarkdownExtended\OutputFormatHelperInterface
+     */
+    public function getHelper()
+    {
+        return $this->helper;
     }
 
 }
