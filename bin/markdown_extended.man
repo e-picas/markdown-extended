@@ -15,7 +15,7 @@ A complete PHP 5.3 package of Markdown syntax parser (extended version) - Comman
 .PP
 \fBmarkdown_extended\fP  [\fB-h\fP|\fB-V\fP]  [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP]
     [\fB-o\fP \fIfilename\fP]  [\fB-c\fP \fIconfigfile\fP]  [\fB-f\fP \fIformat\fP]
-    [\fB--gamuts\fP[=\fIname\fP]]  [\fB--nofilter\fP=\fIa,b\fP]  [\fB--extract\fP[=\fIblock\fP]]
+    [\fB-n\fP \fIa,b\fP]  [\fB-e\fP[=\fIblock\fP]]  [\fB-g\fP[=\fIname\fP]]
     \fBinput_filename\fP  [\fBinput_filename\fP]  [...]
 
 .SH DESCRIPTION
@@ -59,13 +59,13 @@ configuration files must be in `\fSINI\fP` format.
 Define the output format to use to generate final rendering ; formats are stored in
 PHP namespace `\fS\\MarkdownExtended\\OutputFormat\fP` ; default is `\fSHTML\fP`.
 .TP
-\fB--gamuts\fP [=<name>]
+\fB-g\fP , \fB--gamuts\fP [=<name>]
 Define a single gamut or a list of gamuts to execute on Markdown content parsing.
 .TP
-\fB--nofilter\fP =<name-a,name-b>
+\fB-n\fP , \fB--nofilter\fP =<name-a,name-b>
 Define a coma separated list of filters to disable during Markdown content parsing.
 .TP
-\fB--extract\fP [=<meta>]
+\fB-e\fP , \fB--extract\fP [=<meta>]
 Define a content block to extract ; default extracted block is `\fSmetadata\fP`.
 .SH EXAMPLES
 
@@ -77,7 +77,7 @@ For the same example, writing the output in file `\fSsample_parsed.html\fP`, run
     ~$ path/to/markdown_extended -o sample_parsed.html sample.md
 .PP
 To extract meta-data from `\fSsample.md\fP`, run:
-    ~$ path/to/markdown_extended --extract sample.md
+    ~$ path/to/markdown_extended -e sample.md
 .PP
 To build a man-page formated file from the Markdown source `\fSman-sample.md\fP`, run:
     ~$ path/to/markdown_extended -f man -o man-sample.man man-sample.md

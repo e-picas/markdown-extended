@@ -84,4 +84,61 @@ class MarkdownExtendedBaseTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\MarkdownExtended\Content', $this->createSourceContent($this->getTestFilepath()), 'baseTest->createSourceContent failure!');
     }
 
+    /**
+     * Get the tests test file parsed full content
+     * @return string
+     */
+    public function getTestExpectedFullContent()
+    {
+        return <<<EOF
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+</head><body>
+
+<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
+voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
+<blockquote>  
+  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
+      expedita distinctio.</p>
+</blockquote>
+<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
+tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+perferendis doloribus asperiores repellat.</p>
+
+
+<p>Last updated at Sun, 09 Jun 2013 11:34:50 +0000</p>
+
+</body>
+</html>
+EOF;
+    }
+
+    /**
+     * Get the tests test file parsed body
+     * @return string
+     */
+    public function getTestExpectedBody()
+    {
+        return <<<EOF
+<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
+voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
+<blockquote>  
+  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
+      expedita distinctio.</p>
+</blockquote>
+<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
+tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+perferendis doloribus asperiores repellat.</p>
+EOF;
+    }
+
 }

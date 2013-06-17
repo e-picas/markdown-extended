@@ -6,7 +6,8 @@ This document is for developers usage.
 
 ## TODOS that MUST be done before version 1.0
 
--   test the command line interface with direct stdin input, multi-input files etc
+-   DONE - test the command line interface with direct stdin input, multi-input files etc
+-   re-organize outputs from the command line interface (normal, verbose, quiet ...)
 -   manage the replacement of in-text tags (`{% TOC %}` for instance)
 -   test of different configuration sets (input fileds, full files etc)
 -   clarification of the rules : WRITE THE MANIFEST (?!)

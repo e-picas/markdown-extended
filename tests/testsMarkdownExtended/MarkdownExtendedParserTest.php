@@ -38,6 +38,21 @@ class MarkdownExtendedParserTest extends MarkdownExtendedBaseTest
         $content2 = $markdownParser->parse($markdownContent2)->getContent();
         $this->assertEquals('<p><strong>Hello</strong> <em>World</em></p>', $this->getBody($content2), 'Simple emphasis not work!');
 
+        // test 3: links
+        $markdownContent3 = $this->createContent('[Composer](http://getcomposer.org/)');
+        $content3 = $markdownParser->parse($markdownContent3)->getContent();
+        $this->assertEquals('<p><a href="http://getcomposer.org/" title="See online http://getcomposer.org/">Composer</a></p>', $this->getBody($content3), 'Simple links not work!');
+
+        // test 4: code
+        $markdownContent4 = $this->createContent('my text with `some code` for test ...');
+        $content4 = $markdownParser->parse($markdownContent4)->getContent();
+        $this->assertEquals('<p>my text with <code>some code</code> for test ...</p>', $this->getBody($content4), 'Simple code not work!');
+
+        // test 5: autolinks
+        $markdownContent5 = $this->createContent('<http://getcomposer.org/>');
+        $content5 = $markdownParser->parse($markdownContent5)->getContent();
+        $this->assertEquals('<p><a href="http://getcomposer.org/" title="See online http://getcomposer.org/">http://getcomposer.org/</a></p>', $this->getBody($content5), 'Simple autolinks not work!');
+
     }
     
 }

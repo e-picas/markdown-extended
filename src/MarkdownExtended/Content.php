@@ -271,7 +271,7 @@ class Content implements ContentInterface
             }
         }
         if (!empty($date)) {
-            $this->date_update = $date;
+            $this->last_update = $date;
         }
         return $this;
     }
@@ -281,7 +281,7 @@ class Content implements ContentInterface
      */
     public function getLastUpdate()
     {
-        return $this->date_update;
+        return $this->last_update;
     }
 
     /**

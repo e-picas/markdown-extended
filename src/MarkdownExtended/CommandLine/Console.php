@@ -68,11 +68,11 @@ class Console extends AbstractConsole
         'm'=>'multi', 
         'c:'=>'config:', 
         'f:'=>'format:', 
-        'gamuts::', 
+        'g:'=>'gamuts::', 
+        'n:'=>'nofilter:', 
+        'e::'=>'extract::'
 //      'filter-html', 
 //      'filter-styles', 
-        'nofilter:', 
-        'extract::'
     );
 
     /**
@@ -133,54 +133,6 @@ class Console extends AbstractConsole
         $this->runOptions();
     }
 
-    /**
-     * Run the command line options of the request
-     */
-    protected function runOptions()
-    {
-        parent::runOptions();
-        if (!empty($this->input)) {
-            if (count($this->input)>0 && $this->multi!==true) {
-                $this->multi = true;
-            }
-            if ($this->multi===true) {
-                $this->info("Input files are setted on `".join(', ', $this->input)."`");
-            } else {
-                $this->info("Input file is setted on `{$this->input[0]}`");
-            }
-        }
-    }
-
-// -------------------
-// CLI methods
-// -------------------
-
-    /**
-     * Run the whole script depending on options setted
-     */
-    public function run()
-    {
-        $this->info(PHP_EOL.">>>> let's go for the parsing ...".PHP_EOL, true, false);
-        if (!empty($this->input)) {
-            if ($this->multi===true) {
-                $myoutput = $this->output;
-                foreach ($this->input as $_input) {
-                    if (!empty($this->output) && count($this->input)>1) {
-                        $this->output = $this->_buildOutputFilename($myoutput);
-                    }
-                    $_ok = $this->runStoryOnOneFile($_input);
-                }
-                $this->separator();
-            } else {
-                $_ok = $this->runStoryOnOneFile($this->input[0]);
-            }
-        } else {
-            $this->error("No input markdown file or string entered!");
-        }
-        $this->info(PHP_EOL.">>>> the parsing is complete.".PHP_EOL, true, false);
-        $this->endRun(1);
-    }
-
 // -------------------
 // Options methods
 // -------------------
@@ -204,17 +156,17 @@ Usage:
     ~$ php path/to/markdown_extended [OPTIONS ...] [INPUT FILE(S) OR STRING(S)]
 
 Options:
-    -v | --version          get Markdown version information
-    -h | --help             get this help information
-    -x | --verbose          increase verbosity of the script
-    -q | --quiet            do not write Markdown Parser or PHP error messages
-    -m | --multi            multi-files input (automatic if multiple file names found)
-    -o | --output=FILE      specify a file (or a file mask) to write generated content in
-    -c | --config=FILE      configuration file to use for Markdown instance (INI format)
-    -f | --format=NAME      format of the output (default is HTML)
-    --gamuts[=NAME]         get the list of gamuts (or just one if specified) processed on Markdown input
-    --nofilter=A,B          specify a list of filters that will be ignored during Markdown parsing
-    --extract[=META]        extract some data (the meta data array by default) from the Markdown input
+    -v | --version             get Markdown version information
+    -h | --help                get this help information
+    -x | --verbose             increase verbosity of the script
+    -q | --quiet               do not write Markdown Parser or PHP error messages
+    -m | --multi               multi-files input (automatic if multiple file names found)
+    -o | --output    = FILE    specify a file (or a file mask) to write generated content in
+    -c | --config    = FILE    configuration file to use for Markdown instance (INI format)
+    -f | --format    = NAME    format of the output (default is HTML)
+    -e | --extract  [= META]   extract some data (the meta data array by default) from the Markdown input
+    -g | --gamuts   [= NAME]   get the list of gamuts (or just one if specified) processed on Markdown input
+    -n | --nofilter  = A,B     specify a list of filters that will be ignored during Markdown parsing
 
 For a full manual, try `~$ man ./path/to/markdown_extended.man`.
 More infos at <{$class_sources}>.
@@ -319,7 +271,7 @@ EOT;
         if (empty($name)) {
             $this->info("Getting lists of Gamuts from Markdown parser with current config");
         } else {
-            $this->info("Getting $name list of Gamuts from Markdown parser with current config");
+            $this->info("Getting '$name' list of Gamuts from Markdown parser with current config");
         }
         $str='';
         $gamuts = array();
@@ -330,7 +282,10 @@ EOT;
                 $name .= '_gamut';
                 $gamuts[$name] = MarkdownExtended::getConfig($name);
                 if (empty($gamuts[$name])) {
-                    $this->error("Unknown Gamut '$name'!");
+                    unset($gamuts[$name]);
+                    if ($this->verbose===true) {
+                        $this->error("Unknown Gamut '$name'!");
+                    }
                 }
             }
         } else {
@@ -351,36 +306,58 @@ EOT;
     }
 
 // -------------------
-// Process
+// CLI methods
 // -------------------
 
     /**
-     * Use of the PHP Markdown Extended class as a singleton
+     * Run the command line options of the request
      */
-    protected function getEmdInstance(array $config = array())
+    protected function runOptions()
     {
-        if (empty(self::$emd_instance)) {
-            $config['skip_filters'] = $this->nofilter;
-            if (false!==$this->config) {
-                $config['config_file'] = $this->config;
+        parent::runOptions();
+        if (!empty($this->input)) {
+            if (count($this->input)>1 && $this->multi!==true) {
+                $this->runOption_multi();
             }
-            if (!empty($this->format)) {
-                $config['output_format'] = $this->format;
-            }           
-            $this->info("Creating a MarkdownExtended instance with options ["
-                .str_replace("\n", '', var_export($_options,1))
-                ."]");
-            self::$emd_instance = MarkdownExtended::create();
+            if ($this->multi===true) {
+                $this->info("Input files are set on `".join(', ', $this->input)."`");
+            } else {
+                $this->info("Input is set on `{$this->input[0]}`");
+            }
         }
-        self::$emd_instance->get('Parser', $config);
-        return self::$emd_instance;
     }
-    
+
+    /**
+     * Run the whole script depending on options setted
+     */
+    public function run()
+    {
+        $this->info(PHP_EOL.">>>> let's go for the parsing ...".PHP_EOL, true, false);
+        if (!empty($this->input)) {
+            if ($this->multi===true) {
+                $myoutput = $this->output;
+                foreach ($this->input as $_input) {
+                    if (!empty($this->output) && count($this->input)>1) {
+                        $this->output = $this->_buildOutputFilename($myoutput);
+                    }
+                    $_ok = $this->runStoryOnOneFile($_input);
+                }
+                $this->separator();
+            } else {
+                $_ok = $this->runStoryOnOneFile($this->input[0]);
+            }
+        } else {
+            $this->error("No input markdown file or string entered!");
+        }
+        $this->info(PHP_EOL.">>>> the parsing is complete.".PHP_EOL, true, false);
+        $this->endRun(1);
+    }
+
     public function runStoryOnOneFile($input)
     {
         if ($this->extract!==false) {
             $infos = $this->runOneFile($input, null, $this->extract);
-            if ($this->quiet!==true) {
+            if ($this->verbose===true) {
                 $this->endRun(false, "Infos extracted from input `$input`"
                     .(is_string($this->extract) ? " for tag `$this->extract`" : '')
                     .' : '.PHP_EOL.$infos);
@@ -423,6 +400,32 @@ EOT;
         return $return;
     }
 
+// -------------------
+// Process
+// -------------------
+
+    /**
+     * Use of the PHP Markdown Extended class as a singleton
+     */
+    protected function getEmdInstance(array $config = array())
+    {
+        if (empty(self::$emd_instance)) {
+            $config['skip_filters'] = $this->nofilter;
+            if (false!==$this->config) {
+                $config['config_file'] = $this->config;
+            }
+            if (!empty($this->format)) {
+                $config['output_format'] = $this->format;
+            }           
+            $this->info("Creating a MarkdownExtended instance with options ["
+                .str_replace("\n", '', var_export($_options,1))
+                ."]");
+            self::$emd_instance = MarkdownExtended::create();
+        }
+        self::$emd_instance->get('Parser', $config);
+        return self::$emd_instance;
+    }
+    
     /**
      * Creates a `\MarkdownExtended\Content` object from filename or string
      * @param string $input

@@ -14,7 +14,7 @@ A complete PHP 5.3 package of Markdown syntax parser (extended version) - Comman
 
 **markdown_extended**  [**-h**|**-V**]  [**-x**|**-v**|**-q**|**-m**]
     [**-o** *filename*]  [**-c** *configfile*]  [**-f** *format*]
-    [**--gamuts**[=*name*]]  [**--nofilter**=*a,b*]  [**--extract**[=*block*]]
+    [**-n** *a,b*]  [**-e**[=*block*]]  [**-g**[=*name*]]
     **input_filename**  [**input_filename**]  [...]
 
 ## DESCRIPTION
@@ -56,13 +56,13 @@ The following options are supported:
 :   Define the output format to use to generate final rendering ; formats are stored in
     PHP namespace `\\MarkdownExtended\\OutputFormat` ; default is `HTML`.
 
-**--gamuts** [=<name>]
+**-g** , **--gamuts** [=<name>]
 :   Define a single gamut or a list of gamuts to execute on Markdown content parsing.
 
-**--nofilter** =<name-a,name-b>
+**-n** , **--nofilter** =<name-a,name-b>
 :   Define a coma separated list of filters to disable during Markdown content parsing.
 
-**--extract** [=<meta>]
+**-e** , **--extract** [=<meta>]
 :   Define a content block to extract ; default extracted block is `metadata`.
 
 ## EXAMPLES
@@ -77,13 +77,17 @@ For the same example, writing the output in file `sample_parsed.html`, run:
 
 To extract meta-data from `sample.md`, run:
 
-    ~$ path/to/markdown_extended --extract sample.md
+    ~$ path/to/markdown_extended -e sample.md
 
 To build a man-page formated file from the Markdown source `man-sample.md`, run:
 
     ~$ path/to/markdown_extended -f man -o man-sample.man man-sample.md
     // to open it with `man`:
     ~$ man ./man-sample.man
+
+To transform a string red from STDIN, run:
+
+    ~$ path/to/markdown_extended -e=body "My **Markdown** string"
 
 
 ## LICENSE
