@@ -81,12 +81,44 @@
             </tr>
                     <tr>
                 <td class="type">
+                    string|null
+                </td>
+                <td class="last">
+                    <a href="#method_getDirname">getDirname</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setLastUpdate">setLastUpdate</a>(<abbr title="MarkdownExtended\misc">misc</abbr> $date)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    null|<abbr title="MarkdownExtended\DateTime">DateTime</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_getLastUpdate">getLastUpdate</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
                     string
                 </td>
                 <td class="last">
                     <a href="#method_getSource">getSource</a>()
-                    <p>
-</p>
+                    <p>This must return the Markdown string source</p>
                 </td>
                 <td></td>
             </tr>
@@ -126,7 +158,7 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 130</div>
+        <div class="location">at line 135</div>
         <code>            public            
     <strong>__construct</strong>(string $source = null, string $filepath = null, <abbr title="MarkdownExtended\misc">misc</abbr> $id = null)</code>
     </h3>
@@ -163,7 +195,7 @@
     </div>
 
                 <h3 id="method___call">
-        <div class="location">at line 149</div>
+        <div class="location">at line 154</div>
         <code>            public            
     <strong>__call</strong>($name, array $arguments = null)</code>
     </h3>
@@ -213,7 +245,7 @@
     </div>
 
                 <h3 id="method_setId">
-        <div class="location">at line 231</div>
+        <div class="location">at line 236</div>
         <code>            public            
     <strong>setId</strong>(<abbr title="MarkdownExtended\misc">misc</abbr> $id)</code>
     </h3>
@@ -241,7 +273,7 @@
     </div>
 
                 <h3 id="method_getId">
-        <div class="location">at line 240</div>
+        <div class="location">at line 248</div>
         <code>            public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>getId</strong>()</code>
     </h3>
@@ -267,14 +299,94 @@
                     </div>
     </div>
 
-                <h3 id="method_getSource">
-        <div class="location">at line 252</div>
-        <code>            public            string
-    <strong>getSource</strong>()</code>
+                <h3 id="method_getDirname">
+        <div class="location">at line 256</div>
+        <code>            public            string|null
+    <strong>getDirname</strong>()</code>
     </h3>
     <div class="details">
         <p>
 </p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|null</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setLastUpdate">
+        <div class="location">at line 264</div>
+        <code>            public            
+    <strong>setLastUpdate</strong>(<abbr title="MarkdownExtended\misc">misc</abbr> $date)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
+                <td>$date</td>
+                <td>timestamp / date / DateTime object</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getLastUpdate">
+        <div class="location">at line 282</div>
+        <code>            public            null|<abbr title="MarkdownExtended\DateTime">DateTime</abbr>
+    <strong>getLastUpdate</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>null|<abbr title="MarkdownExtended\DateTime">DateTime</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getSource">
+        <div class="location">at line 291</div>
+        <code>            public            string
+    <strong>getSource</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>This must return the Markdown string source</p>
         <p>
 </p>
         <div class="tags">
@@ -290,21 +402,12 @@
     </table>
 
             
-                            <h4>Exceptions</h4>
-
-                    <table>
-                    <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the file can not be found or red</td>
-            </tr>
-            </table>
-
             
                     </div>
     </div>
 
                 <h3 id="method_hasDomId">
-        <div class="location">at line 281</div>
+        <div class="location">at line 323</div>
         <code>            public            bool
     <strong>hasDomId</strong>(string $reference)</code>
     </h3>
@@ -339,7 +442,7 @@
     </div>
 
                 <h3 id="method_getDomId">
-        <div class="location">at line 293</div>
+        <div class="location">at line 335</div>
         <code>            public            <abbr title="MarkdownExtended\str">str</abbr>
     <strong>getDomId</strong>($reference, $id = null)</code>
     </h3>
@@ -381,7 +484,7 @@
     </div>
 
                 <h3 id="method_setNewDomId">
-        <div class="location">at line 311</div>
+        <div class="location">at line 353</div>
         <code>            public            array|<abbr title="MarkdownExtended\str">str</abbr>
     <strong>setNewDomId</strong>(string $id, string $reference = null, bool $return_array = true)</code>
     </h3>

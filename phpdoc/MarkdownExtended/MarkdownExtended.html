@@ -31,7 +31,48 @@ static methods that can be called from anywhere writing something like:</p>
 
 <pre><code>MarkdownExtended::my_method();
 </code></pre>
-</p>
+
+<p>LICENSE</p>
+
+<p>Mardown
+Copyright © 2004-2006, John Gruber
+http://daringfireball.net/
+All rights reserved.</p>
+
+<p>MultiMarkdown
+Copyright © 2005-2009 Fletcher T. Penney
+http://fletcherpenney.net/
+All rights reserved.</p>
+
+<p>PHP Markdown &amp; Extra
+Copyright © 2004-2012 Michel Fortin
+http://michelf.com/projects/php-markdown/
+All rights reserved.</p>
+
+<p>Markdown Extended
+Copyright © 2008-2013 Pierre Cassat &amp; contributors
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted 
+provided that the following conditions are met:</p>
+
+<ul>
+<li><p>Redistributions of source code must retain the above copyright notice, this list of conditions 
+and the following disclaimer.</p></li>
+<li><p>Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
+and the following disclaimer in the documentation and/or other materials provided with the distribution.</p></li>
+<li><p>Neither the name “Markdown” nor the names of its contributors may be used to endorse or promote 
+products derived from this software without specific prior written permission.</p></li>
+</ul>
+
+<p>This software is provided by the copyright holders and contributors “as is” and any express or 
+implied warranties, including, but not limited to, the implied warranties of merchantability and 
+fitness for a particular purpose are disclaimed. In no event shall the copyright owner or contributors 
+be liable for any direct, indirect, incidental, special, exemplary, or consequential damages 
+(including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; 
+or business interruption) however caused and on any theory of liability, whether in contract, 
+strict liability, or tort (including negligence or otherwise) arising in any way out of the use of 
+this software, even if advised of the possibility of such damage.</p>
         </div>
     
             <h2>Constants</h2>
@@ -40,7 +81,7 @@ static methods that can be called from anywhere writing something like:</p>
                     <tr>
                 <td>MDE_NAME</td>
                 <td class="last">
-                    <p><em>Class infos</em></p>
+                    <p><em>Class infos ; can be automatically updated by <code>pre-commit-hook.sh</code></em></p>
                     <p>
 </p>
                 </td>
@@ -150,8 +191,18 @@ static methods that can be called from anywhere writing something like:</p>
                     static&nbsp;object
                 </td>
                 <td class="last">
-                    <a href="#method_getContent">getContent</a>($id = null)
-                    <p>Get current processed content</p>
+                    <a href="#method_getContent">getContent</a>(<abbr title="MarkdownExtended\misc">misc</abbr> $id = null)
+                    <p>Get a processed content, current by default</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getFullContent">getFullContent</a>(<abbr title="MarkdownExtended\misc">misc</abbr> $id = null)
+                    <p>Get a full version of a processed content, current by default</p>
                 </td>
                 <td></td>
             </tr>
@@ -271,7 +322,7 @@ static methods that can be called from anywhere writing something like:</p>
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 81</div>
+        <div class="location">at line 122</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
@@ -287,7 +338,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_getInstance">
-        <div class="location">at line 94</div>
+        <div class="location">at line 135</div>
         <code>        static    public            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
     <strong>getInstance</strong>()</code>
     </h3>
@@ -313,7 +364,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_create">
-        <div class="location">at line 106</div>
+        <div class="location">at line 147</div>
         <code>        static    public            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
     <strong>create</strong>()</code>
     </h3>
@@ -339,7 +390,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_transformString">
-        <div class="location">at line 126</div>
+        <div class="location">at line 167</div>
         <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
     <strong>transformString</strong>(string $source, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
     </h3>
@@ -393,7 +444,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_transformSource">
-        <div class="location">at line 146</div>
+        <div class="location">at line 187</div>
         <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
     <strong>transformSource</strong>(string $filename, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
     </h3>
@@ -447,7 +498,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_addProcessedContent">
-        <div class="location">at line 166</div>
+        <div class="location">at line 207</div>
         <code>        static    public            
     <strong>addProcessedContent</strong>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $content, bool $secondary = false)</code>
     </h3>
@@ -478,12 +529,12 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_getContent">
-        <div class="location">at line 177</div>
+        <div class="location">at line 220</div>
         <code>        static    public            object
-    <strong>getContent</strong>($id = null)</code>
+    <strong>getContent</strong>(<abbr title="MarkdownExtended\misc">misc</abbr> $id = null)</code>
     </h3>
     <div class="details">
-        <p>Get current processed content</p>
+        <p>Get a processed content, current by default</p>
         <p>
 </p>
         <div class="tags">
@@ -491,10 +542,9 @@ static methods that can be called from anywhere writing something like:</p>
 
                     <table>
                     <tr>
-                <td></td>
+                <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
                 <td>$id</td>
-                <td>
-</td>
+                <td>The id of the content to get</td>
             </tr>
             </table>
 
@@ -513,8 +563,44 @@ static methods that can be called from anywhere writing something like:</p>
                     </div>
     </div>
 
+                <h3 id="method_getFullContent">
+        <div class="location">at line 233</div>
+        <code>        static    public            string
+    <strong>getFullContent</strong>(<abbr title="MarkdownExtended\misc">misc</abbr> $id = null)</code>
+    </h3>
+    <div class="details">
+        <p>Get a full version of a processed content, current by default</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
+                <td>$id</td>
+                <td>The id of the content to get</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_getTemplater">
-        <div class="location">at line 190</div>
+        <div class="location">at line 249</div>
         <code>        static    public            object
     <strong>getTemplater</strong>(array $config = null)</code>
     </h3>
@@ -550,7 +636,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_load">
-        <div class="location">at line 209</div>
+        <div class="location">at line 268</div>
         <code>        static    public            bool
     <strong>load</strong>(string $class)</code>
     </h3>
@@ -595,7 +681,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_factory">
-        <div class="location">at line 227</div>
+        <div class="location">at line 286</div>
         <code>        static    public            object
     <strong>factory</strong>(string $class, array $params = null)</code>
     </h3>
@@ -636,7 +722,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_get">
-        <div class="location">at line 246</div>
+        <div class="location">at line 305</div>
         <code>        static    public            object
     <strong>get</strong>(string $class, array $params = null)</code>
     </h3>
@@ -677,7 +763,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_getConfig">
-        <div class="location">at line 260</div>
+        <div class="location">at line 319</div>
         <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>getConfig</strong>(string $var)</code>
     </h3>
@@ -714,7 +800,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_setConfig">
-        <div class="location">at line 272</div>
+        <div class="location">at line 331</div>
         <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>setConfig</strong>(string $var, <abbr title="MarkdownExtended\misc">misc</abbr> $val)</code>
     </h3>
@@ -757,7 +843,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_addConfig">
-        <div class="location">at line 284</div>
+        <div class="location">at line 343</div>
         <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>addConfig</strong>(string $var, <abbr title="MarkdownExtended\misc">misc</abbr> $val)</code>
     </h3>
@@ -800,7 +886,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_getVar">
-        <div class="location">at line 295</div>
+        <div class="location">at line 354</div>
         <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>getVar</strong>(string $var)</code>
     </h3>
@@ -837,7 +923,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_setVar">
-        <div class="location">at line 307</div>
+        <div class="location">at line 366</div>
         <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>setVar</strong>(string $var, <abbr title="MarkdownExtended\misc">misc</abbr> $val)</code>
     </h3>
@@ -880,7 +966,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_addVar">
-        <div class="location">at line 319</div>
+        <div class="location">at line 378</div>
         <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>addVar</strong>(string $var, <abbr title="MarkdownExtended\misc">misc</abbr> $val)</code>
     </h3>
@@ -923,7 +1009,7 @@ static methods that can be called from anywhere writing something like:</p>
     </div>
 
                 <h3 id="method_unsetVar">
-        <div class="location">at line 331</div>
+        <div class="location">at line 390</div>
         <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
     <strong>unsetVar</strong>(string $var, <abbr title="MarkdownExtended\misc">misc</abbr> $val = null)</code>
     </h3>

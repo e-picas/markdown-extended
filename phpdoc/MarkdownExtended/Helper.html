@@ -385,19 +385,17 @@
         <p>Input: an email address, e.g.</p>
         <p>"foo@example.com"</p>
 
-<pre><code>Output: the email address as a mailto link, with each character
-    of the address encoded as either a decimal or hex entity, in
-    the hopes of foiling most address harvesting spam bots. E.g.:
+<p>Output: the email address as a mailto link, with each character
+     of the address encoded as either a decimal or hex entity, in
+     the hopes of foiling most address harvesting spam bots. E.g.:</p>
 
-  &lt;p&gt;&lt;a href="&amp;#109;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x66;o&amp;#111;
-   &amp;#x40;&amp;#101;&amp;#x78;&amp;#97;&amp;#x6d;&amp;#112;&amp;#x6c;&amp;#101;&amp;#46;&amp;#x63;&amp;#111;
-   &amp;#x6d;"&gt;&amp;#x66;o&amp;#111;&amp;#x40;&amp;#101;&amp;#x78;&amp;#97;&amp;#x6d;&amp;#112;&amp;#x6c;
-   &amp;#101;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
+   <p><a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;o&#111;
+       &#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#111;
+       &#x6d;">&#x66;o&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;
+       &#101;&#46;&#x63;&#111;&#x6d;</a></p>
 
-Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
-</code></pre>
-
-<p>With some optimizations by Milian Wolff.</p>
+<p>Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
+  With some optimizations by Milian Wolff.</p>
         <div class="tags">
                             <h4>Parameters</h4>
 

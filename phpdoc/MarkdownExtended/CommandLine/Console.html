@@ -109,10 +109,20 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_error">error</a>(string $str, int $code = 1)
+                    <a href="#method_error">error</a>($str, $code = 90, $forced = false)
                     <p>Write an error info and exit</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_catched">catched</a>(object $e)
+                    <p>Write a catched exception</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -179,7 +189,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_runOption_output">runOption_output</a>($file)
+                    <a href="#method_runOption_output">runOption_output</a>(string $file)
                     <p>Run the output option</p>
                 </td>
                 <td></td>
@@ -209,7 +219,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_runOption_extract">runOption_extract</a>($type)
+                    <a href="#method_runOption_extract">runOption_extract</a>(string $type)
                     <p>Run the extract option</p>
                 </td>
                 <td></td>
@@ -219,7 +229,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_runOption_nofilter">runOption_nofilter</a>($str)
+                    <a href="#method_runOption_nofilter">runOption_nofilter</a>(string $str)
                     <p>Run the no-filter option</p>
                 </td>
                 <td></td>
@@ -229,9 +239,58 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_runStoryOnOneFile">runStoryOnOneFile</a>($input)
-                    <p>
-</p>
+                    <a href="#method_runOption_format">runOption_format</a>(string $str)
+                    <p>Run the format option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runStoryOnOneFile">runStoryOnOneFile</a>(string $input, bool $title = false)
+                    <p>Run the MDE process on one file or input</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runOneFile">runOneFile</a>(string $input, string $output = null, bool $extract = null, bool $title = false)
+                    <p>Actually run the MDE process on a file or string</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_getInput">getInput</a>(string $input, bool $title = false)
+                    <p>Creates a <code>\MarkdownExtended\Content</code> object from filename or string</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_parseContent">parseContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content)
+                    <p>Process a Content parsing</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_extractContent">extractContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content, string $extract)
+                    <p>Process a Content parsing just for special gamuts</p>
                 </td>
                 <td></td>
             </tr>
@@ -240,9 +299,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_runOneFile">runOneFile</a>($input, $output = null, $extract = null)
-                    <p>
-</p>
+                    <a href="#method_writeOutputFile">writeOutputFile</a>(string $output, string $output_file)
+                    <p>Write a result for each processed file or string in a file</p>
                 </td>
                 <td></td>
             </tr>
@@ -251,9 +309,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_getInput">getInput</a>($input)
-                    <p>
-</p>
+                    <a href="#method_writeOutput">writeOutput</a>(string $output, bool $exit = false)
+                    <p>Write a result for each processed file or string</p>
                 </td>
                 <td></td>
             </tr>
@@ -262,42 +319,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_parseContent">parseContent</a>($md_content)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_extractContent">extractContent</a>($md_content, $extract)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_writeOutputFile">writeOutputFile</a>($output, $output_file)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_writeOutput">writeOutput</a>($output, $exit = false)
-                    <p>
-</p>
+                    <a href="#method_writeInputTitle">writeInputTitle</a>(string $title)
+                    <p>Write a title for each processed file or string</p>
                 </td>
                 <td></td>
             </tr>
@@ -307,7 +330,7 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 124</div>
+        <div class="location">at line 126</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
@@ -332,7 +355,7 @@
     </div>
 
                 <h3 id="method_write">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 82</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 97</div>
         <code>            public            
     <strong>write</strong>(string $str, bool $new_line = true)</code>
     </h3>
@@ -363,7 +386,7 @@
     </div>
 
                 <h3 id="method_info">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 93</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 108</div>
         <code>            public            
     <strong>info</strong>($str, $new_line = true, $leading_dot = true)</code>
     </h3>
@@ -402,7 +425,7 @@
     </div>
 
                 <h3 id="method_separator">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 103</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 118</div>
         <code>            public            
     <strong>separator</strong>()</code>
     </h3>
@@ -418,9 +441,9 @@
     </div>
 
                 <h3 id="method_error">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 115</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 130</div>
         <code>            public            
-    <strong>error</strong>(string $str, int $code = 1)</code>
+    <strong>error</strong>($str, $code = 90, $forced = false)</code>
     </h3>
     <div class="details">
         <p>Write an error info and exit</p>
@@ -431,14 +454,48 @@
 
                     <table>
                     <tr>
-                <td>string</td>
+                <td></td>
                 <td>$str</td>
-                <td>The information to write</td>
+                <td>
+</td>
             </tr>
                     <tr>
-                <td>int</td>
+                <td></td>
                 <td>$code</td>
-                <td>The error code used to exit the script</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$forced</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_catched">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 158</div>
+        <code>            public            
+    <strong>catched</strong>(object $e)</code>
+    </h3>
+    <div class="details">
+        <p>Write a catched exception</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>object</td>
+                <td>$e</td>
+                <td>Exception thrown</td>
             </tr>
             </table>
 
@@ -449,7 +506,7 @@
     </div>
 
                 <h3 id="method_runOption_verbose">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 197</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 228</div>
         <code>            public            
     <strong>runOption_verbose</strong>()</code>
     </h3>
@@ -465,7 +522,7 @@
     </div>
 
                 <h3 id="method_runOption_quiet">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 206</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 237</div>
         <code>            public            
     <strong>runOption_quiet</strong>()</code>
     </h3>
@@ -481,7 +538,7 @@
     </div>
 
                 <h3 id="method_run">
-        <div class="location">at line 159</div>
+        <div class="location">at line 339</div>
         <code>            public            
     <strong>run</strong>()</code>
     </h3>
@@ -497,7 +554,7 @@
     </div>
 
                 <h3 id="method_runOption_help">
-        <div class="location">at line 189</div>
+        <div class="location">at line 143</div>
         <code>            public            
     <strong>runOption_help</strong>()</code>
     </h3>
@@ -513,7 +570,7 @@
     </div>
 
                 <h3 id="method_runOption_version">
-        <div class="location">at line 226</div>
+        <div class="location">at line 182</div>
         <code>            public            
     <strong>runOption_version</strong>()</code>
     </h3>
@@ -529,7 +586,7 @@
     </div>
 
                 <h3 id="method_runOption_multi">
-        <div class="location">at line 236</div>
+        <div class="location">at line 192</div>
         <code>            public            
     <strong>runOption_multi</strong>()</code>
     </h3>
@@ -545,9 +602,9 @@
     </div>
 
                 <h3 id="method_runOption_output">
-        <div class="location">at line 245</div>
+        <div class="location">at line 202</div>
         <code>            public            
-    <strong>runOption_output</strong>($file)</code>
+    <strong>runOption_output</strong>(string $file)</code>
     </h3>
     <div class="details">
         <p>Run the output option</p>
@@ -558,10 +615,9 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$file</td>
-                <td>
-</td>
+                <td>The command line option argument</td>
             </tr>
             </table>
 
@@ -572,7 +628,7 @@
     </div>
 
                 <h3 id="method_runOption_filter_html">
-        <div class="location">at line 263</div>
+        <div class="location">at line 221</div>
         <code>            public            
     <strong>runOption_filter_html</strong>()</code>
     </h3>
@@ -588,7 +644,7 @@
     </div>
 
                 <h3 id="method_runOption_filter_styles">
-        <div class="location">at line 272</div>
+        <div class="location">at line 230</div>
         <code>            public            
     <strong>runOption_filter_styles</strong>()</code>
     </h3>
@@ -604,9 +660,9 @@
     </div>
 
                 <h3 id="method_runOption_extract">
-        <div class="location">at line 281</div>
+        <div class="location">at line 240</div>
         <code>            public            
-    <strong>runOption_extract</strong>($type)</code>
+    <strong>runOption_extract</strong>(string $type)</code>
     </h3>
     <div class="details">
         <p>Run the extract option</p>
@@ -617,10 +673,9 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$type</td>
-                <td>
-</td>
+                <td>The command line option argument</td>
             </tr>
             </table>
 
@@ -631,9 +686,9 @@
     </div>
 
                 <h3 id="method_runOption_nofilter">
-        <div class="location">at line 294</div>
+        <div class="location">at line 254</div>
         <code>            public            
-    <strong>runOption_nofilter</strong>($str)</code>
+    <strong>runOption_nofilter</strong>(string $str)</code>
     </h3>
     <div class="details">
         <p>Run the no-filter option</p>
@@ -644,10 +699,35 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$str</td>
-                <td>
-</td>
+                <td>The command line option argument</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_format">
+        <div class="location">at line 264</div>
+        <code>            public            
+    <strong>runOption_format</strong>(string $str)</code>
+    </h3>
+    <div class="details">
+        <p>Run the format option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The command line option argument</td>
             </tr>
             </table>
 
@@ -658,13 +738,12 @@
     </div>
 
                 <h3 id="method_runStoryOnOneFile">
-        <div class="location">at line 363</div>
-        <code>            public            
-    <strong>runStoryOnOneFile</strong>($input)</code>
+        <div class="location">at line 370</div>
+        <code>            public            string
+    <strong>runStoryOnOneFile</strong>(string $input, bool $title = false)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Run the MDE process on one file or input</p>
         <p>
 </p>
         <div class="tags">
@@ -672,27 +751,41 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$input</td>
                 <td>
 </td>
             </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$title</td>
+                <td>Set on <code>true</code> in case of multi-input</td>
+            </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOneFile">
-        <div class="location">at line 386</div>
-        <code>            public            
-    <strong>runOneFile</strong>($input, $output = null, $extract = null)</code>
+        <div class="location">at line 403</div>
+        <code>            public            string
+    <strong>runOneFile</strong>(string $input, string $output = null, bool $extract = null, bool $title = false)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Actually run the MDE process on a file or string</p>
         <p>
 </p>
         <div class="tags">
@@ -700,39 +793,51 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$input</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$output</td>
-                <td>
-</td>
+                <td>An optional output filename to write result in</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$extract</td>
-                <td>
-</td>
+                <td>An extractor tagname</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$title</td>
+                <td>Set to <code>true</code> to add title string in case of multi-input</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getInput">
-        <div class="location">at line 410</div>
-        <code>            public            
-    <strong>getInput</strong>($input)</code>
+        <div class="location">at line 462</div>
+        <code>            public            <a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>getInput</strong>(string $input, bool $title = false)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Creates a <code>\MarkdownExtended\Content</code> object from filename or string</p>
         <p>
 </p>
         <div class="tags">
@@ -740,27 +845,50 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$input</td>
                 <td>
 </td>
             </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$title</td>
+                <td>Set to <code>true</code> to add title string in case of multi-input</td>
+            </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="any">any</abbr></td>
+                <td>catched exception</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_parseContent">
-        <div class="location">at line 429</div>
-        <code>            public            
-    <strong>parseContent</strong>($md_content)</code>
+        <div class="location">at line 521</div>
+        <code>            public            string
+    <strong>parseContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Process a Content parsing</p>
         <p>
 </p>
         <div class="tags">
@@ -768,27 +896,44 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr></td>
                 <td>$md_content</td>
-                <td>
-</td>
+                <td>\MarkdownExtended\Content instance</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="any">any</abbr></td>
+                <td>catched exception</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_extractContent">
-        <div class="location">at line 447</div>
-        <code>            public            
-    <strong>extractContent</strong>($md_content, $extract)</code>
+        <div class="location">at line 563</div>
+        <code>            public            string
+    <strong>extractContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content, string $extract)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Process a Content parsing just for special gamuts</p>
         <p>
 </p>
         <div class="tags">
@@ -796,13 +941,12 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr></td>
                 <td>$md_content</td>
-                <td>
-</td>
+                <td>\MarkdownExtended\Content instance</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$extract</td>
                 <td>
 </td>
@@ -810,19 +954,37 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="any">any</abbr></td>
+                <td>catched exception</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_writeOutputFile">
-        <div class="location">at line 479</div>
+        <div class="location">at line 614</div>
         <code>            public            
-    <strong>writeOutputFile</strong>($output, $output_file)</code>
+    <strong>writeOutputFile</strong>(string $output, string $output_file)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Write a result for each processed file or string in a file</p>
         <p>
 </p>
         <div class="tags">
@@ -830,13 +992,13 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$output</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$output_file</td>
                 <td>
 </td>
@@ -850,13 +1012,12 @@
     </div>
 
                 <h3 id="method_writeOutput">
-        <div class="location">at line 494</div>
+        <div class="location">at line 634</div>
         <code>            public            
-    <strong>writeOutput</strong>($output, $exit = false)</code>
+    <strong>writeOutput</strong>(string $output, bool $exit = false)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Write a result for each processed file or string</p>
         <p>
 </p>
         <div class="tags">
@@ -864,14 +1025,41 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$output</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$exit</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeInputTitle">
+        <div class="location">at line 650</div>
+        <code>            public            
+    <strong>writeInputTitle</strong>(string $title)</code>
+    </h3>
+    <div class="details">
+        <p>Write a title for each processed file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$title</td>
                 <td>
 </td>
             </tr>
