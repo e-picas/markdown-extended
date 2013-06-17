@@ -206,7 +206,7 @@ Example: That's some[^2] text with three footnotes.[^1][^3]
     That's the second paragraph.
 
 [^2]: And that's another footnote (the second)
-	on *two lines* for test ...
+    on *two lines* for test ...
 
 [^3]: And that's a footnote [with a link](http://example.com).
 
@@ -258,8 +258,8 @@ Example:
 My text with a footnote ref [^glossaryfootnote].
 
 [^glossaryfootnote]: glossary: term (2)
-	The actual definition belongs on a new line, and can continue on
-	just as other footnotes.
+    The actual definition belongs on a new line, and can continue on
+    just as other footnotes.
 
 
 ## Typography
@@ -274,23 +274,23 @@ A referenced link image with attributes: `[mylink][]` will refer to reference `[
 
 Example: [mylink][] and [mylink2][] and [mylink3][]
 
-An embedded image with attributes: `![myimage][]` will refer to reference `[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40px height=40px`
+An embedded image with attributes: `![myimage][]` will refer to reference `[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40 height=40`
 
 Example: ![myimage][]
 
-A referenced embedded image with attributes: `![alternative text][myimage]` will refer to reference `[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40px height=40px`
+A referenced embedded image with attributes: `![alternative text][myimage]` will refer to reference `[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40 height=40`
 
 Example: ![my image][myimage]
 
-[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40px height=40px
+[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40 height=40
 [mylink]: http://example.com/ "Optional title" class=external rel=external
 [mylink2]: http://example.com/ "Optional title" class=external rel=external style="border: solid black 1px;"
 [mylink3]: http://example.com/ "Optional title" class=external rel="external" 
-	style="border: solid black 1px;"
+    style="border: solid black 1px;"
 
 ## HTML
 
-A table:
+A table with multi-bodies:
 
     |             | Grouping                    ||
     First Header  | Second Header | Third header |
@@ -300,7 +300,6 @@ A table:
     
     New section   |   More        |         Data |
     And more      |           And more          ||
-    [prototype table]
 
 Example:
 
@@ -314,6 +313,17 @@ New section   |   More        |         Data |
 And more      |           And more          ||
 
 New example:
+
+    [prototype *table*]
+    |             | Grouping                    ||
+    First Header  | Second Header | Third header |
+    First comment  | Second comment | Third comment |
+    ------------- | ------------: | :----------: |
+    Content Cell  |  *Long Cell*                ||
+    Content Cell  | **Cell**      | **Cell**     |
+    New section   |   More        |         Data |
+    And more      |           And more          ||
+    And more                     || And more     |
 
 [prototype *table*]
 |             | Grouping                    ||
@@ -452,9 +462,9 @@ Below is the same table as above with argument `markdown="1"`.
 
 <table border="2px" cellspacing="2px" cellpadding="6px" markdown="1">
 <tr>
-	<td>Foo</td>
-	<td>*Foo*</td>
-	<td>`Foo`</td>
+    <td>Foo</td>
+    <td>*Foo*</td>
+    <td>`Foo`</td>
 </tr>
 </table>
 

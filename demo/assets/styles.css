@@ -58,7 +58,6 @@ td.var      {text-align: right;}
 td.var var  {font-weight: bold; font-style: normal; letter-spacing: .1em;}
 
 header      {float: left;width: 68%;}
-header hgroup {position: relative;margin:0;padding:0;padding-bottom: 1em;}
 header img  {float: left;border: 1px dotted #fff; margin: 0 1em;}
 header img:hover  {border-color: red;}
 header p    {margin:0; padding: 0 0 12px 12px; text-indent:1em;}
@@ -133,7 +132,7 @@ iframe { border: 1px dotted #ccc; }
 
 /* tablesorter */
 table.tablesorter {
-	font-family:arial; background-color: #CDCDCD; margin:10px 0pt 15px; font-size: 1em; width: 100%; text-align: left;}
+    font-family:arial; background-color: #CDCDCD; margin:10px 0pt 15px; font-size: 1em; width: 100%; text-align: left;}
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {background-color: #F4F4F4; border: 1px solid #FFF; font-size: .9em; padding: 4px;}
 table.tablesorter thead tr .header {background: #F4F4F4 url(double-arrow.png) no-repeat 100% 50%; cursor: pointer;}
 table.tablesorter tbody td {color: #3D3D3D; padding: 4px; background-color: #FFF; vertical-align: top;}
@@ -151,7 +150,7 @@ div.highlight ul.tabs li {padding: 0; margin: 0 5px; float: left; background: no
 div.highlight ul.tabs li.active {border-bottom: none; cursor: default;}
 /* pre */
 div.highlight pre.code ol {margin: 0; padding:0 0 0 45px; background:#e7e5dc;  }
-div.highlight pre.code ul {margin: 0; padding:0;	}
+div.highlight pre.code ul {margin: 0; padding:0;    }
 div.highlight pre.code ol li, div.highlight pre.code ul li {padding:0 0 0 5px; border-left:3px solid #CCC; background:#F9F9F9;}
 div.highlight pre.code ul li {border-left:none;}
 div.highlight pre.code ol li.even, div.highlight pre.code ul li.even {background-color:#F4F4F4;}

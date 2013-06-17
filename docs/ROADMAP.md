@@ -10,7 +10,8 @@ This document is for developers usage.
 -   DONE - re-organize outputs from the command line interface (normal, verbose, quiet ...)
 -   manage the replacement of in-text tags (`{% TOC %}` for instance)
 -   test of different configuration sets (input fileds, full files etc)
--   clarification of the rules : WRITE THE MANIFEST (?!)
+-   clarification of the rules : WRITE THE MANIFEST (?!) => anchors rules (!!)
+-   find a better management for full HTML/body only return
 
 ## TODOS that SHOULD be done before version 1.0
 
@@ -19,8 +20,8 @@ This document is for developers usage.
 
 ## Known bugs
 
--   issue on footnotes (multi-reference causes a problem of multi-id)
--   issue on tables with caption at its bottom
+-   issue on footnotes (multi-reference causes a problem of multi-id) => OK, ticket 1
+-   issue on tables with caption at its bottom => OK, ticket 2
 
 ## Evolutions
 
