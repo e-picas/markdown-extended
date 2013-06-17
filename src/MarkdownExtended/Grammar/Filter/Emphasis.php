@@ -116,9 +116,9 @@ class Emphasis extends Filter
 					array_shift($token_stack);
 					$span = parent::runGamut('span_gamut', array_shift($text_stack));
                     $span = MarkdownExtended::get('OutputFormatBag')
-                        ->buildTag('em', $span);
+                        ->buildTag('italic', $span);
                     $span = MarkdownExtended::get('OutputFormatBag')
-                        ->buildTag('strong', $span);
+                        ->buildTag('bold', $span);
 					$text_stack[0] .= parent::hashPart($span);
 					$em = '';
 					$strong = '';
@@ -126,7 +126,7 @@ class Emphasis extends Filter
 					// Other closing marker: close one em or strong and
 					// change current token state to match the other
 					$token_stack[0] = str_repeat($token{0}, 3-$token_len);
-					$tag = $token_len == 2 ? "strong" : "italic";
+					$tag = $token_len == 2 ? "bold" : "italic";
 					$span = parent::runGamut('span_gamut', $text_stack[0]);
                     $span = MarkdownExtended::get('OutputFormatBag')
                         ->buildTag($tag, $span);
@@ -140,7 +140,7 @@ class Emphasis extends Filter
 					// Closing strong marker:
 					for ($i = 0; $i < 2; ++$i) {
 						$shifted_token = array_shift($token_stack);
-						$tag = strlen($shifted_token) == 2 ? "strong" : "italic";
+						$tag = strlen($shifted_token) == 2 ? "bold" : "italic";
 						$span = parent::runGamut('span_gamut', array_shift($text_stack));
                         $span = MarkdownExtended::get('OutputFormatBag')
                             ->buildTag($tag, $span);
@@ -167,7 +167,7 @@ class Emphasis extends Filter
 					array_shift($token_stack);
 					$span = parent::runGamut('span_gamut', array_shift($text_stack));
                     $span = MarkdownExtended::get('OutputFormatBag')
-                        ->buildTag('strong', $span);
+                        ->buildTag('bold', $span);
 					$text_stack[0] .= parent::hashPart($span);
 					$strong = '';
 				} else {
@@ -183,7 +183,7 @@ class Emphasis extends Filter
 						array_shift($token_stack);
 						$span = parent::runGamut('span_gamut', array_shift($text_stack));
                         $span = MarkdownExtended::get('OutputFormatBag')
-                            ->buildTag('em', $span);
+                            ->buildTag('italic', $span);
 						$text_stack[0] .= parent::hashPart($span);
 						$em = '';
 					} else {

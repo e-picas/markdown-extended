@@ -3,10 +3,10 @@
     "type": "library",
     "title": "PHP Markdown Extended",
     "description": "A complete PHP 5.3 package of Markdown syntax parser (extended version)",
-    "keywords": [ "markdown", "parser" ],
-    "homepage": "https://github.com/atelierspierrot/markdown-extended",
-    "version": "0.0.5",
-    "license": "GPL-3.0",
+    "keywords": [ "markdown" ],
+    "homepage": "http://github.com/atelierspierrot/markdown-extended",
+    "version": "0.0.8-dev",
+    "license": "BSD-3-Clause",
     "authors": [{
             "name": "John Gruber",
             "homepage": "http://daringfireball.net/"
@@ -26,11 +26,17 @@
             "homepage": "https://github.com/PieroWbmstr"
     }],
     "support": {
-        "issues": "https://github.com/atelierspierrot/markdown-extended/issues",
-        "source": "https://github.com/atelierspierrot/markdown-extended"
+        "issues": "http://github.com/atelierspierrot/markdown-extended/issues",
+        "source": "http://github.com/atelierspierrot/markdown-extended/tree/master"
     },
     "require": { "php": ">=5.3.0" },
-    "require-dev": { "sami/sami": "dev-master" },
+    "require-dev": {
+        "sami/sami": "dev-master",
+        "phpunit/phpunit": "3.7.*"
+    },
     "autoload": { "psr-0": { "MarkdownExtended": "src" } },
+    "config": {
+        "bin-dir": "bin"
+    },
     "bin": [ "bin/markdown_extended" ]
 }

@@ -24,6 +24,8 @@ use MarkdownExtended\MarkdownExtended,
 
 /**
  * Process Markdown notes: footnotes, glossary and bibliography notes
+ *
+ * @todo write the right reference for second call of the same note
  */
 class Note extends Filter
 {
@@ -205,8 +207,12 @@ class Note extends Filter
             }
             $notes_text = MarkdownExtended::get('OutputFormatBag')
                 ->buildTag('ordered_list', $notes_content);
+/*
             $notes_text = "\n\n" . MarkdownExtended::get('OutputFormatBag')
                 ->buildTag('block', $notes_text, array('class'=>'footnotes')) . "\n\n";
+*/
+            $notes_text = MarkdownExtended::get('OutputFormatBag')
+                ->buildTag('block', $notes_text, array('class'=>'footnotes'));
             MarkdownExtended::getContent()
                 ->setNotesHtml($notes_text);
         }
@@ -325,6 +331,7 @@ class Note extends Filter
             $attributes['href'] = '#' . $backlink_id;
             $backlink = MarkdownExtended::get('OutputFormatBag')
                 ->buildTag('link', '&#8617;', $attributes);
+            $note_content = trim($note_content);
             if (preg_match('{</p>$}', $note_content)) {
                 $note_content = substr($note_content, 0, -4) . "&#160;$backlink" . substr($note_content, -4);
             } else {

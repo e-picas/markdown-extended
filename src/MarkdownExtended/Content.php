@@ -37,6 +37,11 @@ class Content implements ContentInterface
     protected $filepath = '';
 
     /**
+     * @var object \DateTime
+     */
+    protected $last_update = null;
+
+    /**
      * @var string
      */
     protected $source = '';
@@ -231,6 +236,9 @@ class Content implements ContentInterface
     public function setId($id)
     {
         $this->id = $id;
+        if (empty($this->id) || (!is_string($this->id) && !is_numeric($this->id))) {
+            $this->id = uniqid();
+        }
         return $this;
     }
 
@@ -239,10 +247,41 @@ class Content implements ContentInterface
      */
     public function getId()
     {
-        if (empty($this->id)) {
-            $this->setId(uniqid());
-        }
         return $this->id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDirname()
+    {
+        return !empty($this->filepath) ? dirname($this->filepath) : null;
+    }
+
+    /**
+     * @param misc $date timestamp / date / DateTime object
+     */
+    public function setLastUpdate($date)
+    {
+        if (!is_object($date)) {
+            if (is_int($date)) {
+                $date = @\DateTime::createFromFormat('U', $date);
+            } else {
+                $date = @new \DateTime($date);
+            }
+        }
+        if (!empty($date)) {
+            $this->last_update = $date;
+        }
+        return $this;
+    }
+
+    /**
+     * @return null|DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->last_update;
     }
 
     /**
@@ -257,7 +296,10 @@ class Content implements ContentInterface
         if (!empty($this->filepath)) {
             if (file_exists($this->filepath) && is_readable($this->filepath)) {
                 $this->source = file_get_contents($this->filepath);
-                $this->id = $this->filepath;
+                $this->setLastUpdate(filemtime($this->filepath));
+                if (empty($this->id)) {
+                    $this->setId($this->filepath);
+                }
                 return $this->source;
             } else {
                 throw new MDE_Exception\InvalidArgumentException(

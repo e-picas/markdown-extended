@@ -15,13 +15,37 @@ $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
 $js_code = false;
 $parse_options = array();
 $templater_options = array();
+$info = $error = $content = '';
+
+// -----------------------------------
+// NAMESPACE
+// -----------------------------------
+
+// get the Composer autoloader
+if (file_exists($a = __DIR__.'/../../../autoload.php')) {
+    require_once $a;
+} elseif (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
+    require_once $b;
+
+// else try to register `MarkdownExtended` namespace
+} elseif (file_exists($c = __DIR__.'/../src/SplClassLoader.php')) {
+    require_once $c;
+    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/../src');
+    $classLoader->register();
+
+// else error, classes can't be found
+} else {
+    $error = 'You need to run Composer on your project to use this interface!';
+}
+
+// -----------------------------------
+// Launch Console API
+// -----------------------------------
 
 // process
 if (!is_null($doc)) {
-    $info = $error = $content = '';
     // get the Composer autoloader
-    if (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
-        require_once $b;
+    if (empty($error)) {
         $class_info = \MarkdownExtended\Helper::info(true);
         $info = <<<EOT
     <p><a id="classinfo_handler" class="handler" title="Infos from the MarkdownExtended class">Current class infos</a></p>
@@ -88,8 +112,6 @@ exit('yo');
         } else {
             $error = 'Markdown document source "'.$doc.'" not found!';
         }
-    } else {
-        $error = 'You need to run Composer on your project to use this interface!';
     }
 } else {
     $content = file_get_contents('usage.html');
@@ -107,10 +129,10 @@ exit('yo');
 <?php $title_done = false; ?>
 <?php if (!empty($mde_content) && $mde_content->getMetadata()) : ?>
     <?php foreach ($mde_content->getMetadata() as $meta_name=>$meta_content) : ?>
-		<?php if ($meta_name=='title'): ?>
+        <?php if ($meta_name=='title'): ?>
     <title><?php echo $meta_content; ?></title>
             <?php $title_done = true; ?>
-		<?php else: ?>
+        <?php else: ?>
     <meta name="<?php echo $meta_name; ?>" content="<?php echo $meta_content; ?>" />
         <?php endif; ?>
     <?php endforeach; ?>
@@ -123,7 +145,7 @@ exit('yo');
     <link rel="stylesheet" href="assets/html5boilerplate/css/normalize.css" />
     <link rel="stylesheet" href="assets/html5boilerplate/css/main.css" />
     <script src="assets/html5boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
-	<link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="assets/styles.css" />
 <script type="text/javascript">
 var emdreminders_window; // use this variable to interact with the cheat sheet window
 function emdreminders_popup(url){
@@ -148,12 +170,12 @@ function emdreminders_popup(url){
             <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
         </hgroup>
         <div class="hat">
-            <p>These pages show and demonstrate the use and functionality of the <a href="https://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> PHP package you just downloaded.</p>
+            <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> PHP package you just downloaded.</p>
         </div>
     </header>
 
-	<nav>
-		<h2>Map of the package</h2>
+    <nav>
+        <h2>Map of the package</h2>
         <ul id="navigation_menu" class="menu" role="navigation">
             <li><a href="index.php">Usage</a></li>
             <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
@@ -169,14 +191,14 @@ function emdreminders_popup(url){
         </ul>
 
         <div class="info">
-            <p><a href="https://github.com/atelierspierrot/markdown-extended">See online on GitHub</a></p>
+            <p><a href="http://github.com/atelierspierrot/markdown-extended">See online on GitHub</a></p>
             <p class="comment">The sources of this plugin are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
         </div>
 
         <div class="info">
             <!-- AddThis Button BEGIN -->
             <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
-            <a href="https://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
+            <a href="http://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
                 <span class="at16nc at300bs at15nc atGitHub"></span>
             </a>
             <a class="addthis_button_email"></a>
@@ -187,8 +209,8 @@ function emdreminders_popup(url){
             <!-- AddThis Button END -->
         </div>
 
-    	<p class="credits" id="user_agent"></p>
-	</nav>
+        <p class="credits" id="user_agent"></p>
+    </nav>
 
     <div id="content" role="main">
 
@@ -208,49 +230,32 @@ function emdreminders_popup(url){
     <article>
 
 <?php
-$menu = $mde_content->getMenu();
-$depth = 0;
-$current_level = null;
+$output_bag = \MarkdownExtended\MarkdownExtended::get('OutputFormatBag');
+$menu = $output_bag->getHelper()
+    ->getToc($mde_content, $output_bag->getFormater(), array(
+        'title_level'=>'2', 'class'=>'menu'
+    ));
 ?>
 <?php if (!empty($menu)) : ?>
 <aside id="page_menu">
-    <h2>Table of contents</h2>
-    <ul class="menu">
-    <?php foreach ($menu as $item_id=>$menu_item) : ?>
-        <?php $diff = $menu_item['level']-(is_null($current_level) ? $menu_item['level'] : $current_level); ?>
-        <?php if ($diff > 0) : ?>
-            <?php for ($i=0; $i<$diff; $i++) : ?>
-            <ul>
-                <li>
-            <?php endfor; ?>
-        <?php elseif ($diff < 0) : ?>
-            <?php for ($i=0; $i>$diff; $i--) : ?>
-                </li>
-            </ul></li>
-            <li>
-            <?php endfor; ?>
-        <?php else : ?>
-            <?php if (!is_null($current_level)) : ?>
-            </li>
-            <?php endif; ?>
-            <li>
-        <?php endif; ?>
-                <a href="#<?php echo $item_id; ?>"><?php echo $menu_item['text']; ?></a>
-        <?php $current_level = $menu_item['level']; ?>
-    <?php endforeach; ?>
-    </ul>
+    <?php echo $menu; ?>
 </aside>  
 <?php endif; ?>
 
         <?php echo $mde_content->getBody(); ?>
         <?php if ($mde_content->getNotes()) : ?>
-		<div class="footnotes">
-			<ol>
+        <div class="footnotes">
+            <ol>
             <?php foreach ($mde_content->getNotes() as $id=>$note_content) : ?>
-			    <li id="<?php echo $note_content['note-id']; ?>"><?php echo $note_content['text']; ?></li>
+                <li id="<?php echo $note_content['note-id']; ?>"><?php echo $note_content['text']; ?></li>
             <?php endforeach; ?>
             </ol>
         </div>
+        <?php endif; ?>
+        <?php if ($mde_content->getLastUpdate()) : ?>
+            <p class="credits">Last update of this page <time datetime="<?php
+                echo $mde_content->getLastUpdate()->format('c')
+            ?>"><?php echo $mde_content->getLastUpdate()->format('F j, Y, g:i a'); ?></time>.</p>
         <?php endif; ?>
     </article>
 <?php elseif (!empty($content)) : ?>
@@ -262,12 +267,12 @@ $current_level = null;
     </div>
 
     <footer id="footer">
-		<div class="credits float-left">
-		    This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
-		</div>
-		<div class="credits float-right">
-		    <a href="https://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/PieroWbmstr">Piero Wbmstr</a> under <a href="http://opensource.org/licenses/GPL-3.0">GNU GPL v.3</a> license.
-		</div>
+        <div class="credits float-left">
+            This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
+        </div>
+        <div class="credits float-right">
+            <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/PieroWbmstr">Piero Wbmstr</a> under <a href="http://opensource.org/licenses/GPL-3.0">GNU GPL v.3</a> license.
+        </div>
     </footer>
 
     <div class="back_menu" id="short_navigation">
