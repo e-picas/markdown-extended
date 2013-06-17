@@ -48,8 +48,8 @@ class Man
      * @static array
      */
     public static $sections = array(
-        'name', 'synopsis', 'description', 'options', 'files', 'environment', 'diagnosis', 'bugs', 'author', 'see also', 
-        'examples', 'standards', 'license', 'history', 'exit status', 'copyright', 'reporting bugs'
+        'name', 'synopsis', 'syntax', 'availability', 'description', 'options', 'files', 'resources', 'environment', 'diagnosis', 'bugs', 'author', 'see also', 
+        'examples', 'standards', 'license', 'history', 'exit status', 'messages', 'copyright', 'reporting bugs', 'notes'
     );
 
     /**
@@ -217,6 +217,24 @@ class Man
     {
         $text = html_entity_decode($text);
         return '.\"' . $text;
+    }
+
+    public function buildListItem($text = null, array $attributes = array())
+    {
+        $text = html_entity_decode($text);
+        return $this->new_line . '- ' . $text . $this->new_line;
+    }
+
+    public function buildUnorderedListItem($text = null, array $attributes = array())
+    {
+        $text = html_entity_decode($text);
+        return $this->new_line . '- ' . $text . $this->new_line;
+    }
+
+    public function buildOrderedListItem($text = null, array $attributes = array())
+    {
+        $text = html_entity_decode($text);
+        return $this->new_line . '- ' . $text . $this->new_line;
     }
 
 }

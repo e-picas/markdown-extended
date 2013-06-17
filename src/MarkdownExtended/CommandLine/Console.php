@@ -197,20 +197,22 @@ EOT;
 
     /**
      * Run the output option
+     * @param string $file The command line option argument
      */
     public function runOption_output($file)
     {
         $this->output = $file;
-        $this->info("Setting 'output' on `$this->output`, parsed content will be written in file(s)");
+        $this->info("Setting 'output' to `$this->output`, parsed content will be written in file(s)");
     }
 
     /**
      * Run the config file option
+     * @param string $file The command line option argument
      */
     protected function runOption_config($file)
     {
         $this->config = $file;
-        $this->info("Setting Markdown config file on `$this->config`");
+        $this->info("Setting Markdown config file to `$this->config`");
     }
 
     /**
@@ -233,6 +235,7 @@ EOT;
 
     /**
      * Run the extract option
+     * @param string $type The command line option argument
      */
     public function runOption_extract($type)
     {
@@ -241,29 +244,32 @@ EOT;
             $this->error("Unknown extract option '$type'!");
         }
         $this->extract = $type;
-        $this->info("Setting 'extract' on `$this->extract`, only this part will be extracted");
+        $this->info("Setting 'extract' to `$this->extract`, only this part will be extracted");
     }
 
     /**
      * Run the no-filter option
+     * @param string $str The command line option argument
      */
     public function runOption_nofilter($str)
     {
         $this->nofilter = explode(',', $str);
-        $this->info("Setting 'nofilter' on `".join(', ', $this->nofilter)."`, these will be ignored during parsing");
+        $this->info("Setting 'nofilter' to `".join(', ', $this->nofilter)."`, these will be ignored during parsing");
     }
 
     /**
      * Run the format option
+     * @param string $str The command line option argument
      */
     public function runOption_format($str)
     {
         $this->format = $str;
-        $this->info("Setting 'format' on `".$this->format."`");
+        $this->info("Setting 'format' to `".$this->format."`");
     }
 
     /**
      * Run the gamuts option : list gamuts pile of the parser
+     * @param string $name The command line option argument
      */
     protected function runOption_gamuts($name = null)
     {
@@ -320,9 +326,9 @@ EOT;
                 $this->runOption_multi();
             }
             if ($this->multi===true) {
-                $this->info("Input files are set on `".join(', ', $this->input)."`");
+                $this->info("Input files are set to `".join(', ', $this->input)."`");
             } else {
-                $this->info("Input is set on `{$this->input[0]}`");
+                $this->info("Input is set to `{$this->input[0]}`");
             }
         }
     }
@@ -340,7 +346,7 @@ EOT;
                     if (!empty($this->output) && count($this->input)>1) {
                         $this->output = $this->_buildOutputFilename($myoutput);
                     }
-                    $_ok = $this->runStoryOnOneFile($_input);
+                    $_ok = $this->runStoryOnOneFile($_input, true);
                 }
                 $this->separator();
             } else {
@@ -353,10 +359,18 @@ EOT;
         $this->endRun(1);
     }
 
-    public function runStoryOnOneFile($input)
+    /**
+     * Run the MDE process on one file or input
+     *
+     * @param string $input
+     * @param bool $title Set on `true` in case of multi-input
+     *
+     * @return string
+     */
+    public function runStoryOnOneFile($input, $title = false)
     {
         if ($this->extract!==false) {
-            $infos = $this->runOneFile($input, null, $this->extract);
+            $infos = $this->runOneFile($input, null, $this->extract, $title);
             if ($this->verbose===true) {
                 $this->endRun(false, "Infos extracted from input `$input`"
                     .(is_string($this->extract) ? " for tag `$this->extract`" : '')
@@ -366,24 +380,34 @@ EOT;
             }
             return $infos;
         } elseif (!empty($this->output)) {
-            $fsize = $this->runOneFile($input, $this->output);
+            $fsize = $this->runOneFile($input, $this->output, null, $title);
             if ($this->quiet!==true)
                 $this->endRun(0, "OK - File `$this->output` ($fsize) written with parsed content from file `$input`");
             return $fsize;
         } else {
-            $clength = $this->runOneFile($input);
+            $clength = $this->runOneFile($input, null, null, $title);
             return $clength;
         }
     }
 
-    public function runOneFile($input, $output = null, $extract = null)
+    /**
+     * Actually run the MDE process on a file or string
+     *
+     * @param string $input
+     * @param string $output An optional output filename to write result in
+     * @param bool $extract An extractor tagname
+     * @param bool $title Set to `true` to add title string in case of multi-input
+     *
+     * @return string
+     */
+    public function runOneFile($input, $output = null, $extract = null, $title = false)
     {
         $return=null;
         if (!empty($input)) {
             $num = self::$parsedfiles_counter;
             $this->separator();
             $this->info( "[$num] >> parsing file `$input`" );
-            if ($md_content = $this->getInput($input)) {
+            if ($md_content = $this->getInput($input, $title)) {
                 if (!is_null($extract)) {
                     $return = $this->extractContent($md_content, $extract);
                 } else {
@@ -428,16 +452,22 @@ EOT;
     
     /**
      * Creates a `\MarkdownExtended\Content` object from filename or string
+     *
      * @param string $input
+     * @param bool $title Set to `true` to add title string in case of multi-input
+     *
      * @return \MarkdownExtended\Content
      * @throws any catched exception
      */
-    public function getInput($input)
+    public function getInput($input, $title = false)
     {
         $md_content=null;
         if (!empty($input)) {
             if (@file_exists($input)) {
                 $this->info("Loading input file `$input` ... ");
+                if ($title===true) {
+                    $this->writeInputTitle($input);
+                }
                 try {
                     $md_content = new \MarkdownExtended\Content(null, $input);
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
@@ -455,6 +485,9 @@ EOT;
                 }
             } elseif (!empty($input) && is_string($input)) {
                 $this->info("Loading Markdown string from STDIN [strlen: ".strlen($input)."] ... ");
+                if ($title===true) {
+                    $this->writeInputTitle('STDIN input');
+                }
                 try {
                     $md_content = new \MarkdownExtended\Content($input);
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
@@ -479,7 +512,9 @@ EOT;
 
     /**
      * Process a Content parsing
+     *
      * @param object $md_content \MarkdownExtended\Content instance
+     *
      * @return string
      * @throws any catched exception
      */
@@ -518,7 +553,10 @@ EOT;
 
     /**
      * Process a Content parsing just for special gamuts
+     *
      * @param object $md_content \MarkdownExtended\Content instance
+     * @param string $extract
+     *
      * @return string
      * @throws any catched exception
      */
@@ -568,6 +606,11 @@ EOT;
         return $md_output;
     }
 
+    /**
+     * Write a result for each processed file or string in a file
+     * @param string $output
+     * @param string $output_file
+     */
     public function writeOutputFile($output, $output_file)
     {
         $fsize=null;
@@ -583,6 +626,11 @@ EOT;
         return $fsize;
     }
 
+    /**
+     * Write a result for each processed file or string
+     * @param string $output
+     * @param bool $exit
+     */
     public function writeOutput($output, $exit = false)
     {
         $clength=null;
@@ -593,6 +641,15 @@ EOT;
             $this->write($output);
         }
         return $clength;
+    }
+
+    /**
+     * Write a title for each processed file or string
+     * @param string $title
+     */
+    public function writeInputTitle($title)
+    {
+        $this->write("==> $title <==");
     }
 
 // ----------------------

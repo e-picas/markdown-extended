@@ -7,7 +7,7 @@ This document is for developers usage.
 ## TODOS that MUST be done before version 1.0
 
 -   DONE - test the command line interface with direct stdin input, multi-input files etc
--   re-organize outputs from the command line interface (normal, verbose, quiet ...)
+-   DONE - re-organize outputs from the command line interface (normal, verbose, quiet ...)
 -   manage the replacement of in-text tags (`{% TOC %}` for instance)
 -   test of different configuration sets (input fileds, full files etc)
 -   clarification of the rules : WRITE THE MANIFEST (?!)
@@ -69,11 +69,16 @@ You can verify that your package passes all tests running:
 
 ### MarkdownExtended auto-update
 
-For auto-update of the Container class constants based on the actual `composer.json` values,
-a pre-commit hook is defined in `pre-commit-hook.sh`. To use it, run:
+For auto-update of the Container class constants and the command line interface MANUEL based
+on the actual `composer.json` values, a pre-commit hook is defined in `pre-commit-hook.sh`.
+To use it, run:
 
     ~$ mkdir .git/hooks && cp pre-commit-hook.sh .git/hooks/pre-commit
     ~$ chmod +x .git/hooks/pre-commit
+
+Or, you can simply run the following before a new version's commit:
+
+    ~$ bash pre-commit-hook.sh
 
 
 ----

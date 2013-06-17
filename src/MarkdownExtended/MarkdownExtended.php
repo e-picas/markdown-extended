@@ -30,6 +30,8 @@ use MarkdownExtended\Registry,
  *
  *     MarkdownExtended::my_method();
  *
+ * LICENSE
+ *
  * Mardown
  * Copyright © 2004-2006, John Gruber
  * http://daringfireball.net/
@@ -74,8 +76,7 @@ final class MarkdownExtended
 {
 
     /**
-     * Class infos
-     * these can be automatically updated by `pre-commit-hook.sh`
+     * Class infos ; can be automatically updated by `pre-commit-hook.sh`
      */
     const MDE_NAME = 'PHP Markdown Extended';
     const MDE_VERSION = '0.0.8-dev';
