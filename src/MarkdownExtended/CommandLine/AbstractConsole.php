@@ -169,6 +169,26 @@ abstract class AbstractConsole
         return $this->error($str, $e->getCode(), true);
     }
     
+    /**
+     * Exec a command
+     * @param string $cmd
+     * @return string|array
+     */
+    public function exec($cmd)
+    {
+        try {
+            exec($cmd, $output, $status);
+            if ($status!==0) {
+                throw new \RuntimeException(
+                    sprintf('Error exit status while executing command : [%s]!', $cmd), $status
+                );
+            }
+        } catch (\RuntimeException $e) {
+            $this->catched($e);
+        }
+        return is_array($output) && count($output)===1 ? $output[0] : $output;
+    }
+    
 // -------------------
 // Options
 // -------------------

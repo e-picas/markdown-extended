@@ -42,7 +42,7 @@ if [ -f "$COMPOSERJSON" ]; then
         git add "$MARKDOWNEXTENDED"
     fi
     if [ -f "$MARKDOWNMANPAGE" ]; then
-        sed -i '' -e "s|^Version: .*|Version: ${_version}|;s|^Date: .*|Date: ${_date}|" "$MARKDOWNMANPAGE";
+        sed -i '' -e "s|^Version: .*$|Version: ${_version}|;s|^Date: .*$|Date: ${_date}|" "$MARKDOWNMANPAGE";
         git add "$MARKDOWNMANPAGE"
         php "$MDE_CONSOLE" -q -f man -o "$MARKDOWNMANPAGE_MAN" "$MARKDOWNMANPAGE"
         if [ -f "$MARKDOWNMANPAGE" ]; then

@@ -70,7 +70,8 @@ class Console extends AbstractConsole
         'f:'=>'format:', 
         'g:'=>'gamuts::', 
         'n:'=>'nofilter:', 
-        'e::'=>'extract::'
+        'e::'=>'extract::',
+        'man',
 //      'filter-html', 
 //      'filter-styles', 
     );
@@ -167,8 +168,9 @@ Options:
     -e | --extract  [= META]   extract some data (the meta data array by default) from the Markdown input
     -g | --gamuts   [= NAME]   get the list of gamuts (or just one if specified) processed on Markdown input
     -n | --nofilter  = A,B     specify a list of filters that will be ignored during Markdown parsing
+    --man                      tries to open the manpage of this script [*]
 
-For a full manual, try `~$ man ./path/to/markdown_extended.man`.
+[*] For a full manual, try `~$ man ./path/to/markdown_extended.man` if the file exists.
 More infos at <{$class_sources}>.
 EOT;
         $this->write($help_str);
@@ -181,7 +183,46 @@ EOT;
      */
     public function runOption_version()
     {
-        $this->write(MDE_Helper::info());
+        $info = MDE_Helper::info();
+        $git_ok = $this->exec("which git");
+        $git_dir = getcwd() . '/.git';
+        if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
+            $remote = $this->exec("git config --get remote.origin.url");
+            if (!empty($remote) && (
+                strstr($remote, MarkdownExtended::MDE_SOURCES) ||
+                strstr($remote, str_replace('http', 'https', MarkdownExtended::MDE_SOURCES))
+            )) {
+                $versions = $this->exec("git rev-parse --abbrev-ref HEAD && git rev-parse HEAD && git log -1 --format='%ci' --date=short | cut -s -f 1 -d ' '");
+                if (!empty($versions)) {
+                    $info .= ' '.implode(' ', $versions);
+                }
+            }
+        }
+        $this->write($info);
+        $this->endRun();
+        exit(0);
+    }
+
+    /**
+     * Run the manual option
+     */
+    public function runOption_man()
+    {
+        $info = '';
+        $man_ok = $this->exec("which man");
+        $man_path = getcwd() . '/bin/markdown_extended.man';
+        if (!empty($man_ok)) {
+            if (!file_exists($man_path)) {
+                $ok = $this->exec("php bin/markdown_extended -f man -o bin/markdown_extended.man docs/MANPAGE.md");
+            }
+            if (file_exists($man_path)) {
+                system("man bin/markdown_extended.man");
+                exit(0);
+            } else {
+                $info = 'Can not launch "man" command, file not found or command not accessible ... Try to run "man ./bin/markdown_extended.man".';
+            }
+        }
+        $this->write($info);
         $this->endRun();
         exit(0);
     }

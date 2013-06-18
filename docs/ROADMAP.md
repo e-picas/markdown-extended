@@ -17,6 +17,7 @@ This document is for developers usage.
 
 -   manage the "markdown reminders" based on the `src/Resources/docs/` per-rule files
 -   a unit test file for each syntax's rule
+-   inform user that the Apache handler in the demo REQUIRES a config to fit actual server paths
 
 ## Known bugs
 

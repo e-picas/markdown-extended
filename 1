@@ -1,0 +1,172 @@
+
+MarkdownExtended(3)        markdown_extended Manual        MarkdownExtended(3)
+
+
+
+NNAAMMEE
+       MMaarrkkddoowwnn EExxtteennddeedd
+
+
+       A complete PHP 5.3 package of Markdown syntax parser (extended version)
+       - Command line interface
+
+
+SSYYNNOOPPSSIISS
+       mmaarrkkddoowwnn__eexxtteennddeedd [[ooppttiioonnss]] aarrgguummeennttss
+
+
+       mmaarrkkddoowwnn__eexxtteennddeedd  [--hh|--vv]  [--xx|--vv|--qq|--mm]
+           [--oo _f_i_l_e_n_a_m_e]  [--cc _c_o_n_f_i_g_f_i_l_e]  [--ff _f_o_r_m_a_t]
+           [--nn _a_,_b]  [--ee[=_b_l_o_c_k]]  [--gg[=_n_a_m_e]]
+           iinnppuutt__ffiilleennaammee  [iinnppuutt__ffiilleennaammee]  [...]
+           "mmaarrkkddoowwnn ssttrriinngg rreeaadd ffrroomm SSTTDDIINN"
+
+
+DDEESSCCRRIIPPTTIIOONN
+       MMaarrkkddoowwnn EExxtteennddeedd converts markdown syntax text(s) source(s) in  speci-
+       fied  file(s)  (or STDIN). The rendering can be the full parsed content
+       or just a part of this content.  By default, result is written  through
+       STDOUT in HTML format.
+
+
+       To  transform  a  file content, write its path as script argument (file
+       path may be relative to current working directory and must  exist).  To
+       process a list of input files, just write file paths as arguments, sep-
+       arated by space.
+
+
+       To transform a string read  from  STDIN,  write  it  as  last  argument
+       between double-quotes or EOF.
+
+
+OOPPTTIIOONNSS
+       The following options are supported:
+
+       --hh , ----hheellpp
+              Get a simple help information.
+
+       --vv , ----vveerrssiioonn
+              Get the current package version number.
+
+       --xx , ----vveerrbboossee
+              Increase  script's  verbosity ; some steps are explained on STD-
+              OUT.
+
+       --qq , ----qquuiieett
+              Decrease script's verbosity  ;  only  result  strings,  Markdown
+              Parser and PHP error messages are written on STDOUT.
+
+       --mm , ----mmuullttii
+              Treat  multi-files input ; this options is automatically enables
+              if multiple file names are found as arguments.
+
+       --oo, ----oouuttppuutt =filename
+              Specify a single file name or a file name mask to  write  gener-
+              ated  content  in  ;  by default, files are generated in current
+              working directory.
+
+       --cc , ----ccoonnffiigg =filename
+              Define a specific configuration filename to use for the Markdown
+              Parser ; configuration files must be in `INI` format.
+
+       --ff , ----ffoorrmmaatt =type
+              Define  the  output  format to use to generate final rendering ;
+              formats are stored in PHP  namespace  `\MarkdownExtended\Output-
+              Format` ; default is `HTML`.
+
+       --gg , ----ggaammuuttss [=name]
+              Define a single gamut or a list of gamuts to execute on Markdown
+              content parsing.
+
+       --nn , ----nnooffiilltteerr =name-a,name-b
+              Define a coma separated list of filters to disable during  Mark-
+              down content parsing.
+
+       --ee , ----eexxttrraacctt [=meta]
+              Define  a  content block to extract ; default extracted block is
+              `metadata`.
+
+MMEESSSSAAGGEESS
+       The script output is designed to use options  '-x'  or  '--verbose'  to
+       increase  script  verbosity on STDOUT and '-q' or '--quiet' to decrease
+       it. The idea is quiet simple:
+
+       - in "nnoorrmmaall" rendering (no "verbose" neither than "quiet"  mode),  the
+       result  of the processed content is rendered, with the file name header
+       in case of multi-files input and command line script's errors are  ren-
+       dered ;
+
+       -  in  "vveerrbboossee"  mode,  some process informations are shown, informing
+       user about what is happening, helps to follow process execution and get
+       some  informations  such  as  some  string  lengthes ; the command line
+       script errors are rendered ;
+
+       - in "qquuiieett" mode, nothing is written through SDTOUT except  result  of
+       parsed  content(s) ; the command line script's errors are NOT rendered.
+
+
+       For all of these cases, PHP errors  catched  during  Markdown  Extended
+       classes   execution   are   rendered   depending  on  your  environment
+       `error_reporting` setting and script execution may  exit  with  astatus
+       code '90'.
+
+
+EENNVVIIRROONNMMEENNTT
+       This script requires PHP version 5.3.0 minus.
+
+
+EEXXAAMMPPLLEESS
+       Classic parsing of the content of the Markdown syntax file `sample.md`:
+           ~$ path/to/markdown_extended sample.md
+
+       For the same example, writing the output in file  `sample_parsed.html`,
+       run:
+           ~$ path/to/markdown_extended -o sample_parsed.html sample.md
+
+       To extract meta-data from `sample.md`, run:
+           ~$ path/to/markdown_extended -e sample.md
+
+       To  build  a  man-page formated file from the Markdown source `man-sam-
+       ple.md`, run:
+           ~$ path/to/markdown_extended -f man -o man-sample.man man-sample.md
+           // to open it with `man`:
+           ~$ man ./man-sample.man
+
+       To transform a string read from STDIN, run:
+           ~$ path/to/markdown_extended -e=body "My **Markdown** string"
+
+LLIICCEENNSSEE
+       This  software  is released under the BSD-3-Clause open source license.
+       Please  read  the  License.text  file  for  more  information,  or  see
+       http://opensource.org/licenses/BSD-3-Clause.
+
+
+       PHP  Markdown  Extended  -  Copyright  (c)  2008-2013  Pierre  Cassat -
+       http://github.com/atelierspierrot/markdown-extended
+
+
+       original MultiMarkdown - Copyright (c) 2005-2009 Fletcher T.  Penney  -
+       http://fletcherpenney.net/
+
+
+       original PHP Markdown & Extra - Copyright (c) 2004-2012 Michel Fortin -
+       http://michelf.com/projects/php-markdown/
+
+
+       original Markdown - Copyright (c) 2004-2006 John Gruber  -  http://dar-
+       ingfireball.net/projects/markdown/
+
+
+BBUUGGSS
+       To   transmit   bugs,  see  http://github.com/atelierspierrot/markdown-
+       extended/issues.
+
+
+AAUUTTHHOORR
+       LLeess AAtteelliieerrss PPiieerrrroott http://www.ateliers-pierrot.fr/
+
+
+
+
+Version 0.0.8-dev                 2013-06-17               MarkdownExtended(3)
+No manual entry for 2
