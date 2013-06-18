@@ -102,6 +102,11 @@ class Content implements ContentInterface
     protected $menu = array();
 
     /**
+     * @var string
+     */
+    protected $menu_html;
+
+    /**
      * @var array
      */
     protected $urls = array();

@@ -40,7 +40,7 @@ To transform a string read from STDIN, write it as last argument between double-
 .SH OPTIONS
 
 .PP
-The following options are supported:
+\fIThe following options are supported:\fP
 .TP
 \fB-h\fP , \fB--help\fP
 Get a simple help information.
@@ -79,6 +79,15 @@ Define a coma separated list of filters to disable during Markdown content parsi
 .TP
 \fB-e\fP , \fB--extract\fP [=meta]
 Define a content block to extract ; default extracted block is `\fSmetadata\fP`.
+.PP
+\fISome aliases are defined for quicker usage:\fP
+.TP
+\fB-b\fP , \fB--body\fP
+Extract the `\fSbody\fP` part from content(s) ; alias of option `\fS-e=body\fP`.
+.TP
+\fB-s\fP , \fB--simple\fP
+Use the simple default configuration file defined by the `\fSMarkdownExtended::SIMPLE_CONFIGFILE\fP`
+constant ; this is a preset to treat contents comming from input fields.
 .SH MESSAGES
 
 .PP
@@ -104,7 +113,7 @@ exit with astatus code '90'.
 .SH ENVIRONMENT
 
 .PP
-This script requires PHP version 5.3.0 minus.
+This script requires PHP version 5.3.0 minimum.
 
 .SH EXAMPLES
 

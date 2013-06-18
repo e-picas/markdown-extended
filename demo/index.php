@@ -10,6 +10,12 @@ date_default_timezone_set( !empty($dtmz) ? $dtmz:'Europe/Paris' );
 $doc = isset($_GET['doc']) ? $_GET['doc'] : null;
 $md = isset($_GET['md']) ? $_GET['md'] : 'none';
 $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
+$page = isset($_GET['page']) ? $_GET['page'] : null;
+if (!empty($page)) {
+    if (file_exists($page.'.php')) $page = $page . '.php';
+    elseif (file_exists($page.'.html')) $page = $page . '.html';
+    else unset($page);
+}
 
 // contents settings
 $js_code = false;
@@ -38,13 +44,19 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
     $error = 'You need to run Composer on your project to use this interface!';
 }
 
+// Custom classes
+if (file_exists($d = __DIR__.'/../src/SplClassLoader.php')) {
+    require_once $d;
+    $classLoader = new SplClassLoader('MDE_Overrides', __DIR__.'/user');
+    $classLoader->register();
+}
+
 // -----------------------------------
-// Launch Console API
+// Page Content
 // -----------------------------------
 
 // process
 if (!is_null($doc)) {
-    // get the Composer autoloader
     if (empty($error)) {
         $class_info = \MarkdownExtended\Helper::info(true);
         $info = <<<EOT
@@ -52,6 +64,7 @@ if (!is_null($doc)) {
     <div id="classinfo"><p>$class_info</p></div>
 EOT;
         $options = array();
+//        $options['output_format'] = '\MDE_Overrides\MyHTMLOutput';
         if (file_exists($doc)) {
             $info .= <<<EOT
     <p><a id="plaintext_handler" class="handler" title="See plain text link">Original <em>$doc</em> document</a></p>
@@ -72,8 +85,8 @@ EOT;
 */
 //                    $source_content = file_get_contents($doc);
                     $mde_content = \MarkdownExtended\MarkdownExtended::create()
-                        ->transformSource($doc)
-//                        ->transformString($source_content)
+                        ->transformSource($doc, $options)
+//                        ->transformString($source_content, $options)
 //                        ->get('Parser', $parse_options)
 //                        ->getContent()
 //                        ->getContent()->getBody()
@@ -83,6 +96,11 @@ EOT;
                         ;
 
 
+                    $tpl = \MarkdownExtended\MarkdownExtended::getInstance()
+                        ->getTemplater($templater_options);
+//var_export($tpl);
+echo $tpl;
+exit();
 /*
 
                     $tpl = \MarkdownExtended\MarkdownExtended::getInstance()
@@ -113,7 +131,7 @@ exit('yo');
             $error = 'Markdown document source "'.$doc.'" not found!';
         }
     }
-} else {
+} elseif (empty($page)) {
     $content = file_get_contents('usage.html');
     $js_code = true;
 }
@@ -177,6 +195,7 @@ function emdreminders_popup(url){
         <ul id="navigation_menu" class="menu" role="navigation">
             <li><a href="index.php">Usage</a></li>
             <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
+            <li><a href="index.php?page=form">Test of a form field</a></li>
             <li><a href="index.php?doc=Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
             <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
                 <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
@@ -255,6 +274,10 @@ $menu = $output_bag->getHelper()
                 echo $mde_content->getLastUpdate()->format('c')
             ?>"><?php echo $mde_content->getLastUpdate()->format('F j, Y, g:i a'); ?></time>.</p>
         <?php endif; ?>
+    </article>
+<?php elseif (!empty($page) && file_exists($page)) : ?>
+    <article>
+        <?php include $page; ?>
     </article>
 <?php elseif (!empty($content)) : ?>
     <article>

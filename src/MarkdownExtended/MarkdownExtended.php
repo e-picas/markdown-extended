@@ -267,6 +267,7 @@ final class MarkdownExtended
      */
     public static function load($class)
     {
+        if (class_exists($class)) return true;
         $class = MDE_Helper::getAbsoluteClassname($class);
         if (class_exists($class)) return true;
         throw new MDE_Exception\InvalidArgumentException(
@@ -285,9 +286,12 @@ final class MarkdownExtended
      */
     public static function factory($class, $params = null)
     {
-        $class = MDE_Helper::getAbsoluteClassname($class);
-        $class_name = MDE_Helper::getRelativeClassname($class);
-        self::load($class);
+        $class_name = $class;
+        if (!class_exists($class)) {
+            $class = MDE_Helper::getAbsoluteClassname($class);
+            $class_name = MDE_Helper::getRelativeClassname($class);
+            self::load($class);
+        }
         $_obj = !is_null($params) ? new $class($params) : new $class;
         self::$registry->set($class_name, $_obj);
         return $_obj;
