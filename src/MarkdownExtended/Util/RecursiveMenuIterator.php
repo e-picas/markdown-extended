@@ -23,15 +23,45 @@ class RecursiveMenuIterator
     extends \RecursiveArrayIterator implements \RecursiveIterator
 {
 
+    /**
+     * @static array
+     */
     public static $range_levels = array(1,2,3,4,5,6);
 
+    /**
+     * @var int
+     */
     protected $position = 0;
+
+    /**
+     * @var int This must exist in `self::$range_levels`
+     */
     protected $base_level = 0;
+
+    /**
+     * @var array This reminds all current hierarchic keys we are working on
+     */
     protected $current_keys = array();
+
+    /**
+     * @var ArrayIterator
+     */
     protected $menu_iterator = null;
 
+    /**
+     * @var int Internal usage
+     */
     private $base_level_tmp;
 
+    /**
+     * @param object $menu \ArrayAccess
+     * @param int $base_level
+     * @param int $flags
+     *
+     * @see parent::__construct()
+     *
+     * @throws OutOfBoundsException if `$level` is not in `self::$range_levels`
+     */
     public function __construct(\ArrayAccess $menu = null, $base_level = 0, $flags = 0)
     {
         $this->menu_iterator = new \ArrayIterator;
@@ -50,46 +80,87 @@ class RecursiveMenuIterator
         }
     }
 
+// ----------------------------
+// Iterator methods
+// ----------------------------
+
+    /**
+     * Pass to next iteration
+     */
     public function next()
     {
         $this->position++;
         parent::next();
     }
 
+    /**
+     * Back to previous iteration
+     */
     public function previous()
     {
         $this->position--;
         parent::seek($this->position);
     }
 
+    /**
+     * Back to first iteration
+     */
     public function rewind()
     {
         $this->position = 0;
         parent::rewind();
     }
 
+    /**
+     * Seek to an iteration by its position
+     *
+     * @param int $position
+     */
     public function seek($position)
     {
         $this->position = $position;
         parent::seek($this->position);
     }
 
+    /**
+     * Get the current iterator position
+     *
+     * @return int
+     */
     public function position()
     {
         return $this->position;
     }
 
+    /**
+     * Append a new value to iterator and then rebuild menu
+     *
+     * @param misc $value
+     */
     public function append($value)
     {
         parent::append($value);
         $this->_rebuild();
     }
 
+    /**
+     * Get an array of the current menu
+     *
+     * @return array
+     */
     public function getArrayCopy()
     {
         return (array) $this->menu_iterator;
     }
 
+    /**
+     * Set a new key entry by its depth
+     *
+     * @param int $index
+     * @param int|string $key
+     *
+     * @throws OutOfBoundsException if `$index` is not in `self::$range_levels`
+     */
     public function menuKeySet($index, $key)
     {
         if (!in_array($index, self::$range_levels)) {
@@ -100,6 +171,12 @@ class RecursiveMenuIterator
         $this->current_keys[$index] = $key;
     }
 
+    /**
+     * Define a new first level entry
+     *
+     * @param int|string $index
+     * @param object $newval ArrayAccess
+     */
     public function menuOffsetSet($index, $newval)
     {
         $this->_initItem($newval, array('level'=>$this->base_level));
@@ -107,6 +184,12 @@ class RecursiveMenuIterator
         $this->_setRecursiveKey($index, $newval['level']);
     }
 
+    /**
+     * Define a new entry recursively
+     *
+     * @param int|string $index
+     * @param object $newval ArrayAccess
+     */
     public function menuOffsetSetRecursive($index, $newval)
     {
         $this->_setRecursiveKey(null, $newval['level']);
@@ -116,6 +199,9 @@ class RecursiveMenuIterator
         $this->_setRecursiveKey($index, $newval['level']);
     }
 
+    /**
+     * Rebuild the menu iterator based on current iterator
+     */
     protected function _rebuild()
     {
         $old_position = $this->position();
@@ -140,6 +226,11 @@ class RecursiveMenuIterator
         $this->seek($old_position);
     }
 
+    /**
+     * Test an item entry
+     *
+     * @return bool
+     */
     protected function _validItem($item) 
     {
         return !empty($item) && (
@@ -148,6 +239,12 @@ class RecursiveMenuIterator
         );
     }
     
+    /**
+     * Initialize an item entry (a default one is created if so)
+     *
+     * @param object $entry ArrayAccess
+     * @param array $default Values used if `$entry` is empty
+     */
     protected function _initItem(&$entry, array $default = array()) 
     {
         if (empty($entry)) {
@@ -162,6 +259,9 @@ class RecursiveMenuIterator
         }
     }
 
+    /**
+     * Defines the global object first level (highest title entry)
+     */
     protected function _findHighestLevel()
     {
         $this->base_level = 0;
@@ -175,11 +275,19 @@ class RecursiveMenuIterator
         $this->rewind();
     }
 
-    protected function _filter($item) 
+    /**
+     * Internal filter for the `_findHighestLevel()` method
+     */
+    private function _filter($item) 
     {
         return (isset($item['level']) && $item['level']===$this->base_level_tmp);
     }
     
+    /**
+     * Find the current menu entry to work on, based on the `$current_keys` array
+     *
+     * @return ArrayAccess item to work on
+     */
     protected function _menuGetRecursivePath()
     {
         foreach ($this->current_keys as $i=>$_ind) {
@@ -208,6 +316,12 @@ class RecursiveMenuIterator
         return $item;
     }
 
+    /**
+     * Set a recursive key value, deleting all next keys
+     *
+     * @param int $index
+     * @param int|string $key
+     */
     protected function _setRecursiveKey($index, $key)
     {
         foreach (self::$range_levels as $i) {

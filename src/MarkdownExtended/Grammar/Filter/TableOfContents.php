@@ -24,8 +24,6 @@ use MarkdownExtended\MarkdownExtended,
 
 /**
  * Construct the global Table of Contents (hierarchical list of anchors)
- *
- * @todo A REVOIR : IL FAUT D'ABORD RE-ARRANGER LE TABLEAU EN METTANT LES ENFANTS A CHAQUE ITEM ...
  */
 class TableOfContents extends Filter
 {
