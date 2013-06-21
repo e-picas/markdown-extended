@@ -18,7 +18,6 @@
 namespace MarkdownExtended\Util;
 
 /**
- * see <http://thereisamoduleforthat.com/content/dealing-deep-arrays-php>
  */
 class RecursiveMenuIterator 
     extends \RecursiveArrayIterator implements \RecursiveIterator
@@ -30,6 +29,8 @@ class RecursiveMenuIterator
     protected $base_level = 0;
     protected $current_keys = array();
     protected $menu_iterator = null;
+
+    private $base_level_tmp;
 
     public function __construct(\ArrayAccess $menu = null, $base_level = 0, $flags = 0)
     {
@@ -101,21 +102,18 @@ class RecursiveMenuIterator
 
     public function menuOffsetSet($index, $newval)
     {
-        $this->_initItem($newval);
+        $this->_initItem($newval, array('level'=>$this->base_level));
         $this->menu_iterator->offsetSet($index, $newval);
-        $this->menuKeySet($newval['level'], $index);
+        $this->_setRecursiveKey($index, $newval['level']);
     }
 
-    public function menuOffsetSetRecursive($index, $newval, array $recursive_keys)
+    public function menuOffsetSetRecursive($index, $newval)
     {
-        $item =& $this->_menuGetRecursivePath($this->menu_iterator, $recursive_keys);
-
-echo '<br />SEARCHING KEYS : '.var_export($recursive_keys,1);
-echo '<br />=> ITEM IS : '.var_export($item,1);
-
+        $this->_setRecursiveKey(null, $newval['level']);
+        $item =& $this->_menuGetRecursivePath();
         $this->_initItem($newval);
-        $item->offsetSet($index, $newval);
-        $this->menuKeySet($newval['level'], $index);
+        $item->addChild($index, $newval);
+        $this->_setRecursiveKey($index, $newval['level']);
     }
 
     protected function _rebuild()
@@ -127,28 +125,25 @@ echo '<br />=> ITEM IS : '.var_export($item,1);
 
         $this->rewind();
         while ($this->valid()) {
-            if ($this->_validItem($this->current())) {
-            
+            $item = $this->current();
+            $item_key = $this->key();
+            if ($this->_validItem($item)) {
                 if ($item['level']===$this->base_level) {
-                    $this->menuOffsetSet($this->key(), $this->current());
+                    $this->menuOffsetSet($item_key, $item);
                 } else {
-                    $this->menuOffsetSetRecursive($this->key(), $this->current(), $this->current_keys);
+                    $this->menuOffsetSetRecursive($item_key, $item);
                 }
-            
             }
             $this->next();
-echo '<br />### TEMP MENU IS : ';
-var_dump($this->menu_iterator);
         }
-echo '<br />### FINAL MENU : ';        
-var_dump($this->menu_iterator);
+
         $this->seek($old_position);
     }
 
     protected function _validItem($item) 
     {
         return !empty($item) && (
-            ($item instanceof \ArrayIterator && $item->offsetExists('level')) ||
+            ($item instanceof MenuItemIterator && $item->offsetExists('level')) ||
             (is_array($item) && isset($item['level']))
         );
     }
@@ -156,43 +151,74 @@ var_dump($this->menu_iterator);
     protected function _initItem(&$entry, array $default = array()) 
     {
         if (empty($entry)) {
-            $entry = new \ArrayIterator($default);
+            $entry = new MenuItemIterator($default);
         }
         if (!is_object($entry)) {
             if (is_array($entry)) {
-                $entry = new \ArrayIterator($entry);
+                $entry = new MenuItemIterator($entry);
             } else {
-                $entry = new \ArrayIterator($default);
+                $entry = new MenuItemIterator($default);
             }
-        }
-        if (!$entry->offsetExists('children')) {
-            $entry->offsetSet('children', new \ArrayIterator);
         }
     }
 
     protected function _findHighestLevel()
     {
-        $this->base_level = 1;
+        $this->base_level = 0;
+        $this->base_level_tmp = 1;
+        while ($this->base_level===0 && in_array($this->base_level_tmp, self::$range_levels)) {
+            $first_levels_array = array_filter(parent::getArrayCopy(), array($this, '_filter'));
+            if (!empty($first_levels_array)) break;
+            $this->base_level_tmp++;
+        }
+        $this->base_level = $this->base_level_tmp;
+        $this->rewind();
     }
 
-    protected function _menuGetRecursivePath(&$entries, array $recursive_keys)
+    protected function _filter($item) 
     {
-        $item =& $entries;
-        foreach ($recursive_keys as $i=>$_ind) {
+        return (isset($item['level']) && $item['level']===$this->base_level_tmp);
+    }
+    
+    protected function _menuGetRecursivePath()
+    {
+        foreach ($this->current_keys as $i=>$_ind) {
             if (!is_null($_ind)) {
-                if (!$item->offsetExists($_ind)) {
-                    $entry = null;
-                    $this->_initItem($entry, array(
-                        'level'=>$i
-                    ));
-                    $item->offsetSet($_ind, $entry);
+                if ($i===$this->base_level) {
+                    if (!$this->menu_iterator->offsetExists($_ind)) {
+                        $entry = null;
+                        $this->_initItem($entry, array(
+                            'level'=>$i
+                        ));
+                        $this->menu_iterator->offsetSet($_ind, $entry);
+                    }
+                    $item = $this->menu_iterator->offsetGet($_ind);
+                } elseif($i>$this->base_level) {
+                    if (!$item->hasChild($_ind)) {
+                        $entry = null;
+                        $this->_initItem($entry, array(
+                            'level'=>$i
+                        ));
+                        $item->addChild($_ind, $entry);
+                    }
+                    $item = $item->getChild($_ind);
                 }
-                $item =& $item->offsetGet($_ind)->offsetGet('children');
             }
         }
         return $item;
     }
 
+    protected function _setRecursiveKey($index, $key)
+    {
+        foreach (self::$range_levels as $i) {
+            if ($i===$key) {
+                $this->menuKeySet($key, $index);
+            } elseif ($i>$key) {
+                $this->menuKeySet($i, null);
+            }
+        }
+    }
+    
 }
 
 // Endfile
