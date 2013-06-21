@@ -96,11 +96,6 @@ EOT;
                         ;
 
 
-                    $tpl = \MarkdownExtended\MarkdownExtended::getInstance()
-                        ->getTemplater($templater_options);
-//var_export($tpl);
-echo $tpl;
-exit();
 /*
 
                     $tpl = \MarkdownExtended\MarkdownExtended::getInstance()

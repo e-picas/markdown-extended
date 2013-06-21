@@ -68,6 +68,7 @@ class TableOfContents extends Filter
     public function transform($text) 
     {
         $menu = MarkdownExtended::getContent()->getMenu();
+        if (empty($menu) || !is_array($menu)) $menu = array($menu);
         $this->formater = MarkdownExtended::get('OutputFormatBag');
         $this->iterator = new \ArrayIterator($menu);
         $this->toc = new \MarkdownExtended\Util\RecursiveMenuIterator(
@@ -84,7 +85,7 @@ class TableOfContents extends Filter
 //echo $toc_html;
 //exit('yo');
         MarkdownExtended::getContent()
-            ->setMenuHtml($toc);
+            ->setMenuHtml($this->toc);
         return $text;
     }
 
