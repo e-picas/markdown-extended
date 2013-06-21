@@ -27,7 +27,7 @@ use MarkdownExtended\MarkdownExtended,
  *
  * @todo A REVOIR : IL FAUT D'ABORD RE-ARRANGER LE TABLEAU EN METTANT LES ENFANTS A CHAQUE ITEM ...
  */
-class TableOfContents extends Filter
+class TableOfContentsBIS extends Filter
 {
 
     private $dbg = true;
@@ -80,13 +80,6 @@ echo '<pre>';
 
         $this->iterator = new \ArrayIterator($menu);
 
-        $this->toc = new \MarkdownExtended\Util\RecursiveMenuIterator(
-            $this->iterator
-        );
-if ($this->dbg) var_dump($this->toc->getArrayCopy());
-if ($this->dbg) var_dump($this->toc);
-
-exit('yo');
         // first levels: try with 1
         $first_levels_array = array_filter((array) $this->iterator, array($this, '_filter'));
         if (empty($first_levels_array)) {
@@ -95,7 +88,6 @@ exit('yo');
             $this->iterator->rewind();
             $first_levels_array = array_filter((array) $this->iterator, array($this, '_filter'));
         }
-
         $this->toc = new \ArrayIterator($first_levels_array);
 
         $this->_apply($this->toc, $this->iterator, $this->base_level);
@@ -158,75 +150,24 @@ if ($this->dbg) echo '<br />APPENDING ITEM ...';
 if ($this->dbg) echo '<br />CURRENT KEY SET TO '.$current_key;
 
             } elseif ($diff>0) {
-                if ($current_key!==0 && $target_iterator->offsetExists($current_key)) {
-                    $global_item = $target_iterator->offsetGet($current_key);
-                } else {
-                    $global_item = $target_iterator->current();
-                    $current_key = $target_iterator->key();
-                }
-                $this->_initItem(
-                    $global_item,
-                    array('level'=>$item['level']),
-                    !($current_key==='children')
-                );
-
-                if ($diff===1) {
+                $child_item =& $target_iterator;
+                for ($i=0; $i<$diff; $i++) {
+                    if ($current_key!==0 && $child_item->offsetExists($current_key)) {
+                        $child_item =& $child_item->offsetGet($current_key);
+                        $child_key = $current_key;
+                    } elseif($child_item->current()!==null) {
+                        $child_item =& $child_item->current();
+                        $child_key = $child_item->key();
+                    }
                     $this->_initItem(
-                        $item,
-                        array('level'=>$item['level'])
+                        $child_item,
+                        array('level'=>$current_level+$i)
                     );
-                    if ($current_key==='children') {
-                        $old_postition = $global_item->count();
-                        $global_item->rewind();
-                        $curr = $global_item->current();
-                        if (!empty($curr) && $curr->offsetExists('children')) {
-                            $curr_child = $global_item->current()->offsetGet('children');
-                            $curr_child->offsetSet($key, $item);
-                            $curr->offsetSet('children', $curr_child);
-                            $global_item->offsetSet(
-                                $global_item->key(),
-                                $curr
-                            );
-                        } else {
-                            $global_item->offsetSet($key, $item);
-                        }
-                        $global_item->seek($old_position);
-                    } else {
-                        $global_item['children']->offsetSet($key, $item);
-                    }
-                    $target_iterator->offsetSet($current_key, $global_item);
-if ($this->dbg) echo '<br />ADDING ITEM TO GLOBAL ITEM '.var_export($global_item,1);
-
-                } elseif ($diff>1) {
-/*
-                    if ($position>0 && $position<$source_iterator->count()+1) {
-                        $source_iterator->seek($position-1);
-                    }
-*/
-                    $this->_apply(
-                        $global_item,
-                        $source_iterator,
-//                        $item['level']
-                        $current_level+1,
-                        'children'
-                    );
-/*
-                    if ($child_position>0 && $child_position<$global_item['children']->count()) {
-                        $global_item['children']->seek($child_position);
-                    }
-                    $subitem =& $global_item['children']->current();
-                    $this->_initItem(
-                        $subitem,
-                        array('level'=>$item['level'])
-                    );
-*/
-if ($this->dbg) echo '<br />APPLYING SUBITEM TO CURRENT GLOBAL ITEM CHILD ...';
-if ($this->dbg) echo '<br />=> SUBITEM '.var_export($subitem,1);
-if ($this->dbg) echo '<br />=> CURRENT GLOBAL ITEM '.var_export($global_item,1);
-
-//                    $subitem->offsetSet('children', $subitem_children);
-                    $target_iterator->offsetSet($current_key, $global_item);
                 }
+                $child_item['children']->offsetSet($key, $item);
+//                $target_iterator->offsetSet($current_key, $global_item);
+
+if ($this->dbg) echo '<br />ADDING ITEM TO CHILD ITEM '.var_export($child_item,1);
 
             } else {
 /*
