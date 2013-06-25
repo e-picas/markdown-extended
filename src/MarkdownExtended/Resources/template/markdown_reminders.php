@@ -34,11 +34,11 @@
  *
  * This tool was largely inspired by GitHub's wiki editor (sic).
  *
- * @author      Pierre Cassat - Les Ateliers Pierrot <http://www.ateliers-pierrot.net/>
+ * @author      Pierre Cassat - Les Ateliers Pierrot <http://www.ateliers-pierrot.fr/>
  * @see         Markdown, written by John Gruber <http://daringfireball.net/>
  * @see         Markdown Extra, written by Michel Fortin <http://michelf.com/>
  * @see         (peg) MultiMarkdown, written by Fletcher Penney <http://fletcherpenney.net/>
- * @see         PHP Markdown Extended, written by Pierre Cassat <http://www.ateliers-pierrot.net/>
+ * @see         PHP Markdown Extended, written by Pierre Cassat <http://www.ateliers-pierrot.fr/>
  */
 //-->
 <style type="text/css">
@@ -476,35 +476,25 @@ function MarkdownExtendedReminders(){}
 
 		<div id="blockelements" class="mdereminders_subblock">
 			<ul>
-				<li><a class="mdereminders_menuitem" href="#paragraphsandbreaks" onclick="return openBlock('paragraphsandbreaks', 'mdereminders_block3', this);" title="See this section">Paragraphs & Breaks</a></li>
-				<li><a class="mdereminders_menuitem" href="#headers" onclick="return openBlock('headers', 'mdereminders_block3', this);" title="See this section">Headers</a></li>
-				<li><a class="mdereminders_menuitem" href="#blockquotes" onclick="return openBlock('blockquotes', 'mdereminders_block3', this);" title="See this section">Blockquotes</a></li>
-				<li><a class="mdereminders_menuitem" href="#lists" onclick="return openBlock('lists', 'mdereminders_block3', this);" title="See this section">Lists</a></li>
-				<li><a class="mdereminders_menuitem" href="#codeblocks" onclick="return openBlock('codeblocks', 'mdereminders_block3', this);" title="See this section">Code Blocks</a></li>
-				<li><a class="mdereminders_menuitem" href="#horizontalrule" onclick="return openBlock('horizontalrule', 'mdereminders_block3', this);" title="See this section">Horizontal Rules</a></li>
-				<li><a class="mdereminders_menuitem" href="#definitions" onclick="return openBlock('definitions', 'mdereminders_block3', this);" title="See this section">Definitions Lists</a></li>
-				<li><a class="mdereminders_menuitem" href="#tables" onclick="return openBlock('tables', 'mdereminders_block3', this);" title="See this section">Tables</a></li>
+<?php foreach ($block_contents as $_content) : ?>
+				<li><a class="mdereminders_menuitem" href="#<?php echo $_content->getId(); ?>" onclick="return openBlock('<?php echo $_content->getId(); ?>', 'mdereminders_block3', this);" title="See this section"><?php echo $_content->getMetadata('title'); ?></a></li>
+<?php endforeach; ?>
 			</ul>
 		</div>
 
 		<div id="spanelements" class="mdereminders_subblock">
 			<ul>
-				<li><a class="mdereminders_menuitem" href="#emphasis" onclick="return openBlock('emphasis', 'mdereminders_block3', this);" title="See this section">Emphasis</a></li>
-				<li><a class="mdereminders_menuitem" href="#code" onclick="return openBlock('code', 'mdereminders_block3', this);" title="See this section">Codes</a></li>
-				<li><a class="mdereminders_menuitem" href="#links" onclick="return openBlock('links', 'mdereminders_block3', this);" title="See this section">Links</a></li>
-				<li><a class="mdereminders_menuitem" href="#images" onclick="return openBlock('images', 'mdereminders_block3', this);" title="See this section">Images</a></li>
-				<li><a class="mdereminders_menuitem" href="#anchors" onclick="return openBlock('anchors', 'mdereminders_block3', this);" title="See this section">Anchors</a></li>
-				<li><a class="mdereminders_menuitem" href="#abbreviations" onclick="return openBlock('abbreviations', 'mdereminders_block3', this);" title="See this section">Abbreviations</a></li>
-				<li><a class="mdereminders_menuitem" href="#footnotes" onclick="return openBlock('footnotes', 'mdereminders_block3', this);" title="See this section">Footnotes</a></li>
+<?php foreach ($span_contents as $_content) : ?>
+				<li><a class="mdereminders_menuitem" href="#<?php echo $_content->getId(); ?>" onclick="return openBlock('<?php echo $_content->getId(); ?>', 'mdereminders_block3', this);" title="See this section"><?php echo $_content->getMetadata('title'); ?></a></li>
+<?php endforeach; ?>
 			</ul>
 		</div>
 
 		<div id="miscellaneous" class="mdereminders_subblock">
 			<ul>
-				<li><a class="mdereminders_menuitem" href="#automaticlinks" onclick="return openBlock('automaticlinks', 'mdereminders_block3', this);" title="See this section">Automatic Links</a></li>
-				<li><a class="mdereminders_menuitem" href="#references" onclick="return openBlock('references', 'mdereminders_block3', this);" title="See this section">References</a></li>
-				<li><a class="mdereminders_menuitem" href="#specialnotes" onclick="return openBlock('specialnotes', 'mdereminders_block3', this);" title="See this section">Special Notes</a></li>
-				<li><a class="mdereminders_menuitem" href="#escaping" onclick="return openBlock('escaping', 'mdereminders_block3', this);" title="See this section">Escaping</a></li>
+<?php foreach ($misc_contents as $_content) : ?>
+				<li><a class="mdereminders_menuitem" href="#<?php echo $_content->getId(); ?>" onclick="return openBlock('<?php echo $_content->getId(); ?>', 'mdereminders_block3', this);" title="See this section"><?php echo $_content->getMetadata('title'); ?></a></li>
+<?php endforeach; ?>
 			</ul>
 		</div>
 
@@ -512,272 +502,29 @@ function MarkdownExtendedReminders(){}
 
 	<div id="mdereminders_block3" class="mdereminders_block">
 
-		<div id="paragraphsandbreaks" class="mdereminders_entry">
-			<div class="mdereminders_title">Paragraphs & Breaks</div>
-			<p>A paragraph is just some consecutive lines of text, wrapped between blank lines (<em>or equivalent</em>).</p>
-			<pre><code>
-This is my first paragraph.
-
-And this is my second,
-on two lines ...
-			</code></pre>
-			<p>This means that if you want to see a line-break, you will have to write it litterally :</p>
-			<pre><code>This is a paragraph.
-&lt;br /&gt;with a line-break ...</code></pre>
+<?php foreach ($block_contents as $_content) : ?>
+		<div id="<?php echo $_content->getId(); ?>" class="mdereminders_entry">
+			<div class="mdereminders_title"><?php echo $_content->getMetadata('title'); ?></div>
+            <?php echo $_content->getBody(); ?>
 			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
 		</div>
+<?php endforeach; ?>
 
-		<div id="headers" class="mdereminders_entry">
-			<div class="mdereminders_title">Headers</div>
-			<p>Markdown supports two styles of headers, <a href="http://docutils.sourceforge.net/mirror/setext.html">Setext</a> and <a href="http://www.aaronsw.com/2002/atx/">atx</a>.</p>
-			<p><strong>Setext style:</strong>
-				First-level titles are underlined by equal signs and second level by dashes.
-			</p>
-			<pre><code>my title level 1
-================
-
-my title level 2
-----------------</code></pre>
-			<p><strong>ATX style:</strong>
-				Prefix title with one or more hash marks, the number increases the title level.
-			</p>
-			<pre><code># my title level 1
-### my title level 3</code></pre>
+<?php foreach ($span_contents as $_content) : ?>
+		<div id="<?php echo $_content->getId(); ?>" class="mdereminders_entry">
+			<div class="mdereminders_title"><?php echo $_content->getMetadata('title'); ?></div>
+            <?php echo $_content->getBody(); ?>
 			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
 		</div>
+<?php endforeach; ?>
 
-		<div id="blockquotes" class="mdereminders_entry">
-			<div class="mdereminders_title">Blockquotes</div>
-			<p>Begin each line with a <code>&gt;</code> sign.</p>
-			<pre><code>> This is my blockquote
-> and a second line ...</code></pre>
-			<p>Other span and block elements are allowed inside a <em>blockquote</em> block as long as you begin every line by <code>&gt;</code>. The possible indentation of the included block begin after this sign.</p>
-			<pre><code>> My citation
->
-> With a paragraph and some `code`
->
->     and even a preformatted string</code></pre>
+<?php foreach ($misc_contents as $_content) : ?>
+		<div id="<?php echo $_content->getId(); ?>" class="mdereminders_entry">
+			<div class="mdereminders_title"><?php echo $_content->getMetadata('title'); ?></div>
+            <?php echo $_content->getBody(); ?>
 			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
 		</div>
-
-		<div id="lists" class="mdereminders_entry">
-			<div class="mdereminders_title">Lists</div>
-			<p>Begin each entry by an asterisk <code>*</code>, a plus <code>+</code> or an hyphen <code>-</code> followed by 3 spaces.</p>
-			<pre><code>-   first item
--   second item</code></pre>
-			<p>Each item must be on a separate line. You can write sub-items indenting these entries.</p>
-			<pre><code>-   first item
--   second item
-    -   first sub-item
-    -   second sub-item</code></pre>
-			<p>To build an ordered list, begin each entry by a number followed by a period and 3 spaces (<em>the order of the written entries is not important</em>).</p>
-			<pre><code>1.   first item
-1.   second item</code></pre>
-			<p>Other span and block elements are allowed inside each <em>list item</em> as long as you indent all these blocks.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="codeblocks" class="mdereminders_entry">
-			<div class="mdereminders_title">Code Blocks</div>
-			<p>Pre-formatted content are constructed by beginning each line with 4 spaces</p>
-			<pre><code>    // this is my "pre" block
-    $var = val_fct();</code></pre>
-			<p>Alternatly, you can write some fenced code blocks surrounding them by lines of 3 or more tildes <code>~</code>.</p>
-			<pre><code>~~~~
-My code here
-~~~~</code></pre>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="horizontalrule" class="mdereminders_entry">
-			<div class="mdereminders_title">Horizontal Rule</div>
-			<p>Write 3 or more hyphens <code>-</code>, asterisks <code>*</code> or underscores <code>_</code> on a line.</p>
-			<pre><code>My end of a paragraph ....
-----
-And this is my rest ...</code></pre>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="definitions" class="mdereminders_entry">
-			<div class="mdereminders_title">Definitions Lists</div>
-			<p>To build some definitions lists, just write each term on a seperate line, and each definition on a new line, beginning with colon followed by 3 or more spaces.</p>
-			<p>You can write many definitions for a single term.</p>
-			<pre><code>Word
-:   Definition content (first one)
-    with a two-lines text
-
-:   Second definition for this term...</code></pre>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="tables" class="mdereminders_entry">
-			<div class="mdereminders_title">Tables</div>
-			<p>Tables are constructed by visual resemblance. The first line (<em>the headers</em>) and the second one (<em>the separator</em>) are required.</p>
-			<pre><code>[an optional caption]
-| First Header  | Second Header | Third Header |
-| ------------- | ------------: | :----------: |
-| Content Cell  | Content right-aligned | Content center-aligned |
-| Content Cell  | Content on two columns ||
-
-  will produce:
-  
-<table>
-	<caption>an optional caption</caption>
-	<thead><tr>
-		<th>First Header</th>
-		<th align="right">Second Header</th>
-		<th align="center">Third Header</th>
-	</tr></thead>
-	<tbody>
-		<tr>
-			<td>Content Cell</td>
-			<td align="right">Content right-aligned</td>
-			<td align="center">Content center-aligned</td>
-		</tr>
-		<tr>
-			<td>Content Cell</td>
-			<td align="right" colspan="2">Content on two columns</td>
-		</tr>
-	</tbody>
-</table>
-</code></pre>
-			<p>Use colons around seperate line to manage alignment of a column (colon on the right is right-aligned, on the left is left-aligned and on both sides is center-aligned). Tables can have many lines of headers and many body sections by passing a blank line between them.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="emphasis" class="mdereminders_entry">
-			<div class="mdereminders_title">Emphasis</div>
-			<p>Emphasis is written by surrounding word or expression between asterisks <code>*</code> or underscores <code>_</code>.</p>
-			<p>Bold text takes 2 of them.</p>
-			<pre><code>**my content** or __my content__</code></pre>
-			<p>Italic text takes only one of them.</p>
-			<pre><code>*my content* or _my content_</code></pre>
-			<p>Expressions or terms with underscores in emphasis span will be escaped.</p>
-			<pre><code>"_my_underscored_content_" will produce "<em>my_underscored_content</em>" and not "<em>my</em> underscored <em>content</em>"</code></pre>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="code" class="mdereminders_entry">
-			<div class="mdereminders_title">Code</div>
-			<p>Surround your code between backtick quotes <code>`</code>.</p>
-			<pre><code>This is a `function()` in a text.</code></pre>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="links" class="mdereminders_entry">
-			<div class="mdereminders_title">Links</div>
-			<p>Hypertext links this rule:</p>
-			<pre><code>There is my text with [an hypertext link](http://example.com/ "Optional link title") you can follow ...</code></pre>
-			<p>The URL can be absolute or relative. <a href="#reference" onclick="return openAndFollow('references', 'mdereminders_block3');" title="See this section">References</a> can be used to make your content more readable.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="images" class="mdereminders_entry">
-			<div class="mdereminders_title">Images</div>
-			<p>Embedded images followed almost the same syntax rule as links:</p>
-			<pre><code>this is my image: ![Alt text](/path/to/img.jpg "Optional image title")</code></pre>
-			<p>The URL can be absolute or relative. <a href="#reference" onclick="return openAndFollow('references', 'mdereminders_block3');" title="See this section">References</a> can be used to make your content more readable.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="anchors" class="mdereminders_entry">
-			<div class="mdereminders_title">In-page Anchors</div>
-			<p>Write your anchor ID between curly brackets.</p>
-			<pre><code>A paragraph with [a link]{#anchor} in context.
-
-  will reach, anywhere in a title of the page:
-
-## my title {#anchor}</code></pre>
-			<p>Anchors can just be set on titles.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="abbreviations" class="mdereminders_entry">
-			<div class="mdereminders_title">Abbreviations</div>
-			<p>Abbreviations are written like <a href="#reference" onclick="return openAndFollow('references', 'mdereminders_block3');" title="See this section">references</a>, beginning by an asterisk <code>*</code>.</p>
-			<pre><code>A paragraph with the word HTML.
-
-*[HTML]: Hyper-Text Markup Language</code></pre>
-			<p>Abbreviations are automatically replaced in text as they are defined anywhere in the document.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="footnotes" class="mdereminders_entry">
-			<div class="mdereminders_title">Footnotes</div>
-			<p>Footnotes are written like <a href="#reference" onclick="return openAndFollow('references', 'mdereminders_block3');" title="See this section">references</a>, with an ID beginning by a circumflex <code>^</code>.</p>
-			<pre><code>A paragraph with the a footnote[^footnote_one] note.
-
-[^footnote_one]: Footnote content</code></pre>
-			<p>Footnotes can be listed at the end of each block. Just use <code>[^id]</code> in content.</p>
-			<p>Other span and block elements are allowed inside a <em>footnote</em> block as long as you do not pass a blank line.</p>
-			<p>You can create a <strong>glossary</strong> or a <strong>bibliography</strong> using features of <a href="#specialnotes" onclick="return openAndFollow('specialnotes', 'mdereminders_block3');" title="See this section">Special Notes</a>.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="automaticlinks" class="mdereminders_entry">
-			<div class="mdereminders_title">Automatic Links</div>
-			<p>Markdown will automatically transform URLs or email addresses in "href" or "mailto" links.</p>
-			<pre><code>My paragraph with a link to &lt;http://example.com/&gt; and an email &lt;address@email.com&gt; to contact.
-
-    will produce:
-
-My paragraph with a link to <a href="http://example.com/">http://example.com/</a> and an email <a href="mailto:address@email.com">address@email.com</a> to contact.
-</code></pre>
-			<p>Email addresses are automatically anti-spammed.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="references" class="mdereminders_entry">
-			<div class="mdereminders_title">References</div>
-			<p>You can use references for links or images. This allows you to write some more easy-to-read content by writing the attributes of the element after this content.</p>
-			<pre><code>A paragraph with a referenced [hypertext link][myid] and some more text embedding an image: ![image for the test][myimage].
-
-[myid]: http://example.com/ "Optional link title"
-[myimage]: http://example.com/test.com "Optional image title" width=40px height=40px</code></pre>
-			<p>References are basically constructed by writting the ID of the definition in content and this definition anywhere in the document, on a single line, with no space to begin and writting first the ID between brackets followed by a colon and the classic definition of the object.</p>
-			<p>This way you can write all your references at the end of your document, for example, and make multi-calls of each reference.</p>
-			<p>The references allows you to add some attributes for the generated tag. Just write them at the end of the reference line.</p>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="specialnotes" class="mdereminders_entry">
-			<div class="mdereminders_title">Special Notes</div>
-			<p>You can construct a <strong>glossary</strong> or a <strong>bibliography</strong> by using special footnotes.</p>
-			<p><strong>Glossary notes</strong> are constructed like a footnote, except that the first line of the note will contain <code>glossary:</code> followed by the term defined. The associated definition has to be placed on a second line.</p>
-			<pre><code>A paragraph with a referenced [glossary term][myterm] ...
-
-[^myterm] glossary: the term defined (an optional sort key)
-	The term definition ... which may be multi-line.</code></pre>
-			<p><strong>Bibliography notes</strong> are constructed like a glossary, except that their IDs begins by a sharp <code>#</code> and the in-text call may contain two parts.</p>
-			<pre><code>This is a statement that should be attributed to its source [p. 23][#Doe:2006].
-
-[#Doe:2006]: John Doe. *Some Big Fancy Book*.  Vanity Press, 2006.</code></pre>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
-
-		<div id="escaping" class="mdereminders_entry">
-			<div class="mdereminders_title">Escaping</div>
-			<p>As Markdown is based on simple syntax wrapping parts of content between special signs, to use them literally, these signs must be escaped with a backslash <code>\</code>:</p>
-			<table border="0" cellspacing="0" cellpadding="0">
-			<tr>
-				<td><code>\</code> backslash</td>
-				<td><code>.</code> dot</td>
-				<td><code>!</code> exclamation point</td>
-				<td><code>#</code> hash mark</td>
-			</tr><tr>
-				<td><code>*</code> asterisk</td>
-				<td><code>+</code> plus sign</td>
-				<td><code>-</code> hyphen</td>
-				<td><code>_</code> underscore</td>
-			</tr><tr>
-				<td><code>`</code> backtick quote</td>
-				<td><code>()</code> parentheses</td>
-				<td><code>[]</code> brackets</td>
-				<td><code>{}</code> curly brackets</td>
-			</tr>
-			</table>
-			<div class="mdereminders_backtop"><a href="#mdereminders" title="Back to top">top</a></div>
-		</div>
+<?php endforeach; ?>
 
 	</div>
 	<br class="clear" />

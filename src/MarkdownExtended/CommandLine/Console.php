@@ -660,66 +660,6 @@ EOT;
         return $md_output;
     }
 
-    /**
-     * Write a result for each processed file or string in a file
-     * @param string $output
-     * @param string $output_file
-     */
-    public function writeOutputFile($output, $output_file)
-    {
-        $fsize=null;
-        if (!empty($output) && !empty($output_file)) {
-            $this->info("Writing parsed content in output file `$output_file`", false);
-            if ($ok = @file_put_contents($output_file, $output)) {
-                $fsize = MDE_Helper::getFileSize($output_file);
-                $this->info("OK [file size: $fsize]");
-            } else {
-                $this->error("Can not write output file `$output_file` ! (try to run `sudo ...`)");
-            }
-        }
-        return $fsize;
-    }
-
-    /**
-     * Write a result for each processed file or string
-     * @param string $output
-     * @param bool $exit
-     */
-    public function writeOutput($output, $exit = false)
-    {
-        $clength=null;
-        if (!empty($output)) {
-            $clength = strlen($output);
-            $this->info("Rendering parsed content [strlen: $clength]");
-            $this->separator();
-            $this->write($output);
-        }
-        return $clength;
-    }
-
-    /**
-     * Write a title for each processed file or string
-     * @param string $title
-     */
-    public function writeInputTitle($title)
-    {
-        $this->write("==> $title <==");
-    }
-
-// ----------------------
-// Utilities
-// ----------------------
-
-    protected function _buildOutputFilename($filename)
-    {
-        if (file_exists($filename)) {
-            $ext = strrchr($filename, '.');
-            $_f = str_replace($ext, '', $filename);
-            return $_f.'_'.self::$parsedfiles_counter.$ext;
-        }
-        return $filename;
-    }
-
 }
 
 // Endfile

@@ -28,9 +28,6 @@ use MarkdownExtended\MarkdownExtended,
 class TableOfContents extends Filter
 {
 
-    protected $formater;
-    protected $iterator;
-    protected $toc;
     protected $attributes = array();
 
 	/**
@@ -38,25 +35,7 @@ class TableOfContents extends Filter
 	 */
 	public function _setup()
 	{
-	    $this->reset();
-	}
-
-	/**
-	 * Reset all properties at the end
-	 */
-	public function _teardown()
-	{
-	    $this->reset();
-	}
-
-	/**
-	 * Do reset all properties
-	 */
-	public function reset()
-	{
-        $this->formater = null;
-        $this->iterator = null;
-        $this->toc = null;
+        $this->attributes = MarkdownExtended::getConfig('table_of_contents');
 	}
 
     /**
@@ -67,39 +46,43 @@ class TableOfContents extends Filter
     {
         $menu = MarkdownExtended::getContent()->getMenu();
         if (empty($menu) || !is_array($menu)) $menu = array($menu);
-        $this->formater = MarkdownExtended::get('OutputFormatBag');
-        $this->iterator = new \ArrayIterator($menu);
-        $this->toc = new \MarkdownExtended\Util\RecursiveMenuIterator(
-            $this->iterator
+
+        $toc = new \MarkdownExtended\Util\RecursiveMenuIterator(
+            new \ArrayIterator($menu)
         );
-//if ($this->dbg) var_dump($this->toc->getArrayCopy());
-//if ($this->dbg) var_dump($this->toc);
-        $toc_html = '';
-        $toc_html .= $this->formater->buildTag('title', 'Table of contents', array(
-            'level'=>isset($attributes['title_level']) ? $attributes['title_level'] : '4',
-            'id'=>isset($attributes['title_id']) ? $attributes['title_id'] : 'toc'
-        ));
-        $toc_html .= $this->_doItems();
-//echo $toc_html;
-//exit('yo');
+
+        $toc_tostring = '';
+        $toc_tostring .= MarkdownExtended::get('OutputFormatBag')
+            ->buildTag(
+                'title',
+                isset($this->attributes['title']) ? $this->attributes['title'] : 'Table of contents',
+                array(
+                    'level'=>isset($this->attributes['title_level']) ? $this->attributes['title_level'] : '4',
+                    'id'=>isset($this->attributes['title_id']) ? $this->attributes['title_id'] : 'toc'
+                ));
+        $toc_tostring .= $this->_doItems($toc);
+
         MarkdownExtended::getContent()
-            ->setMenuHtml($this->toc);
+            ->setToc($toc)
+            ->setTocToString($toc_tostring)
+            ;
         return $text;
     }
 
     /**
      */
-    protected function _doItems() 
+    protected function _doItems(\MarkdownExtended\Util\RecursiveMenuIterator $toc) 
     {
         $content = '';
-        if (!empty($this->toc)) {
-            foreach ($this->toc->getArrayCopy() as $item_id=>$menu_item) {
+        if (!empty($toc)) {
+            foreach ($toc->getArrayCopy() as $item_id=>$menu_item) {
                 $content .= $this->_doItemsRecursive($menu_item, $item_id);
             }
             if (!empty($content)) {
-                $content = $this->formater->buildTag('unordered_list', $content, array(
-                    'class'=>isset($this->attributes['class']) ? $this->attributes['class'] : 'toc-menu',
-                ));
+                $content = MarkdownExtended::get('OutputFormatBag')
+                    ->buildTag('unordered_list', $content, array(
+                        'class'=>isset($this->attributes['class']) ? $this->attributes['class'] : 'toc-menu',
+                    ));
             }
         }
         return $content;
@@ -113,10 +96,11 @@ class TableOfContents extends Filter
         if (!empty($entry)) {
 //            if ($entry->getContent()) {
                  $attributes = $entry->getAttributes();
-                 $item_content = $this->formater->buildTag('link', $entry->getContent(), array_merge($attributes, array(
-                    'href'=>'#'.$id,
-                    'title'=>'Reach this section'
-                )));
+                 $item_content = MarkdownExtended::get('OutputFormatBag')
+                     ->buildTag('link', $entry->getContent(), array_merge($attributes, array(
+                        'href'=>'#'.$id,
+                        'title'=>'Reach this section'
+                    )));
 //            }
             if ($entry->hasChildren()) {
                 $children_content = '';
@@ -124,11 +108,13 @@ class TableOfContents extends Filter
                     $children_content .= $this->_doItemsRecursive($menu_item, $item_id);
                 }
                 if (!empty($children_content)) {
-                    $item_content .= $this->formater->buildTag('unordered_list', $children_content);
+                    $item_content .= MarkdownExtended::get('OutputFormatBag')
+                        ->buildTag('unordered_list', $children_content);
                 }
             }
             if (!empty($item_content)) {
-                return $this->formater->buildTag('unordered_list_item', $item_content);
+                return MarkdownExtended::get('OutputFormatBag')
+                    ->buildTag('unordered_list_item', $item_content);
             }
         }
         return $item_content;

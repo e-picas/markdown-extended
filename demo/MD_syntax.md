@@ -436,10 +436,10 @@ This paragrpah contains a `[mynewanchor]` info [mynewanchor], so it can be refer
 ## Footnotes / Glossary notes / Bibliography notes
 
 In the standalone version of this document, all footnotes should be written below as
-a tag `{% NOTESHTML %}` is present, and should not be added at the end of the document
+a tag `{% NOTES %}` is present, and should not be added at the end of the document
 as they are already written:
 
-{% NOTESHTML %}
+{% NOTES %}
 
 ----
 

@@ -153,7 +153,7 @@ class MetaData extends Filter
 				}
 			}
 		    MarkdownExtended::getContent()
-		        ->setMetadataHtml($metadata_str);
+		        ->setMetadataToString($metadata_str);
 		}
 		return $text;
 	}

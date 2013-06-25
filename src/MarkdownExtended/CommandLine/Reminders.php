@@ -18,6 +18,7 @@
 namespace MarkdownExtended\CommandLine;
 
 use MarkdownExtended\MarkdownExtended,
+    MarkdownExtended\ContentCollection,
     MarkdownExtended\CommandLine\AbstractConsole,
     MarkdownExtended\Helper as MDE_Helper,
     MarkdownExtended\Exception as MDE_Exception;
@@ -34,9 +35,9 @@ class Reminders extends AbstractConsole
     protected static $emd_instance;
 
     /**
-     * @var array Collection of \MarkdownExtended\Content objects
+     * @var array Collection of \MarkdownExtended\ContentCollection object
      */
-    protected $md_contents  =array();
+    protected $md_contents;
 
     /**#@+
      * Command line options values
@@ -45,6 +46,7 @@ class Reminders extends AbstractConsole
     protected $config       =false;
     protected $docs_dir     =false;
     protected $format       ='HTML';
+    protected $template     ='markdown_reminders.php';
     /**#@-*/
 
     /**
@@ -59,6 +61,7 @@ class Reminders extends AbstractConsole
         'c:'=>'config:', 
         'd:'=>'docsdir:', 
         'f:'=>'format:', 
+        't:'=>'template:', 
     );
 
     /**
@@ -69,8 +72,9 @@ class Reminders extends AbstractConsole
     public function __construct()
     {
         parent::__construct();
+        $this->md_contents = new ContentCollection;
         $this->runOption_docsdir(__DIR__.'/../Resources/doc');
-        $this->runOption_output(__DIR__.'/../../markdown_reminders.html');
+        $this->runOption_output(__DIR__.'/../../../markdown_reminders.html');
         $this->runOption_config(MarkdownExtended::FULL_CONFIGFILE);
         $this->runOptions();
     }
@@ -100,9 +104,10 @@ Options:
     -h | --help                get this help information
     -x | --verbose             increase verbosity of the script
     -q | --quiet               do not write Markdown Parser or PHP error messages
-    -o | --output    = FILE    specify a file to write generated content in (default is 'src/markdown_reminders.html')
+    -o | --output    = FILE    specify a file to write generated content in (default is 'markdown_reminders.html')
     -c | --config    = FILE    configuration file to use for Markdown instance (INI format)
     -f | --format    = NAME    format of the output (default is HTML)
+    -t | --template  = FILE    specify a file a template file to build content (default is 'markdown_reminders.php')
 
 More infos at <{$class_sources}>.
 EOT;
@@ -147,7 +152,17 @@ EOT;
     public function runOption_format($str)
     {
         $this->format = $str;
-        $this->info("Setting 'format' to `".$this->format."`");
+        $this->info("Setting 'format' to `$this->format`");
+    }
+
+    /**
+     * Run the template option
+     * @param string $file The command line option argument
+     */
+    public function runOption_template($file)
+    {
+        $this->template = $file;
+        $this->info("Setting 'template' to `$this->template`");
     }
 
 // -------------------
@@ -165,7 +180,13 @@ EOT;
         foreach ($dir as $_file) {
             if ($dir->isFile() && !$dir->isDot() && $dir->getExtension()==='md') {
                 try {
-                    $md_content = new \MarkdownExtended\Content(null, $dir->getPathname());
+                    $this->info("parsing file ".$dir->getPathname());
+                    $md_id = MDE_Helper::header2label(
+                        str_replace('.md', '', basename($dir->getPathname()))
+                    );
+                    $md_content = new \MarkdownExtended\Content(
+                        null, $dir->getPathname(), $md_id
+                    );
                     $md_output = $_emd->get('Parser')
                         ->parse($md_content)
                         ->getContent();
@@ -182,13 +203,25 @@ EOT;
                 } catch (\Exception $e) {
                     $this->catched($e);
                 }
-                $this->md_contents[] = $md_output;
+                $this->md_contents->add($md_content);
             }
         }
-
-var_export($this->md_contents);
-
-        $this->info(PHP_EOL.">>>> the parsing is complete.".PHP_EOL, true, false);
+        $reminders = $_emd->getTemplater(array(
+                'template'=>$this->template
+            ))
+            ->buildTemplate(array(
+                'span_contents' => $this->md_contents->getArrayFilter(array($this, 'filterSpan')),
+                'block_contents' => $this->md_contents->getArrayFilter(array($this, 'filterBlock')),
+                'misc_contents' => $this->md_contents->getArrayFilter(array($this, 'filterMisc'))
+            ))
+            ->getContent();
+        if ($this->writeOutputFile($reminders, $this->output)) {
+            $this->info(PHP_EOL.">>>> the parsing is complete.".PHP_EOL, true, false);
+        } else {
+            $this->error(
+                sprintf("An error occured while trying to write content in file '%s'", $this->output)
+            );
+        }
         $this->endRun(1);
     }
 
@@ -255,6 +288,31 @@ var_export($this->md_contents);
     {
         $this->write("==> $title <==");
     }
+
+    public function filterSpan($item) 
+    {
+        $meta = $item->getMetadata();
+        return (isset($meta['block']) && in_array(
+            trim($meta['block']), array('Span', 'Span Elements')
+        ));
+    }
+    
+    public function filterBlock($item) 
+    {
+        $meta = $item->getMetadata();
+        return (isset($meta['block']) && in_array(
+            trim($meta['block']), array('Block', 'Block Elements')
+        ));
+    }
+
+    public function filterMisc($item) 
+    {
+        $meta = $item->getMetadata();
+        return (isset($meta['block']) && in_array(
+            trim($meta['block']), array('Misc', 'Miscellaneous')
+        ));
+    }
+    
 
 }
 

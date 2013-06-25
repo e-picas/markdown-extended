@@ -95,7 +95,6 @@ EOT;
 //                        ->getContent()
                         ;
 
-
 /*
 
                     $tpl = \MarkdownExtended\MarkdownExtended::getInstance()
@@ -189,7 +188,7 @@ function emdreminders_popup(url){
         <h2>Map of the package</h2>
         <ul id="navigation_menu" class="menu" role="navigation">
             <li><a href="index.php">Usage</a></li>
-            <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
+            <li><a href="../markdown_reminders.html" onclick="return emdreminders_popup('../markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
             <li><a href="index.php?page=form">Test of a form field</a></li>
             <li><a href="index.php?doc=Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
             <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
