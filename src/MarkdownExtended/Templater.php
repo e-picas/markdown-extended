@@ -41,6 +41,11 @@ class Templater implements TemplaterInterface
     protected $mde_content;
 
     /**
+     * @var object MarkdownExtended\ContentCollection
+     */
+    protected $mde_content_collection;
+
+    /**
      * @var array
      */
     protected $done = array();
@@ -66,8 +71,14 @@ class Templater implements TemplaterInterface
      */
     public function __toString()
     {
+        if (!empty($this->content)) {
+            return $this->getContent();
+        }
         if (!empty($this->mde_content)) {
             return $this->parse()->getContent();
+        }
+        if (!empty($this->mde_content_collection)) {
+            return $this->parseCollection()->getContent();
         }
         return '';
     }
@@ -82,6 +93,19 @@ class Templater implements TemplaterInterface
     public function load(Content $mde_content)
     {
         $this->mde_content = $mde_content;
+        return $this;
+    }
+
+    /**
+     * Load a contents collection object
+     *
+     * @param object MarkdownExtended\ContentCollection
+     *
+     * @return self
+     */
+    public function loadCollection(ContentCollection $mde_content_collection)
+    {
+        $this->mde_content_collection = $mde_content_collection;
         return $this;
     }
 
@@ -104,28 +128,41 @@ class Templater implements TemplaterInterface
      */
     public function getTemplate()
     {
-        $tpl_filename = $this->config['template'];
-        $template_files = $this->config['template_file'];
-        if ($tpl_filename===false) {
-            return '';
-        }
-
-        if (empty($tpl_filename)) {
-            $tpl_filename = $this->config['default_template'];
-        }
-        if (array_key_exists($tpl_filename, $template_files)) {
-            $tpl_filename = $template_files[$tpl_filename];
-        }
-
-        $tpl_filename = MDE_Helper::find($tpl_filename, 'template');
-        if (file_exists($tpl_filename)) {
+        $tpl_filename = $this->_findTemplate();
+        if (!empty($tpl_filename) && file_exists($tpl_filename)) {
             $tpl_content = file_get_contents($tpl_filename);
         } else {
-            throw new MDE_Excpetion\Exception(
+            throw new MDE_Exception\Exception(
                 sprintf('Template file "%s" not found!', $tpl_filename)
             );
         }
         return $tpl_content;
+    }
+
+    /**
+     * Build a template content passing it arguments
+     *
+     * @return self
+     *
+     * @throws MarkdownExtended\Excpetion\Exception if template file not found
+     */
+    public function buildTemplate(array $params)
+    {
+        $tpl_filename = $this->_findTemplate();
+        if (!empty($tpl_filename) && file_exists($tpl_filename)) {
+            if (!empty($params)) {
+                extract($params, EXTR_OVERWRITE);
+            }
+            ob_start();
+            include $tpl_filename;
+            $this->content = ob_get_contents();
+            ob_end_clean();
+        } else {
+            throw new MDE_Exception\Exception(
+                sprintf('Template file "%s" not found!', $tpl_filename)
+            );
+        }
+        return $this;
     }
 
     /**
@@ -139,6 +176,29 @@ class Templater implements TemplaterInterface
             ->parseContent()
             ->parseTemplate()
             ->autoInsert();
+        return $this;
+    }
+
+    /**
+     * Parse a contents collection to complete it and pass it in a template if necessary
+     *
+     * @return self
+     */
+    public function parseCollection()
+    {
+        $this->content = null;
+        $this->mde_content = null;
+        foreach ($this->mde_content_collection as $_content) {
+            $this->content = null;
+            $this->load($_content);
+            $this->parseContent();
+            $_content->setBody($this->content);
+        }
+        $this->content = null;
+        $this->mde_content = null;
+        $this->buildTemplate(array(
+            'contents'=>$this->mde_content_collection
+        ));
         return $this;
     }
 
@@ -234,12 +294,18 @@ class Templater implements TemplaterInterface
                         $content_block = empty($this->content) ? $this->mde_content->getBody() : $this->content;
                     } else {
                         $block_name_method = 'get'.MDE_Helper::toCamelCase($block_name);
-                        $content_block = call_user_func(array($this->mde_content, $block_name_method));
+                        $block_name_method_toString = $block_name_method.'ToString';
+                        try {
+                            $content_block = call_user_func(array($this->mde_content, $block_name_method_toString));
+                        } catch (\Exception $e) {}
+                        if (is_null($content_block)) {
+                            $content_block = call_user_func(array($this->mde_content, $block_name_method));
+                        }
                     }
                 } else {
                     $content_block = ' ';
                 }
-                if (!empty($content_block)) {
+                if (!is_null($content_block)) {
                     $content = str_replace($matches[0], $content_block, $content);
                     if (!in_array($block_name, $this->done)) {
                         $this->done[] = $block_name;
@@ -248,6 +314,39 @@ class Templater implements TemplaterInterface
             }
         }
         return $content;
+    }
+
+    /**
+     * Find a template file
+     *
+     * @return null|string
+     */
+    protected function _findTemplate()
+    {
+        $tpl_filename = $this->config['template'];
+        $template_files = $this->config['template_file'];
+        if ($tpl_filename===false) {
+            return null;
+        }
+
+        if (empty($tpl_filename)) {
+            $tpl_filename = $this->config['default_template'];
+        }
+        if (array_key_exists($tpl_filename, $template_files)) {
+            $tpl_filename = $template_files[$tpl_filename];
+        }
+
+        if (!file_exists($tpl_filename)) {
+            $tpl_filename = MDE_Helper::find($tpl_filename, 'template');
+        }
+
+        if (!file_exists($tpl_filename)) {
+            throw new MDE_Exception\Exception(
+                sprintf('Template file "%s" not found!', $tpl_filename)
+            );
+            return null;
+        }
+        return $tpl_filename;
     }
 
 }

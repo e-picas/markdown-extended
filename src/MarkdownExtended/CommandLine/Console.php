@@ -29,11 +29,6 @@ class Console extends AbstractConsole
 {
 
     /**
-     * @var \MarkdownExtended\MarkdownExtended
-     */
-    protected static $emd_instance;
-
-    /**
      * @var string
      */
     protected $md_content='';
@@ -60,19 +55,24 @@ class Console extends AbstractConsole
      * Command line options
      */
     static $cli_options = array(
-        'v'=>'version', 
-        'h'=>'help', 
         'x'=>'verbose', 
         'q'=>'quiet', 
+        'debug', 
+        'v'=>'version', 
+        'h'=>'help', 
         'o:'=>'output:', 
         'm'=>'multi', 
         'c:'=>'config:', 
         'f:'=>'format:', 
         'g:'=>'gamuts::', 
         'n:'=>'nofilter:', 
-        'e::'=>'extract::'
+        'e::'=>'extract::',
+        'man',
 //      'filter-html', 
 //      'filter-styles', 
+        // aliases
+        's'=>'simple',
+        'b'=>'body',
     );
 
     /**
@@ -120,6 +120,7 @@ class Console extends AbstractConsole
 
     /**
      * Constructor
+     *
      * Setup the input/output, verify that we are in CLI mode and that something is requested
      * @see self::runOptions()
      */
@@ -168,7 +169,13 @@ Options:
     -g | --gamuts   [= NAME]   get the list of gamuts (or just one if specified) processed on Markdown input
     -n | --nofilter  = A,B     specify a list of filters that will be ignored during Markdown parsing
 
-For a full manual, try `~$ man ./path/to/markdown_extended.man`.
+Aliases:
+    -b | --body                get only the body part from parsed content (alias of '-e=body')
+    -s | --simple              use the simple pre-defined configuration file ; preset for input fields
+
+For a full manual, try `~$ man ./path/to/markdown_extended.man` if the file exists ;
+if it doesn't, you can try option '--man' of this script to generate it if possible.
+
 More infos at <{$class_sources}>.
 EOT;
         $this->write($help_str);
@@ -181,7 +188,45 @@ EOT;
      */
     public function runOption_version()
     {
-        $this->write(MDE_Helper::info());
+        $info = MDE_Helper::info();
+        $git_ok = $this->exec("which git");
+        $git_dir = getcwd() . '/.git';
+        if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
+            $remote = $this->exec("git config --get remote.origin.url");
+            if (!empty($remote) && (
+                strstr($remote, MarkdownExtended::MDE_SOURCES) ||
+                strstr($remote, str_replace('http', 'https', MarkdownExtended::MDE_SOURCES))
+            )) {
+                $versions = $this->exec("git rev-parse --abbrev-ref HEAD && git rev-parse HEAD && git log -1 --format='%ci' --date=short | cut -s -f 1 -d ' '");
+                if (!empty($versions)) {
+                    $info .= ' '.implode(' ', $versions);
+                }
+            }
+        }
+        $this->write($info);
+        $this->endRun();
+        exit(0);
+    }
+
+    /**
+     * Run the manual option
+     */
+    public function runOption_man()
+    {
+        $info = '';
+        $man_ok = $this->exec("which man");
+        $man_path = getcwd() . '/bin/markdown_extended.man';
+        if (!empty($man_ok)) {
+            if (!file_exists($man_path)) {
+                $ok = $this->exec("php bin/markdown_extended -f man -o bin/markdown_extended.man docs/MANPAGE.md");
+            }
+            if (file_exists($man_path)) {
+                $info = 'OK, you can now run "man ./bin/markdown_extended.man"';
+            } else {
+                $info = 'Can not launch "man" command, file not found or command not accessible ... Try to run "man ./bin/markdown_extended.man".';
+            }
+        }
+        $this->write($info);
         $this->endRun();
         exit(0);
     }
@@ -202,7 +247,7 @@ EOT;
     public function runOption_output($file)
     {
         $this->output = $file;
-        $this->info("Setting 'output' to `$this->output`, parsed content will be written in file(s)");
+        $this->info("Setting output to `$this->output`, parsed content will be written in file(s)");
     }
 
     /**
@@ -212,7 +257,7 @@ EOT;
     protected function runOption_config($file)
     {
         $this->config = $file;
-        $this->info("Setting Markdown config file to `$this->config`");
+        $this->info("Setting configuration file to `$this->config`");
     }
 
     /**
@@ -264,7 +309,7 @@ EOT;
     public function runOption_format($str)
     {
         $this->format = $str;
-        $this->info("Setting 'format' to `".$this->format."`");
+        $this->info("Setting parser format to `".$this->format."`");
     }
 
     /**
@@ -311,6 +356,22 @@ EOT;
         exit(0);
     }
 
+    /**
+     * Run the 'body' alias
+     */
+    public function runOption_body()
+    {
+        $this->runOption_extract('body');
+    }
+
+    /**
+     * Run the 'simple' alias
+     */
+    public function runOption_simple()
+    {
+        $this->runOption_config(MarkdownExtended::SIMPLE_CONFIGFILE);
+    }
+
 // -------------------
 // CLI methods
 // -------------------
@@ -326,7 +387,7 @@ EOT;
                 $this->runOption_multi();
             }
             if ($this->multi===true) {
-                $this->info("Input files are set to `".join(', ', $this->input)."`");
+                $this->info("Multi-input is set to `".join('`, `', $this->input)."`");
             } else {
                 $this->info("Input is set to `{$this->input[0]}`");
             }
@@ -433,21 +494,14 @@ EOT;
      */
     protected function getEmdInstance(array $config = array())
     {
-        if (empty(self::$emd_instance)) {
-            $config['skip_filters'] = $this->nofilter;
-            if (false!==$this->config) {
-                $config['config_file'] = $this->config;
-            }
-            if (!empty($this->format)) {
-                $config['output_format'] = $this->format;
-            }           
-            $this->info("Creating a MarkdownExtended instance with options ["
-                .str_replace("\n", '', var_export($_options,1))
-                ."]");
-            self::$emd_instance = MarkdownExtended::create();
+        $config['skip_filters'] = $this->nofilter;
+        if (false!==$this->config) {
+            $config['config_file'] = $this->config;
         }
-        self::$emd_instance->get('Parser', $config);
-        return self::$emd_instance;
+        if (!empty($this->format)) {
+            $config['output_format'] = $this->format;
+        }           
+        return parent::getEmdInstance($config);
     }
     
     /**
@@ -604,93 +658,6 @@ EOT;
             }
         }
         return $md_output;
-    }
-
-    /**
-     * Write a result for each processed file or string in a file
-     * @param string $output
-     * @param string $output_file
-     */
-    public function writeOutputFile($output, $output_file)
-    {
-        $fsize=null;
-        if (!empty($output) && !empty($output_file)) {
-            $this->info("Writing parsed content in output file `$output_file`", false);
-            if ($ok = @file_put_contents($output_file, $output)) {
-                $fsize = MDE_Helper::getFileSize($output_file);
-                $this->info("OK [file size: $fsize]");
-            } else {
-                $this->error("Can not write output file `$output_file` ! (try to run `sudo ...`)");
-            }
-        }
-        return $fsize;
-    }
-
-    /**
-     * Write a result for each processed file or string
-     * @param string $output
-     * @param bool $exit
-     */
-    public function writeOutput($output, $exit = false)
-    {
-        $clength=null;
-        if (!empty($output)) {
-            $clength = strlen($output);
-            $this->info("Rendering parsed content [strlen: $clength]");
-            $this->separator();
-            $this->write($output);
-        }
-        return $clength;
-    }
-
-    /**
-     * Write a title for each processed file or string
-     * @param string $title
-     */
-    public function writeInputTitle($title)
-    {
-        $this->write("==> $title <==");
-    }
-
-// ----------------------
-// Utilities
-// ----------------------
-
-    protected function _buildOutputFilename($filename)
-    {
-        if (file_exists($filename)) {
-            $ext = strrchr($filename, '.');
-            $_f = str_replace($ext, '', $filename);
-            return $_f.'_'.self::$parsedfiles_counter.$ext;
-        }
-        return $filename;
-    }
-
-    /**
-     * Writes an output safely for STDOUT (string or arrays)
-     *
-     * @param misc $content
-     * @param int $indent internal indentation flag
-     * @return string
-     */
-    protected function _renderOutput($content, $indent = 0)
-    {
-        $text = '';
-        if (is_string($content) || is_numeric($content)) {
-            $text .= $content;
-        } elseif (is_array($content)) {
-            $max_length = 0;
-            foreach ($content as $var=>$val) {
-                if (strlen($var)>$max_length) $max_length = strlen($var);
-            }
-            foreach ($content as $var=>$val) {
-                $text .= PHP_EOL
-                    .($indent>0 ? str_repeat('    ', $indent) : '')
-                    .str_pad($var, $max_length, ' ').' : '
-                    .$this->_renderOutput($val, ($indent+1));
-            }
-        }
-        return ($indent===0 ? trim($text, PHP_EOL) : $text);
     }
 
 }

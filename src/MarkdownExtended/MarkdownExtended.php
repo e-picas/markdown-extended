@@ -79,7 +79,7 @@ final class MarkdownExtended
      * Class infos ; can be automatically updated by `pre-commit-hook.sh`
      */
     const MDE_NAME = 'PHP Markdown Extended';
-    const MDE_VERSION = '0.0.8-dev';
+    const MDE_VERSION = '0.0.10-dev';
     const MDE_SOURCES = 'http://github.com/atelierspierrot/markdown-extended';
 
     /**
@@ -114,14 +114,22 @@ final class MarkdownExtended
     private static $current;
 
     /**
+     * @static array
+     */
+    private static $global_options;
+
+    /**
      * Initialize the registry and flush the contents stack
      *
      * The best practice is to use the class as a singleton calling `getInstance()` or
      * `create()`.
      */
-    public function __construct()
+    public function __construct(array $global_options = null)
     {
         self::$registry = new Registry(false,false);
+        if (!empty($global_options)) {
+            self::$global_options = $global_options;
+        }
         // load dependencies
         self::factory('Registry');
         self::factory('Config');
@@ -132,10 +140,10 @@ final class MarkdownExtended
      * Get the Markdown Extended instance
      * @return self
      */
-    public static function getInstance()
+    public static function getInstance(array $global_options = null)
     {
         if (empty(self::$_instance)) {
-            self::$_instance = new self;
+            self::$_instance = new self($global_options);
         }
         return self::$_instance;
     }
@@ -144,9 +152,9 @@ final class MarkdownExtended
      * Create a new singleton instance
      * @return self
      */
-    public static function create()
+    public static function create(array $global_options = null)
     {
-        self::$_instance = new self;
+        self::$_instance = new self($global_options);
         return self::$_instance;
     }
 
@@ -168,6 +176,11 @@ final class MarkdownExtended
     {
         $content = new \MarkdownExtended\Content($source);
         $content->setId($key);
+        if (!empty(self::$global_options)) {
+            if (is_null($parser_options)) $parser_options = array();
+            if (!is_array($parser_options)) $parser_options = array($parser_options);
+            $parser_options = array_merge(self::$global_options, $parser_options);
+        }
         return self::getInstance()
             ->get('Parser', $parser_options)
             ->parse($content, $secondary)
@@ -188,6 +201,11 @@ final class MarkdownExtended
     {
         $content = new \MarkdownExtended\Content(null, $filename);
         $content->setId($key);
+        if (!empty(self::$global_options)) {
+            if (is_null($parser_options)) $parser_options = array();
+            if (!is_array($parser_options)) $parser_options = array($parser_options);
+            $parser_options = array_merge(self::$global_options, $parser_options);
+        }
         return self::getInstance()
             ->get('Parser', $parser_options)
             ->parse($content, $secondary)
@@ -267,6 +285,7 @@ final class MarkdownExtended
      */
     public static function load($class)
     {
+        if (class_exists($class)) return true;
         $class = MDE_Helper::getAbsoluteClassname($class);
         if (class_exists($class)) return true;
         throw new MDE_Exception\InvalidArgumentException(
@@ -285,9 +304,12 @@ final class MarkdownExtended
      */
     public static function factory($class, $params = null)
     {
-        $class = MDE_Helper::getAbsoluteClassname($class);
-        $class_name = MDE_Helper::getRelativeClassname($class);
-        self::load($class);
+        $class_name = $class;
+        if (!class_exists($class)) {
+            $class = MDE_Helper::getAbsoluteClassname($class);
+            $class_name = MDE_Helper::getRelativeClassname($class);
+            self::load($class);
+        }
         $_obj = !is_null($params) ? new $class($params) : new $class;
         self::$registry->set($class_name, $_obj);
         return $_obj;

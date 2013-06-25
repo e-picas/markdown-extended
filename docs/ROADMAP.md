@@ -10,17 +10,19 @@ This document is for developers usage.
 -   DONE - re-organize outputs from the command line interface (normal, verbose, quiet ...)
 -   manage the replacement of in-text tags (`{% TOC %}` for instance)
 -   test of different configuration sets (input fileds, full files etc)
--   clarification of the rules : WRITE THE MANIFEST (?!)
+-   clarification of the rules : WRITE THE MANIFEST (?!) => anchors rules (!!)
+-   find a better management for full HTML/body only return
 
 ## TODOS that SHOULD be done before version 1.0
 
 -   manage the "markdown reminders" based on the `src/Resources/docs/` per-rule files
 -   a unit test file for each syntax's rule
+-   inform user that the Apache handler in the demo REQUIRES a config to fit actual server paths
 
 ## Known bugs
 
--   issue on footnotes (multi-reference causes a problem of multi-id)
--   issue on tables with caption at its bottom
+-   issue on footnotes (multi-reference causes a problem of multi-id) => OK, ticket 1
+-   issue on tables with caption at its bottom => OK, ticket 2
 
 ## Evolutions
 

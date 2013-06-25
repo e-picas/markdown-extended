@@ -66,7 +66,10 @@ class OutputFormatBag
      */    
     public function load($format)
     {
-        $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format);
+        $class_name = $format;
+        if (!class_exists($class_name)) {
+            $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format);
+        }
         $_obj = MarkdownExtended::get($class_name);
         $this->setFormater($_obj);
         $this->loadHelper($format);
@@ -82,7 +85,10 @@ class OutputFormatBag
      */    
     public function loadHelper($format)
     {
-        $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format).'Helper';
+        $class_name = $format.'Helper';
+        if (!class_exists($class_name)) {
+            $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format).'Helper';
+        }
         if (!class_exists($class_name)) {
             $class_name = 'MarkdownExtended\OutputFormat\\DefaultHelper';
         }

@@ -38,7 +38,7 @@ To transform a string read from STDIN, write it as last argument between double-
 
 ## OPTIONS
 
-The following options are supported:
+*The following options are supported:*
 
 **-h** , **--help**
 :   Get a simple help information.
@@ -78,6 +78,18 @@ The following options are supported:
 **-e** , **--extract** [=meta]
 :   Define a content block to extract ; default extracted block is `metadata`.
 
+*Some aliases are defined for quicker usage:*
+
+**-b** , **--body**
+:   Extract the `body` part from content(s) ; alias of option `-e=body`.
+
+**-s** , **--simple**
+:   Use the simple default configuration file defined by the `MarkdownExtended::SIMPLE_CONFIGFILE`
+    constant ; this is a preset to treat contents coming from input fields.
+
+A special '--debug' option can be used during development ; it enables the `$debug` flag of
+the PHP `\MarkdownExtended\CommandLine` namespace objects.
+
 
 ## MESSAGES
 
@@ -100,7 +112,7 @@ exit with astatus code '90'.
 
 ## ENVIRONMENT
 
-This script requires PHP version 5.3.0 minus.
+This script requires PHP version 5.3.0 minimum.
 
 
 ## EXAMPLES

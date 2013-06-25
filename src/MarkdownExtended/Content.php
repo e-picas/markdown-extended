@@ -69,7 +69,7 @@ class Content implements ContentInterface
     /**
      * @var string
      */
-    protected $metadata_html;
+    protected $metadata_to_string = '';
 
     /**
      * @var array
@@ -79,7 +79,7 @@ class Content implements ContentInterface
     /**
      * @var string
      */
-    protected $notes_html;
+    protected $notes_to_string = '';
 
     /**
      * @var array
@@ -102,6 +102,16 @@ class Content implements ContentInterface
     protected $menu = array();
 
     /**
+     * @var \MarkdownExtended\Util\RecursiveMenuIterator
+     */
+    protected $toc = null;
+
+    /**
+     * @var string
+     */
+    protected $toc_to_string = '';
+
+    /**
      * @var array
      */
     protected $urls = array();
@@ -116,7 +126,6 @@ class Content implements ContentInterface
      */
     protected static $name_mapping = array(
         'note'=>'notes',
-        'toc'=>'menu',
         'footnote'=>'footnotes',
         'glossary'=>'glossaries',
         'citation'=>'citations',
@@ -177,7 +186,7 @@ class Content implements ContentInterface
     protected function getVariable($name)
     {
         if (property_exists($this, $name)) {
-            return !empty($this->{$name}) ? $this->{$name} : false;
+            return !is_null($this->{$name}) ? $this->{$name} : false;
         }
         return null;
     }
@@ -338,6 +347,17 @@ class Content implements ContentInterface
             $this->dom_ids[$reference] : $this->setNewDomId(
                 !empty($id) ? $id : $reference, $reference
             );
+    }
+
+    /**
+     */
+    public function getMetadata($index = null)
+    {
+        if (!is_null($index)) {
+            return isset($this->metadata[$index]) ? $this->metadata[$index] : null;
+        } else {
+            return $this->metadata;
+        }
     }
 
     /**

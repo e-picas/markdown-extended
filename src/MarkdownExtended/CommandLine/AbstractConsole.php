@@ -52,12 +52,18 @@ abstract class AbstractConsole
      */
     public $stdin;
 
+    /**
+     * @var \MarkdownExtended\MarkdownExtended
+     */
+    protected static $emd_instance;
+
     /**#@+
      * Command line options values
      */
     protected $input         =array();
     protected $verbose       =false;
     protected $quiet         =false;
+    protected $debug         =false;
     /**#@-*/
 
     /**#@+
@@ -67,13 +73,14 @@ abstract class AbstractConsole
     static $cli_options = array(
         'x'=>'verbose', 
         'q'=>'quiet', 
+        'debug', 
     );
     /**#@-*/
 
     /**
      * Constructor
-     * Setup the input/output, verify that we are in CLI mode and that something is requested
-     * @see self::runOptions()
+     *
+     * Setup the input/output and verify that we are in CLI mode
      */
     public function __construct()
     {
@@ -163,10 +170,30 @@ abstract class AbstractConsole
             str_replace(realpath(__DIR__.'/../../../'), '', $e->getFile()),
             $e->getLine(), $e->getMessage()
         );
-        if ($this->verbose===true) {
+        if ($this->verbose===true || $this->debug===true) {
             $str .= PHP_EOL.PHP_EOL.$e->getTraceAsString();
         }
         return $this->error($str, $e->getCode(), true);
+    }
+    
+    /**
+     * Exec a command
+     * @param string $cmd
+     * @return string|array
+     */
+    public function exec($cmd)
+    {
+        try {
+            exec($cmd, $output, $status);
+            if ($status!==0) {
+                throw new \RuntimeException(
+                    sprintf('Error exit status while executing command : [%s]!', $cmd), $status
+                );
+            }
+        } catch (\RuntimeException $e) {
+            $this->catched($e);
+        }
+        return is_array($output) && count($output)===1 ? $output[0] : $output;
     }
     
 // -------------------
@@ -241,6 +268,64 @@ abstract class AbstractConsole
         $this->info("Enabling 'quiet' mode");
     }
 
+    /**
+     * Run the debug option
+     */
+    public function runOption_debug()
+    {
+        $this->debug = true;
+        error_reporting(E_ALL); 
+        $this->info("Enabling 'debug' mode");
+    }
+
+// -------------------
+// Process methods
+// -------------------
+
+    /**
+     * Use of the PHP Markdown Extended class as a singleton
+     * @param array $config
+     * @return \MarkdownExtended\MarkdownExtended instance
+     */
+    protected function getEmdInstance(array $config = array())
+    {
+        if (empty(self::$emd_instance)) {
+            $this->info("Creating a MarkdownExtended instance with options ["
+                .str_replace("\n", '', var_export($_options,1))
+                ."]");
+            self::$emd_instance = MarkdownExtended::create();
+        }
+        self::$emd_instance->get('Parser', $config);
+        return self::$emd_instance;
+    }
+    
+    /**
+     * Writes an output safely for STDOUT (string or arrays)
+     *
+     * @param misc $content
+     * @param int $indent internal indentation flag
+     * @return string
+     */
+    protected function _renderOutput($content, $indent = 0)
+    {
+        $text = '';
+        if (is_string($content) || is_numeric($content)) {
+            $text .= $content;
+        } elseif (is_array($content)) {
+            $max_length = 0;
+            foreach ($content as $var=>$val) {
+                if (strlen($var)>$max_length) $max_length = strlen($var);
+            }
+            foreach ($content as $var=>$val) {
+                $text .= PHP_EOL
+                    .($indent>0 ? str_repeat('    ', $indent) : '')
+                    .str_pad($var, $max_length, ' ').' : '
+                    .$this->_renderOutput($val, ($indent+1));
+            }
+        }
+        return ($indent===0 ? trim($text, PHP_EOL) : $text);
+    }
+
 // -------------------
 // CLI methods
 // -------------------
@@ -249,6 +334,66 @@ abstract class AbstractConsole
      * Run the whole script depending on options setted
      */
     abstract public function run();
+
+// ----------------------
+// Utilities
+// ----------------------
+
+    /**
+     * Write a result for each processed file or string in a file
+     * @param string $output
+     * @param string $output_file
+     */
+    public function writeOutputFile($output, $output_file)
+    {
+        $fsize=null;
+        if (!empty($output) && !empty($output_file)) {
+            $this->info("Writing parsed content in output file `$output_file`", false);
+            if ($ok = @file_put_contents($output_file, $output)) {
+                $fsize = MDE_Helper::getFileSize($output_file);
+                $this->info("OK [file size: $fsize]");
+            } else {
+                $this->error("Can not write output file `$output_file` ! (try to run `sudo ...`)");
+            }
+        }
+        return $fsize;
+    }
+
+    /**
+     * Write a result for each processed file or string
+     * @param string $output
+     * @param bool $exit
+     */
+    public function writeOutput($output, $exit = false)
+    {
+        $clength=null;
+        if (!empty($output)) {
+            $clength = strlen($output);
+            $this->info("Rendering parsed content [strlen: $clength]");
+            $this->separator();
+            $this->write($output);
+        }
+        return $clength;
+    }
+
+    /**
+     * Write a title for each processed file or string
+     * @param string $title
+     */
+    public function writeInputTitle($title)
+    {
+        $this->write("==> $title <==");
+    }
+
+    protected function _buildOutputFilename($filename)
+    {
+        if (file_exists($filename)) {
+            $ext = strrchr($filename, '.');
+            $_f = str_replace($ext, '', $filename);
+            return $_f.'_'.self::$parsedfiles_counter.$ext;
+        }
+        return $filename;
+    }
 
 }
 

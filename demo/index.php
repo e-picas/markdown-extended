@@ -10,6 +10,12 @@ date_default_timezone_set( !empty($dtmz) ? $dtmz:'Europe/Paris' );
 $doc = isset($_GET['doc']) ? $_GET['doc'] : null;
 $md = isset($_GET['md']) ? $_GET['md'] : 'none';
 $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
+$page = isset($_GET['page']) ? $_GET['page'] : null;
+if (!empty($page)) {
+    if (file_exists($page.'.php')) $page = $page . '.php';
+    elseif (file_exists($page.'.html')) $page = $page . '.html';
+    else unset($page);
+}
 
 // contents settings
 $js_code = false;
@@ -38,13 +44,19 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
     $error = 'You need to run Composer on your project to use this interface!';
 }
 
+// Custom classes
+if (file_exists($d = __DIR__.'/../src/SplClassLoader.php')) {
+    require_once $d;
+    $classLoader = new SplClassLoader('MDE_Overrides', __DIR__.'/user');
+    $classLoader->register();
+}
+
 // -----------------------------------
-// Launch Console API
+// Page Content
 // -----------------------------------
 
 // process
 if (!is_null($doc)) {
-    // get the Composer autoloader
     if (empty($error)) {
         $class_info = \MarkdownExtended\Helper::info(true);
         $info = <<<EOT
@@ -52,6 +64,7 @@ if (!is_null($doc)) {
     <div id="classinfo"><p>$class_info</p></div>
 EOT;
         $options = array();
+//        $options['output_format'] = '\MDE_Overrides\MyHTMLOutput';
         if (file_exists($doc)) {
             $info .= <<<EOT
     <p><a id="plaintext_handler" class="handler" title="See plain text link">Original <em>$doc</em> document</a></p>
@@ -72,8 +85,8 @@ EOT;
 */
 //                    $source_content = file_get_contents($doc);
                     $mde_content = \MarkdownExtended\MarkdownExtended::create()
-                        ->transformSource($doc)
-//                        ->transformString($source_content)
+                        ->transformSource($doc, $options)
+//                        ->transformString($source_content, $options)
 //                        ->get('Parser', $parse_options)
 //                        ->getContent()
 //                        ->getContent()->getBody()
@@ -81,7 +94,6 @@ EOT;
 //                        ->parse()
 //                        ->getContent()
                         ;
-
 
 /*
 
@@ -113,7 +125,7 @@ exit('yo');
             $error = 'Markdown document source "'.$doc.'" not found!';
         }
     }
-} else {
+} elseif (empty($page)) {
     $content = file_get_contents('usage.html');
     $js_code = true;
 }
@@ -165,10 +177,8 @@ function emdreminders_popup(url){
 
     <a id="top"></a>
     <header role="banner">
-        <hgroup>
-            <h1>The PHP "<em>MarkdownExtended</em>" package</h1>
-            <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
-        </hgroup>
+        <h1>The PHP "<em>MarkdownExtended</em>" package</h1>
+        <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
         <div class="hat">
             <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> PHP package you just downloaded.</p>
         </div>
@@ -178,15 +188,16 @@ function emdreminders_popup(url){
         <h2>Map of the package</h2>
         <ul id="navigation_menu" class="menu" role="navigation">
             <li><a href="index.php">Usage</a></li>
-            <li><a href="../src/markdown_reminders.html" onclick="return emdreminders_popup('../src/markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
-            <li><a href="index.php?doc=Apache-Handler-HOWTO.md&md=process">Apache Handler HOWTO</a></li>
+            <li><a href="../markdown_reminders.html" onclick="return emdreminders_popup('../markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
+            <li><a href="index.php?page=form">Test of a form field</a></li>
+            <li><a href="index.php?doc=Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
             <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
                 <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
-                <li><a href="index.php?doc=MD_syntax.md&md=process">markdown parsed version</a></li>
+                <li><a href="index.php?doc=MD_syntax.md&amp;md=process">markdown parsed version</a></li>
             </ul></li>
             <li><a href="index.php?doc=../README.md">Package README.md</a><ul>
                 <li><a href="index.php?doc=../README.md">plain text version</a></li>
-                <li><a href="index.php?doc=../README.md&md=process">markdown parsed version</a></li>
+                <li><a href="index.php?doc=../README.md&amp;md=process">markdown parsed version</a></li>
             </ul></li>
         </ul>
 
@@ -195,7 +206,7 @@ function emdreminders_popup(url){
             <p class="comment">The sources of this plugin are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
         </div>
 
-        <div class="info">
+        <div class="info" id="menu_socials">
             <!-- AddThis Button BEGIN -->
             <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
             <a href="http://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
@@ -258,6 +269,10 @@ $menu = $output_bag->getHelper()
             ?>"><?php echo $mde_content->getLastUpdate()->format('F j, Y, g:i a'); ?></time>.</p>
         <?php endif; ?>
     </article>
+<?php elseif (!empty($page) && file_exists($page)) : ?>
+    <article>
+        <?php include $page; ?>
+    </article>
 <?php elseif (!empty($content)) : ?>
     <article>
         <?php echo $content; ?>
@@ -276,12 +291,15 @@ $menu = $output_bag->getHelper()
     </footer>
 
     <div class="back_menu" id="short_navigation">
+        <a href="#" title="See table of contents" id="short_tableofcontents_handler"><span class="text">Table of contents</span></a>
+        &nbsp;|&nbsp;
         <a href="#" title="See navigation menu" id="short_menu_handler"><span class="text">Navigation Menu</span></a>
         &nbsp;|&nbsp;
         <a href="#bottom" title="Go to the bottom of the page"><span class="text">Go to bottom&nbsp;</span>&darr;</a>
         &nbsp;|&nbsp;
         <a href="#top" title="Back to the top of the page"><span class="text">Back to top&nbsp;</span>&uarr;</a>
         <ul id="short_menu" class="menu" role="navigation"></ul>
+        <ul id="short_tableofcontents" class="menu" role="navigation"></ul>
     </div>
 
     <div id="message_box" class="msg_box"></div>
@@ -305,7 +323,7 @@ $menu = $output_bag->getHelper()
 <script>
 $(function() {
     initBacklinks();
-    activateMenuItem();
+    activateNavigationMenu();
     getToHash();
     buildFootNotes();
     addCSSValidatorLink('assets/styles.css');

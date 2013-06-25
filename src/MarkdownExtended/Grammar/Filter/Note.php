@@ -214,7 +214,7 @@ class Note extends Filter
             $notes_text = MarkdownExtended::get('OutputFormatBag')
                 ->buildTag('block', $notes_text, array('class'=>'footnotes'));
             MarkdownExtended::getContent()
-                ->setNotesHtml($notes_text);
+                ->setNotesToString($notes_text);
         }
         return $text;
     }
