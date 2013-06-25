@@ -2,10 +2,7 @@ var tree = [["MarkdownExtended","MarkdownExtended.html","",
                 [["CommandLine","MarkdownExtended\/CommandLine.html","",
                 [["AbstractConsole","MarkdownExtended\/CommandLine\/AbstractConsole.html","",
                 [        ]],["Console","MarkdownExtended\/CommandLine\/Console.html"," < AbstractConsole",
-<<<<<<< HEAD
                 [        ]],["Reminders","MarkdownExtended\/CommandLine\/Reminders.html"," < AbstractConsole",
-=======
->>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
                 [        ]]        ]],["Exception","MarkdownExtended\/Exception.html","",
                 [["DomainException","MarkdownExtended\/Exception\/DomainException.html"," < DomainException",
                 [        ]],["Exception","MarkdownExtended\/Exception\/Exception.html"," < Exception",
@@ -34,10 +31,7 @@ var tree = [["MarkdownExtended","MarkdownExtended.html","",
                 [        ]],["Note","MarkdownExtended\/Grammar\/Filter\/Note.html"," < Filter",
                 [        ]],["Span","MarkdownExtended\/Grammar\/Filter\/Span.html"," < Filter",
                 [        ]],["Table","MarkdownExtended\/Grammar\/Filter\/Table.html"," < Filter",
-<<<<<<< HEAD
                 [        ]],["TableOfContents","MarkdownExtended\/Grammar\/Filter\/TableOfContents.html"," < Filter",
-=======
->>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
                 [        ]]        ]],["Tool","MarkdownExtended\/Grammar\/Tool.html","",
                 [["AppendEndingNewLines","MarkdownExtended\/Grammar\/Tool\/AppendEndingNewLines.html"," < Tool",
                 [        ]],["Detab","MarkdownExtended\/Grammar\/Tool\/Detab.html"," < Tool",
@@ -61,17 +55,12 @@ var tree = [["MarkdownExtended","MarkdownExtended.html","",
                 [        ]],["HTMLHelper","MarkdownExtended\/OutputFormat\/HTMLHelper.html","",
                 [        ]],["Man","MarkdownExtended\/OutputFormat\/Man.html","",
                 [        ]],["ManHelper","MarkdownExtended\/OutputFormat\/ManHelper.html"," < DefaultHelper",
-<<<<<<< HEAD
                 [        ]]        ]],["Util","MarkdownExtended\/Util.html","",
                 [["MenuItemIterator","MarkdownExtended\/Util\/MenuItemIterator.html"," < ArrayIterator",
                 [        ]],["RecursiveMenuIterator","MarkdownExtended\/Util\/RecursiveMenuIterator.html"," < RecursiveArrayIterator",
                 [        ]]        ]],["Config","MarkdownExtended\/Config.html"," < Registry",
                 [        ]],["Content","MarkdownExtended\/Content.html","",
                 [        ]],["ContentCollection","MarkdownExtended\/ContentCollection.html","",
-=======
-                [        ]]        ]],["Config","MarkdownExtended\/Config.html"," < Registry",
-                [        ]],["Content","MarkdownExtended\/Content.html","",
->>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
                 [        ]],["ContentInterface","MarkdownExtended\/ContentInterface.html","",
                 [        ]],["Helper","MarkdownExtended\/Helper.html","",
                 [        ]],["MarkdownExtended","MarkdownExtended\/MarkdownExtended.html","",
