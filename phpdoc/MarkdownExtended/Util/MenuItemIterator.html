@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Util\MenuItemIterator | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/Util.html">MarkdownExtended\Util</a>\MenuItemIterator</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>MenuItemIterator</strong>        extends <a href="http://php.net/ArrayIterator"><abbr title="ArrayIterator">ArrayIterator</abbr></a>        implements
+        <a href="http://php.net/ArrayAccess"><abbr title="ArrayAccess">ArrayAccess</abbr></a></p>
+
+            <div class="description">
+            <p>This class defines each <code>RecursiveMenuIterator</code> item</p>
+            <p>
+</p>
+        </div>
+    
+    
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_defaults">
+                    static                                        
+                </td>
+                <td>$defaults</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>(array|string $content = null, int $level = null, array $attributes = null, array $children = null, int $flags)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_init">init</a>(array $values)
+                    <p>Initialize a new item with an array of values</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_getDefault">getDefault</a>()
+                    <p>Get a default empty item</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setLevel">setLevel</a>(int $level)
+                    <p>Set the item level</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    int
+                </td>
+                <td class="last">
+                    <a href="#method_getLevel">getLevel</a>()
+                    <p>Get the item level</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setContent">setContent</a>(string $content)
+                    <p>Set the item content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getContent">getContent</a>()
+                    <p>Get the item content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setAttributes">setAttributes</a>(array $attributes)
+                    <p>Define the item attributes array</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_addAttribute">addAttribute</a>(int|string $index, <abbr title="MarkdownExtended\Util\misc">misc</abbr> $value)
+                    <p>Add a new item attribute</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_hasAttributes">hasAttributes</a>()
+                    <p>Test if an item has one or more attribute</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_getAttributes">getAttributes</a>()
+                    <p>Retrieve the item attributes array</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setChildren">setChildren</a>(<abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr> $children)
+                    <p>Define an item children stack</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_addChild">addChild</a>(int|string $index, <abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr> $value)
+                    <p>Add a new item child</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_hasChildren">hasChildren</a>()
+                    <p>Test if the item has one or more children</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_hasChild">hasChild</a>(int|string $index)
+                    <p>Test if a child exists by its index</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getChildren">getChildren</a>()
+                    <p>Get the item children</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../MarkdownExtended/Util/MenuItemIterator.html"><abbr title="MarkdownExtended\Util\MenuItemIterator">MenuItemIterator</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_getChild">getChild</a>(int|string $index)
+                    <p>Get a child by its index</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_offsetSet">offsetSet</a>($index, $newval)
+                    <p>Set a new value for a property if it exists in the class</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_offsetUnset">offsetUnset</a>(string $index)
+                    <p>Unset a property value if it exists in the class</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="MarkdownExtended\Util\misc">misc</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_offsetGet">offsetGet</a>(string $index)
+                    <p>Retrieve a property value if it exists in the class</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_offsetExists">offsetExists</a>(string $index)
+                    <p>Test if an index exists in the class and if the property is not empty</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_append">append</a>(<abbr title="MarkdownExtended\Util\misc">misc</abbr> $value)
+                    <p>Append a new child to item children with a uniq item index</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">at line 43</div>
+        <code>            public            
+    <strong>__construct</strong>(array|string $content = null, int $level = null, array $attributes = null, array $children = null, int $flags)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array|string</td>
+                <td>$content</td>
+                <td>The content of the item, or the full array of item values</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$level</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$children</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$flags</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                            <h4>See also</h4>
+
+                    <table>
+                    <tr>
+                <td>parent::__construct()</td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+                <h3 id="method_init">
+        <div class="location">at line 69</div>
+        <code>            public            
+    <strong>init</strong>(array $values)</code>
+    </h3>
+    <div class="details">
+        <p>Initialize a new item with an array of values</p>
+        <p>The array indexes are:
+-   "level": the level of the title item (int)
+-   "content" or "text": the text of the title (string)
+-   "attributes": an array of title tag attributes (array)
+-   "children": an array or ArrayAccess object of the item children (ArrayAccess)</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$values</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getDefault">
+        <div class="location">at line 94</div>
+        <code>            public            array
+    <strong>getDefault</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get a default empty item</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setLevel">
+        <div class="location">at line 115</div>
+        <code>            public            
+    <strong>setLevel</strong>(int $level)</code>
+    </h3>
+    <div class="details">
+        <p>Set the item level</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>int</td>
+                <td>$level</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/OutOfBoundsException"><abbr title="OutOfBoundsException">OutOfBoundsException</abbr></a></td>
+                <td>if <code>$level</code> is not in <code>RecursiveMenuIterator::$range_levels</code></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getLevel">
+        <div class="location">at line 130</div>
+        <code>            public            int
+    <strong>getLevel</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the item level</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>int</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setContent">
+        <div class="location">at line 142</div>
+        <code>            public            
+    <strong>setContent</strong>(string $content)</code>
+    </h3>
+    <div class="details">
+        <p>Set the item content</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if <code>$content</code> is not a string</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getContent">
+        <div class="location">at line 157</div>
+        <code>            public            string
+    <strong>getContent</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the item content</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setAttributes">
+        <div class="location">at line 167</div>
+        <code>            public            
+    <strong>setAttributes</strong>(array $attributes)</code>
+    </h3>
+    <div class="details">
+        <p>Define the item attributes array</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_addAttribute">
+        <div class="location">at line 178</div>
+        <code>            public            
+    <strong>addAttribute</strong>(int|string $index, <abbr title="MarkdownExtended\Util\misc">misc</abbr> $value)</code>
+    </h3>
+    <div class="details">
+        <p>Add a new item attribute</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>int|string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><abbr title="MarkdownExtended\Util\misc">misc</abbr></td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasAttributes">
+        <div class="location">at line 190</div>
+        <code>            public            bool
+    <strong>hasAttributes</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Test if an item has one or more attribute</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getAttributes">
+        <div class="location">at line 201</div>
+        <code>            public            array
+    <strong>getAttributes</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Retrieve the item attributes array</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setChildren">
+        <div class="location">at line 211</div>
+        <code>            public            
+    <strong>setChildren</strong>(<abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr> $children)</code>
+    </h3>
+    <div class="details">
+        <p>Define an item children stack</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr></td>
+                <td>$children</td>
+                <td>\ArrayAccess</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_addChild">
+        <div class="location">at line 222</div>
+        <code>            public            
+    <strong>addChild</strong>(int|string $index, <abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr> $value)</code>
+    </h3>
+    <div class="details">
+        <p>Add a new item child</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>int|string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr></td>
+                <td>$value</td>
+                <td>\ArrayAccess</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasChildren">
+        <div class="location">at line 234</div>
+        <code>            public            bool
+    <strong>hasChildren</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Test if the item has one or more children</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_hasChild">
+        <div class="location">at line 247</div>
+        <code>            public            bool
+    <strong>hasChild</strong>(int|string $index)</code>
+    </h3>
+    <div class="details">
+        <p>Test if a child exists by its index</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>int|string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getChildren">
+        <div class="location">at line 261</div>
+        <code>            public            
+    <strong>getChildren</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the item children</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getChild">
+        <div class="location">at line 275</div>
+        <code>            public            <a href="../../MarkdownExtended/Util/MenuItemIterator.html"><abbr title="MarkdownExtended\Util\MenuItemIterator">MenuItemIterator</abbr></a>
+    <strong>getChild</strong>(int|string $index)</code>
+    </h3>
+    <div class="details">
+        <p>Get a child by its index</p>
+        <p>If the index doesn't exist, an empty child is returned.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>int|string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../MarkdownExtended/Util/MenuItemIterator.html"><abbr title="MarkdownExtended\Util\MenuItemIterator">MenuItemIterator</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_offsetSet">
+        <div class="location">at line 294</div>
+        <code>            public            
+    <strong>offsetSet</strong>($index, $newval)</code>
+    </h3>
+    <div class="details">
+        <p>Set a new value for a property if it exists in the class</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$newval</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if <code>$index</code> is not valid</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_offsetUnset">
+        <div class="location">at line 315</div>
+        <code>            public            
+    <strong>offsetUnset</strong>(string $index)</code>
+    </h3>
+    <div class="details">
+        <p>Unset a property value if it exists in the class</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if <code>$index</code> is not valid</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_offsetGet">
+        <div class="location">at line 336</div>
+        <code>            public            <abbr title="MarkdownExtended\Util\misc">misc</abbr>
+    <strong>offsetGet</strong>(string $index)</code>
+    </h3>
+    <div class="details">
+        <p>Retrieve a property value if it exists in the class</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\Util\misc">misc</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_offsetExists">
+        <div class="location">at line 355</div>
+        <code>            public            bool
+    <strong>offsetExists</strong>(string $index)</code>
+    </h3>
+    <div class="details">
+        <p>Test if an index exists in the class and if the property is not empty</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_append">
+        <div class="location">at line 371</div>
+        <code>            public            
+    <strong>append</strong>(<abbr title="MarkdownExtended\Util\misc">misc</abbr> $value)</code>
+    </h3>
+    <div class="details">
+        <p>Append a new child to item children with a uniq item index</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\Util\misc">misc</abbr></td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

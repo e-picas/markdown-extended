@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\CommandLine\Console | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/CommandLine.html">MarkdownExtended\CommandLine</a>\Console</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>Console</strong>        extends <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></p>
+
+            <div class="description">
+            <p>Command line controller/interface for MarkdownExtended</p>
+            <p>
+</p>
+        </div>
+    
+    
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_stdout">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDOUT">STDOUT</abbr>
+                </td>
+                <td>$stdout</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_stdin">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDIN">STDIN</abbr>
+                </td>
+                <td>$stdin</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_extract_presets">
+                    static                                        
+                </td>
+                <td>$extract_presets</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>()
+<<<<<<< HEAD
+                    <p>Constructor</p>
+=======
+                    <p>Constructor Setup the input/output, verify that we are in CLI mode and that something is requested</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_write">write</a>(string $str, bool $new_line = true)
+                    <p>Write an info to CLI output</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_info">info</a>($str, $new_line = true, $leading_dot = true)
+                    <p>Write an info in verbose mode</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_separator">separator</a>()
+                    <p>Write an separator line in verbose mode</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_error">error</a>($str, $code = 90, $forced = false)
+                    <p>Write an error info and exit</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_catched">catched</a>(object $e)
+                    <p>Write a catched exception</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+<<<<<<< HEAD
+                    string|array
+                </td>
+                <td class="last">
+                    <a href="#method_exec">exec</a>(string $cmd)
+                    <p>Exec a command</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_exec"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+=======
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_verbose">runOption_verbose</a>()
+                    <p>Run the verbose option</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_quiet">runOption_quiet</a>()
+                    <p>Run the quiet option</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+<<<<<<< HEAD
+                    <a href="#method_runOption_debug">runOption_debug</a>()
+                    <p>Run the debug option</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_debug"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+=======
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                    <a href="#method_run">run</a>()
+                    <p>Run the whole script depending on options setted</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+<<<<<<< HEAD
+                    <a href="#method_writeOutputFile">writeOutputFile</a>(string $output, string $output_file)
+                    <p>Write a result for each processed file or string in a file</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutputFile"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_writeOutput">writeOutput</a>(string $output, bool $exit = false)
+                    <p>Write a result for each processed file or string</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutput"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_writeInputTitle">writeInputTitle</a>(string $title)
+                    <p>Write a title for each processed file or string</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeInputTitle"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+=======
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                    <a href="#method_runOption_help">runOption_help</a>()
+                    <p>Get the help string</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_version">runOption_version</a>()
+                    <p>Run the version option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+<<<<<<< HEAD
+                    <a href="#method_runOption_man">runOption_man</a>()
+                    <p>Run the manual option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+=======
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                    <a href="#method_runOption_multi">runOption_multi</a>()
+                    <p>Run the multi option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_output">runOption_output</a>(string $file)
+                    <p>Run the output option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_filter_html">runOption_filter_html</a>()
+                    <p>Run the HTML filter option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_filter_styles">runOption_filter_styles</a>()
+                    <p>Run the styles filter option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_extract">runOption_extract</a>(string $type)
+                    <p>Run the extract option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_nofilter">runOption_nofilter</a>(string $str)
+                    <p>Run the no-filter option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_format">runOption_format</a>(string $str)
+                    <p>Run the format option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+<<<<<<< HEAD
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_body">runOption_body</a>()
+                    <p>Run the 'body' alias</p>
+=======
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runStoryOnOneFile">runStoryOnOneFile</a>(string $input, bool $title = false)
+                    <p>Run the MDE process on one file or input</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+<<<<<<< HEAD
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_simple">runOption_simple</a>()
+                    <p>Run the 'simple' alias</p>
+=======
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runOneFile">runOneFile</a>(string $input, string $output = null, bool $extract = null, bool $title = false)
+                    <p>Actually run the MDE process on a file or string</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_getInput">getInput</a>(string $input, bool $title = false)
+                    <p>Creates a <code>\MarkdownExtended\Content</code> object from filename or string</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+<<<<<<< HEAD
+                    <a href="#method_runStoryOnOneFile">runStoryOnOneFile</a>(string $input, bool $title = false)
+                    <p>Run the MDE process on one file or input</p>
+=======
+                    <a href="#method_parseContent">parseContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content)
+                    <p>Process a Content parsing</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+<<<<<<< HEAD
+                    <a href="#method_runOneFile">runOneFile</a>(string $input, string $output = null, bool $extract = null, bool $title = false)
+                    <p>Actually run the MDE process on a file or string</p>
+=======
+                    <a href="#method_extractContent">extractContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content, string $extract)
+                    <p>Process a Content parsing just for special gamuts</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+<<<<<<< HEAD
+                    <a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_getInput">getInput</a>(string $input, bool $title = false)
+                    <p>Creates a <code>\MarkdownExtended\Content</code> object from filename or string</p>
+=======
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_writeOutputFile">writeOutputFile</a>(string $output, string $output_file)
+                    <p>Write a result for each processed file or string in a file</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+<<<<<<< HEAD
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_parseContent">parseContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content)
+                    <p>Process a Content parsing</p>
+=======
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_writeOutput">writeOutput</a>(string $output, bool $exit = false)
+                    <p>Write a result for each processed file or string</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+<<<<<<< HEAD
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_extractContent">extractContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content, string $extract)
+                    <p>Process a Content parsing just for special gamuts</p>
+=======
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_writeInputTitle">writeInputTitle</a>(string $title)
+                    <p>Write a title for each processed file or string</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+<<<<<<< HEAD
+        <div class="location">at line 127</div>
+=======
+        <div class="location">at line 126</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>__construct</strong>()</code>
+    </h3>
+    <div class="details">
+<<<<<<< HEAD
+        <p>Constructor</p>
+        <p>Setup the input/output and verify that we are in CLI mode</p>
+=======
+        <p>Constructor Setup the input/output, verify that we are in CLI mode and that something is requested</p>
+        <p>
+</p>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <div class="tags">
+            
+            
+            
+                            <h4>See also</h4>
+
+                    <table>
+                    <tr>
+                <td>self::runOptions()</td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+                <h3 id="method_write">
+<<<<<<< HEAD
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 104</div>
+=======
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 97</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>write</strong>(string $str, bool $new_line = true)</code>
+    </h3>
+    <div class="details">
+        <p>Write an info to CLI output</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The information to write</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$new_line</td>
+                <td>May we pass a line after writing the info</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_info">
+<<<<<<< HEAD
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 115</div>
+=======
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 108</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>info</strong>($str, $new_line = true, $leading_dot = true)</code>
+    </h3>
+    <div class="details">
+        <p>Write an info in verbose mode</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$str</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$new_line</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$leading_dot</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_separator">
+<<<<<<< HEAD
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 125</div>
+=======
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 118</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>separator</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Write an separator line in verbose mode</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_error">
+<<<<<<< HEAD
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 137</div>
+=======
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 130</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>error</strong>($str, $code = 90, $forced = false)</code>
+    </h3>
+    <div class="details">
+        <p>Write an error info and exit</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$str</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$code</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$forced</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_catched">
+<<<<<<< HEAD
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 165</div>
+=======
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 158</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>catched</strong>(object $e)</code>
+    </h3>
+    <div class="details">
+        <p>Write a catched exception</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>object</td>
+                <td>$e</td>
+                <td>Exception thrown</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_exec">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_exec"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 184</div>
+        <code>            public            string|array
+    <strong>exec</strong>(string $cmd)</code>
+    </h3>
+    <div class="details">
+        <p>Exec a command</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$cmd</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_verbose">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 255</div>
+=======
+                <h3 id="method_runOption_verbose">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 228</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_verbose</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the verbose option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_quiet">
+<<<<<<< HEAD
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 264</div>
+=======
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 237</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_quiet</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the quiet option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_runOption_debug">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_debug"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 274</div>
+        <code>            public            
+    <strong>runOption_debug</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the debug option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_run">
+        <div class="location">at line 400</div>
+=======
+                <h3 id="method_run">
+        <div class="location">at line 339</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>run</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the whole script depending on options setted</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_writeOutputFile">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutputFile"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 347</div>
+        <code>            public            
+    <strong>writeOutputFile</strong>(string $output, string $output_file)</code>
+    </h3>
+    <div class="details">
+        <p>Write a result for each processed file or string in a file</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$output_file</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeOutput">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutput"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 367</div>
+        <code>            public            
+    <strong>writeOutput</strong>(string $output, bool $exit = false)</code>
+    </h3>
+    <div class="details">
+        <p>Write a result for each processed file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$exit</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeInputTitle">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeInputTitle"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 383</div>
+        <code>            public            
+    <strong>writeInputTitle</strong>(string $title)</code>
+    </h3>
+    <div class="details">
+        <p>Write a title for each processed file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$title</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_help">
+        <div class="location">at line 144</div>
+=======
+                <h3 id="method_runOption_help">
+        <div class="location">at line 143</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_help</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the help string</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_version">
+<<<<<<< HEAD
+        <div class="location">at line 189</div>
+=======
+        <div class="location">at line 182</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_version</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the version option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_runOption_man">
+        <div class="location">at line 214</div>
+        <code>            public            
+    <strong>runOption_man</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the manual option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_multi">
+        <div class="location">at line 237</div>
+=======
+                <h3 id="method_runOption_multi">
+        <div class="location">at line 192</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_multi</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the multi option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_output">
+<<<<<<< HEAD
+        <div class="location">at line 247</div>
+=======
+        <div class="location">at line 202</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_output</strong>(string $file)</code>
+    </h3>
+    <div class="details">
+        <p>Run the output option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$file</td>
+                <td>The command line option argument</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_filter_html">
+<<<<<<< HEAD
+        <div class="location">at line 266</div>
+=======
+        <div class="location">at line 221</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_filter_html</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the HTML filter option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_filter_styles">
+<<<<<<< HEAD
+        <div class="location">at line 275</div>
+=======
+        <div class="location">at line 230</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_filter_styles</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the styles filter option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_extract">
+<<<<<<< HEAD
+        <div class="location">at line 285</div>
+=======
+        <div class="location">at line 240</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_extract</strong>(string $type)</code>
+    </h3>
+    <div class="details">
+        <p>Run the extract option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$type</td>
+                <td>The command line option argument</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_nofilter">
+<<<<<<< HEAD
+        <div class="location">at line 299</div>
+=======
+        <div class="location">at line 254</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_nofilter</strong>(string $str)</code>
+    </h3>
+    <div class="details">
+        <p>Run the no-filter option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The command line option argument</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_format">
+<<<<<<< HEAD
+        <div class="location">at line 309</div>
+=======
+        <div class="location">at line 264</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>runOption_format</strong>(string $str)</code>
+    </h3>
+    <div class="details">
+        <p>Run the format option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The command line option argument</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_runOption_body">
+        <div class="location">at line 362</div>
+        <code>            public            
+    <strong>runOption_body</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the 'body' alias</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_simple">
+        <div class="location">at line 370</div>
+        <code>            public            
+    <strong>runOption_simple</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the 'simple' alias</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runStoryOnOneFile">
+        <div class="location">at line 431</div>
+=======
+                <h3 id="method_runStoryOnOneFile">
+        <div class="location">at line 370</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            string
+    <strong>runStoryOnOneFile</strong>(string $input, bool $title = false)</code>
+    </h3>
+    <div class="details">
+        <p>Run the MDE process on one file or input</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$input</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$title</td>
+                <td>Set on <code>true</code> in case of multi-input</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOneFile">
+<<<<<<< HEAD
+        <div class="location">at line 464</div>
+=======
+        <div class="location">at line 403</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            string
+    <strong>runOneFile</strong>(string $input, string $output = null, bool $extract = null, bool $title = false)</code>
+    </h3>
+    <div class="details">
+        <p>Actually run the MDE process on a file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$input</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$output</td>
+                <td>An optional output filename to write result in</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$extract</td>
+                <td>An extractor tagname</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$title</td>
+                <td>Set to <code>true</code> to add title string in case of multi-input</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getInput">
+<<<<<<< HEAD
+        <div class="location">at line 516</div>
+=======
+        <div class="location">at line 462</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            <a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>getInput</strong>(string $input, bool $title = false)</code>
+    </h3>
+    <div class="details">
+        <p>Creates a <code>\MarkdownExtended\Content</code> object from filename or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$input</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$title</td>
+                <td>Set to <code>true</code> to add title string in case of multi-input</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="any">any</abbr></td>
+                <td>catched exception</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseContent">
+<<<<<<< HEAD
+        <div class="location">at line 575</div>
+=======
+        <div class="location">at line 521</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            string
+    <strong>parseContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content)</code>
+    </h3>
+    <div class="details">
+        <p>Process a Content parsing</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr></td>
+                <td>$md_content</td>
+                <td>\MarkdownExtended\Content instance</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="any">any</abbr></td>
+                <td>catched exception</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_extractContent">
+<<<<<<< HEAD
+        <div class="location">at line 617</div>
+=======
+        <div class="location">at line 563</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            string
+    <strong>extractContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content, string $extract)</code>
+    </h3>
+    <div class="details">
+        <p>Process a Content parsing just for special gamuts</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr></td>
+                <td>$md_content</td>
+                <td>\MarkdownExtended\Content instance</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$extract</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="any">any</abbr></td>
+                <td>catched exception</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+=======
+                <h3 id="method_writeOutputFile">
+        <div class="location">at line 614</div>
+        <code>            public            
+    <strong>writeOutputFile</strong>(string $output, string $output_file)</code>
+    </h3>
+    <div class="details">
+        <p>Write a result for each processed file or string in a file</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$output_file</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeOutput">
+        <div class="location">at line 634</div>
+        <code>            public            
+    <strong>writeOutput</strong>(string $output, bool $exit = false)</code>
+    </h3>
+    <div class="details">
+        <p>Write a result for each processed file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$exit</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeInputTitle">
+        <div class="location">at line 650</div>
+        <code>            public            
+    <strong>writeInputTitle</strong>(string $title)</code>
+    </h3>
+    <div class="details">
+        <p>Write a title for each processed file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$title</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

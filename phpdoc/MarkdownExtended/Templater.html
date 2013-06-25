@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Templater | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\Templater</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>Templater</strong>        implements
+        <a href="../MarkdownExtended/TemplaterInterface.html"><abbr title="MarkdownExtended\TemplaterInterface">TemplaterInterface</abbr></a></p>
+
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>(array $user_config = array())
+                    <p>Construction of a new template object</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method___toString">__toString</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_load">load</a>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $mde_content)
+                    <p>Load a content object</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+<<<<<<< HEAD
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_loadCollection">loadCollection</a>(<a href="../MarkdownExtended/ContentCollection.html"><abbr title="MarkdownExtended\ContentCollection">ContentCollection</abbr></a> $mde_content_collection)
+                    <p>Load a contents collection object</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+=======
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getContent">getContent</a>()
+                    <p>Get the current content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getTemplate">getTemplate</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+<<<<<<< HEAD
+                    <a href="#method_buildTemplate">buildTemplate</a>(array $params)
+                    <p>Build a template content passing it arguments</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+=======
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                    <a href="#method_parse">parse</a>()
+                    <p>Parse a content to complete it and pass it in a template if necessary</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+<<<<<<< HEAD
+                    <a href="#method_parseCollection">parseCollection</a>()
+                    <p>Parse a contents collection to complete it and pass it in a template if necessary</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+=======
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+                    <a href="#method_parseContent">parseContent</a>()
+                    <p>Parse a in-body tags</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_parseTemplate">parseTemplate</a>()
+                    <p>Parse a template content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_autoInsert">autoInsert</a>()
+                    <p>Insert tags from 'auto_insert' config entry</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+<<<<<<< HEAD
+        <div class="location">at line 58</div>
+=======
+        <div class="location">at line 53</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>__construct</strong>(array $user_config = array())</code>
+    </h3>
+    <div class="details">
+        <p>Construction of a new template object</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$user_config</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method___toString">
+<<<<<<< HEAD
+        <div class="location">at line 72</div>
+=======
+        <div class="location">at line 67</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            string
+    <strong>__toString</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_load">
+<<<<<<< HEAD
+        <div class="location">at line 93</div>
+=======
+        <div class="location">at line 82</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>load</strong>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $mde_content)</code>
+    </h3>
+    <div class="details">
+        <p>Load a content object</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td>$mde_content</td>
+                <td>MarkdownExtended\Content</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_loadCollection">
+        <div class="location">at line 106</div>
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>loadCollection</strong>(<a href="../MarkdownExtended/ContentCollection.html"><abbr title="MarkdownExtended\ContentCollection">ContentCollection</abbr></a> $mde_content_collection)</code>
+    </h3>
+    <div class="details">
+        <p>Load a contents collection object</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/ContentCollection.html"><abbr title="MarkdownExtended\ContentCollection">ContentCollection</abbr></a></td>
+                <td>$mde_content_collection</td>
+                <td>MarkdownExtended\ContentCollection</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getContent">
+        <div class="location">at line 117</div>
+=======
+                <h3 id="method_getContent">
+        <div class="location">at line 93</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            string
+    <strong>getContent</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the current content</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getTemplate">
+<<<<<<< HEAD
+        <div class="location">at line 129</div>
+=======
+        <div class="location">at line 105</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            string
+    <strong>getTemplate</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_buildTemplate">
+        <div class="location">at line 149</div>
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>buildTemplate</strong>(array $params)</code>
+    </h3>
+    <div class="details">
+        <p>Build a template content passing it arguments</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$params</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\Excpetion\Exception">Exception</abbr></td>
+                <td>if template file not found</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parse">
+        <div class="location">at line 173</div>
+=======
+                <h3 id="method_parse">
+        <div class="location">at line 136</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>parse</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Parse a content to complete it and pass it in a template if necessary</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+<<<<<<< HEAD
+                <h3 id="method_parseCollection">
+        <div class="location">at line 187</div>
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>parseCollection</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Parse a contents collection to complete it and pass it in a template if necessary</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseContent">
+        <div class="location">at line 210</div>
+=======
+                <h3 id="method_parseContent">
+        <div class="location">at line 150</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>parseContent</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Parse a in-body tags</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseTemplate">
+<<<<<<< HEAD
+        <div class="location">at line 224</div>
+=======
+        <div class="location">at line 164</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>parseTemplate</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Parse a template content</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_autoInsert">
+<<<<<<< HEAD
+        <div class="location">at line 239</div>
+=======
+        <div class="location">at line 179</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
+    <strong>autoInsert</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Insert tags from 'auto_insert' config entry</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Helper | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\Helper</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>Helper</strong></p>
+
+            <div class="description">
+            <p>Global Markdown Extended Helper</p>
+            <p>
+</p>
+        </div>
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_debug">debug</a>($a = &#039;&#039;, $what = null, $exit = true)
+                    <p>Debug function</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_info">info</a>($html = false)
+                    <p>Get information string about the current Markdown Extended object</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_escapeCodeContent">escapeCodeContent</a>(string $code)
+                    <p>Escape the code blocks contents to get HTML entities</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_fillPlaceholders">fillPlaceholders</a>(string $text, string $replacement)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_header2Label">header2Label</a>(string $text)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_encodeEmailAddress">encodeEmailAddress</a>(string $addr)
+                    <p>Input: an email address, e.g.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildRegex">buildRegex</a>($mask, $delimiter = &#039;#&#039;, $options = &#039;i&#039;)
+                    <p>Get a ready-to-use regular expression from a string pattern</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_find">find</a>(string $file_name, string $type = null)
+                    <p>Find a resource file and return its path</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getRelativeClassname">getRelativeClassname</a>(string $class_name)
+                    <p>Get a class name without the current namespace if present</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getAbsoluteClassname">getAbsoluteClassname</a>(string $class_name)
+                    <p>Get a class name with the current namespace</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_toCamelCase">toCamelCase</a>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)
+                    <p>Transform a name in CamelCase</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_fromCamelCase">fromCamelCase</a>($name, $replace = &#039;_&#039;, $lowerize_first_char = true)
+                    <p>Transform a name from CamelCase to other</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;<abbr title="MarkdownExtended\misc">misc</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_extend">extend</a>($what, $add)
+                    <p>Extend a value with another, if types match</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;bool
+                </td>
+                <td class="last">
+                    <a href="#method_validateVarname">validateVarname</a>($var)
+                    <p>Validate a var name</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getFileSize">getFileSize</a>(string $file_path)
+                    <p>Get a human readable file size</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getFullContent">getFullContent</a>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)
+                    <p>Get a complete version of parsed content, including metadata, body and notes</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getToc">getToc</a>(array $menu)
+                    <p>Build a hierarchical menu</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_debug">
+        <div class="location">at line 37</div>
+        <code>            public            
+    <strong>debug</strong>($a = &#039;&#039;, $what = null, $exit = true)</code>
+    </h3>
+    <div class="details">
+        <p>Debug function</p>
+        <p>WARNING: first argument is not used (to allow <code>debug</code> from Gamut stacks)</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$a</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$what</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$exit</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_info">
+        <div class="location">at line 52</div>
+        <code>        static    public            
+    <strong>info</strong>($html = false)</code>
+    </h3>
+    <div class="details">
+        <p>Get information string about the current Markdown Extended object</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$html</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_escapeCodeContent">
+        <div class="location">at line 73</div>
+        <code>        static    public            string
+    <strong>escapeCodeContent</strong>(string $code)</code>
+    </h3>
+    <div class="details">
+        <p>Escape the code blocks contents to get HTML entities</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$code</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_fillPlaceholders">
+        <div class="location">at line 82</div>
+        <code>        static    public            
+    <strong>fillPlaceholders</strong>(string $text, string $replacement)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$replacement</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_header2Label">
+        <div class="location">at line 90</div>
+        <code>        static    public            
+    <strong>header2Label</strong>(string $text)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_encodeEmailAddress">
+        <div class="location">at line 120</div>
+        <code>        static    public            string
+    <strong>encodeEmailAddress</strong>(string $addr)</code>
+    </h3>
+    <div class="details">
+        <p>Input: an email address, e.g.</p>
+        <p>"foo@example.com"</p>
+
+<p>Output: the email address as a mailto link, with each character
+     of the address encoded as either a decimal or hex entity, in
+     the hopes of foiling most address harvesting spam bots. E.g.:</p>
+
+   <p><a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;o&#111;
+       &#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#111;
+       &#x6d;">&#x66;o&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;
+       &#101;&#46;&#x63;&#111;&#x6d;</a></p>
+
+<p>Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
+  With some optimizations by Milian Wolff.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$addr</td>
+                <td>The email address to encode</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The encoded address</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildRegex">
+        <div class="location">at line 155</div>
+        <code>        static    public            string
+    <strong>buildRegex</strong>($mask, $delimiter = &#039;#&#039;, $options = &#039;i&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Get a ready-to-use regular expression from a string pattern</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$mask</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$delimiter</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$options</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_find">
+        <div class="location">at line 179</div>
+        <code>        static    public            string
+    <strong>find</strong>(string $file_name, string $type = null)</code>
+    </h3>
+    <div class="details">
+        <p>Find a resource file and return its path</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$file_name</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$type</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getRelativeClassname">
+        <div class="location">at line 207</div>
+        <code>        static    public            string
+    <strong>getRelativeClassname</strong>(string $class_name)</code>
+    </h3>
+    <div class="details">
+        <p>Get a class name without the current namespace if present</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$class_name</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getAbsoluteClassname">
+        <div class="location">at line 223</div>
+        <code>        static    public            string
+    <strong>getAbsoluteClassname</strong>(string $class_name)</code>
+    </h3>
+    <div class="details">
+        <p>Get a class name with the current namespace</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$class_name</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_toCamelCase">
+        <div class="location">at line 240</div>
+        <code>        static    public            string
+    <strong>toCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)</code>
+    </h3>
+    <div class="details">
+        <p>Transform a name in CamelCase</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td>The string to transform</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$replace</td>
+                <td>Replacement character</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$capitalize_first_char</td>
+                <td>May the first letter be in upper case (default is <code>true</code>)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The CamelCase version of <code>$name</code></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_fromCamelCase">
+        <div class="location">at line 262</div>
+        <code>        static    public            string
+    <strong>fromCamelCase</strong>($name, $replace = &#039;_&#039;, $lowerize_first_char = true)</code>
+    </h3>
+    <div class="details">
+        <p>Transform a name from CamelCase to other</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$replace</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$lowerize_first_char</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The not<em>camel</em>case version of <code>$name</code></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_extend">
+        <div class="location">at line 289</div>
+        <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
+    <strong>extend</strong>($what, $add)</code>
+    </h3>
+    <div class="details">
+        <p>Extend a value with another, if types match</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$what</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$add</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if trying to extend an array with not an array</td>
+            </tr>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if trying to extend an object</td>
+            </tr>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if type unknown</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_validateVarname">
+        <div class="location">at line 323</div>
+        <code>        static    public            bool
+    <strong>validateVarname</strong>($var)</code>
+    </h3>
+    <div class="details">
+        <p>Validate a var name</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$var</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if the var name is not an alpha-numeric string</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getFileSize">
+        <div class="location">at line 343</div>
+        <code>        static    public            string
+    <strong>getFileSize</strong>(string $file_path)</code>
+    </h3>
+    <div class="details">
+        <p>Get a human readable file size</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$file_path</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getFullContent">
+        <div class="location">at line 376</div>
+        <code>        static    public            string
+    <strong>getFullContent</strong>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Get a complete version of parsed content, including metadata, body and notes</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td>$md_content</td>
+                <td>\MarkdownExtended\Content</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$full_html</td>
+                <td>Defines if the meatdata must be returned in a <code>&lt;head&gt;</code> block</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$include_toc</td>
+                <td>Include a table-of-content (default is <code>false</code>)</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$html_tag</td>
+                <td>Defines the HTML header tag</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getToc">
+        <div class="location">at line 441</div>
+        <code>        static    public            string
+    <strong>getToc</strong>(array $menu)</code>
+    </h3>
+    <div class="details">
+        <p>Build a hierarchical menu</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$menu</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

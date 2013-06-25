@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\OutputFormatBag | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\OutputFormatBag</h1>
+    </div>
+        <div class="content">
+                <p>class    <strong>OutputFormatBag</strong></p>
+
+            <div class="description">
+            <p>PHP Markdown Extended OutputFormat container</p>
+            <p>
+</p>
+        </div>
+    
+    
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_tag_names">
+                    static                                        
+                </td>
+                <td>$tag_names</td>
+                <td class="last">Table of grammar output tags called by filters (must be defined in the output formater)</td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_load">load</a>(string $format)
+                    <p>Loads a new formater</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_loadHelper">loadHelper</a>(string $format)
+                    <p>Loads a formater helper if it exists</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___call">__call</a>($name, array $arguments = null)
+                    <p>Magic method to pass any called method from the bag to its formater</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setFormater">setFormater</a>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr> $formater)
+                    <p>Set the current formater</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    object
+                </td>
+                <td class="last">
+                    <a href="#method_getFormater">getFormater</a>()
+                    <p>Get current formater</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_setHelper">setHelper</a>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr> $helper)
+                    <p>Set the current formater helper</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    object
+                </td>
+                <td class="last">
+                    <a href="#method_getHelper">getHelper</a>()
+                    <p>Get current formater helper</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_load">
+        <div class="location">at line 67</div>
+        <code>            public            
+    <strong>load</strong>(string $format)</code>
+    </h3>
+    <div class="details">
+        <p>Loads a new formater</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$format</td>
+                <td>The formater name</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
+                <td>if the formater class doesn't implement <code>\MarkdownExtended\OutputFormatInterface</code></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_loadHelper">
+<<<<<<< HEAD
+        <div class="location">at line 86</div>
+=======
+        <div class="location">at line 83</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>loadHelper</strong>(string $format)</code>
+    </h3>
+    <div class="details">
+        <p>Loads a formater helper if it exists</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$format</td>
+                <td>The formater name</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
+                <td>if the helper class doesn't implement <code>\MarkdownExtended\OutputFormatHelperInterface</code></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method___call">
+<<<<<<< HEAD
+        <div class="location">at line 105</div>
+=======
+        <div class="location">at line 99</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>__call</strong>($name, array $arguments = null)</code>
+    </h3>
+    <div class="details">
+        <p>Magic method to pass any called method from the bag to its formater</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$arguments</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if the method doesn't exist in the formater class</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setFormater">
+<<<<<<< HEAD
+        <div class="location">at line 128</div>
+=======
+        <div class="location">at line 122</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>setFormater</strong>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr> $formater)</code>
+    </h3>
+    <div class="details">
+        <p>Set the current formater</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></td>
+                <td>$formater</td>
+                <td>MarkdownExtended\OutputFormatInterface</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getFormater">
+<<<<<<< HEAD
+        <div class="location">at line 139</div>
+=======
+        <div class="location">at line 133</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            object
+    <strong>getFormater</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get current formater</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>object</td>
+            <td>MarkdownExtended\OutputFormatInterface</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setHelper">
+<<<<<<< HEAD
+        <div class="location">at line 149</div>
+=======
+        <div class="location">at line 143</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            
+    <strong>setHelper</strong>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr> $helper)</code>
+    </h3>
+    <div class="details">
+        <p>Set the current formater helper</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\MarkdownExtended\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></td>
+                <td>$helper</td>
+                <td>MarkdownExtended\OutputFormatHelperInterface</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getHelper">
+<<<<<<< HEAD
+        <div class="location">at line 160</div>
+=======
+        <div class="location">at line 154</div>
+>>>>>>> 8e9070493ba815c299965e061b7c88547b0ba1cb
+        <code>            public            object
+    <strong>getHelper</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get current formater helper</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>object</td>
+            <td>MarkdownExtended\OutputFormatHelperInterface</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>
