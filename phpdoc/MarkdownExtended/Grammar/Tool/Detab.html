@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Grammar\Tool\Detab | Markdown Extended</title>
+        <title>MarkdownExtended\Grammar\Tool\Detab | </title>
                     <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
                             </head>
         <body id="class">
@@ -16,7 +16,7 @@
             
         </ul>
 
-        <div id="title">Markdown Extended</div>
+        <div id="title"></div>
 
             <div class="type">Class</div>
     <h1><a href="../../../MarkdownExtended/Grammar/Tool.html">MarkdownExtended\Grammar\Tool</a>\Detab</h1>
@@ -58,7 +58,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_run">run</a>(string $text)
-                    <p>Must process the tool on a text</p>
+                    <p>Replace tabs with the appropriate amount of space.</p>
                 </td>
                 <td></td>
             </tr>
@@ -109,9 +109,10 @@
     <strong>run</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Must process the tool on a text</p>
-        <p>
-</p>
+        <p>Replace tabs with the appropriate amount of space.</p>
+        <p>For each line we separate the line in blocks delemited by
+tab characters. Then we reconstruct every line by adding the 
+appropriate number of space between each blocks.</p>
         <div class="tags">
                             <h4>Parameters</h4>
 
