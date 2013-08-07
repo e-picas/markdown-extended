@@ -79,7 +79,7 @@ final class MarkdownExtended
      * Class infos ; can be automatically updated by `pre-commit-hook.sh`
      */
     const MDE_NAME = 'PHP Markdown Extended';
-    const MDE_VERSION = '0.0.10-dev';
+    const MDE_VERSION = '0.0.11-dev';
     const MDE_SOURCES = 'http://github.com/atelierspierrot/markdown-extended';
 
     /**
@@ -305,10 +305,12 @@ final class MarkdownExtended
     public static function factory($class, $params = null)
     {
         $class_name = $class;
-        if (!class_exists($class)) {
-            $class = MDE_Helper::getAbsoluteClassname($class);
-            $class_name = MDE_Helper::getRelativeClassname($class);
+        $mde_class = MDE_Helper::getAbsoluteClassname($class);
+        if (!class_exists($mde_class) && !class_exists($class)) {
+            $class_name = MDE_Helper::getRelativeClassname($mde_class);
             self::load($class);
+        } elseif (class_exists($mde_class)) {
+            $class = $mde_class;
         }
         $_obj = !is_null($params) ? new $class($params) : new $class;
         self::$registry->set($class_name, $_obj);
