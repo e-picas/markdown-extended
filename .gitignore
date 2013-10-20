@@ -24,6 +24,8 @@ composer.lock
 #bin/markdown_extended.man
 bin/sami.php
 bin/phpunit
+bin/pdepend
+bin/phpmd
 
 # user defined files
 user/*
