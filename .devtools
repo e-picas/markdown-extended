@@ -1,0 +1,3 @@
+DEFAULT_FIXRIGHTS_BIN_DIR=bin
+DEFAULT_VERSIONTAG_HOOK=pre-tag-hook.sh
+DEFAULT_MANPAGE_FILENAME=bin/markdown-extended.man
