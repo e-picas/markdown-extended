@@ -38,6 +38,7 @@ use MarkdownExtended\MarkdownExtended,
  *
  *      ~$ ./bin/markdown_extended -o MANPAGENAME.man -f man path/to/original.md
  * 
+ * @see http://manpages.ubuntu.com/manpages/oneiric/man7/groff_man.7.html
  */
 class Man 
     implements OutputFormatInterface
@@ -122,14 +123,50 @@ class Man
 // Tag specific builder
 // -------------------
 
+    protected $_current_title_level = 0;
+    protected $subtitle_max_level = 3;
+
     public function buildTitle($text, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        if (in_array(strtolower($text), self::$sections)) {
-            return $this->new_line . '.SH ' . strtoupper($text) . $this->new_line;
-        } else {
-            return $this->new_line . '.B ' . strtoupper($text) . $this->new_line;
+        $level = isset($attributes['level']) ? $attributes['level'] : '1';
+        $indent = '';
+        if ($this->_current_title_level!==0) {
+            $lvl = $level;
+            if ($lvl>=$this->_current_title_level) {
+                while ($lvl>=$this->_current_title_level) {
+                    $indent .= $this->unindent();
+                    $lvl--;
+                }
+            } elseif ($lvl<=$this->_current_title_level) {
+                while ($lvl<=$this->_current_title_level) {
+                    $indent .= $this->indent();
+                    $lvl++;
+                }
+            }
         }
+        if ((int) $level <= $this->subtitle_max_level && in_array(strtolower($text), self::$sections)) {
+            $this->_current_title_level = 0;
+            return $this->new_line . $indent . '.SH ' . strtoupper($text) . $this->new_line;
+        } elseif ((int) $level <= $this->subtitle_max_level) {
+            $this->_current_title_level = 0;
+            return $this->new_line . $indent . '.SS ' . $text . $this->new_line;
+        } else {
+            $indent .= $this->indent();
+            $this->_current_title_level = $level;
+            return $this->new_line . $indent . '.IP '
+                . $this->buildBold(ucfirst($text)) . $this->new_line;
+        }
+    }
+
+    public function indent()
+    {
+        return '.RS' . $this->new_line;
+    }
+    
+    public function unindent()
+    {
+        return '.RE' . $this->new_line;
     }
     
     public function buildMetaData($text = null, array $attributes = array())
@@ -176,7 +213,13 @@ class Man
     public function buildPreformated($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return '    ' . str_replace("\n", $this->buildTag('new_line') . '    ', $text);
+        return 
+            $this->indent()
+            . $this->new_line . '.EX' . $this->new_line
+            . str_replace("\n", $this->buildTag('new_line') . '    ', $text)
+            . $this->new_line . '.EE' . $this->new_line
+            . $this->unindent()
+            ;
     }
 
     public function buildCode($text = null, array $attributes = array())
@@ -188,7 +231,10 @@ class Man
     public function buildAbbreviation($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return $text . (!empty($attributes['title']) ? ' (' . $attributes['title'] . ')' : '');
+        return $text . (!empty($attributes['title']) ? ' ('
+            . $this->new_line . '.SM '. $attributes['title']
+            . $this->new_line . ')' 
+            : '');
     }
 
     public function buildDefinitionListItemTerm($text = null, array $attributes = array())
@@ -222,19 +268,47 @@ class Man
     public function buildListItem($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return $this->new_line . '- ' . $text . $this->new_line;
+        return $this->new_line . '.IP \(bu ' . $this->new_line . $text . $this->new_line;
     }
 
     public function buildUnorderedListItem($text = null, array $attributes = array())
     {
-        $text = html_entity_decode($text);
-        return $this->new_line . '- ' . $text . $this->new_line;
+        return $this->buildListItem($text, $attributes);
     }
+
+    protected $ordered_list_counter = 1;
 
     public function buildOrderedListItem($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return $this->new_line . '- ' . $text . $this->new_line;
+        $str = $this->new_line . '.IP ' . $this->ordered_list_counter 
+            . ' ' . $this->new_line . $text . $this->new_line;
+        $this->ordered_list_counter++;
+        return $str;
+    }
+
+    public function buildList($text = null, array $attributes = array())
+    {
+        $text = html_entity_decode($text);
+        return $this->new_line . $this->indent()
+            . $text
+            . $this->new_line . $this->unindent();
+    }
+
+    public function buildUnorderedList($text = null, array $attributes = array())
+    {
+        return $this->buildList($text, $attributes);
+    }
+
+    public function buildOrderedList($text = null, array $attributes = array())
+    {
+        $this->ordered_list_counter = 1;
+        return $this->buildList($text, $attributes);
+    }
+
+    public function buildLink($text = null, array $attributes = array())
+    {
+        return '<' . $text . '>';
     }
 
 }
