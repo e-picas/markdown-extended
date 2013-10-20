@@ -45,7 +45,6 @@ phpdoc/*
 # this may be commented on the "wip" branch
 dev/*
 build/*
-tests/*
 
 # specific MDE files
 bin/sami.php
