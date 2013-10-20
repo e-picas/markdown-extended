@@ -155,15 +155,15 @@ with the common `Markdown($content)` function ; to use it, just include the file
 
 A short command line interface is proposed in the package running:
 
-    ~$ bin/markdown_extended --help
+    ~$ bin/markdown-extended --help
 
 This interface allows you to parse one or more files, extract some informations from sources,
 write the results in files and some other stuff.
 
 To generate a man-page from file `docs/MANPAGE.md` with the interface itself, run:
 
-    ~$ bin/markdown_extended -f man -o bin/markdown_extended.man docs/MANPAGE.md
-    ~$ man ./bin/markdown_extended.man
+    ~$ bin/markdown-extended -f man -o bin/markdown-extended.man docs/MANPAGE.md
+    ~$ man ./bin/markdown-extended.man
 
 #### Apache handler usage
 

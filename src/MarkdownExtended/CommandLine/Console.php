@@ -154,7 +154,7 @@ The rendering can be the full parsed content or just a part of this content.
 By default, result is written through stdout in HTML format.
 
 Usage:
-    ~$ php path/to/markdown_extended [OPTIONS ...] [INPUT FILE(S) OR STRING(S)]
+    ~$ php path/to/markdown-extended [OPTIONS ...] [INPUT FILE(S) OR STRING(S)]
 
 Options:
     -v | --version             get Markdown version information
@@ -173,7 +173,7 @@ Aliases:
     -b | --body                get only the body part from parsed content (alias of '-e=body')
     -s | --simple              use the simple pre-defined configuration file ; preset for input fields
 
-For a full manual, try `~$ man ./path/to/markdown_extended.man` if the file exists ;
+For a full manual, try `~$ man ./path/to/markdown-extended.man` if the file exists ;
 if it doesn't, you can try option '--man' of this script to generate it if possible.
 
 More infos at <{$class_sources}>.
@@ -215,15 +215,15 @@ EOT;
     {
         $info = '';
         $man_ok = $this->exec("which man");
-        $man_path = getcwd() . '/bin/markdown_extended.man';
+        $man_path = getcwd() . '/bin/markdown-extended.man';
         if (!empty($man_ok)) {
             if (!file_exists($man_path)) {
-                $ok = $this->exec("php bin/markdown_extended -f man -o bin/markdown_extended.man docs/MANPAGE.md");
+                $ok = $this->exec("php bin/markdown-extended -f man -o bin/markdown-extended.man docs/MANPAGE.md");
             }
             if (file_exists($man_path)) {
-                $info = 'OK, you can now run "man ./bin/markdown_extended.man"';
+                $info = 'OK, you can now run "man ./bin/markdown-extended.man"';
             } else {
-                $info = 'Can not launch "man" command, file not found or command not accessible ... Try to run "man ./bin/markdown_extended.man".';
+                $info = 'Can not launch "man" command, file not found or command not accessible ... Try to run "man ./bin/markdown-extended.man".';
             }
         }
         $this->write($info);
@@ -599,7 +599,7 @@ EOT;
                 $this->md_parsed_content .= $md_output;
                 $this->info("OK", true, false);
             } else {
-                $this->error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown_extended ...`)");
+                $this->error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
             }
         }
         return $md_output;
@@ -654,7 +654,7 @@ EOT;
                 }
                 $this->info("OK [entries: ".$length."]", true, false);
             } else {
-                $this->error("An error occured while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown_extended ...`)");
+                $this->error("An error occured while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
             }
         }
         return $md_output;
