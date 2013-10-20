@@ -41,10 +41,10 @@ vendor/*
 # this may be commented on the "dev" branch
 phpdoc/*
 
-# specific to the "wip" branch
-#build/*
+# for development ...
+# this may be commented on the "wip" branch
 #dev/*
-#tests/*
+#build/*
 
 # specific MDE files
 bin/sami.php
