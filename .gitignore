@@ -1,7 +1,7 @@
-# Hack to allow keeping an empty directory
+### Hack to allow keeping an empty directory
 !.gitkeep
 
-# OS & software files
+### OS & software files
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -15,24 +15,27 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Les Ateliers specifics:
+# IDE files
+# to be commented to include them in a project
+.project
+.buildpath
+.idea/*
+
+### Les Ateliers specifics
 
 # the composer lock file
 composer.lock
 
-# specific MDE files
-#bin/markdown_extended.man
-bin/sami.php
-bin/phpunit
-bin/pdepend
-bin/phpmd
+# any "tmp*" file or dir anywhere
+*tmp*
 
 # user defined files
 user/*
-demo/user/*
+*/user/*
 
 # the external packages installed by Composer, Template Engine or others
 vendor/*
+*/vendor/*
 
 # the documentation, that is NOT under version-control by default
 # this may be commented on the "dev" branch
@@ -42,11 +45,13 @@ phpdoc/*
 # this may be commented on the "wip" branch
 dev/*
 build/*
-#tests/*
+tests/*
 
-# any "tmp*" file or dir
-tmp*
-demo/tmp*
+# specific MDE files
+bin/sami.php
+bin/phpunit
+bin/pdepend
+bin/phpmd
 
 # for now ...
 MANIFEST.md
