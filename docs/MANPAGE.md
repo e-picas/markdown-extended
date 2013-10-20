@@ -1,4 +1,4 @@
-Man:        markdown_extended Manual
+Man:        markdown-extended Manual
 Name:       MarkdownExtended
 Author:     Les Ateliers Pierrot
 Date: 2013-06-17
@@ -14,9 +14,9 @@ A complete PHP 5.3 package of Markdown syntax parser (extended version) - Comman
 
 ## SYNOPSIS
 
-**markdown_extended [options] arguments**
+**markdown-extended [options] arguments**
 
-**markdown_extended**  [**-h**|**-v**]  [**-x**|**-v**|**-q**|**-m**]
+**markdown-extended**  [**-h**|**-v**]  [**-x**|**-v**|**-q**|**-m**]
     [**-o** *filename*]  [**-c** *configfile*]  [**-f** *format*]
     [**-n** *a,b*]  [**-e**[=*block*]]  [**-g**[=*name*]]
     **input_filename**  [**input_filename**]  [...]
@@ -119,25 +119,25 @@ This script requires PHP version 5.3.0 minimum.
 
 Classic parsing of the content of the Markdown syntax file `sample.md`:
 
-    ~$ path/to/markdown_extended sample.md
+    ~$ path/to/markdown-extended sample.md
 
 For the same example, writing the output in file `sample_parsed.html`, run:
 
-    ~$ path/to/markdown_extended -o sample_parsed.html sample.md
+    ~$ path/to/markdown-extended -o sample_parsed.html sample.md
 
 To extract meta-data from `sample.md`, run:
 
-    ~$ path/to/markdown_extended -e sample.md
+    ~$ path/to/markdown-extended -e sample.md
 
 To build a man-page formated file from the Markdown source `man-sample.md`, run:
 
-    ~$ path/to/markdown_extended -f man -o man-sample.man man-sample.md
+    ~$ path/to/markdown-extended -f man -o man-sample.man man-sample.md
     // to open it with `man`:
     ~$ man ./man-sample.man
 
 To transform a string read from STDIN, run:
 
-    ~$ path/to/markdown_extended -e=body "My **Markdown** string"
+    ~$ path/to/markdown-extended -e=body "My **Markdown** string"
 
 
 ## LICENSE

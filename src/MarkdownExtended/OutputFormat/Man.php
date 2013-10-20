@@ -36,7 +36,7 @@ use MarkdownExtended\MarkdownExtended,
  *
  * Usage:
  *
- *      ~$ ./bin/markdown_extended -o MANPAGENAME.man -f man path/to/original.md
+ *      ~$ ./bin/markdown-extended -o MANPAGENAME.man -f man path/to/original.md
  * 
  * @see http://manpages.ubuntu.com/manpages/oneiric/man7/groff_man.7.html
  */
