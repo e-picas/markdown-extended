@@ -64,7 +64,7 @@ class BlockQuote extends Filter
     protected function _callback($matches) 
     {
         $bq = $matches[1];
-        $cite = $matches[2];
+        $cite = isset($matches[2]) ? $matches[2] : null;
         // trim one level of quoting - trim whitespace-only lines
         $bq = preg_replace('/^[ ]*>[ ]?(\((.+?)\))?|^[ ]+$/m', '', $bq);
         $bq = parent::runGamut('html_block_gamut', $bq); # recurse

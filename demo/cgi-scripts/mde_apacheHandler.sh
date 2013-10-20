@@ -19,7 +19,7 @@
 # <http://daringfireball.net/projects/markdown/>
 
 ## Config
-CONSOLE="`pwd`/../../bin/markdown_extended"
+CONSOLE="`pwd`/../../bin/markdown-extended"
 CHARSET='utf-8'
 OPTIONS=''
 REQ="$PATH_TRANSLATED"
