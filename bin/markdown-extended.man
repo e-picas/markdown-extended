@@ -1,6 +1,6 @@
 .\" author: Les Ateliers Pierrot
 
-.TH  "MarkdownExtended" "3" "2013-06-17" "Version 0.0.8-dev" "markdown_extended Manual"
+.TH  "MarkdownExtended" "3" "2013-10-21" "Version 0.1-alpha" "markdown-extended Manual"
 
 .SH NAME
 
@@ -13,10 +13,10 @@ A complete PHP 5.3 package of Markdown syntax parser (extended version) - Comman
 .SH SYNOPSIS
 
 .PP
-\fBmarkdown_extended [options] arguments\fP
+\fBmarkdown-extended [options] arguments\fP
 
 .PP
-\fBmarkdown_extended\fP  [\fB-h\fP|\fB-v\fP]  [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP]
+\fBmarkdown-extended\fP  [\fB-h\fP|\fB-v\fP]  [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP]
     [\fB-o\fP \fIfilename\fP]  [\fB-c\fP \fIconfigfile\fP]  [\fB-f\fP \fIformat\fP]
     [\fB-n\fP \fIa,b\fP]  [\fB-e\fP[=\fIblock\fP]]  [\fB-g\fP[=\fIname\fP]]
     \fBinput_filename\fP  [\fBinput_filename\fP]  [...]
@@ -87,23 +87,34 @@ Extract the `\fSbody\fP` part from content(s) ; alias of option `\fS-e=body\fP`.
 .TP
 \fB-s\fP , \fB--simple\fP
 Use the simple default configuration file defined by the `\fSMarkdownExtended::SIMPLE_CONFIGFILE\fP`
-constant ; this is a preset to treat contents comming from input fields.
+constant ; this is a preset to treat contents coming from input fields.
+.PP
+A special '--debug' option can be used during development ; it enables the `\fS$debug\fP` flag of
+the PHP `\fS\MarkdownExtended\CommandLine\fP` namespace objects.
+
 .SH MESSAGES
 
 .PP
 The script output is designed to use options '-x' or '--verbose' to increase
 script verbosity on STDOUT and '-q' or '--quiet' to decrease it. The idea is quiet simple:
 
-- in "\fBnormal\fP" rendering (no "verbose" neither than "quiet" mode), the result of the 
+.RS
+
+.IP \(bu 
+in "\fBnormal\fP" rendering (no "verbose" neither than "quiet" mode), the result of the 
 processed content is rendered, with the file name header in case of multi-files input
 and command line script's errors are rendered ;
 
-- in "\fBverbose\fP" mode, some process informations are shown, informing user about what is
+.IP \(bu 
+in "\fBverbose\fP" mode, some process informations are shown, informing user about what is
 happening, helps to follow process execution and get some informations such as some
 string lengthes ; the command line script errors are rendered ;
 
-- in "\fBquiet\fP" mode, nothing is written through SDTOUT except result of parsed content(s) ;
+.IP \(bu 
+in "\fBquiet\fP" mode, nothing is written through SDTOUT except result of parsed content(s) ;
 the command line script's errors are NOT rendered.
+
+.RE
 
 .PP
 For all of these cases, PHP errors catched during Markdown Extended classes execution are
@@ -119,57 +130,87 @@ This script requires PHP version 5.3.0 minimum.
 
 .PP
 Classic parsing of the content of the Markdown syntax file `\fSsample.md\fP`:
-    ~$ path/to/markdown_extended sample.md
+.RS
+
+.EX
+~$ path/to/markdown-extended sample.md
+.EE
+.RE
+
 .PP
 For the same example, writing the output in file `\fSsample_parsed.html\fP`, run:
-    ~$ path/to/markdown_extended -o sample_parsed.html sample.md
+.RS
+
+.EX
+~$ path/to/markdown-extended -o sample_parsed.html sample.md
+.EE
+.RE
+
 .PP
 To extract meta-data from `\fSsample.md\fP`, run:
-    ~$ path/to/markdown_extended -e sample.md
+.RS
+
+.EX
+~$ path/to/markdown-extended -e sample.md
+.EE
+.RE
+
 .PP
 To build a man-page formated file from the Markdown source `\fSman-sample.md\fP`, run:
-    ~$ path/to/markdown_extended -f man -o man-sample.man man-sample.md
+.RS
+
+.EX
+~$ path/to/markdown-extended -f man -o man-sample.man man-sample.md
 .br
     // to open it with `man`:
 .br
     ~$ man ./man-sample.man
+.EE
+.RE
+
 .PP
 To transform a string read from STDIN, run:
-    ~$ path/to/markdown_extended -e=body "My **Markdown** string"
+.RS
+
+.EX
+~$ path/to/markdown-extended -e=body "My **Markdown** string"
+.EE
+.RE
+
 .SH LICENSE
 
 .PP
 This software is released under the BSD-3-Clause open source license. Please
 read the License.text file for more information, or see
-http://opensource.org/licenses/BSD-3-Clause.
+<http://opensource.org/licenses/BSD-3-Clause>.
 
 .PP
 PHP Markdown Extended - 
 Copyright (c) 2008-2013 Pierre Cassat - 
-http://github.com/atelierspierrot/markdown-extended
+<http://github.com/atelierspierrot/markdown-extended>
 
 .PP
 original MultiMarkdown - 
 Copyright (c) 2005-2009 Fletcher T. Penney - 
-http://fletcherpenney.net/
+<http://fletcherpenney.net/>
 
 .PP
 original PHP Markdown & Extra - 
 Copyright (c) 2004-2012 Michel Fortin - 
-http://michelf.com/projects/php-markdown/
+<http://michelf.com/projects/php-markdown/>
 
 .PP
 original Markdown - 
 Copyright (c) 2004-2006 John Gruber - 
-http://daringfireball.net/projects/markdown/
+<http://daringfireball.net/projects/markdown/>
 
 .SH BUGS
 
 .PP
-To transmit bugs, see http://github.com/atelierspierrot/markdown-extended/issues.
+To transmit bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.
 
 .SH AUTHOR
 
 .PP
-\fBLes Ateliers Pierrot\fP http://www.ateliers-pierrot.fr/
+\fBLes Ateliers Pierrot\fP <http://www.ateliers-pierrot.fr/>
 

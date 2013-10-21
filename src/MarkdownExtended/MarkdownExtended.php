@@ -79,7 +79,7 @@ final class MarkdownExtended
      * Class infos ; can be automatically updated by `pre-commit-hook.sh`
      */
     const MDE_NAME = 'PHP Markdown Extended';
-    const MDE_VERSION = '0.0.11-dev';
+    const MDE_VERSION = '0.1-alpha';
     const MDE_SOURCES = 'http://github.com/atelierspierrot/markdown-extended';
 
     /**
