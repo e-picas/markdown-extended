@@ -209,6 +209,10 @@ function emdreminders_popup(url){
                 <li><a href="index.php?doc=../README.md">plain text version</a></li>
                 <li><a href="index.php?doc=../README.md&amp;md=process">markdown parsed version</a></li>
             </ul></li>
+            <li><a href="index.php?doc=../docs/MANPAGE.md">Binary MANPAGE.md</a><ul>
+                <li><a href="index.php?doc=../docs/MANPAGE.md">plain text version</a></li>
+                <li><a href="index.php?doc=../docs/MANPAGE.md&amp;md=process">markdown parsed version</a></li>
+            </ul></li>
         </ul>
 
         <div class="info">
