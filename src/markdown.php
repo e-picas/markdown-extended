@@ -16,33 +16,16 @@
  * <http://daringfireball.net/projects/markdown/>
  */
 
-// -----------------------------------
-// COMPOSER
-// -----------------------------------
+// Show errors at least initially
+@ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
-// get the Composer autoloader
-if (file_exists($a = __DIR__.'/../../../autoload.php')) {
-    require_once $a;
-} elseif (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
-    require_once $b;
+// Namespaces loader
+require __DIR__.'/../src/bootstrap.php';
 
-// else try to register `MarkdownExtended` namespace
-} elseif (file_exists($c = __DIR__.'/SplClassLoader.php')) {
-    require_once $c;
-    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__);
-    $classLoader->register();
+// silent errors
+@error_reporting(-1);
 
-// else error, classes can't be found
-} else {
-    throw new \Exception(
-        'You need to run Composer on the project to build dependencies and auto-loading'
-        .' (see: <a href="http://getcomposer.org/doc/00-intro.md#using-composer">http://getcomposer.org/doc/00-intro.md#using-composer</a>)!'
-    );
-}
-
-// -----------------------------------
-// STANDARD FUNCTIONS INTERFACE
-// -----------------------------------
+// standard markdown functions for compatibility
 
 /**
  * Transform an input text by the MarkdownExtended

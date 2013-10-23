@@ -23,17 +23,19 @@
 // namespaces loader
 require __DIR__.'/../src/bootstrap.php';
 
+// phar compiler
+use MarkdownExtended\Compiler;
+
 // silent errors
 @error_reporting(-1);
 
-// launch console API
-if (php_sapi_name() === 'cli') { 
-	@set_time_limit(0);
-	\MarkdownExtended\MarkdownExtended::getInstance()
-	    ->get('CommandLine\Console')
-	    ->run();
-} else {
-    echo 'This file is for command line usage only!';
+// phar compilation
+try {
+    $compiler = new Compiler();
+    $compiler->compile();
+} catch (\Exception $e) {
+    echo 'Failed to compile phar: ['.get_class($e).'] '
+        .$e->getMessage().' at '.$e->getFile().':'.$e->getLine();
     exit(1);
 }
 

@@ -193,7 +193,7 @@ class RecursiveMenuIterator
     public function menuOffsetSetRecursive($index, $newval)
     {
         $this->_setRecursiveKey(null, $newval['level']);
-        $item =& $this->_menuGetRecursivePath();
+        $item = $this->_menuGetRecursivePath();
         $this->_initItem($newval);
         $item->addChild($index, $newval);
         $this->_setRecursiveKey($index, $newval['level']);

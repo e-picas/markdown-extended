@@ -52,5 +52,8 @@ bin/phpunit
 bin/pdepend
 bin/phpmd
 
+# no phar
+markdown-extended.phar
+
 # for now ...
 MANIFEST.md

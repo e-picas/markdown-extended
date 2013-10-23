@@ -55,10 +55,10 @@ class Console extends AbstractConsole
      * Command line options
      */
     static $cli_options = array(
-        'x'=>'verbose', 
+        'v'=>'verbose', 
         'q'=>'quiet', 
-        'debug', 
-        'v'=>'version', 
+        'x'=>'debug', 
+        'V'=>'version', 
         'h'=>'help', 
         'o:'=>'output:', 
         'm'=>'multi', 
@@ -149,17 +149,23 @@ class Console extends AbstractConsole
         $help_str = <<<EOT
 [ {$class_name} {$class_version} - CLI interface ]
 
-Converts text(s) in specified file(s) (or stdin) from markdown syntax source(s).
+Converts markdown syntax text(s) source(s) from specified file(s) (or STDIN).
 The rendering can be the full parsed content or just a part of this content.
-By default, result is written through stdout in HTML format.
+By default, result is written through STDOUT in HTML format.
+
+To transform a file content, write its path as script argument. To process a list of input
+files, just write file paths as arguments, separated by space.
+
+To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
+You can also use the output of a previous command using the pipe notation.
 
 Usage:
-    ~$ php path/to/markdown-extended [OPTIONS ...] [INPUT FILE(S) OR STRING(S)]
+    ~$ php path/to/markdown-extended  [OPTIONS ...]  [INPUT FILE(S) OR STRING(S)]
 
 Options:
-    -v | --version             get Markdown version information
+    -V | --version             get Markdown version information
     -h | --help                get this help information
-    -x | --verbose             increase verbosity of the script
+    -v | --verbose             increase verbosity of the script
     -q | --quiet               do not write Markdown Parser or PHP error messages
     -m | --multi               multi-files input (automatic if multiple file names found)
     -o | --output    = FILE    specify a file (or a file mask) to write generated content in
@@ -168,6 +174,7 @@ Options:
     -e | --extract  [= META]   extract some data (the meta data array by default) from the Markdown input
     -g | --gamuts   [= NAME]   get the list of gamuts (or just one if specified) processed on Markdown input
     -n | --nofilter  = A,B     specify a list of filters that will be ignored during Markdown parsing
+    -x | --debug               special flag for dev
 
 Aliases:
     -b | --body                get only the body part from parsed content (alias of '-e=body')
@@ -188,7 +195,7 @@ EOT;
      */
     public function runOption_version()
     {
-        $info = MDE_Helper::info();
+        $info = MDE_Helper::smallInfo();
         $git_ok = $this->exec("which git");
         $git_dir = getcwd() . '/.git';
         if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
@@ -199,7 +206,7 @@ EOT;
             )) {
                 $versions = $this->exec("git rev-parse --abbrev-ref HEAD && git rev-parse HEAD && git log -1 --format='%ci' --date=short | cut -s -f 1 -d ' '");
                 if (!empty($versions)) {
-                    $info .= ' '.implode(' ', $versions);
+                    $info .= PHP_EOL.implode(' ', $versions);
                 }
             }
         }

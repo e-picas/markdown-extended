@@ -84,8 +84,8 @@ abstract class AbstractConsole
      */
     public function __construct()
     {
-        $this->stdout = fopen('php://stdout', 'w');
-        $this->stdin = fopen('php://stdin', 'w');
+        $this->stdout = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c');
+        $this->stdin =  defined('STDIN') ? STDIN : fopen('php://stdin', 'c');
         if (php_sapi_name() != 'cli') {
             exit('<!-- NOT IN CLI -->');
         }
@@ -201,6 +201,24 @@ abstract class AbstractConsole
 // -------------------
 
     /**
+     * Get any output from previous command STDIN piped
+     * see <http://stackoverflow.com/a/9711142/2512020>
+     */
+    protected function readSafeStdin()
+    {
+        $fd = STDIN;
+        $data = null;
+        $read = array($fd);
+        $write = array();
+        $except = array();
+        $result = stream_select($read, $write, $except, 0);
+        if ($result !== false && $result !== 0) {
+            $data = fgets($fd);
+        }
+        return $data;
+    }
+
+    /**
      * Get the command line user options
      */
     protected function getOptions()
@@ -212,6 +230,12 @@ abstract class AbstractConsole
 
         $argv = $_SERVER['argv'];
         $last = array_pop($argv);
+
+        $piped = $this->readSafeStdin();
+        if (!empty($piped)) {
+            $this->input[] = trim($piped, " \n");
+        }
+
         while ($last && count($argv)>=1 && $last[0]!='-' && !in_array($last,$this->options)) {
             $this->input[] = $last;
             $last = array_pop($argv);
@@ -291,7 +315,7 @@ abstract class AbstractConsole
     {
         if (empty(self::$emd_instance)) {
             $this->info("Creating a MarkdownExtended instance with options ["
-                .str_replace("\n", '', var_export($_options,1))
+                .str_replace("\n", '', var_export($config,1))
                 ."]");
             self::$emd_instance = MarkdownExtended::create();
         }

@@ -5,18 +5,15 @@
 .SH NAME
 
 .PP
-\fBMarkdown Extended\fP
-
-.PP
-A complete PHP 5.3 package of Markdown syntax parser (extended version) - Command line interface
+markdown-extended - PHP 5.3 parser for the Markdown syntax (extended version)
 
 .SH SYNOPSIS
 
 .PP
-\fBmarkdown-extended [options] arguments\fP
+\fBmarkdown-extended  [options]  arguments\fP
 
 .PP
-\fBmarkdown-extended\fP  [\fB-h\fP|\fB-v\fP]  [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP]
+\fBmarkdown-extended\fP  [\fB-h\fP|\fB-V\fP]  [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP]
     [\fB-o\fP \fIfilename\fP]  [\fB-c\fP \fIconfigfile\fP]  [\fB-f\fP \fIformat\fP]
     [\fB-n\fP \fIa,b\fP]  [\fB-e\fP[=\fIblock\fP]]  [\fB-g\fP[=\fIname\fP]]
     \fBinput_filename\fP  [\fBinput_filename\fP]  [...]
@@ -25,17 +22,17 @@ A complete PHP 5.3 package of Markdown syntax parser (extended version) - Comman
 .SH DESCRIPTION
 
 .PP
-\fBMarkdown Extended\fP converts markdown syntax text(s) source(s) in specified file(s)
+\fBMarkdown Extended\fP converts markdown syntax text(s) source(s) from specified file(s)
 (or STDIN). The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
 
 .PP
-To transform a file content, write its path as script argument (file path may be relative
-to current working directory and must exist). To process a list of input files, just write
-file paths as arguments, separated by space.
+To transform a file content, write its path as script argument. To process a list of input
+files, just write file paths as arguments, separated by space.
 
 .PP
 To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
+You can also use the output of a previous command using the pipe notation.
 
 .SH OPTIONS
 
@@ -45,10 +42,10 @@ To transform a string read from STDIN, write it as last argument between double-
 \fB-h\fP , \fB--help\fP
 Get a simple help information.
 .TP
-\fB-v\fP , \fB--version\fP
-Get the current package version number.
+\fB-V\fP , \fB--version\fP
+Get the current package version number and informations.
 .TP
-\fB-x\fP , \fB--verbose\fP
+\fB-v\fP , \fB--verbose\fP
 Increase script's verbosity ; some steps are explained on STDOUT.
 .TP
 \fB-q\fP , \fB--quiet\fP
@@ -56,7 +53,7 @@ Decrease script's verbosity ; only result strings, Markdown Parser and PHP error
 messages are written on STDOUT.
 .TP
 \fB-m\fP , \fB--multi\fP
-Treat multi-files input ; this options is automatically enables if multiple file
+Treat multi-files input ; this option is automatically enables if multiple file
 names are found as arguments.
 .TP
 \fB-o\fP, \fB--output\fP =filename
@@ -89,8 +86,11 @@ Extract the `\fSbody\fP` part from content(s) ; alias of option `\fS-e=body\fP`.
 Use the simple default configuration file defined by the `\fSMarkdownExtended::SIMPLE_CONFIGFILE\fP`
 constant ; this is a preset to treat contents coming from input fields.
 .PP
-A special '--debug' option can be used during development ; it enables the `\fS$debug\fP` flag of
-the PHP `\fS\MarkdownExtended\CommandLine\fP` namespace objects.
+A special '-x | --debug' option can be used during development ; it enables the `\fS$debug\fP`
+flag of the PHP `\fS\\MarkdownExtended\\CommandLine\fP` namespace objects.
+
+.PP
+Use option '--man' to re-generate this manpage if possible.
 
 .SH MESSAGES
 
@@ -119,7 +119,7 @@ the command line script's errors are NOT rendered.
 .PP
 For all of these cases, PHP errors catched during Markdown Extended classes execution are
 rendered depending on your environment `\fSerror_reporting\fP` setting and script execution may
-exit with astatus code '90'.
+exit with a status code of '90'.
 
 .SH ENVIRONMENT
 
@@ -177,11 +177,20 @@ To transform a string read from STDIN, run:
 .EE
 .RE
 
+.PP
+To transform a string read from another command output, run:
+.RS
+
+.EX
+~$ echo "My **Markdown** string" | path/to/markdown-extended -e=body
+.EE
+.RE
+
 .SH LICENSE
 
 .PP
 This software is released under the BSD-3-Clause open source license. Please
-read the License.text file for more information, or see
+read the LICENSE file for more information, or see
 <http://opensource.org/licenses/BSD-3-Clause>.
 
 .PP
