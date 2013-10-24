@@ -12,6 +12,7 @@ This document is for developers usage.
 -   test of different configuration sets (input fileds, full files etc)
 -   clarification of the rules : WRITE THE MANIFEST (?!) => anchors rules (!!)
 -   find a better management for full HTML/body only return
+-   make the code compliant with PHP MessDetector
 
 ## TODOS that SHOULD be done before version 1.0
 
