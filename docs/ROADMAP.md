@@ -13,6 +13,7 @@ This document is for developers usage.
 -   clarification of the rules : WRITE THE MANIFEST (?!) => anchors rules (!!)
 -   find a better management for full HTML/body only return
 -   make the code compliant with PHP MessDetector
+-   embed a parser for the package "composer.json" to extract infos
 
 ## TODOS that SHOULD be done before version 1.0
 
