@@ -16,7 +16,7 @@
  *    	if (!url) url='markdown_reminders.html?popup';
  *    	if (url.lastIndexOf("popup")==-1) url += (url.lastIndexOf("?")!=-1) ? '&popup' : '?popup';
  *    	mdereminders_window = window.open(url, 'markdown_reminders', 
- *           'directories=0,menubar=0,status=0,location=1,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
+ *           'directories=0,menubar=0,status=0,location=0,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
  *    	mdereminders_window.focus();
  *    	return false; 
  *    }
@@ -85,9 +85,9 @@
 #mdereminders.js #mdereminders_block1   { width: 160px; border-left: 1px solid #EEEEEE;  }
 #mdereminders.js #mdereminders_block2   { width: 160px; }
 #mdereminders.js #mdereminders_block3   { height: 198px; width: 436px; background: #fff; padding: 0px 12px 12px 12px; font: inherit; }
-#mdereminders.js #mdereminders_infos    { width: 782px; height: 72px; position: relative; margin-top: 10px; }
+#mdereminders.js #mdereminders_infos    { width: 782px; height: 76px; position: relative; margin-top: 6px; }
 #mdereminders.js #mdereminders_infos ul { margin-top: 10px; }
-#mdereminders.js #mdereminders_reset    { float: right; margin: 2px 12px; }
+#mdereminders.js #mdereminders_reset    { float: right; margin: 6px 12px 0 12px; text-align: right; }
 #mdereminders_block1 ul, #mdereminders_block2 ul, #mdereminders_infos ul { list-style-type: none; margin: 0px; padding: 0px; }
 #mdereminders_infos li { padding-left: 12px; font-size: 11px }
 #mdereminders_block1 li a, #mdereminders_block2 li a { 
@@ -800,12 +800,15 @@ sharp <code>#</code> and the in-text call may contain two parts.</p>
 			<a class="helper" href="javascript:void(0);"><big>&nbsp;&oplus;&nbsp;</big><span><strong>Keyboard chortcut ['H' = 'href']</strong><br />A keyboard shortcut is set to load the URL links in the navigation bar of your browser by pressing letter 'H' (<em>case-insensitive</em>) when clicking on a link.</span></a>
 			<br />
 			<a class="helper href" href="http://github.com/atelierspierrot/markdown-extended" target="_blank"><big>&nbsp;&copy;&nbsp;</big><span><strong><em>PHP Markdown Extended</em> is an <em>open source</em> application</strong><br />Follow this link to get the source code from GitHub repository.</span></a>
+			<br />
+			<a class="helper href" href="http://github.com/atelierspierrot/markdown-extended/releases/tag/0.1-alpha" target="_blank">0.1-alpha<span>Based on the <em>PHP Markdown Extended</em> package version <strong>0.1-alpha</strong></span></a>
 		</div>
 		<ul>
 			<li><strong>Markdown</strong> is a text-to-HTML conversion tool written by <a href="http://daringfireball.net/" title="See http://daringfireball.net/">John Gruber</a> - &copy; 2004 John Gruber (<em>Perl</em> script).</li>
 			<li><strong>Markdown Extra</strong> is a PHP extended version written by <a href="http://michelf.com/" title="See http://michelf.com/">Michel Fortin</a> - &copy; 2009 Michel Fortin (<em>PHP</em> script).</li>
 			<li><strong>(peg) MultiMarkdown</strong> is a C extended version wirtten by <a href="http://fletcherpenney.net/" title="See http://fletcherpenney.net/">Fletcher Penney</a> - &copy; 2010-2011 Fletcher T. Penney (<em>C</em> and <em>Perl</em> script).</li>
 			<li><strong>PHP Markdown Extended</strong> is a PHP extended version wirtten by <a href="http://www.ateliers-pierrot.fr/" title="See http://www.ateliers-pierrot.fr/">Pierre Cassat</a> - &copy; 2012 Pierre Cassat & contributors (<em>PHP</em> script).</li>
+            <li>All versions are licensed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause" title="Read the license online" target="_blank">BSD-3-Clause open source license</a>.</li>
 		</ul>
 	</div>
 </div>

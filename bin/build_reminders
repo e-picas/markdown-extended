@@ -17,42 +17,21 @@
  * <http://daringfireball.net/projects/markdown/>
  */
 
-// Show errors at least initially
+// show errors at least initially
 @ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
-// -----------------------------------
-// NAMESPACE
-// -----------------------------------
+// namespaces loader
+require __DIR__.'/../src/bootstrap.php';
 
-// get the Composer autoloader
-if (file_exists($a = __DIR__.'/../../../autoload.php')) {
-    require_once $a;
-} elseif (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
-    require_once $b;
-
-// else try to register `MarkdownExtended` namespace
-} elseif (file_exists($c = __DIR__.'/../src/SplClassLoader.php')) {
-    require_once $c;
-    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/../src');
-    $classLoader->register();
-
-// else error, classes can't be found
-} else {
-    die(PHP_EOL."You need to run Composer on the project to build dependencies and auto-loading"
-        ." (see: http://getcomposer.org/doc/00-intro.md#using-composer)!".PHP_EOL.PHP_EOL);
-}
-
-// -----------------------------------
-// Launch Console API
-// -----------------------------------
-
+// launch console API
 if (php_sapi_name() === 'cli') { 
     @set_time_limit(0);
     \MarkdownExtended\MarkdownExtended::getInstance()
         ->get('CommandLine\Reminders')
         ->run();
 } else {
-    die(PHP_EOL.'This file is for command line usage only!'.PHP_EOL.PHP_EOL);
+    echo 'This file is for command line usage only!';
+    exit(1);
 }
 
 // Endfile

@@ -174,7 +174,7 @@ function emdreminders_popup(url){
     if (!url) url='markdown_reminders.html?popup';
     if (url.lastIndexOf("popup")==-1) url += (url.lastIndexOf("?")!=-1) ? '&popup' : '?popup';
     emdreminders_window = window.open(url, 'markdown_reminders', 
-       'directories=0,menubar=0,status=0,location=1,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
+       'directories=0,menubar=0,status=0,location=0,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
     emdreminders_window.focus();
     return false; 
 }

@@ -53,9 +53,9 @@ class Reminders extends AbstractConsole
      * Command line options
      */
     static $cli_options = array(
-        'x'=>'verbose', 
+        'v'=>'verbose', 
         'q'=>'quiet', 
-        'debug', 
+        'x'=>'debug', 
         'h'=>'help', 
         'o:'=>'output:', 
         'c:'=>'config:', 
@@ -102,7 +102,7 @@ Usage:
 
 Options:
     -h | --help                get this help information
-    -x | --verbose             increase verbosity of the script
+    -v | --verbose             increase verbosity of the script
     -q | --quiet               do not write Markdown Parser or PHP error messages
     -o | --output    = FILE    specify a file to write generated content in (default is 'markdown_reminders.html')
     -c | --config    = FILE    configuration file to use for Markdown instance (INI format)
@@ -212,7 +212,10 @@ EOT;
             ->buildTemplate(array(
                 'span_contents' => $this->md_contents->getArrayFilter(array($this, 'filterSpan')),
                 'block_contents' => $this->md_contents->getArrayFilter(array($this, 'filterBlock')),
-                'misc_contents' => $this->md_contents->getArrayFilter(array($this, 'filterMisc'))
+                'misc_contents' => $this->md_contents->getArrayFilter(array($this, 'filterMisc')),
+                'mde_home' => \MarkdownExtended\MarkdownExtended::MDE_SOURCES,
+                'mde_name' => \MarkdownExtended\MarkdownExtended::MDE_NAME,
+                'mde_version' => \MarkdownExtended\MarkdownExtended::MDE_VERSION,
             ))
             ->getContent();
         if ($this->writeOutputFile($reminders, $this->output)) {
