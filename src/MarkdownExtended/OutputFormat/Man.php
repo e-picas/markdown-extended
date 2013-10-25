@@ -152,10 +152,13 @@ class Man
             $this->_current_title_level = 0;
             return $this->new_line . $indent . '.SS ' . $text . $this->new_line;
         } else {
-            $indent .= $this->indent();
+//            $indent .= $this->indent();
+            $id = isset($attributes['id']) ? $attributes['id'] : $text;
             $this->_current_title_level = $level;
-            return $this->new_line . $indent . '.IP '
-                . $this->buildBold(ucfirst($text)) . $this->new_line;
+            return $this->new_line . $indent . '.TP '
+                . $id . $this->new_line
+                . $this->buildBold($text) . $this->new_line
+                . $this->indent();
         }
     }
 
