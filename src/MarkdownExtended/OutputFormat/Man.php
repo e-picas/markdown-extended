@@ -308,7 +308,13 @@ class Man
 
     public function buildLink($text = null, array $attributes = array())
     {
-        return '<' . $text . '>';
+        if (isset($attributes['email'])) {
+            $href = $text = $attributes['email'];
+        } else {
+            $href = isset($attributes['href']) ? $attributes['href'] : $text;
+        }
+        return $text!==$href ? 
+            $text . ' <' . $href . '>' : '<' . $text . '>';
     }
 
 }
