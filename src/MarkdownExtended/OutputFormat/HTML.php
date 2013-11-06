@@ -201,6 +201,14 @@ class HTML
         return "\n" . $this->getTagString($text, 'p', $attributes) . "\n";
     }
 
+    public function buildLink($text = null, array $attributes = array())
+    {
+        if (isset($attributes['email'])) {
+            unset($attributes['email']);
+        }
+        return $this->getTagString($text, 'a', $attributes);
+    }
+
 }
 
 // Endfile
