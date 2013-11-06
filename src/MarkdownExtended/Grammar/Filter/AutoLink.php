@@ -87,6 +87,7 @@ class AutoLink extends Filter
 		MarkdownExtended::getContent()->addUrl($address_text);
         $block = MarkdownExtended::get('OutputFormatBag')
             ->buildTag('link', $address_text, array(
+                'email' => $address,
 		        'href' => $address_link,
                 'title' => MDE_Helper::fillPlaceholders(
                     MarkdownExtended::getConfig('mailto_mask_title'), $address_text)
