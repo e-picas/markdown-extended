@@ -9,7 +9,7 @@ This document is for developers usage.
 -   DONE - test the command line interface with direct stdin input, multi-input files etc
 -   DONE - re-organize outputs from the command line interface (normal, verbose, quiet ...)
 -   manage the replacement of in-text tags (`{% TOC %}` for instance)
--   test of different configuration sets (input fileds, full files etc)
+-   test of different configuration sets (input fields, full files etc)
 -   clarification of the rules : WRITE THE MANIFEST (?!) => anchors rules (!!)
 -   find a better management for full HTML/body only return
 -   make the code compliant with PHP MessDetector
