@@ -105,6 +105,13 @@ The namespace will be automatically added to the project's Composer autoloader.
 
 ### Usage
 
+#### Usage for writers
+
+To be compliant with the **extended** Markdown syntax, writers may construct their contents
+following the rules described at <http://sites.ateliers-pierrot.fr/markdown-extended/markdown_reminders.html>.
+For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
+the latest version can be found at <http://github.com/atelierspierrot/markdown-extended/blob/master/demo/MD_syntax.md>.
+
 #### PHP script usage
 
 The `MarkdownExtended` package can be simply call writing:
@@ -119,7 +126,7 @@ The `MarkdownExtended` package can be simply call writing:
         ->getContent();
 
 This will load in `$content` the parsed HTML version of your original Markdown `$source`.
-To get the part you need from the content:
+To get the part you need from the content, write:
 
     echo $content->getBody();
 
