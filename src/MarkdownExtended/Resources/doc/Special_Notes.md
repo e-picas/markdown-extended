@@ -7,9 +7,9 @@ You can construct a **glossary** or a **bibliography** by using special footnote
 will contain `glossary:` followed by the term defined. The associated definition has to be
 placed on a second line.
 
-    A paragraph with a referenced [glossary term][myterm] ...
+    A paragraph with a referenced [glossary term][^myterm] ...
 
-    [^myterm] glossary: the term defined (an optional sort key)
+    [^myterm]: glossary: the term defined (an optional sort key)
     The term definition ... which may be multi-line.
 
 **Bibliography notes** are constructed like a glossary, except that their IDs begins by a

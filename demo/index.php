@@ -300,7 +300,7 @@ $menu = $output_bag->getHelper()
             This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
         </div>
         <div class="credits float-right">
-            <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/pierowbmstr">Piero Wbmstr</a> under <a href="http://opensource.org/licenses/GPL-3.0">GNU GPL v.3</a> license.
+            <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/pierowbmstr">Piero Wbmstr</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
         </div>
     </footer>
 
@@ -363,8 +363,12 @@ $(function() {
     var manifest_url = '../composer.json';
     var manifest_ul = $('#manifest').find('ul');
     getPluginManifest(manifest_url, function(data){
-        manifest_ul.append( getNewInfoItem( data.title, 'title' ) );
-        manifest_ul.append( getNewInfoItem( data.version, 'version' ) );
+        manifest_ul.append( getNewInfoItem( data.name, 'title' ) );
+        if (data.version) {
+            manifest_ul.append( getNewInfoItem( data.version, 'version' ) );
+        } else if (data.extra["branch-alias"] && data.extra["branch-alias"]["dev-master"]) {
+            manifest_ul.append( getNewInfoItem( data.extra["branch-alias"]["dev-master"], 'version' ) );
+        }
         manifest_ul.append( getNewInfoItem( data.description, 'description' ) );
         manifest_ul.append( getNewInfoItem( data.license, 'license' ) );
         manifest_ul.append( getNewInfoItem( data.homepage, 'homepage', data.homepage ) );
