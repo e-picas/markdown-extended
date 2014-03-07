@@ -186,12 +186,19 @@ class Anchor extends Filter
      */
     protected function _validateLinkAttributes(array &$attributes)
     {
-        if (empty($attributes['title']) && MarkdownExtended::getConfig('link_mask_title')) {
-            $attributes['title'] = MDE_Helper::fillPlaceholders(
-                MarkdownExtended::getConfig('link_mask_title'),
-                !empty($attributes['href']) ? $attributes['href'] : ''
-            );
-        }
+        if (empty($attributes['title'])) {
+        	$first_char = substr($attributes['href'], 0, 1);
+	        if ($first_char=='#' && MarkdownExtended::getConfig('anchor_mask_title')) {
+	            $attributes['title'] = MDE_Helper::fillPlaceholders(
+	                MarkdownExtended::getConfig('anchor_mask_title'), $attributes['href']);
+
+	        } elseif (MarkdownExtended::getConfig('link_mask_title')) {
+	            $attributes['title'] = MDE_Helper::fillPlaceholders(
+	                MarkdownExtended::getConfig('link_mask_title'),
+	                !empty($attributes['href']) ? $attributes['href'] : ''
+	            );
+	        }
+    	}
     }
 
 }
