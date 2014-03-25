@@ -17,16 +17,17 @@
  */
 namespace MarkdownExtended\CommandLine;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\ContentCollection,
-    MarkdownExtended\CommandLine\AbstractConsole,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\ContentCollection;
+use \MarkdownExtended\CommandLine\AbstractConsole;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Command line controller to rebuild the MarkdownExtended reminders HTML
  */
-class Reminders extends AbstractConsole
+class Reminders
+    extends AbstractConsole
 {
 
     /**

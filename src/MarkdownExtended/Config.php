@@ -17,14 +17,15 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Registry,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Registry;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Global configuration registry
  */
-class Config extends Registry
+class Config
+    extends Registry
 {
 
     public static $defaults = array(

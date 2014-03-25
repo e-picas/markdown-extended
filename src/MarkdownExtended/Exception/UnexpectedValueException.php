@@ -17,7 +17,10 @@
  */
 namespace MarkdownExtended\Exception;
 
-class UnexpectedValueException extends \UnexpectedValueException
+use \UnexpectedValueException as BaseException;
+
+class UnexpectedValueException
+    extends BaseException
 {
 
 }

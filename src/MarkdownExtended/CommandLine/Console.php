@@ -17,15 +17,16 @@
  */
 namespace MarkdownExtended\CommandLine;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\CommandLine\AbstractConsole,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\CommandLine\AbstractConsole;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Command line controller/interface for MarkdownExtended
  */
-class Console extends AbstractConsole
+class Console
+    extends AbstractConsole
 {
 
     /**
@@ -49,6 +50,7 @@ class Console extends AbstractConsole
     protected $nofilter      =false;
     protected $extract       =false;
     protected $format        ='HTML';
+    protected $template      =false;
     /**#@-*/
 
     /**
@@ -67,6 +69,7 @@ class Console extends AbstractConsole
         'g:'=>'gamuts::', 
         'n:'=>'nofilter:', 
         'e::'=>'extract::',
+        't::'=>'template::',
         'man',
 //      'filter-html', 
 //      'filter-styles', 
@@ -172,6 +175,7 @@ Options:
     -c | --config    = FILE    configuration file to use for Markdown instance (INI format)
     -f | --format    = NAME    format of the output (default is HTML)
     -e | --extract  [= META]   extract some data (the meta data array by default) from the Markdown input
+    -t | --template [= FILE]   load the content in a template file (configuration template by default)
     -g | --gamuts   [= NAME]   get the list of gamuts (or just one if specified) processed on Markdown input
     -n | --nofilter  = A,B     specify a list of filters that will be ignored during Markdown parsing
     -x | --debug               special flag for dev
@@ -297,6 +301,21 @@ EOT;
         }
         $this->extract = $type;
         $this->info("Setting 'extract' to `$this->extract`, only this part will be extracted");
+    }
+
+    /**
+     * Run the template option
+     * @param string $file The command line option argument
+     */
+    public function runOption_template($file)
+    {
+        if (empty($file)) $file = true;
+        $this->template = $file;
+        if (true===$this->template) {
+            $this->info("Setting 'template' to default, content will be loaded in a template file");
+        } else {
+            $this->info("Setting 'template' to `$this->template`, content will be loaded in a template file");
+        }
     }
 
     /**
@@ -586,9 +605,21 @@ EOT;
             $_emd = $this->getEmdInstance();
             $this->info("Parsing Mardkown content ... ", false);
             try {
-                $md_output = $_emd->get('Parser')
-                    ->parse($md_content)
-                    ->getFullContent();
+                if (!empty($this->template)) {
+                    if (is_string($this->template)) {
+                        $_emd->setConfig('template', true, 'templater');
+                        $_emd->setConfig('user_template', $this->template, 'templater');
+                    }
+                    $md_output = $_emd->get('Parser')
+                        ->parse($md_content)
+                        ->getContent();
+                    $mde_tpl = $_emd->getTemplater();
+                    $md_output = $mde_tpl->parse()->__toString();
+                } else {
+                    $md_output = $_emd->get('Parser')
+                        ->parse($md_content)
+                        ->getFullContent();
+                }
             } catch (\MarkdownExtended\Exception\DomainException $e) {
                 $this->catched($e);
             } catch (\MarkdownExtended\Exception\RuntimeException $e) {

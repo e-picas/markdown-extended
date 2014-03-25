@@ -17,7 +17,7 @@
  */
 namespace MarkdownExtended;
 
-use Symfony\Component\Finder\Finder;
+use \Symfony\Component\Finder\Finder;
 
 /**
  * The Compiler class compiles the whole markdown into a phar

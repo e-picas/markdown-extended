@@ -17,10 +17,14 @@
  */
 namespace MarkdownExtended\Util;
 
+use \RecursiveArrayIterator;
+use \RecursiveIterator;
+
 /**
  */
 class RecursiveMenuIterator 
-    extends \RecursiveArrayIterator implements \RecursiveIterator
+    extends RecursiveArrayIterator
+    implements RecursiveIterator
 {
 
     /**

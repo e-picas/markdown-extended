@@ -17,11 +17,15 @@
  */
 namespace MarkdownExtended\Util;
 
+use \ArrayIterator;
+use \ArrayAccess;
+
 /**
  * This class defines each `RecursiveMenuIterator` item
  */
 class MenuItemIterator 
-    extends \ArrayIterator implements \ArrayAccess
+    extends ArrayIterator
+    implements ArrayAccess
 {
 
     /**

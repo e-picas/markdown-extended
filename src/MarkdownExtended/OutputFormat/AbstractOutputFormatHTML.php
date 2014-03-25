@@ -17,9 +17,9 @@
  */
 namespace MarkdownExtended\OutputFormat;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  */

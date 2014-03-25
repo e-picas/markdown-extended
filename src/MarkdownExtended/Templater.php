@@ -17,12 +17,13 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  */
-class Templater implements TemplaterInterface
+class Templater
+    implements TemplaterInterface
 {
 
     /**
@@ -323,30 +324,38 @@ class Templater implements TemplaterInterface
      */
     protected function _findTemplate()
     {
-        $tpl_filename = $this->config['template'];
-        $template_files = $this->config['template_file'];
+        $tpl_filename       = isset($this->config['template']) ? $this->config['template'] : null;
+        $user_template      = isset($this->config['user_template']) ? $this->config['user_template'] : false;
+        $template_files     = isset($this->config['template_file']) ? $this->config['template_file'] : array();
+        $template_default   = isset($this->config['default_template']) ? $this->config['default_template'] : null;
         if ($tpl_filename===false) {
             return null;
         }
+        if (!empty($user_template)) {
+            $tpl_filename = $user_template;
+        } else {
+            if (empty($tpl_filename)) {
+                $tpl_filename = $template_default;
+            }
+            if (array_key_exists($tpl_filename, $template_files)) {
+                $tpl_filename = $template_files[$tpl_filename];
+            }
+        }
 
-        if (empty($tpl_filename)) {
-            $tpl_filename = $this->config['default_template'];
-        }
-        if (array_key_exists($tpl_filename, $template_files)) {
-            $tpl_filename = $template_files[$tpl_filename];
-        }
+        if (!empty($tpl_filename)) {
+            if (!file_exists($tpl_filename)) {
+                $tpl_filename = MDE_Helper::find($tpl_filename, 'template');
+            }
 
-        if (!file_exists($tpl_filename)) {
-            $tpl_filename = MDE_Helper::find($tpl_filename, 'template');
+            if (!file_exists($tpl_filename)) {
+                throw new MDE_Exception\Exception(
+                    sprintf('Template file "%s" not found!', $tpl_filename)
+                );
+                return null;
+            }
+            return $tpl_filename;
         }
-
-        if (!file_exists($tpl_filename)) {
-            throw new MDE_Exception\Exception(
-                sprintf('Template file "%s" not found!', $tpl_filename)
-            );
-            return null;
-        }
-        return $tpl_filename;
+        return null;
     }
 
 }

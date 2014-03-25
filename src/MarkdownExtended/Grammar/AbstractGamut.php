@@ -17,7 +17,7 @@
  */
 namespace MarkdownExtended\Grammar;
 
-use MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\MarkdownExtended;
 
 /**
  * The base class for all Filters and Tools

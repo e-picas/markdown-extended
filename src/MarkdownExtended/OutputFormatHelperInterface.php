@@ -17,8 +17,8 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Content,
-    MarkdownExtended\OutputFormatInterface;
+use \MarkdownExtended\Content;
+use \MarkdownExtended\OutputFormatInterface;
 
 /**
  * PHP Markdown Extended OutputFormat helper interface

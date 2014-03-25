@@ -17,10 +17,10 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Registry,
-    MarkdownExtended\Config,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Registry;
+use \MarkdownExtended\Config;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * PHP Markdown Extended Mother Class
@@ -250,8 +250,7 @@ final class MarkdownExtended
      */
     public static function getFullContent($id = null)
     {
-        if (is_null($id)) $id = self::$current;
-        $content = isset(self::$contents[$id]) ? self::$contents[$id] : null;
+        $content = self::getContent($id);
         $output_bag = self::get('OutputFormatBag');
         return $output_bag->getHelper()
             ->getFullContent($content, $output_bag->getFormater());
@@ -350,10 +349,18 @@ final class MarkdownExtended
      *
      * @param string $var
      * @param misc $val
+     * @param null|string $stack
      * @return misc
      */
-    public static function setConfig($var, $val)
+    public static function setConfig($var, $val, $stack = null)
     {
+        if (!empty($stack)) {
+            $config_stack = self::getConfig($stack);
+            if (empty($config_stack)) $config_stack = array();
+            $config_stack[$var] = $val;
+            $var = $stack;
+            $val = $config_stack;
+        }
         return self::get('Config')->set($var, $val);
     }
 

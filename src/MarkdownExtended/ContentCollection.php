@@ -17,15 +17,20 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Content,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Content;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
+use \Countable;
+use \Iterator;
+use \ArrayAccess;
 
 /**
  * Class defining a collection of content objects
  */
 class ContentCollection
-    implements \Countable, \Iterator, \ArrayAccess
+    implements  Countable,
+                Iterator,
+                ArrayAccess
 {
 
     /**

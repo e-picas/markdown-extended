@@ -17,7 +17,7 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Global Markdown Extended Helper

@@ -17,17 +17,18 @@
  */
 namespace MarkdownExtended\OutputFormat;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Content,
-    MarkdownExtended\OutputFormatInterface,
-    MarkdownExtended\OutputFormatHelperInterface,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Content;
+use \MarkdownExtended\OutputFormatInterface;
+use \MarkdownExtended\OutputFormatHelperInterface;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Default Markdown Extended output Helper
  */
-class DefaultHelper implements OutputFormatHelperInterface
+class DefaultHelper
+    implements OutputFormatHelperInterface
 {
 
     /**

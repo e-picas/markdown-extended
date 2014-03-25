@@ -17,15 +17,16 @@
  */
 namespace MarkdownExtended\Grammar;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\AbstractGamut,    
-    MarkdownExtended\Grammar\GamutInterface;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Grammar\AbstractGamut;
+use \MarkdownExtended\Grammar\GamutInterface;
 
 /**
  * Abstract base class for Tools
  */
 abstract class Tool
-    extends AbstractGamut implements GamutInterface
+    extends AbstractGamut
+    implements GamutInterface
 {
 
     /**

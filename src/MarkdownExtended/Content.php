@@ -17,14 +17,15 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\ContentInterface,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\ContentInterface;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Class defining a content object for the Parser
  */
-class Content implements ContentInterface
+class Content
+    implements ContentInterface
 {
     /**
      * @var misc
@@ -295,7 +296,15 @@ class Content implements ContentInterface
 
     /**
      * @return string
-     * @throws InvalidArgumentException if the file can not be found or red
+     */
+    public function getLastUpdateToString()
+    {
+        return !is_null($this->last_update) ? $this->last_update->format('r') : '';
+    }
+
+    /**
+     * @return string
+     * @throws MDE_Exception\InvalidArgumentException if the file can not be found or red
      */
     public function getSource()
     {
@@ -347,6 +356,13 @@ class Content implements ContentInterface
             $this->dom_ids[$reference] : $this->setNewDomId(
                 !empty($id) ? $id : $reference, $reference
             );
+    }
+
+    /**
+     */
+    public function getTitle()
+    {
+        return $this->getMetadata('title');
     }
 
     /**

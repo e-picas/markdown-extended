@@ -99,6 +99,9 @@ class Header extends Filter
 		        'level'=>$level,
 		        'id'=>$id
 		    ));
+
+        $this->setContentTitle($title);
+
 		return "\n" . parent::hashBlock($block) . "\n\n";
 	}
 
@@ -125,6 +128,8 @@ class Header extends Filter
 		        'id'=>$id
 		    ));
 
+        $this->setContentTitle($title);
+
 		return "\n" . parent::hashBlock($block) . "\n\n";
 	}
 
@@ -135,6 +140,19 @@ class Header extends Filter
     {
         $base_level = MarkdownExtended::getVar('baseheaderlevel');
         return !empty($base_level) ? $base_level-1 : 0;
+    }
+
+    /**
+     * Set the page content if it is not set yet
+     */
+    protected function setContentTitle($string)
+    {
+        $old = MarkdownExtended::getContent()->getTitle();
+        if (empty($old)) {
+            $meta = MarkdownExtended::getContent()->getMetadata();
+            $meta['title'] = $string;
+			MarkdownExtended::getContent()->setMetadata($meta);
+        }
     }
 
 }

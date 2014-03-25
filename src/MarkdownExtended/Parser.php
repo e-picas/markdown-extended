@@ -17,8 +17,8 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * PHP Markdown Extended Parser Class

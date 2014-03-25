@@ -17,9 +17,10 @@
  */
 namespace MarkdownExtended\CommandLine;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\RuntimeException as MDE_RuntimeException;
 
 /**
  * Command line controller/interface base
@@ -186,11 +187,11 @@ abstract class AbstractConsole
         try {
             exec($cmd, $output, $status);
             if ($status!==0) {
-                throw new \RuntimeException(
+                throw new MDE_RuntimeException(
                     sprintf('Error exit status while executing command : [%s]!', $cmd), $status
                 );
             }
-        } catch (\RuntimeException $e) {
+        } catch (MDE_RuntimeException $e) {
             $this->catched($e);
         }
         return is_array($output) && count($output)===1 ? $output[0] : $output;
