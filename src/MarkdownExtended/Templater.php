@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,6 +17,7 @@
  */
 namespace MarkdownExtended;
 
+use \MarkdownExtended\API\TemplaterInterface;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -27,35 +28,35 @@ class Templater
 {
 
     /**
-     * @var array
+     * @var     array
      */
     protected $config;
 
     /**
-     * @var string
+     * @var     string
      */
     protected $content;
 
     /**
-     * @var object MarkdownExtended\Content
+     * @var     \MarkdownExtended\Content
      */
     protected $mde_content;
 
     /**
-     * @var object MarkdownExtended\ContentCollection
+     * @var     \MarkdownExtended\ContentCollection
      */
     protected $mde_content_collection;
 
     /**
-     * @var array
+     * @var     array
      */
     protected $done = array();
 
     /**
      * Construction of a new template object
      *
-     * @param array $user_config
-     */    
+     * @param   array   $user_config
+     */
     public function __construct(array $user_config = array())
     {
         $defaults = MarkdownExtended::getConfig('templater');
@@ -68,7 +69,7 @@ class Templater
     /**
      * Echoing the template object will force parsing and write result
      *
-     * @return string
+     * @return  string
      */
     public function __toString()
     {
@@ -87,9 +88,8 @@ class Templater
     /**
      * Load a content object
      *
-     * @param object MarkdownExtended\Content
-     *
-     * @return self
+     * @param   \MarkdownExtended\Content
+     * @return  self
      */
     public function load(Content $mde_content)
     {
@@ -100,9 +100,8 @@ class Templater
     /**
      * Load a contents collection object
      *
-     * @param object MarkdownExtended\ContentCollection
-     *
-     * @return self
+     * @param   \MarkdownExtended\ContentCollection
+     * @return  self
      */
     public function loadCollection(ContentCollection $mde_content_collection)
     {
@@ -113,7 +112,7 @@ class Templater
     /**
      * Get the current content
      *
-     * @return string
+     * @return  string
      */
     public function getContent()
     {
@@ -123,9 +122,8 @@ class Templater
     /**
      * Get a template content
      *
-     * @return string
-     *
-     * @throws MarkdownExtended\Excpetion\Exception if template file not found
+     * @return  string
+     * @throws  \MarkdownExtended\Exception\Exception if template file not found
      */
     public function getTemplate()
     {
@@ -143,9 +141,9 @@ class Templater
     /**
      * Build a template content passing it arguments
      *
-     * @return self
-     *
-     * @throws MarkdownExtended\Excpetion\Exception if template file not found
+     * @param   array   $params
+     * @return  self
+     * @throws  \MarkdownExtended\Exception\Exception if template file not found
      */
     public function buildTemplate(array $params)
     {
@@ -258,9 +256,8 @@ class Templater
 // -----------------------
 
     /**
-     * @param string $keyword
-     *
-     * @return string
+     * @param   string  $keyword
+     * @return  string
      */
     protected function _buildKeywordMask($keyword)
     {
@@ -268,11 +265,10 @@ class Templater
     }
 
     /**
-     * @param string $content
-     * @param array $keywords
-     * @param bool $force_insert
-     *
-     * @return string
+     * @param   string  $content
+     * @param   array   $keywords
+     * @param   bool    $force_insert
+     * @return  string
      */
     protected function _doParse($content, array $keywords, $force_insert = false)
     {
@@ -300,7 +296,9 @@ class Templater
                             $content_block = call_user_func(array($this->mde_content, $block_name_method_toString));
                         } catch (\Exception $e) {}
                         if (is_null($content_block)) {
-                            $content_block = call_user_func(array($this->mde_content, $block_name_method));
+                            try {
+                                $content_block = call_user_func(array($this->mde_content, $block_name_method));
+                            } catch (\Exception $e) {}
                         }
                     }
                 } else {
@@ -320,7 +318,8 @@ class Templater
     /**
      * Find a template file
      *
-     * @return null|string
+     * @return  null/string
+     * @throws  \MarkdownExtended\Exception\Exception if template file not found
      */
     protected function _findTemplate()
     {

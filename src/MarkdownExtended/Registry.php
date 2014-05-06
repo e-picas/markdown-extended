@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -26,76 +26,86 @@ class Registry
 {
 
     /**
-     * @var bool
+     * @var     bool
      */
     protected $is_extendable;
 
     /**
-     * @var bool
+     * @var     bool
      */
     protected $is_removable;
 
-	/**
-	 * @var array
-	 */
-	protected $data;
+    /**
+     * @var     array
+     */
+    protected $data;
 
-	/**
-	 * Initialize the registry
-	 *
-	 * @param bool $is_extendable
-	 * @param bool $is_removable
-	 */
-	public function __construct($is_extendable = true, $is_removable = true)
-	{
-	    $this->is_extendable = $is_extendable;
-	    $this->is_removable = $is_removable;
+    /**
+     * Initialize the registry
+     *
+     * @param   bool    $is_extendable
+     * @param   bool    $is_removable
+     */
+    public function __construct($is_extendable = true, $is_removable = true)
+    {
+        $this->is_extendable = $is_extendable;
+        $this->is_removable = $is_removable;
         $this->data = array();
-	}
+    }
 
 // ------------------
 // Setters / Getters
 // ------------------
 
-	/**
-	 * Set or reset a new instance in global registry
-	 *
-	 * @throws MarkdownExtended\Exception\InvalidArgumentException if `$val` is not an 
-	 *          object in the 'loaded' stack
-	 */
-	public function set($var, $val)
-	{
-		if (MDE_Helper::validateVarname($var)) {
+    /**
+     * Set or reset a new instance in global registry
+     *
+     * @param   string  $var
+     * @param   mixed   $val
+     * @return  void
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$val` is not an object in the 'loaded' stack
+     */
+    public function set($var, $val)
+    {
+        if (MDE_Helper::validateVarname($var)) {
             $this->data[$var] = $val;
-		}
-	}
+        }
+    }
 
-	/**
-	 * Add something to an existing entry of the global registry, the entry is created if it not exist
-	 *
-	 * @throws MarkdownExtended\Exception\RuntimeException if trying to add an entry of a non-extendable object
-	 */
-	public function add($var, $val)
-	{
-		if (MDE_Helper::validateVarname($var)) {
-		    if ($this->is_extendable) {
-		        if (isset($this->data[$var])) {
+    /**
+     * Add something to an existing entry of the global registry, the entry is created if it not exist
+     *
+     * @param   string  $var
+     * @param   mixed   $val
+     * @return  void
+     * @throws  \MarkdownExtended\Exception\RuntimeException if trying to add an entry of a non-extendable object
+     */
+    public function add($var, $val)
+    {
+        if (MDE_Helper::validateVarname($var)) {
+            if ($this->is_extendable) {
+                if (isset($this->data[$var])) {
                     $this->data[$var] = MDE_Helper::extend($this->data[$var], $val);
                 } else {
                     $this->data[$var] = $val;
                 }
-		    } else {
+            } else {
                 throw new MDE_Exception\RuntimeException("Registry entry can not be extended!");
-		    }
-		}
-	}
+            }
+        }
+    }
 
-	/**
-	 * Remove something to an existing entry of the global registry, the entry is created if it not exist
-	 */
-	public function remove($var, $index = null)
-	{
-		if ($this->is_removable) {
+    /**
+     * Remove something to an existing entry of the global registry, the entry is created if it not exist
+     *
+     * @param   string      $var
+     * @param   null/string $index
+     * @return  void
+     * @throws  \MarkdownExtended\Exception\RuntimeException if trying to remove a non-removable entry
+     */
+    public function remove($var, $index = null)
+    {
+        if ($this->is_removable) {
             if (isset($this->data[$var])) {
                 if ($index) {
                     if (isset($this->data[$var][$index])) {
@@ -108,15 +118,19 @@ class Registry
         } else {
             throw new MDE_Exception\RuntimeException("Registry entry can not be removed!");
         }
-	}
+    }
 
-	/**
-	 * Get an entry from the global registry
-	 */
-	public function get($var, $default = null)
-	{
+    /**
+     * Get an entry from the global registry
+     *
+     * @param   string  $var
+     * @param   mixed   $default
+     * @return  mixed
+     */
+    public function get($var, $default = null)
+    {
         return isset($this->data[$var]) ? $this->data[$var] : $default;
-	}
+    }
 
 }
 

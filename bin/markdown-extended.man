@@ -195,7 +195,7 @@ read the LICENSE file for more information, or see
 
 .PP
 PHP Markdown Extended - 
-Copyright (c) 2008-2013 Pierre Cassat - 
+Copyright (c) 2008-2014 Pierre Cassat - 
 <http://github.com/atelierspierrot/markdown-extended>
 
 .PP

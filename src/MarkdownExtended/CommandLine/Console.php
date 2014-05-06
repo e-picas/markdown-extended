@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -79,7 +79,7 @@ class Console
     );
 
     /**
-     * @static array
+     * @var array
      */
     public static $extract_presets = array(
         'body'=>array(
@@ -125,6 +125,7 @@ class Console
      * Constructor
      *
      * Setup the input/output, verify that we are in CLI mode and that something is requested
+     *
      * @see self::runOptions()
      */
     public function __construct()
@@ -143,6 +144,8 @@ class Console
 
     /**
      * Get the help string
+     *
+     * @return  void
      */
     public function runOption_help()
     {
@@ -196,10 +199,12 @@ EOT;
 
     /**
      * Run the version option
+     *
+     * @return  void
      */
     public function runOption_version()
     {
-        $info = MDE_Helper::smallInfo();
+        $info = MDE_Helper::smallInfo(false, $this->quiet);
         $git_ok = $this->exec("which git");
         $git_dir = getcwd() . '/.git';
         if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
@@ -221,6 +226,8 @@ EOT;
 
     /**
      * Run the manual option
+     *
+     * @return  void
      */
     public function runOption_man()
     {
@@ -244,6 +251,8 @@ EOT;
 
     /**
      * Run the multi option
+     *
+     * @return  void
      */
     public function runOption_multi()
     {
@@ -253,7 +262,9 @@ EOT;
 
     /**
      * Run the output option
-     * @param string $file The command line option argument
+     *
+     * @param   string  $file   The command line option argument
+     * @return  void
      */
     public function runOption_output($file)
     {
@@ -263,7 +274,9 @@ EOT;
 
     /**
      * Run the config file option
-     * @param string $file The command line option argument
+     *
+     * @param   string  $file   The command line option argument
+     * @return  void
      */
     protected function runOption_config($file)
     {
@@ -273,6 +286,8 @@ EOT;
 
     /**
      * Run the HTML filter option
+     *
+     * @return  void
      */
     public function runOption_filter_html()
     {
@@ -282,6 +297,8 @@ EOT;
 
     /**
      * Run the styles filter option
+     *
+     * @return  void
      */
     public function runOption_filter_styles()
     {
@@ -291,7 +308,9 @@ EOT;
 
     /**
      * Run the extract option
-     * @param string $type The command line option argument
+
+     * @param   string  $type   The command line option argument
+     * @return  void
      */
     public function runOption_extract($type)
     {
@@ -305,7 +324,9 @@ EOT;
 
     /**
      * Run the template option
-     * @param string $file The command line option argument
+
+     * @param   string  $file   The command line option argument
+     * @return  void
      */
     public function runOption_template($file)
     {
@@ -320,7 +341,9 @@ EOT;
 
     /**
      * Run the no-filter option
-     * @param string $str The command line option argument
+     *
+     * @param   string  $str    The command line option argument
+     * @return  void
      */
     public function runOption_nofilter($str)
     {
@@ -330,7 +353,9 @@ EOT;
 
     /**
      * Run the format option
-     * @param string $str The command line option argument
+     *
+     * @param   string  $str    The command line option argument
+     * @return  void
      */
     public function runOption_format($str)
     {
@@ -340,11 +365,13 @@ EOT;
 
     /**
      * Run the gamuts option : list gamuts pile of the parser
-     * @param string $name The command line option argument
+     *
+     * @param   string  $name   The command line option argument
+     * @return  void
      */
     protected function runOption_gamuts($name = null)
     {
-        $_emd = $this->getEmdInstance();
+        $_emd = $this->getMdeInstance();
         if (empty($name)) {
             $this->info("Getting lists of Gamuts from Markdown parser with current config");
         } else {
@@ -384,6 +411,8 @@ EOT;
 
     /**
      * Run the 'body' alias
+     *
+     * @return  void
      */
     public function runOption_body()
     {
@@ -392,6 +421,8 @@ EOT;
 
     /**
      * Run the 'simple' alias
+     *
+     * @return  void
      */
     public function runOption_simple()
     {
@@ -404,6 +435,8 @@ EOT;
 
     /**
      * Run the command line options of the request
+     *
+     * @return  void
      */
     protected function runOptions()
     {
@@ -422,6 +455,8 @@ EOT;
 
     /**
      * Run the whole script depending on options setted
+     *
+     * @return  void
      */
     public function run()
     {
@@ -449,10 +484,9 @@ EOT;
     /**
      * Run the MDE process on one file or input
      *
-     * @param string $input
-     * @param bool $title Set on `true` in case of multi-input
-     *
-     * @return string
+     * @param   string  $input
+     * @param   bool    $title  Set on `true` in case of multi-input
+     * @return  string
      */
     public function runStoryOnOneFile($input, $title = false)
     {
@@ -480,12 +514,11 @@ EOT;
     /**
      * Actually run the MDE process on a file or string
      *
-     * @param string $input
-     * @param string $output An optional output filename to write result in
-     * @param bool $extract An extractor tagname
-     * @param bool $title Set to `true` to add title string in case of multi-input
-     *
-     * @return string
+     * @param   string  $input
+     * @param   string  $output     An optional output filename to write result in
+     * @param   bool    $extract    An extractor tagname
+     * @param   bool    $title      Set to `true` to add title string in case of multi-input
+     * @return  string
      */
     public function runOneFile($input, $output = null, $extract = null, $title = false)
     {
@@ -517,8 +550,11 @@ EOT;
 
     /**
      * Use of the PHP Markdown Extended class as a singleton
+     *
+     * @param   array   $config
+     * @return  void
      */
-    protected function getEmdInstance(array $config = array())
+    protected function getMdeInstance(array $config = array())
     {
         $config['skip_filters'] = $this->nofilter;
         if (false!==$this->config) {
@@ -527,17 +563,16 @@ EOT;
         if (!empty($this->format)) {
             $config['output_format'] = $this->format;
         }           
-        return parent::getEmdInstance($config);
+        return parent::getMdeInstance($config);
     }
     
     /**
      * Creates a `\MarkdownExtended\Content` object from filename or string
      *
-     * @param string $input
-     * @param bool $title Set to `true` to add title string in case of multi-input
-     *
-     * @return \MarkdownExtended\Content
-     * @throws any catched exception
+     * @param   string  $input
+     * @param   bool    $title  Set to `true` to add title string in case of multi-input
+     * @return  \MarkdownExtended\Content
+     * @throws  any catched exception
      */
     public function getInput($input, $title = false)
     {
@@ -593,16 +628,15 @@ EOT;
     /**
      * Process a Content parsing
      *
-     * @param object $md_content \MarkdownExtended\Content instance
-     *
-     * @return string
-     * @throws any catched exception
+     * @param   \MarkdownExtended\API\ContentInterface  $md_content
+     * @return  string
+     * @throws  any catched exception
      */
-    public function parseContent(\MarkdownExtended\Content $md_content)
+    public function parseContent(\MarkdownExtended\API\ContentInterface $md_content)
     {
         $md_output=null;
         if (!empty($md_content)) {
-            $_emd = $this->getEmdInstance();
+            $_emd = $this->getMdeInstance();
             $this->info("Parsing Mardkown content ... ", false);
             try {
                 if (!empty($this->template)) {
@@ -646,13 +680,12 @@ EOT;
     /**
      * Process a Content parsing just for special gamuts
      *
-     * @param object $md_content \MarkdownExtended\Content instance
-     * @param string $extract
-     *
-     * @return string
-     * @throws any catched exception
+     * @param   \MarkdownExtended\API\ContentInterface   $md_content
+     * @param   string                      $extract
+     * @return  string
+     * @throws  any catched exception
      */
-    public function extractContent(\MarkdownExtended\Content $md_content, $extract)
+    public function extractContent(\MarkdownExtended\API\ContentInterface $md_content, $extract)
     {
         $md_output = '';
         $preset = self::$extract_presets[$extract];
@@ -661,7 +694,7 @@ EOT;
             if (!empty($preset['gamuts'])) {
                 $options['special_gamut'] = $preset['gamuts'];
             }
-            $_emd = $this->getEmdInstance($options);
+            $_emd = $this->getMdeInstance($options);
             $this->info("Extracting Mardkown $extract ... ", false);
             try {
                 $md_content_parsed = $_emd->get('Parser')

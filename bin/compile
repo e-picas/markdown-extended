@@ -2,7 +2,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -32,7 +32,9 @@ use MarkdownExtended\Compiler;
 // phar compilation
 try {
     $compiler = new Compiler();
-    $compiler->compile();
+    $logs = $compiler->compile();
+    var_export($logs);
+    exit(0);
 } catch (\Exception $e) {
     echo 'Failed to compile phar: ['.get_class($e).'] '
         .$e->getMessage().' at '.$e->getFile().':'.$e->getLine();

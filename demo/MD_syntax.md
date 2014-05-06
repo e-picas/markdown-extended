@@ -75,21 +75,33 @@ A list: begin each entry by an asterisk, a plus or an hyphen followed by 3 space
 
     -   first item
     *   second item
+        - first sub-item
+        * second sub-item
+    -   third item
 
 Example:
 
 -   first item
--   second item
+*   second item
+    - first sub-item
+    * second sub-item
+-   third item
 
 An ordered list: begin each entry by a number followed by a dot and 3 spaces
 
     1.   first item
     1.   second item
+        1. first sub-item
+        1. second sub-item
+    2.   third item
 
 Example:
 
 1.   first item
 1.   second item
+    1. first sub-item
+    1. second sub-item
+2.   third item
 
 
 # Advanced tags from *Markdown Extra*

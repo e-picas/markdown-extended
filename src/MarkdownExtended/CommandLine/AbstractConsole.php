@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -20,7 +20,6 @@ namespace MarkdownExtended\CommandLine;
 use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
-use \MarkdownExtended\RuntimeException as MDE_RuntimeException;
 
 /**
  * Command line controller/interface base
@@ -33,7 +32,7 @@ use \MarkdownExtended\RuntimeException as MDE_RuntimeException;
  *     and command line script's errors are rendered
  * -   in "verbose" mode, some process informations are shown, informing user about what
  *     happening, follow process execution and get some execution informations such as some
- *     some string lengthes ; the command line script errors are rendered
+ *     some string lengths ; the command line script errors are rendered
  * -   in "quiet" mode, nothing is written through SDTOUT except PHP process errors and output
  *     rendering of parsed content ; the command line script's errors are not rendered
  *
@@ -44,27 +43,27 @@ abstract class AbstractConsole
 {
 
     /**
-     * @var STDOUT
+     * @var     STDOUT
      */
     public $stdout;
 
     /**
-     * @var STDIN
+     * @var     STDIN
      */
     public $stdin;
 
     /**
-     * @var \MarkdownExtended\MarkdownExtended
+     * @var     \MarkdownExtended\MarkdownExtended
      */
-    protected static $emd_instance;
+    protected static $mde_instance;
 
     /**#@+
      * Command line options values
      */
-    protected $input         =array();
-    protected $verbose       =false;
-    protected $quiet         =false;
-    protected $debug         =false;
+    protected $input         = array();
+    protected $verbose       = false;
+    protected $quiet         = false;
+    protected $debug         = false;
     /**#@-*/
 
     /**#@+
@@ -85,9 +84,9 @@ abstract class AbstractConsole
      */
     public function __construct()
     {
-        $this->stdout = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c');
-        $this->stdin =  defined('STDIN') ? STDIN : fopen('php://stdin', 'c');
-        if (php_sapi_name() != 'cli') {
+        $this->stdout = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c+');
+        $this->stdin =  defined('STDIN') ? STDIN : fopen('php://stdin', 'c+');
+        if (strpos(php_sapi_name(),'cli')===false) {
             exit('<!-- NOT IN CLI -->');
         }
         $this->getOptions();
@@ -99,8 +98,10 @@ abstract class AbstractConsole
 
     /**
      * Write an info to CLI output
-     * @param string $str The information to write
-     * @param bool $new_line May we pass a line after writing the info
+     *
+     * @param   string  $str        The information to write
+     * @param   bool    $new_line   May we pass a line after writing the info
+     * @return  void
      */
     public function write($str, $new_line = true)
     {
@@ -110,8 +111,11 @@ abstract class AbstractConsole
     
     /**
      * Write an info in verbose mode
-     * @param string $str The information to write
-     * @param bool $new_line May we pass a line after writing the info
+     *
+     * @param   string  $str            The information to write
+     * @param   bool    $new_line       May we pass a line after writing the info
+     * @param   bool    $leading_dot    Add a leading dot or not
+     * @return  void
      */
     public function info($str, $new_line = true, $leading_dot = true)
     {
@@ -122,6 +126,8 @@ abstract class AbstractConsole
     
     /**
      * Write an separator line in verbose mode
+     *
+     * @return  void
      */
     public function separator()
     {
@@ -132,8 +138,11 @@ abstract class AbstractConsole
 
     /**
      * Write an error info and exit
-     * @param string $str The information to write
-     * @param int $code The error code used to exit the script
+     *
+     * @param   string  $str        The information to write
+     * @param   int     $code       The error code used to exit the script
+     * @param   bool    $forced     Force the 'help' info
+     * @return  void
      */
     public function error($str, $code = 90, $forced = false)
     {
@@ -149,8 +158,11 @@ abstract class AbstractConsole
     
     /**
      * Write an info and exit
-     * @param bool $exit May we have to exit the script after writing the info?
-     * @param string $str The information to write
+     *
+     * @param   bool    $exit           May we have to exit the script after writing the info?
+     * @param   string  $str            The information to write
+     * @param   bool    $leading_signs  Add the leading '>>' sign or not
+     * @return  void
      */
     protected function endRun($exit = false, $str = null, $leading_signs = true)
     {
@@ -161,9 +173,11 @@ abstract class AbstractConsole
 
     /**
      * Write a catched exception
-     * @param object $e Exception thrown
+     *
+     * @param   \Exception  $e
+     * @return  void
      */
-    public function catched($e)
+    public function catched(\Exception $e)
     {
         $str = sprintf(
             'Catched "%s" [file %s - line %d]: "%s"',
@@ -179,19 +193,21 @@ abstract class AbstractConsole
     
     /**
      * Exec a command
-     * @param string $cmd
-     * @return string|array
+     *
+     * @param   string      $cmd
+     * @return  string|array
+     * @throw   \MarkdownExtended\Exception\RuntimeException if the command fails or returns an error status
      */
     public function exec($cmd)
     {
         try {
             exec($cmd, $output, $status);
             if ($status!==0) {
-                throw new MDE_RuntimeException(
+                throw new MDE_Exception\RuntimeException(
                     sprintf('Error exit status while executing command : [%s]!', $cmd), $status
                 );
             }
-        } catch (MDE_RuntimeException $e) {
+        } catch (MDE_Exception\RuntimeException $e) {
             $this->catched($e);
         }
         return is_array($output) && count($output)===1 ? $output[0] : $output;
@@ -204,23 +220,33 @@ abstract class AbstractConsole
     /**
      * Get any output from previous command STDIN piped
      * see <http://stackoverflow.com/a/9711142/2512020>
+     *
+     * @return  string|null
      */
     protected function readSafeStdin()
     {
-        $fd = STDIN;
-        $data = null;
-        $read = array($fd);
+        $data = '';
+        $read = array($this->stdin);
         $write = array();
         $except = array();
-        $result = stream_select($read, $write, $except, 0);
-        if ($result !== false && $result !== 0) {
-            $data = fgets($fd);
+        try {
+            $result = stream_select($read, $write, $except, 0);
+            if ($result !== false && $result > 0) {
+                while (!feof($this->stdin)) {
+                    $data .= fgets($this->stdin);
+                }
+            }
+            @file_put_contents($this->stdin, '');
+        } catch (Exception $e) {
+            $data = null;
         }
         return $data;
     }
 
     /**
      * Get the command line user options
+     *
+     * @return  void
      */
     protected function getOptions()
     {
@@ -246,6 +272,8 @@ abstract class AbstractConsole
 
     /**
      * Run the command line options of the request
+     *
+     * @return  void
      */
     protected function runOptions()
     {
@@ -276,6 +304,8 @@ abstract class AbstractConsole
 
     /**
      * Run the verbose option
+     *
+     * @return  void
      */
     public function runOption_verbose()
     {
@@ -285,6 +315,8 @@ abstract class AbstractConsole
 
     /**
      * Run the quiet option
+     *
+     * @return  void
      */
     public function runOption_quiet()
     {
@@ -295,6 +327,8 @@ abstract class AbstractConsole
 
     /**
      * Run the debug option
+     *
+     * @return  void
      */
     public function runOption_debug()
     {
@@ -309,27 +343,28 @@ abstract class AbstractConsole
 
     /**
      * Use of the PHP Markdown Extended class as a singleton
+     *
      * @param array $config
      * @return \MarkdownExtended\MarkdownExtended instance
      */
-    protected function getEmdInstance(array $config = array())
+    protected function getMdeInstance(array $config = array())
     {
-        if (empty(self::$emd_instance)) {
+        if (empty(self::$mde_instance)) {
             $this->info("Creating a MarkdownExtended instance with options ["
                 .str_replace("\n", '', var_export($config,1))
                 ."]");
-            self::$emd_instance = MarkdownExtended::create();
+            self::$mde_instance = MarkdownExtended::create();
         }
-        self::$emd_instance->get('Parser', $config);
-        return self::$emd_instance;
+        self::$mde_instance->get('Parser', $config);
+        return self::$mde_instance;
     }
     
     /**
      * Writes an output safely for STDOUT (string or arrays)
      *
-     * @param misc $content
-     * @param int $indent internal indentation flag
-     * @return string
+     * @param   mixed   $content
+     * @param   int     $indent     internal indentation flag
+     * @return  string
      */
     protected function _renderOutput($content, $indent = 0)
     {
@@ -356,7 +391,7 @@ abstract class AbstractConsole
 // -------------------
 
     /**
-     * Run the whole script depending on options setted
+     * Run the whole script depending on options set
      */
     abstract public function run();
 
@@ -366,12 +401,14 @@ abstract class AbstractConsole
 
     /**
      * Write a result for each processed file or string in a file
-     * @param string $output
-     * @param string $output_file
+     *
+     * @param   string  $output
+     * @param   string  $output_file
+     * @return  int
      */
     public function writeOutputFile($output, $output_file)
     {
-        $fsize=null;
+        $fsize = null;
         if (!empty($output) && !empty($output_file)) {
             $this->info("Writing parsed content in output file `$output_file`", false);
             if ($ok = @file_put_contents($output_file, $output)) {
@@ -386,8 +423,10 @@ abstract class AbstractConsole
 
     /**
      * Write a result for each processed file or string
-     * @param string $output
-     * @param bool $exit
+     *
+     * @param   string  $output
+     * @param   bool    $exit
+     * @return  int
      */
     public function writeOutput($output, $exit = false)
     {
@@ -403,13 +442,21 @@ abstract class AbstractConsole
 
     /**
      * Write a title for each processed file or string
-     * @param string $title
+     *
+     * @param   string  $title
+     * @return  void
      */
     public function writeInputTitle($title)
     {
         $this->write("==> $title <==");
     }
 
+    /**
+     * Build the output filename if so
+     *
+     * @param   string  $filename
+     * @return  string
+     */
     protected function _buildOutputFilename($filename)
     {
         if (file_exists($filename)) {

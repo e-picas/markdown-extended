@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,25 +17,24 @@
  */
 namespace MarkdownExtended\Grammar\Tool;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Tool;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Tool;
 
-class RemoveUtf8Marker extends Tool
+class RemoveUtf8Marker
+    extends Tool
 {
-	
-	/**
-	 * Remove UTF-8 BOM and marker character in input, if present.
-	 *
-	 * @param string $text The text to parse
-	 * @return string The text parsed
-	 * @see span_gamut()
-	 * @see unhash()
-	 */
-	public function run($text) 
-	{
-		return preg_replace('{^\xEF\xBB\xBF|\x1A}', '', $text);
-	}
-	
+
+    /**
+     * Remove UTF-8 BOM and marker character in input, if present.
+     *
+     * @param   string  $text   The text to parse
+     * @return  string          The text parsed
+     */
+    public function run($text)
+    {
+        return preg_replace('{^\xEF\xBB\xBF|\x1A}', '', $text);
+    }
+
 }
 
 // Endfile

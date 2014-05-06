@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -50,7 +50,7 @@ class Parser
      * if you want to override config options ; in this case, you can set a config file path
      * with the `config_file` index.
      *
-     * @param array|string $config 
+     * @param   array/string    $config
      */
     public function __construct($config = null) 
     {
@@ -87,12 +87,11 @@ class Parser
      * Main function. Performs some preprocessing on the input text
      * and pass it through the document gamut.
      *
-     * @param object $content \MarkdownExtended\Content
-     *
-     * @return object \MarkdownExtended\MarkdownExtended
-     *
-     * @see self::_setup()
-     * @see self::_teardown()
+     * @param   \MarkdownExtended\Content   $content
+     * @param   bool    $secondary
+     * @return  \MarkdownExtended\MarkdownExtended
+     * @see     self::_setup()
+     * @see     self::_teardown()
      */
     public function parse(Content $content, $secondary = false) 
     {
@@ -125,12 +124,10 @@ class Parser
     /**
      * Call to MarkdownExtended\Grammar\Gamut for an array of gamuts
      *
-     * @param array $gamuts
-     * @param string $text
-     *
-     * @return string
-     *
-     * @throws MarkdownExtended\Exception\UnexpectedValueException if gamuts table not found
+     * @param   array   $gamuts
+     * @param   string  $text
+     * @return  string
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if gamuts table not found
      */
     public function runGamuts($gamuts, $text = null)
     {
@@ -153,7 +150,7 @@ class Parser
     }
 
     /**
-     * @return array
+     * @return  array
      */
     public function getAllGamuts()
     {

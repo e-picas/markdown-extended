@@ -73,7 +73,7 @@ You can verify that your package passes all tests running:
 
 ### MarkdownExtended auto-update
 
-For auto-update of the Container class constants and the command line interface MANUEL based
+For auto-update of the Container class constants and the command line interface MANUAL based
 on the actual `composer.json` values, a pre-commit hook is defined in `pre-commit-hook.sh`.
 To use it, run:
 
@@ -83,110 +83,6 @@ To use it, run:
 Or, you can simply run the following before a new version's commit:
 
     ~$ bash pre-commit-hook.sh
-
-
-----
-
-
-## What we want to do
-
-
-The full schema of a Markdown parser usage could be:
-
-        [source file content]       [options]    
-                   ||                  ||
-                   \/                  \/
-            ---------------        ----------                            -------------------
-            |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATED RESULT |
-            ---------------        ----------                            -------------------
-                   /\                  /\                                         ||
-                   ||                  ||                                         \/
-                [string]        [ configuration ]                           [special infos]
-
-1.  The original Markdown source can be either a buffered string (a form field for example)
-    or the content of a Markdown file
-
-2.  We want to parse the source content with a hand on options used during this parsing
-    (no need to parse metadata in a content that will never have some for example)
-
-3.  Finally, we want to get a formated content and to be able to retrieve certain infos
-    from it, such as its metadata, its menu or the footnotes of the whole parsed result
-
-4.  Additionally, it would be best that we can obtain a full formated result simply but
-    can also pass this result through a template builder to construct a complex final string
-
-## Result in the code
-
-The first item of this chain is assumed by the `MarkdownExtended\Content` object.
-It is a simple class that just stores different infos about a parsed content, such as its 
-original source, the body of the result (the real parsed content), its menu, its metadata, 
-its DOM ids and its footnotes.
-
-The second step is handled by the `MarkdownExtended\Parser` object where lives the central
-work of the syntax rules transformations. It depends on a configuration that can be reset
-at every call.
-
-Finally, the whole thing is contained in the `MarkdownExtended\MarkdownExtended` object
-that is a kind of global container for the Markdown work.
-
-### Full usage
-
-#### The "kernel" object
-
-Creation of the container as a singleton instance:
-
-    $mde = \MarkdownExtended\MarkdownExtended::create();
-
-    // to retrieve the same instance after creation:
-    $mde = \MarkdownExtended\MarkdownExtended::getInstance();
-
-#### The `Content` object
-
-Creation of a new content object:
-
-    // with a string:
-    $source = new \MarkdownExtended\Content( $string );
-
-    // with a file to get content from:
-    $source = new \MarkdownExtended\Content( null, $filepath );
-
-#### The `Parser` object
-
-Get the parser instance from the container:
-
-    $parser = $mde->get('Parser', $parser_options);    
-
-#### The markdown process
-
-Make the source transformation:
-
-    // this will return the Container:
-    $markdown = $parser->parse($source)
-        // and this will return the Content object transformed:
-        ->getContent();
-
-#### The transformed content
-
-Then, get the transformed content and other infos trom the `Content` object:
-
-    echo "<html><head>"
-        .$markdown->getMetadataHtml() // the content metadata HTML formated
-        ."</head><body>"
-        .$markdown->getBody() // the content HTML body
-        ."<hr />"
-        .$markdown->getNotesHtml() // the content footnotes HTML formated
-        ."</body></html>";
-
-In case of a simple source (such as a textarea field):
-
-    echo $markdown->getBody();
-
-For simplest calls, a `Helper` is designed to allow usage of:
-
-    echo \MarkdownExtended\MarkdownExtended::getFullContent();
-
-that will return the exact same string as the one constructed above (a full HTML page
-by default).
 
 
 ----

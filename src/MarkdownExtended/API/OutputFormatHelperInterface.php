@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -15,10 +15,10 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-namespace MarkdownExtended;
+namespace MarkdownExtended\API;
 
-use \MarkdownExtended\Content;
-use \MarkdownExtended\OutputFormatInterface;
+use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\API\OutputFormatInterface;
 
 /**
  * PHP Markdown Extended OutputFormat helper interface
@@ -29,22 +29,20 @@ interface OutputFormatHelperInterface
     /**
      * This must return a full formated string ready to write a well-formed document in the considered format
      *
-     * @param object $content \MarkdownExtended\Content
-     * @param object $formater \MarkdownExtended\OutputFormatInterface
-     *
-     * @return string
+     * @param   \MarkdownExtended\API\ContentInterface          $content
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @return  string
      */
-    public function getFullContent(Content $content, OutputFormatInterface $formater);
+    public function getFullContent(ContentInterface $content, OutputFormatInterface $formater);
 
     /**
      * This must return a full formated table of contents in the considered format
      *
-     * @param object $content \MarkdownExtended\Content
-     * @param object $formater \MarkdownExtended\OutputFormatInterface
-     *
-     * @return string
+     * @param   \MarkdownExtended\API\ContentInterface          $content
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @return  string
      */
-    public function getToc(Content $content, OutputFormatInterface $formater);
+    public function getToc(ContentInterface $content, OutputFormatInterface $formater);
 
 }
 

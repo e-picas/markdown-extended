@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,26 +17,26 @@
  */
 namespace MarkdownExtended\Grammar\Tool;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Tool;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Tool;
 
 class StripSapcedLines extends Tool
 {
-	
-	/**
-	 * Strip any lines consisting only of spaces and tabs.
-	 * This makes subsequent regexen easier to write, because we can
-	 * match consecutive blank lines with /\n+/ instead of something
-	 * contorted like /[ ]*\n+/ .
-	 *
-	 * @param string $text The text to parse
-	 * @return string The text parsed
-	 */
-	public function run($text) 
-	{
-		return preg_replace('/^[ ]+$/m', '', $text);
-	}
-	
+
+    /**
+     * Strip any lines consisting only of spaces and tabs.
+     * This makes subsequent regexen easier to write, because we can
+     * match consecutive blank lines with /\n+/ instead of something
+     * contorted like /[ ]*\n+/ .
+     *
+     * @param   string  $text   The text to parse
+     * @return  string          The text parsed
+     */
+    public function run($text)
+    {
+        return preg_replace('/^[ ]+$/m', '', $text);
+    }
+
 }
 
 // Endfile

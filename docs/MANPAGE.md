@@ -16,7 +16,7 @@ markdown-extended - PHP 5.3 parser for the Markdown syntax (extended version)
 
 **markdown-extended**  [**-h**|**-V**]  [**-x**|**-v**|**-q**|**-m**]
     [**-o** *filename*]  [**-c** *configfile*]  [**-f** *format*]
-    [**-n** *a,b*]  [**-e**[=*block*]]  [**-g**[=*name*]]
+    [**-n** *a,b*]  [**-e**[=*block*]]  [**-g**[=*name*]] [**-t**[=*file*]]
     **input_filename**  [**input_filename**]  [...]
     "**markdown string read from STDIN**"
 
@@ -69,6 +69,10 @@ You can also use the output of a previous command using the pipe notation.
 
 **-g** , **--gamuts** [=name]
 :   Define a single gamut or a list of gamuts to execute on Markdown content parsing.
+
+**-t** , **--template** [=file]
+:   Return the content inserted in a parsed template file ; if no `file` argument is 
+    passed, this will use the configuration template file.
 
 **-n** , **--nofilter** =name-a,name-b
 :   Define a coma separated list of filters to disable during Markdown content parsing.
@@ -151,7 +155,7 @@ read the LICENSE file for more information, or see
 <http://opensource.org/licenses/BSD-3-Clause>. 
 
 PHP Markdown Extended - 
-Copyright (c) 2008-2013 Pierre Cassat - 
+Copyright (c) 2008-2014 Pierre Cassat - 
 <http://github.com/atelierspierrot/markdown-extended>
 
 original MultiMarkdown - 

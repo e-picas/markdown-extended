@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -18,8 +18,8 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\OutputFormatInterface;
-use \MarkdownExtended\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\API\OutputFormatInterface;
+use \MarkdownExtended\API\OutputFormat\AbstractOutputFormat;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -46,7 +46,7 @@ class Man
 
     /**
      * List of classic manpages sections
-     * @static array
+     * @var array
      */
     public static $sections = array(
         'name', 'synopsis', 'syntax', 'availability', 'description', 'options', 'files', 'resources', 'environment', 'diagnosis', 'bugs', 'author', 'see also', 
@@ -55,7 +55,7 @@ class Man
 
     /**
      * List of special metadata to build manpage headers
-     * @static array
+     * @var array
      */
     public static $headers_meta_data = array(
         'name', 'version', 'date', 'section', 'man'

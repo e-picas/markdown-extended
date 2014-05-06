@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -25,25 +25,24 @@ use \MarkdownExtended\MarkdownExtended;
 abstract class AbstractGamut
 {
 
-	/**
-	 * Run a gamut stack from a filter or tool
-	 *
-	 * @param string $gamut The name of a single Gamut or a Gamuts stack
-	 * @param string $text
-	 *
-	 * @return string
-	 */
-	public function runGamut($gamut, $text)
-	{
-		return MarkdownExtended::get('Grammar\Gamut')->runGamut($gamut, $text);
-	}
-	
+    /**
+     * Run a gamut stack from a filter or tool
+     *
+     * @param   string  $gamut  The name of a single Gamut or a Gamuts stack
+     * @param   string  $text
+     * @return  string
+     */
+    public function runGamut($gamut, $text)
+    {
+        return MarkdownExtended::get('Grammar\Gamut')->runGamut($gamut, $text);
+    }
+
 // ----------------------------------
 // HASHES
 // ----------------------------------
 
     /**
-     * @static array
+     * @var array
      */
     protected static $html_hashes = array();
 
@@ -58,18 +57,18 @@ abstract class AbstractGamut
     /**
      * Reference a new hash
      *
-     * @param string $key
-     * @param string $text
+     * @param   string  $key
+     * @param   string  $text
      */
     public function setHash($key, $text)
     {
         self::$html_hashes[$key] = $text;
     }
-	
+
     /**
      * Retrieve a hash by its key
      *
-     * @param string $key
+     * @param   string  $key
      */
     public function getHash($key)
     {

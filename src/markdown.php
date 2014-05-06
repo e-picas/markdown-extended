@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -30,14 +30,14 @@ require __DIR__.'/../src/bootstrap.php';
 /**
  * Transform an input text by the MarkdownExtended
  *
- * @param string $text
- * @param misc $options
- * @param string $type The part of the content to get ; can be 'full', 'body' (default)
- *                      or false to get the `Content` object
- *
- * @return string
+ * @param   string  $text
+ * @param   mixed   $options
+ * @param   string  $type   The part of the content to get ; can be 'full', 'body' (default)
+ *                          or false to get the `Content` object
+ * @return  string
  */
-function Markdown($text, $options = null, $type = 'body') {
+function Markdown($text, $options = null, $type = 'body')
+{
     \MarkdownExtended\MarkdownExtended::getInstance()
         ->transformString($text, $options);
     if ($type==='full') {
@@ -52,14 +52,14 @@ function Markdown($text, $options = null, $type = 'body') {
 /**
  * Transform an input file name source by the MarkdownExtended
  *
- * @param string $file_name
- * @param misc $options
- * @param string $type The part of the content to get ; can be 'full', 'body' (default)
- *                      or false to get the `Content` object
- *
- * @return string
+ * @param   string  $file_name
+ * @param   mixed   $options
+ * @param   string  $type   The part of the content to get ; can be 'full', 'body' (default)
+ *                          or false to get the `Content` object
+ * @return  string
  */
-function MarkdownFromSource($file_name, $options = null, $type = 'body') {
+function MarkdownFromSource($file_name, $options = null, $type = 'body')
+{
     \MarkdownExtended\MarkdownExtended::getInstance()
         ->transformSource($file_name, $options);
     if ($type==='full') {
@@ -74,7 +74,8 @@ function MarkdownFromSource($file_name, $options = null, $type = 'body') {
 /**
  * Use the MarkdownExtended command line interface
  */
-function MarkdownCli() {
+function MarkdownCli()
+{
     \MarkdownExtended\MarkdownExtended::getInstance()
         ->get('CommandLine\Console')
         ->run();

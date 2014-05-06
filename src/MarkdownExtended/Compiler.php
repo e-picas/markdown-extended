@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -30,10 +30,23 @@ use \Symfony\Component\Finder\Finder;
 class Compiler
 {
 
+    protected $_logs = array();
+
+    static $phar_file = 'markdown-extended.phar';
+
+    static $phar_loaders = array(
+        'autoload.php',
+        'composer/autoload_namespaces.php',
+        'composer/autoload_classmap.php',
+        'composer/autoload_real.php',
+        'composer/autoload_psr4.php',
+        'composer/include_paths.php',
+        'composer/ClassLoader.php',
+    );
+
     /**
      * Compiles app into a single phar file
      *
-     * @throws \RuntimeException
      * @param  string            $pharFile The full path to the file to create
      */
     public function compile($pharFile = 'markdown-extended.phar', $root_dir = null)
@@ -62,7 +75,7 @@ class Compiler
             ->in($root_dir)
         ;
         foreach ($finder as $file) {
-            $this->addFile($phar, $file);
+            $this->__addFile($phar, $file);
         }
 
         $finder = new Finder();
@@ -72,51 +85,53 @@ class Compiler
             ->in($root_dir)
         ;
         foreach ($finder as $file) {
-            $this->addFile($phar, $file, false);
+            $this->__addFile($phar, $file, false);
         }
 
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/autoload.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_namespaces.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_classmap.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_real.php'));
-        if (file_exists(__DIR__.'/../../vendor/composer/autoload_psr4.php')) {
-            $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_psr4.php'));
+        $vendor_path = $root_dir.'/vendor/';
+        foreach (self::$phar_loaders as $_loader) {
+            if (file_exists($vendor_path.$_loader)) {
+                $this->__addFile($phar, new \SplFileInfo($vendor_path.$_loader));
+            } else {
+                $this->_logs[] = sprintf('!! - Loader file "%s" not found and not added!', $_loader);
+            }
         }
-        if (file_exists(__DIR__.'/../../vendor/composer/include_paths.php')) {
-            $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/include_paths.php'));
-        }
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/ClassLoader.php'));
-        $this->addBin($phar);
+        $this->__addBin($phar);
 
         // Stubs
-        $phar->setStub($this->getStub());
+        $phar->setStub($this->__getStub());
 
         $phar->stopBuffering();
 
-        $this->addFile($phar, new \SplFileInfo($root_dir.'/LICENSE'), false);
+        $this->__addFile($phar, new \SplFileInfo($root_dir.'/LICENSE'), false);
 
         unset($phar);
+        
+        return $this->_logs;
     }
 
-    private function addFile($phar, $file, $strip = true)
+    private function __addFile($phar, $file, $strip = true)
     {
         $path = str_replace(dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR, '', $file->getRealPath());
 
         $content = file_get_contents($file);
         if ($strip) {
-            $content = $this->stripWhitespace($content);
+            $content = $this->__stripWhitespace($content);
         } elseif ('LICENSE' === basename($file)) {
             $content = "\n".$content."\n";
         }
 
+        $this->_logs[] = sprintf('Adding file "%s" (length %d)', $path, strlen($content));
         $phar->addFromString($path, $content);
     }
 
-    private function addBin($phar)
+    private function __addBin($phar, $binary = 'bin/markdown-extended')
     {
         $content = file_get_contents(__DIR__.'/../../bin/markdown-extended');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
-        $phar->addFromString('bin/markdown-extended', $content);
+
+        $this->_logs[] = sprintf('Adding file "%s" (length %d)', $binary, strlen($content));
+        $phar->addFromString($binary, $content);
     }
 
     /**
@@ -125,7 +140,7 @@ class Compiler
      * @param  string $source A PHP string
      * @return string The PHP string with the whitespace removed
      */
-    private function stripWhitespace($source)
+    private function __stripWhitespace($source)
     {
         if (!function_exists('token_get_all')) {
             return $source;
@@ -153,14 +168,14 @@ class Compiler
         return $output;
     }
 
-    private function getStub()
+    private function __getStub()
     {
         return <<<'EOF'
 #!/usr/bin/env php
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
