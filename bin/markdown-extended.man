@@ -1,6 +1,6 @@
 .\" author: Les Ateliers Pierrot
 
-.TH  "MarkdownExtended" "3" "2013-10-21" "Version 0.1-alpha" "markdown-extended Manual"
+.TH  "NAME" "3" "2014-05-07" "Version 0.1-beta" "markdown-extended Manual"
 
 .SH NAME
 
@@ -15,7 +15,7 @@ markdown-extended - PHP 5.3 parser for the Markdown syntax (extended version)
 .PP
 \fBmarkdown-extended\fP  [\fB-h\fP|\fB-V\fP]  [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP]
     [\fB-o\fP \fIfilename\fP]  [\fB-c\fP \fIconfigfile\fP]  [\fB-f\fP \fIformat\fP]
-    [\fB-n\fP \fIa,b\fP]  [\fB-e\fP[=\fIblock\fP]]  [\fB-g\fP[=\fIname\fP]]
+    [\fB-n\fP \fIa,b\fP]  [\fB-e\fP[=\fIblock\fP]]  [\fB-g\fP[=\fIname\fP]] [\fB-t\fP[=\fIfile\fP]]
     \fBinput_filename\fP  [\fBinput_filename\fP]  [...]
     "\fBmarkdown string read from STDIN\fP"
 
@@ -70,6 +70,10 @@ PHP namespace `\fS\\MarkdownExtended\\OutputFormat\fP` ; default is `\fSHTML\fP`
 .TP
 \fB-g\fP , \fB--gamuts\fP [=name]
 Define a single gamut or a list of gamuts to execute on Markdown content parsing.
+.TP
+\fB-t\fP , \fB--template\fP [=file]
+Return the content inserted in a parsed template file ; if no `\fSfile\fP` argument is 
+passed, this will use the configuration template file.
 .TP
 \fB-n\fP , \fB--nofilter\fP =name-a,name-b
 Define a coma separated list of filters to disable during Markdown content parsing.
