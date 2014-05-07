@@ -357,7 +357,7 @@ abstract class AbstractConsole
             self::$mde_instance = MarkdownExtended::create();
         }
         try {
-            self::$mde_instance->get('Parser', $config, MDE_API::FAIL_WITH_ERROR);
+            self::$mde_instance->get('Parser', array($config), MDE_API::FAIL_WITH_ERROR);
         } catch (MDE_Exception\InvalidArgumentException $e) {
             $this->catched($e);
         } catch (MDE_Exception\RuntimeException $e) {
