@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,28 +17,28 @@
  */
 namespace MarkdownExtended\OutputFormat;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Content,
-    MarkdownExtended\OutputFormatInterface,
-    MarkdownExtended\OutputFormatHelperInterface,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\API\OutputFormatInterface;
+use \MarkdownExtended\API\OutputFormatHelperInterface;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Default Markdown Extended output Helper
  */
-class DefaultHelper implements OutputFormatHelperInterface
+class DefaultHelper
+    implements OutputFormatHelperInterface
 {
 
     /**
      * Get a complete version of parsed content, including metadata, body and notes
      *
-     * @param object $content \MarkdownExtended\Content
-     * @param object $formater \MarkdownExtended\OutputFormatInterface
-     *
-     * @return string
+     * @param   \MarkdownExtended\API\ContentInterface          $md_content
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @return  string
      */
-    public function getFullContent(Content $md_content, OutputFormatInterface $formater)
+    public function getFullContent(ContentInterface $md_content, OutputFormatInterface $formater)
     {
         $content = '';
 
@@ -91,41 +91,56 @@ class DefaultHelper implements OutputFormatHelperInterface
     /**
      * Build a hierarchical menu
      *
-     * @param object $content \MarkdownExtended\Content
-     * @param object $formater \MarkdownExtended\OutputFormatInterface
-     *
-     * @return string
+     * @param   \MarkdownExtended\API\ContentInterface          $md_content
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @return  string
      *
      * @todo rewrite it without HTML (!)
      */
-    public function getToc(Content $md_content, OutputFormatInterface $formater)
+    public function getToc(ContentInterface $md_content, OutputFormatInterface $formater)
     {
         $menu = $md_content->getMenu();
         $content = '';
         if (!empty($menu)) {
             $depth = 0;
             $current_level = null;
-            $content .= '<h4 id="toc">Table of contents</h4>';
-            $content .= '<ul class="toc-menu">';
+
+            $toc_title  = MarkdownExtended::getConfig('toc_title');
+            $toc_id     = MarkdownExtended::getConfig('toc_id');
+            $content    .= $formater->buildTag(
+                'title',
+                (!empty($toc_title) ? $toc_title : 'Table of contents'),
+                array(
+                    'id'=>(!empty($toc_id) ? $toc_id : 'toc')
+                )
+            );
+
+            $menu_content = '';
             foreach ($menu as $item_id=>$menu_item) {
                 $diff = $menu_item['level']-(is_null($current_level) ? $menu_item['level'] : $current_level);
                 if ($diff > 0) {
-                    $content .= str_repeat('<ul><li>', $diff);
+                    $menu_content .= str_repeat('<ul><li>', $diff);
                 } elseif ($diff < 0) {
-                    $content .= str_repeat('</li></ul></li>', -$diff);
-                    $content .= '<li>';
+                    $menu_content .= str_repeat('</li></ul></li>', -$diff);
+                    $menu_content .= '<li>';
                 } else {
                     if (!is_null($current_level)) $content .= '</li>';
-                    $content .= '<li>';
+                    $menu_content .= '<li>';
                 }
                 $depth += $diff;
-                $content .= '<a href="#'.$item_id.'">'.$menu_item['text'].'</a>';
+                $menu_content .= '<a href="#'.$item_id.'">'.$menu_item['text'].'</a>';
                 $current_level = $menu_item['level'];
             }
             if ($depth!=0) {
-                $content .= str_repeat('</ul></li>', $depth);
+                $menu_content .= str_repeat('</ul></li>', $depth);
             }
-            $content .= '</ul>';
+            $content .= 'YO'.$formater->buildTag(
+                'unordered_list',
+                $menu_content,
+                array(
+                    'class'=>(!empty($toc_list_class) ? $toc_list_class : 'toc-menu')
+                )
+            );
         }
         return $content;
     }

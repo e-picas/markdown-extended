@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,112 +17,113 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\ContentInterface,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Class defining a content object for the Parser
  */
-class Content implements ContentInterface
+class Content
+    implements ContentInterface
 {
     /**
-     * @var misc
+     * @var     mixed
      */
     protected $id;
 
     /**
-     * @var string
+     * @var     string
      */
     protected $filepath = '';
 
     /**
-     * @var object \DateTime
+     * @var     \DateTime
      */
     protected $last_update = null;
 
     /**
-     * @var string
+     * @var     string
      */
     protected $source = '';
 
     /**
-     * @var string
+     * @var     string
      */
     protected $body = '';
 
     /**
-     * @var string
+     * @var     string
      */
     protected $charset = 'utf-8';
 
     /**
-     * @var string
+     * @var     string
      */
     protected $title;
 
     /**
-     * @var array
+     * @var     array
      */
     protected $metadata = array();
 
     /**
-     * @var string
+     * @var     string
      */
     protected $metadata_to_string = '';
 
     /**
-     * @var array
+     * @var     array
      */
     protected $notes = array();
 
     /**
-     * @var string
+     * @var     string
      */
     protected $notes_to_string = '';
 
     /**
-     * @var array
+     * @var     array
      */
     protected $footnotes = array();
 
     /**
-     * @var array
+     * @var     array
      */
     protected $glossaries = array();
 
     /**
-     * @var array
+     * @var     array
      */
     protected $citations = array();
 
     /**
-     * @var array
+     * @var     array
      */
     protected $menu = array();
 
     /**
-     * @var \MarkdownExtended\Util\RecursiveMenuIterator
+     * @var     \MarkdownExtended\Util\RecursiveMenuIterator
      */
     protected $toc = null;
 
     /**
-     * @var string
+     * @var     string
      */
     protected $toc_to_string = '';
 
     /**
-     * @var array
+     * @var     array
      */
     protected $urls = array();
 
     /**
-     * @var array
+     * @var     array
      */
     protected $dom_ids = array();
 
     /**
-     * @static array
+     * @var  array
      */
     protected static $name_mapping = array(
         'note'=>'notes',
@@ -137,9 +138,9 @@ class Content implements ContentInterface
 // -------------------------
 
     /**
-     * @param string $source A string implementing Markdown syntax
-     * @param string $filepath The path of a file where to get content to parse
-     * @param misc $id The ID of the content item
+     * @param   string  $source     A string implementing Markdown syntax
+     * @param   string  $filepath   The path of a file where to get content to parse
+     * @param   mixed   $id         The ID of the content item
      */
     public function __construct($source = null, $filepath = null, $id = null)
     {
@@ -156,9 +157,10 @@ class Content implements ContentInterface
     /**
      * Magic method to handle any `getXX()`, `setXX()` or `addXX()` method call on the object
      *
-     * @see self::getVariable()
-     * @see self::setVariable()
-     * @see self::addVariable()
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the method can't be found
+     * @see     self::getVariable()
+     * @see     self::setVariable()
+     * @see     self::addVariable()
      */
     public function __call($name, array $arguments = null)
     {
@@ -169,7 +171,7 @@ class Content implements ContentInterface
             return call_user_func_array(array($this, $method), $arguments);
         } else {
             throw new MDE_Exception\InvalidArgumentException(
-                sprintf('Call of an unknown method "%s" on a %s instance!', $name, __CLASS__)
+                sprintf('Call of an unknown method "%s" on a %s instance!', $name, get_class($this))
             );
         }
     }
@@ -179,9 +181,8 @@ class Content implements ContentInterface
      *
      * This will return `null` if the variable doesn't exist, and `false` if it is empty.
      *
-     * @param string $name
-     *
-     * @return misc|null|false
+     * @param   string  $name
+     * @return  mixed/null/false
      */
     protected function getVariable($name)
     {
@@ -194,10 +195,9 @@ class Content implements ContentInterface
     /**
      * Set an object property value
      *
-     * @param string $name
-     * @param misc $value
-     *
-     * @return self
+     * @param   string  $name
+     * @param   mixed   $value
+     * @return  self
      */
     protected function setVariable($name, $value)
     {
@@ -210,11 +210,10 @@ class Content implements ContentInterface
     /**
      * Extend an object property value
      *
-     * @param string $name
-     * @param misc $value
-     * @param misc $index
-     *
-     * @return self
+     * @param   string  $name
+     * @param   mixed   $value
+     * @param   mixed   $index
+     * @return  self
      */
     protected function addVariable($name, $value, $index = null)
     {
@@ -240,7 +239,10 @@ class Content implements ContentInterface
 // -------------------------
 
     /**
-     * @param misc $id
+     * Define the content ID
+     *
+     * @param   mixed   $id
+     * @return  self
      */
     public function setId($id)
     {
@@ -252,7 +254,9 @@ class Content implements ContentInterface
     }
 
     /**
-     * @return misc
+     * Get the content ID
+     *
+     * @return  mixed
      */
     public function getId()
     {
@@ -260,7 +264,9 @@ class Content implements ContentInterface
     }
 
     /**
-     * @return string|null
+     * Get the file direname if so
+     *
+     * @return  string/null
      */
     public function getDirname()
     {
@@ -268,7 +274,10 @@ class Content implements ContentInterface
     }
 
     /**
-     * @param misc $date timestamp / date / DateTime object
+     * Define the last update datetime of this content
+     *
+     * @param   mixed     $date   timestamp / date / DateTime object
+     * @return  self
      */
     public function setLastUpdate($date)
     {
@@ -286,7 +295,9 @@ class Content implements ContentInterface
     }
 
     /**
-     * @return null|DateTime
+     * Retrieve the content last update
+     *
+     * @return  null/DateTime
      */
     public function getLastUpdate()
     {
@@ -294,8 +305,20 @@ class Content implements ContentInterface
     }
 
     /**
-     * @return string
-     * @throws InvalidArgumentException if the file can not be found or red
+     * Get the last update of this content as string
+     *
+     * @return  string
+     */
+    public function getLastUpdateToString()
+    {
+        return !is_null($this->last_update) ? $this->last_update->format('r') : '';
+    }
+
+    /**
+     * Get the original source content
+     *
+     * @return  string
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the file can not be found or red
      */
     public function getSource()
     {
@@ -320,36 +343,24 @@ class Content implements ContentInterface
     }
     
 // -------------------------
-// DOM IDs construction
+// Meta Data
 // -------------------------
 
     /**
-     * Verify if a reference is already defined in the DOM IDs register
+     * Get the content title
      *
-     * @param string $reference The reference to search
-     * @return bool True if the reference exists in the register, false otherwise
+     * @return  string
      */
-    public function hasDomId($reference)
+    public function getTitle()
     {
-        return isset($this->dom_ids[$reference]);
+        return $this->getMetadata('title');
     }
 
     /**
-     * Get a DOM unique ID 
+     * Get the meta-data stack or one entry
      *
-     * @param string $reference A reference used to store the ID (and retrieve it - by default, a uniqid)
-     *
-     * @return str The unique ID created or the existing one for the reference if so
-     */
-    public function getDomId($reference, $id = null)
-    {
-        return $this->hasDomId($reference) ?
-            $this->dom_ids[$reference] : $this->setNewDomId(
-                !empty($id) ? $id : $reference, $reference
-            );
-    }
-
-    /**
+     * @param   null/string
+     * @return  string
      */
     public function getMetadata($index = null)
     {
@@ -360,15 +371,44 @@ class Content implements ContentInterface
         }
     }
 
+// -------------------------
+// DOM IDs construction
+// -------------------------
+
+    /**
+     * Verify if a reference is already defined in the DOM IDs register
+     *
+     * @param   string  $reference  The reference to search
+     * @return  bool    True if the reference exists in the register, false otherwise
+     */
+    public function hasDomId($reference)
+    {
+        return isset($this->dom_ids[$reference]);
+    }
+
+    /**
+     * Get a DOM unique ID 
+     *
+     * @param   string  $reference  A reference used to store the ID (and retrieve it - by default, a uniqid)
+     * @param   null/string  $id
+     * @return  string  The unique ID created or the existing one for the reference if so
+     */
+    public function getDomId($reference, $id = null)
+    {
+        return $this->hasDomId($reference) ?
+            $this->dom_ids[$reference] : $this->setNewDomId(
+                !empty($id) ? $id : $reference, $reference
+            );
+    }
+
     /**
      * Create and get a new DOM unique ID 
      *
-     * @param string $id A string that will be used to construct the ID
-     * @param string $reference A reference used to store the ID (and retrieve it - by default `$id`)
-     * @param bool $return_array Allow to return an array in case of existaing reference
-     *
-     * @return array|str The unique ID created if the reference was empty
-     *                   An array like (id=>XXX, reference=>YYY) if it was not
+     * @param   string      $id         A string that will be used to construct the ID
+     * @param   string      $reference  A reference used to store the ID (and retrieve it - by default `$id`)
+     * @param   bool        $return_array   Allow to return an array in case of existaing reference
+     * @return  array/string    The unique ID created if the reference was empty
+     *                          An array like (id=>XXX, reference=>YYY) if it was not
      */
     public function setNewDomId($id, $reference = null, $return_array = true)
     {

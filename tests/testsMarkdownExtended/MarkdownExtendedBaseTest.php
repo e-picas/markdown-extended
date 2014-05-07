@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,12 +17,14 @@
  */
 namespace testsMarkdownExtended;
 
-class MarkdownExtendedBaseTest extends \PHPUnit_Framework_TestCase
+class MarkdownExtendedBaseTest
+    extends \PHPUnit_Framework_TestCase
 {
 
     /**
      * Get the tests test file path
-     * @return string
+     *
+     * @return  string
      */
     public function getTestFilepath()
     {
@@ -31,8 +33,9 @@ class MarkdownExtendedBaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Create a markdown parser
-     * @param array $configuration Optional configuration
-     * @return \MarkdownExtended\Parser
+     *
+     * @param   array   $configuration  Optional configuration
+     * @return  \MarkdownExtended\Parser
      */
     public function createParser($configuration = null)
     {
@@ -42,8 +45,9 @@ class MarkdownExtendedBaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Create a markdown content
-     * @param string $content
-     * @return \MarkdownExtended\Content
+     *
+     * @param   string  $content
+     * @return  \MarkdownExtended\Content
      */
     public function createContent($content = null)
     {
@@ -52,8 +56,9 @@ class MarkdownExtendedBaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Create a markdown content from file
-     * @param string $file_path
-     * @return \MarkdownExtended\Content
+     *
+     * @param   string $filepath
+     * @return  \MarkdownExtended\Content
      */
     public function createSourceContent($filepath = null)
     {
@@ -62,12 +67,27 @@ class MarkdownExtendedBaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Get a trimed content body
-     * @param object $content
-     * @return string
+     *
+     * @param   object  $content
+     * @param   bool    $strip_whitespaces
+     * @return  string
      */
-    public function getBody($content = null)
+    public function getBody($content = null, $strip_whitespaces = false)
     {
-        return trim($content->getBody());
+        $ctt = trim($content->getBody());
+        if (true===$strip_whitespaces) $ctt = $this->stripWhitespaces($ctt);
+        return $ctt;
+    }
+
+    /**
+     * Strip whitespaces between tags in a string
+     *
+     * @param   string  $content
+     * @return  string
+     */
+    public function stripWhitespaces($content = '')
+    {
+        return preg_replace('~>\s+<~', '><', $content);
     }
 
     /**
@@ -86,29 +106,19 @@ class MarkdownExtendedBaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Get the tests test file parsed full content
-     * @return string
+     *
+     * @return  string
      */
     public function getTestExpectedFullContent()
     {
+        $body = $this->getTestExpectedBody();
         return <<<EOF
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8" />
 </head><body>
 
-<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
-voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
-<blockquote>  
-  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-      expedita distinctio.</p>
-</blockquote>
-<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
-tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.</p>
+{$body}
 
 
 <p>Last updated at Sun, 09 Jun 2013 11:34:50 +0000</p>
@@ -120,7 +130,8 @@ EOF;
 
     /**
      * Get the tests test file parsed body
-     * @return string
+     *
+     * @return  string
      */
     public function getTestExpectedBody()
     {

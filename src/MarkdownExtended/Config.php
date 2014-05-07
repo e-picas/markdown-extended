@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,17 +17,34 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Registry,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Registry;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Global configuration registry
  */
-class Config extends Registry
+class Config
+    extends Registry
 {
 
+    /**
+     * @var     array
+     */
     public static $defaults = array(
+        // the default API objects
+        'content_class' => '\MarkdownExtended\Content',
+        'content_collection_class' => '\MarkdownExtended\ContentCollection',
+        'parser_class' => '\MarkdownExtended\Parser',
+        'templater_class' => '\MarkdownExtended\Templater',
+        'grammar\filter_class' => '\MarkdownExtended\Grammar\Filter',
+        'grammar\tool_class' => '\MarkdownExtended\Grammar\Tool',
+        // Gamut classes aliases
+        'gamut_aliases' => array(
+            'filter' => '\MarkdownExtended\Grammar\Filter',
+            'tool' => '\MarkdownExtended\Grammar\Tool'
+        ),
         // the default output format
         'output_format' => 'HTML',
         // Change to ">" for HTML output
@@ -49,11 +66,6 @@ class Config extends Registry
         'special_metadata' => array('baseheaderlevel', 'quoteslanguage'),
         // Block inclusion tag
         'block_inclusion' => '<!-- @([^ @]+)@ -->',
-        // Gamut classes aliases
-        'gamut_aliases' => array(
-            'filter' => '\MarkdownExtended\Grammar\Filter',
-            'tool' => '\MarkdownExtended\Grammar\Tool'
-        ),
         // Optional title attribute for links that do not have one
         'link_mask_title' => 'See online %%',
         'mailto_mask_title' => 'Contact %%',
@@ -68,150 +80,180 @@ class Config extends Registry
         'predef_abbr' => array(),
     );
 
-	/**
-	 * @var string
-	 */
-	protected $config_file;
+    /**
+     * @var     string
+     */
+    protected $config_file;
 
-	/**
-	 * @static array
-	 */
-	protected static $cached_config_files = array();
+    /**
+     * @var  array
+     */
+    protected static $cached_config_files = array();
 
-	/**
-	 * Create a configuration object
-	 */
-	public function __construct()
-	{
-	 	parent::__construct();
-	 	$this->reset();
-	}
+    /**
+     * Create a configuration object
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->reset();
+    }
 
-	/**
-	 * Reset data on defaults
-	 */
-	public function reset()
-	{
-	 	$this->data = self::$defaults;
-	}
+    /**
+     * Reset data on defaults
+     *
+     * @return  void
+     */
+    public function reset()
+    {
+        $this->data = self::$defaults;
+    }
 
-	/**
-	 * Init a new config with user options
-	 */
-	public function init($user_config = null)
-	{
-	    $config_file = MarkdownExtended::FULL_CONFIGFILE;
-	    if (!empty($user_config)) {
-	        if (is_string($user_config)) {
-        	    $config_file = $user_config;
-	        } elseif (is_array($user_config)) {
-	            if (isset($user_config['config_file'])) {
-            	    $config_file = $user_config['config_file'];
-            	    unset($user_config['config_file']);
-	            }
-	        }
-	    }
-		$this->reload($config_file, true);
-		if (!empty($user_config) && is_array($user_config)) {
-    		$this->overload($user_config);
-		}
-	}
+    /**
+     * Init a new config with user options
+     *
+     * @param   null/string/array   $user_config
+     * @return  void
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed
+     */
+    public function init($user_config = null)
+    {
+        $config_file = MarkdownExtended::FULL_CONFIGFILE;
+        if (!empty($user_config)) {
+            if (is_string($user_config)) {
+                $config_file = $user_config;
+            } elseif (is_array($user_config)) {
+                if (isset($user_config['config_file'])) {
+                    $config_file = $user_config['config_file'];
+                    unset($user_config['config_file']);
+                }
+            }
+        }
+        try {
+            $this->reload($config_file, true);
+        } catch (MDE_Exception\UnexpectedValueException $e) {
+            throw $e;
+        } catch (MDE_Exception\DomainException $e) {
+            throw $e;
+        }
+        if (!empty($user_config) && is_array($user_config)) {
+            $this->overload($user_config);
+        }
+    }
 
-	/**
-	 * Load and parse a INI configuration file
-	 *
-	 * @param array $cfg_file
-	 * @param bool $silent
-	 *
-	 * @throws MarkdownExtended\Exception\DomainException if file seems malformed
-	 */
-	public function load($cfg_file, $silent = false)
-	{
-		$this->setConfigFile($cfg_file);
-        $mde_config = $this->_loadFile($this->config_file, $silent);
+    /**
+     * Load and parse a INI configuration file
+     *
+     * @param   string/array    $cfg_file
+     * @param   bool            $silent
+     * @return  void
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed
+     */
+    public function load($cfg_file, $silent = false)
+    {
+        try {
+            $this->setConfigFile($cfg_file);
+            $mde_config = $this->_loadFile($this->config_file, $silent);
+        } catch (MDE_Exception\UnexpectedValueException $e) {
+            throw $e;
+        } catch (MDE_Exception\DomainException $e) {
+            throw $e;
+        }
         if (!empty($mde_config)) {
             foreach ($mde_config as $_var=>$_val) {
                 $this->set($_var, $_val);
             }
         }
-	}
-	
-	/**
-	 * Over-load a configuration
-	 *
-	 * @param array $cfg_file
-	 * @param bool $forced
-	 * @param bool $silent
-	 */
-	public function reload($cfg_file = null, $forced = false, $silent = false)
-	{
-	    $old_cfg_file = $this->getConfigFile();
-	    if (
-    	    (!empty($cfg_file) && $old_cfg_file!==$cfg_file) ||
-    	    $forced
-	    ) {
-    	    $this->reset();
-    	    $this->load($cfg_file, $silent);
-	    }
-	}
+    }
 
-	/**
-	 * Over-load a configuration
-	 *
-	 * @param array $config
-	 */
-	public function overload(array $config)
-	{
-		if (!empty($config)) {
-			foreach ($config as $_opt_name=>$_opt_value) {
-    			$this->set($_opt_name, $_opt_value);
-			}
-		}
-	}
+    /**
+     * Over-load a configuration
+     *
+     * @param   string/array    $cfg_file
+     * @param   bool            $forced
+     * @param   bool            $silent
+     * @return  void
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed
+     */
+    public function reload($cfg_file = null, $forced = false, $silent = false)
+    {
+        $old_cfg_file = $this->getConfigFile();
+        if (
+            (!empty($cfg_file) && $old_cfg_file!==$cfg_file) ||
+            $forced
+        ) {
+            $this->reset();
+            try {
+                $this->load($cfg_file, $silent);
+            } catch (MDE_Exception\UnexpectedValueException $e) {
+                throw $e;
+            } catch (MDE_Exception\DomainException $e) {
+                throw $e;
+            }
+        }
+    }
 
-	/**
-	 * Define the object config file
-	 * 
-	 * @param string $cfg_file
-	 *
-	 * @throws MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
-	 */
-	public function setConfigFile($cfg_file)
-	{
-	    $cfg_file = MDE_Helper::find($cfg_file, 'config');
-		if (file_exists($cfg_file)) {
-    		$this->config_file = $cfg_file;
+    /**
+     * Over-load a configuration
+     *
+     * @param   array   $config
+     * @return  void
+     */
+    public function overload(array $config)
+    {
+        if (!empty($config)) {
+            foreach ($config as $_opt_name=>$_opt_value) {
+                $this->set($_opt_name, $_opt_value);
+            }
+        }
+    }
+
+    /**
+     * Define the object config file
+     *
+     * @param   string  $cfg_file
+     * @return  self
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     */
+    public function setConfigFile($cfg_file)
+    {
+        $cfg_file = MDE_Helper::find($cfg_file, 'config');
+        if (file_exists($cfg_file)) {
+            $this->config_file = $cfg_file;
         }  else {
             throw new MDE_Exception\UnexpectedValueException(sprintf(
                 "Defined configuration file doesn't exist, get <%s>!", $cfg_file
             ));
         }
-		return $this;
-	}
-	
-	/**
-	 * Get the object config file
-	 * 
-	 * @return string
-	 */
-	public function getConfigFile()
-	{
-		return $this->config_file;
-	}
-	
-	/**
-	 * Really load and parse a INI configuration file
-	 *
-	 * @param array $cfg_file
-	 * @param bool $silent
-	 *
-	 * @throws MarkdownExtended\Exception\DomainException if file seems malformed
-	 * @throws MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
-	 */
-	protected function _loadFile($cfg_file, $silent = false)
-	{
-		if (empty($cfg_file)) return array();
-	    if (!isset(self::$cached_config_files[$cfg_file])) {
+        return $this;
+    }
+
+    /**
+     * Get the object config file
+     *
+     * @return  string
+     */
+    public function getConfigFile()
+    {
+        return $this->config_file;
+    }
+
+    /**
+     * Really load and parse a INI configuration file
+     *
+     * @param   array   $cfg_file
+     * @param   bool    $silent
+     * @return  array
+     * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     */
+    protected function _loadFile($cfg_file, $silent = false)
+    {
+        if (empty($cfg_file)) return array();
+        if (!isset(self::$cached_config_files[$cfg_file])) {
             if (file_exists($cfg_file)) {
                 $mde_config = parse_ini_file($cfg_file, true);
                 if (isset($mde_config) && is_array($mde_config) && !empty($mde_config)) {
@@ -226,10 +268,10 @@ class Config extends Registry
                     "Defined configuration file doesn't exist, get <%s>!", $cfg_file
                 ));
             }
-	    }
+        }
         return self::$cached_config_files[$cfg_file];
-	}
-	
+    }
+
 }
 
 // Endfile

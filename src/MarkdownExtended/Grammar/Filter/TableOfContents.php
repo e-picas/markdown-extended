@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,30 +17,34 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Filter,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Helper as MDE_Helper;
+use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Construct the global Table of Contents (hierarchical list of anchors)
  */
-class TableOfContents extends Filter
+class TableOfContents
+    extends Filter
 {
 
+    /**
+     * @var     array
+     */
     protected $attributes = array();
 
-	/**
-	 * Reset all properties at the begining
-	 */
-	public function _setup()
-	{
+    /**
+     * Reset all properties at the begining
+     */
+    public function _setup()
+    {
         $this->attributes = MarkdownExtended::getConfig('table_of_contents');
-	}
+    }
 
     /**
-     * @param string $text
-     * @return string
+     * @param   string  $text
+     * @return  string
      */
     public function transform($text) 
     {

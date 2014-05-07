@@ -174,7 +174,7 @@ function emdreminders_popup(url){
     if (!url) url='markdown_reminders.html?popup';
     if (url.lastIndexOf("popup")==-1) url += (url.lastIndexOf("?")!=-1) ? '&popup' : '?popup';
     emdreminders_window = window.open(url, 'markdown_reminders', 
-       'directories=0,menubar=0,status=0,location=1,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
+       'directories=0,menubar=0,status=0,location=0,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
     emdreminders_window.focus();
     return false; 
 }
@@ -200,7 +200,7 @@ function emdreminders_popup(url){
             <li><a href="index.php">Usage</a></li>
             <li><a href="../markdown_reminders.html" onclick="return emdreminders_popup('../markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
             <li><a href="index.php?page=form">Test of a form field</a></li>
-            <li><a href="index.php?doc=Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
+            <li><a href="index.php?doc=../docs/Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
             <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
                 <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
                 <li><a href="index.php?doc=MD_syntax.md&amp;md=process">markdown parsed version</a></li>
@@ -300,7 +300,7 @@ $menu = $output_bag->getHelper()
             This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
         </div>
         <div class="credits float-right">
-            <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/pierowbmstr">Piero Wbmstr</a> under <a href="http://opensource.org/licenses/GPL-3.0">GNU GPL v.3</a> license.
+            <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/pierowbmstr">Piero Wbmstr</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
         </div>
     </footer>
 
@@ -363,8 +363,12 @@ $(function() {
     var manifest_url = '../composer.json';
     var manifest_ul = $('#manifest').find('ul');
     getPluginManifest(manifest_url, function(data){
-        manifest_ul.append( getNewInfoItem( data.title, 'title' ) );
-        manifest_ul.append( getNewInfoItem( data.version, 'version' ) );
+        manifest_ul.append( getNewInfoItem( data.name, 'title' ) );
+        if (data.version) {
+            manifest_ul.append( getNewInfoItem( data.version, 'version' ) );
+        } else if (data.extra["branch-alias"] && data.extra["branch-alias"]["dev-master"]) {
+            manifest_ul.append( getNewInfoItem( data.extra["branch-alias"]["dev-master"], 'version' ) );
+        }
         manifest_ul.append( getNewInfoItem( data.description, 'description' ) );
         manifest_ul.append( getNewInfoItem( data.license, 'license' ) );
         manifest_ul.append( getNewInfoItem( data.homepage, 'homepage', data.homepage ) );

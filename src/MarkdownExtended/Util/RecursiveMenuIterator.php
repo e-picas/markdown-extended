@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,50 +17,53 @@
  */
 namespace MarkdownExtended\Util;
 
+use \MarkdownExtended\Exception as MDE_Exception;
+use \RecursiveArrayIterator;
+use \RecursiveIterator;
+
 /**
  */
 class RecursiveMenuIterator 
-    extends \RecursiveArrayIterator implements \RecursiveIterator
+    extends RecursiveArrayIterator
+    implements RecursiveIterator
 {
 
     /**
-     * @static array
+     * @var  array
      */
     public static $range_levels = array(1,2,3,4,5,6);
 
     /**
-     * @var int
+     * @var     int
      */
     protected $position = 0;
 
     /**
-     * @var int This must exist in `self::$range_levels`
+     * @var     int     This must exist in `self::$range_levels`
      */
     protected $base_level = 0;
 
     /**
-     * @var array This reminds all current hierarchic keys we are working on
+     * @var     array   This reminds all current hierarchic keys we are working on
      */
     protected $current_keys = array();
 
     /**
-     * @var ArrayIterator
+     * @var     \ArrayIterator
      */
     protected $menu_iterator = null;
 
     /**
-     * @var int Internal usage
+     * @var     int     Internal usage
      */
     private $base_level_tmp;
 
     /**
-     * @param object $menu \ArrayAccess
-     * @param int $base_level
-     * @param int $flags
-     *
-     * @see parent::__construct()
-     *
-     * @throws OutOfBoundsException if `$level` is not in `self::$range_levels`
+     * @param   \ArrayAccess    $menu
+     * @param   int             $base_level
+     * @param   int             $flags
+     * @see     parent::__construct()
+     * @throws  \MarkdownExtended\Exception\DomainException if `$level` is not in `self::$range_levels`
      */
     public function __construct(\ArrayAccess $menu = null, $base_level = 0, $flags = 0)
     {
@@ -70,7 +73,7 @@ class RecursiveMenuIterator
         }
         parent::__construct($menu, $flags);
         if ($base_level!==0 && !in_array($base_level, self::$range_levels)) {
-            throw new \OutOfBoundsException(
+            throw new MDE_Exception\DomainException(
                 sprintf('Invalid "base level" value for %s object: %d!', __CLASS__, $base_level)
             );
         }
@@ -135,7 +138,7 @@ class RecursiveMenuIterator
     /**
      * Append a new value to iterator and then rebuild menu
      *
-     * @param misc $value
+     * @param mixed $value
      */
     public function append($value)
     {
@@ -156,15 +159,14 @@ class RecursiveMenuIterator
     /**
      * Set a new key entry by its depth
      *
-     * @param int $index
-     * @param int|string $key
-     *
-     * @throws OutOfBoundsException if `$index` is not in `self::$range_levels`
+     * @param   int         $index
+     * @param   int/string  $key
+     * @throws  \MarkdownExtended\Exception\DomainException if `$index` is not in `self::$range_levels`
      */
     public function menuKeySet($index, $key)
     {
         if (!in_array($index, self::$range_levels)) {
-            throw new \OutOfBoundsException(
+            throw new MDE_Exception\DomainException(
                 sprintf('Invalid key "index" value for %s object: %d!', __CLASS__, $index)
             );
         }
@@ -174,8 +176,8 @@ class RecursiveMenuIterator
     /**
      * Define a new first level entry
      *
-     * @param int|string $index
-     * @param object $newval ArrayAccess
+     * @param   int/string      $index
+     * @param   \ArrayAccess    $newval
      */
     public function menuOffsetSet($index, $newval)
     {
@@ -187,13 +189,13 @@ class RecursiveMenuIterator
     /**
      * Define a new entry recursively
      *
-     * @param int|string $index
-     * @param object $newval ArrayAccess
+     * @param   int/string      $index
+     * @param   \ArrayAccess    $newval
      */
     public function menuOffsetSetRecursive($index, $newval)
     {
         $this->_setRecursiveKey(null, $newval['level']);
-        $item =& $this->_menuGetRecursivePath();
+        $item = $this->_menuGetRecursivePath();
         $this->_initItem($newval);
         $item->addChild($index, $newval);
         $this->_setRecursiveKey($index, $newval['level']);
@@ -229,7 +231,8 @@ class RecursiveMenuIterator
     /**
      * Test an item entry
      *
-     * @return bool
+     * @param   mixed   $item
+     * @return  bool
      */
     protected function _validItem($item) 
     {
@@ -242,8 +245,8 @@ class RecursiveMenuIterator
     /**
      * Initialize an item entry (a default one is created if so)
      *
-     * @param object $entry ArrayAccess
-     * @param array $default Values used if `$entry` is empty
+     * @param   \ArrayAccess    $entry
+     * @param   array           $default    Values used if `$entry` is empty
      */
     protected function _initItem(&$entry, array $default = array()) 
     {
@@ -286,7 +289,7 @@ class RecursiveMenuIterator
     /**
      * Find the current menu entry to work on, based on the `$current_keys` array
      *
-     * @return ArrayAccess item to work on
+     * @return  \ArrayAccess    The item to work on
      */
     protected function _menuGetRecursivePath()
     {
@@ -319,8 +322,8 @@ class RecursiveMenuIterator
     /**
      * Set a recursive key value, deleting all next keys
      *
-     * @param int $index
-     * @param int|string $key
+     * @param   int         $index
+     * @param   int/string  $key
      */
     protected function _setRecursiveKey($index, $key)
     {

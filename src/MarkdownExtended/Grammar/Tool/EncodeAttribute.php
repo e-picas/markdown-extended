@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,26 +17,27 @@
  */
 namespace MarkdownExtended\Grammar\Tool;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Tool;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Tool;
 
-class EncodeAttribute extends Tool
+class EncodeAttribute
+    extends Tool
 {
 
-	/**
-	 * Encode text for a double-quoted HTML attribute. This function
-	 * is *not* suitable for attributes enclosed in single quotes.
-	 *
-	 * @param string $text The attributes content
-	 * @return string The attributes content processed
-	 */
-	public function run($text) 
-	{
-		$text = parent::runGamut('tool:EncodeAmpAndAngle', $text);
-		$text = str_replace('"', '&quot;', $text);
-		return $text;
-	}
-	
+    /**
+     * Encode text for a double-quoted HTML attribute. This function
+     * is *not* suitable for attributes enclosed in single quotes.
+     *
+     * @param   string  $text   The attributes content
+     * @return  string          The attributes content processed
+     */
+    public function run($text)
+    {
+        $text = parent::runGamut('tool:EncodeAmpAndAngle', $text);
+        $text = str_replace('"', '&quot;', $text);
+        return $text;
+    }
+
 }
 
 // Endfile

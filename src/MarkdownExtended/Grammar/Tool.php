@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,32 +17,35 @@
  */
 namespace MarkdownExtended\Grammar;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\AbstractGamut,    
-    MarkdownExtended\Grammar\GamutInterface;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Grammar\AbstractGamut;
+use \MarkdownExtended\API\GamutInterface;
 
 /**
  * Abstract base class for Tools
  */
 abstract class Tool
-    extends AbstractGamut implements GamutInterface
+    extends AbstractGamut
+    implements GamutInterface
 {
 
     /**
      * Must return a method name
+     *
      * @return string
      */
-	public static function getDefaultMethod()
-	{
-		return 'run';
-	}
+    public static function getDefaultMethod()
+    {
+        return 'run';
+    }
 
-	/**
+    /**
      * Must process the tool on a text
-     * @param string
-     * @return string
-	 */
-	abstract public function run($text);
+     *
+     * @param   string
+     * @return  string
+     */
+    abstract public function run($text);
 
 }
 

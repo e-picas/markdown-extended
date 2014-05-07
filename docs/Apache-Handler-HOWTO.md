@@ -3,12 +3,15 @@ baseheaderlevel: 2
 Markdown Extended Apache module - HOW TO
 ========================================
 
-This document explains the usage of the `mde_apacheHandler.sh` shell script to use with
-[Apache](http://www.apache.org/). This script is designed to handle Markdown syntax content
-files and serve to a webserver a parsed HTML version of the original content.
+This document explains the usage of the `demo/cgi-scripts/mde_apacheHandler.sh` shell
+script to use with [Apache](http://www.apache.org/). This script is designed to handle
+Markdown syntax content files and serve to a webserver a parsed HTML version of the
+original content.
+
+If you encountered errors when browsing to your installation, see the [FAQ](#faq) section below.
 
 
-## Prerequisite
+## Prerequisites
 
 To allow this script to work on your webserver, you need the following environment:
 
@@ -108,8 +111,6 @@ system and your Apache's version):
 
     ~$ sudo /etc/init.d/apache2 restart
 
-If you encountered errors when browsing to your installation, see the [FAQ](#faq) section below.
-
 
 ## FAQ
 
@@ -167,6 +168,32 @@ virtual host's domain name, try the following:
 -   if you still have an error, come to ask us explaining your system & configuration at
     <http://github.com/atelierspierrot/markdown-extended/issues>.
 
+### I see the plain text version of my content
+
+This means that your server's configuration does not allow a CGI parsing as you write it.
+In certain cases, you could try to rewrite your URLs to your CGI script directly using the
+PHP handler and writing in your virtual-host configuration[^2]:
+
+    # special CGI handling
+    Options +ExecCGI +FollowSymLinks
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^((.*)\.md)$  http://domain.ext/cgi-bin/mde_apacheHandler.php/$1 [P,L,NC,QSA]
+
+
 
 [^1]: Some features requires Apache from version 2.0.23 but may not render an error with
 lower versions.
+
+[^2]: The `P` flag asks the redirection to act like a *proxy* but can send error. If this is
+your case, just remove the flag (your redirection will be visible in the address bar).
+
+
+----
+"**MDE Apache Handler how-to**" - last updated at 05 may 2014
+
+Creator & maintainer: [@pierowbmstr](http://github.com/pierowbmstr).
+
+Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/Apache-Handler-HOWTO.md>.
+
+For comments & bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.

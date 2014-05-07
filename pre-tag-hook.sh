@@ -6,8 +6,15 @@
 # - $2: the tag name to create 
 # - $3: the branch name 
 #
+# This script is used by <http://github.com/atelierspierrot/dev-tools>
+# when a version tag is built running from project root directory:
+#
+#       ./devtools.sh [-vi] version-tag
+#
 # To enable this hook, define the `DEFAULT_VERSIONTAG_HOOK` configuration variable on
-# this script.
+# this script in your `.devtools` configuration file.
+#
+# -----------------------
 #
 # Replaces constants values in `src/MarkdownExtended/MarkdownExtended.php`
 # and `docs/MANPAGE.md` with current `composer.json` values
@@ -58,10 +65,11 @@ else
     verecho "!! > Composer file '${COMPOSERJSON}' not found! (can't update version number and date)"
 fi
 
-git commit -m "Automatic version number and date insertion" && \
-    LASTSHA=`git log -1 --format="%H"` && \
-    git checkout wip && git cherry-pick $LASTSHA && \
-    git checkout dev && git cherry-pick $LASTSHA && \
-    git checkout master && git push origin master wip dev;
+debecho "> commiting new files ..."
+git commit -m "Automatic version number and date insertion"
+LASTSHA=`git log -1 --format="%H"`
+git checkout wip && git cherry-pick $LASTSHA
+git checkout dev && git cherry-pick $LASTSHA
+git checkout master && git push origin master wip dev;
 
 # Endfile
