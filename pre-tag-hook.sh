@@ -65,10 +65,11 @@ else
     verecho "!! > Composer file '${COMPOSERJSON}' not found! (can't update version number and date)"
 fi
 
-git commit -m "Automatic version number and date insertion" && \
-    LASTSHA=`git log -1 --format="%H"` && \
-    git checkout wip && git cherry-pick $LASTSHA && \
-    git checkout dev && git cherry-pick $LASTSHA && \
-    git checkout master && git push origin master wip dev;
+debecho "> commiting new files ..."
+git commit -m "Automatic version number and date insertion"
+LASTSHA=`git log -1 --format="%H"`
+git checkout wip && git cherry-pick $LASTSHA
+git checkout dev && git cherry-pick $LASTSHA
+git checkout master && git push origin master wip dev;
 
 # Endfile
