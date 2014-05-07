@@ -71,6 +71,12 @@ You can verify that your package passes all tests running:
 
     ~$ php bin/phpunit
 
+### Mess detection
+
+You can check code mess running:
+
+    ~$ php bin/phpmd src text codesize
+
 ### MarkdownExtended auto-update
 
 For auto-update of the Container class constants and the command line interface MANUAL based
