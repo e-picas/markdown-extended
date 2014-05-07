@@ -16,43 +16,14 @@ at <http://github.com/atelierspierrot/markdown-extended>.**
 
 ----
 
-## What is Markdown?
+## Why a new Markdown parser?
 
-Created by [John Gruber](http://daringfireball.net/projects/markdown/) in 2004, 
-**Markdown** is, as he says:
-
->    a text-to-HTML conversion tool for web writers. Markdown allows you 
->    to write using an easy-to-read, easy-to-write plain text format, then convert it 
->    to structurally valid XHTML (or HTML).
-
-As I would say, **Markdown** is a set of writing rules to build some human readable text 
-contents, such as `.txt` common files, which can be parsed to build some HTML valid content,
-structurally and typographically.
-
-This syntax has become one of the most common standards of rich-text contents, used for
-instance by [GitHub](http://github.com) as one of the proposed syntaxes for informational
-files (such like this one).
-
-
-### A short history of Markdown
-
-The first idea was from [John Gruber](http://daringfireball.net/), coded in *Perl* script.
-
-An extended implementation, known as **Markdown Extra**, has been written by [Michel Fortin](http://michelf.com/),
-coded in *PHP* script.
-
-Another extended implementation, known as **Multi Markdown**, has been written by 
-[Fletcher T. Penney](http://fletcherpenney.net/), coded in *Perl* script.
-
-
-### So why a new version of Markdown?
-
--   This version, known as **PHP Markdown Extended**, tries to collect the different rules
-    and tags used by the three versions listed above.
+-   This version tries to collect the different rules and tags used by original and various versions
+    gleaned over the web.
 -   It is a PHP script that can be used in any PHP project.
 -   It is coded following the PHP 5.3 coding standards and is [Composer](http://getcomposer.org/)
-    compliant.
--   It can be used in command line interface, with a full set of options.
+    compliant (and ready).
+-   It can be used via a command line interface, with a full set of options.
 -   It can be configured for specific needs.
 -   It is built to construct complex parsing by creating some single-key-unit objects for 
     all important Markdown stuff (content, configuration, parser, template and rules).
@@ -102,13 +73,18 @@ is to add it to your requirements in your `composer.json`:
 
 The namespace will be automatically added to the project's Composer autoloader.
 
+If you plan to use the parser as a single binary, you can use the PHAR archive directly,
+which embeds the whole source as a standalone binary. Its usage is the same as the
+`bin/markdown-extended` script described below.
 
 ### Usage
 
 #### Usage for writers
 
 To be compliant with the **extended** Markdown syntax, writers may construct their contents
-following the rules described at <http://sites.ateliers-pierrot.fr/markdown-extended/markdown_reminders.html>.
+following the rules described in the `markdown_reminders.html` file of the package ;
+the latest version can be found at <http://sites.ateliers-pierrot.fr/markdown-extended/markdown_reminders.html>.
+
 For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
 the latest version can be found at <http://github.com/atelierspierrot/markdown-extended/blob/master/demo/MD_syntax.md>.
 
@@ -144,6 +120,10 @@ version, write:
     \MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
     echo \MarkdownExtended\MarkdownExtended::getFullContent();
 
+A full PHP documentation of the last stable release can be found at
+<http://docs.ateliers-pierrot.fr/markdown-extended/>.
+
+
 #### Old parsers compatibility
 
 To keep the package compatible with old versions of Markdown, an interface is embedded
@@ -158,6 +138,9 @@ with the common `Markdown($content)` function ; to use it, just include the file
     // to get result of a file content parsing:
     echo MarkdownFromSource($file_name [, $options]);
 
+This way, you may be able to change your Markdown parser without so much work and, we
+hope so, a better result ;)
+
 #### Command line usage
 
 A short command line interface is proposed in the package running:
@@ -171,13 +154,6 @@ To generate a man-page from file `docs/MANPAGE.md` with the interface itself, ru
 
     ~$ bin/markdown-extended -f man -o bin/markdown-extended.man docs/MANPAGE.md
     ~$ man ./bin/markdown-extended.man
-
-#### Apache handler usage
-
-A sample of direct [Apache](http://www.apache.org/) handler is designed in the `demo/cgi-scripts/`
-directory of the package. It allows you to automatically transform Markdown content files
-in HTML thru a browser classic navigation. To learn more about this feature, please see the
-dedicated [How-To](docs/Apache-Handler-HOWTO.md).
 
 
 ## Open-Source & Community
@@ -201,10 +177,12 @@ The latest version of the package documentation is available online at
 
 Note that the package is integrated with [Travis CI](http://travis-ci.org/).
 
+
 ## Licenses
 
 This software, as the original Markdown, is licensed under the terms of the
 [BSD-3-Clause open source license](http://opensource.org/licenses/BSD-3-Clause).
+Please see the `LICENSE` file for a full text.
 
 You can use, transform and distribute this software and its dependencies as you wish, as
 long as you mention the copyrights below:
@@ -228,31 +206,3 @@ long as you mention the copyrights below:
     Copyright (c) 2012-2014 Pierre Cassat & contributors
     <http://ateliers-pierrot.fr/>  
     All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are
-    met:
-
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-
-    * Neither the names "Markdown", "Markdown Extra", "Multi Markdown", 
-      "Markdown Extended" nor the names of its contributors may be used
-      to endorse or promote products derived from this software without
-      specific prior written permission.
-
-    This software is provided by the copyright holders and contributors "as
-    is" and any express or implied warranties, including, but not limited
-    to, the implied warranties of merchantability and fitness for a
-    particular purpose are disclaimed. In no event shall the copyright owner
-    or contributors be liable for any direct, indirect, incidental, special,
-    exemplary, or consequential damages (including, but not limited to,
-    procurement of substitute goods or services; loss of use, data, or
-    profits; or business interruption) however caused and on any theory of
-    liability, whether in contract, strict liability, or tort (including
-    negligence or otherwise) arising in any way out of the use of this
-    software, even if advised of the possibility of such damage.
