@@ -43,6 +43,9 @@ if [ ! -z "$MDE_CONSOLE_OPTIONS" ]; then OPTIONS="$MDE_CONSOLE_OPTIONS"; fi
 # echo "REQ : $REQ"
 # echo "CHARSET : $CHARSET"
 # echo "OPTIONS : $OPTIONS"
+# echo
+# echo "> gonna run:"
+# echo "$PHP_BIN $CONSOLE $OPTIONS $PATH_TRANSLATED"
 # exit 0
 
 ## Process 
