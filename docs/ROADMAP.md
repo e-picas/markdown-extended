@@ -92,9 +92,9 @@ Or, you can simply run the following before a new version's commit:
 
 
 ----
-"**Markdown Extended ROADMAP**" - last updated at 08 june 2013
+"**Markdown Extended ROADMAP**" - last updated at 05 may 2014
 
-Creator & maintainer: Pierre Cassat <piero.wbmstr@gmail.com>.
+Creator & maintainer: [@pierowbmstr](http://github.com/pierowbmstr).
 
 Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/ROADMAP.md>.
 

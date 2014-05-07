@@ -217,9 +217,9 @@ version, write:
     echo \MarkdownExtended\MarkdownExtended::getFullContent();
 
 ----
-"**Markdown Extended API**" - last updated at 08 june 2013
+"**Markdown Extended API**" - last updated at 05 may 2014
 
-Creator & maintainer: Pierre Cassat <piero.wbmstr@gmail.com>.
+Creator & maintainer: [@pierowbmstr](http://github.com/pierowbmstr).
 
 Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/API.md>.
 

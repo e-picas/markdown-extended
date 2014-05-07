@@ -187,3 +187,13 @@ lower versions.
 
 [^2]: The `P` flag asks the redirection to act like a *proxy* but can send error. If this is
 your case, just remove the flag (your redirection will be visible in the address bar).
+
+
+----
+"**MDE Apache Handler how-to**" - last updated at 05 may 2014
+
+Creator & maintainer: [@pierowbmstr](http://github.com/pierowbmstr).
+
+Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/Apache-Handler-HOWTO.md>.
+
+For comments & bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.

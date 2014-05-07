@@ -200,7 +200,7 @@ function emdreminders_popup(url){
             <li><a href="index.php">Usage</a></li>
             <li><a href="../markdown_reminders.html" onclick="return emdreminders_popup('../markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
             <li><a href="index.php?page=form">Test of a form field</a></li>
-            <li><a href="index.php?doc=Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
+            <li><a href="index.php?doc=../docs/Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
             <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
                 <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
                 <li><a href="index.php?doc=MD_syntax.md&amp;md=process">markdown parsed version</a></li>
