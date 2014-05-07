@@ -88,6 +88,21 @@ class API
     const GRAMMAR_GAMUT_INTERFACE = '\MarkdownExtended\API\GamutInterface';
 
     /**
+     * Get the internal MDE objects
+     *
+     * @return  array
+     */
+    private static function __getInternals()
+    {
+        return array(
+            'kernel'                =>'\MarkdownExtended\MarkdownExtended',
+            'registry'              =>'\MarkdownExtended\Registry',
+            'config'                =>'\MarkdownExtended\Config',
+            'output_format_bag'     =>'\MarkdownExtended\OutputFormatBag',
+        );
+    }
+
+    /**
      * Get the current API
      *
      * @return  array
@@ -122,11 +137,27 @@ class API
         self::debug("<hr />", "FACTORY : ", func_get_args());
 
         $api        = self::__getApi();
+        $internals  = self::__getInternals();
         if (is_null($type)) {
             $type   = self::getRelativeClassname($name);
             $type   = strtolower($type);
         }
         self::debug("searching to load ".$name." of type ".$type);
+
+        // if internal, return
+        if (array_key_exists($type, $internals)) {
+            $class_name = $internals[$type];
+            try {
+                $_cls = new \ReflectionClass($class_name);
+                $_obj = $_cls->newInstanceArgs(is_null($params) ? array() : $params);
+            } catch (\ReflectionException $e) {
+                throw new MDE_Exception\RuntimeException(sprintf(
+                    "An error occured trying to create a '%s' instance: '%s'!",
+                    $name, $e->getMessage()
+                ));
+            }
+            return $_obj;
+        }
 
         // get the class name to create
         if (array_key_exists($type, $api)) {
