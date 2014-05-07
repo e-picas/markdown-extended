@@ -1,6 +1,6 @@
 .\" author: Les Ateliers Pierrot
 
-.TH  "NAME" "3" "2013-10-21" "Version 0.1-alpha" "markdown-extended Manual"
+.TH  "NAME" "3" "2014-05-07" "Version 0.1-beta" "markdown-extended Manual"
 
 .SH NAME
 
