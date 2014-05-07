@@ -18,9 +18,10 @@
 namespace MarkdownExtended;
 
 use \MarkdownExtended\API\KernelInterface;
-use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Registry;
 use \MarkdownExtended\Config;
+use \MarkdownExtended\OutputFormatBag;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -91,7 +92,7 @@ final class MarkdownExtended
     const FULL_CONFIGFILE = 'markdown_config.full.ini';
 
     /**
-     * Default simple options INI file (i.e. for fields)
+     * Default simple options INI file (i.e. for input fields)
      */
     const SIMPLE_CONFIGFILE = 'markdown_config.simple.ini';
 
@@ -177,19 +178,28 @@ final class MarkdownExtended
      * @param   string/array    $parser_options
      * @param   string/null     $key
      * @param   bool            $secondary  Set it to `true` if parsed content may not be stored as current one
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the parser class is not valid
      */
     public static function transformString($source, $parser_options = null, $key = null, $secondary = false)
     {
-        $content = new \MarkdownExtended\Content($source);
-        $content->setId($key);
-        if (!empty(self::$global_options)) {
-            if (is_null($parser_options)) $parser_options = array();
-            if (!is_array($parser_options)) $parser_options = array($parser_options);
-            $parser_options = array_merge(self::$global_options, $parser_options);
+        try {
+            $content = MDE_API::factory('Content', array($source));
+            $content->setId($key);
+            if (!empty(self::$global_options)) {
+                if (is_null($parser_options)) $parser_options = array();
+                if (!is_array($parser_options)) $parser_options = array($parser_options);
+                $parser_options = array_merge(self::$global_options, $parser_options);
+            }
+            $parser = self::getInstance()
+                ->get('Parser', $parser_options, MDE_API::FAIL_WITH_ERROR);
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
         }
-        return self::getInstance()
-            ->get('Parser', $parser_options)
+        return $parser
             ->parse($content, $secondary)
             ->getContent();
     }
@@ -201,19 +211,28 @@ final class MarkdownExtended
      * @param   string/array    $parser_options
      * @param   string/null     $key
      * @param   bool            $secondary  Set it to `true` if parsed content may not be stored as current one
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the parser class is not valid
      */
     public static function transformSource($filename, $parser_options = null, $key = null, $secondary = false)
     {
-        $content = new \MarkdownExtended\Content(null, $filename);
-        $content->setId($key);
-        if (!empty(self::$global_options)) {
-            if (is_null($parser_options)) $parser_options = array();
-            if (!is_array($parser_options)) $parser_options = array($parser_options);
-            $parser_options = array_merge(self::$global_options, $parser_options);
+        try {
+            $content = MDE_API::factory('Content', array(null, $filename));
+            $content->setId($key);
+            if (!empty(self::$global_options)) {
+                if (is_null($parser_options)) $parser_options = array();
+                if (!is_array($parser_options)) $parser_options = array($parser_options);
+                $parser_options = array_merge(self::$global_options, $parser_options);
+            }
+            $parser = self::getInstance()
+                ->get('Parser', $parser_options, MDE_API::FAIL_WITH_ERROR);
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
         }
-        return self::getInstance()
-            ->get('Parser', $parser_options)
+        return $parser
             ->parse($content, $secondary)
             ->getContent();
     }
@@ -225,11 +244,11 @@ final class MarkdownExtended
     /**
      * Add a new processed content in the contents stack
      *
-     * @param   \MarkdownExtended\Content   $content
+     * @param   \MarkdownExtended\API\ContentInterface   $content
      * @param   bool    $secondary          Set it to `true` if parsed content may not be stored as current one
      * @return  void
      */
-    public static function addProcessedContent(Content $content, $secondary = false)
+    public static function addProcessedContent(MDE_API\ContentInterface $content, $secondary = false)
     {
         self::$contents[$content->getId()] =& $content;
         if (!$secondary) self::$current = $content->getId();
@@ -239,7 +258,7 @@ final class MarkdownExtended
      * Get a processed content, current by default
      *
      * @param   mixed   $id     The id of the content to get
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
      */
     public static function getContent($id = null)
     {
@@ -252,11 +271,20 @@ final class MarkdownExtended
      *
      * @param   mixed   $id     The id of the content to get
      * @return  string
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the OutputFormater class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the OutputFormater class is not valid
      */
     public static function getFullContent($id = null)
     {
         $content = self::getContent($id);
-        $output_bag = self::get('OutputFormatBag');
+        try {
+            $output_bag = self::getInstance()
+                ->get('OutputFormatBag', null, MDE_API::FAIL_WITH_ERROR);
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
+        }
         return $output_bag->getHelper()
             ->getFullContent($content, $output_bag->getFormater());
     }
@@ -265,11 +293,21 @@ final class MarkdownExtended
      * Get current processed content in a Templater
      *
      * @param   null/array   $config
-     * @return  \MarkdownExtended\Templater
+     * @return  \MarkdownExtended\API\TemplaterInterface
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the Templater class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the Templater class is not valid
      */
     public static function getTemplater(array $config = null)
     {
-        return self::get('Templater', $config)->load(self::getContent());
+        try {
+            $templater = self::getInstance()
+                ->get('Templater', $config, MDE_API::FAIL_WITH_ERROR);
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
+        }
+        return $templater->load(self::getContent());
     }
     
 // --------------
@@ -282,7 +320,7 @@ final class MarkdownExtended
      * @param   string  $class_name     The class name to instanciate ; will be completed with current namespace if necessary
      * @return  bool
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException it the class doesn't exist
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException it the creation of the object throws an exception
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException it the creation of the object throws an exception
      */
     public static function load($class_name)
     {
@@ -294,7 +332,7 @@ final class MarkdownExtended
                 if (MDE_API::isValid($class_name)) {
                     return true;
                 }
-            } catch (MDE_Exception\InvalidArgumentException $e) {
+            } catch (MDE_Exception\UnexpectedValueException $e) {
                 throw $e;
             }
         } else {
@@ -309,20 +347,22 @@ final class MarkdownExtended
      *
      * @param   string      $class_name     The class name to instanciate ; will be completed with current namespace if necessary
      * @param   null/array  $params         Parameters to use for `$class` object instanciation
+     * @param   null/string $type           The type of API object to load
      * @return  object
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the registry entry can't be set
      */
-    public static function factory($class_name, $params = null)
+    public static function factory($class_name, $params = null, $type = null)
     {
-        $_class_name_bkp = $class_name;
-        $mde_class = MDE_API::getAbsoluteClassname($class_name);
-        if (!class_exists($mde_class) && !class_exists($class_name)) {
-            $_class_name_bkp = MDE_API::getRelativeClassname($mde_class);
-            self::load($class_name);
-        } elseif (class_exists($mde_class)) {
-            $class_name = $mde_class;
+        try {
+            $_obj = MDE_API::factory($class_name, $params, $type);
+            self::$registry->set($class_name, $_obj);
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
         }
-        $_obj = !is_null($params) ? new $class_name($params) : new $class_name;
-        self::$registry->set($_class_name_bkp, $_obj);
         return $_obj;
     }
 
@@ -333,14 +373,35 @@ final class MarkdownExtended
      * @param   array   $params         Parameters to use for `$class` object instanciation
      * @param   int     $flag
      * @return  object
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error
      */
-    public static function get($class_name, $params = null, $flag = self::FAIL_GRACEFULLY)
+    public static function get($class_name, $params = null, $flag = MDE_API::FAIL_GRACEFULLY)
     {
         $_class_name_bkp = MDE_API::getRelativeClassname($class_name);
         $obj = self::$registry->get($_class_name_bkp);
-        if (!empty($obj)) return $obj;
-        else return self::factory($_class_name_bkp, $params);
+        if (!empty($obj)) {
+            return $obj;
+        } else {
+            $_fact = null;
+            try {
+                $_fact = self::factory($_class_name_bkp, $params);
+            } catch (MDE_Exception\InvalidArgumentException $e) {
+                if ($flag & MDE_API::FAIL_WITH_ERROR) {
+                    throw $e;
+                }
+            } catch (MDE_Exception\RuntimeException $e) {
+                if ($flag & MDE_API::FAIL_WITH_ERROR) {
+                    throw $e;
+                }
+            }
+            return $_fact;
+        }
     }
+
+// --------------
+// ALIASES
+// --------------
 
     /**
      * Get a configuration entry from registry

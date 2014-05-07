@@ -17,11 +17,6 @@
  */
 namespace MarkdownExtended\API;
 
-use \MarkdownExtended\Registry;
-use \MarkdownExtended\Config;
-use \MarkdownExtended\Helper as MDE_Helper;
-use \MarkdownExtended\Exception as MDE_Exception;
-
 /**
  * Interface that defines a "kernel" principle
  *
@@ -36,16 +31,6 @@ use \MarkdownExtended\Exception as MDE_Exception;
  */
 interface KernelInterface
 {
-
-    /**
-     * @var     integer     Flag to use for silent errors
-     */
-    const FAIL_GRACEFULLY = 0;
-
-    /**
-     * @var     integer     Flag to use to throw errors
-     */
-    const FAIL_WITH_ERROR = 1;
 
     /**
      * Initialize the registry and flush the contents stack
@@ -84,8 +69,8 @@ interface KernelInterface
      *                                  namespace if necessary
      * @return  bool                    Must return a boolean
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist
-     */
     public static function load($class_name);
+     */
 
     /**
      * Build, retain and return a dependency instance
@@ -109,7 +94,7 @@ interface KernelInterface
      * @return  object                  Must return a service object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist
      */
-    public static function get($class_name, $params = null, $flag = self::FAIL_GRACEFULLY);
+    public static function get($class_name, $params = null, $flag = \MarkdownExtended\API::FAIL_GRACEFULLY);
 
 // ----------------------------------
 // Parsing

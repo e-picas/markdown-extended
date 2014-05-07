@@ -18,6 +18,8 @@
 namespace MarkdownExtended;
 
 use \MarkdownExtended\API\TemplaterInterface;
+use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\API\CollectionInterface;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -38,12 +40,12 @@ class Templater
     protected $content;
 
     /**
-     * @var     \MarkdownExtended\Content
+     * @var     \MarkdownExtended\API\ContentInterface
      */
     protected $mde_content;
 
     /**
-     * @var     \MarkdownExtended\ContentCollection
+     * @var     \MarkdownExtended\API\CollectionInterface
      */
     protected $mde_content_collection;
 
@@ -88,10 +90,10 @@ class Templater
     /**
      * Load a content object
      *
-     * @param   \MarkdownExtended\Content
+     * @param   \MarkdownExtended\API\ContentInterface
      * @return  self
      */
-    public function load(Content $mde_content)
+    public function load(ContentInterface $mde_content)
     {
         $this->mde_content = $mde_content;
         return $this;
@@ -100,10 +102,10 @@ class Templater
     /**
      * Load a contents collection object
      *
-     * @param   \MarkdownExtended\ContentCollection
+     * @param   \MarkdownExtended\API\CollectionInterface
      * @return  self
      */
-    public function loadCollection(ContentCollection $mde_content_collection)
+    public function loadCollection(CollectionInterface $mde_content_collection)
     {
         $this->mde_content_collection = $mde_content_collection;
         return $this;

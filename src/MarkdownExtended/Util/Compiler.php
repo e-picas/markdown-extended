@@ -15,7 +15,7 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-namespace MarkdownExtended;
+namespace MarkdownExtended\Util;
 
 use \Symfony\Component\Finder\Finder;
 
@@ -52,7 +52,7 @@ class Compiler
     public function compile($pharFile = 'markdown-extended.phar', $root_dir = null)
     {
         if (is_null($root_dir)) {
-            $root_dir = __DIR__.'/../..';
+            $root_dir = __DIR__.'/../../..';
         }
         if (file_exists($pharFile)) {
             unlink($pharFile);
@@ -112,7 +112,7 @@ class Compiler
 
     private function __addFile($phar, $file, $strip = true)
     {
-        $path = str_replace(dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR, '', $file->getRealPath());
+        $path = str_replace(dirname(dirname(dirname(__DIR__))).DIRECTORY_SEPARATOR, '', $file->getRealPath());
 
         $content = file_get_contents($file);
         if ($strip) {
@@ -127,7 +127,7 @@ class Compiler
 
     private function __addBin($phar, $binary = 'bin/markdown-extended')
     {
-        $content = file_get_contents(__DIR__.'/../../bin/markdown-extended');
+        $content = file_get_contents(__DIR__.'/../../../bin/markdown-extended');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
 
         $this->_logs[] = sprintf('Adding file "%s" (length %d)', $binary, strlen($content));

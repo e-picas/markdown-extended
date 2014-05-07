@@ -24,7 +24,7 @@
 require __DIR__.'/../src/bootstrap.php';
 
 // phar compiler
-use MarkdownExtended\Compiler;
+use MarkdownExtended\Util\Compiler;
 
 // silent errors
 @error_reporting(-1);

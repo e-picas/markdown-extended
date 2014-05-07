@@ -61,34 +61,50 @@ class OutputFormatBag
      * Loads a new formater
      *
      * @param   string  $format     The formater name
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error
      */
     public function load($format)
     {
         $class_name = $format;
         if (!class_exists($class_name)) {
-            $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format);
+            $class_name = '\MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format);
         }
-        $_obj = MarkdownExtended::get($class_name);
-        $this->setFormater($_obj);
-        $this->loadHelper($format);
+        try {
+            $_obj = MarkdownExtended::factory($class_name, null, 'output_format');
+            $this->setFormater($_obj);
+            $this->loadHelper($format);
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
+        }
     }
 
     /**
      * Loads a formater helper if it exists
      *
      * @param   string  $format     The formater name
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error
      */
     public function loadHelper($format)
     {
         $class_name = $format.'Helper';
         if (!class_exists($class_name)) {
-            $class_name = 'MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format).'Helper';
+            $class_name = '\MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format).'Helper';
         }
         if (!class_exists($class_name)) {
-            $class_name = 'MarkdownExtended\OutputFormat\\DefaultHelper';
+            $class_name = '\MarkdownExtended\OutputFormat\\DefaultHelper';
         }
-        $_obj = MarkdownExtended::get($class_name);
-        $this->setHelper($_obj);
+        try {
+            $_obj = MarkdownExtended::factory($class_name, null, 'output_format_helper');
+            $this->setHelper($_obj);
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
+        }
     }
 
     /**

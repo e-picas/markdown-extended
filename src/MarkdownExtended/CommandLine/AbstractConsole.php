@@ -18,6 +18,7 @@
 namespace MarkdownExtended\CommandLine;
 
 use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -237,7 +238,7 @@ abstract class AbstractConsole
                 }
             }
             @file_put_contents($this->stdin, '');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $data = null;
         }
         return $data;
@@ -355,7 +356,13 @@ abstract class AbstractConsole
                 ."]");
             self::$mde_instance = MarkdownExtended::create();
         }
-        self::$mde_instance->get('Parser', $config);
+        try {
+            self::$mde_instance->get('Parser', $config, MDE_API::FAIL_WITH_ERROR);
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            $this->catched($e);
+        } catch (MDE_Exception\RuntimeException $e) {
+            $this->catched($e);
+        }
         return self::$mde_instance;
     }
     

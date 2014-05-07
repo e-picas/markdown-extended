@@ -18,7 +18,7 @@
 namespace MarkdownExtended\CommandLine;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\ContentCollection;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\CommandLine\AbstractConsole;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
@@ -29,11 +29,6 @@ use \MarkdownExtended\Exception as MDE_Exception;
 class Reminders
     extends AbstractConsole
 {
-
-    /**
-     * @var \MarkdownExtended\MarkdownExtended
-     */
-    protected static $emd_instance;
 
     /**
      * @var array Collection of \MarkdownExtended\ContentCollection object
@@ -73,7 +68,13 @@ class Reminders
     public function __construct()
     {
         parent::__construct();
-        $this->md_contents = new ContentCollection;
+        try {
+            $this->md_contents = MDE_API::factory('ContentCollection', null, 'content_collection');
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            $this->catched($e);
+        } catch (MDE_Exception\RuntimeException $e) {
+            $this->catched($e);
+        }
         $this->runOption_docsdir(__DIR__.'/../Resources/doc');
         $this->runOption_output(__DIR__.'/../../../markdown_reminders.html');
         $this->runOption_config(MarkdownExtended::FULL_CONFIGFILE);
@@ -177,7 +178,7 @@ EOT;
     {
         $this->info(PHP_EOL.">>>> let's go for the parsing ...".PHP_EOL, true, false);
         $dir = new \DirectoryIterator($this->docs_dir);
-        $_emd = $this->getEmdInstance();
+        $_emd = $this->getMdeInstance();
         foreach ($dir as $_file) {
             if ($dir->isFile() && !$dir->isDot() && $dir->getExtension()==='md') {
                 try {
@@ -185,10 +186,11 @@ EOT;
                     $md_id = MDE_Helper::header2label(
                         str_replace('.md', '', basename($dir->getPathname()))
                     );
-                    $md_content = new \MarkdownExtended\Content(
+                    $md_content = MDE_API::factory('Content', array(
                         null, $dir->getPathname(), $md_id
-                    );
-                    $md_output = $_emd->get('Parser')
+                    ));
+                    $parser = $_emd->get('Parser');
+                    $md_output = $parser
                         ->parse($md_content)
                         ->getContent();
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
@@ -207,9 +209,9 @@ EOT;
                 $this->md_contents->add($md_content);
             }
         }
-        $reminders = $_emd->getTemplater(array(
+        $reminders = $_emd->getTemplater(array(array(
                 'template'=>$this->template
-            ))
+            )))
             ->buildTemplate(array(
                 'span_contents' => $this->md_contents->getArrayFilter(array($this, 'filterSpan')),
                 'block_contents' => $this->md_contents->getArrayFilter(array($this, 'filterBlock')),
@@ -236,7 +238,7 @@ EOT;
     /**
      * Use of the PHP Markdown Extended class as a singleton
      */
-    protected function getEmdInstance(array $config = array())
+    protected function getMdeInstance(array $config = array())
     {
         if (false!==$this->config) {
             $config['config_file'] = $this->config;
@@ -244,7 +246,7 @@ EOT;
         if (!empty($this->format)) {
             $config['output_format'] = $this->format;
         }           
-        return parent::getEmdInstance($config);
+        return parent::getMdeInstance($config);
     }
     
     /**

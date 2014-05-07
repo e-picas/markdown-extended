@@ -17,6 +17,7 @@
  */
 namespace MarkdownExtended;
 
+use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Registry;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
@@ -32,6 +33,18 @@ class Config
      * @var     array
      */
     public static $defaults = array(
+        // the default API objects
+        'content_class' => '\MarkdownExtended\Content',
+        'content_collection_class' => '\MarkdownExtended\ContentCollection',
+        'parser_class' => '\MarkdownExtended\Parser',
+        'templater_class' => '\MarkdownExtended\Templater',
+        'grammar\filter_class' => '\MarkdownExtended\Grammar\Filter',
+        'grammar\tool_class' => '\MarkdownExtended\Grammar\Tool',
+        // Gamut classes aliases
+        'gamut_aliases' => array(
+            'filter' => '\MarkdownExtended\Grammar\Filter',
+            'tool' => '\MarkdownExtended\Grammar\Tool'
+        ),
         // the default output format
         'output_format' => 'HTML',
         // Change to ">" for HTML output
@@ -53,11 +66,6 @@ class Config
         'special_metadata' => array('baseheaderlevel', 'quoteslanguage'),
         // Block inclusion tag
         'block_inclusion' => '<!-- @([^ @]+)@ -->',
-        // Gamut classes aliases
-        'gamut_aliases' => array(
-            'filter' => '\MarkdownExtended\Grammar\Filter',
-            'tool' => '\MarkdownExtended\Grammar\Tool'
-        ),
         // Optional title attribute for links that do not have one
         'link_mask_title' => 'See online %%',
         'mailto_mask_title' => 'Contact %%',
@@ -106,6 +114,8 @@ class Config
      *
      * @param   null/string/array   $user_config
      * @return  void
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed
      */
     public function init($user_config = null)
     {
@@ -120,7 +130,13 @@ class Config
                 }
             }
         }
-        $this->reload($config_file, true);
+        try {
+            $this->reload($config_file, true);
+        } catch (MDE_Exception\UnexpectedValueException $e) {
+            throw $e;
+        } catch (MDE_Exception\DomainException $e) {
+            throw $e;
+        }
         if (!empty($user_config) && is_array($user_config)) {
             $this->overload($user_config);
         }
@@ -132,11 +148,19 @@ class Config
      * @param   string/array    $cfg_file
      * @param   bool            $silent
      * @return  void
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed
      */
     public function load($cfg_file, $silent = false)
     {
-        $this->setConfigFile($cfg_file);
-        $mde_config = $this->_loadFile($this->config_file, $silent);
+        try {
+            $this->setConfigFile($cfg_file);
+            $mde_config = $this->_loadFile($this->config_file, $silent);
+        } catch (MDE_Exception\UnexpectedValueException $e) {
+            throw $e;
+        } catch (MDE_Exception\DomainException $e) {
+            throw $e;
+        }
         if (!empty($mde_config)) {
             foreach ($mde_config as $_var=>$_val) {
                 $this->set($_var, $_val);
@@ -151,6 +175,8 @@ class Config
      * @param   bool            $forced
      * @param   bool            $silent
      * @return  void
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
+     * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed
      */
     public function reload($cfg_file = null, $forced = false, $silent = false)
     {
@@ -160,7 +186,13 @@ class Config
             $forced
         ) {
             $this->reset();
-            $this->load($cfg_file, $silent);
+            try {
+                $this->load($cfg_file, $silent);
+            } catch (MDE_Exception\UnexpectedValueException $e) {
+                throw $e;
+            } catch (MDE_Exception\DomainException $e) {
+                throw $e;
+            }
         }
     }
 

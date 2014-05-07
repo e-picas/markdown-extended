@@ -172,6 +172,31 @@ class Helper
         return array($addr, $text);
     }
 
+    /**
+     * Get a human readable file size
+     *
+     * @param   string  $file_path
+     * @return  string
+     */
+    public static function getFileSize($file_path)
+    {
+        if (@file_exists($file_path)) {
+            $size = @filesize($file_path);
+            if (!empty($size)) {
+                if ($size < 1024) {
+                    return $size .' B';
+                } elseif ($size < 1048576) {
+                    return round($size / 1024, 2) .' KiB';
+                } elseif ($size < 1073741824) {
+                    return round($size / 1048576, 2) . ' MiB';
+                } else {
+                    return round($size / 1073741824, 2) . ' GiB';
+                }
+            }
+        }
+        return '';
+    }
+
 // --------------
 // Regular expressions
 // --------------
@@ -269,94 +294,6 @@ class Helper
             $fromCamelCase_func = create_function('$c', 'return "'.$replace.'" . strtolower($c[1]);');
         }
         return trim(preg_replace_callback('/([A-Z])/', $fromCamelCase_func, $name), $replace);
-    }
-
-// --------------
-// Variables manipulation
-// --------------
-
-    /**
-     * Extend a value with another, if types match
-     *
-     * @param   mixed   $what
-     * @param   mixed   $add
-     * @return  mixed
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if trying to extend an array with not an array
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if trying to extend an object
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if type unknown
-     */
-    public static function extend($what, $add)
-    {
-        if (empty($what)) return $add;
-        switch (gettype($what)) {
-            case 'string': return $what.$add; break;
-            case 'numeric': return ($what+$add); break;
-            case 'array': 
-                if (is_array($add)) {
-                    $what += $add;
-                    return $what; 
-                } else {
-                    throw new MDE_Exception\InvalidArgumentException(
-                        "Trying to extend an array with not an array!"
-                    );
-                }
-                break;
-            case 'object': 
-                throw new MDE_Exception\InvalidArgumentException("Trying to extend an object!");
-                break;
-            default: 
-                throw new MDE_Exception\InvalidArgumentException(sprintf(
-                    "No extending definition found for type <%s>!", gettype($what)
-                ));
-                break;
-        }
-    }
-
-    /**
-     * Validate a var name
-     *
-     * @param   string  $var
-     * @return  bool
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the var name is not an alpha-numeric string
-     */
-    public static function validateVarname($var)
-    {
-        if (!is_string($var) || !ctype_alnum(str_replace(array('_', '\\'), '', $var))) {
-            throw new MDE_Exception\InvalidArgumentException(sprintf(
-                'Registry entry must be named by alpha-numeric string, <%s> given!', $var
-            ));
-            return false;
-        }
-        return true;
-    }
-
-// --------------
-// Variables manipulation
-// --------------
-
-    /**
-     * Get a human readable file size
-     *
-     * @param   string  $file_path
-     * @return  string
-     */
-    public static function getFileSize($file_path)
-    {
-        if (@file_exists($file_path)) {
-            $size = @filesize($file_path);
-            if (!empty($size)) {
-                if ($size < 1024) {
-                  return $size .' B';
-                } elseif ($size < 1048576) {
-                  return round($size / 1024, 2) .' KiB';
-                } elseif ($size < 1073741824) {
-                  return round($size / 1048576, 2) . ' MiB';
-                } else {
-                  return round($size / 1073741824, 2) . ' GiB';
-                }
-            }
-        }
-        return '';
     }
 
 }

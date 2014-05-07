@@ -19,6 +19,7 @@ namespace MarkdownExtended\CommandLine;
 
 use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\CommandLine\AbstractConsole;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -567,11 +568,11 @@ EOT;
     }
     
     /**
-     * Creates a `\MarkdownExtended\Content` object from filename or string
+     * Creates a `\MarkdownExtended\API\ContentInterface` object from filename or string
      *
      * @param   string  $input
      * @param   bool    $title  Set to `true` to add title string in case of multi-input
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
      * @throws  any catched exception
      */
     public function getInput($input, $title = false)
@@ -584,7 +585,7 @@ EOT;
                     $this->writeInputTitle($input);
                 }
                 try {
-                    $md_content = new \MarkdownExtended\Content(null, $input);
+                    $md_content = MDE_API::factory('Content', array(null, $input));
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
                     $this->catched($e);
                 } catch (\MarkdownExtended\Exception\RuntimeException $e) {
@@ -604,7 +605,7 @@ EOT;
                     $this->writeInputTitle('STDIN input');
                 }
                 try {
-                    $md_content = new \MarkdownExtended\Content($input);
+                    $md_content = MDE_API::factory('Content', array($input));
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
                     $this->catched($e);
                 } catch (\MarkdownExtended\Exception\RuntimeException $e) {
@@ -644,13 +645,15 @@ EOT;
                         $_emd->setConfig('template', true, 'templater');
                         $_emd->setConfig('user_template', $this->template, 'templater');
                     }
-                    $md_output = $_emd->get('Parser')
+                    $parser = $_emd->get('Parser');
+                    $md_output = $parser
                         ->parse($md_content)
                         ->getContent();
                     $mde_tpl = $_emd->getTemplater();
                     $md_output = $mde_tpl->parse()->__toString();
                 } else {
-                    $md_output = $_emd->get('Parser')
+                    $parser = $_emd->get('Parser');
+                    $md_output = $parser
                         ->parse($md_content)
                         ->getFullContent();
                 }
@@ -697,7 +700,8 @@ EOT;
             $_emd = $this->getMdeInstance($options);
             $this->info("Extracting Mardkown $extract ... ", false);
             try {
-                $md_content_parsed = $_emd->get('Parser')
+                $parser = $_emd->get('Parser');
+                $md_content_parsed = $parser
                     ->parse($md_content)
                     ->getContent();
                 $output = call_user_func(

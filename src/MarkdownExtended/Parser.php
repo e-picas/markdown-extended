@@ -19,11 +19,14 @@ namespace MarkdownExtended;
 
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\ParserInterface;
+use \MarkdownExtended\API\ContentInterface;
 
 /**
  * PHP Markdown Extended Parser Class
  */
 class Parser
+    implements ParserInterface
 {
 
     /**
@@ -51,15 +54,26 @@ class Parser
      * with the `config_file` index.
      *
      * @param   array/string    $config
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if a class load fails
+     * @throws  \MarkdownExtended\Exception\RuntimeException if an object creation sent an error
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException it the creation of an object throws an exception
      */
     public function __construct($config = null) 
     {
         // Init all dependencies
-        MarkdownExtended::get('Config')->init($config);
-        MarkdownExtended::factory('Grammar\Gamut', MarkdownExtended::getConfig('gamut_aliases'));
-        MarkdownExtended::load('Grammar\Filter');
-        MarkdownExtended::load('Grammar\Tool');
-        MarkdownExtended::get('OutputFormatBag')->load(MarkdownExtended::getConfig('output_format'));
+        try {
+            MarkdownExtended::get('Config')->init($config);
+            MarkdownExtended::factory('Grammar\Gamut', array(MarkdownExtended::getConfig('gamut_aliases')));
+            MarkdownExtended::load('Grammar\Filter');
+            MarkdownExtended::load('Grammar\Tool');
+            MarkdownExtended::get('OutputFormatBag')->load(MarkdownExtended::getConfig('output_format'));
+        } catch (MDE_Exception\InvalidArgumentException $e) {
+            throw $e;
+        } catch (MDE_Exception\UnexpectedValueException $e) {
+            throw $e;
+        } catch (MDE_Exception\RuntimeException $e) {
+            throw $e;
+        }
 
         // Init config
         MarkdownExtended::setConfig('nested_brackets_re', 
@@ -87,28 +101,33 @@ class Parser
      * Main function. Performs some preprocessing on the input text
      * and pass it through the document gamut.
      *
-     * @param   \MarkdownExtended\Content   $content
+     * @param   \MarkdownExtended\API\ContentInterface   $content
      * @param   bool    $secondary
      * @return  \MarkdownExtended\MarkdownExtended
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if a gamut run fails
      * @see     self::_setup()
      * @see     self::_teardown()
      */
-    public function parse(Content $content, $secondary = false) 
+    public function parse(ContentInterface $content, $secondary = false)
     {
         MarkdownExtended::addProcessedContent($content, $secondary);
         $this->_setup();
         $text = $content->getSource();
 
-        // Run first transform gamut methods
-        $text = $this->runGamuts('transform_gamut', $text);
+        try {
+            // Run first transform gamut methods
+            $text = $this->runGamuts('transform_gamut', $text);
 
-        // If 'special_gamut', run only this
-        $special_gamut = MarkdownExtended::getConfig('special_gamut');
-        if (!empty($special_gamut)) {
-            $text = $this->runGamuts('special_gamut', $text);
-        } else {
-        // Else run document gamut methods
-            $text = $this->runGamuts('document_gamut', $text);
+            // If 'special_gamut', run only this
+            $special_gamut = MarkdownExtended::getConfig('special_gamut');
+            if (!empty($special_gamut)) {
+                $text = $this->runGamuts('special_gamut', $text);
+            } else {
+                // Else run document gamut methods
+                $text = $this->runGamuts('document_gamut', $text);
+            }
+        } catch (MDE_Exception\UnexpectedValueException $e) {
+            throw $e;
         }
 
         $content->setBody($text . "\n");

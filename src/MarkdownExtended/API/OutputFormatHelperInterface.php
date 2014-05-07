@@ -17,9 +17,6 @@
  */
 namespace MarkdownExtended\API;
 
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\API\OutputFormatInterface;
-
 /**
  * PHP Markdown Extended OutputFormat helper interface
  */
@@ -33,7 +30,7 @@ interface OutputFormatHelperInterface
      * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
      * @return  string
      */
-    public function getFullContent(ContentInterface $content, OutputFormatInterface $formater);
+    public function getFullContent(\MarkdownExtended\API\ContentInterface $content, \MarkdownExtended\API\OutputFormatInterface $formater);
 
     /**
      * This must return a full formated table of contents in the considered format
@@ -42,7 +39,7 @@ interface OutputFormatHelperInterface
      * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
      * @return  string
      */
-    public function getToc(ContentInterface $content, OutputFormatInterface $formater);
+    public function getToc(\MarkdownExtended\API\ContentInterface $content, \MarkdownExtended\API\OutputFormatInterface $formater);
 
 }
 
