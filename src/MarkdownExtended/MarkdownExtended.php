@@ -193,7 +193,7 @@ final class MarkdownExtended
                 $parser_options = array_merge(self::$global_options, $parser_options);
             }
             $parser = self::getInstance()
-                ->get('Parser', $parser_options, MDE_API::FAIL_WITH_ERROR);
+                ->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
         } catch (MDE_Exception\InvalidArgumentException $e) {
             throw $e;
         } catch (MDE_Exception\RuntimeException $e) {
@@ -226,7 +226,7 @@ final class MarkdownExtended
                 $parser_options = array_merge(self::$global_options, $parser_options);
             }
             $parser = self::getInstance()
-                ->get('Parser', $parser_options, MDE_API::FAIL_WITH_ERROR);
+                ->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
         } catch (MDE_Exception\InvalidArgumentException $e) {
             throw $e;
         } catch (MDE_Exception\RuntimeException $e) {
