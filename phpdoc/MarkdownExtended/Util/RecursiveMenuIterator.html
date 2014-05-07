@@ -34,7 +34,7 @@
             <table>
                     <tr>
                 <td class="type" id="property_range_levels">
-                    static                                        
+                    static                                        array
                 </td>
                 <td>$range_levels</td>
                 <td class="last">
@@ -112,7 +112,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_append">append</a>(<abbr title="MarkdownExtended\Util\misc">misc</abbr> $value)
+                    <a href="#method_append">append</a>(mixed $value)
                     <p>Append a new value to iterator and then rebuild menu</p>
                 </td>
                 <td></td>
@@ -132,7 +132,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_menuKeySet">menuKeySet</a>(int $index, int|string $key)
+                    <a href="#method_menuKeySet">menuKeySet</a>(int $index, <abbr title="MarkdownExtended\Util\int/string">int/string</abbr> $key)
                     <p>Set a new key entry by its depth</p>
                 </td>
                 <td></td>
@@ -142,7 +142,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_menuOffsetSet">menuOffsetSet</a>(int|string $index, object $newval)
+                    <a href="#method_menuOffsetSet">menuOffsetSet</a>(<abbr title="MarkdownExtended\Util\int/string">int/string</abbr> $index, <a href="http://php.net/ArrayAccess"><abbr title="ArrayAccess">ArrayAccess</abbr></a> $newval)
                     <p>Define a new first level entry</p>
                 </td>
                 <td></td>
@@ -152,7 +152,7 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_menuOffsetSetRecursive">menuOffsetSetRecursive</a>(int|string $index, object $newval)
+                    <a href="#method_menuOffsetSetRecursive">menuOffsetSetRecursive</a>(<abbr title="MarkdownExtended\Util\int/string">int/string</abbr> $index, <a href="http://php.net/ArrayAccess"><abbr title="ArrayAccess">ArrayAccess</abbr></a> $newval)
                     <p>Define a new entry recursively</p>
                 </td>
                 <td></td>
@@ -163,7 +163,7 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 65</div>
+        <div class="location">at line 68</div>
         <code>            public            
     <strong>__construct</strong>(<abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr> $menu = null, int $base_level, int $flags)</code>
     </h3>
@@ -179,7 +179,8 @@
                     <tr>
                 <td><abbr title="MarkdownExtended\Util\ArrayAccess">ArrayAccess</abbr></td>
                 <td>$menu</td>
-                <td>\ArrayAccess</td>
+                <td>
+</td>
             </tr>
                     <tr>
                 <td>int</td>
@@ -201,7 +202,7 @@
 
                     <table>
                     <tr>
-                <td><a href="http://php.net/OutOfBoundsException"><abbr title="OutOfBoundsException">OutOfBoundsException</abbr></a></td>
+                <td><a href="../../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
                 <td>if <code>$level</code> is not in <code>self::$range_levels</code></td>
             </tr>
             </table>
@@ -220,7 +221,7 @@
     </div>
 
                 <h3 id="method_next">
-        <div class="location">at line 90</div>
+        <div class="location">at line 93</div>
         <code>            public            
     <strong>next</strong>()</code>
     </h3>
@@ -236,7 +237,7 @@
     </div>
 
                 <h3 id="method_previous">
-        <div class="location">at line 99</div>
+        <div class="location">at line 102</div>
         <code>            public            
     <strong>previous</strong>()</code>
     </h3>
@@ -252,7 +253,7 @@
     </div>
 
                 <h3 id="method_rewind">
-        <div class="location">at line 108</div>
+        <div class="location">at line 111</div>
         <code>            public            
     <strong>rewind</strong>()</code>
     </h3>
@@ -268,7 +269,7 @@
     </div>
 
                 <h3 id="method_seek">
-        <div class="location">at line 119</div>
+        <div class="location">at line 122</div>
         <code>            public            
     <strong>seek</strong>(int $position)</code>
     </h3>
@@ -295,7 +296,7 @@
     </div>
 
                 <h3 id="method_position">
-        <div class="location">at line 130</div>
+        <div class="location">at line 133</div>
         <code>            public            int
     <strong>position</strong>()</code>
     </h3>
@@ -321,9 +322,9 @@
     </div>
 
                 <h3 id="method_append">
-        <div class="location">at line 140</div>
+        <div class="location">at line 143</div>
         <code>            public            
-    <strong>append</strong>(<abbr title="MarkdownExtended\Util\misc">misc</abbr> $value)</code>
+    <strong>append</strong>(mixed $value)</code>
     </h3>
     <div class="details">
         <p>Append a new value to iterator and then rebuild menu</p>
@@ -334,7 +335,7 @@
 
                     <table>
                     <tr>
-                <td><abbr title="MarkdownExtended\Util\misc">misc</abbr></td>
+                <td>mixed</td>
                 <td>$value</td>
                 <td>
 </td>
@@ -348,7 +349,7 @@
     </div>
 
                 <h3 id="method_getArrayCopy">
-        <div class="location">at line 151</div>
+        <div class="location">at line 154</div>
         <code>            public            array
     <strong>getArrayCopy</strong>()</code>
     </h3>
@@ -374,9 +375,9 @@
     </div>
 
                 <h3 id="method_menuKeySet">
-        <div class="location">at line 164</div>
+        <div class="location">at line 166</div>
         <code>            public            
-    <strong>menuKeySet</strong>(int $index, int|string $key)</code>
+    <strong>menuKeySet</strong>(int $index, <abbr title="MarkdownExtended\Util\int/string">int/string</abbr> $key)</code>
     </h3>
     <div class="details">
         <p>Set a new key entry by its depth</p>
@@ -393,7 +394,7 @@
 </td>
             </tr>
                     <tr>
-                <td>int|string</td>
+                <td><abbr title="MarkdownExtended\Util\int/string">int/string</abbr></td>
                 <td>$key</td>
                 <td>
 </td>
@@ -406,7 +407,7 @@
 
                     <table>
                     <tr>
-                <td><a href="http://php.net/OutOfBoundsException"><abbr title="OutOfBoundsException">OutOfBoundsException</abbr></a></td>
+                <td><a href="../../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
                 <td>if <code>$index</code> is not in <code>self::$range_levels</code></td>
             </tr>
             </table>
@@ -416,9 +417,9 @@
     </div>
 
                 <h3 id="method_menuOffsetSet">
-        <div class="location">at line 180</div>
+        <div class="location">at line 182</div>
         <code>            public            
-    <strong>menuOffsetSet</strong>(int|string $index, object $newval)</code>
+    <strong>menuOffsetSet</strong>(<abbr title="MarkdownExtended\Util\int/string">int/string</abbr> $index, <a href="http://php.net/ArrayAccess"><abbr title="ArrayAccess">ArrayAccess</abbr></a> $newval)</code>
     </h3>
     <div class="details">
         <p>Define a new first level entry</p>
@@ -429,15 +430,16 @@
 
                     <table>
                     <tr>
-                <td>int|string</td>
+                <td><abbr title="MarkdownExtended\Util\int/string">int/string</abbr></td>
                 <td>$index</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td>object</td>
+                <td><a href="http://php.net/ArrayAccess"><abbr title="ArrayAccess">ArrayAccess</abbr></a></td>
                 <td>$newval</td>
-                <td>ArrayAccess</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -448,9 +450,9 @@
     </div>
 
                 <h3 id="method_menuOffsetSetRecursive">
-        <div class="location">at line 193</div>
+        <div class="location">at line 195</div>
         <code>            public            
-    <strong>menuOffsetSetRecursive</strong>(int|string $index, object $newval)</code>
+    <strong>menuOffsetSetRecursive</strong>(<abbr title="MarkdownExtended\Util\int/string">int/string</abbr> $index, <a href="http://php.net/ArrayAccess"><abbr title="ArrayAccess">ArrayAccess</abbr></a> $newval)</code>
     </h3>
     <div class="details">
         <p>Define a new entry recursively</p>
@@ -461,15 +463,16 @@
 
                     <table>
                     <tr>
-                <td>int|string</td>
+                <td><abbr title="MarkdownExtended\Util\int/string">int/string</abbr></td>
                 <td>$index</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td>object</td>
+                <td><a href="http://php.net/ArrayAccess"><abbr title="ArrayAccess">ArrayAccess</abbr></a></td>
                 <td>$newval</td>
-                <td>ArrayAccess</td>
+                <td>
+</td>
             </tr>
             </table>
 

@@ -24,7 +24,8 @@
     </div>
         <div class="content">
                 <p>    class
-    <strong>ManHelper</strong>        extends <a href="../../MarkdownExtended/OutputFormat/DefaultHelper.html"><abbr title="MarkdownExtended\OutputFormat\DefaultHelper">DefaultHelper</abbr></a></p>
+    <strong>ManHelper</strong>        extends <a href="../../MarkdownExtended/OutputFormat/DefaultHelper.html"><abbr title="MarkdownExtended\OutputFormat\DefaultHelper">DefaultHelper</abbr></a>        implements
+        <a href="../../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a></p>
 
             <div class="description">
             <p>Manpages Markdown Extended output Helper</p>
@@ -42,7 +43,7 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_getFullContent">getFullContent</a>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)
+                    <a href="#method_getFullContent">getFullContent</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)
                     <p>Get a complete version of parsed content, including metadata, body and notes</p>
                 </td>
                 <td></td>
@@ -52,7 +53,7 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_getToc">getToc</a>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)
+                    <a href="#method_getToc">getToc</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)
                     <p>Build a hierarchical menu</p>
                 </td>
                 <td></td>
@@ -63,9 +64,9 @@
         <h2>Details</h2>
 
                         <h3 id="method_getFullContent">
-        <div class="location">at line 42</div>
+        <div class="location">at line 43</div>
         <code>            public            string
-    <strong>getFullContent</strong>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)</code>
+    <strong>getFullContent</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)</code>
     </h3>
     <div class="details">
         <p>Get a complete version of parsed content, including metadata, body and notes</p>
@@ -76,15 +77,16 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
                 <td>$md_content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td><a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
                 <td>$formater</td>
-                <td>\MarkdownExtended\OutputFormatInterface</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -107,7 +109,7 @@
                 <h3 id="method_getToc">
         <div class="location">at line 101</div>
         <code>            public            string
-    <strong>getToc</strong>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)</code>
+    <strong>getToc</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)</code>
     </h3>
     <div class="details">
         <p>Build a hierarchical menu</p>
@@ -118,15 +120,16 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
                 <td>$md_content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td><a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
                 <td>$formater</td>
-                <td>\MarkdownExtended\OutputFormatInterface</td>
+                <td>
+</td>
             </tr>
             </table>
 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\OutputFormat\AbstractOutputFormatHTML | </title>
+        <title>MarkdownExtended\Util\Compiler | </title>
                     <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
                             </head>
         <body id="class">
@@ -20,12 +20,16 @@
         <div id="title"></div>
 
             <div class="type">Class</div>
-    <h1><a href="../../MarkdownExtended/OutputFormat.html">MarkdownExtended\OutputFormat</a>\AbstractOutputFormatHTML</h1>
+    <h1><a href="../../MarkdownExtended/Util.html">MarkdownExtended\Util</a>\Compiler</h1>
     </div>
         <div class="content">
                 <p>    class
-    <strong>AbstractOutputFormatHTML</strong></p>
+    <strong>Compiler</strong></p>
 
+            <div class="description">
+            <p>The Compiler class compiles the whole markdown into a phar</p>
+            <p>Taken "as is" from Composer (<a href="http://github.com/composer/composer">http://github.com/composer/composer</a>)</p>
+        </div>
     
     
     
@@ -34,11 +38,11 @@
             <table>
                     <tr>
                 <td class="type">
-                    string
+                    
                 </td>
                 <td class="last">
-                    <a href="#method_buildTag">buildTag</a>(string $tag_name, string $content = null, array $attributes = array())
-                    <p>This will try to call a method <code>builTagName()</code> if it exists, then will try to use the object <code>$tags_map</code> static to automatically find what to do, and then call the default <code>getTagString()</code> method passing it the arguments.</p>
+                    <a href="#method_compile">compile</a>($pharFile = &#039;markdown-extended.phar&#039;, $root_dir = null)
+                    <p>Compiles app into a single phar file</p>
                 </td>
                 <td></td>
             </tr>
@@ -47,13 +51,13 @@
 
         <h2>Details</h2>
 
-                        <h3 id="method_buildTag">
-        <div class="location">at line 49</div>
-        <code>            public            string
-    <strong>buildTag</strong>(string $tag_name, string $content = null, array $attributes = array())</code>
+                        <h3 id="method_compile">
+        <div class="location">at line 52</div>
+        <code>            public            
+    <strong>compile</strong>($pharFile = &#039;markdown-extended.phar&#039;, $root_dir = null)</code>
     </h3>
     <div class="details">
-        <p>This will try to call a method <code>builTagName()</code> if it exists, then will try to use the object <code>$tags_map</code> static to automatically find what to do, and then call the default <code>getTagString()</code> method passing it the arguments.</p>
+        <p>Compiles app into a single phar file</p>
         <p>
 </p>
         <div class="tags">
@@ -61,35 +65,20 @@
 
                     <table>
                     <tr>
-                <td>string</td>
-                <td>$tag_name</td>
+                <td></td>
+                <td>$pharFile</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td>string</td>
-                <td>$content</td>
+                <td></td>
+                <td>$root_dir</td>
                 <td>
 </td>
-            </tr>
-                    <tr>
-                <td>array</td>
-                <td>$attributes</td>
-                <td>An array of attributes constructed like "variable=>value" pairs</td>
             </tr>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>string</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
             
             
                     </div>

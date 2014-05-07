@@ -54,7 +54,7 @@
             </tr>
                     <tr>
                 <td class="type" id="property_extract_presets">
-                    static                                        
+                    static                                        array
                 </td>
                 <td>$extract_presets</td>
                 <td class="last">
@@ -78,7 +78,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_write">write</a>(string $str, bool $new_line = true)
@@ -88,17 +88,17 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
-                    <a href="#method_info">info</a>($str, $new_line = true, $leading_dot = true)
+                    <a href="#method_info">info</a>(string $str, bool $new_line = true, bool $leading_dot = true)
                     <p>Write an info in verbose mode</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_separator">separator</a>()
@@ -108,20 +108,20 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
-                    <a href="#method_error">error</a>($str, $code = 90, $forced = false)
+                    <a href="#method_error">error</a>(string $str, int $code = 90, bool $forced = false)
                     <p>Write an error info and exit</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
-                    <a href="#method_catched">catched</a>(object $e)
+                    <a href="#method_catched">catched</a>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)
                     <p>Write a catched exception</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
@@ -138,7 +138,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_verbose">runOption_verbose</a>()
@@ -148,7 +148,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_quiet">runOption_quiet</a>()
@@ -158,7 +158,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_debug">runOption_debug</a>()
@@ -168,7 +168,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_run">run</a>()
@@ -178,7 +178,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    int
                 </td>
                 <td class="last">
                     <a href="#method_writeOutputFile">writeOutputFile</a>(string $output, string $output_file)
@@ -188,7 +188,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    int
                 </td>
                 <td class="last">
                     <a href="#method_writeOutput">writeOutput</a>(string $output, bool $exit = false)
@@ -198,7 +198,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_writeInputTitle">writeInputTitle</a>(string $title)
@@ -208,7 +208,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_help">runOption_help</a>()
@@ -218,7 +218,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_version">runOption_version</a>()
@@ -228,7 +228,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_man">runOption_man</a>()
@@ -238,7 +238,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_multi">runOption_multi</a>()
@@ -248,7 +248,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_output">runOption_output</a>(string $file)
@@ -258,7 +258,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_filter_html">runOption_filter_html</a>()
@@ -268,7 +268,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_filter_styles">runOption_filter_styles</a>()
@@ -278,7 +278,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_extract">runOption_extract</a>(string $type)
@@ -288,7 +288,17 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_template">runOption_template</a>(string $file)
+                    <p>Run the template option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_nofilter">runOption_nofilter</a>(string $str)
@@ -298,7 +308,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_format">runOption_format</a>(string $str)
@@ -308,7 +318,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_body">runOption_body</a>()
@@ -318,7 +328,7 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    void
                 </td>
                 <td class="last">
                     <a href="#method_runOption_simple">runOption_simple</a>()
@@ -348,11 +358,11 @@
             </tr>
                     <tr>
                 <td class="type">
-                    <a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                    <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_getInput">getInput</a>(string $input, bool $title = false)
-                    <p>Creates a <code>\MarkdownExtended\Content</code> object from filename or string</p>
+                    <p>Creates a <code>\MarkdownExtended\API\ContentInterface</code> object from filename or string</p>
                 </td>
                 <td></td>
             </tr>
@@ -361,7 +371,7 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_parseContent">parseContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content)
+                    <a href="#method_parseContent">parseContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\API\ContentInterface">ContentInterface</abbr> $md_content)
                     <p>Process a Content parsing</p>
                 </td>
                 <td></td>
@@ -371,7 +381,7 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_extractContent">extractContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content, string $extract)
+                    <a href="#method_extractContent">extractContent</a>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\API\ContentInterface">ContentInterface</abbr> $md_content, string $extract)
                     <p>Process a Content parsing just for special gamuts</p>
                 </td>
                 <td></td>
@@ -382,7 +392,7 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 127</div>
+        <div class="location">at line 132</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
@@ -406,8 +416,8 @@
     </div>
 
                 <h3 id="method_write">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 104</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 107</div>
+        <code>            public            void
     <strong>write</strong>(string $str, bool $new_line = true)</code>
     </h3>
     <div class="details">
@@ -431,15 +441,25 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_info">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 115</div>
-        <code>            public            
-    <strong>info</strong>($str, $new_line = true, $leading_dot = true)</code>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 121</div>
+        <code>            public            void
+    <strong>info</strong>(string $str, bool $new_line = true, bool $leading_dot = true)</code>
     </h3>
     <div class="details">
         <p>Write an info in verbose mode</p>
@@ -450,34 +470,41 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$str</td>
-                <td>
-</td>
+                <td>The information to write</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$new_line</td>
-                <td>
-</td>
+                <td>May we pass a line after writing the info</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$leading_dot</td>
-                <td>
-</td>
+                <td>Add a leading dot or not</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_separator">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 125</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 133</div>
+        <code>            public            void
     <strong>separator</strong>()</code>
     </h3>
     <div class="details">
@@ -486,15 +513,25 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_error">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 137</div>
-        <code>            public            
-    <strong>error</strong>($str, $code = 90, $forced = false)</code>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 148</div>
+        <code>            public            void
+    <strong>error</strong>(string $str, int $code = 90, bool $forced = false)</code>
     </h3>
     <div class="details">
         <p>Write an error info and exit</p>
@@ -505,35 +542,42 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$str</td>
-                <td>
-</td>
+                <td>The information to write</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>int</td>
                 <td>$code</td>
-                <td>
-</td>
+                <td>The error code used to exit the script</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$forced</td>
-                <td>
-</td>
+                <td>Force the 'help' info</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_catched">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 165</div>
-        <code>            public            
-    <strong>catched</strong>(object $e)</code>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 181</div>
+        <code>            public            void
+    <strong>catched</strong>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)</code>
     </h3>
     <div class="details">
         <p>Write a catched exception</p>
@@ -544,20 +588,31 @@
 
                     <table>
                     <tr>
-                <td>object</td>
+                <td><abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr></td>
                 <td>$e</td>
-                <td>Exception thrown</td>
+                <td>
+</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_exec">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_exec"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 184</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_exec"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 202</div>
         <code>            public            string|array
     <strong>exec</strong>(string $cmd)</code>
     </h3>
@@ -594,8 +649,8 @@
     </div>
 
                 <h3 id="method_runOption_verbose">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 255</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 311</div>
+        <code>            public            void
     <strong>runOption_verbose</strong>()</code>
     </h3>
     <div class="details">
@@ -604,14 +659,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_quiet">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 264</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 322</div>
+        <code>            public            void
     <strong>runOption_quiet</strong>()</code>
     </h3>
     <div class="details">
@@ -620,14 +685,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_debug">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_debug"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 274</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_debug"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 334</div>
+        <code>            public            void
     <strong>runOption_debug</strong>()</code>
     </h3>
     <div class="details">
@@ -636,14 +711,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_run">
-        <div class="location">at line 400</div>
-        <code>            public            
+        <div class="location">at line 462</div>
+        <code>            public            void
     <strong>run</strong>()</code>
     </h3>
     <div class="details">
@@ -652,14 +737,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_writeOutputFile">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutputFile"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 347</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutputFile"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 416</div>
+        <code>            public            int
     <strong>writeOutputFile</strong>(string $output, string $output_file)</code>
     </h3>
     <div class="details">
@@ -685,14 +780,24 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>int</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_writeOutput">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutput"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 367</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeOutput"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 438</div>
+        <code>            public            int
     <strong>writeOutput</strong>(string $output, bool $exit = false)</code>
     </h3>
     <div class="details">
@@ -718,14 +823,24 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>int</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_writeInputTitle">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeInputTitle"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 383</div>
-        <code>            public            
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_writeInputTitle"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 456</div>
+        <code>            public            void
     <strong>writeInputTitle</strong>(string $title)</code>
     </h3>
     <div class="details">
@@ -745,14 +860,24 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_help">
-        <div class="location">at line 144</div>
-        <code>            public            
+        <div class="location">at line 151</div>
+        <code>            public            void
     <strong>runOption_help</strong>()</code>
     </h3>
     <div class="details">
@@ -761,14 +886,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_version">
-        <div class="location">at line 189</div>
-        <code>            public            
+        <div class="location">at line 206</div>
+        <code>            public            void
     <strong>runOption_version</strong>()</code>
     </h3>
     <div class="details">
@@ -777,14 +912,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_man">
-        <div class="location">at line 214</div>
-        <code>            public            
+        <div class="location">at line 233</div>
+        <code>            public            void
     <strong>runOption_man</strong>()</code>
     </h3>
     <div class="details">
@@ -793,14 +938,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_multi">
-        <div class="location">at line 237</div>
-        <code>            public            
+        <div class="location">at line 258</div>
+        <code>            public            void
     <strong>runOption_multi</strong>()</code>
     </h3>
     <div class="details">
@@ -809,14 +964,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_output">
-        <div class="location">at line 247</div>
-        <code>            public            
+        <div class="location">at line 270</div>
+        <code>            public            void
     <strong>runOption_output</strong>(string $file)</code>
     </h3>
     <div class="details">
@@ -835,14 +1000,24 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_filter_html">
-        <div class="location">at line 266</div>
-        <code>            public            
+        <div class="location">at line 293</div>
+        <code>            public            void
     <strong>runOption_filter_html</strong>()</code>
     </h3>
     <div class="details">
@@ -851,14 +1026,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_filter_styles">
-        <div class="location">at line 275</div>
-        <code>            public            
+        <div class="location">at line 304</div>
+        <code>            public            void
     <strong>runOption_filter_styles</strong>()</code>
     </h3>
     <div class="details">
@@ -867,14 +1052,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_extract">
-        <div class="location">at line 285</div>
-        <code>            public            
+        <div class="location">at line 316</div>
+        <code>            public            void
     <strong>runOption_extract</strong>(string $type)</code>
     </h3>
     <div class="details">
@@ -893,14 +1088,60 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_template">
+        <div class="location">at line 332</div>
+        <code>            public            void
+    <strong>runOption_template</strong>(string $file)</code>
+    </h3>
+    <div class="details">
+        <p>Run the template option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$file</td>
+                <td>The command line option argument</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_nofilter">
-        <div class="location">at line 299</div>
-        <code>            public            
+        <div class="location">at line 349</div>
+        <code>            public            void
     <strong>runOption_nofilter</strong>(string $str)</code>
     </h3>
     <div class="details">
@@ -919,14 +1160,24 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_format">
-        <div class="location">at line 309</div>
-        <code>            public            
+        <div class="location">at line 361</div>
+        <code>            public            void
     <strong>runOption_format</strong>(string $str)</code>
     </h3>
     <div class="details">
@@ -945,14 +1196,24 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_body">
-        <div class="location">at line 362</div>
-        <code>            public            
+        <div class="location">at line 418</div>
+        <code>            public            void
     <strong>runOption_body</strong>()</code>
     </h3>
     <div class="details">
@@ -961,14 +1222,24 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runOption_simple">
-        <div class="location">at line 370</div>
-        <code>            public            
+        <div class="location">at line 428</div>
+        <code>            public            void
     <strong>runOption_simple</strong>()</code>
     </h3>
     <div class="details">
@@ -977,13 +1248,23 @@
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_runStoryOnOneFile">
-        <div class="location">at line 431</div>
+        <div class="location">at line 492</div>
         <code>            public            string
     <strong>runStoryOnOneFile</strong>(string $input, bool $title = false)</code>
     </h3>
@@ -1025,7 +1306,7 @@
     </div>
 
                 <h3 id="method_runOneFile">
-        <div class="location">at line 464</div>
+        <div class="location">at line 524</div>
         <code>            public            string
     <strong>runOneFile</strong>(string $input, string $output = null, bool $extract = null, bool $title = false)</code>
     </h3>
@@ -1077,12 +1358,12 @@
     </div>
 
                 <h3 id="method_getInput">
-        <div class="location">at line 516</div>
-        <code>            public            <a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+        <div class="location">at line 578</div>
+        <code>            public            <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>getInput</strong>(string $input, bool $title = false)</code>
     </h3>
     <div class="details">
-        <p>Creates a <code>\MarkdownExtended\Content</code> object from filename or string</p>
+        <p>Creates a <code>\MarkdownExtended\API\ContentInterface</code> object from filename or string</p>
         <p>
 </p>
         <div class="tags">
@@ -1107,7 +1388,7 @@
 
                     <table>
         <tr>
-            <td><a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
             <td>
 </td>
         </tr>
@@ -1128,9 +1409,9 @@
     </div>
 
                 <h3 id="method_parseContent">
-        <div class="location">at line 575</div>
+        <div class="location">at line 636</div>
         <code>            public            string
-    <strong>parseContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content)</code>
+    <strong>parseContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\API\ContentInterface">ContentInterface</abbr> $md_content)</code>
     </h3>
     <div class="details">
         <p>Process a Content parsing</p>
@@ -1141,9 +1422,10 @@
 
                     <table>
                     <tr>
-                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr></td>
+                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\API\ContentInterface">ContentInterface</abbr></td>
                 <td>$md_content</td>
-                <td>\MarkdownExtended\Content instance</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -1173,9 +1455,9 @@
     </div>
 
                 <h3 id="method_extractContent">
-        <div class="location">at line 617</div>
+        <div class="location">at line 691</div>
         <code>            public            string
-    <strong>extractContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr> $md_content, string $extract)</code>
+    <strong>extractContent</strong>(<abbr title="MarkdownExtended\CommandLine\MarkdownExtended\API\ContentInterface">ContentInterface</abbr> $md_content, string $extract)</code>
     </h3>
     <div class="details">
         <p>Process a Content parsing just for special gamuts</p>
@@ -1186,9 +1468,10 @@
 
                     <table>
                     <tr>
-                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\Content">Content</abbr></td>
+                <td><abbr title="MarkdownExtended\CommandLine\MarkdownExtended\API\ContentInterface">ContentInterface</abbr></td>
                 <td>$md_content</td>
-                <td>\MarkdownExtended\Content instance</td>
+                <td>
+</td>
             </tr>
                     <tr>
                 <td>string</td>

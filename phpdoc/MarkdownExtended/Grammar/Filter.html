@@ -25,7 +25,7 @@
         <div class="content">
                 <p>abstract     class
     <strong>Filter</strong>        extends <a href="../../MarkdownExtended/Grammar/AbstractGamut.html"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a>        implements
-        <a href="../../MarkdownExtended/Grammar/GamutInterface.html"><abbr title="MarkdownExtended\Grammar\GamutInterface">GamutInterface</abbr></a></p>
+        <a href="../../MarkdownExtended/API/GamutInterface.html"><abbr title="MarkdownExtended\API\GamutInterface">GamutInterface</abbr></a></p>
 
             <div class="description">
             <p>Base class for all Filters</p>
@@ -104,7 +104,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hashPart">hashPart</a>(string $text, string $boundary = &#039;X&#039;)
-                    <p>Called whenever a tag must be hashed when a function insert an atomic  element in the text stream.</p>
+                    <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
                 </td>
                 <td></td>
             </tr>
@@ -124,7 +124,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hashClean">hashClean</a>(string $text)
-                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped,  blocking invalid nested overlap.</p>
+                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped, blocking invalid nested overlap.</p>
                 </td>
                 <td></td>
             </tr>
@@ -144,7 +144,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_runGamut">
-        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 36</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 35</div>
         <code>            public            string
     <strong>runGamut</strong>(string $gamut, string $text)</code>
     </h3>
@@ -186,7 +186,7 @@
     </div>
 
                 <h3 id="method_resetHash">
-        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 53</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 52</div>
         <code>            public            
     <strong>resetHash</strong>()</code>
     </h3>
@@ -202,7 +202,7 @@
     </div>
 
                 <h3 id="method_setHash">
-        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 64</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 63</div>
         <code>            public            
     <strong>setHash</strong>(string $key, string $text)</code>
     </h3>
@@ -235,7 +235,7 @@
     </div>
 
                 <h3 id="method_getHash">
-        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 74</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 73</div>
         <code>            public            
     <strong>getHash</strong>(string $key)</code>
     </h3>
@@ -262,7 +262,7 @@
     </div>
 
                 <h3 id="method_getDefaultMethod">
-        <div class="location">at line 35</div>
+        <div class="location">at line 37</div>
         <code>        static    public            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
@@ -288,7 +288,7 @@
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 45</div>
+        <div class="location">at line 48</div>
         <code>    abstract        public            string
     <strong>transform</strong>(string $text)</code>
     </h3>
@@ -325,12 +325,12 @@
     </div>
 
                 <h3 id="method_hashPart">
-        <div class="location">at line 66</div>
+        <div class="location">at line 69</div>
         <code>            public            string
     <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert an atomic  element in the text stream.</p>
+        <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
         <p>Passing $text to through this function gives
 a unique text-token which will be reverted back when calling unhash.</p>
 
@@ -379,7 +379,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashBlock">
-        <div class="location">at line 85</div>
+        <div class="location">at line 88</div>
         <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>hashBlock</strong>(string $text)</code>
     </h3>
@@ -423,12 +423,12 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashClean">
-        <div class="location">at line 99</div>
+        <div class="location">at line 102</div>
         <code>            public            string
     <strong>hashClean</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped,  blocking invalid nested overlap.</p>
+        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped, blocking invalid nested overlap.</p>
         <p>
 </p>
         <div class="tags">
@@ -467,7 +467,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_unhash">
-        <div class="location">at line 111</div>
+        <div class="location">at line 114</div>
         <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>unhash</strong>(string $text)</code>
     </h3>

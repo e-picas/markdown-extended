@@ -28,7 +28,7 @@
 
             <div class="description">
             <p>Process Markdown hard breaks</p>
-            <p>Hard breaks are written as one or more block line(s).</p>
+            <p>Hard breaks are written as one or more blank line(s).</p>
         </div>
     
     
@@ -63,7 +63,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hashPart">hashPart</a>(string $text, string $boundary = &#039;X&#039;)
-                    <p>Called whenever a tag must be hashed when a function insert an atomic  element in the text stream.</p>
+                    <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
             </tr>
@@ -83,7 +83,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hashClean">hashClean</a>(string $text)
-                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped,  blocking invalid nested overlap.</p>
+                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped, blocking invalid nested overlap.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
             </tr>
@@ -103,7 +103,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_getDefaultMethod">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 35</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 37</div>
         <code>        static    public            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
@@ -129,7 +129,7 @@
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 37</div>
+        <div class="location">at line 38</div>
         <code>            public            string
     <strong>transform</strong>(string $text)</code>
     </h3>
@@ -167,12 +167,12 @@
     </div>
 
                 <h3 id="method_hashPart">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 66</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 69</div>
         <code>            public            string
     <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert an atomic  element in the text stream.</p>
+        <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
         <p>Passing $text to through this function gives
 a unique text-token which will be reverted back when calling unhash.</p>
 
@@ -221,7 +221,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashBlock">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 85</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 88</div>
         <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>hashBlock</strong>(string $text)</code>
     </h3>
@@ -265,12 +265,12 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashClean">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 99</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 102</div>
         <code>            public            string
     <strong>hashClean</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped,  blocking invalid nested overlap.</p>
+        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped, blocking invalid nested overlap.</p>
         <p>
 </p>
         <div class="tags">
@@ -309,7 +309,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_unhash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 111</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 114</div>
         <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>unhash</strong>(string $text)</code>
     </h3>

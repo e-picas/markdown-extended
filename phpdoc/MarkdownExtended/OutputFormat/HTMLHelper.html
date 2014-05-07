@@ -25,7 +25,7 @@
         <div class="content">
                 <p>    class
     <strong>HTMLHelper</strong>        implements
-        <a href="../../MarkdownExtended/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a></p>
+        <a href="../../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a></p>
 
             <div class="description">
             <p>HTML output Helper</p>
@@ -43,7 +43,7 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_getFullContent">getFullContent</a>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, $full_html = true, $include_toc = false, $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)
+                    <a href="#method_getFullContent">getFullContent</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)
                     <p>Get a complete version of parsed content, including metadata, body and notes</p>
                 </td>
                 <td></td>
@@ -53,7 +53,7 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_getToc">getToc</a>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, array $attributes = null)
+                    <a href="#method_getToc">getToc</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, array $attributes = null)
                     <p>Build a hierarchical menu</p>
                 </td>
                 <td></td>
@@ -66,7 +66,7 @@
                         <h3 id="method_getFullContent">
         <div class="location">at line 44</div>
         <code>            public            string
-    <strong>getFullContent</strong>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, $full_html = true, $include_toc = false, $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)</code>
+    <strong>getFullContent</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)</code>
     </h3>
     <div class="details">
         <p>Get a complete version of parsed content, including metadata, body and notes</p>
@@ -77,33 +77,31 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
                 <td>$md_content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td><a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
                 <td>$formater</td>
-                <td>\MarkdownExtended\OutputFormatInterface</td>
+                <td>
+</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$full_html</td>
-                <td>
-</td>
+                <td>Defines if the meatdata must be returned in a <code>&lt;head&gt;</code> block</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$include_toc</td>
-                <td>
-</td>
+                <td>Include a table-of-content (default is <code>false</code>)</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$html_tag</td>
-                <td>
-</td>
+                <td>Defines the HTML header tag</td>
             </tr>
             </table>
 
@@ -126,7 +124,7 @@
                 <h3 id="method_getToc">
         <div class="location">at line 129</div>
         <code>            public            string
-    <strong>getToc</strong>(<a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $md_content, <a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, array $attributes = null)</code>
+    <strong>getToc</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, array $attributes = null)</code>
     </h3>
     <div class="details">
         <p>Build a hierarchical menu</p>
@@ -137,15 +135,16 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
                 <td>$md_content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td><a href="../../MarkdownExtended/OutputFormatInterface.html"><abbr title="MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
+                <td><a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
                 <td>$formater</td>
-                <td>\MarkdownExtended\OutputFormatInterface</td>
+                <td>
+</td>
             </tr>
                     <tr>
                 <td>array</td>

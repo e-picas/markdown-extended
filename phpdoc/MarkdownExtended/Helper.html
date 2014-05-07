@@ -39,20 +39,30 @@
             <table>
                     <tr>
                 <td class="type">
-                    
+                    string
                 </td>
                 <td class="last">
-                    <a href="#method_debug">debug</a>($a = &#039;&#039;, $what = null, $exit = true)
+                    <a href="#method_debug">debug</a>(mixed $a = &#039;&#039;, mixed $what = null, bool $exit = true)
                     <p>Debug function</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;string
                 </td>
                 <td class="last">
-                    <a href="#method_info">info</a>($html = false)
+                    <a href="#method_info">info</a>(bool $html = false)
+                    <p>Get information string about the current Markdown Extended object</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_smallInfo">smallInfo</a>(bool $html = false, bool $version_only = false)
                     <p>Get information string about the current Markdown Extended object</p>
                 </td>
                 <td></td>
@@ -69,23 +79,21 @@
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;string
                 </td>
                 <td class="last">
                     <a href="#method_fillPlaceholders">fillPlaceholders</a>(string $text, string $replacement)
-                    <p>
-</p>
+                    <p>Replace any <code>%%</code> mask by a replacement</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;string
                 </td>
                 <td class="last">
                     <a href="#method_header2Label">header2Label</a>(string $text)
-                    <p>
-</p>
+                    <p>Transform a header string to DOM valid label</p>
                 </td>
                 <td></td>
             </tr>
@@ -104,7 +112,17 @@
                     static&nbsp;string
                 </td>
                 <td class="last">
-                    <a href="#method_buildRegex">buildRegex</a>($mask, $delimiter = &#039;#&#039;, $options = &#039;i&#039;)
+                    <a href="#method_getFileSize">getFileSize</a>(string $file_path)
+                    <p>Get a human readable file size</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildRegex">buildRegex</a>(string $mask, string $delimiter = &#039;#&#039;, string $options = &#039;i&#039;)
                     <p>Get a ready-to-use regular expression from a string pattern</p>
                 </td>
                 <td></td>
@@ -124,26 +142,6 @@
                     static&nbsp;string
                 </td>
                 <td class="last">
-                    <a href="#method_getRelativeClassname">getRelativeClassname</a>(string $class_name)
-                    <p>Get a class name without the current namespace if present</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    static&nbsp;string
-                </td>
-                <td class="last">
-                    <a href="#method_getAbsoluteClassname">getAbsoluteClassname</a>(string $class_name)
-                    <p>Get a class name with the current namespace</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    static&nbsp;string
-                </td>
-                <td class="last">
                     <a href="#method_toCamelCase">toCamelCase</a>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)
                     <p>Transform a name in CamelCase</p>
                 </td>
@@ -154,38 +152,8 @@
                     static&nbsp;string
                 </td>
                 <td class="last">
-                    <a href="#method_fromCamelCase">fromCamelCase</a>($name, $replace = &#039;_&#039;, $lowerize_first_char = true)
+                    <a href="#method_fromCamelCase">fromCamelCase</a>(string $name, string $replace = &#039;_&#039;, bool $lowerize_first_char = true)
                     <p>Transform a name from CamelCase to other</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    static&nbsp;<abbr title="MarkdownExtended\misc">misc</abbr>
-                </td>
-                <td class="last">
-                    <a href="#method_extend">extend</a>($what, $add)
-                    <p>Extend a value with another, if types match</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    static&nbsp;bool
-                </td>
-                <td class="last">
-                    <a href="#method_validateVarname">validateVarname</a>($var)
-                    <p>Validate a var name</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    static&nbsp;string
-                </td>
-                <td class="last">
-                    <a href="#method_getFileSize">getFileSize</a>(string $file_path)
-                    <p>Get a human readable file size</p>
                 </td>
                 <td></td>
             </tr>
@@ -195,9 +163,9 @@
         <h2>Details</h2>
 
                         <h3 id="method_debug">
-        <div class="location">at line 37</div>
-        <code>            public            
-    <strong>debug</strong>($a = &#039;&#039;, $what = null, $exit = true)</code>
+        <div class="location">at line 42</div>
+        <code>            public            string
+    <strong>debug</strong>(mixed $a = &#039;&#039;, mixed $what = null, bool $exit = true)</code>
     </h3>
     <div class="details">
         <p>Debug function</p>
@@ -207,19 +175,19 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>mixed</td>
                 <td>$a</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>mixed</td>
                 <td>$what</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$exit</td>
                 <td>
 </td>
@@ -227,15 +195,25 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_info">
-        <div class="location">at line 52</div>
-        <code>        static    public            
-    <strong>info</strong>($html = false)</code>
+        <div class="location">at line 61</div>
+        <code>        static    public            string
+    <strong>info</strong>(bool $html = false)</code>
     </h3>
     <div class="details">
         <p>Get information string about the current Markdown Extended object</p>
@@ -246,7 +224,7 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$html</td>
                 <td>
 </td>
@@ -254,13 +232,66 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_smallInfo">
+        <div class="location">at line 79</div>
+        <code>        static    public            string
+    <strong>smallInfo</strong>(bool $html = false, bool $version_only = false)</code>
+    </h3>
+    <div class="details">
+        <p>Get information string about the current Markdown Extended object</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>bool</td>
+                <td>$html</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$version_only</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_escapeCodeContent">
-        <div class="location">at line 73</div>
+        <div class="location">at line 100</div>
         <code>        static    public            string
     <strong>escapeCodeContent</strong>(string $code)</code>
     </h3>
@@ -297,13 +328,12 @@
     </div>
 
                 <h3 id="method_fillPlaceholders">
-        <div class="location">at line 82</div>
-        <code>        static    public            
+        <div class="location">at line 112</div>
+        <code>        static    public            string
     <strong>fillPlaceholders</strong>(string $text, string $replacement)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Replace any <code>%%</code> mask by a replacement</p>
         <p>
 </p>
         <div class="tags">
@@ -325,19 +355,28 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_header2Label">
-        <div class="location">at line 90</div>
-        <code>        static    public            
+        <div class="location">at line 123</div>
+        <code>        static    public            string
     <strong>header2Label</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Transform a header string to DOM valid label</p>
         <p>
 </p>
         <div class="tags">
@@ -353,13 +392,23 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_encodeEmailAddress">
-        <div class="location">at line 120</div>
+        <div class="location">at line 153</div>
         <code>        static    public            string
     <strong>encodeEmailAddress</strong>(string $addr)</code>
     </h3>
@@ -404,13 +453,13 @@
                     </div>
     </div>
 
-                <h3 id="method_buildRegex">
-        <div class="location">at line 155</div>
+                <h3 id="method_getFileSize">
+        <div class="location">at line 181</div>
         <code>        static    public            string
-    <strong>buildRegex</strong>($mask, $delimiter = &#039;#&#039;, $options = &#039;i&#039;)</code>
+    <strong>getFileSize</strong>(string $file_path)</code>
     </h3>
     <div class="details">
-        <p>Get a ready-to-use regular expression from a string pattern</p>
+        <p>Get a human readable file size</p>
         <p>
 </p>
         <div class="tags">
@@ -418,20 +467,8 @@
 
                     <table>
                     <tr>
-                <td></td>
-                <td>$mask</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td></td>
-                <td>$delimiter</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td></td>
-                <td>$options</td>
+                <td>string</td>
+                <td>$file_path</td>
                 <td>
 </td>
             </tr>
@@ -453,8 +490,54 @@
                     </div>
     </div>
 
+                <h3 id="method_buildRegex">
+        <div class="location">at line 212</div>
+        <code>        static    public            string
+    <strong>buildRegex</strong>(string $mask, string $delimiter = &#039;#&#039;, string $options = &#039;i&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Get a ready-to-use regular expression from a string pattern</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$mask</td>
+                <td>The string to construct the expression</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$delimiter</td>
+                <td>The delimiter to use for the expression (default is <code>#</code>)</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$options</td>
+                <td>The options to use for the expression (default is <code>i</code>)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_find">
-        <div class="location">at line 179</div>
+        <div class="location">at line 235</div>
         <code>        static    public            string
     <strong>find</strong>(string $file_name, string $type = null)</code>
     </h3>
@@ -496,82 +579,8 @@
                     </div>
     </div>
 
-                <h3 id="method_getRelativeClassname">
-        <div class="location">at line 207</div>
-        <code>        static    public            string
-    <strong>getRelativeClassname</strong>(string $class_name)</code>
-    </h3>
-    <div class="details">
-        <p>Get a class name without the current namespace if present</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>string</td>
-                <td>$class_name</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>string</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_getAbsoluteClassname">
-        <div class="location">at line 223</div>
-        <code>        static    public            string
-    <strong>getAbsoluteClassname</strong>(string $class_name)</code>
-    </h3>
-    <div class="details">
-        <p>Get a class name with the current namespace</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>string</td>
-                <td>$class_name</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>string</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
                 <h3 id="method_toCamelCase">
-        <div class="location">at line 240</div>
+        <div class="location">at line 265</div>
         <code>        static    public            string
     <strong>toCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)</code>
     </h3>
@@ -616,9 +625,9 @@
     </div>
 
                 <h3 id="method_fromCamelCase">
-        <div class="location">at line 262</div>
+        <div class="location">at line 286</div>
         <code>        static    public            string
-    <strong>fromCamelCase</strong>($name, $replace = &#039;_&#039;, $lowerize_first_char = true)</code>
+    <strong>fromCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $lowerize_first_char = true)</code>
     </h3>
     <div class="details">
         <p>Transform a name from CamelCase to other</p>
@@ -629,22 +638,19 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$name</td>
-                <td>
-</td>
+                <td>The string to transform</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$replace</td>
-                <td>
-</td>
+                <td>Replacement character</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$lowerize_first_char</td>
-                <td>
-</td>
+                <td>May the first letter be in lower case (default is <code>true</code>)</td>
             </tr>
             </table>
 
@@ -655,149 +661,6 @@
         <tr>
             <td>string</td>
             <td>The not<em>camel</em>case version of <code>$name</code></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_extend">
-        <div class="location">at line 289</div>
-        <code>        static    public            <abbr title="MarkdownExtended\misc">misc</abbr>
-    <strong>extend</strong>($what, $add)</code>
-    </h3>
-    <div class="details">
-        <p>Extend a value with another, if types match</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td></td>
-                <td>$what</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td></td>
-                <td>$add</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td><abbr title="MarkdownExtended\misc">misc</abbr></td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if trying to extend an array with not an array</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if trying to extend an object</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if type unknown</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-                <h3 id="method_validateVarname">
-        <div class="location">at line 323</div>
-        <code>        static    public            bool
-    <strong>validateVarname</strong>($var)</code>
-    </h3>
-    <div class="details">
-        <p>Validate a var name</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td></td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>bool</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the var name is not an alpha-numeric string</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-                <h3 id="method_getFileSize">
-        <div class="location">at line 343</div>
-        <code>        static    public            string
-    <strong>getFileSize</strong>(string $file_path)</code>
-    </h3>
-    <div class="details">
-        <p>Get a human readable file size</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>string</td>
-                <td>$file_path</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>string</td>
-            <td>
-</td>
         </tr>
     </table>
 

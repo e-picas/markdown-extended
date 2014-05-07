@@ -71,7 +71,7 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_runGamut">runGamut</a>($gamut, $text = null, $_method = null, $silent = false)
+                    <a href="#method_runGamut">runGamut</a>(string $gamut, string $text = null, string $_method = null, bool $silent = false)
                     <p>Run a single gamut</p>
                 </td>
                 <td></td>
@@ -109,7 +109,7 @@
     </div>
 
                 <h3 id="method_runGamuts">
-        <div class="location">at line 58</div>
+        <div class="location">at line 57</div>
         <code>            public            string
     <strong>runGamuts</strong>(array $gamuts, string $text = null)</code>
     </h3>
@@ -150,7 +150,7 @@
     </div>
 
                 <h3 id="method_runGamutsMethod">
-        <div class="location">at line 80</div>
+        <div class="location">at line 77</div>
         <code>            public            string
     <strong>runGamutsMethod</strong>(array $gamuts, string $method, string $text = null)</code>
     </h3>
@@ -205,9 +205,9 @@
     </div>
 
                 <h3 id="method_runGamut">
-        <div class="location">at line 109</div>
+        <div class="location">at line 104</div>
         <code>            public            string
-    <strong>runGamut</strong>($gamut, $text = null, $_method = null, $silent = false)</code>
+    <strong>runGamut</strong>(string $gamut, string $text = null, string $_method = null, bool $silent = false)</code>
     </h3>
     <div class="details">
         <p>Run a single gamut</p>
@@ -218,28 +218,24 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$gamut</td>
-                <td>
-</td>
+                <td>The gamut name to execute</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$text</td>
-                <td>
-</td>
+                <td>The text for gamuts execution</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$_method</td>
-                <td>
-</td>
+                <td>The method name to execute in each gamut</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$silent</td>
-                <td>
-</td>
+                <td>Throw exceptions flag (default is <code>false</code>: exceptions are thrown)</td>
             </tr>
             </table>
 

@@ -38,10 +38,11 @@
             <table>
                     <tr>
                 <td class="type" id="property_tag_names">
-                    static                                        
+                    static                                        array
                 </td>
                 <td>$tag_names</td>
-                <td class="last">Table of grammar output tags called by filters (must be defined in the output formater)</td>
+                <td class="last">
+</td>
             </tr>
             </table>
 
@@ -81,17 +82,17 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_setFormater">setFormater</a>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr> $formater)
+                    <a href="#method_setFormater">setFormater</a>(<a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)
                     <p>Set the current formater</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    object
+                    <a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_getFormater">getFormater</a>()
@@ -101,17 +102,17 @@
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_setHelper">setHelper</a>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr> $helper)
+                    <a href="#method_setHelper">setHelper</a>(<a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a> $helper)
                     <p>Set the current formater helper</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    object
+                    <a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_getHelper">getHelper</a>()
@@ -150,8 +151,12 @@
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
-                <td>if the formater class doesn't implement <code>\MarkdownExtended\OutputFormatInterface</code></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if the class can not be found</td>
+            </tr>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
+                <td>if the object creation sent an error</td>
             </tr>
             </table>
 
@@ -160,7 +165,7 @@
     </div>
 
                 <h3 id="method_loadHelper">
-        <div class="location">at line 86</div>
+        <div class="location">at line 91</div>
         <code>            public            
     <strong>loadHelper</strong>(string $format)</code>
     </h3>
@@ -185,8 +190,12 @@
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
-                <td>if the helper class doesn't implement <code>\MarkdownExtended\OutputFormatHelperInterface</code></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if the class can not be found</td>
+            </tr>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
+                <td>if the object creation sent an error</td>
             </tr>
             </table>
 
@@ -195,7 +204,7 @@
     </div>
 
                 <h3 id="method___call">
-        <div class="location">at line 105</div>
+        <div class="location">at line 116</div>
         <code>            public            
     <strong>__call</strong>($name, array $arguments = null)</code>
     </h3>
@@ -237,9 +246,9 @@
     </div>
 
                 <h3 id="method_setFormater">
-        <div class="location">at line 128</div>
-        <code>            public            
-    <strong>setFormater</strong>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr> $formater)</code>
+        <div class="location">at line 140</div>
+        <code>            public            <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
+    <strong>setFormater</strong>(<a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)</code>
     </h3>
     <div class="details">
         <p>Set the current formater</p>
@@ -250,21 +259,32 @@
 
                     <table>
                     <tr>
-                <td><abbr title="MarkdownExtended\MarkdownExtended\OutputFormatInterface">OutputFormatInterface</abbr></td>
+                <td><a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
                 <td>$formater</td>
-                <td>MarkdownExtended\OutputFormatInterface</td>
+                <td>
+</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getFormater">
-        <div class="location">at line 139</div>
-        <code>            public            object
+        <div class="location">at line 151</div>
+        <code>            public            <a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a>
     <strong>getFormater</strong>()</code>
     </h3>
     <div class="details">
@@ -277,8 +297,9 @@
 
                     <table>
         <tr>
-            <td>object</td>
-            <td>MarkdownExtended\OutputFormatInterface</td>
+            <td><a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
+            <td>
+</td>
         </tr>
     </table>
 
@@ -288,9 +309,9 @@
     </div>
 
                 <h3 id="method_setHelper">
-        <div class="location">at line 149</div>
-        <code>            public            
-    <strong>setHelper</strong>(<abbr title="MarkdownExtended\MarkdownExtended\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr> $helper)</code>
+        <div class="location">at line 162</div>
+        <code>            public            <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
+    <strong>setHelper</strong>(<a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a> $helper)</code>
     </h3>
     <div class="details">
         <p>Set the current formater helper</p>
@@ -301,21 +322,32 @@
 
                     <table>
                     <tr>
-                <td><abbr title="MarkdownExtended\MarkdownExtended\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></td>
+                <td><a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a></td>
                 <td>$helper</td>
-                <td>MarkdownExtended\OutputFormatHelperInterface</td>
+                <td>
+</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getHelper">
-        <div class="location">at line 160</div>
-        <code>            public            object
+        <div class="location">at line 173</div>
+        <code>            public            <a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a>
     <strong>getHelper</strong>()</code>
     </h3>
     <div class="details">
@@ -328,8 +360,9 @@
 
                     <table>
         <tr>
-            <td>object</td>
-            <td>MarkdownExtended\OutputFormatHelperInterface</td>
+            <td><a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a></td>
+            <td>
+</td>
         </tr>
     </table>
 

@@ -25,7 +25,7 @@
         <div class="content">
                 <p>    class
     <strong>Templater</strong>        implements
-        <a href="../MarkdownExtended/TemplaterInterface.html"><abbr title="MarkdownExtended\TemplaterInterface">TemplaterInterface</abbr></a></p>
+        <a href="../MarkdownExtended/API/TemplaterInterface.html"><abbr title="MarkdownExtended\API\TemplaterInterface">TemplaterInterface</abbr></a></p>
 
     
     
@@ -58,7 +58,7 @@
                     <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_load">load</a>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $mde_content)
+                    <a href="#method_load">load</a>(<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $mde_content)
                     <p>Load a content object</p>
                 </td>
                 <td></td>
@@ -68,7 +68,7 @@
                     <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_loadCollection">loadCollection</a>(<a href="../MarkdownExtended/ContentCollection.html"><abbr title="MarkdownExtended\ContentCollection">ContentCollection</abbr></a> $mde_content_collection)
+                    <a href="#method_loadCollection">loadCollection</a>(<a href="../MarkdownExtended/API/CollectionInterface.html"><abbr title="MarkdownExtended\API\CollectionInterface">CollectionInterface</abbr></a> $mde_content_collection)
                     <p>Load a contents collection object</p>
                 </td>
                 <td></td>
@@ -159,7 +159,7 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 58</div>
+        <div class="location">at line 62</div>
         <code>            public            
     <strong>__construct</strong>(array $user_config = array())</code>
     </h3>
@@ -186,7 +186,7 @@
     </div>
 
                 <h3 id="method___toString">
-        <div class="location">at line 72</div>
+        <div class="location">at line 76</div>
         <code>            public            string
     <strong>__toString</strong>()</code>
     </h3>
@@ -212,9 +212,9 @@
     </div>
 
                 <h3 id="method_load">
-        <div class="location">at line 93</div>
+        <div class="location">at line 96</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
-    <strong>load</strong>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $mde_content)</code>
+    <strong>load</strong>(<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $mde_content)</code>
     </h3>
     <div class="details">
         <p>Load a content object</p>
@@ -225,9 +225,10 @@
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td><a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
                 <td>$mde_content</td>
-                <td>MarkdownExtended\Content</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -248,9 +249,9 @@
     </div>
 
                 <h3 id="method_loadCollection">
-        <div class="location">at line 106</div>
+        <div class="location">at line 108</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
-    <strong>loadCollection</strong>(<a href="../MarkdownExtended/ContentCollection.html"><abbr title="MarkdownExtended\ContentCollection">ContentCollection</abbr></a> $mde_content_collection)</code>
+    <strong>loadCollection</strong>(<a href="../MarkdownExtended/API/CollectionInterface.html"><abbr title="MarkdownExtended\API\CollectionInterface">CollectionInterface</abbr></a> $mde_content_collection)</code>
     </h3>
     <div class="details">
         <p>Load a contents collection object</p>
@@ -261,9 +262,10 @@
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/ContentCollection.html"><abbr title="MarkdownExtended\ContentCollection">ContentCollection</abbr></a></td>
+                <td><a href="../MarkdownExtended/API/CollectionInterface.html"><abbr title="MarkdownExtended\API\CollectionInterface">CollectionInterface</abbr></a></td>
                 <td>$mde_content_collection</td>
-                <td>MarkdownExtended\ContentCollection</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -284,7 +286,7 @@
     </div>
 
                 <h3 id="method_getContent">
-        <div class="location">at line 117</div>
+        <div class="location">at line 119</div>
         <code>            public            string
     <strong>getContent</strong>()</code>
     </h3>
@@ -310,7 +312,7 @@
     </div>
 
                 <h3 id="method_getTemplate">
-        <div class="location">at line 129</div>
+        <div class="location">at line 130</div>
         <code>            public            string
     <strong>getTemplate</strong>()</code>
     </h3>
@@ -335,7 +337,7 @@
 
                     <table>
                     <tr>
-                <td><abbr title="MarkdownExtended\Excpetion\Exception">Exception</abbr></td>
+                <td><a href="../MarkdownExtended/Exception/Exception.html"><abbr title="MarkdownExtended\Exception\Exception">Exception</abbr></a></td>
                 <td>if template file not found</td>
             </tr>
             </table>
@@ -345,7 +347,7 @@
     </div>
 
                 <h3 id="method_buildTemplate">
-        <div class="location">at line 149</div>
+        <div class="location">at line 150</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
     <strong>buildTemplate</strong>(array $params)</code>
     </h3>
@@ -381,7 +383,7 @@
 
                     <table>
                     <tr>
-                <td><abbr title="MarkdownExtended\Excpetion\Exception">Exception</abbr></td>
+                <td><a href="../MarkdownExtended/Exception/Exception.html"><abbr title="MarkdownExtended\Exception\Exception">Exception</abbr></a></td>
                 <td>if template file not found</td>
             </tr>
             </table>
@@ -391,7 +393,7 @@
     </div>
 
                 <h3 id="method_parse">
-        <div class="location">at line 173</div>
+        <div class="location">at line 174</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
     <strong>parse</strong>()</code>
     </h3>
@@ -417,7 +419,7 @@
     </div>
 
                 <h3 id="method_parseCollection">
-        <div class="location">at line 187</div>
+        <div class="location">at line 188</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
     <strong>parseCollection</strong>()</code>
     </h3>
@@ -443,7 +445,7 @@
     </div>
 
                 <h3 id="method_parseContent">
-        <div class="location">at line 210</div>
+        <div class="location">at line 211</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
     <strong>parseContent</strong>()</code>
     </h3>
@@ -469,7 +471,7 @@
     </div>
 
                 <h3 id="method_parseTemplate">
-        <div class="location">at line 224</div>
+        <div class="location">at line 225</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
     <strong>parseTemplate</strong>()</code>
     </h3>
@@ -495,7 +497,7 @@
     </div>
 
                 <h3 id="method_autoInsert">
-        <div class="location">at line 239</div>
+        <div class="location">at line 240</div>
         <code>            public            <a href="../MarkdownExtended/Templater.html"><abbr title="MarkdownExtended\Templater">Templater</abbr></a>
     <strong>autoInsert</strong>()</code>
     </h3>

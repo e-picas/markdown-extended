@@ -24,7 +24,8 @@
     </div>
         <div class="content">
                 <p>    class
-    <strong>Parser</strong></p>
+    <strong>Parser</strong>        implements
+        <a href="../MarkdownExtended/API/ParserInterface.html"><abbr title="MarkdownExtended\API\ParserInterface">ParserInterface</abbr></a></p>
 
             <div class="description">
             <p>PHP Markdown Extended Parser Class</p>
@@ -42,17 +43,17 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>(array|string $config = null)
+                    <a href="#method___construct">__construct</a>(<abbr title="MarkdownExtended\array/string">array/string</abbr> $config = null)
                     <p>Constructor function: Initialize the parser object</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    object
+                    <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_parse">parse</a>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $content, $secondary = false)
+                    <a href="#method_parse">parse</a>(<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content, bool $secondary = false)
                     <p>Main function.</p>
                 </td>
                 <td></td>
@@ -84,9 +85,9 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 55</div>
+        <div class="location">at line 61</div>
         <code>            public            
-    <strong>__construct</strong>(array|string $config = null)</code>
+    <strong>__construct</strong>(<abbr title="MarkdownExtended\array/string">array/string</abbr> $config = null)</code>
     </h3>
     <div class="details">
         <p>Constructor function: Initialize the parser object</p>
@@ -98,7 +99,7 @@ with the <code>config_file</code> index.</p>
 
                     <table>
                     <tr>
-                <td>array|string</td>
+                <td><abbr title="MarkdownExtended\array/string">array/string</abbr></td>
                 <td>$config</td>
                 <td>
 </td>
@@ -107,14 +108,31 @@ with the <code>config_file</code> index.</p>
 
             
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if a class load fails</td>
+            </tr>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
+                <td>if an object creation sent an error</td>
+            </tr>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td>it the creation of an object throws an exception</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_parse">
-        <div class="location">at line 97</div>
-        <code>            public            object
-    <strong>parse</strong>(<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a> $content, $secondary = false)</code>
+        <div class="location">at line 111</div>
+        <code>            public            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
+    <strong>parse</strong>(<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content, bool $secondary = false)</code>
     </h3>
     <div class="details">
         <p>Main function.</p>
@@ -125,13 +143,13 @@ and pass it through the document gamut.</p>
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+                <td><a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
                 <td>$content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$secondary</td>
                 <td>
 </td>
@@ -143,12 +161,22 @@ and pass it through the document gamut.</p>
 
                     <table>
         <tr>
-            <td>object</td>
-            <td>\MarkdownExtended\MarkdownExtended</td>
+            <td><a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a></td>
+            <td>
+</td>
         </tr>
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td>if a gamut run fails</td>
+            </tr>
+            </table>
+
             
                             <h4>See also</h4>
 
@@ -167,7 +195,7 @@ and pass it through the document gamut.</p>
     </div>
 
                 <h3 id="method_runGamuts">
-        <div class="location">at line 135</div>
+        <div class="location">at line 151</div>
         <code>            public            string
     <strong>runGamuts</strong>(array $gamuts, string $text = null)</code>
     </h3>
@@ -219,7 +247,7 @@ and pass it through the document gamut.</p>
     </div>
 
                 <h3 id="method_getAllGamuts">
-        <div class="location">at line 158</div>
+        <div class="location">at line 174</div>
         <code>            public            array
     <strong>getAllGamuts</strong>()</code>
     </h3>
