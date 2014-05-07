@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,24 +17,25 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Content,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Content;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\CollectionInterface;
 
 /**
  * Class defining a collection of content objects
  */
 class ContentCollection
-    implements \Countable, \Iterator, \ArrayAccess
+    implements  CollectionInterface
 {
 
     /**
-     * @var array
+     * @var     array
      */
     private $_elements;
 
     /**
-     * @param array $elements
+     * @param   array   $elements
      */
     public function __construct(array $elements = array())
     {
@@ -45,19 +46,28 @@ class ContentCollection
 // Iterator manipulation
 // --------------------
 
+    /**
+     * @return  bool
+     */
     public function exists()
     {
         return count($this->_elements)!==0;
     }
 
+    /**
+     * @return  void
+     */
     public function clear()
     {
         $this->_elements = array();
     }
 
     /**
-     * @param misc $key
-     * @param object $value \MarkdownExtended\Content
+     * Define a new item in the collection by key
+     *
+     * @param   mixed   $key
+     * @param   \MarkdownExtended\Content   $value
+     * @return  void
      */
     public function set($key, Content $value)
     {
@@ -65,7 +75,9 @@ class ContentCollection
     }
 
     /**
-     * @param object $value \MarkdownExtended\Content
+     * Add a new item at the end of the collection
+     *
+     * @param   \MarkdownExtended\Content  $value
      */
     public function add(Content $value)
     {
@@ -73,7 +85,10 @@ class ContentCollection
     }
 
     /**
-     * @param misc $key
+     * Delete an item of the collection by key
+     *
+     * @param   mixed    $key
+     * @return  void
      */
     public function remove($key)
     {
@@ -83,9 +98,10 @@ class ContentCollection
     }
 
     /**
-     * @param misc $key
+     * Get a collection item by key
      *
-     * @return misc|null \MarkdownExtended\Content
+     * @param   mixed   $key
+     * @return  mixed/null \MarkdownExtended\Content
      */
     public function get($key)
     {
@@ -96,45 +112,72 @@ class ContentCollection
 // ArrayAccess
 // -------------------------
 
-    /*
-     * @return object \MarkdownExtended\Content
+    /**
+     * Get the current collection item
+     *
+     * @return  \MarkdownExtended\Content
      */
     public function current()
     {
         return current($this->_elements);
     }
 
+    /**
+     * Get the current collection item key
+     *
+     * @return  string
+     */
     public function key()
     {
         return key($this->_elements);
     }
 
+    /**
+     * Get next collection item
+     *
+     * @return  \MarkdownExtended\Content
+     */
     public function next()
     {
         return current($this->_elements);
     }
 
+    /**
+     * Put the iterator on the first collection item
+     *
+     * @return  \MarkdownExtended\Content
+     */
     public function rewind()
     {
         return reset($this->_elements);
     }
 
+    /**
+     * Test if current collection item exists
+     *
+     * @return  bool
+     */
     public function valid()
     {
         $key = $this->key();
         return !empty($key) && $this->offsetExists($key);
     }
-/*
-    public function previous()
-    {
-        return reset($this->_elements);
-    }
-*/
+
+    /**
+     * Rewind to first collection item
+     *
+     * @return  \MarkdownExtended\Content
+     */
     public function first()
     {
         return reset($this->_elements);
     }
 
+    /**
+     * Go to last collection item
+     *
+     * @return  \MarkdownExtended\Content
+     */
     public function last()
     {
         return end($this->_elements);
@@ -145,9 +188,10 @@ class ContentCollection
 // -------------------------
 
     /**
-     * @param misc $offset
+     * Test if a collection item exists by key
      *
-     * @return bool
+     * @param   mixed   $offset
+     * @return  bool
      */
     public function offsetExists($offset)
     {
@@ -155,9 +199,10 @@ class ContentCollection
     }
 
     /**
-     * @param misc $offset
+     * Get a collection item by key
      *
-     * @return misc
+     * @param   mixed   $offset
+     * @return  mixed
      */
     public function offsetGet($offset)
     {
@@ -165,8 +210,10 @@ class ContentCollection
     }
 
     /**
-     * @param misc $offset
-     * @param misc $value
+     * Set a collection item by key
+     *
+     * @param   mixed   $offset
+     * @param   mixed   $value
      */
     public function offsetSet($offset, $value)
     {
@@ -178,7 +225,9 @@ class ContentCollection
     }
 
     /**
-     * @param misc $offset
+     * Unset a collection item by key
+     *
+     * @param   mixed   $offset
      */
     public function offsetUnset($offset)
     {
@@ -190,7 +239,9 @@ class ContentCollection
 // -------------------------
 
     /**
-     * @return int
+     * Count number of collection items
+     *
+     * @return  int
      */
     public function count()
     {
@@ -201,6 +252,13 @@ class ContentCollection
 // API
 // -------------------------
 
+    /**
+     * Run a callback of the collection items
+     *
+     * @param   callable    $callback
+     * @return  array
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException
+     */
     public function getArrayFilter($callback)
     {
         $collection = $this->_elements;

@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -15,7 +15,7 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-namespace MarkdownExtended;
+namespace MarkdownExtended\API;
 
 /**
  * Interface to implement for `MarkdownExtended\Content` objects
@@ -24,9 +24,7 @@ interface ContentInterface
 {
 
     /**
-     * This must return the Markdown string source
-     *
-     * @return string
+     * @return  string  Must return the source string
      */
     public function getSource();
 

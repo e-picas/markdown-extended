@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -15,15 +15,17 @@
  * Copyright (c) 2004-2006 John Gruber  
  * <http://daringfireball.net/projects/markdown/>
  */
-namespace MarkdownExtended;
+namespace MarkdownExtended\API;
 
-/**
- */
-interface TemplaterInterface
+interface GamutInterface
 {
 
-    public function getTemplate();
-    public function __toString();
+    /**
+     * Must return a method name
+     *
+     * @return  string
+     */
+    public static function getDefaultMethod();
 
 }
 

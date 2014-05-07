@@ -7,33 +7,31 @@ Version: 0.1-alpha
 
 ## NAME
 
-**Markdown Extended**
-
-A complete PHP 5.3 package of Markdown syntax parser (extended version) - Command line interface
+markdown-extended - PHP 5.3 parser for the Markdown syntax (extended version)
 
 
 ## SYNOPSIS
 
-**markdown-extended [options] arguments**
+**markdown-extended  [options]  arguments**
 
-**markdown-extended**  [**-h**|**-v**]  [**-x**|**-v**|**-q**|**-m**]
+**markdown-extended**  [**-h**|**-V**]  [**-x**|**-v**|**-q**|**-m**]
     [**-o** *filename*]  [**-c** *configfile*]  [**-f** *format*]
-    [**-n** *a,b*]  [**-e**[=*block*]]  [**-g**[=*name*]]
+    [**-n** *a,b*]  [**-e**[=*block*]]  [**-g**[=*name*]] [**-t**[=*file*]]
     **input_filename**  [**input_filename**]  [...]
     "**markdown string read from STDIN**"
 
 
 ## DESCRIPTION
 
-**Markdown Extended** converts markdown syntax text(s) source(s) in specified file(s)
+**Markdown Extended** converts markdown syntax text(s) source(s) from specified file(s)
 (or STDIN). The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
 
-To transform a file content, write its path as script argument (file path may be relative
-to current working directory and must exist). To process a list of input files, just write
-file paths as arguments, separated by space.
+To transform a file content, write its path as script argument. To process a list of input
+files, just write file paths as arguments, separated by space.
 
 To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
+You can also use the output of a previous command using the pipe notation.
 
 
 ## OPTIONS
@@ -43,10 +41,10 @@ To transform a string read from STDIN, write it as last argument between double-
 **-h** , **--help**
 :   Get a simple help information.
 
-**-v** , **--version**
-:   Get the current package version number.
+**-V** , **--version**
+:   Get the current package version number and informations.
 
-**-x** , **--verbose**
+**-v** , **--verbose**
 :   Increase script's verbosity ; some steps are explained on STDOUT.
 
 **-q** , **--quiet**
@@ -54,7 +52,7 @@ To transform a string read from STDIN, write it as last argument between double-
     messages are written on STDOUT.
 
 **-m** , **--multi**
-:   Treat multi-files input ; this options is automatically enables if multiple file
+:   Treat multi-files input ; this option is automatically enables if multiple file
     names are found as arguments.
 
 **-o**, **--output** =filename
@@ -72,6 +70,10 @@ To transform a string read from STDIN, write it as last argument between double-
 **-g** , **--gamuts** [=name]
 :   Define a single gamut or a list of gamuts to execute on Markdown content parsing.
 
+**-t** , **--template** [=file]
+:   Return the content inserted in a parsed template file ; if no `file` argument is 
+    passed, this will use the configuration template file.
+
 **-n** , **--nofilter** =name-a,name-b
 :   Define a coma separated list of filters to disable during Markdown content parsing.
 
@@ -87,8 +89,10 @@ To transform a string read from STDIN, write it as last argument between double-
 :   Use the simple default configuration file defined by the `MarkdownExtended::SIMPLE_CONFIGFILE`
     constant ; this is a preset to treat contents coming from input fields.
 
-A special '--debug' option can be used during development ; it enables the `$debug` flag of
-the PHP `\MarkdownExtended\CommandLine` namespace objects.
+A special '-x | --debug' option can be used during development ; it enables the `$debug`
+flag of the PHP `\\MarkdownExtended\\CommandLine` namespace objects.
+
+Use option '--man' to re-generate this manpage if possible.
 
 
 ## MESSAGES
@@ -107,7 +111,7 @@ script verbosity on STDOUT and '-q' or '--quiet' to decrease it. The idea is qui
 
 For all of these cases, PHP errors catched during Markdown Extended classes execution are
 rendered depending on your environment `error_reporting` setting and script execution may
-exit with astatus code '90'.
+exit with a status code of '90'.
 
 
 ## ENVIRONMENT
@@ -139,15 +143,19 @@ To transform a string read from STDIN, run:
 
     ~$ path/to/markdown-extended -e=body "My **Markdown** string"
 
+To transform a string read from another command output, run:
+
+    ~$ echo "My **Markdown** string" | path/to/markdown-extended -e=body
+
 
 ## LICENSE
 
 This software is released under the BSD-3-Clause open source license. Please
-read the License.text file for more information, or see
+read the LICENSE file for more information, or see
 <http://opensource.org/licenses/BSD-3-Clause>. 
 
 PHP Markdown Extended - 
-Copyright (c) 2008-2013 Pierre Cassat - 
+Copyright (c) 2008-2014 Pierre Cassat - 
 <http://github.com/atelierspierrot/markdown-extended>
 
 original MultiMarkdown - 

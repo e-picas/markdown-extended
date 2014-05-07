@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,28 +17,32 @@
  */
 namespace MarkdownExtended\Util;
 
+use \MarkdownExtended\Exception as MDE_Exception;
+use \ArrayIterator;
+use \ArrayAccess;
+
 /**
  * This class defines each `RecursiveMenuIterator` item
  */
 class MenuItemIterator 
-    extends \ArrayIterator implements \ArrayAccess
+    extends ArrayIterator
+    implements ArrayAccess
 {
 
     /**
-     * @static array
+     * @var  array
      */
     public static $defaults = array(
         'level', 'content', 'attribtues', 'children'
     );
 
     /**
-     * @param array|string $content The content of the item, or the full array of item values
-     * @param int $level
-     * @param array $attributes
-     * @param array $children
-     * @param int $flags
-     *
-     * @see parent::__construct()
+     * @param   array/string    $content    The content of the item, or the full array of item values
+     * @param   int     $level
+     * @param   array   $attributes
+     * @param   array   $children
+     * @param   int     $flags
+     * @see     parent::__construct()
      */
     public function __construct($content = null, $level = null, array $attributes = null, array $children = null, $flags = 0)
     {
@@ -64,7 +68,7 @@ class MenuItemIterator
      * -   "attributes": an array of title tag attributes (array)
      * -   "children": an array or ArrayAccess object of the item children (ArrayAccess)
      *
-     * @param array $values
+     * @param   array   $values
      */
     public function init(array $values)
     {
@@ -89,7 +93,7 @@ class MenuItemIterator
     /**
      * Get a default empty item
      *
-     * @return array
+     * @return  array
      */
     public function getDefault()
     {
@@ -108,14 +112,13 @@ class MenuItemIterator
     /**
      * Set the item level
      *
-     * @param int $level
-     *
-     * @throws OutOfBoundsException if `$level` is not in `RecursiveMenuIterator::$range_levels`
+     * @param   int     $level
+     * @throws  \MarkdownExtended\Exception\DomainException if `$level` is not in `RecursiveMenuIterator::$range_levels`
      */
     public function setLevel($level)
     {
         if (!in_array($level, RecursiveMenuIterator::$range_levels)) {
-            throw new \OutOfBoundsException(
+            throw new MDE_Exception\DomainException(
                 sprintf('Invalid "level" value for %s object: %d!', __CLASS__, $level)
             );
         }
@@ -125,7 +128,7 @@ class MenuItemIterator
     /**
      * Get the item level
      *
-     * @return int
+     * @return  int
      */
     public function getLevel()
     {
@@ -135,14 +138,13 @@ class MenuItemIterator
     /**
      * Set the item content
      *
-     * @param string $content
-     *
-     * @throws InvalidArgumentException if `$content` is not a string
+     * @param   string  $content
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$content` is not a string
      */
     public function setContent($content)
     {
         if (!is_string($content)) {
-            throw new \InvalidArgumentException(
+            throw new MDE_Exception\InvalidArgumentException(
                 sprintf('Invalid "content" value for %s object: %d (must be a string)!', __CLASS__, gettype($content))
             );
         }
@@ -152,7 +154,7 @@ class MenuItemIterator
     /**
      * Get the item content
      *
-     * @return string
+     * @return  string
      */
     public function getContent()
     {
@@ -162,7 +164,7 @@ class MenuItemIterator
     /**
      * Define the item attributes array
      *
-     * @param array $attributes
+     * @param   array   $attributes
      */
     public function setAttributes(array $attributes)
     {
@@ -172,8 +174,8 @@ class MenuItemIterator
     /**
      * Add a new item attribute
      *
-     * @param int|string $index
-     * @param misc $value
+     * @param   int/string  $index
+     * @param   mixed       $value
      */
     public function addAttribute($index, $value)
     {
@@ -185,7 +187,7 @@ class MenuItemIterator
     /**
      * Test if an item has one or more attribute
      *
-     * @return bool
+     * @return  bool
      */
     public function hasAttributes()
     {
@@ -196,7 +198,7 @@ class MenuItemIterator
     /**
      * Retrieve the item attributes array
      *
-     * @return array
+     * @return  array
      */
     public function getAttributes()
     {
@@ -206,7 +208,7 @@ class MenuItemIterator
     /**
      * Define an item children stack
      *
-     * @param object $children \ArrayAccess
+     * @param   \ArrayAccess    $children
      */
     public function setChildren(\ArrayAccess $children)
     {
@@ -216,8 +218,8 @@ class MenuItemIterator
     /**
      * Add a new item child
      *
-     * @param int|string $index
-     * @param object $value \ArrayAccess
+     * @param   int/string      $index
+     * @param   \ArrayAccess    $value
      */
     public function addChild($index, \ArrayAccess $value)
     {
@@ -229,7 +231,7 @@ class MenuItemIterator
     /**
      * Test if the item has one or more children
      *
-     * @return bool
+     * @return  bool
      */
     public function hasChildren()
     {
@@ -240,9 +242,8 @@ class MenuItemIterator
     /**
      * Test if a child exists by its index
      *
-     * @param int|string $index
-     *
-     * @return bool
+     * @param   int/string  $index
+     * @return  bool
      */
     public function hasChild($index)
     {
@@ -256,7 +257,7 @@ class MenuItemIterator
     /**
      * Get the item children
      *
-     * @param object \ArrayAccess
+     * @return  \ArrayAccess
      */
     public function getChildren()
     {
@@ -268,9 +269,8 @@ class MenuItemIterator
      *
      * If the index doesn't exist, an empty child is returned.
      *
-     * @param int|string $index
-     *
-     * @return MenuItemIterator
+     * @param   int/string  $index
+     * @return  \MarkdownExtended\Util\MenuItemIterator
      */
     public function getChild($index)
     {
@@ -286,10 +286,9 @@ class MenuItemIterator
     /**
      * Set a new value for a property if it exists in the class
      *
-     * @param string $index
-     * @param misc $value
-     *
-     * @throws InvalidArgumentException if `$index` is not valid
+     * @param   string  $index
+     * @param   mixed   $newval
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$index` is not valid
      */
     public function offsetSet($index, $newval)
     {
@@ -299,7 +298,7 @@ class MenuItemIterator
                 array($this, $_meth), array($newval)
             );
         } else {
-            throw new \InvalidArgumentException(
+            throw new MDE_Exception\InvalidArgumentException(
                 sprintf('Invalid setter index for %s object: %d!', __CLASS__, $index)
             );
         }
@@ -308,9 +307,8 @@ class MenuItemIterator
     /**
      * Unset a property value if it exists in the class
      *
-     * @param string $index
-     *
-     * @throws InvalidArgumentException if `$index` is not valid
+     * @param   string  $index
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$index` is not valid
      */
     public function offsetUnset($index)
     {
@@ -320,7 +318,7 @@ class MenuItemIterator
                 array($this, $_meth), array(null)
             );
         } else {
-            throw new \InvalidArgumentException(
+            throw new MDE_Exception\InvalidArgumentException(
                 sprintf('Invalid unsetter index for %s object: %d!', __CLASS__, $index)
             );
         }
@@ -329,9 +327,9 @@ class MenuItemIterator
     /**
      * Retrieve a property value if it exists in the class
      *
-     * @param string $index
-     *
-     * @return misc
+     * @param   string  $index
+     * @return  mixed
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$index` is not valid
      */
     public function offsetGet($index)
     {
@@ -339,7 +337,7 @@ class MenuItemIterator
         if (method_exists($this, $_meth)) {
             return call_user_func(array($this, $_meth));
         } else {
-            throw new \InvalidARgumentException(
+            throw new MDE_Exception\InvalidArgumentException(
                 sprintf('Invalid getter index for %s object: %d!', __CLASS__, $index)
             );
         }
@@ -348,9 +346,8 @@ class MenuItemIterator
     /**
      * Test if an index exists in the class and if the property is not empty
      *
-     * @param string $index
-     *
-     * @return bool
+     * @param   string  $index
+     * @return  bool
      */
     public function offsetExists($index)
     {
@@ -366,7 +363,7 @@ class MenuItemIterator
     /**
      * Append a new child to item children with a uniq item index
      *
-     * @param misc $value
+     * @param   mixed   $value
      */
     public function append($value)
     {

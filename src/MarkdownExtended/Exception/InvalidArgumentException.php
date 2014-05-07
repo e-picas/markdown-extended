@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,7 +17,10 @@
  */
 namespace MarkdownExtended\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException
+use \InvalidArgumentException as BaseException;
+
+class InvalidArgumentException
+    extends BaseException
 {
 
 }

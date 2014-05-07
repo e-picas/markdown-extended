@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,28 +17,29 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Filter,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Helper as MDE_Helper;
+use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown code blocks
  */
-class CodeBlock extends Filter
+class CodeBlock
+    extends Filter
 {
 
     /**
      *  Process Markdown `<pre><code>` blocks.
      *
-     * @param string $text
-     * @return string
+     * @param   string  $text
+     * @return  string
      */
-    public function transform($text) 
+    public function transform($text)
     {
         return preg_replace_callback('{
                 (?:\n\n|\A\n?)
-                (                                         # $1 = the code block -- one or more lines, starting with a space/tab
+                (                                                     # $1 = the code block -- one or more lines, starting with a space/tab
                   (?>
                     [ ]{'.MarkdownExtended::getConfig('tab_width').'} # Lines must start with a tab or a tab-width of spaces
                     .*\n+
@@ -52,10 +53,10 @@ class CodeBlock extends Filter
     /**
      * Build `<pre><code>` blocks.
      *
-     * @param array $matches A set of results of the `transform()` function
-     * @return string
+     * @param   array   $matches    A set of results of the `transform()` function
+     * @return  string
      */
-    protected function _callback($matches) 
+    protected function _callback($matches)
     {
         $codeblock = parent::runGamut('tool:Outdent', $matches[1]);
         $codeblock = MDE_Helper::escapeCodeContent($codeblock);
@@ -69,10 +70,10 @@ class CodeBlock extends Filter
     /**
      * Create a code span markup for $code. Called from handleSpanToken.
      *
-     * @param string $text
-     * @return string
+     * @param   string  $code
+     * @return  string
      */
-    public function span($code) 
+    public function span($code)
     {
         $codeblock = MarkdownExtended::get('OutputFormatBag')
             ->buildTag('code', MDE_Helper::escapeCodeContent(trim($code)));

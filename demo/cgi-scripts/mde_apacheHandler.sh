@@ -22,6 +22,7 @@
 CONSOLE="`pwd`/../../bin/markdown-extended"
 CHARSET='utf-8'
 OPTIONS=''
+PHP_BIN="`which php`"
 REQ="$PATH_TRANSLATED"
 PLAIN="$QUERY_STRING"
 if [ ! -z "$MDE_CHARSET" ]; then CHARSET="$MDE_CHARSET"; fi
@@ -38,13 +39,17 @@ if [ ! -z "$MDE_CONSOLE_OPTIONS" ]; then OPTIONS="$MDE_CONSOLE_OPTIONS"; fi
 # echo
 # echo "## MDE infos:"
 # echo "CONSOLE : $CONSOLE"
+# echo "PHP_BIN : $PHP_BIN"
 # echo "REQ : $REQ"
 # echo "CHARSET : $CHARSET"
 # echo "OPTIONS : $OPTIONS"
+# echo
+# echo "> gonna run:"
+# echo "$PHP_BIN $CONSOLE $OPTIONS $PATH_TRANSLATED"
 # exit 0
 
 ## Process 
-MARKDOWN_RESULT=$(php "$CONSOLE" "$OPTIONS" "$PATH_TRANSLATED")
+MARKDOWN_RESULT=$("$PHP_BIN" "$CONSOLE" "$OPTIONS" "$PATH_TRANSLATED")
 
 ## Start with outputting the HTTP headers
 ## And then the content

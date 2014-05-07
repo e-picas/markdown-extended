@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,40 +17,38 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Filter,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Helper as MDE_Helper;
+use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown list items
  */
-class ListItem extends Filter
+class ListItem
+    extends Filter
 {
 
     /**
-     * Retain current list level
-     * @static int
+     * @var     int Retain current list level
      */
     protected static $list_level = 0;
 
     /**
-     * Re-usable patterns to match list item bullets and number markers
-     * @static string
+     * @var     string  Re-usable patterns to match list item bullets and number markers
      */
     protected static $marker_ul_re  = '[*+-]';
 
     /**
-     * Re-usable patterns to match list item bullets and number markers
-     * @static string
+     * @var     string  Re-usable patterns to match list item bullets and number markers
      */
     protected static $marker_ol_re  = '\d+[\.]';
 
     /**
      * Form HTML ordered (numbered) and unordered (bulleted) lists.
      *
-     * @param string $text
-     * @return string
+     * @param   string  $text
+     * @return  string
      */
     public function transform($text) 
     {
@@ -110,8 +108,8 @@ class ListItem extends Filter
     }
 
     /**
-     * @param array $matches A set of results of the `transform` function
-     * @return string
+     * @param   array   $matches    A set of results of the `transform` function
+     * @return  string
      */
     protected function _callback($matches) 
     {
@@ -150,10 +148,9 @@ class ListItem extends Filter
      * change the syntax rules such that sub-lists must start with a
      * starting cardinal number; e.g. "1." or "a.".
      *
-     * @param str $list_str The list string to parse
-     * @param str $marker_any_re The marker we are processing
-     *
-     * @return string The list string parsed
+     * @param   string  $list_str       The list string to parse
+     * @param   string  $marker_any_re  The marker we are processing
+     * @return  string                  The list string parsed
      */
     public function transformItems($list_str, $marker_any_re) 
     {
@@ -179,8 +176,8 @@ class ListItem extends Filter
     }
 
     /**
-     * @param array $matches A set of results of the `transform()` function
-     * @return string
+     * @param   array   $matches    A set of results of the `transform()` function
+     * @return  string
      */
     protected function _items_callback($matches) 
     {

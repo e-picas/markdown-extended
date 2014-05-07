@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,10 +17,10 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Filter,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Helper as MDE_Helper;
+use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown definitions lists
@@ -41,14 +41,15 @@ use MarkdownExtended\MarkdownExtended,
  *        Term 2
  *        :   This definition has a code block, a blockquote and a list. 
  */
-class DefinitionList extends Filter
+class DefinitionList
+    extends Filter
 {
 
     /**
      * Form HTML definition lists.
      *
-     * @param string $text
-     * @return string
+     * @param   string  $text
+     * @return  string
      */
     public function transform($text) 
     {
@@ -91,8 +92,8 @@ class DefinitionList extends Filter
      * Turn double returns into triple returns, so that we can make a
      * paragraph for the last item in a list, if necessary
      *
-     * @param array $matches The results form the `transform()` method
-     * @return string
+     * @param   array   $matches    The results form the `transform()` method
+     * @return  string
      */
     protected function _callback($matches) 
     {
@@ -109,8 +110,8 @@ class DefinitionList extends Filter
      * Process the contents of a single definition list, splitting it
      * into individual term and definition list items.
      *
-     * @param string $list_str The result string form the `_callback()` function
-     * @return string
+     * @param   string  $list_str   The result string form the `_callback()` function
+     * @return  string
      */
     public function transformItems($list_str) 
     {
@@ -154,8 +155,8 @@ class DefinitionList extends Filter
     /**
      * Process the dt contents.
      *
-     * @param array $matches
-     * @return string
+     * @param   array   $matches
+     * @return  string
      */
     protected function _item_callback_dt($matches) 
     {
@@ -172,8 +173,8 @@ class DefinitionList extends Filter
     /**
      * Process the dd contents.
      *
-     * @param array $matches
-     * @return string
+     * @param   array   $matches
+     * @return  string
      */
     protected function _item_callback_dd($matches) 
     {

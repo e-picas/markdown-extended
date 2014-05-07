@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,36 +17,37 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Filter,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Helper as MDE_Helper;
+use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown hard breaks
  *
- * Hard breaks are written as one or more block line(s).
+ * Hard breaks are written as one or more blank line(s).
  */
-class HardBreak extends Filter
+class HardBreak
+    extends Filter
 {
 
-	/**
-	 * @param string $text
-	 * @return string
-	 */
-	public function transform($text) 
-	{
-		return preg_replace_callback('/ {2,}\n/', array($this, '_callback'), $text);
-	}
+    /**
+     * @param   string  $text
+     * @return  string
+     */
+    public function transform($text)
+    {
+        return preg_replace_callback('/ {2,}\n/', array($this, '_callback'), $text);
+    }
 
-	/**
-	 * @param array $matches A set of results of the `transform()` function
-	 * @return string
-	 */
-	protected function _callback($matches) 
-	{
-		return parent::hashPart(MarkdownExtended::get('OutputFormatBag')->buildTag('new_line')."\n");
-	}
+    /**
+     * @param   array   $matches    A set of results of the `transform()` function
+     * @return  string
+     */
+    protected function _callback($matches)
+    {
+        return parent::hashPart(MarkdownExtended::get('OutputFormatBag')->buildTag('new_line')."\n");
+    }
 
 }
 

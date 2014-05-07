@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,17 +17,18 @@
  */
 namespace MarkdownExtended\OutputFormat;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\OutputFormatInterface,
-    MarkdownExtended\OutputFormat\AbstractOutputFormat,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\API\OutputFormatInterface;
+use \MarkdownExtended\API\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Format a content in full HTML
  */
 class HTML 
-    extends AbstractOutputFormatHTML implements OutputFormatInterface
+    extends AbstractOutputFormatHTML
+    implements OutputFormatInterface
 {
 
     /**

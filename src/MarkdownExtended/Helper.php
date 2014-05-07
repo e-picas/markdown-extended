@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,7 +17,7 @@
  */
 namespace MarkdownExtended;
 
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Global Markdown Extended Helper
@@ -33,12 +33,18 @@ class Helper
      * Debug function
      *
      * WARNING: first argument is not used (to allow `debug` from Gamut stacks)
+     *
+     * @param   mixed   $a
+     * @param   mixed   $what
+     * @param   bool    $exit
+     * @return  string
      */
     public function debug($a = '', $what = null, $exit = true) 
     {
         echo '<pre>';
-        if (!is_null($what)) var_export($what);
-        else {
+        if (!is_null($what)) {
+            var_export($what);
+        } else {
             $mde = MarkdownExtended::getInstance();
             var_export($mde::$registry);
         }
@@ -48,6 +54,9 @@ class Helper
     
     /**
      * Get information string about the current Markdown Extended object
+     *
+     * @param   bool    $html
+     * @return  string
      */
     public static function info($html = false)
     {
@@ -60,6 +69,24 @@ class Helper
         ));
     }
 
+    /**
+     * Get information string about the current Markdown Extended object
+     *
+     * @param   bool    $html
+     * @param   bool    $version_only
+     * @return  string
+     */
+    public static function smallInfo($html = false, $version_only = false)
+    {
+        return (sprintf(
+            $html ? 
+                '<strong>%1$s</strong> %2$s'.($version_only===true ? '' : ' (<a href="%3$s" target="_blank" title="See online">%3$s</a>)')
+                :
+                '%1$s %2$s'.($version_only===true ? '' : PHP_EOL.'<%3$s>'),
+            MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
+        ));
+    }
+
 // --------------
 // Strings
 // --------------
@@ -67,8 +94,8 @@ class Helper
     /**
      * Escape the code blocks contents to get HTML entities
      *
-     * @param string $code
-     * @return string
+     * @param   string  $code
+     * @return  string
      */
     public static function escapeCodeContent($code) 
     {
@@ -76,8 +103,11 @@ class Helper
     }
 
     /**
-     * @param string $text
-     * @param string $replacement
+     * Replace any `%%` mask by a replacement
+     *
+     * @param   string  $text
+     * @param   string  $replacement
+     * @return  string
      */
     public static function fillPlaceholders($text, $replacement) 
     {
@@ -85,7 +115,10 @@ class Helper
     }
 
     /**
-     * @param string $text
+     * Transform a header string to DOM valid label
+     *
+     * @param   string  $text
+     * @return  string
      */
     public static function header2Label($text) 
     {
@@ -114,8 +147,8 @@ class Helper
      *  Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
      *   With some optimizations by Milian Wolff.
      *
-     * @param string $addr The email address to encode
-     * @return string The encoded address
+     * @param   string  $addr   The email address to encode
+     * @return  string  The encoded address
      */
     public static function encodeEmailAddress($addr) 
     {
@@ -139,6 +172,31 @@ class Helper
         return array($addr, $text);
     }
 
+    /**
+     * Get a human readable file size
+     *
+     * @param   string  $file_path
+     * @return  string
+     */
+    public static function getFileSize($file_path)
+    {
+        if (@file_exists($file_path)) {
+            $size = @filesize($file_path);
+            if (!empty($size)) {
+                if ($size < 1024) {
+                    return $size .' B';
+                } elseif ($size < 1048576) {
+                    return round($size / 1024, 2) .' KiB';
+                } elseif ($size < 1073741824) {
+                    return round($size / 1048576, 2) . ' MiB';
+                } else {
+                    return round($size / 1073741824, 2) . ' GiB';
+                }
+            }
+        }
+        return '';
+    }
+
 // --------------
 // Regular expressions
 // --------------
@@ -146,11 +204,10 @@ class Helper
     /**
      * Get a ready-to-use regular expression from a string pattern
      *
-     * @param string $string The string to construct the expression
-     * @param string $delimiter The delimiter to use for the expression (default is `#`)
-     * @param string $options The options to use for the expression (default is `i`)
-     *
-     * @return string
+     * @param   string  $mask       The string to construct the expression
+     * @param   string  $delimiter  The delimiter to use for the expression (default is `#`)
+     * @param   string  $options    The options to use for the expression (default is `i`)
+     * @return  string
      */
     public static function buildRegex($mask, $delimiter = '#', $options = 'i')
     {
@@ -171,10 +228,9 @@ class Helper
     /**
      * Find a resource file and return its path
      *
-     * @param string $file_name
-     * @param string $type
-     *
-     * @return string
+     * @param   string  $file_name
+     * @param   string  $type
+     * @return  string
      */
     public static function find($file_name, $type = null)
     {
@@ -199,43 +255,12 @@ class Helper
 // --------------
 
     /**
-     * Get a class name without the current namespace if present
-     *
-     * @param string $class_name
-     * @return string
-     */
-    public static function getRelativeClassname($class_name)
-    {
-        if (strstr($class_name, __NAMESPACE__)) {
-            return trim(
-                str_replace(__NAMESPACE__.'\\', '', $class_name)
-            , '\\');
-        }
-        return $class_name;
-    }
-
-    /**
-     * Get a class name with the current namespace
-     *
-     * @param string $class_name
-     * @return string
-     */
-    public static function getAbsoluteClassname($class_name)
-    {
-        if (!strstr($class_name, __NAMESPACE__)) {
-            return '\\'.__NAMESPACE__.'\\'.$class_name;
-        }
-        return $class_name;
-    }
-
-    /**
      * Transform a name in CamelCase
      *
-     * @param string $name The string to transform
-     * @param string $replace Replacement character
-     * @param bool $capitalize_first_char May the first letter be in upper case (default is `true`)
-     *
-     * @return string The CamelCase version of `$name`
+     * @param   string  $name       The string to transform
+     * @param   string  $replace    Replacement character
+     * @param   bool    $capitalize_first_char  May the first letter be in upper case (default is `true`)
+     * @return  string  The CamelCase version of `$name`
      */
     public static function toCamelCase($name, $replace = '_', $capitalize_first_char = true)
     {
@@ -253,11 +278,10 @@ class Helper
     /**
      * Transform a name from CamelCase to other
      *
-     * @param string $name The string to transform
-     * @param string $replace Replacement character
-     * @param bool $capitalize_first_char May the first letter be in upper case (default is `true`)
-     *
-     * @return string The not_camel_case version of `$name`
+     * @param   string  $name       The string to transform
+     * @param   string  $replace    Replacement character
+     * @param   bool    $lowerize_first_char  May the first letter be in lower case (default is `true`)
+     * @return  string  The not_camel_case version of `$name`
      */
     public static function fromCamelCase($name, $replace = '_', $lowerize_first_char = true)
     {
@@ -270,93 +294,6 @@ class Helper
             $fromCamelCase_func = create_function('$c', 'return "'.$replace.'" . strtolower($c[1]);');
         }
         return trim(preg_replace_callback('/([A-Z])/', $fromCamelCase_func, $name), $replace);
-    }
-
-// --------------
-// Variables manipulation
-// --------------
-
-    /**
-     * Extend a value with another, if types match
-     *
-     * @return misc
-     *
-     * @throws MarkdownExtended\Exception\InvalidArgumentException if trying to extend an 
-     *          array with not an array
-     * @throws MarkdownExtended\Exception\InvalidArgumentException if trying to extend an object
-     * @throws MarkdownExtended\Exception\InvalidArgumentException if type unknown
-     */
-    public static function extend($what, $add)
-    {
-        if (empty($what)) return $add;
-        switch (gettype($what)) {
-            case 'string': return $what.$add; break;
-            case 'numeric': return ($what+$add); break;
-            case 'array': 
-                if (is_array($add)) {
-                    $what += $add;
-                    return $what; 
-                } else {
-                    throw new MDE_Exception\InvalidArgumentException(
-                        "Trying to extend an array with not an array!"
-                    );
-                }
-                break;
-            case 'object': 
-                throw new MDE_Exception\InvalidArgumentException("Trying to extend an object!");
-                break;
-            default: 
-                throw new MDE_Exception\InvalidArgumentException(sprintf(
-                    "No extending definition found for type <%s>!", gettype($what)
-                ));
-                break;
-        }
-    }
-
-    /**
-     * Validate a var name
-     *
-     * @return bool
-     *
-     * @throws MarkdownExtended\Exception\InvalidArgumentException if the var name is not an alpha-numeric string
-     */
-    public static function validateVarname($var)
-    {
-        if (!is_string($var) || !ctype_alnum(str_replace(array('_', '\\'), '', $var))) {
-            throw new MDE_Exception\InvalidArgumentException(sprintf(
-                'Registry entry must be named by alpha-numeric string, <%s> given!', $var
-            ));
-            return false;
-        }
-        return true;
-    }
-
-// --------------
-// Variables manipulation
-// --------------
-
-    /**
-     * Get a human readable file size
-     * @param string $file_path
-     * @return string
-     */
-    public static function getFileSize($file_path)
-    {
-        if (@file_exists($file_path)) {
-            $size = @filesize($file_path);
-            if (!empty($size)) {
-                if ($size < 1024) {
-                  return $size .' B';
-                } elseif ($size < 1048576) {
-                  return round($size / 1024, 2) .' KiB';
-                } elseif ($size < 1073741824) {
-                  return round($size / 1048576, 2) . ' MiB';
-                } else {
-                  return round($size / 1073741824, 2) . ' GiB';
-                }
-            }
-        }
-        return '';
     }
 
 }

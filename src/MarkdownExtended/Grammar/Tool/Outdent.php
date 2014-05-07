@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,22 +17,23 @@
  */
 namespace MarkdownExtended\Grammar\Tool;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Tool;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Tool;
 
-class Outdent extends Tool
+class Outdent
+    extends Tool
 {
 
-	/**
-	 * Remove one level of line-leading tabs or spaces
-	 *
-	 * @param string $text The text to be parsed
-	 * @return string The text parsed
-	 */
-	function run($text) 
-	{
-		return preg_replace('/^(\t|[ ]{1,'.MarkdownExtended::getConfig('tab_width').'})/m', '', $text);
-	}
+    /**
+     * Remove one level of line-leading tabs or spaces
+     *
+     * @param   string  $text   The text to be parsed
+     * @return  string          The text parsed
+     */
+    function run($text)
+    {
+        return preg_replace('/^(\t|[ ]{1,'.MarkdownExtended::getConfig('tab_width').'})/m', '', $text);
+    }
 
 }
 

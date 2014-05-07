@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,36 +17,37 @@
  */
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\Grammar\Filter,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Helper as MDE_Helper;
+use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown notes: footnotes, glossary and bibliography notes
  *
  * @todo write the right reference for second call of the same note
  */
-class Note extends Filter
+class Note
+    extends Filter
 {
     
     /**
-     * Give the current footnote, glossary or citation number.
+     * @var int  Give the current footnote, glossary or citation number.
      */
     static $footnote_counter;
         
     /**
-     * Give the total parsed notes number.
+     * @var int  Give the total parsed notes number.
      */
     static $notes_counter;
         
     /**
-     * Ordered notes
+     * @var array  Ordered notes
      */
     static $notes_ordered;
 
     /**
-     * Written notes
+     * @var array  Written notes
      */
     static $written_notes;
 
@@ -67,8 +68,8 @@ class Note extends Filter
     /**
      * Strips link definitions from text, stores the URLs and titles in hash references.
      *
-     * @param string $text
-     * @return string
+     * @param   string  $text
+     * @return  string
      */
     public function strip($text) 
     {
@@ -118,8 +119,8 @@ class Note extends Filter
     /**
      * Build the footnote and strip it from content
      *
-     * @param array $matches Results from the `transform()` function
-     * @return string
+     * @param   array   $matches    Results from the `transform()` function
+     * @return  string
      */
     protected function _strip_callback($matches) 
     {
@@ -148,8 +149,8 @@ class Note extends Filter
      * Replace footnote references in $text [string][#id] and [^id] with a special text-token 
      * which will be replaced by the actual footnote marker in appendFootnotes.
      *
-     * @param string $text
-     * @return string
+     * @param   string  $text
+     * @return  string
      */
     public function transform($text) 
     {
@@ -163,14 +164,14 @@ class Note extends Filter
     /**
      * Append footnote list to text.
      *
-     * @param string $text
-     * @return string
+     * @param   string  $text
+     * @return  string
      */
     public function append($text) 
     {
-        $footnotes = MarkdownExtended::getVar('footnotes');
+        $footnotes  = MarkdownExtended::getVar('footnotes');
         $glossaries = MarkdownExtended::getVar('glossaries');
-        $citations = MarkdownExtended::getVar('citations');
+        $citations  = MarkdownExtended::getVar('citations');
 
         // First loop for references
         if (!empty(self::$notes_ordered)) {
@@ -222,8 +223,8 @@ class Note extends Filter
     /**
      * Append footnote list to text.
      *
-     * @param string $note_id
-     * @return string
+     * @param   string  $note_id
+     * @return  string
      */
     public function transformFootnote($note_id) 
     {
@@ -238,8 +239,8 @@ class Note extends Filter
     /**
      * Append glossary notes list to text.
      *
-     * @param string $note_id
-     * @return string
+     * @param   string  $note_id
+     * @return  string
      */
     public function transformGlossary($note_id) 
     {
@@ -263,8 +264,8 @@ class Note extends Filter
     /**
      * Append bibliography notes list to text.
      *
-     * @param string $note_id
-     * @return string
+     * @param   string  $note_id
+     * @return  string
      */
     public function transformCitation($note_id) 
     {
@@ -288,13 +289,12 @@ class Note extends Filter
     /**
      * Do a footnote transformation
      *
-     * @param string $note_id
-     * @param string $note_content
-     * @param string $type
-     * @param string $prefix
-     * @param string $rev
-     *
-     * @return string
+     * @param   string  $note_id
+     * @param   string  $note_content
+     * @param   string  $type
+     * @param   string  $prefix
+     * @param   string  $rev
+     * @return  string
      */
     protected function _doTransformNote($note_id, $note_content, $type = 'footnote', $prefix = 'fn', $rev = null) 
     {
@@ -360,8 +360,8 @@ class Note extends Filter
     /**
      * Build the glossary entry
      *
-     * @param array $matches
-     * @return string
+     * @param   array   $matches
+     * @return  string
      */
     protected function _glossary_callback($matches)
     {
@@ -377,8 +377,8 @@ class Note extends Filter
     /**
      * Build the citation entry
      *
-     * @param array $matches
-     * @return string
+     * @param   array   $matches
+     * @return  string
      */
     protected function _citation_callback($matches)
     {
@@ -390,8 +390,8 @@ class Note extends Filter
     /**
      * Append footnote and glossary list to text.
      *
-     * @param array $matches
-     * @return string
+     * @param   array   $matches
+     * @return  string
      */
     protected function _append_callback($matches) 
     {

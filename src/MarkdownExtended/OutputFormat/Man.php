@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP Markdown Extended
- * Copyright (c) 2008-2013 Pierre Cassat
+ * Copyright (c) 2008-2014 Pierre Cassat
  *
  * original MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
@@ -17,11 +17,11 @@
  */
 namespace MarkdownExtended\OutputFormat;
 
-use MarkdownExtended\MarkdownExtended,
-    MarkdownExtended\OutputFormatInterface,
-    MarkdownExtended\OutputFormat\AbstractOutputFormat,
-    MarkdownExtended\Helper as MDE_Helper,
-    MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\API\OutputFormatInterface;
+use \MarkdownExtended\API\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\Helper as MDE_Helper;
+use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Format a content in UNIX Manpage format
@@ -46,7 +46,7 @@ class Man
 
     /**
      * List of classic manpages sections
-     * @static array
+     * @var array
      */
     public static $sections = array(
         'name', 'synopsis', 'syntax', 'availability', 'description', 'options', 'files', 'resources', 'environment', 'diagnosis', 'bugs', 'author', 'see also', 
@@ -55,7 +55,7 @@ class Man
 
     /**
      * List of special metadata to build manpage headers
-     * @static array
+     * @var array
      */
     public static $headers_meta_data = array(
         'name', 'version', 'date', 'section', 'man'
@@ -152,10 +152,13 @@ class Man
             $this->_current_title_level = 0;
             return $this->new_line . $indent . '.SS ' . $text . $this->new_line;
         } else {
-            $indent .= $this->indent();
+//            $indent .= $this->indent();
+            $id = isset($attributes['id']) ? $attributes['id'] : $text;
             $this->_current_title_level = $level;
-            return $this->new_line . $indent . '.IP '
-                . $this->buildBold(ucfirst($text)) . $this->new_line;
+            return $this->new_line . $indent . '.TP '
+                . $id . $this->new_line
+                . $this->buildBold($text) . $this->new_line
+                . $this->indent();
         }
     }
 
