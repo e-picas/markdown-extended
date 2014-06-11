@@ -219,7 +219,7 @@ version, write:
 ----
 "**Markdown Extended API**" - last updated at 05 may 2014
 
-Creator & maintainer: [@pierowbmstr](http://github.com/pierowbmstr).
+Creator & maintainer: [@pierowbmstr](http://github.com/piwi).
 
 Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/API.md>.
 

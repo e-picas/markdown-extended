@@ -204,5 +204,5 @@ long as you mention the copyrights below:
 
     PHP Markdown Extended
     Copyright (c) 2012-2014 Pierre Cassat & contributors
-    <http://ateliers-pierrot.fr/>  
+    <http://www.ateliers-pierrot.fr/>  
     All rights reserved.
