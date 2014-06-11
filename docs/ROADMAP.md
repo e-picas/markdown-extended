@@ -26,6 +26,7 @@ This document is for developers usage.
 
 -   issue on footnotes (multi-reference causes a problem of multi-id) => OK, ticket 1
 -   issue on tables with caption at its bottom => OK, ticket 2
+-   command line: error on multiple input in template (only the first one is fetched in template)
 
 ## Evolutions
 
@@ -170,7 +171,7 @@ more info about the release version name construction rules.
 ----
 "**Markdown Extended ROADMAP**" - last updated at 05 may 2014
 
-Creator & maintainer: [@pierowbmstr](http://github.com/pierowbmstr).
+Creator & maintainer: [@pierowbmstr](http://github.com/piwi).
 
 Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/ROADMAP.md>.
 
