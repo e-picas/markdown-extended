@@ -45,18 +45,20 @@ interface KernelInterface
     /**
      * Get the instance, which will be created if required
      *
-     * @param   array   $options     A set of user options values
-     * @return  self                 Must return the object itself for method chaining
+     * @param   int     $instance_id    The ID of the MDE instance to get
+     * @param   array   $options        A set of user options values
+     * @return  self                    Must return the object itself
      */
-    public static function getInstance(array $options = null);
+    public static function getInstance($instance_id = null, array $options = null);
 
     /**
      * Create a new singleton instance
      *
-     * @param   array   $options     A set of user options values
-     * @return  self                Must return the object itself for method chaining
+     * @param   int     $instance_id    The ID of the MDE instance to create
+     * @param   array   $options        A set of user options values
+     * @return  self                    Must return the object itself for method chaining
      */
-    public static function create(array $options = null);
+    public static function create(array $options = null, $instance_id = null);
 
 // ----------------------------------
 // Service Container

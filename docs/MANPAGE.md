@@ -176,4 +176,7 @@ To transmit bugs, see <http://github.com/atelierspierrot/markdown-extended/issue
 
 ## AUTHOR
 
-**Les Ateliers Pierrot** <http://www.ateliers-pierrot.fr/>
+**Les Ateliers Pierrot** <http://www.ateliers-pierrot.fr/> - Paris, France.
+
+Created and maintained by **Pierre Cassat** (*piwi* - <http://github.com/piwi>)
+& contributors.

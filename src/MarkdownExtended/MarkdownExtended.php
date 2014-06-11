@@ -97,29 +97,29 @@ final class MarkdownExtended
     const SIMPLE_CONFIGFILE = 'markdown_config.simple.ini';
 
     /**
-     * @var  \MarkdownExtended\MarkdownExtended   instance
+     * @var  array  table of \MarkdownExtended\MarkdownExtended instances
      */
-    private static $_instance;
+    private static $_instances = array();
 
     /**
      * @var  \MarkdownExtended\Registry  Dependencies registry
      */
-    private static $registry;
+    private $registry;
 
     /**
      * @var  array   Table of \MarkdownExtended\Content processed items
      */
-    private static $contents;
+    private $contents;
 
     /**
      * @var  mixed
      */
-    private static $current;
+    private $current;
 
     /**
      * @var  array
      */
-    private static $global_options;
+    private $global_options;
 
     /**
      * Initialize the registry and flush the contents stack
@@ -131,40 +131,59 @@ final class MarkdownExtended
      */
     public function __construct(array $options = null)
     {
-        self::$registry = new Registry(false,false);
+        $this->registry = new Registry(false,false);
         if (!empty($options)) {
-            self::$global_options = $options;
+            $this->global_options = $options;
         }
         // load dependencies
-        self::factory('Registry');
-        self::factory('Config');
-        self::$contents = array();
+        $_registry = MDE_API::factory('Registry');
+        $this->registry->set('Registry', $_registry);
+        $_config = MDE_API::factory('Config');
+        $this->registry->set('Config', $_config);
+        // init contents collection
+        $this->contents = array();
     }
 
     /**
-     * Get the Markdown Extended instance
+     * Get a Markdown Extended instance (last created one by default)
      *
+     * @param   int         $instance_id    The ID of the MDE instance to get
      * @param   null/array  $options
      * @return  \MarkdownExtended\MarkdownExtended
      */
-    public static function getInstance(array $options = null)
+    public static function getInstance($instance_id = null, array $options = null)
     {
-        if (empty(self::$_instance)) {
-            self::$_instance = new self($options);
+        if (!is_null($instance_id)) {
+            if (!isset(self::$_instances[$instance_id])) {
+                return self::create($options, $instance_id);
+            }
+            $return = self::$_instances[$instance_id];
+        } else {
+            if (empty(self::$_instances)) {
+                return self::create($options);
+            }
+            $return = end(self::$_instances);
         }
-        return self::$_instance;
+        return $return;
     }
 
     /**
-     * Create a new singleton instance
+     * Create a new MDE instance
      *
      * @param   null/array  $options
+     * @param   int         $instance_id    The ID of the MDE instance to create
      * @return  \MarkdownExtended\MarkdownExtended
      */
-    public static function create(array $options = null)
+    public static function create(array $options = null, $instance_id = null)
     {
-        self::$_instance = new self($options);
-        return self::$_instance;
+        if (!is_null($instance_id)) {
+            self::$_instances[$instance_id] = new self($options);
+            $return = self::$_instances[$instance_id];
+        } else {
+            self::$_instances[] = new self($options);
+            $return = end(self::$_instances);
+        }
+        return $return;
     }
 
 // ----------------------------------
@@ -184,16 +203,16 @@ final class MarkdownExtended
      */
     public static function transformString($source, $parser_options = null, $key = null, $secondary = false)
     {
+        $_this = self::getInstance();
         try {
             $content = MDE_API::factory('Content', array($source));
             $content->setId($key);
-            if (!empty(self::$global_options)) {
+            if (!empty($_this->global_options)) {
                 if (is_null($parser_options)) $parser_options = array();
                 if (!is_array($parser_options)) $parser_options = array($parser_options);
-                $parser_options = array_merge(self::$global_options, $parser_options);
+                $parser_options = array_merge($_this->global_options, $parser_options);
             }
-            $parser = self::getInstance()
-                ->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
+            $parser = $_this->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
         } catch (MDE_Exception\InvalidArgumentException $e) {
             throw $e;
         } catch (MDE_Exception\RuntimeException $e) {
@@ -217,16 +236,16 @@ final class MarkdownExtended
      */
     public static function transformSource($filename, $parser_options = null, $key = null, $secondary = false)
     {
+        $_this = self::getInstance();
         try {
             $content = MDE_API::factory('Content', array(null, $filename));
             $content->setId($key);
-            if (!empty(self::$global_options)) {
+            if (!empty($_this->global_options)) {
                 if (is_null($parser_options)) $parser_options = array();
                 if (!is_array($parser_options)) $parser_options = array($parser_options);
-                $parser_options = array_merge(self::$global_options, $parser_options);
+                $parser_options = array_merge($_this->global_options, $parser_options);
             }
-            $parser = self::getInstance()
-                ->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
+            $parser = $_this->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
         } catch (MDE_Exception\InvalidArgumentException $e) {
             throw $e;
         } catch (MDE_Exception\RuntimeException $e) {
@@ -250,8 +269,9 @@ final class MarkdownExtended
      */
     public static function addProcessedContent(MDE_API\ContentInterface $content, $secondary = false)
     {
-        self::$contents[$content->getId()] =& $content;
-        if (!$secondary) self::$current = $content->getId();
+        $_this = self::getInstance();
+        $_this->contents[$content->getId()] =& $content;
+        if (!$secondary) $_this->current = $content->getId();
     }
     
     /**
@@ -262,8 +282,9 @@ final class MarkdownExtended
      */
     public static function getContent($id = null)
     {
-        if (is_null($id)) $id = self::$current;
-        return isset(self::$contents[$id]) ? self::$contents[$id] : null;
+        $_this = self::getInstance();
+        if (is_null($id)) $id = $_this->current;
+        return isset($_this->contents[$id]) ? $_this->contents[$id] : null;
     }
     
     /**
@@ -357,7 +378,7 @@ final class MarkdownExtended
     {
         try {
             $_obj = MDE_API::factory($class_name, $params, $type);
-            self::$registry->set($class_name, $_obj);
+            self::getInstance()->registry->set($class_name, $_obj);
         } catch (MDE_Exception\RuntimeException $e) {
             throw $e;
         } catch (MDE_Exception\InvalidArgumentException $e) {
@@ -379,7 +400,7 @@ final class MarkdownExtended
     public static function get($class_name, $params = null, $flag = MDE_API::FAIL_GRACEFULLY)
     {
         $_class_name_bkp = MDE_API::getRelativeClassname($class_name);
-        $obj = self::$registry->get($_class_name_bkp);
+        $obj = self::getInstance()->registry->get($_class_name_bkp);
         if (!empty($obj)) {
             return $obj;
         } else {
