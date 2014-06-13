@@ -1,6 +1,6 @@
 .\" author: Les Ateliers Pierrot
 
-.TH  "NAME" "3" "2014-05-07" "Version 0.1-beta" "markdown-extended Manual"
+.TH  "NAME" "3" "2014-06-13" "Version 0.1-gamma" "markdown-extended Manual"
 
 .SH NAME
 
@@ -225,5 +225,9 @@ To transmit bugs, see <http://github.com/atelierspierrot/markdown-extended/issue
 .SH AUTHOR
 
 .PP
-\fBLes Ateliers Pierrot\fP <http://www.ateliers-pierrot.fr/>
+\fBLes Ateliers Pierrot\fP <http://www.ateliers-pierrot.fr/> - Paris, France.
+
+.PP
+Created and maintained by \fBPierre Cassat\fP (\fIpiwi\fP - <http://github.com/piwi>)
+& contributors.
 
