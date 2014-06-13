@@ -1,8 +1,8 @@
 Man:        markdown-extended Manual
 Name:       MarkdownExtended
 Author:     Les Ateliers Pierrot
-Date: 2014-05-07
-Version: 0.1-beta
+Date: 2014-06-13
+Version: 0.1-gamma
 
 
 ## NAME
