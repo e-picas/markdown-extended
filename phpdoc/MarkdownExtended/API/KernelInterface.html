@@ -57,7 +57,7 @@
                     static&nbsp;<a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_getInstance">getInstance</a>(array $options = null)
+                    <a href="#method_getInstance">getInstance</a>(int $instance_id = null, array $options = null)
                     <p>Get the instance, which will be created if required</p>
                 </td>
                 <td></td>
@@ -67,7 +67,7 @@
                     static&nbsp;<a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_create">create</a>(array $options = null)
+                    <a href="#method_create">create</a>(array $options = null, $instance_id = null)
                     <p>Create a new singleton instance</p>
                 </td>
                 <td></td>
@@ -145,9 +145,9 @@
     </div>
 
                 <h3 id="method_getInstance">
-        <div class="location">at line 51</div>
+        <div class="location">at line 52</div>
         <code>        static    public            <a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
-    <strong>getInstance</strong>(array $options = null)</code>
+    <strong>getInstance</strong>(int $instance_id = null, array $options = null)</code>
     </h3>
     <div class="details">
         <p>Get the instance, which will be created if required</p>
@@ -157,6 +157,11 @@
                             <h4>Parameters</h4>
 
                     <table>
+                    <tr>
+                <td>int</td>
+                <td>$instance_id</td>
+                <td>The ID of the MDE instance to get</td>
+            </tr>
                     <tr>
                 <td>array</td>
                 <td>$options</td>
@@ -170,7 +175,7 @@
                     <table>
         <tr>
             <td><a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a></td>
-            <td>Must return the object itself for method chaining</td>
+            <td>Must return the object itself</td>
         </tr>
     </table>
 
@@ -180,9 +185,9 @@
     </div>
 
                 <h3 id="method_create">
-        <div class="location">at line 59</div>
+        <div class="location">at line 61</div>
         <code>        static    public            <a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
-    <strong>create</strong>(array $options = null)</code>
+    <strong>create</strong>(array $options = null, $instance_id = null)</code>
     </h3>
     <div class="details">
         <p>Create a new singleton instance</p>
@@ -195,7 +200,14 @@
                     <tr>
                 <td>array</td>
                 <td>$options</td>
-                <td>A set of user options values</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$instance_id</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -215,7 +227,7 @@
     </div>
 
                 <h3 id="method_factory">
-        <div class="location">at line 85</div>
+        <div class="location">at line 87</div>
         <code>        static    public            object
     <strong>factory</strong>(string $class_name, array $params = null)</code>
     </h3>
@@ -264,7 +276,7 @@
     </div>
 
                 <h3 id="method_get">
-        <div class="location">at line 97</div>
+        <div class="location">at line 99</div>
         <code>        static    public            object
     <strong>get</strong>(string $class_name, array $params = null, mixed $flag = \MarkdownExtended\API::FAIL_GRACEFULLY)</code>
     </h3>
@@ -318,7 +330,7 @@
     </div>
 
                 <h3 id="method_transformString">
-        <div class="location">at line 113</div>
+        <div class="location">at line 115</div>
         <code>        static    public            <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>transformString</strong>(string $source, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
     </h3>
@@ -371,7 +383,7 @@
     </div>
 
                 <h3 id="method_transformSource">
-        <div class="location">at line 126</div>
+        <div class="location">at line 128</div>
         <code>        static    public            <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>transformSource</strong>(string $filename, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
     </h3>
