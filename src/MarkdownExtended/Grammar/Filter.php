@@ -82,7 +82,7 @@ abstract class Filter
      * Shortcut function for hashPart with block-level boundaries.
      *
      * @param   string  $text   The text to be parsed
-     * @return  function        Pass results of the `hashPart()` function
+     * @return  string          Pass results of the `hashPart()` function
      * @see     self::hashPart()
      */
     public function hashBlock($text)
@@ -108,7 +108,7 @@ abstract class Filter
      * Swap back in all the tags hashed by _HashHTMLBlocks.
      *
      * @param   string  $text   The text to be parsed
-     * @return  function        Pass results of the `_unhash_callback()` function
+     * @return  string          Pass results of the `_unhash_callback()` function
      * @see     self::_unhash_callback()
      */
     public function unhash($text)

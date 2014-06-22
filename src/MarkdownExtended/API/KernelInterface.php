@@ -38,7 +38,7 @@ interface KernelInterface
      * The best practice is to use the class as a singleton calling `getInstance()` or
      * `create()`.
      *
-     * @params  array   $options     A set of user options values
+     * @param  array   $options     A set of user options values
      */
     public function __construct(array $options = null);
 
@@ -67,19 +67,19 @@ interface KernelInterface
     /**
      * Load a dependency
      *
-     * @param   string  $class_name     The class name to instanciate ; will be completed with current
+     * @param   string  $class_name     The class name to instantiate ; will be completed with current
      *                                  namespace if necessary
      * @return  bool                    Must return a boolean
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist
-    public static function load($class_name);
      */
+//    public static function load($class_name);
 
     /**
      * Build, retain and return a dependency instance
      *
-     * @param   string  $class_name     The class name to instanciate ; will be completed with current
+     * @param   string  $class_name     The class name to instantiate ; will be completed with current
      *                                  namespace if necessary
-     * @param   array   $params         Parameters to use for `$class_name` object instanciation
+     * @param   array   $params         Parameters to use for `$class_name` object instantiation
      *
      * @return  object                  Must return a service object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist
@@ -89,9 +89,9 @@ interface KernelInterface
     /**
      * Get a service from the container ; load it if absent
      *
-     * @param   string  $class_name     The class name to instanciate ; will be completed with current
+     * @param   string  $class_name     The class name to instantiate ; will be completed with current
      *                                  namespace if necessary
-     * @param   array   $params         Parameters to use for `$class_name` object instanciation
+     * @param   array   $params         Parameters to use for `$class_name` object instantiation
      * @param   mixed   $flag           One of the interface flags
      * @return  object                  Must return a service object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist

@@ -36,7 +36,7 @@ class HTMLHelper
      *
      * @param   \MarkdownExtended\API\ContentInterface          $md_content
      * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
-     * @param   bool    $full_html Defines if the meatdata must be returned in a `<head>` block
+     * @param   bool    $full_html Defines if the metadata must be returned in a `<head>` block
      * @param   bool    $include_toc Include a table-of-content (default is `false`)
      * @param   string  $html_tag Defines the HTML header tag
      * @return  string

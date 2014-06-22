@@ -172,7 +172,7 @@ EOT;
 // -------------------
 
     /**
-     * Run the whole script depending on options setted
+     * Run the whole script depending on options set
      */
     public function run()
     {
@@ -225,7 +225,7 @@ EOT;
             $this->info(PHP_EOL.">>>> the parsing is complete.".PHP_EOL, true, false);
         } else {
             $this->error(
-                sprintf("An error occured while trying to write content in file '%s'", $this->output)
+                sprintf("An error occurred while trying to write content in file '%s'", $this->output)
             );
         }
         $this->endRun(1);
@@ -252,7 +252,6 @@ EOT;
     /**
      * Write a result for each processed file or string in a file
      * @param string $output
-     * @param string $output_file
      */
     public function writeOutputFile($output)
     {

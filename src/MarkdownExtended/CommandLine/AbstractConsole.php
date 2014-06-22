@@ -31,13 +31,13 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * -   in "normal" rendering (no "verbose" neither than "quiet" mode), the result of the 
  *     processed content is rendered, with the file name header in case of multi-files input
  *     and command line script's errors are rendered
- * -   in "verbose" mode, some process informations are shown, informing user about what
- *     happening, follow process execution and get some execution informations such as some
+ * -   in "verbose" mode, some process information are shown, informing user about what
+ *     happening, follow process execution and get some execution information such as some
  *     some string lengths ; the command line script errors are rendered
  * -   in "quiet" mode, nothing is written through SDTOUT except PHP process errors and output
  *     rendering of parsed content ; the command line script's errors are not rendered
  *
- * For all of these cases, PHP errors catched during Markdown Extended classes execution are
+ * For all of these cases, PHP errors caught during Markdown Extended classes execution are
  * rendered and script execution may stop.
  */
 abstract class AbstractConsole 
@@ -173,7 +173,7 @@ abstract class AbstractConsole
     }
 
     /**
-     * Write a catched exception
+     * Write a caught exception
      *
      * @param   \Exception  $e
      * @return  void

@@ -264,7 +264,7 @@ class Content
     }
 
     /**
-     * Get the file direname if so
+     * Get the file dirname if so
      *
      * @return  string/null
      */

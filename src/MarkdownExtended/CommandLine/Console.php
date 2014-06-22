@@ -455,7 +455,7 @@ EOT;
     }
 
     /**
-     * Run the whole script depending on options setted
+     * Run the whole script depending on options set
      *
      * @return  void
      */
@@ -573,7 +573,7 @@ EOT;
      * @param   string  $input
      * @param   bool    $title  Set to `true` to add title string in case of multi-input
      * @return  \MarkdownExtended\API\ContentInterface
-     * @throws  any catched exception
+     * @throws  any caught exception
      */
     public function getInput($input, $title = false)
     {
@@ -631,7 +631,7 @@ EOT;
      *
      * @param   \MarkdownExtended\API\ContentInterface  $md_content
      * @return  string
-     * @throws  any catched exception
+     * @throws  any caught exception
      */
     public function parseContent(\MarkdownExtended\API\ContentInterface $md_content)
     {
@@ -674,7 +674,7 @@ EOT;
                 $this->md_parsed_content .= $md_output;
                 $this->info("OK", true, false);
             } else {
-                $this->error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
+                $this->error("An error occurred while trying to parse Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
             }
         }
         return $md_output;
@@ -686,7 +686,7 @@ EOT;
      * @param   \MarkdownExtended\API\ContentInterface   $md_content
      * @param   string                      $extract
      * @return  string
-     * @throws  any catched exception
+     * @throws  any caught exception
      */
     public function extractContent(\MarkdownExtended\API\ContentInterface $md_content, $extract)
     {
@@ -729,7 +729,7 @@ EOT;
                 }
                 $this->info("OK [entries: ".$length."]", true, false);
             } else {
-                $this->error("An error occured while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
+                $this->error("An error occurred while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
             }
         }
         return $md_output;
