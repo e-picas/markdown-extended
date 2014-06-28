@@ -221,7 +221,7 @@ version, write:
 
 Creator & maintainer: [@pierowbmstr](http://github.com/piwi).
 
-Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/API.md>.
+Original source of this file, see <http://github.com/piwi/markdown-extended/API.md>.
 
-For comments & bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.
+For comments & bugs, see <http://github.com/piwi/markdown-extended/issues>.
 

@@ -166,7 +166,7 @@ virtual host's domain name, try the following:
     like `/etc/apache/sites-available/your.domain`)
 
 -   if you still have an error, come to ask us explaining your system & configuration at
-    <http://github.com/atelierspierrot/markdown-extended/issues>.
+    <http://github.com/piwi/markdown-extended/issues>.
 
 ### I see the plain text version of my content
 
@@ -194,6 +194,6 @@ your case, just remove the flag (your redirection will be visible in the address
 
 Creator & maintainer: [@pierowbmstr](http://github.com/piwi).
 
-Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/Apache-Handler-HOWTO.md>.
+Original source of this file, see <http://github.com/piwi/markdown-extended/Apache-Handler-HOWTO.md>.
 
-For comments & bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.
+For comments & bugs, see <http://github.com/piwi/markdown-extended/issues>.

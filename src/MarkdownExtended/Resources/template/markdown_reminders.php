@@ -34,11 +34,10 @@
  *
  * This tool was largely inspired by GitHub's wiki editor (sic).
  *
- * @author      Pierre Cassat - Les Ateliers Pierrot <http://www.ateliers-pierrot.fr/>
  * @see         Markdown, written by John Gruber <http://daringfireball.net/>
  * @see         Markdown Extra, written by Michel Fortin <http://michelf.com/>
  * @see         (peg) MultiMarkdown, written by Fletcher Penney <http://fletcherpenney.net/>
- * @see         PHP Markdown Extended, written by Pierre Cassat <http://www.ateliers-pierrot.fr/>
+ * @see         PHP Markdown Extended, written by Pierre Cassat <http://e-piwi.fr/>
  */
 //-->
 <style type="text/css">
@@ -542,7 +541,7 @@ function MarkdownExtendedReminders(){}
             <li><strong>Markdown</strong> is a text-to-HTML conversion tool written by <a href="http://daringfireball.net/" title="See http://daringfireball.net/">John Gruber</a> - &copy; 2004 John Gruber (<em>Perl</em> script).</li>
             <li><strong>Markdown Extra</strong> is a PHP extended version written by <a href="http://michelf.com/" title="See http://michelf.com/">Michel Fortin</a> - &copy; 2009 Michel Fortin (<em>PHP</em> script).</li>
             <li><strong>(peg) MultiMarkdown</strong> is a C extended version wirtten by <a href="http://fletcherpenney.net/" title="See http://fletcherpenney.net/">Fletcher Penney</a> - &copy; 2010-2011 Fletcher T. Penney (<em>C</em> and <em>Perl</em> script).</li>
-            <li><strong><?php echo $mde_name; ?></strong> is a PHP extended version wirtten by <a href="http://www.ateliers-pierrot.fr/" title="See http://www.ateliers-pierrot.fr/">Pierre Cassat</a> - &copy; 2012 Pierre Cassat & contributors (<em>PHP</em> script).</li>
+            <li><strong><?php echo $mde_name; ?></strong> is a PHP extended version wirtten by <a href="http://e-piwi.fr/" title="See http://e-piwi.fr/">Pierre Cassat</a> - &copy; 2012 Pierre Cassat & contributors (<em>PHP</em> script).</li>
             <li>All versions are licensed under the terms of the <a href="http://opensource.org/licenses/BSD-3-Clause" title="Read the license online" target="_blank">BSD-3-Clause open source license</a>.</li>
         </ul>
     </div>
