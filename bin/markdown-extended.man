@@ -200,7 +200,7 @@ read the LICENSE file for more information, or see
 .PP
 PHP Markdown Extended - 
 Copyright (c) 2008-2014 Pierre Cassat - 
-<http://github.com/atelierspierrot/markdown-extended>
+<http://e-piwi.fr/>
 
 .PP
 original MultiMarkdown - 
@@ -210,22 +210,19 @@ Copyright (c) 2005-2009 Fletcher T. Penney -
 .PP
 original PHP Markdown & Extra - 
 Copyright (c) 2004-2012 Michel Fortin - 
-<http://michelf.com/projects/php-markdown/>
+<http://michelf.com/>
 
 .PP
 original Markdown - 
 Copyright (c) 2004-2006 John Gruber - 
-<http://daringfireball.net/projects/markdown/>
+<http://daringfireball.net/>
 
 .SH BUGS
 
 .PP
-To transmit bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.
+To transmit bugs, see <http://github.com/piwi/markdown-extended/issues>.
 
 .SH AUTHOR
-
-.PP
-\fBLes Ateliers Pierrot\fP <http://www.ateliers-pierrot.fr/> - Paris, France.
 
 .PP
 Created and maintained by \fBPierre Cassat\fP (\fIpiwi\fP - <http://github.com/piwi>)
