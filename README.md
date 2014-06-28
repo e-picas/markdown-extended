@@ -12,7 +12,7 @@ syntax tags and rules and to be PHP-5.3 compliant.
 **WARNING - This package is still in development and not yet proposed in a "stable" version ;
 some works remains before version 1.0. To get informed about the first stable version, you
 can "Watch" the development by clicking the "Watch" button on the GitHub repository homepage
-at <http://github.com/atelierspierrot/markdown-extended>.**
+at <http://github.com/piwi/markdown-extended>.**
 
 ----
 
@@ -47,12 +47,12 @@ The whole package is embedded in the `MarkdownExtended` namespace.
 
 You can use this package in your work in many ways.
 
-First, you can clone the [GitHub](http://github.com/atelierspierrot/markdown-extended)
+First, you can clone the [GitHub](http://github.com/piwi/markdown-extended)
 repository and include it "as is" in your poject:
 
-    ~$ wget --no-check-certificate http://github.com/atelierspierrot/markdown-extended
+    ~$ wget --no-check-certificate http://github.com/piwi/markdown-extended
 
-You can also download an [archive](http://github.com/atelierspierrot/markdown-extended/downloads)
+You can also download an [archive](http://github.com/piwi/markdown-extended/downloads)
 from Github.
 
 Then, to use the package classes, you just need to register the `MarkdownExtended`
@@ -68,7 +68,7 @@ is to add it to your requirements in your `composer.json`:
 
     "require": {
         ...
-        "atelierspierrot/markdown-extended": "dev-master"
+        "piwi/markdown-extended": "dev-master"
     }
 
 The namespace will be automatically added to the project's Composer autoloader.
@@ -86,7 +86,7 @@ following the rules described in the `markdown_reminders.html` file of the packa
 the latest version can be found at <http://sites.ateliers-pierrot.fr/markdown-extended/markdown_reminders.html>.
 
 For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
-the latest version can be found at <http://github.com/atelierspierrot/markdown-extended/blob/master/demo/MD_syntax.md>.
+the latest version can be found at <http://github.com/piwi/markdown-extended/blob/master/demo/MD_syntax.md>.
 
 #### PHP script usage
 
@@ -164,9 +164,9 @@ to your needs, freely distribute your work and propose it to the community, as l
 let an information about its first authors.
 
 As the sources are hosted on a [GIT](http://git-scm.com/) repository on
-[GitHub](http://github.com/atelierspierrot/markdown-extended), you can modify it, to
+[GitHub](http://github.com/piwi/markdown-extended), you can modify it, to
 ameliorate a feature or correct an error, by [creating your own fork](http://help.github.com/articles/fork-a-repo)
-of this repository, modifying it and [asking to pull your modifications](http://github.com/atelierspierrot/markdown-extended/pulls)
+of this repository, modifying it and [asking to pull your modifications](http://github.com/piwi/markdown-extended/pulls)
 on the original branch.
 
 Please note that the "master" branch is **always the latest stable version** of the code. 
@@ -204,5 +204,5 @@ long as you mention the copyrights below:
 
     PHP Markdown Extended
     Copyright (c) 2012-2014 Pierre Cassat & contributors
-    <http://www.ateliers-pierrot.fr/>  
+    <http://e-piwi.fr/>  
     All rights reserved.
