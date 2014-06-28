@@ -173,6 +173,6 @@ more info about the release version name construction rules.
 
 Creator & maintainer: [@pierowbmstr](http://github.com/piwi).
 
-Original source of this file, see <http://github.com/atelierspierrot/markdown-extended/ROADMAP.md>.
+Original source of this file, see <http://github.com/piwi/markdown-extended/ROADMAP.md>.
 
-For comments & bugs, see <http://github.com/atelierspierrot/markdown-extended/issues>.
+For comments & bugs, see <http://github.com/piwi/markdown-extended/issues>.

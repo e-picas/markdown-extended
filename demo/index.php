@@ -190,7 +190,7 @@ function emdreminders_popup(url){
         <h1>The PHP "<em>MarkdownExtended</em>" package</h1>
         <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
         <div class="hat">
-            <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> PHP package you just downloaded.</p>
+            <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> PHP package you just downloaded.</p>
         </div>
     </header>
 
@@ -216,14 +216,14 @@ function emdreminders_popup(url){
         </ul>
 
         <div class="info">
-            <p><a href="http://github.com/atelierspierrot/markdown-extended">See online on GitHub</a></p>
+            <p><a href="http://github.com/piwi/markdown-extended">See online on GitHub</a></p>
             <p class="comment">The sources of this plugin are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
         </div>
 
         <div class="info" id="menu_socials">
             <!-- AddThis Button BEGIN -->
             <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
-            <a href="http://github.com/atelierspierrot/markdown-extended" target="_blank" title="GitHub">
+            <a href="http://github.com/piwi/markdown-extended" target="_blank" title="GitHub">
                 <span class="at16nc at300bs at15nc atGitHub"></span>
             </a>
             <a class="addthis_button_email"></a>
@@ -300,7 +300,7 @@ $menu = $output_bag->getHelper()
             This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
         </div>
         <div class="credits float-right">
-            <a href="http://github.com/atelierspierrot/markdown-extended">atelierspierrot/markdown-extended</a> package by <a href="https://github.com/piwi">@piwi</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
+            <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> package by <a href="https://github.com/piwi">@piwi</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
         </div>
     </footer>
 
@@ -376,7 +376,7 @@ $(function() {
 
 // list GitHub infos
     initHandler( 'github' );
-    var github = 'https://api.github.com/repos/atelierspierrot/markdown-extended/';
+    var github = 'https://api.github.com/repos/piwi/markdown-extended/';
     // commits list
     var github_commits = $('#github').find('#commits_list');
     getGitHubCommits(github, function(data){
