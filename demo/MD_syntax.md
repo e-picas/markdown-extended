@@ -481,3 +481,15 @@ Below is the same table as above with argument `markdown="1"`.
 </table>
 
 This is another regular paragraph.
+
+----
+
+## Test of mathematics
+
+where \(\alpha = (t_1 - t_0)/L\) is the rate at which the thickness increases
+
+Putting this into Castigliano's equation, we get
+
+\[\Delta = \frac{\partial U^*}{\partial F} = \frac{12F}{Eb} \int_0^L \frac{x^2}{(t_0 + \alpha x)^3} dx\]
+
+
