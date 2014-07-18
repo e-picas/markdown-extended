@@ -168,6 +168,7 @@ exit('yo');
     <link rel="stylesheet" href="assets/html5boilerplate/css/main.css" />
     <script src="assets/html5boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
     <link rel="stylesheet" href="assets/styles.css" />
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/javascript">
 var emdreminders_window; // use this variable to interact with the cheat sheet window
 function emdreminders_popup(url){
