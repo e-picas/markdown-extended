@@ -30,8 +30,8 @@ class Span
 {
 
     /**
-     * Take the string $str and parse it into tokens, hashing embeded HTML,
-     * escaped characters and handling code spans.
+     * Take the string $str and parse it into tokens, hashing embedded HTML,
+     * escaped characters and handling code and maths spans.
      *
      * @param   string  $str
      * @return  string
@@ -45,6 +45,8 @@ class Span
                 |
                     (?<![`\\\\])
                     `+                        # code span marker
+                |
+                    \\ \(                     # inline math
             '.( MarkdownExtended::getConfig('no_markup') ? '' : '
                 |
                     <!--    .*?     -->       # comment
@@ -63,8 +65,8 @@ class Span
 
         while (1) {
 
-            // Each loop iteration seach for either the next tag, the next
-            // openning code span marker, or the next escaped character.
+            // Each loop iteration search for either the next tag, the next
+            // opening code span marker, or the next escaped character.
             // Each token is then passed to handleSpanToken.
             $parts = preg_split($span_re, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
 
@@ -97,7 +99,19 @@ class Span
     {
         switch ($token{0}) {
             case "\\":
-                return parent::hashPart("&#". ord($token{1}). ";");
+                if ($token{1} == "(") {
+                    $texend = strpos($str, '\\)');
+                    if ($texend) {
+                        $eqn = substr($str, 0, $texend);
+                        $str = substr($str, $texend+2);
+                        $texspan = parent::runGamut('filter:Maths:span', $eqn);
+                        return parent::hashPart($texspan);
+                    } else {
+                        return $str;
+                    }
+                } else {
+                    return parent::hashPart("&#". ord($token{1}). ";");
+                }
             case "`":
                 // Search for end marker in remaining text.
                 if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm',
