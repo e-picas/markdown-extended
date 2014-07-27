@@ -1,6 +1,6 @@
 Man:        markdown-extended Manual
 Name:       MarkdownExtended
-Author:     Les Ateliers Pierrot
+Author:     Piero Wbmstr
 Date: 2014-06-13
 Version: 0.1-gamma
 

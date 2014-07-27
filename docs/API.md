@@ -1,5 +1,5 @@
 Name:       MarkdownExtended API
-Author:     Les Ateliers Pierrot
+Author:     Piero Wbmstr
 Date: 2013-10-21
 Version: 0.1-alpha
 
