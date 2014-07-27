@@ -1,3 +1,5 @@
+Name:       MarkdownExtended
+Author:     Piero Wbmstr
 baseheaderlevel: 2
 
 Markdown Extended Apache module - HOW TO
