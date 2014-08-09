@@ -1,3 +1,24 @@
+<nav class="main-nav jumbotron pull-right">
+    <div class="small">
+        <p><a href="http://github.com/piwi/markdown-extended">See online on GitHub</a></p>
+        <p class="">The sources of this application are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
+    </div>
+
+    <div class="small" id="menu_socials">
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+            <a href="http://github.com/piwi/markdown-extended" target="_blank" title="GitHub">
+                <span class="at16nc at300bs at15nc atGitHub"></span>
+            </a>
+            <a class="addthis_button_email"></a>
+            <a class="addthis_button_print"></a>
+            <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+        </div>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+        <!-- AddThis Button END -->
+    </div>
+</nav>
+
 <h2 id="notes">First notes</h2>
 
 <p>All these classes works in a PHP version 5.3 minus environment. They are included in the <em>Namespace</em> <strong>MarkdownExtended</strong>.</p>
@@ -28,10 +49,15 @@ $classLoader->register();
 require_once "path/to/package/vendor/autoload.php";
 </pre>
 
+<h3>Other versions compatibility</h3>
+
+<p>As a facility, the <code>markdown</code> namespace embeds a set of classes to replace other well-known MD parsers. This allows you to only replace the class names if you want to replace old parsers by this one.</p>
+<p>For more info, have a look at <code>src/markdown/</code> classes.</p>
+
 <h3>Version & Manifest</h3>
 
 <div class="info">
-    <p><a id="manifest_handler" class="handler" title="Infos extracted from your package version manifest">Full package manifest</a></p>
+    <p><a id="manifest_handler" class="handler" title="Infos extracted from your package version manifest"><span class="fa fa-caret-right"></span>&nbsp;Full package manifest</a></p>
     <div id="manifest">
         <ul class="list_infos"></ul>
         <p class="credits">Infos extracted from your current package's "composer.json" manifest file.</p>
@@ -39,7 +65,7 @@ require_once "path/to/package/vendor/autoload.php";
 </div>
 
 <div class="info">
-    <p><a id="github_handler" class="handler" title="Infos extracted from the repository on GitHub.com">Current repository infos</a></p>
+    <p><a id="github_handler" class="handler" title="Infos extracted from the repository on GitHub.com"><span class="fa fa-caret-right"></span>&nbsp;Current repository infos</a></p>
     <div id="github">
         <strong>Last commits</strong>
         <ul id="commits_list"></ul>

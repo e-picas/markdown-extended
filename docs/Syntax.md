@@ -6,40 +6,135 @@ Markdown Extended syntax
 
 ## Typography
 
-Bold text: `**bolded content**` or `__bolded content__` (example: **bold text**)
+### Bold
 
-Italic text: `*italic content*` or `_italic content_` (example: *italic text*)
+Bold text is written surrounded between 2 asterisks or underscores:
 
-Allowing underscores in emphasis: `__my_underscored_bold_word__` (example: __my_underscored_bold_word__)
+    **bolded content** or __bolded content__
 
-A code span: `` `function()` `` (example: `function()`)
+Example: Some **bold text** in a sentence.
+
+### Italic
+
+Italic text is written surrounded between 1 asterisk or underscore:
+
+    *italic content* or _italic content_
+
+Example: Some *italic text* in a sentence.
+
+### Auto-escaping of internal underscores
+
+Internal underscores in emphasis are auto-escaped:
+
+__my_underscored_bold_word__
+
+Example: Some __underscored_bold_word__ auto-escaped.
+
+### Code spans
+
+A code span is written surrounded between 1 tick:
+
+    `function()`
+
+Example: A code `function()` in a sentence.
 
 
-## Links and images
+## Links
 
-Automatic links: `<http://example.com/>` and `<address@email.com>` (example: <http://example.com/> and <address@email.com>)
+Links concerns full URL, relative paths or email addresses.
 
-An hypertext link: `[link text](http://example.com/ "Optional link title")` (example: [link text](http://example.com/ "Optional link title"))
+### Automatic links
 
-A referenced hypertext link: `[link text] [myid]` and after the paragraph, anywhere in the document `[myid]: http://example.com/ "Optional link title"` (example: [link text] [myid])
+Automatic link is written surrounding the link target between inferior and superior signs:
 
-An embedded image: `![Alt text](http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title")` (example: ![Alt text](http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title"))
+    <http://example.com/> and <address@email.com>
 
-A referrenced embedded image: `![Alt text][myimageid]` and after the paragraph, anywhere in the document `[myimageid]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title"` (example: ![iumage] [myimageid])
+Example: A link <http://example.com/> and an email link <address@email.com> written in a sentence.
 
-An inpage link: `[link text](#anchor)` will return to `# my title {#anchor}` (example: [link text](#myanchor))
+### Link notation
 
-An self-reference link: `[link text][anchor]` will refer to `My text[anchor]` (example: [link text][#mynewanchor] or [atitleanchor][])
+A full hypertext link is composed of two parts, the text of the link, surrounded between brackets, and the target URL, surrounded between parenthesis:
 
-A referenced link image with attributes: `[mylink][]` will refer to reference `[mylink]: http://example.com/ "Optional title" class=external style="border: solid black 1px;"`
+    [link text](http://example.com/ "Optional link title")
+
+Example: This is my [link text](http://example.com/ "Optional link title") with an optional title.
+
+### Referenced links
+
+A referenced hypertext link is written replacing the second part of the notation above with a reference ID:
+
+    [link text][myid]
+
+and after the paragraph, anywhere in the document, the reference may be defined:
+
+    [myid]: http://example.com/ "Optional link title"
+
+Example: My [link text][myid] using a reference defined elsewhere.
+
+A self-referenced link notation can also be used:
+
+    [mylink][]
+
+This will refer to a reference:
+
+    [mylink]: http://example.com/ "Optional title" class=external rel=external
 
 Example: [mylink][] and [mylink2][] and [mylink3][]
 
-An embedded image with attributes: `![myimage][]` will refer to reference `[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40 height=40`
+[mylink]: http://example.com/ "Optional title" class=external rel=external
+[mylink2]: http://example.com/ "Optional title" class=external rel=external style="border: solid black 1px;"
+[mylink3]: http://example.com/ "Optional title" class=external rel="external"
+    style="border: solid black 1px;"
 
-Example: ![myimage][]
+### In-page link
 
-A referenced embedded image with attributes: `![alternative text][myimage]` will refer to reference `[myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40 height=40`
+An inpage link is written replacing the target URL by the inpage hash:
+
+    [link text](#anchor)
+
+This will return to `# my title {#anchor}` in the document.
+
+Example: A link to an anchor: [link text](#myanchor)
+
+A self-reference link can also be used, written both parts of the link between brackets:
+
+    [link text][anchor]
+
+This will refer to `My text[anchor]` in the document.
+
+Example: [link text][#mynewanchor] or [atitleanchor][]
+
+## Images
+
+### Inline notation
+
+An embedded image is written like a link with a leading exclamation point:
+
+    ![Alt text](http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title")
+
+Example: This may embed an image: ![Alt text](http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title")
+
+### Referenced images
+
+A referenced embedded image is written just like a referenced link with a leading exclamation point:
+
+    ![Alt text][myimageid]
+
+and after the paragraph, anywhere in the document, the reference may be defined:
+
+    [myimageid]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title"
+
+Example: This may embed an image ![iumage] [myimageid] referenced elsewhere.
+
+You can use attributes:
+
+    [myimageid]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40 height=40
+
+A self-referenced link image can also be used:
+
+    [mylink][]
+
+This will refer to reference `[mylink]: http://example.com/ "Optional title" class=external style="border: solid black 1px;"` anywhere in the document.
 
 Example: ![my image][myimage]
 
@@ -47,10 +142,6 @@ Example: ![my image][myimage]
 [myimageid]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title"
 [atest]: http://myexample.com/ (Optional link title)
 [myimage]: http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png "Optional image title" width=40 height=40
-[mylink]: http://example.com/ "Optional title" class=external rel=external
-[mylink2]: http://example.com/ "Optional title" class=external rel=external style="border: solid black 1px;"
-[mylink3]: http://example.com/ "Optional title" class=external rel="external"
-    style="border: solid black 1px;"
 
 
 ## Lists
@@ -94,41 +185,61 @@ Example:
 
 ## Blocks and structural elements
 
-Titles: `#my title level 1` or `###my title level 3` (example: just above)
+### Paragraph
 
-Paragraphs: just pass a line (exemple this line ...)
+To build a paragraph, just pass a line (example this line ...).
+
+### Titles
+
+Titles can use two notations, sharps:
+
+    # my title level 1
+    or
+    ### my title level 3
+
+or "sextet":
+
+    my title 1
+    ==========
+
+    or
+
+    my title 2
+    ----------
 
 ### Pre-formatted contents
 
-Begin lines with 4 spaces (example this block)
+Begin lines with 4 spaces (example this block):
 
         pre formed content
 
-Fenced code block: a line of tildes (at least 3)
+Fenced code block can be written surrounded between lines of tildes (at least 3):
 
     ~~~~
     My code here
     ~~~~
 
 Example:
+
 ~~~~
 My code here
 ~~~~
 
-Fenced code block with information about the language: a line of tildes (at least 3) followed by language name (without space)
+You can specify an information about the language following the first tildes by the language name (without space):
 
     ~~~~html
     My code here
     ~~~~
 
 Example:
+
 ~~~~html
 My code here
 ~~~~
 
 ### Blockquotes and citations
 
-Begin lines by '>':
+To write a citation, begin your lines by '>':
 
     > my citation
 
@@ -152,7 +263,7 @@ Example:
 
 ### Horizontal rules
 
-3 or more hyphens, asterisks or underscores on a line
+Horizontal rule can be written with 3 or more hyphens, asterisks or underscores on a line:
 
     ----
 
@@ -163,7 +274,7 @@ Example:
 
 ## Definitions
 
-A definition:
+A definition is written in at least two parts, the term and the definition, with leading double-points:
 
     Apple
     :   Pomaceous fruit of plants of the genus Malus in
@@ -196,11 +307,11 @@ Term 2
 
 ## Abbreviations
 
-An abbreviation:
+An abbreviation is written like a reference, anywhere in the document, with a leading sterisk:
 
     *[HTML]: Hyper Text Markup Language
 
-Example: A text whit HTML expression.
+Example: A text with HTML expression.
 
 *[HTML]: Hyper Text Markup Language
 
@@ -401,12 +512,31 @@ This is another regular paragraph.
 
 ## Mathematics
 
-where \(\alpha = (t_1 - t_0)/L\) is the rate at which the thickness increases
+Mathematics in MDE can be written following the [LATEX](http://www.latex-project.org/) rules.
+
+For HTML transformation, you may use [MathJAX](http://www.mathjax.org/) in your templates.
+
+### Inline maths
+
+Inline mathematics are written surrounded like `\(...\)`:
+
+    where \(\alpha = (t_1 - t_0)/L\) is the rate at which the thickness increases
+
+Example: where \(\alpha = (t_1 - t_0)/L\) is the rate at which the thickness increases
+
+### Maths blocks
+
+Maths blocks are built surrounded like `\[...\]`:
+
+    Putting this into Castigliano's equation, we get
+
+    \[\Delta = \frac{\partial U^*}{\partial F} = \frac{12F}{Eb} \int_0^L \frac{x^2}{(t_0 + \alpha x)^3} dx\]
+
+Example:
 
 Putting this into Castigliano's equation, we get
 
 \[\Delta = \frac{\partial U^*}{\partial F} = \frac{12F}{Eb} \int_0^L \frac{x^2}{(t_0 + \alpha x)^3} dx\]
-
 
 
 ----
