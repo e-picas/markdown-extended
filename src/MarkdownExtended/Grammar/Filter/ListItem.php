@@ -88,7 +88,7 @@ class ListItem
             '; // mx
             
             // We use a different prefix before nested lists than top-level lists.
-            // See extended comment in _ProcessListItems().
+            // See extended comment in `self::transformItems()`.
             if (self::$list_level) {
                 $text = preg_replace_callback('{
                         ^
@@ -166,7 +166,7 @@ class ListItem
                 (?:[ ]+|(?=\n))             # space only required if item is not empty
             )
             ((?s:.*?))                      # list item text   = $4
-            (?:(\n+(?=\n))|\n)              # tailing blank line = $5
+            (?:(\n+(?=\n))|\n)              # trailing blank line = $5
             (?= \n* (\z | \2 ('.$marker_any_re.') (?:[ ]+|(?=\n))))
             }xm',
             array($this, '_items_callback'), $list_str);
