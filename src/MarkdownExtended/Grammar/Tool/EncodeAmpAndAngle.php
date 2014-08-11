@@ -41,6 +41,8 @@ class EncodeAmpAndAngle
             // MT plugin: <http://bumppo.net/projects/amputator/>
             $text = preg_replace('/&(?!#?[xX]?(?:[0-9a-fA-F]+|\w+);)/', '&amp;', $text);
         }
+        // Encode remaining >'s
+        $text = str_replace('>', '&gt;', $text);
         // Encode remaining <'s
         $text = str_replace('<', '&lt;', $text);
         return $text;
