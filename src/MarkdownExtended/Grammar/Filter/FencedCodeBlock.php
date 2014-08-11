@@ -44,7 +44,7 @@ class FencedCodeBlock
         return preg_replace_callback('{
                 (?:\n|\A)               # 1: Opening marker
                 (
-                    ~{3,}               # Marker: three tilde or more.
+                    ~{3,}|`{3,}         # Marker: three tildes or backticks or more.
                 )
                 (\w+)?                  # 2: Language
                 [ ]* \n                 # Whitespace and newline following marker.
