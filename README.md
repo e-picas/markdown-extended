@@ -28,6 +28,8 @@ at <http://github.com/piwi/markdown-extended>.**
 -   It is built to construct complex parsing by creating some single-key-unit objects for 
     all important Markdown stuff (content, configuration, parser, template and rules).
 
+Finally, *PHP Markdown Extended* tries to implement Markdown following the
+[**Markdown Extended specifications**](http://markdown-extended.github.io/manifest/) strictly.
 
 ## How-to
 
