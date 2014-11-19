@@ -23,6 +23,7 @@ use \MarkdownExtended\API\GamutInterface;
 
 /**
  * Base class for all Filters
+ * @package MarkdownExtended\Grammar
  */
 abstract class Filter
     extends AbstractGamut

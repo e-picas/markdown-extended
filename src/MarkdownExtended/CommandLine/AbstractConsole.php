@@ -39,8 +39,10 @@ use \MarkdownExtended\Exception as MDE_Exception;
  *
  * For all of these cases, PHP errors caught during Markdown Extended classes execution are
  * rendered and script execution may stop.
+ *
+ * @package MarkdownExtended\CommandLine
  */
-abstract class AbstractConsole 
+abstract class AbstractConsole
 {
 
     /**

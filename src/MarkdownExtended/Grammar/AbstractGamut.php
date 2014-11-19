@@ -21,6 +21,7 @@ use \MarkdownExtended\MarkdownExtended;
 
 /**
  * The base class for all Filters and Tools
+ * @package MarkdownExtended\Grammar
  */
 abstract class AbstractGamut
 {

@@ -25,6 +25,8 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Command line controller to rebuild the MarkdownExtended reminders HTML
+ *
+ * @package MarkdownExtended\CommandLine
  */
 class Reminders
     extends AbstractConsole

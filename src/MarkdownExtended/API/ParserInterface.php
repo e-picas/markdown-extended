@@ -19,6 +19,8 @@ namespace MarkdownExtended\API;
 
 /**
  * Interface for a content parser
+ *
+ * @package MarkdownExtended\API
  */
 interface ParserInterface
 {

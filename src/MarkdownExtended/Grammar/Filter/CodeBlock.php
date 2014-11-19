@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown code blocks
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class CodeBlock
     extends Filter

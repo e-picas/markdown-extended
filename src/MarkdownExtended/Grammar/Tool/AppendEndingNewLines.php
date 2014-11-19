@@ -20,6 +20,10 @@ namespace MarkdownExtended\Grammar\Tool;
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Tool;
 
+/**
+ * Class AppendEndingNewLines
+ * @package MarkdownExtended\Grammar\Tool
+ */
 class AppendEndingNewLines
     extends Tool
 {

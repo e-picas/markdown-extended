@@ -20,6 +20,10 @@ namespace MarkdownExtended\Grammar\Tool;
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Tool;
 
+/**
+ * Class EncodeAmpAndAngle
+ * @package MarkdownExtended\Grammar\Tool
+ */
 class EncodeAmpAndAngle
     extends Tool
 {

@@ -27,6 +27,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Manpages Markdown Extended output Helper
+ * @package MarkdownExtended\OutputFormat
  */
 class ManHelper
     extends DefaultHelper

@@ -26,6 +26,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * Central class to execute Filters and Tools methods on a content
  *
  * It can handle a list of gamuts, execute a specific method and run a single gamut.
+ * @package MarkdownExtended\Grammar
  */
 class Gamut
 {

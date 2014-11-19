@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Construct the global Table of Contents (hierarchical list of anchors)
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class TableOfContents
     extends Filter

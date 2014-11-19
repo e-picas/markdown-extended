@@ -29,6 +29,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  * and replace it by the parsing result if its content.
  *
  * The default inclusion mask is "<!-- @file_name.md@ -->"
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class BlockInclusion
     extends Filter

@@ -39,8 +39,9 @@ use \MarkdownExtended\Exception as MDE_Exception;
  *      ~$ ./bin/markdown-extended -o MANPAGENAME.man -f man path/to/original.md
  * 
  * @see http://manpages.ubuntu.com/manpages/oneiric/man7/groff_man.7.html
+ * @package MarkdownExtended\OutputFormat
  */
-class Man 
+class Man
     implements OutputFormatInterface
 {
 

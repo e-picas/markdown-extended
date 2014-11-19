@@ -26,6 +26,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  * Process Markdown hard breaks
  *
  * Hard breaks are written as one or more blank line(s).
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class HardBreak
     extends Filter

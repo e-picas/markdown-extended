@@ -19,6 +19,10 @@ namespace MarkdownExtended\Exception;
 
 use \InvalidArgumentException as BaseException;
 
+/**
+ * Class InvalidArgumentException
+ * @package MarkdownExtended\Exception
+ */
 class InvalidArgumentException
     extends BaseException
 {

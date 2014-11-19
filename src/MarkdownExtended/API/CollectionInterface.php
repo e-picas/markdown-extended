@@ -17,6 +17,11 @@
  */
 namespace MarkdownExtended\API;
 
+/**
+ * Interface CollectionInterface
+ *
+ * @package MarkdownExtended\API
+ */
 interface CollectionInterface
     extends \Countable,
             \Iterator,

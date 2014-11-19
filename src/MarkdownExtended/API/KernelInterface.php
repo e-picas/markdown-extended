@@ -28,6 +28,7 @@ namespace MarkdownExtended\API;
  *
  * It can be used as a classic class object or as a singleton instance.
  *
+ * @package MarkdownExtended\API
  */
 interface KernelInterface
 {

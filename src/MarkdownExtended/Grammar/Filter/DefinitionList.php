@@ -39,7 +39,9 @@ use MarkdownExtended\Exception as MDE_Exception;
  *            because of the blank line preceding it.
  *
  *        Term 2
- *        :   This definition has a code block, a blockquote and a list. 
+ *        :   This definition has a code block, a blockquote and a list.
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class DefinitionList
     extends Filter

@@ -21,6 +21,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Global Markdown Extended Helper
+ * @package MarkdownExtended
  */
 class Helper
 {

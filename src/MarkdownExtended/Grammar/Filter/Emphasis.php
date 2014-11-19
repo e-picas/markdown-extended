@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown emphasis: bold & italic
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Emphasis
     extends Filter
