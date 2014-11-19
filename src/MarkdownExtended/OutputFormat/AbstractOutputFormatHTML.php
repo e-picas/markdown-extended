@@ -22,6 +22,8 @@ use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
+ * Class AbstractOutputFormatHTML
+ * @package MarkdownExtended\OutputFormat
  */
 class AbstractOutputFormatHTML
 {

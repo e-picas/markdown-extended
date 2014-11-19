@@ -74,6 +74,8 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * or business interruption) however caused and on any theory of liability, whether in contract, 
  * strict liability, or tort (including negligence or otherwise) arising in any way out of the use of 
  * this software, even if advised of the possibility of such damage.
+ *
+ * @package MarkdownExtended
  */
 final class MarkdownExtended
     implements KernelInterface

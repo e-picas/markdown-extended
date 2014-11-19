@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown tables
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Table
     extends Filter

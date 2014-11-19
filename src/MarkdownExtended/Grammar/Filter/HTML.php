@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown in-text HTML
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class HTML
     extends Filter

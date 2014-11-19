@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown horizontal rules
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class HorizontalRule
     extends Filter

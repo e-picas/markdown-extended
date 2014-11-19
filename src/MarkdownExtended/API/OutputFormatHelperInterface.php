@@ -19,6 +19,8 @@ namespace MarkdownExtended\API;
 
 /**
  * PHP Markdown Extended OutputFormat helper interface
+ *
+ * @package MarkdownExtended\API
  */
 interface OutputFormatHelperInterface
 {

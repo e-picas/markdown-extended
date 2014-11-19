@@ -22,6 +22,8 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * The API defines all required interfaces
+ *
+ * @package MarkdownExtended\API
  */
 class API
 {

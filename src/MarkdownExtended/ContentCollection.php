@@ -24,6 +24,7 @@ use \MarkdownExtended\API\CollectionInterface;
 
 /**
  * Class defining a collection of content objects
+ * @package MarkdownExtended
  */
 class ContentCollection
     implements  CollectionInterface

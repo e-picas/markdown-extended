@@ -24,6 +24,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Global configuration registry
+ * @package MarkdownExtended
  */
 class Config
     extends Registry

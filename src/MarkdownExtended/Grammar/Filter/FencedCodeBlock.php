@@ -30,6 +30,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  *      ~~~~(language)
  *      my content ...
  *      ~~~~
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class FencedCodeBlock
     extends Filter

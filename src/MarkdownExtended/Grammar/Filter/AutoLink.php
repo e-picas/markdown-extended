@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown automatic links
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class AutoLink
     extends Filter

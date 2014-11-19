@@ -25,8 +25,9 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Format a content in full HTML
+ * @package MarkdownExtended\OutputFormat
  */
-class HTML 
+class HTML
     extends AbstractOutputFormatHTML
     implements OutputFormatInterface
 {

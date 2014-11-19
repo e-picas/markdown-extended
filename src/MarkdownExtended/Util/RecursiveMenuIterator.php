@@ -22,8 +22,10 @@ use \RecursiveArrayIterator;
 use \RecursiveIterator;
 
 /**
+ * Class RecursiveMenuIterator
+ * @package MarkdownExtended\Util
  */
-class RecursiveMenuIterator 
+class RecursiveMenuIterator
     extends RecursiveArrayIterator
     implements RecursiveIterator
 {

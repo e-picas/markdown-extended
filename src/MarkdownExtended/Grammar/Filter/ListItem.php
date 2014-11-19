@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown list items
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class ListItem
     extends Filter
@@ -181,13 +183,13 @@ class ListItem
      */
     protected function _items_callback($matches) 
     {
-        $item = $matches[4];
-        $leading_line =& $matches[1];
-        $leading_space =& $matches[2];
-        $marker_space = $matches[3];
-        $tailing_blank_line =& $matches[5];
+        $item                   =   $matches[4];
+        $leading_line           =&  $matches[1];
+        $leading_space          =&  $matches[2];
+        $marker_space           =   $matches[3];
+        $trailing_blank_line    =&  $matches[5];
 
-        if ($leading_line || $tailing_blank_line || preg_match('/\n{2,}/', $item)) {
+        if ($leading_line || $trailing_blank_line || preg_match('/\n{2,}/', $item)) {
             // Replace marker with the appropriate whitespace indentation
             $item = $leading_space . str_repeat(' ', strlen($marker_space)) . $item;
             $item = parent::runGamut('html_block_gamut', parent::runGamut('tool:Outdent', $item)."\n");

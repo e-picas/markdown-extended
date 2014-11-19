@@ -19,6 +19,10 @@ namespace MarkdownExtended\Exception;
 
 use \UnexpectedValueException as BaseException;
 
+/**
+ * Class UnexpectedValueException
+ * @package MarkdownExtended\Exception
+ */
 class UnexpectedValueException
     extends BaseException
 {

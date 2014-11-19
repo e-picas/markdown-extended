@@ -20,6 +20,8 @@ namespace MarkdownExtended;
 use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
+ * Class Registry
+ * @package MarkdownExtended
  */
 class Registry
 {

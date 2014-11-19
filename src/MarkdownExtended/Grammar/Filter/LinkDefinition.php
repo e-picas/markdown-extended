@@ -28,6 +28,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  * Link defs are in the form:
  *
  *      ^[id]: url "optional title"
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class LinkDefinition
     extends Filter

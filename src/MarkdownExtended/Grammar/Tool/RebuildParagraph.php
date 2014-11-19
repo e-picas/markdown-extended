@@ -20,6 +20,10 @@ namespace MarkdownExtended\Grammar\Tool;
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Tool;
 
+/**
+ * Class RebuildParagraph
+ * @package MarkdownExtended\Grammar\Tool
+ */
 class RebuildParagraph
     extends Tool
 {

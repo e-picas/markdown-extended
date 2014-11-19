@@ -26,6 +26,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  * Process Markdown mathematics
  *
  * taken from <http://github.com/drdrang/php-markdown-extra-math>
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Maths
     extends Filter

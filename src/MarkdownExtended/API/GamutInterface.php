@@ -17,6 +17,11 @@
  */
 namespace MarkdownExtended\API;
 
+/**
+ * Interface GamutInterface
+ *
+ * @package MarkdownExtended\API
+ */
 interface GamutInterface
 {
 

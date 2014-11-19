@@ -41,6 +41,7 @@ use MarkdownExtended\Exception as MDE_Exception;
  *  ...
  *  ###### Header 6   {#header2}
  *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Header
     extends Filter

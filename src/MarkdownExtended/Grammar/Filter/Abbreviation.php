@@ -32,6 +32,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  * You can pre-define a set of abbreviation descriptions in the config entry `predef_abbr`.
  * This must be define as an array of `term => description` values.
  *
+ * @link http://aboutmde.org/#E5
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Abbreviation
     extends Filter

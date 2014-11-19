@@ -23,6 +23,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Class defining a content object for the Parser
+ * @package MarkdownExtended
  */
 class Content
     implements ContentInterface

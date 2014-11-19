@@ -26,6 +26,7 @@ use MarkdownExtended\Exception as MDE_Exception;
  * Process Markdown notes: footnotes, glossary and bibliography notes
  *
  * @todo write the right reference for second call of the same note
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Note
     extends Filter

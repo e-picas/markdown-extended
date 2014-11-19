@@ -20,6 +20,10 @@ namespace MarkdownExtended\Grammar\Tool;
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Tool;
 
+/**
+ * Class EncodeAttribute
+ * @package MarkdownExtended\Grammar\Tool
+ */
 class EncodeAttribute
     extends Tool
 {
