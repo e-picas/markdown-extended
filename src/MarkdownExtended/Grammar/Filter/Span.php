@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown spans
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Span
     extends Filter

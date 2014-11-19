@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown meta data
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class MetaData
     extends Filter

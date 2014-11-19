@@ -23,6 +23,7 @@ use \MarkdownExtended\API\GamutInterface;
 
 /**
  * Base class for all Filters
+ * @package MarkdownExtended\Grammar
  */
 abstract class Filter
     extends AbstractGamut
@@ -57,7 +58,7 @@ abstract class Filter
      * a unique text-token which will be reverted back when calling unhash.
      *
      * The $boundary argument specify what character should be used to surround
-     * the token. By convension, "B" is used for block elements that needs not
+     * the token. By convention, "B" is used for block elements that needs not
      * to be wrapped into paragraph tags at the end, ":" is used for elements
      * that are word separators and "X" is used in the general case.
      *
@@ -92,7 +93,7 @@ abstract class Filter
 
     /**
      * Called whenever a tag must be hashed when a function insert a "clean" tag
-     * in $text, it pass through this function and is automaticaly escaped,
+     * in $text, it pass through this function and is automatically escaped,
      * blocking invalid nested overlap.
      *
      * @param   string  $text   Text to parse

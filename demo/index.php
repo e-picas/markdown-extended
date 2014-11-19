@@ -70,14 +70,14 @@ if (!is_null($doc)) {
     if (empty($error)) {
         $class_info = \MarkdownExtended\Helper::info(true);
         $info = <<<EOT
-    <p><a id="classinfo_handler" class="handler" title="Infos from the MarkdownExtended class">Current class infos</a></p>
+    <p><a id="classinfo_handler" class="handler" title="Infos from the MarkdownExtended class"><span class="fa fa-caret-right"></span>&nbsp;Current class infos</a></p>
     <div id="classinfo"><p>$class_info</p></div>
 EOT;
         $options = array();
 //        $options['output_format'] = '\MDE_Overrides\MyHTMLOutput';
         if (file_exists($doc)) {
             $info .= <<<EOT
-    <p><a id="plaintext_handler" class="handler" title="See plain text link">Original <em>$doc</em> document</a></p>
+    <p><a id="plaintext_handler" class="handler" title="See plain text link"><span class="fa fa-caret-right"></span>&nbsp;Original <em>$doc</em> document</a></p>
     <div id="plaintext"><ul>
         <li><a href="$doc" title="See original standalone parsed version of the file">See the standalone version of <em>$doc</em></a></li>
         <li><a href="$doc?plain" title="See plain text version of the file">See the original content of <em>$doc</em></a></li>
@@ -140,33 +140,43 @@ exit('yo');
     $js_code = true;
 }
 
+$output_bag = !empty($mde_content) ? \MarkdownExtended\MarkdownExtended::get('OutputFormatBag') : null;
+$menu = !empty($mde_content) ? $output_bag->getHelper()
+    ->getToc($mde_content, $output_bag->getFormater(), array(
+        'title_level'=>'2', 'class'=>'menu'
+    )) : null;
+
 ?><!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <?php $title_done = false; ?>
 <?php if (!empty($mde_content) && $mde_content->getMetadata()) : ?>
     <?php foreach ($mde_content->getMetadata() as $meta_name=>$meta_content) : ?>
         <?php if ($meta_name=='title'): ?>
-    <title><?php echo $meta_content; ?></title>
+            <title><?php echo $meta_content; ?></title>
             <?php $title_done = true; ?>
         <?php else: ?>
-    <meta name="<?php echo $meta_name; ?>" content="<?php echo $meta_content; ?>" />
+            <meta name="<?php echo $meta_name; ?>" content="<?php echo $meta_content; ?>" />
         <?php endif; ?>
     <?php endforeach; ?>
 <?php endif; ?>
 <?php if (!$title_done) : ?>
     <title>Test & documentation of PHP "MarkdownExtended" package</title>
 <?php endif; ?>
-    <meta name="description" content="A complete PHP 5.3 version of the Markdown syntax parser" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="assets/html5boilerplate/css/normalize.css" />
-    <link rel="stylesheet" href="assets/html5boilerplate/css/main.css" />
-    <script src="assets/html5boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+<meta name="description" content="A complete PHP 5.3 version of the Markdown syntax parser" />
+<!-- Bootstrap -->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
     <link rel="stylesheet" href="assets/styles.css" />
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/javascript">
@@ -186,148 +196,145 @@ function emdreminders_popup(url){
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
 
-    <a id="top"></a>
-    <header role="banner">
-        <h1>The PHP "<em>MarkdownExtended</em>" package</h1>
-        <h2 class="slogan">A complete PHP 5.3 package of Markdown syntax parser (extended version).</h2>
-        <div class="hat">
-            <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> PHP package you just downloaded.</p>
-        </div>
-    </header>
-
-    <nav>
-        <h2>Map of the package</h2>
-        <ul id="navigation_menu" class="menu" role="navigation">
-            <li><a href="index.php">Usage</a></li>
-            <li><a href="../markdown_reminders.html" onclick="return emdreminders_popup('../markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
-            <li><a href="index.php?page=form">Test of a form field</a></li>
-            <li><a href="index.php?doc=../docs/Apache-Handler-HOWTO.md&amp;md=process">Apache Handler HOWTO</a></li>
-            <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
-                <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
-                <li><a href="index.php?doc=MD_syntax.md&amp;md=process">markdown parsed version</a></li>
-            </ul></li>
-            <li><a href="index.php?doc=../README.md">Package README.md</a><ul>
-                <li><a href="index.php?doc=../README.md">plain text version</a></li>
-                <li><a href="index.php?doc=../README.md&amp;md=process">markdown parsed version</a></li>
-            </ul></li>
-            <li><a href="index.php?doc=../docs/MANPAGE.md">Binary MANPAGE.md</a><ul>
-                <li><a href="index.php?doc=../docs/MANPAGE.md">plain text version</a></li>
-                <li><a href="index.php?doc=../docs/MANPAGE.md&amp;md=process">markdown parsed version</a></li>
-            </ul></li>
-        </ul>
-
-        <div class="info">
-            <p><a href="http://github.com/piwi/markdown-extended">See online on GitHub</a></p>
-            <p class="comment">The sources of this plugin are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
-        </div>
-
-        <div class="info" id="menu_socials">
-            <!-- AddThis Button BEGIN -->
-            <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
-            <a href="http://github.com/piwi/markdown-extended" target="_blank" title="GitHub">
-                <span class="at16nc at300bs at15nc atGitHub"></span>
-            </a>
-            <a class="addthis_button_email"></a>
-            <a class="addthis_button_print"></a>
-            <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">MarkdownExtended</a>
             </div>
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
-            <!-- AddThis Button END -->
+            <div class="collapse navbar-collapse">
+                <ul id="navigation_menu" class="nav navbar-nav" role="navigation">
+                    <li><a href="index.php">Usage</a></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <?php foreach (scandir(__DIR__.'/../docs') as $f) :
+                                if (!in_array($f, array('.','..')) && !is_dir($f)) : ?>
+                                    <li><a href="index.php?doc=../docs/<?php echo basename($f); ?>&amp;md=process">
+                                            <?php echo str_replace(array('_','-'), ' ', str_replace('.md', '', basename($f))); ?>
+                                        </a></li>
+                                <?php endif; endforeach; ?>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tests <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="index.php?page=form">Test of a form field</a></li>
+                            <li><a href="index.php?doc=MD_syntax.md">MD_syntax.md</a><ul>
+                                    <li><a href="index.php?doc=MD_syntax.md">plain text version</a></li>
+                                    <li><a href="index.php?doc=MD_syntax.md&amp;md=process">markdown parsed version</a></li>
+                                </ul></li>
+                            <li><a href="index.php?doc=../README.md">Package README.md</a><ul>
+                                    <li><a href="index.php?doc=../README.md">plain text version</a></li>
+                                    <li><a href="index.php?doc=../README.md&amp;md=process">markdown parsed version</a></li>
+                                </ul></li>
+                        </ul>
+                    </li>
+                    <li><a href="../markdown_reminders.html" onclick="return emdreminders_popup('../markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" role="navigation">
+<?php if (!empty($menu)) : ?>
+                    <li><a href="#" title="See table of contents" id="short_tableofcontents_handler"><span class="text">TOC</span></a></li>
+<?php endif; ?>
+                    <li><a href="#bottom" title="Go to the bottom of the page">&darr;</a></li>
+                    <li><a href="#top" title="Back to the top of the page">&uarr;</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
         </div>
+    </div>
 
-        <p class="credits" id="user_agent"></p>
-    </nav>
+    <div class="container">
 
-    <div id="content" role="main">
+        <a id="top"></a>
+
+        <header role="banner">
+            <h1>The PHP "<em>MarkdownExtended</em>" package <br><small>A complete PHP 5.3 package for Markdown Extended syntax parsing</small></h1>
+            <div class="hat">
+                <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> PHP package you just downloaded.</p>
+            </div>
+        </header>
+
+        <div id="content" role="main">
 
 <?php if (!empty($error)) : ?>
-    <div class="message error">
-        <?php echo $error; ?>
-    </div>
+            <div class="message error">
+                <?php echo $error; ?>
+            </div>
 <?php endif; ?>
 
 <?php if (!empty($info)) : ?>
-    <div class="info">
-        <?php echo $info; ?>
-    </div>
+            <nav class="main-nav jumbotron">
+                <?php echo $info; ?>
+            </nav>
 <?php endif; ?>
 
 <?php if (!empty($mde_content)) : ?>
-    <article>
+            <article>
 
-<?php
-$output_bag = \MarkdownExtended\MarkdownExtended::get('OutputFormatBag');
-$menu = $output_bag->getHelper()
-    ->getToc($mde_content, $output_bag->getFormater(), array(
-        'title_level'=>'2', 'class'=>'menu'
-    ));
-?>
-<?php if (!empty($menu)) : ?>
-<aside id="page_menu">
-    <?php echo $menu; ?>
-</aside>  
-<?php endif; ?>
+    <?php if (!empty($menu)) : ?>
+                <aside id="page_menu" class="pull-right">
+                    <?php echo $menu; ?>
+                </aside>
+    <?php endif; ?>
 
-        <?php echo $mde_content->getBody(); ?>
-        <?php if ($mde_content->getNotes()) : ?>
-        <div class="footnotes">
-            <ol>
-            <?php foreach ($mde_content->getNotes() as $id=>$note_content) : ?>
-                <li id="<?php echo $note_content['note-id']; ?>"><?php echo $note_content['text']; ?></li>
-            <?php endforeach; ?>
-            </ol>
-        </div>
-        <?php endif; ?>
-        <?php if ($mde_content->getLastUpdate()) : ?>
-            <p class="credits">Last update of this page <time datetime="<?php
-                echo $mde_content->getLastUpdate()->format('c')
-            ?>"><?php echo $mde_content->getLastUpdate()->format('F j, Y, g:i a'); ?></time>.</p>
-        <?php endif; ?>
-    </article>
+                <?php echo $mde_content->getBody(); ?>
+    <?php if ($mde_content->getNotes()) : ?>
+                <div class="footnotes">
+                    <ol>
+                    <?php foreach ($mde_content->getNotes() as $id=>$note_content) : ?>
+                        <li id="<?php echo $note_content['note-id']; ?>"><?php echo $note_content['text']; ?></li>
+                    <?php endforeach; ?>
+                    </ol>
+                </div>
+    <?php endif; ?>
+    <?php if ($mde_content->getLastUpdate()) : ?>
+                <p class="credits small text-right">Last update of this page <time datetime="<?php
+                    echo $mde_content->getLastUpdate()->format('c')
+                ?>"><?php echo $mde_content->getLastUpdate()->format('F j, Y, g:i a'); ?></time>.</p>
+    <?php endif; ?>
+            </article>
+
 <?php elseif (!empty($page) && file_exists($page)) : ?>
-    <article>
-        <?php include $page; ?>
-    </article>
+            <article>
+                <?php include $page; ?>
+            </article>
+
 <?php elseif (!empty($content)) : ?>
-    <article>
-        <?php echo $content; ?>
-    </article>
+            <article>
+                <?php echo $content; ?>
+            </article>
 <?php endif; ?>
 
+        </div>
     </div>
 
     <footer id="footer">
-        <div class="credits float-left">
-            This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
-        </div>
-        <div class="credits float-right">
-            <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> package by <a href="https://github.com/piwi">@piwi</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
+        <div class="container">
+            <div class="text-muted pull-left">
+                This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
+            </div>
+            <div class="text-muted pull-right">
+                <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> package by <a href="https://github.com/piwi">@piwi</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
+                <p class="text-muted small" id="user_agent"></p>
+            </div>
         </div>
     </footer>
-
-    <div class="back_menu" id="short_navigation">
-        <a href="#" title="See table of contents" id="short_tableofcontents_handler"><span class="text">Table of contents</span></a>
-        &nbsp;|&nbsp;
-        <a href="#" title="See navigation menu" id="short_menu_handler"><span class="text">Navigation Menu</span></a>
-        &nbsp;|&nbsp;
-        <a href="#bottom" title="Go to the bottom of the page"><span class="text">Go to bottom&nbsp;</span>&darr;</a>
-        &nbsp;|&nbsp;
-        <a href="#top" title="Back to the top of the page"><span class="text">Back to top&nbsp;</span>&uarr;</a>
-        <ul id="short_menu" class="menu" role="navigation"></ul>
-        <ul id="short_tableofcontents" class="menu" role="navigation"></ul>
-    </div>
 
     <div id="message_box" class="msg_box"></div>
     <a id="bottom"></a>
 
 <!-- jQuery lib -->
-<script src="assets/js/jquery-1.9.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-<!-- HTML5 boilerplate -->
-<script src="assets/html5boilerplate/js/plugins.js"></script>
+<!-- Bootstrap -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-<!-- jQuery.tablesorter plugin -->
+<!-- jQuery.tablesorter plugin
 <script src="assets/js/jquery.tablesorter.min.js"></script>
+-->
 
 <!-- jQuery.highlight plugin -->
 <script src="assets/js/highlight.js"></script>
@@ -337,10 +344,7 @@ $menu = $output_bag->getHelper()
 
 <script>
 $(function() {
-    initBacklinks();
-    activateNavigationMenu();
     getToHash();
-    buildFootNotes();
     addCSSValidatorLink('assets/styles.css');
     addHTMLValidatorLink();
     $("#user_agent").html( navigator.userAgent );

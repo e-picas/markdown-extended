@@ -24,6 +24,7 @@ use \MarkdownExtended\API\ContentInterface;
 
 /**
  * PHP Markdown Extended Parser Class
+ * @package MarkdownExtended
  */
 class Parser
     implements ParserInterface
@@ -85,7 +86,9 @@ class Parser
             str_repeat('(?>\)))*', MarkdownExtended::getConfig('nested_url_parenthesis_depth'))
         );      
         MarkdownExtended::setConfig('escape_chars_re', 
-            '['.preg_quote(MarkdownExtended::getConfig('escape_chars')).']');
+            '['
+            .preg_quote(MarkdownExtended::getConfig('escape_chars'))
+            .']');
         MarkdownExtended::setConfig('less_than_tab',
             (MarkdownExtended::getConfig('tab_width') - 1));
 

@@ -20,6 +20,10 @@ namespace MarkdownExtended\Grammar\Tool;
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Tool;
 
+/**
+ * Class RemoveUtf8Marker
+ * @package MarkdownExtended\Grammar\Tool
+ */
 class RemoveUtf8Marker
     extends Tool
 {

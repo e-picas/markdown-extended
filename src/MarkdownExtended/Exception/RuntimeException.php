@@ -19,6 +19,10 @@ namespace MarkdownExtended\Exception;
 
 use \RuntimeException as BaseException;
 
+/**
+ * Class RuntimeException
+ * @package MarkdownExtended\Exception
+ */
 class RuntimeException
     extends BaseException
 {

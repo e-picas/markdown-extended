@@ -24,6 +24,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Global configuration registry
+ * @package MarkdownExtended
  */
 class Config
     extends Registry
@@ -52,7 +53,7 @@ class Config
         // Define the width of a tab (4 spaces by default)
         'tab_width' => 4,
         // Table of hash values for escaped characters:
-        'escape_chars' => "\`*_{}[]()>#+-.!:|",
+        'escape_chars' => "0`*_{}[]()<>#+-.!:|\\",
         // Regex to match balanced [brackets].
         // Needed to insert a maximum bracked depth while converting to PHP.
         'nested_brackets_depth' => 6,

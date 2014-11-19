@@ -1,6 +1,6 @@
 Man:        markdown-extended Manual
 Name:       MarkdownExtended
-Author:     Les Ateliers Pierrot
+Author:     Piero Wbmstr
 Date: 2014-06-13
 Version: 0.1-gamma
 
@@ -176,5 +176,4 @@ To transmit bugs, see <http://github.com/piwi/markdown-extended/issues>.
 
 ## AUTHOR
 
-Created and maintained by **Pierre Cassat** (*piwi* - <http://github.com/piwi>)
-& contributors.
+Created and maintained by **Pierre Cassat** (*piwi* - <http://e-piwi.fr/>) & contributors.

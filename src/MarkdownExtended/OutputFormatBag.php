@@ -24,6 +24,7 @@ use \MarkdownExtended\API\OutputFormatHelperInterface;
 
 /**
  * PHP Markdown Extended OutputFormat container
+ * @package MarkdownExtended
  */
 class OutputFormatBag
 {

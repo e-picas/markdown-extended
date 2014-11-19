@@ -20,12 +20,16 @@ namespace MarkdownExtended\Grammar\Tool;
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Tool;
 
-class StripSapcedLines extends Tool
+/**
+ * Class StripSpacedLines
+ * @package MarkdownExtended\Grammar\Tool
+ */
+class StripSpacedLines extends Tool
 {
 
     /**
      * Strip any lines consisting only of spaces and tabs.
-     * This makes subsequent regexen easier to write, because we can
+     * This makes subsequent regex easier to write, because we can
      * match consecutive blank lines with /\n+/ instead of something
      * contorted like /[ ]*\n+/ .
      *

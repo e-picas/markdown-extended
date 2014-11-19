@@ -25,6 +25,8 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Command line controller/interface for MarkdownExtended
+ *
+ * @package MarkdownExtended\CommandLine
  */
 class Console
     extends AbstractConsole

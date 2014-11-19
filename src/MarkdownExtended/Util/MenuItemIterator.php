@@ -23,8 +23,9 @@ use \ArrayAccess;
 
 /**
  * This class defines each `RecursiveMenuIterator` item
+ * @package MarkdownExtended\Util
  */
-class MenuItemIterator 
+class MenuItemIterator
     extends ArrayIterator
     implements ArrayAccess
 {

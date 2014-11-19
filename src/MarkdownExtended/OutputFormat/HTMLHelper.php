@@ -26,6 +26,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * HTML output Helper
+ * @package MarkdownExtended\OutputFormat
  */
 class HTMLHelper
     implements OutputFormatHelperInterface

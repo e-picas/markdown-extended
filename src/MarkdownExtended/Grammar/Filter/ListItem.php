@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown list items
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class ListItem
     extends Filter
@@ -88,7 +90,7 @@ class ListItem
             '; // mx
             
             // We use a different prefix before nested lists than top-level lists.
-            // See extended comment in _ProcessListItems().
+            // See extended comment in `self::transformItems()`.
             if (self::$list_level) {
                 $text = preg_replace_callback('{
                         ^
@@ -166,7 +168,7 @@ class ListItem
                 (?:[ ]+|(?=\n))             # space only required if item is not empty
             )
             ((?s:.*?))                      # list item text   = $4
-            (?:(\n+(?=\n))|\n)              # tailing blank line = $5
+            (?:(\n+(?=\n))|\n)              # trailing blank line = $5
             (?= \n* (\z | \2 ('.$marker_any_re.') (?:[ ]+|(?=\n))))
             }xm',
             array($this, '_items_callback'), $list_str);
@@ -181,13 +183,13 @@ class ListItem
      */
     protected function _items_callback($matches) 
     {
-        $item = $matches[4];
-        $leading_line =& $matches[1];
-        $leading_space =& $matches[2];
-        $marker_space = $matches[3];
-        $tailing_blank_line =& $matches[5];
+        $item                   =   $matches[4];
+        $leading_line           =&  $matches[1];
+        $leading_space          =&  $matches[2];
+        $marker_space           =   $matches[3];
+        $trailing_blank_line    =&  $matches[5];
 
-        if ($leading_line || $tailing_blank_line || preg_match('/\n{2,}/', $item)) {
+        if ($leading_line || $trailing_blank_line || preg_match('/\n{2,}/', $item)) {
             // Replace marker with the appropriate whitespace indentation
             $item = $leading_space . str_repeat(' ', strlen($marker_space)) . $item;
             $item = parent::runGamut('html_block_gamut', parent::runGamut('tool:Outdent', $item)."\n");

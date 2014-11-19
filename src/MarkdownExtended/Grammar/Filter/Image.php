@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown images
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Image
     extends Filter

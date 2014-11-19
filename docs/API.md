@@ -1,5 +1,5 @@
 Name:       MarkdownExtended API
-Author:     Les Ateliers Pierrot
+Author:     Piero Wbmstr
 Date: 2013-10-21
 Version: 0.1-alpha
 
@@ -219,7 +219,7 @@ version, write:
 ----
 "**Markdown Extended API**" - last updated at 05 may 2014
 
-Creator & maintainer: [@pierowbmstr](http://github.com/piwi).
+Creator & maintainer: [@pierowbmstr](http://e-piwi.fr/).
 
 Original source of this file, see <http://github.com/piwi/markdown-extended/API.md>.
 

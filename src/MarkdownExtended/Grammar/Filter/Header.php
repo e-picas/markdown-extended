@@ -41,6 +41,7 @@ use MarkdownExtended\Exception as MDE_Exception;
  *  ...
  *  ###### Header 6   {#header2}
  *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Header
     extends Filter
@@ -91,6 +92,9 @@ class Header
             return $matches[0];
         }
         $level = ($matches[3]{0} == '=' ? 1 : 2)  + $this->_getRebasedHeaderLevel();
+        return "\n".str_pad('#', $level, '#').' '.$matches[1].' '
+            .(!empty($matches[2]) ? '{#'.$matches[2].'}' : '')."\n";
+/*
         $id  = MarkdownExtended::getContent()->setNewDomId($matches[2], null, false);
         $title = parent::runGamut('span_gamut', $matches[1]);
         MarkdownExtended::getContent()
@@ -104,6 +108,7 @@ class Header
         $this->_setContentTitle($title);
 
         return "\n" . parent::hashBlock($block) . "\n\n";
+*/
     }
 
     /**

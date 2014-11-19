@@ -29,6 +29,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  *
  *      > Citation text
  *          multi-line if required and **tagged**
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class BlockQuote
     extends Filter

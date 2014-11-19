@@ -33,6 +33,8 @@ use MarkdownExtended\Exception as MDE_Exception;
  *
  * Each link attributes will be completed if needed adding it a `title` constructed using
  * the `link_mask_title` config entry, filled with the link URL.
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class Anchor
     extends Filter

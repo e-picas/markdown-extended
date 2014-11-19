@@ -40,6 +40,7 @@ vendor/*
 # the documentation, that is NOT under version-control by default
 # this may be commented on the "dev" branch
 #phpdoc/*
+phpdoc-2/*
 
 # for development ...
 # this may be commented on the "wip" branch

@@ -23,6 +23,7 @@ use \MarkdownExtended\API\GamutInterface;
 
 /**
  * Abstract base class for Tools
+ * @package MarkdownExtended\Grammar
  */
 abstract class Tool
     extends AbstractGamut

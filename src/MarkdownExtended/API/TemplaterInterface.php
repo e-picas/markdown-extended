@@ -18,6 +18,9 @@
 namespace MarkdownExtended\API;
 
 /**
+ * Interface TemplaterInterface
+ *
+ * @package MarkdownExtended\API
  */
 interface TemplaterInterface
 {

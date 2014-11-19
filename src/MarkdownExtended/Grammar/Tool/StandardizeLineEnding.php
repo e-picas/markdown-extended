@@ -20,6 +20,10 @@ namespace MarkdownExtended\Grammar\Tool;
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Tool;
 
+/**
+ * Class StandardizeLineEnding
+ * @package MarkdownExtended\Grammar\Tool
+ */
 class StandardizeLineEnding
     extends Tool
 {

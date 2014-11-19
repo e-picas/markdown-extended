@@ -24,6 +24,8 @@ use MarkdownExtended\Exception as MDE_Exception;
 
 /**
  * Process Markdown automatic links
+ *
+ * @package MarkdownExtended\Grammar\Filter
  */
 class AutoLink
     extends Filter
@@ -35,7 +37,7 @@ class AutoLink
      */
     public function transform($text)
     {
-        $text = preg_replace_callback('{<((https?|ftp|dict):[^\'">\s]+)>}i',
+        $text = preg_replace_callback('{<([^\'">\s]+)>}i',
             array($this, '_url_callback'), $text);
 
         // Email addresses: <address@domain.foo>
