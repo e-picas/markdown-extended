@@ -101,7 +101,7 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
                 </td>
                 <td class="last">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>Turn Markdown link shortcuts into XHTML <a> tags.</p>
+                    <p>Must process the filter on a text</p>
                 </td>
                 <td></td>
             </tr>
@@ -131,7 +131,7 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
                 </td>
                 <td class="last">
                     <a href="#method_hashClean">hashClean</a>(string $text)
-                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped, blocking invalid nested overlap.</p>
+                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automatically escaped, blocking invalid nested overlap.</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
             </tr>
@@ -161,8 +161,8 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
         <h2>Details</h2>
 
                         <h3 id="method_runGamut">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 35</div>
-        <code>                    string
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 36</div>
+        <code>            public            string
     <strong>runGamut</strong>(string $gamut, string $text)</code>
     </h3>
     <div class="details">
@@ -203,8 +203,8 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
     </div>
 
                 <h3 id="method_resetHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 52</div>
-        <code>                    
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 53</div>
+        <code>            public            
     <strong>resetHash</strong>()</code>
     </h3>
     <div class="details">
@@ -219,8 +219,8 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
     </div>
 
                 <h3 id="method_setHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 63</div>
-        <code>                    
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 64</div>
+        <code>            public            
     <strong>setHash</strong>(string $key, string $text)</code>
     </h3>
     <div class="details">
@@ -252,8 +252,8 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
     </div>
 
                 <h3 id="method_getHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 73</div>
-        <code>                    
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 74</div>
+        <code>            public            
     <strong>getHash</strong>(string $key)</code>
     </h3>
     <div class="details">
@@ -279,8 +279,8 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
     </div>
 
                 <h3 id="method_getDefaultMethod">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 37</div>
-        <code>        static            string
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 38</div>
+        <code>        static    public            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
     <div class="details">
@@ -305,12 +305,12 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 55</div>
-        <code>                    string
+        <div class="location">at line 57</div>
+        <code>            public            string
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Turn Markdown link shortcuts into XHTML <a> tags.</p>
+        <p>Must process the filter on a text</p>
         <p>
 </p>
         <div class="tags">
@@ -342,8 +342,8 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
     </div>
 
                 <h3 id="method_hashPart">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 69</div>
-        <code>                    string
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 70</div>
+        <code>            public            string
     <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
     </h3>
     <div class="details">
@@ -352,7 +352,7 @@ the <code>link_mask_title</code> config entry, filled with the link URL.</p>
 a unique text-token which will be reverted back when calling unhash.</p>
 
 <p>The $boundary argument specify what character should be used to surround
-the token. By convension, "B" is used for block elements that needs not
+the token. By convention, "B" is used for block elements that needs not
 to be wrapped into paragraph tags at the end, ":" is used for elements
 that are word separators and "X" is used in the general case.</p>
         <div class="tags">
@@ -396,8 +396,8 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashBlock">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 88</div>
-        <code>                    <abbr title="MarkdownExtended\Grammar\function">function</abbr>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 89</div>
+        <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>hashBlock</strong>(string $text)</code>
     </h3>
     <div class="details">
@@ -440,12 +440,12 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashClean">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 102</div>
-        <code>                    string
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 103</div>
+        <code>            public            string
     <strong>hashClean</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automaticaly escaped, blocking invalid nested overlap.</p>
+        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automatically escaped, blocking invalid nested overlap.</p>
         <p>
 </p>
         <div class="tags">
@@ -484,8 +484,8 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_unhash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 114</div>
-        <code>                    <abbr title="MarkdownExtended\Grammar\function">function</abbr>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 115</div>
+        <code>            public            <abbr title="MarkdownExtended\Grammar\function">function</abbr>
     <strong>unhash</strong>(string $text)</code>
     </h3>
     <div class="details">
@@ -528,8 +528,8 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method__setup">
-        <div class="location">at line 44</div>
-        <code>                    
+        <div class="location">at line 46</div>
+        <code>            public            
     <strong>_setup</strong>()</code>
     </h3>
     <div class="details">

@@ -145,7 +145,7 @@ this software, even if advised of the possibility of such damage.</p>
                 </td>
                 <td class="last">
                     <a href="#method_getInstance">getInstance</a>(int $instance_id = null, array $options = null)
-                    <p>Get a Markdown Extended instance (last created one by default)</p>
+                    <p>Get the instance, which will be created if required</p>
                 </td>
                 <td></td>
             </tr>
@@ -155,7 +155,7 @@ this software, even if advised of the possibility of such damage.</p>
                 </td>
                 <td class="last">
                     <a href="#method_create">create</a>(array $options = null, int $instance_id = null)
-                    <p>Create a new MDE instance</p>
+                    <p>Create a new singleton instance</p>
                 </td>
                 <td></td>
             </tr>
@@ -165,7 +165,7 @@ this software, even if advised of the possibility of such damage.</p>
                 </td>
                 <td class="last">
                     <a href="#method_transformString">transformString</a>(string $source, <abbr title="MarkdownExtended\string/array">string/array</abbr> $parser_options = null, <abbr title="MarkdownExtended\string/null">string/null</abbr> $key = null, bool $secondary = false)
-                    <p>Transform a Markdown source string</p>
+                    <p>Transform a source string</p>
                 </td>
                 <td></td>
             </tr>
@@ -175,7 +175,7 @@ this software, even if advised of the possibility of such damage.</p>
                 </td>
                 <td class="last">
                     <a href="#method_transformSource">transformSource</a>(string $filename, <abbr title="MarkdownExtended\string/array">string/array</abbr> $parser_options = null, <abbr title="MarkdownExtended\string/null">string/null</abbr> $key = null, bool $secondary = false)
-                    <p>Transform a Markdown source file content</p>
+                    <p>Transform a source file content</p>
                 </td>
                 <td></td>
             </tr>
@@ -235,7 +235,7 @@ this software, even if advised of the possibility of such damage.</p>
                 </td>
                 <td class="last">
                     <a href="#method_factory">factory</a>(string $class_name, <abbr title="MarkdownExtended\null/array">null/array</abbr> $params = null, <abbr title="MarkdownExtended\null/string">null/string</abbr> $type = null)
-                    <p>Build, retain and get a dependency instance</p>
+                    <p>Build, retain and return a dependency instance</p>
                 </td>
                 <td></td>
             </tr>
@@ -245,7 +245,7 @@ this software, even if advised of the possibility of such damage.</p>
                 </td>
                 <td class="last">
                     <a href="#method_get">get</a>(string $class_name, array $params = null, int $flag = MDE_API::FAIL_GRACEFULLY)
-                    <p>Get a loader object from registry / load it if absent</p>
+                    <p>Get a service from the container ; load it if absent</p>
                 </td>
                 <td></td>
             </tr>
@@ -325,8 +325,8 @@ this software, even if advised of the possibility of such damage.</p>
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 132</div>
-        <code>                    
+        <div class="location">at line 134</div>
+        <code>            public            
     <strong>__construct</strong>(array $options = null)</code>
     </h3>
     <div class="details">
@@ -340,8 +340,7 @@ this software, even if advised of the possibility of such damage.</p>
                     <tr>
                 <td>array</td>
                 <td>$options</td>
-                <td>
-</td>
+                <td>A set of user options values</td>
             </tr>
             </table>
 
@@ -352,12 +351,12 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_getInstance">
-        <div class="location">at line 154</div>
-        <code>        static            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
+        <div class="location">at line 156</div>
+        <code>        static    public            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
     <strong>getInstance</strong>(int $instance_id = null, array $options = null)</code>
     </h3>
     <div class="details">
-        <p>Get a Markdown Extended instance (last created one by default)</p>
+        <p>Get the instance, which will be created if required</p>
         <p>
 </p>
         <div class="tags">
@@ -392,12 +391,12 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_create">
-        <div class="location">at line 177</div>
-        <code>        static            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
+        <div class="location">at line 179</div>
+        <code>        static    public            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
     <strong>create</strong>(array $options = null, int $instance_id = null)</code>
     </h3>
     <div class="details">
-        <p>Create a new MDE instance</p>
+        <p>Create a new singleton instance</p>
         <p>
 </p>
         <div class="tags">
@@ -433,12 +432,12 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_transformString">
-        <div class="location">at line 204</div>
-        <code>        static            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
+        <div class="location">at line 206</div>
+        <code>        static    public            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>transformString</strong>(string $source, <abbr title="MarkdownExtended\string/array">string/array</abbr> $parser_options = null, <abbr title="MarkdownExtended\string/null">string/null</abbr> $key = null, bool $secondary = false)</code>
     </h3>
     <div class="details">
-        <p>Transform a Markdown source string</p>
+        <p>Transform a source string</p>
         <p>
 </p>
         <div class="tags">
@@ -481,30 +480,17 @@ this software, even if advised of the possibility of such damage.</p>
     </table>
 
             
-                            <h4>Exceptions</h4>
-
-                    <table>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the parser class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the parser class is not valid</td>
-            </tr>
-            </table>
-
             
                     </div>
     </div>
 
                 <h3 id="method_transformSource">
-        <div class="location">at line 237</div>
-        <code>        static            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
+        <div class="location">at line 239</div>
+        <code>        static    public            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>transformSource</strong>(string $filename, <abbr title="MarkdownExtended\string/array">string/array</abbr> $parser_options = null, <abbr title="MarkdownExtended\string/null">string/null</abbr> $key = null, bool $secondary = false)</code>
     </h3>
     <div class="details">
-        <p>Transform a Markdown source file content</p>
+        <p>Transform a source file content</p>
         <p>
 </p>
         <div class="tags">
@@ -552,11 +538,7 @@ this software, even if advised of the possibility of such damage.</p>
                     <table>
                     <tr>
                 <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the parser class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the parser class is not valid</td>
+                <td>Must throw an exception if the <code>$filename</code> can't be found</td>
             </tr>
             </table>
 
@@ -565,8 +547,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_addProcessedContent">
-        <div class="location">at line 270</div>
-        <code>        static            void
+        <div class="location">at line 272</div>
+        <code>        static    public            void
     <strong>addProcessedContent</strong>(<abbr title="MarkdownExtended\MDE_API\ContentInterface">ContentInterface</abbr> $content, bool $secondary = false)</code>
     </h3>
     <div class="details">
@@ -607,8 +589,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_getContent">
-        <div class="location">at line 283</div>
-        <code>        static            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
+        <div class="location">at line 285</div>
+        <code>        static    public            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>getContent</strong>(mixed $id = null)</code>
     </h3>
     <div class="details">
@@ -643,8 +625,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_getFullContent">
-        <div class="location">at line 298</div>
-        <code>        static            string
+        <div class="location">at line 300</div>
+        <code>        static    public            string
     <strong>getFullContent</strong>(mixed $id = null)</code>
     </h3>
     <div class="details">
@@ -692,8 +674,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_getTemplater">
-        <div class="location">at line 321</div>
-        <code>        static            <a href="../MarkdownExtended/API/TemplaterInterface.html"><abbr title="MarkdownExtended\API\TemplaterInterface">TemplaterInterface</abbr></a>
+        <div class="location">at line 323</div>
+        <code>        static    public            <a href="../MarkdownExtended/API/TemplaterInterface.html"><abbr title="MarkdownExtended\API\TemplaterInterface">TemplaterInterface</abbr></a>
     <strong>getTemplater</strong>(array $config = null)</code>
     </h3>
     <div class="details">
@@ -742,8 +724,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_load">
-        <div class="location">at line 346</div>
-        <code>        static            bool
+        <div class="location">at line 348</div>
+        <code>        static    public            bool
     <strong>load</strong>(string $class_name)</code>
     </h3>
     <div class="details">
@@ -791,12 +773,12 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_factory">
-        <div class="location">at line 377</div>
-        <code>        static            object
+        <div class="location">at line 379</div>
+        <code>        static    public            object
     <strong>factory</strong>(string $class_name, <abbr title="MarkdownExtended\null/array">null/array</abbr> $params = null, <abbr title="MarkdownExtended\null/string">null/string</abbr> $type = null)</code>
     </h3>
     <div class="details">
-        <p>Build, retain and get a dependency instance</p>
+        <p>Build, retain and return a dependency instance</p>
         <p>
 </p>
         <div class="tags">
@@ -836,15 +818,7 @@ this software, even if advised of the possibility of such damage.</p>
                     <table>
                     <tr>
                 <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the object creation sent an error</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the registry entry can't be set</td>
+                <td>Must throw an exception it the class doesn't exist</td>
             </tr>
             </table>
 
@@ -853,12 +827,12 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_get">
-        <div class="location">at line 400</div>
-        <code>        static            object
+        <div class="location">at line 402</div>
+        <code>        static    public            object
     <strong>get</strong>(string $class_name, array $params = null, int $flag = MDE_API::FAIL_GRACEFULLY)</code>
     </h3>
     <div class="details">
-        <p>Get a loader object from registry / load it if absent</p>
+        <p>Get a service from the container ; load it if absent</p>
         <p>
 </p>
         <div class="tags">
@@ -898,11 +872,7 @@ this software, even if advised of the possibility of such damage.</p>
                     <table>
                     <tr>
                 <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the object creation sent an error</td>
+                <td>Must throw an exception it the class doesn't exist</td>
             </tr>
             </table>
 
@@ -911,8 +881,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_getConfig">
-        <div class="location">at line 433</div>
-        <code>        static            mixed
+        <div class="location">at line 435</div>
+        <code>        static    public            mixed
     <strong>getConfig</strong>(string $var)</code>
     </h3>
     <div class="details">
@@ -948,8 +918,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_setConfig">
-        <div class="location">at line 446</div>
-        <code>        static            mixed
+        <div class="location">at line 448</div>
+        <code>        static    public            mixed
     <strong>setConfig</strong>(string $var, mixed $val, null|string $stack = null)</code>
     </h3>
     <div class="details">
@@ -997,8 +967,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_addConfig">
-        <div class="location">at line 465</div>
-        <code>        static            mixed
+        <div class="location">at line 467</div>
+        <code>        static    public            mixed
     <strong>addConfig</strong>(string $var, mixed $val)</code>
     </h3>
     <div class="details">
@@ -1040,8 +1010,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_getVar">
-        <div class="location">at line 476</div>
-        <code>        static            mixed
+        <div class="location">at line 478</div>
+        <code>        static    public            mixed
     <strong>getVar</strong>(string $var)</code>
     </h3>
     <div class="details">
@@ -1077,8 +1047,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_setVar">
-        <div class="location">at line 488</div>
-        <code>        static            mixed
+        <div class="location">at line 490</div>
+        <code>        static    public            mixed
     <strong>setVar</strong>(string $var, mixed $val)</code>
     </h3>
     <div class="details">
@@ -1120,8 +1090,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_addVar">
-        <div class="location">at line 500</div>
-        <code>        static            mixed
+        <div class="location">at line 502</div>
+        <code>        static    public            mixed
     <strong>addVar</strong>(string $var, mixed $val)</code>
     </h3>
     <div class="details">
@@ -1163,8 +1133,8 @@ this software, even if advised of the possibility of such damage.</p>
     </div>
 
                 <h3 id="method_unsetVar">
-        <div class="location">at line 512</div>
-        <code>        static            mixed
+        <div class="location">at line 514</div>
+        <code>        static    public            mixed
     <strong>unsetVar</strong>(string $var, mixed $val = null)</code>
     </h3>
     <div class="details">
