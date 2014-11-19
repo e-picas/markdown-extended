@@ -251,7 +251,7 @@ function emdreminders_popup(url){
         <a id="top"></a>
 
         <header role="banner">
-            <h1>The PHP "<em>MarkdownExtended</em>" package <br><small>A complete PHP 5.3 package of Markdown syntax parser (extended version)</small></h1>
+            <h1>The PHP "<em>MarkdownExtended</em>" package <br><small>A complete PHP 5.3 package for Markdown Extended syntax parsing</small></h1>
             <div class="hat">
                 <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> PHP package you just downloaded.</p>
             </div>

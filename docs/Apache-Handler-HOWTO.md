@@ -194,7 +194,7 @@ your case, just remove the flag (your redirection will be visible in the address
 ----
 "**MDE Apache Handler how-to**" - last updated at 05 may 2014
 
-Creator & maintainer: [@pierowbmstr](http://github.com/piwi).
+Creator & maintainer: [@pierowbmstr](http://e-piwi.fr/).
 
 Original source of this file, see <http://github.com/piwi/markdown-extended/Apache-Handler-HOWTO.md>.
 
