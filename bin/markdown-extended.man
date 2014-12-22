@@ -1,137 +1,110 @@
-.\" author: Les Ateliers Pierrot
-
-.TH  "NAME" "3" "2014-06-13" "Version 0.1-gamma" "markdown-extended Manual"
-
+.\" author: Pierre Cassat
+.TH  "markdown-extended" "3" "2014-06-13" "Version 0.1-gamma" "MarkdownExtended Manual"
 .SH NAME
-
 .PP
 markdown-extended - PHP 5.3 parser for the Markdown syntax (extended version)
-
 .SH SYNOPSIS
-
 .PP
 \fBmarkdown-extended  [options]  arguments\fP
-
 .PP
 \fBmarkdown-extended\fP  [\fB-h\fP|\fB-V\fP]  [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP]
     [\fB-o\fP \fIfilename\fP]  [\fB-c\fP \fIconfigfile\fP]  [\fB-f\fP \fIformat\fP]
     [\fB-n\fP \fIa,b\fP]  [\fB-e\fP[=\fIblock\fP]]  [\fB-g\fP[=\fIname\fP]] [\fB-t\fP[=\fIfile\fP]]
     \fBinput_filename\fP  [\fBinput_filename\fP]  [...]
     "\fBmarkdown string read from STDIN\fP"
-
 .SH DESCRIPTION
-
 .PP
 \fBMarkdown Extended\fP converts markdown syntax text(s) source(s) from specified file(s)
 (or STDIN). The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
-
 .PP
 To transform a file content, write its path as script argument. To process a list of input
 files, just write file paths as arguments, separated by space.
-
 .PP
 To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
 You can also use the output of a previous command using the pipe notation.
-
 .SH OPTIONS
-
 .PP
 \fIThe following options are supported:\fP
 .TP
-\fB-h\fP , \fB--help\fP
-Get a simple help information.
+\fB-h\fP , \fB--help\fP Get a simple help information.
 .TP
 \fB-V\fP , \fB--version\fP
-Get the current package version number and informations.
+ Get the current package version number and informations.
 .TP
 \fB-v\fP , \fB--verbose\fP
-Increase script's verbosity ; some steps are explained on STDOUT.
+ Increase script's verbosity ; some steps are explained on STDOUT.
 .TP
 \fB-q\fP , \fB--quiet\fP
-Decrease script's verbosity ; only result strings, Markdown Parser and PHP error
+ Decrease script's verbosity ; only result strings, Markdown Parser and PHP error
 messages are written on STDOUT.
 .TP
 \fB-m\fP , \fB--multi\fP
-Treat multi-files input ; this option is automatically enables if multiple file
+ Treat multi-files input ; this option is automatically enables if multiple file
 names are found as arguments.
 .TP
 \fB-o\fP, \fB--output\fP =filename
-Specify a single file name or a file name mask to write generated content in ; by
+ Specify a single file name or a file name mask to write generated content in ; by
 default, files are generated in current working directory.
 .TP
 \fB-c\fP , \fB--config\fP =filename
-Define a specific configuration filename to use for the Markdown Parser ;
+ Define a specific configuration filename to use for the Markdown Parser ;
 configuration files must be in `\fSINI\fP` format.
 .TP
 \fB-f\fP , \fB--format\fP =type
-Define the output format to use to generate final rendering ; formats are stored in
+ Define the output format to use to generate final rendering ; formats are stored in
 PHP namespace `\fS\\MarkdownExtended\\OutputFormat\fP` ; default is `\fSHTML\fP`.
 .TP
 \fB-g\fP , \fB--gamuts\fP [=name]
-Define a single gamut or a list of gamuts to execute on Markdown content parsing.
+ Define a single gamut or a list of gamuts to execute on Markdown content parsing.
 .TP
 \fB-t\fP , \fB--template\fP [=file]
-Return the content inserted in a parsed template file ; if no `\fSfile\fP` argument is 
+ Return the content inserted in a parsed template file ; if no `\fSfile\fP` argument is 
 passed, this will use the configuration template file.
 .TP
 \fB-n\fP , \fB--nofilter\fP =name-a,name-b
-Define a coma separated list of filters to disable during Markdown content parsing.
+ Define a coma separated list of filters to disable during Markdown content parsing.
 .TP
 \fB-e\fP , \fB--extract\fP [=meta]
-Define a content block to extract ; default extracted block is `\fSmetadata\fP`.
+ Define a content block to extract ; default extracted block is `\fSmetadata\fP`.
 .PP
 \fISome aliases are defined for quicker usage:\fP
 .TP
-\fB-b\fP , \fB--body\fP
-Extract the `\fSbody\fP` part from content(s) ; alias of option `\fS-e=body\fP`.
+\fB-b\fP , \fB--body\fP Extract the `\fSbody\fP` part from content(s) ; alias of option `\fS-e=body\fP`.
 .TP
 \fB-s\fP , \fB--simple\fP
-Use the simple default configuration file defined by the `\fSMarkdownExtended::SIMPLE_CONFIGFILE\fP`
+ Use the simple default configuration file defined by the `\fSMarkdownExtended::SIMPLE_CONFIGFILE\fP`
 constant ; this is a preset to treat contents coming from input fields.
 .PP
 A special '-x | --debug' option can be used during development ; it enables the `\fS$debug\fP`
 flag of the PHP `\fS\\MarkdownExtended\\CommandLine\fP` namespace objects.
-
 .PP
 Use option '--man' to re-generate this manpage if possible.
-
 .SH MESSAGES
-
 .PP
 The script output is designed to use options '-x' or '--verbose' to increase
 script verbosity on STDOUT and '-q' or '--quiet' to decrease it. The idea is quiet simple:
-
 .RS
-
 .IP \(bu 
 in "\fBnormal\fP" rendering (no "verbose" neither than "quiet" mode), the result of the 
 processed content is rendered, with the file name header in case of multi-files input
 and command line script's errors are rendered ;
-
 .IP \(bu 
 in "\fBverbose\fP" mode, some process informations are shown, informing user about what is
 happening, helps to follow process execution and get some informations such as some
 string lengthes ; the command line script errors are rendered ;
-
 .IP \(bu 
 in "\fBquiet\fP" mode, nothing is written through SDTOUT except result of parsed content(s) ;
 the command line script's errors are NOT rendered.
-
 .RE
-
 .PP
 For all of these cases, PHP errors catched during Markdown Extended classes execution are
 rendered depending on your environment `\fSerror_reporting\fP` setting and script execution may
 exit with a status code of '90'.
-
 .SH ENVIRONMENT
-
 .PP
 This script requires PHP version 5.3.0 minimum.
-
 .SH EXAMPLES
-
 .PP
 Classic parsing of the content of the Markdown syntax file `\fSsample.md\fP`:
 .RS
@@ -140,7 +113,6 @@ Classic parsing of the content of the Markdown syntax file `\fSsample.md\fP`:
 ~$ path/to/markdown-extended sample.md
 .EE
 .RE
-
 .PP
 For the same example, writing the output in file `\fSsample_parsed.html\fP`, run:
 .RS
@@ -149,7 +121,6 @@ For the same example, writing the output in file `\fSsample_parsed.html\fP`, run
 ~$ path/to/markdown-extended -o sample_parsed.html sample.md
 .EE
 .RE
-
 .PP
 To extract meta-data from `\fSsample.md\fP`, run:
 .RS
@@ -158,7 +129,6 @@ To extract meta-data from `\fSsample.md\fP`, run:
 ~$ path/to/markdown-extended -e sample.md
 .EE
 .RE
-
 .PP
 To build a man-page formated file from the Markdown source `\fSman-sample.md\fP`, run:
 .RS
@@ -171,7 +141,6 @@ To build a man-page formated file from the Markdown source `\fSman-sample.md\fP`
     ~$ man ./man-sample.man
 .EE
 .RE
-
 .PP
 To transform a string read from STDIN, run:
 .RS
@@ -180,7 +149,6 @@ To transform a string read from STDIN, run:
 ~$ path/to/markdown-extended -e=body "My **Markdown** string"
 .EE
 .RE
-
 .PP
 To transform a string read from another command output, run:
 .RS
@@ -189,42 +157,32 @@ To transform a string read from another command output, run:
 ~$ echo "My **Markdown** string" | path/to/markdown-extended -e=body
 .EE
 .RE
-
 .SH LICENSE
-
 .PP
 This software is released under the BSD-3-Clause open source license. Please
 read the LICENSE file for more information, or see
 <http://opensource.org/licenses/BSD-3-Clause>.
-
 .PP
 PHP Markdown Extended - 
 Copyright (c) 2008-2014 Pierre Cassat - 
 <http://e-piwi.fr/>
-
 .PP
 original MultiMarkdown - 
 Copyright (c) 2005-2009 Fletcher T. Penney - 
 <http://fletcherpenney.net/>
-
 .PP
 original PHP Markdown & Extra - 
 Copyright (c) 2004-2012 Michel Fortin - 
 <http://michelf.com/>
-
 .PP
 original Markdown - 
 Copyright (c) 2004-2006 John Gruber - 
 <http://daringfireball.net/>
-
 .SH BUGS
-
 .PP
 To transmit bugs, see <http://github.com/piwi/markdown-extended/issues>.
-
 .SH AUTHOR
-
 .PP
-Created and maintained by \fBPierre Cassat\fP (\fIpiwi\fP - <http://github.com/piwi>)
+Created and maintained by \fBPierre Cassat\fP (\fIpiwi\fP - <http://e-piwi.fr/>)
 & contributors.
 
