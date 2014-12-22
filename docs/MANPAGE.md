@@ -1,6 +1,6 @@
-Man:        markdown-extended Manual
-Name:       MarkdownExtended
-Author:     Piero Wbmstr
+Man:        Markdown Extended Manual
+Man-name:   markdown-extended
+Author:     Pierre Cassat
 Date: 2014-06-13
 Version: 0.1-gamma
 
