@@ -59,7 +59,7 @@ class Man
      * @var array
      */
     public static $headers_meta_data = array(
-        'name', 'version', 'date', 'section', 'man'
+        'man-name', 'name', 'version', 'date', 'section', 'man'
     );
 
     /**
@@ -71,6 +71,11 @@ class Man
      * @var string
      */
     protected $new_line;
+
+    /**
+     * @var bool flag to turn on when paragraphing is not allowed (will be replace by new line)
+     */
+    protected $no_paragraphing = false;
 
     /**
      * Remind some commons
@@ -148,15 +153,15 @@ class Man
         }
         if ((int) $level <= $this->subtitle_max_level && in_array(strtolower($text), self::$sections)) {
             $this->_current_title_level = 0;
-            return $this->new_line . $indent . '.SH ' . strtoupper($text) . $this->new_line;
+            return /*$this->new_line .*/ $indent . '.SH ' . strtoupper($text) . $this->new_line;
         } elseif ((int) $level <= $this->subtitle_max_level) {
             $this->_current_title_level = 0;
-            return $this->new_line . $indent . '.SS ' . $text . $this->new_line;
+            return /*$this->new_line .*/ $indent . '.SS ' . $text . $this->new_line;
         } else {
 //            $indent .= $this->indent();
             $id = isset($attributes['id']) ? $attributes['id'] : $text;
             $this->_current_title_level = $level;
-            return $this->new_line . $indent . '.TP '
+            return /*$this->new_line .*/ $indent . '.TP '
                 . $id . $this->new_line
                 . $this->buildBold($text) . $this->new_line
                 . $this->indent();
@@ -165,12 +170,16 @@ class Man
 
     public function indent()
     {
-        return '.RS' . $this->new_line;
+        if (!$this->no_paragraphing) {
+            return '.RS' . $this->new_line;
+        }
     }
     
     public function unindent()
     {
-        return '.RE' . $this->new_line;
+        if (!$this->no_paragraphing) {
+            return '.RE' . $this->new_line;
+        }
     }
     
     public function buildMetaData($text = null, array $attributes = array())
@@ -187,8 +196,8 @@ class Man
 
     public function buildMetaTitle($text = null, array $attributes = array())
     {
-        return "\n" . '.TH '
-            . ' "' . (!empty($attributes['name']) ? $attributes['name'] : '') . '"'
+        return /*"\n" .*/ '.TH '
+            . ' "' . (!empty($attributes['man-name']) ? $attributes['man-name'] : '') . '"'
             . ' "' . (!empty($attributes['section']) ? $attributes['section'] : '3') . '"'
             . ' "' . (!empty($attributes['date']) ? $attributes['date'] : '') . '"'
             . ' "' . (!empty($attributes['version']) ? 'Version '.str_replace(array('version', 'Version'), '', $attributes['version']) : '') . '"'
@@ -199,7 +208,11 @@ class Man
     public function buildParagraph($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return $this->new_line . '.PP' . $this->new_line . $text . $this->new_line;
+        if ($this->no_paragraphing) {
+            return /*$this->new_line . '.PP' .*/ $this->new_line . $text . $this->new_line;
+        } else {
+            return /*$this->new_line . */'.PP' . $this->new_line . $text . $this->new_line;
+        }
     }
 
     public function buildBold($text = null, array $attributes = array())
@@ -217,13 +230,23 @@ class Man
     public function buildPreformated($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return 
-            $this->indent()
-            . $this->new_line . '.EX' . $this->new_line
-            . str_replace("\n", $this->buildTag('new_line') . '    ', $text)
-            . $this->new_line . '.EE' . $this->new_line
-            . $this->unindent()
-            ;
+        if ($this->no_paragraphing) {
+            return
+                $this->indent()
+                . $this->new_line . $this->buildTag('new_line')
+                . str_replace("\n", $this->new_line . $this->buildTag('new_line') . '    ', $text)
+                . $this->new_line . $this->buildTag('new_line')
+                . $this->unindent()
+                ;
+        } else {
+            return
+                $this->indent()
+                . $this->new_line . '.EX' . $this->new_line
+                . str_replace("\n", $this->new_line . $this->buildTag('new_line') . '    ', $text)
+                . $this->new_line . '.EE' . $this->new_line
+                . $this->unindent()
+                ;
+        }
     }
 
     public function buildCode($text = null, array $attributes = array())
@@ -241,21 +264,29 @@ class Man
             : '');
     }
 
+    public function buildDefinitionList($text = null, array $attributes = array())
+    {
+        $this->no_paragraphing = false;
+        return trim($text) . $this->new_line;
+    }
+
     public function buildDefinitionListItemTerm($text = null, array $attributes = array())
     {
+        $this->no_paragraphing = true;
         $text = html_entity_decode($text);
         return '.TP' . $this->new_line . trim($text);
     }
 
     public function buildDefinitionListItemDefinition($text = null, array $attributes = array())
     {
+        $this->no_paragraphing = true;
         $text = html_entity_decode($text);
-        return $this->new_line . trim($text);
+        return /*$this->new_line .*/' ' . trim($text) . $this->new_line;
     }
 
     public function buildNewLine($text = null, array $attributes = array())
     {
-        return $this->new_line . '.br' . $this->new_line;
+        return /*$this->new_line .*/ '.br' . $this->new_line;
     }
 
     public function buildHorizontalRule($text = null, array $attributes = array())
@@ -272,7 +303,7 @@ class Man
     public function buildListItem($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return $this->new_line . '.IP \(bu ' . $this->new_line . $text . $this->new_line;
+        return /*$this->new_line .*/ '.IP \(bu ' . $this->new_line . $text . $this->new_line;
     }
 
     public function buildUnorderedListItem($text = null, array $attributes = array())
@@ -285,7 +316,7 @@ class Man
     public function buildOrderedListItem($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        $str = $this->new_line . '.IP ' . $this->ordered_list_counter 
+        $str = /*$this->new_line .*/ '.IP ' . $this->ordered_list_counter
             . ' ' . $this->new_line . $text . $this->new_line;
         $this->ordered_list_counter++;
         return $str;
@@ -294,9 +325,9 @@ class Man
     public function buildList($text = null, array $attributes = array())
     {
         $text = html_entity_decode($text);
-        return $this->new_line . $this->indent()
+        return /*$this->new_line .*/ $this->indent()
             . $text
-            . $this->new_line . $this->unindent();
+            /*. $this->new_line */. $this->unindent();
     }
 
     public function buildUnorderedList($text = null, array $attributes = array())
