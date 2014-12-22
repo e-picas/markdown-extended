@@ -158,7 +158,7 @@ class Console
         $help_str = <<<EOT
 [ {$class_name} {$class_version} - CLI interface ]
 
-Converts markdown syntax text(s) source(s) from specified file(s) (or STDIN).
+Converts markdown-extended syntax text(s) source(s) from specified file(s) (or STDIN).
 The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
 
@@ -169,31 +169,33 @@ To transform a string read from STDIN, write it as last argument between double-
 You can also use the output of a previous command using the pipe notation.
 
 Usage:
-    ~$ php path/to/markdown-extended  [OPTIONS ...]  [INPUT FILE(S) OR STRING(S)]
+    markdown-extended  [OPTIONS ...]  [INPUT FILE(S) OR STRING(S)]
+
+    echo "*Markdown* __content__" | markdown-extended  [OPTIONS ...]
 
 Options:
-    -V | --version             get Markdown version information
-    -h | --help                get this help information
-    -v | --verbose             increase verbosity of the script
-    -q | --quiet               do not write Markdown Parser or PHP error messages
-    -m | --multi               multi-files input (automatic if multiple file names found)
-    -o | --output    = FILE    specify a file (or a file mask) to write generated content in
-    -c | --config    = FILE    configuration file to use for Markdown instance (INI format)
-    -f | --format    = NAME    format of the output (default is HTML)
-    -e | --extract  [= META]   extract some data (the meta data array by default) from the Markdown input
-    -t | --template [= FILE]   load the content in a template file (configuration template by default)
-    -g | --gamuts   [= NAME]   get the list of gamuts (or just one if specified) processed on Markdown input
-    -n | --nofilter  = A,B     specify a list of filters that will be ignored during Markdown parsing
-    -x | --debug               special flag for dev
+    --version (-V)             get script's version information
+    --help (-h)                get this help information
+    --verbose (-v)             increase script's verbosity
+    --quiet (-q)               decrease script's verbosity (do not write Markdown Parser or PHP error messages)
+    --multi (-m)               multi-files input (automatic if multiple file names found)
+    --output (-o)    = FILE    specify a file (or a file mask) to write generated content in
+    --config (-c)    = FILE    configuration file to use (INI format)
+    --format (-f)    = NAME    format of the output (default is HTML)
+    --extract (-e)  [= META]   extract some data (the meta data array by default) from the input
+    --template (-t) [= FILE]   load the content in a template file (configuration template by default)
+    --gamuts (-g)   [= NAME]   get the list of gamuts (or just one if specified) processed on input
+    --nofilter (-n)  = A,B     specify a list of filters that will be ignored during parsing
+    --debug (-x)               special flag for dev
 
 Aliases:
-    -b | --body                get only the body part from parsed content (alias of '-e=body')
-    -s | --simple              use the simple pre-defined configuration file ; preset for input fields
+    --body (-b)                get only the body part from parsed content (alias of '-e=body')
+    --simple (-s)              use the simple pre-defined configuration file ; preset for input fields
 
-For a full manual, try `~$ man ./path/to/markdown-extended.man` if the file exists ;
-if it doesn't, you can try option '--man' of this script to generate it if possible.
+For a full manual, try `man ./path/to/markdown-extended.man` if the file exists ;
+if it doesn't, you can try option `--man` of this script to generate it if possible.
 
-More infos at <{$class_sources}>.
+More information at <{$class_sources}>.
 EOT;
         $this->write($help_str);
         $this->endRun();
