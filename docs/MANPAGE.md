@@ -14,16 +14,22 @@ markdown-extended - PHP 5.3 parser for the Markdown syntax (extended version)
 
 **markdown-extended  [options]  arguments**
 
-**markdown-extended**  [**-h**|**-V**]  [**-x**|**-v**|**-q**|**-m**]
-    [**-o** *filename*]  [**-c** *configfile*]  [**-f** *format*]
-    [**-n** *a,b*]  [**-e**[=*block*]]  [**-g**[=*name*]] [**-t**[=*file*]]
-    **input_filename**  [**input_filename**]  [...]
-    "**markdown string read from STDIN**"
+**markdown-extended**  [**-h**|**-V**]  [**--help**|**--version**]
+    [**-x**|**-v**|**-q**|**-m**] [**--debug**|**--verbose**|**--quiet**|**--multi**]
+    [**-o**|**--output** *filename*]
+    [**-c**|**--config** *configfile*]
+    [**-f**|**--format** *format*]
+    [**-n**|**--nofilter** *a,b*]
+    [**-e**|**--extract** [=*block*]]
+    [**-g**|**--gamuts** [=*name*]]
+    [**-t**|**--template** [=*file*]]
+        **input_filename**  [**input_filename**]  [...]
+        "**markdown string read from STDIN**"
 
 
 ## DESCRIPTION
 
-**Markdown Extended** converts markdown syntax text(s) source(s) from specified file(s)
+**Markdown Extended** converts markdown-extended syntax text(s) source(s) from specified file(s)
 (or STDIN). The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
 
@@ -36,7 +42,7 @@ You can also use the output of a previous command using the pipe notation.
 
 ## OPTIONS
 
-*The following options are supported:*
+The following options are supported:
 
 **-h** , **--help**
 :   Get a simple help information.
@@ -80,7 +86,7 @@ You can also use the output of a previous command using the pipe notation.
 **-e** , **--extract** [=meta]
 :   Define a content block to extract ; default extracted block is `metadata`.
 
-*Some aliases are defined for quicker usage:*
+Some aliases are defined for quicker usage:
 
 **-b** , **--body**
 :   Extract the `body` part from content(s) ; alias of option `-e=body`.
@@ -103,13 +109,13 @@ script verbosity on STDOUT and '-q' or '--quiet' to decrease it. The idea is qui
 -   in "**normal**" rendering (no "verbose" neither than "quiet" mode), the result of the 
     processed content is rendered, with the file name header in case of multi-files input
     and command line script's errors are rendered ;
--   in "**verbose**" mode, some process informations are shown, informing user about what is
-    happening, helps to follow process execution and get some informations such as some
-    string lengthes ; the command line script errors are rendered ;
+-   in "**verbose**" mode, some process information are shown, informing user about what is
+    happening, helps to follow process execution and get some information such as some
+    string lengths ; the command line script errors are rendered ;
 -   in "**quiet**" mode, nothing is written through SDTOUT except result of parsed content(s) ;
     the command line script's errors are NOT rendered.
 
-For all of these cases, PHP errors catched during Markdown Extended classes execution are
+For all of these cases, PHP errors caught during Markdown Extended classes execution are
 rendered depending on your environment `error_reporting` setting and script execution may
 exit with a status code of '90'.
 
@@ -123,29 +129,29 @@ This script requires PHP version 5.3.0 minimum.
 
 Classic parsing of the content of the Markdown syntax file `sample.md`:
 
-    ~$ path/to/markdown-extended sample.md
+    path/to/markdown-extended sample.md
 
 For the same example, writing the output in file `sample_parsed.html`, run:
 
-    ~$ path/to/markdown-extended -o sample_parsed.html sample.md
+    path/to/markdown-extended -o sample_parsed.html sample.md
 
 To extract meta-data from `sample.md`, run:
 
-    ~$ path/to/markdown-extended -e sample.md
+    path/to/markdown-extended -e sample.md
 
-To build a man-page formated file from the Markdown source `man-sample.md`, run:
+To build a man-page formatted file from the Markdown source `man-sample.md`, run:
 
-    ~$ path/to/markdown-extended -f man -o man-sample.man man-sample.md
+    path/to/markdown-extended -f man -o man-sample.man man-sample.md
     // to open it with `man`:
-    ~$ man ./man-sample.man
+    man ./man-sample.man
 
 To transform a string read from STDIN, run:
 
-    ~$ path/to/markdown-extended -e=body "My **Markdown** string"
+    path/to/markdown-extended -e=body "My **Markdown** string"
 
 To transform a string read from another command output, run:
 
-    ~$ echo "My **Markdown** string" | path/to/markdown-extended -e=body
+    echo "My **Markdown** string" | path/to/markdown-extended -e=body
 
 
 ## LICENSE
