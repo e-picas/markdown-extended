@@ -8,3 +8,6 @@
 tests/  export-ignore
 dev/    export-ignore
 vendor/ export-ignore
+build/  export-ignore
+phpdoc/ export-ignore
+phpdoc-2/  export-ignore
