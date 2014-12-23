@@ -210,17 +210,19 @@ EOT;
     public function runOption_version()
     {
         $info = MDE_Helper::smallInfo(false, $this->quiet);
-        $git_ok = $this->exec("which git");
-        $git_dir = getcwd() . '/.git';
-        if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
-            $remote = $this->exec("git config --get remote.origin.url");
-            if (!empty($remote) && (
-                strstr($remote, MarkdownExtended::MDE_SOURCES) ||
-                strstr($remote, str_replace('http', 'https', MarkdownExtended::MDE_SOURCES))
-            )) {
-                $versions = $this->exec("git rev-parse --abbrev-ref HEAD && git rev-parse HEAD && git log -1 --format='%ci' --date=short | cut -s -f 1 -d ' '");
-                if (!empty($versions)) {
-                    $info .= PHP_EOL.implode(' ', $versions);
+        if (!$this->quiet) {
+            $git_ok = $this->exec("which git");
+            $git_dir = getcwd() . '/.git';
+            if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
+                $remote = $this->exec("git config --get remote.origin.url");
+                if (!empty($remote) && (
+                        strstr($remote, MarkdownExtended::MDE_SOURCES) ||
+                        strstr($remote, str_replace('http', 'https', MarkdownExtended::MDE_SOURCES))
+                    )) {
+                    $versions = $this->exec("git rev-parse --abbrev-ref HEAD && git rev-parse HEAD && git log -1 --format='%ci' --date=short | cut -s -f 1 -d ' '");
+                    if (!empty($versions)) {
+                        $info .= PHP_EOL.implode(' ', $versions);
+                    }
                 }
             }
         }

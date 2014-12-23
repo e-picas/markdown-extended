@@ -79,13 +79,18 @@ class Helper
      */
     public static function smallInfo($html = false, $version_only = false)
     {
-        return (sprintf(
-            $html ? 
-                '<strong>%1$s</strong> %2$s'.($version_only===true ? '' : ' (<a href="%3$s" target="_blank" title="See online">%3$s</a>)')
-                :
-                '%1$s %2$s'.($version_only===true ? '' : PHP_EOL.'<%3$s>'),
-            MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
-        ));
+        if ($version_only) {
+            return MarkdownExtended::MDE_VERSION;
+        } else {
+            return (sprintf(
+                $html ?
+                    '<strong>%1$s</strong> %2$s (<a href="%3$s" target="_blank" title="See online">%3$s</a>)'
+                    :
+                    '%1$s %2$s'.PHP_EOL.'<%3$s>'
+                ,
+                MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
+            ));
+        }
     }
 
 // --------------
