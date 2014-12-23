@@ -20,7 +20,7 @@ The full schema of a Markdown parser usage could be:
 .br
         ---------------        ----------                            -------------------
 .br
-        |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATED RESULT |
+        |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATTED RESULT |
 .br
         ---------------        ----------                            -------------------
 .br

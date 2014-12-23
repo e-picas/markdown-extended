@@ -67,7 +67,7 @@ Options are treated in the command line order (`-vq` will finally retain `-q`).
 
 **-f** , **--format** *type*
 :   Define the output format to use to generate final rendering ; formats are stored in
-    PHP namespace `\\MarkdownExtended\\OutputFormat` ; default is *HTML*.
+    PHP namespace `\MarkdownExtended\OutputFormat` ; default is *HTML*.
 
 **-g** , **--gamuts** [*name*]
 :   Define a single gamut or a list of gamuts to execute the content transformation.
@@ -108,13 +108,13 @@ disables the **quiet** one.
 :   Extract the *body* part from content(s) ; alias of option **--extract=body**.
 
 **-s** , **--simple**
-:   Use the simple default configuration file defined by the `\\MarkdownExtended\\MarkdownExtended::SIMPLE_CONFIGFILE`
+:   Use the simple default configuration file defined by the `\MarkdownExtended\MarkdownExtended::SIMPLE_CONFIGFILE`
     constant ; this is a preset to treat contents coming from input fields.
 
 ### Special options
 
 A special **--debug** or **-x** option can be used during development ; it enables the *$debug*
-flag of the PHP `\\MarkdownExtended\\CommandLine` namespace objects.
+flag of the PHP `\MarkdownExtended\CommandLine` namespace objects.
 
 Use option **--man** to re-generate this manpage if possible.
 
