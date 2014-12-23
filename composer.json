@@ -1,7 +1,7 @@
 {
     "name": "piwi/markdown-extended",
     "type": "library",
-    "description": "A PHP package for Markdown Extended syntax parsing",
+    "description": "A PHP parser for the Markdown Extended syntax",
     "keywords": [ "markdown", "markdown extended", "mde" ],
     "homepage": "http://github.com/piwi/markdown-extended",
     "license": "BSD-3-Clause",
