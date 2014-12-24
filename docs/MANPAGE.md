@@ -62,14 +62,14 @@ Options are treated in the command line order (`-vq` will finally retain `-q`).
 :   Define a specific configuration filename to use for the Markdown Parser ;
     configuration files must be in *INI* format.
 
-**-e** , **--extract** [*meta*]
+**-e** , **--extract** [=*meta*]
 :   Define a content block to extract ; default extracted block is *metadata*.
 
 **-f** , **--format** *type*
 :   Define the output format to use to generate final rendering ; formats are stored in
     PHP namespace `\MarkdownExtended\OutputFormat` ; default is *HTML*.
 
-**-g** , **--gamuts** [*name*]
+**-g** , **--gamuts** [=*name*]
 :   Define a single gamut or a list of gamuts to execute the content transformation.
 
 **-h** , **--help**
@@ -82,7 +82,7 @@ Options are treated in the command line order (`-vq` will finally retain `-q`).
 **-n** , **--nofilter** *name-a,name-b*
 :   Define a coma separated list of filters to disable during the content transformation.
 
-**-o**, **--output** *filename*
+**-o** , **--output** *filename*
 :   Specify a single file name or a file name mask to write generated content in ; by
     default, files are generated in current working directory.
 
@@ -90,7 +90,7 @@ Options are treated in the command line order (`-vq` will finally retain `-q`).
 :   Decrease script's verbosity ; only result strings, Markdown Parser and PHP error
     messages are written on *STDOUT* ; this mode disables the **verbose** one.
 
-**-t** , **--template** [*filename*]
+**-t** , **--template** [=*filename*]
 :   Return the content inserted in a parsed template file ; if no **file** argument is 
     passed, this will use the configuration template file.
 
@@ -115,6 +115,8 @@ disables the **quiet** one.
 
 A special **--debug** or **-x** option can be used during development ; it enables the *$debug*
 flag of the PHP `\MarkdownExtended\CommandLine` namespace objects.
+
+Use option **--usage** to get the command quick synopsis.
 
 Use option **--man** to re-generate this manpage if possible.
 
