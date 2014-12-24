@@ -20,26 +20,19 @@
 // show errors at least initially
 @ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
-// namespaces loader
-require __DIR__.'/../src/bootstrap.php';
-
-// phar compiler
-use MarkdownExtended\Util\Compiler;
-
-// silent errors
-@error_reporting(-1);
-
-// phar compilation
-try {
-    $compiler = new Compiler();
-    $logs = $compiler->compile();
-    echo "> ok, phar generated with files:".PHP_EOL;
-    var_export($logs);
-    echo PHP_EOL;
+$tmp_phar = 'tmp/phar-extract';
+$phar_path = 'markdown-extended.phar';
+if (file_exists($phar_path)) {
+    if (file_exists($tmp_phar)) {
+        exec("rm -rf $tmp_phar");
+    }
+    exec("mkdir -p $tmp_phar");
+    $phar = new Phar($phar_path);
+    $phar->extractTo($tmp_phar);
+    echo "> ok, phar extracted to '$tmp_phar'".PHP_EOL;
     exit(0);
-} catch (\Exception $e) {
-    echo 'Failed to compile phar: ['.get_class($e).'] '
-        .$e->getMessage().' at '.$e->getFile().':'.$e->getLine();
+} else {
+    echo "> no phar found!".PHP_EOL;
     exit(1);
 }
 
