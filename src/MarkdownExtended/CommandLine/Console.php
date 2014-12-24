@@ -269,33 +269,52 @@ EOT;
     public function runOption_man()
     {
         $info       = '';
+        $online     = MarkdownExtended::MDE_SOURCES;
         $man_ok     = $this->exec("which man");
-        $base_path  = realpath(dirname(dirname($this->script_path)));
-        $man_path   = $base_path.'/man/markdown-extended.man';
-        $source_path= $base_path.'/docs/MANPAGE.md';
         if (!empty($man_ok)) {
             $man_filepath = $this->exec("man markdown-extended -w 2>/dev/null", true);
             if (!empty($man_filepath)) {
-                $info = "You may run `man $man_filepath`";
+                $info = "The Markdown-Extended manpage is already installed. You can run:\n\tman $man_filepath";
             } else {
-                if (file_exists($source_path)) {
-                    if (!file_exists($man_path)) {
-                        $ok = $this->exec("php bin/markdown-extended -f man -o $man_path $source_path");
-                    }
-                    if (file_exists($man_path)) {
-                        $info = "OK, you can now run `man $man_path`";
+                if (defined('MDE_PHAR') && MDE_PHAR === true) {
+                    $base_path = 'phar://mde.phar/';
+                    $man_path = $base_path . '/man/markdown-extended.man';
+                    $target_path = tempnam(sys_get_temp_dir(), 'markdown-extended.man-');
+                    if (copy($man_path, $target_path)) {
+                        $info = "OK, you can now run:\n\tman $target_path"
+                            . "\nTo install it, you should run:\n\tsudo cp $target_path {manpages place}/man3/markdown-extended.man"
+                            . "\nTo get your {manpages place}, look at '/etc/manpath.config' or '/etc/manpaths'.";
                     } else {
-                        $info = "Can not generate the manpage at '$man_path'! Try to read the original '$source_path' (Markdown syntax).";
+                        $info = "Can not copy the manpage!"
+                            . "\nTry to read the original source (Markdown syntax) with:"
+                            . "\n\tphp -r 'echo file_get_contents(\"phar://markdown-extended.phar/docs/MANPAGE.md\");' | less";
                     }
                 } else {
-                    $info = "Original '$source_path' manpage can't be found!";
+                    $base_path = realpath(dirname(dirname($this->script_path)));
+                    $man_path = $base_path . '/man/markdown-extended.man';
+                    $source_path = $base_path . '/docs/MANPAGE.md';
+                    if (file_exists($source_path)) {
+                        if (!file_exists($man_path)) {
+                            $ok = $this->exec("php bin/markdown-extended -f man -o $man_path $source_path");
+                        }
+                        if (file_exists($man_path)) {
+                            $info = "OK, you can now run:\n\tman $man_path"
+                                . "\nTo install it, you should run:\n\tsudo cp $man_path {manpages place}/man3/markdown-extended.man"
+                                . "\nTo get your {manpages place}, look at '/etc/manpath.config' or '/etc/manpaths'.";
+                        } else {
+                            $info = "Can not generate the manpage!"
+                                . "\nTry to read the original source (Markdown syntax) with:"
+                                . "\n\tcat $source_path | less";
+                        }
+                    } else {
+                        $info = "Original manpage's source can not be found!"
+                            ."\nYou may read it online at <{$online}>.";
+                    }
                 }
             }
         } else {
-            $info = "The `man` command can't be found! ";
-            if (file_exists($source_path)) {
-                $info .= "Try to read the original '$source_path' (Markdown syntax).";
-            }
+            $info = "The `man` command can't be found! "
+                ."\nYou may read the manpage online at <{$online}>.";
         }
         $this->write($info);
         $this->endRun();
