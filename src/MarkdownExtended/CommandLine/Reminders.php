@@ -73,9 +73,9 @@ class Reminders
         try {
             $this->md_contents = MDE_API::factory('ContentCollection', null, 'content_collection');
         } catch (MDE_Exception\InvalidArgumentException $e) {
-            $this->catched($e);
+            $this->caught($e);
         } catch (MDE_Exception\RuntimeException $e) {
-            $this->catched($e);
+            $this->caught($e);
         }
         $this->runOption_docsdir(__DIR__.'/../Resources/doc');
         $this->runOption_output(__DIR__.'/../../../markdown_reminders.html');
@@ -196,17 +196,17 @@ EOT;
                         ->parse($md_content)
                         ->getContent();
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\RuntimeException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 }
                 $this->md_contents->add($md_content);
             }
