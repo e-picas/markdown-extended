@@ -31,6 +31,8 @@ use \Symfony\Component\Finder\Finder;
 class Compiler
 {
 
+    public $root_dir;
+
     protected $_logs = array();
 
     static $phar_file = 'markdown-extended.phar';
@@ -45,6 +47,28 @@ class Compiler
         'composer/ClassLoader.php',
     );
 
+    public function getDefaultFinder()
+    {
+        $finder = new Finder();
+        $finder->files()
+            ->ignoreVCS(true)
+            ->exclude('bin')
+            ->exclude('build')
+            ->exclude('demo')
+            ->exclude('phpdoc')
+            ->exclude('phpdoc-2')
+            ->exclude('tests')
+            ->exclude('tmp')
+            ->exclude('vendor')
+            ->notName('CONTRIBUTING.md')
+            ->notName('Compiler.php')
+            ->notName('SplClassLoader.php')
+            ->notName('sami.config.php')
+            ->in($this->root_dir)
+        ;
+        return $finder;
+    }
+
     /**
      * Compiles app into a single phar file
      *
@@ -53,8 +77,11 @@ class Compiler
     public function compile($pharFile = 'markdown-extended.phar', $root_dir = null)
     {
         if (is_null($root_dir)) {
-            $root_dir = __DIR__.'/../../..';
+            $this->root_dir = __DIR__.'/../../..';
+        } else {
+            $this->root_dir = $root_dir;
         }
+
         if (file_exists($pharFile)) {
             unlink($pharFile);
         }
@@ -64,32 +91,27 @@ class Compiler
 
         $phar->startBuffering();
 
-        $finder = new Finder();
-        $finder->files()
-            ->ignoreVCS(true)
+        $finder = $this->getDefaultFinder();
+        $finder
             ->name('*.php')
-            ->exclude('tests')
-            ->exclude('vendor')
-            ->exclude('demo')
-            ->notName('Compiler.php')
-            ->notName('SplClassLoader.php')
-            ->in($root_dir)
         ;
         foreach ($finder as $file) {
             $this->__addFile($phar, $file);
         }
 
-        $finder = new Finder();
-        $finder->files()
+        $finder = $this->getDefaultFinder();
+        $finder
             ->name('*.json')
             ->name('*.ini')
-            ->in($root_dir)
+            ->name('*.man')
+            ->name('*.md')
+            ->name('*.html')
         ;
         foreach ($finder as $file) {
             $this->__addFile($phar, $file, false);
         }
 
-        $vendor_path = $root_dir.'/vendor/';
+        $vendor_path = $this->root_dir.'/vendor/';
         foreach (self::$phar_loaders as $_loader) {
             if (file_exists($vendor_path.$_loader)) {
                 $this->__addFile($phar, new \SplFileInfo($vendor_path.$_loader));
@@ -97,6 +119,8 @@ class Compiler
                 $this->_logs[] = sprintf('!! - Loader file "%s" not found and not added!', $_loader);
             }
         }
+
+        // global binary
         $this->__addBin($phar);
 
         // Stubs
@@ -104,7 +128,7 @@ class Compiler
 
         $phar->stopBuffering();
 
-        $this->__addFile($phar, new \SplFileInfo($root_dir.'/LICENSE'), false);
+        $this->__addFile($phar, new \SplFileInfo($this->root_dir.'/LICENSE'), false);
 
         unset($phar);
         
@@ -128,7 +152,7 @@ class Compiler
 
     private function __addBin($phar, $binary = 'bin/markdown-extended')
     {
-        $content = file_get_contents(__DIR__.'/../../../bin/markdown-extended');
+        $content = file_get_contents($this->root_dir.'/bin/markdown-extended');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
 
         $this->_logs[] = sprintf('Adding file "%s" (length %d)', $binary, strlen($content));
@@ -192,7 +216,7 @@ class Compiler
  */
 
 Phar::mapPhar('mde.phar');
-
+define('MDE_PHAR', true);
 require 'phar://mde.phar/bin/markdown-extended';
 
 __HALT_COMPILER();
