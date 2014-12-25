@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended;
@@ -97,10 +98,10 @@ class API
     private static function __getInternals()
     {
         return array(
-            'kernel'                =>'\MarkdownExtended\MarkdownExtended',
-            'registry'              =>'\MarkdownExtended\Registry',
-            'config'                =>'\MarkdownExtended\Config',
-            'output_format_bag'     =>'\MarkdownExtended\OutputFormatBag',
+            'kernel'                => '\MarkdownExtended\MarkdownExtended',
+            'registry'              => '\MarkdownExtended\Registry',
+            'config'                => '\MarkdownExtended\Config',
+            'output_format_bag'     => '\MarkdownExtended\OutputFormatBag',
         );
     }
 
@@ -112,14 +113,14 @@ class API
     private static function __getApi()
     {
         return array(
-            'content'               =>self::CONTENT_INTERFACE,
-            'content_collection'    =>self::COLLECTION_INTERFACE,
-            'output_format'         =>self::OUTPUT_FORMAT_INTERFACE,
-            'output_format_helper'  =>self::OUTPUT_FORMAT_HELPER_INTERFACE,
-            'parser'                =>self::PARSER_INTERFACE,
-            'templater'             =>self::TEMPLATER_INTERFACE,
-            'grammar\filter'        =>self::GRAMMAR_GAMUT_INTERFACE,
-            'grammar\tool'          =>self::GRAMMAR_GAMUT_INTERFACE,
+            'content'               => self::CONTENT_INTERFACE,
+            'content_collection'    => self::COLLECTION_INTERFACE,
+            'output_format'         => self::OUTPUT_FORMAT_INTERFACE,
+            'output_format_helper'  => self::OUTPUT_FORMAT_HELPER_INTERFACE,
+            'parser'                => self::PARSER_INTERFACE,
+            'templater'             => self::TEMPLATER_INTERFACE,
+            'grammar\filter'        => self::GRAMMAR_GAMUT_INTERFACE,
+            'grammar\tool'          => self::GRAMMAR_GAMUT_INTERFACE,
         );
     }
 

@@ -186,15 +186,15 @@ PHP Markdown Extended -
 Copyright (c) 2008-2014 Pierre Cassat - 
 <http://e-piwi.fr/>
 
-original MultiMarkdown - 
+Based on MultiMarkdown - 
 Copyright (c) 2005-2009 Fletcher T. Penney - 
 <http://fletcherpenney.net/>
 
-original PHP Markdown & Extra - 
+Based on PHP Markdown Lib - 
 Copyright (c) 2004-2012 Michel Fortin - 
 <http://michelf.com/>
 
-original Markdown - 
+Based on Markdown - 
 Copyright (c) 2004-2006 John Gruber - 
 <http://daringfireball.net/>
 

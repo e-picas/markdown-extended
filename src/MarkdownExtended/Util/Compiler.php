@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended\Util;
@@ -199,19 +200,20 @@ class Compiler
 #!/usr/bin/env php
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 

@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended;
@@ -63,8 +64,9 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * - Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
  *   and the following disclaimer in the documentation and/or other materials provided with the distribution.
  *
- * - Neither the name “Markdown” nor the names of its contributors may be used to endorse or promote 
- *   products derived from this software without specific prior written permission.
+ * - Neither the names “Markdown”, "Markdown Extra", "Multi Markdown", "Markdown Extended" nor the names of
+ *   their contributors may be used to endorse or promote products derived from this software without specific
+ *   prior written permission.
  *
  * This software is provided by the copyright holders and contributors “as is” and any express or 
  * implied warranties, including, but not limited to, the implied warranties of merchantability and 
@@ -84,9 +86,10 @@ final class MarkdownExtended
     /**
      * Class infos ; can be automatically updated by `pre-commit-hook.sh`
      */
-    const MDE_NAME = 'PHP Markdown Extended';
-    const MDE_VERSION = '0.1-gamma';
-    const MDE_SOURCES = 'http://github.com/piwi/markdown-extended';
+    const MDE_NAME      = 'PHP Markdown Extended';
+    const MDE_VERSION   = '0.1-gamma';
+    const MDE_DATE      = '12-06-2014';
+    const MDE_SOURCES   = 'http://github.com/piwi/markdown-extended';
 
     /**
      * Default full options INI file
