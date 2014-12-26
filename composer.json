@@ -39,7 +39,7 @@
     "config": {
         "bin-dir": "bin"
     },
-    "bin": [ "bin/markdown-extended" ],
+    "bin": [ "bin/markdown-extended", "man/markdown-extended.man", "man/markdown-extended-documentation.man" ],
     "extra": {
         "branch-alias": {
             "dev-master": "0.0.*-dev"
