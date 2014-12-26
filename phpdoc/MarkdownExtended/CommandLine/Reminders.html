@@ -37,6 +37,14 @@
 
             <table>
                     <tr>
+                <td class="type" id="property_script_path">
+                                                            string
+                </td>
+                <td>$script_path</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_stdout">
                                                             <abbr title="MarkdownExtended\CommandLine\STDOUT">STDOUT</abbr>
                 </td>
@@ -52,6 +60,14 @@
                 <td class="last">
 </td>
             </tr>
+                    <tr>
+                <td class="type" id="property_stderr">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDERR">STDERR</abbr>
+                </td>
+                <td>$stderr</td>
+                <td class="last">
+</td>
+            </tr>
             </table>
 
     
@@ -64,7 +80,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>()
-                    <p>Constructor Setup the input/output, verify that we are in CLI mode and that something is requested</p>
+                    <p>Constructor</p>
                 </td>
                 <td></td>
             </tr>
@@ -73,7 +89,7 @@
                     void
                 </td>
                 <td class="last">
-                    <a href="#method_write">write</a>(string $str, bool $new_line = true)
+                    <a href="#method_write">write</a>(string $str, bool $new_line = true, string $stream = &#039;stdout&#039;)
                     <p>Write an info to CLI output</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
@@ -113,17 +129,17 @@
                     void
                 </td>
                 <td class="last">
-                    <a href="#method_catched">catched</a>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)
-                    <p>Write a catched exception</p>
+                    <a href="#method_caught">caught</a>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)
+                    <p>Write a caught exception</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_caught"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
                     string|array
                 </td>
                 <td class="last">
-                    <a href="#method_exec">exec</a>(string $cmd)
+                    <a href="#method_exec">exec</a>(string $cmd, bool $fail_gracefully = false)
                     <p>Exec a command</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_exec"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
@@ -160,11 +176,31 @@
             </tr>
                     <tr>
                 <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_usage">runOption_usage</a>($code)
+                    <p>Run the usage option</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_usage"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="MarkdownExtended\CommandLine\$this">$this</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_setScriptPath">setScriptPath</a>(<abbr title="MarkdownExtended\CommandLine\$path">$path</abbr> $path)
+                    <p>Set the current script full path</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_setScriptPath"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
                     
                 </td>
                 <td class="last">
                     <a href="#method_run">run</a>()
-                    <p>Run the whole script depending on options setted</p>
+                    <p>Run the whole script depending on options set</p>
                 </td>
                 <td></td>
             </tr>
@@ -287,14 +323,13 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 70</div>
+        <div class="location">at line 71</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
     <div class="details">
-        <p>Constructor Setup the input/output, verify that we are in CLI mode and that something is requested</p>
-        <p>
-</p>
+        <p>Constructor</p>
+        <p>Setup the input/output and verify that we are in CLI mode</p>
         <div class="tags">
             
             
@@ -312,9 +347,9 @@
     </div>
 
                 <h3 id="method_write">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 109</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_write"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 127</div>
         <code>            public            void
-    <strong>write</strong>(string $str, bool $new_line = true)</code>
+    <strong>write</strong>(string $str, bool $new_line = true, string $stream = &#039;stdout&#039;)</code>
     </h3>
     <div class="details">
         <p>Write an info to CLI output</p>
@@ -333,6 +368,11 @@
                 <td>bool</td>
                 <td>$new_line</td>
                 <td>May we pass a line after writing the info</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$stream</td>
+                <td>The stream to write to (stdin, sdtout or stderr)</td>
             </tr>
             </table>
 
@@ -353,7 +393,7 @@
     </div>
 
                 <h3 id="method_info">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 123</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_info"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 144</div>
         <code>            public            void
     <strong>info</strong>(string $str, bool $new_line = true, bool $leading_dot = true)</code>
     </h3>
@@ -399,7 +439,7 @@
     </div>
 
                 <h3 id="method_separator">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 135</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_separator"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 156</div>
         <code>            public            void
     <strong>separator</strong>()</code>
     </h3>
@@ -425,7 +465,7 @@
     </div>
 
                 <h3 id="method_error">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 150</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_error"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 171</div>
         <code>            public            void
     <strong>error</strong>(string $str, int $code = 90, bool $forced = false)</code>
     </h3>
@@ -470,13 +510,13 @@
                     </div>
     </div>
 
-                <h3 id="method_catched">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_catched"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 183</div>
+                <h3 id="method_caught">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_caught"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 210</div>
         <code>            public            void
-    <strong>catched</strong>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)</code>
+    <strong>caught</strong>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)</code>
     </h3>
     <div class="details">
-        <p>Write a catched exception</p>
+        <p>Write a caught exception</p>
         <p>
 </p>
         <div class="tags">
@@ -508,9 +548,9 @@
     </div>
 
                 <h3 id="method_exec">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_exec"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 204</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_exec"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 232</div>
         <code>            public            string|array
-    <strong>exec</strong>(string $cmd)</code>
+    <strong>exec</strong>(string $cmd, bool $fail_gracefully = false)</code>
     </h3>
     <div class="details">
         <p>Exec a command</p>
@@ -523,6 +563,12 @@
                     <tr>
                 <td>string</td>
                 <td>$cmd</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$fail_gracefully</td>
                 <td>
 </td>
             </tr>
@@ -545,7 +591,7 @@
     </div>
 
                 <h3 id="method_runOption_verbose">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 313</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_verbose"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 341</div>
         <code>            public            void
     <strong>runOption_verbose</strong>()</code>
     </h3>
@@ -571,7 +617,7 @@
     </div>
 
                 <h3 id="method_runOption_quiet">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 324</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_quiet"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 352</div>
         <code>            public            void
     <strong>runOption_quiet</strong>()</code>
     </h3>
@@ -597,7 +643,7 @@
     </div>
 
                 <h3 id="method_runOption_debug">
-        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_debug"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 336</div>
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_debug"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 364</div>
         <code>            public            void
     <strong>runOption_debug</strong>()</code>
     </h3>
@@ -622,13 +668,87 @@
                     </div>
     </div>
 
+                <h3 id="method_runOption_usage">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_runOption_usage"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 376</div>
+        <code>            public            void
+    <strong>runOption_usage</strong>($code)</code>
+    </h3>
+    <div class="details">
+        <p>Run the usage option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$code</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setScriptPath">
+        <div class="location">in <a href="../../MarkdownExtended/CommandLine/AbstractConsole.html#method_setScriptPath"><abbr title="MarkdownExtended\CommandLine\AbstractConsole">AbstractConsole</abbr></a> at line 393</div>
+        <code>            public            <abbr title="MarkdownExtended\CommandLine\$this">$this</abbr>
+    <strong>setScriptPath</strong>(<abbr title="MarkdownExtended\CommandLine\$path">$path</abbr> $path)</code>
+    </h3>
+    <div class="details">
+        <p>Set the current script full path</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\CommandLine\$path">$path</abbr></td>
+                <td>$path</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\CommandLine\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_run">
-        <div class="location">at line 179</div>
+        <div class="location">at line 180</div>
         <code>            public            
     <strong>run</strong>()</code>
     </h3>
     <div class="details">
-        <p>Run the whole script depending on options setted</p>
+        <p>Run the whole script depending on options set</p>
         <p>
 </p>
         <div class="tags">
@@ -756,7 +876,7 @@
     </div>
 
                 <h3 id="method_runOption_help">
-        <div class="location">at line 94</div>
+        <div class="location">at line 95</div>
         <code>            public            
     <strong>runOption_help</strong>()</code>
     </h3>
@@ -772,7 +892,7 @@
     </div>
 
                 <h3 id="method_runOption_docsdir">
-        <div class="location">at line 126</div>
+        <div class="location">at line 127</div>
         <code>            public            
     <strong>runOption_docsdir</strong>($path)</code>
     </h3>
@@ -799,7 +919,7 @@
     </div>
 
                 <h3 id="method_runOption_output">
-        <div class="location">at line 136</div>
+        <div class="location">at line 137</div>
         <code>            public            
     <strong>runOption_output</strong>(string $file)</code>
     </h3>
@@ -825,7 +945,7 @@
     </div>
 
                 <h3 id="method_runOption_format">
-        <div class="location">at line 156</div>
+        <div class="location">at line 157</div>
         <code>            public            
     <strong>runOption_format</strong>(string $str)</code>
     </h3>
@@ -851,7 +971,7 @@
     </div>
 
                 <h3 id="method_runOption_template">
-        <div class="location">at line 166</div>
+        <div class="location">at line 167</div>
         <code>            public            
     <strong>runOption_template</strong>(string $file)</code>
     </h3>

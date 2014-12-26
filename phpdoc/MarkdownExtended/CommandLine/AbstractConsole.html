@@ -35,14 +35,14 @@ script verbosity on STDOUT and '-q' or '--quiet' to decrease it. The idea is qui
 <li>in "normal" rendering (no "verbose" neither than "quiet" mode), the result of the 
 processed content is rendered, with the file name header in case of multi-files input
 and command line script's errors are rendered</li>
-<li>in "verbose" mode, some process informations are shown, informing user about what
-happening, follow process execution and get some execution informations such as some
+<li>in "verbose" mode, some process information are shown, informing user about what
+happening, follow process execution and get some execution information such as some
 some string lengths ; the command line script errors are rendered</li>
 <li>in "quiet" mode, nothing is written through SDTOUT except PHP process errors and output
 rendering of parsed content ; the command line script's errors are not rendered</li>
 </ul>
 
-<p>For all of these cases, PHP errors catched during Markdown Extended classes execution are
+<p>For all of these cases, PHP errors caught during Markdown Extended classes execution are
 rendered and script execution may stop.</p>
         </div>
     
@@ -50,6 +50,14 @@ rendered and script execution may stop.</p>
             <h2>Properties</h2>
 
             <table>
+                    <tr>
+                <td class="type" id="property_script_path">
+                                                            string
+                </td>
+                <td>$script_path</td>
+                <td class="last">
+</td>
+            </tr>
                     <tr>
                 <td class="type" id="property_stdout">
                                                             <abbr title="MarkdownExtended\CommandLine\STDOUT">STDOUT</abbr>
@@ -63,6 +71,14 @@ rendered and script execution may stop.</p>
                                                             <abbr title="MarkdownExtended\CommandLine\STDIN">STDIN</abbr>
                 </td>
                 <td>$stdin</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_stderr">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDERR">STDERR</abbr>
+                </td>
+                <td>$stderr</td>
                 <td class="last">
 </td>
             </tr>
@@ -87,7 +103,7 @@ rendered and script execution may stop.</p>
                     void
                 </td>
                 <td class="last">
-                    <a href="#method_write">write</a>(string $str, bool $new_line = true)
+                    <a href="#method_write">write</a>(string $str, bool $new_line = true, string $stream = &#039;stdout&#039;)
                     <p>Write an info to CLI output</p>
                 </td>
                 <td></td>
@@ -127,8 +143,8 @@ rendered and script execution may stop.</p>
                     void
                 </td>
                 <td class="last">
-                    <a href="#method_catched">catched</a>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)
-                    <p>Write a catched exception</p>
+                    <a href="#method_caught">caught</a>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)
+                    <p>Write a caught exception</p>
                 </td>
                 <td></td>
             </tr>
@@ -137,7 +153,7 @@ rendered and script execution may stop.</p>
                     string|array
                 </td>
                 <td class="last">
-                    <a href="#method_exec">exec</a>(string $cmd)
+                    <a href="#method_exec">exec</a>(string $cmd, bool $fail_gracefully = false)
                     <p>Exec a command</p>
                 </td>
                 <td></td>
@@ -174,6 +190,26 @@ rendered and script execution may stop.</p>
             </tr>
                     <tr>
                 <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_usage">runOption_usage</a>($code)
+                    <p>Run the usage option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="MarkdownExtended\CommandLine\$this">$this</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_setScriptPath">setScriptPath</a>(<abbr title="MarkdownExtended\CommandLine\$path">$path</abbr> $path)
+                    <p>Set the current script full path</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
                     
                 </td>
                 <td class="last">
@@ -197,7 +233,7 @@ rendered and script execution may stop.</p>
                     int
                 </td>
                 <td class="last">
-                    <a href="#method_writeOutput">writeOutput</a>(string $output, bool $exit = false)
+                    <a href="#method_writeOutput">writeOutput</a>(string $output)
                     <p>Write a result for each processed file or string</p>
                 </td>
                 <td></td>
@@ -218,7 +254,7 @@ rendered and script execution may stop.</p>
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 88</div>
+        <div class="location">at line 99</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
@@ -233,9 +269,9 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_write">
-        <div class="location">at line 109</div>
+        <div class="location">at line 127</div>
         <code>            public            void
-    <strong>write</strong>(string $str, bool $new_line = true)</code>
+    <strong>write</strong>(string $str, bool $new_line = true, string $stream = &#039;stdout&#039;)</code>
     </h3>
     <div class="details">
         <p>Write an info to CLI output</p>
@@ -254,6 +290,11 @@ rendered and script execution may stop.</p>
                 <td>bool</td>
                 <td>$new_line</td>
                 <td>May we pass a line after writing the info</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$stream</td>
+                <td>The stream to write to (stdin, sdtout or stderr)</td>
             </tr>
             </table>
 
@@ -274,7 +315,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_info">
-        <div class="location">at line 123</div>
+        <div class="location">at line 144</div>
         <code>            public            void
     <strong>info</strong>(string $str, bool $new_line = true, bool $leading_dot = true)</code>
     </h3>
@@ -320,7 +361,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_separator">
-        <div class="location">at line 135</div>
+        <div class="location">at line 156</div>
         <code>            public            void
     <strong>separator</strong>()</code>
     </h3>
@@ -346,7 +387,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_error">
-        <div class="location">at line 150</div>
+        <div class="location">at line 171</div>
         <code>            public            void
     <strong>error</strong>(string $str, int $code = 90, bool $forced = false)</code>
     </h3>
@@ -391,13 +432,13 @@ rendered and script execution may stop.</p>
                     </div>
     </div>
 
-                <h3 id="method_catched">
-        <div class="location">at line 183</div>
+                <h3 id="method_caught">
+        <div class="location">at line 210</div>
         <code>            public            void
-    <strong>catched</strong>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)</code>
+    <strong>caught</strong>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)</code>
     </h3>
     <div class="details">
-        <p>Write a catched exception</p>
+        <p>Write a caught exception</p>
         <p>
 </p>
         <div class="tags">
@@ -429,9 +470,9 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_exec">
-        <div class="location">at line 204</div>
+        <div class="location">at line 232</div>
         <code>            public            string|array
-    <strong>exec</strong>(string $cmd)</code>
+    <strong>exec</strong>(string $cmd, bool $fail_gracefully = false)</code>
     </h3>
     <div class="details">
         <p>Exec a command</p>
@@ -444,6 +485,12 @@ rendered and script execution may stop.</p>
                     <tr>
                 <td>string</td>
                 <td>$cmd</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$fail_gracefully</td>
                 <td>
 </td>
             </tr>
@@ -466,7 +513,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_runOption_verbose">
-        <div class="location">at line 313</div>
+        <div class="location">at line 341</div>
         <code>            public            void
     <strong>runOption_verbose</strong>()</code>
     </h3>
@@ -492,7 +539,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_runOption_quiet">
-        <div class="location">at line 324</div>
+        <div class="location">at line 352</div>
         <code>            public            void
     <strong>runOption_quiet</strong>()</code>
     </h3>
@@ -518,7 +565,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_runOption_debug">
-        <div class="location">at line 336</div>
+        <div class="location">at line 364</div>
         <code>            public            void
     <strong>runOption_debug</strong>()</code>
     </h3>
@@ -543,8 +590,82 @@ rendered and script execution may stop.</p>
                     </div>
     </div>
 
+                <h3 id="method_runOption_usage">
+        <div class="location">at line 376</div>
+        <code>            public            void
+    <strong>runOption_usage</strong>($code)</code>
+    </h3>
+    <div class="details">
+        <p>Run the usage option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$code</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setScriptPath">
+        <div class="location">at line 393</div>
+        <code>            public            <abbr title="MarkdownExtended\CommandLine\$this">$this</abbr>
+    <strong>setScriptPath</strong>(<abbr title="MarkdownExtended\CommandLine\$path">$path</abbr> $path)</code>
+    </h3>
+    <div class="details">
+        <p>Set the current script full path</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\CommandLine\$path">$path</abbr></td>
+                <td>$path</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\CommandLine\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_run">
-        <div class="location">at line 405</div>
+        <div class="location">at line 457</div>
         <code>    abstract        public            
     <strong>run</strong>()</code>
     </h3>
@@ -560,7 +681,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_writeOutputFile">
-        <div class="location">at line 418</div>
+        <div class="location">at line 470</div>
         <code>            public            int
     <strong>writeOutputFile</strong>(string $output, string $output_file)</code>
     </h3>
@@ -603,9 +724,9 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_writeOutput">
-        <div class="location">at line 440</div>
+        <div class="location">at line 491</div>
         <code>            public            int
-    <strong>writeOutput</strong>(string $output, bool $exit = false)</code>
+    <strong>writeOutput</strong>(string $output)</code>
     </h3>
     <div class="details">
         <p>Write a result for each processed file or string</p>
@@ -618,12 +739,6 @@ rendered and script execution may stop.</p>
                     <tr>
                 <td>string</td>
                 <td>$output</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>bool</td>
-                <td>$exit</td>
                 <td>
 </td>
             </tr>
@@ -646,7 +761,7 @@ rendered and script execution may stop.</p>
     </div>
 
                 <h3 id="method_writeInputTitle">
-        <div class="location">at line 458</div>
+        <div class="location">at line 509</div>
         <code>            public            void
     <strong>writeInputTitle</strong>(string $title)</code>
     </h3>

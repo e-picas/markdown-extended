@@ -24,7 +24,7 @@
     </div>
         <div class="content">
                 <p>    class
-    <strong>HTML</strong>        extends <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormatHTML.html"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormatHTML">AbstractOutputFormatHTML</abbr></a>        implements
+    <strong>HTML</strong>        extends <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a>        implements
         <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></p>
 
             <div class="description">
@@ -44,19 +44,10 @@
                 </td>
                 <td class="last">
                     <a href="#method_buildTag">buildTag</a>(string $tag_name, string $content = null, array $attributes = array())
-                    <p>This will try to call a method <code>builTagName()</code> if it exists, then will try to use the object <code>$tags_map</code> static to automatically find what to do, and then call the default <code>getTagString()</code> method passing it the arguments.</p>
+                    <p>
+</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormatHTML.html#method_buildTag"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormatHTML">AbstractOutputFormatHTML</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method___construct">__construct</a>()
-                    <p>Get the configuration 'empty<em>element</em>suffix'</p>
-                </td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_buildTag"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -66,6 +57,16 @@
                     <a href="#method_getTagString">getTagString</a>(string $text, string $tag, array $attributes = array(), bool $close = false)
                     <p>
 </p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>()
+                    <p>Get the configuration 'empty<em>element</em>suffix'</p>
                 </td>
                 <td></td>
             </tr>
@@ -130,12 +131,13 @@
         <h2>Details</h2>
 
                         <h3 id="method_buildTag">
-        <div class="location">in <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormatHTML.html#method_buildTag"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormatHTML">AbstractOutputFormatHTML</abbr></a> at line 51</div>
+        <div class="location">in <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_buildTag"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a> at line 55</div>
         <code>            public            string
     <strong>buildTag</strong>(string $tag_name, string $content = null, array $attributes = array())</code>
     </h3>
     <div class="details">
-        <p>This will try to call a method <code>builTagName()</code> if it exists, then will try to use the object <code>$tags_map</code> static to automatically find what to do, and then call the default <code>getTagString()</code> method passing it the arguments.</p>
+        <p>
+</p>
         <p>
 </p>
         <div class="tags">
@@ -177,24 +179,8 @@
                     </div>
     </div>
 
-                <h3 id="method___construct">
-        <div class="location">at line 133</div>
-        <code>            public            
-    <strong>__construct</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>Get the configuration 'empty<em>element</em>suffix'</p>
-        <p>
-</p>
-        <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
                 <h3 id="method_getTagString">
-        <div class="location">at line 149</div>
+        <div class="location">at line 151</div>
         <code>            public            string
     <strong>getTagString</strong>(string $text, string $tag, array $attributes = array(), bool $close = false)</code>
     </h3>
@@ -244,8 +230,24 @@
                     </div>
     </div>
 
+                <h3 id="method___construct">
+        <div class="location">at line 135</div>
+        <code>            public            
+    <strong>__construct</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the configuration 'empty<em>element</em>suffix'</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_buildTitle">
-        <div class="location">at line 174</div>
+        <div class="location">at line 181</div>
         <code>            public            
     <strong>buildTitle</strong>($text, array $attributes = array())</code>
     </h3>
@@ -279,7 +281,7 @@
     </div>
 
                 <h3 id="method_buildMetaData">
-        <div class="location">at line 185</div>
+        <div class="location">at line 192</div>
         <code>            public            
     <strong>buildMetaData</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -313,7 +315,7 @@
     </div>
 
                 <h3 id="method_buildComment">
-        <div class="location">at line 196</div>
+        <div class="location">at line 203</div>
         <code>            public            
     <strong>buildComment</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -347,7 +349,7 @@
     </div>
 
                 <h3 id="method_buildParagraph">
-        <div class="location">at line 201</div>
+        <div class="location">at line 208</div>
         <code>            public            
     <strong>buildParagraph</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -381,7 +383,7 @@
     </div>
 
                 <h3 id="method_buildLink">
-        <div class="location">at line 206</div>
+        <div class="location">at line 213</div>
         <code>            public            
     <strong>buildLink</strong>($text = null, array $attributes = array())</code>
     </h3>
