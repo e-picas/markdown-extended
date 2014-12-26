@@ -1,5 +1,5 @@
 .\" author: Pierre Cassat
-.TH  "markdown-extended" "3" "2014-06-13" "Version 0.1-gamma" "PHP-Markdown-Extended Manual"
+.TH  "markdown-extended" "3" "27-12-2014" "Version 0.1-gamma4" "PHP-Markdown-Extended Manual"
 .SH NAME
 .PP
 PHP-Markdown-Extended - A PHP parser for the Markdown Extended syntax
@@ -50,14 +50,14 @@ Options are treated in the command line order (`\fS-vq\fP` will finally retain `
 Define a specific configuration filename to use for the Markdown Parser ;
 configuration files must be in \fIINI\fP format.
 .TP
-\fB-e\fP , \fB--extract\fP [\fImeta\fP]
+\fB-e\fP , \fB--extract\fP [=\fImeta\fP]
 Define a content block to extract ; default extracted block is \fImetadata\fP.
 .TP
 \fB-f\fP , \fB--format\fP \fItype\fP
 Define the output format to use to generate final rendering ; formats are stored in
 PHP namespace `\fS\\MarkdownExtended\\OutputFormat\fP` ; default is \fIHTML\fP.
 .TP
-\fB-g\fP , \fB--gamuts\fP [\fIname\fP]
+\fB-g\fP , \fB--gamuts\fP [=\fIname\fP]
 Define a single gamut or a list of gamuts to execute the content transformation.
 .TP
 \fB-h\fP , \fB--help\fP
@@ -70,7 +70,7 @@ names are found as arguments.
 \fB-n\fP , \fB--nofilter\fP \fIname-a,name-b\fP
 Define a coma separated list of filters to disable during the content transformation.
 .TP
-\fB-o\fP, \fB--output\fP \fIfilename\fP
+\fB-o\fP , \fB--output\fP \fIfilename\fP
 Specify a single file name or a file name mask to write generated content in ; by
 default, files are generated in current working directory.
 .TP
@@ -78,7 +78,7 @@ default, files are generated in current working directory.
 Decrease script's verbosity ; only result strings, Markdown Parser and PHP error
 messages are written on \fISTDOUT\fP ; this mode disables the \fBverbose\fP one.
 .TP
-\fB-t\fP , \fB--template\fP [\fIfilename\fP]
+\fB-t\fP , \fB--template\fP [=\fIfilename\fP]
 Return the content inserted in a parsed template file ; if no \fBfile\fP argument is 
 passed, this will use the configuration template file.
 .TP
@@ -101,6 +101,8 @@ constant ; this is a preset to treat contents coming from input fields.
 .PP
 A special \fB--debug\fP or \fB-x\fP option can be used during development ; it enables the \fI$debug\fP
 flag of the PHP `\fS\\MarkdownExtended\\CommandLine\fP` namespace objects.
+.PP
+Use option \fB--usage\fP to get the command quick synopsis.
 .PP
 Use option \fB--man\fP to re-generate this manpage if possible.
 .SH MESSAGES
@@ -126,8 +128,8 @@ rendered depending on your environment \fIerror_reporting\fP setting and script 
 exit with a status code of \fI90\fP.
 .SH ENVIRONMENT
 .PP
-This script requires PHP version 5.3.0 (<http://php.net/>) minimum with the 
-PCRE extension (<http://php.net/manual/en/book.pcre.php>) (this is the case
+This script requires PHP version 5.3.0 <http://php.net/> minimum with the 
+PCRE extension <http://php.net/manual/en/book.pcre.php> (this is the case
 by default).
 .SH EXAMPLES
 .PP
@@ -192,15 +194,15 @@ PHP Markdown Extended -
 Copyright (c) 2008-2014 Pierre Cassat - 
 <http://e-piwi.fr/>
 .PP
-original MultiMarkdown - 
+Based on MultiMarkdown - 
 Copyright (c) 2005-2009 Fletcher T. Penney - 
 <http://fletcherpenney.net/>
 .PP
-original PHP Markdown & Extra - 
+Based on PHP Markdown Lib - 
 Copyright (c) 2004-2012 Michel Fortin - 
 <http://michelf.com/>
 .PP
-original Markdown - 
+Based on Markdown - 
 Copyright (c) 2004-2006 John Gruber - 
 <http://daringfireball.net/>
 .SH BUGS
