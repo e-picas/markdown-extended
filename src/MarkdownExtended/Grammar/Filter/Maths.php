@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended\Grammar\Filter;
@@ -65,19 +66,19 @@ class Maths
         $math_type  = MarkdownExtended::getConfig('math_type');
         if ($math_type == "mathjax") {
             $texblock = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('span', '['.$texblock.']', array(
-                    'class'=>"MathJax_Preview",
-                ))
+                    ->buildTag('span', '['.$texblock.']', array(
+                        'class'=>"MathJax_Preview",
+                    ))
                 .MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('script', $texblock, array(
+                    ->buildTag('script', $texblock, array(
                         'type'=>"math/tex; mode=display",
-                ))
+                    ))
                 ;
         } else {
             $texblock = MarkdownExtended::get('OutputFormatBag')
-                    ->buildTag('div', $texblock, array(
-                        'class'=>"math",
-                    ))
+                ->buildTag('div', $texblock, array(
+                    'class'=>"math",
+                ))
             ;
         }
         return "\n\n".parent::hashBlock($texblock)."\n\n";

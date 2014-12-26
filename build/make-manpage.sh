@@ -13,4 +13,9 @@ echo "> ${MDE_BIN} -f man -o '$MAN_FILE' '$MDMAN_FILE'"
     && echo "manpage generated in '${MAN_FILE}'" \
     || echo "an error occurred!" ;
 
+echo "> ${MDE_BIN} -f man -o '$DOC_FILE' '$MDDOC_FILE'"
+"${MDE_BIN}" -f man -o "$DOC_FILE" "$MDDOC_FILE" \
+    && echo "documentation generated in '${DOC_FILE}'" \
+    || echo "an error occurred!" ;
+
 exit 0

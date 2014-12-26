@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended\CommandLine;
@@ -73,9 +74,9 @@ class Reminders
         try {
             $this->md_contents = MDE_API::factory('ContentCollection', null, 'content_collection');
         } catch (MDE_Exception\InvalidArgumentException $e) {
-            $this->catched($e);
+            $this->caught($e);
         } catch (MDE_Exception\RuntimeException $e) {
-            $this->catched($e);
+            $this->caught($e);
         }
         $this->runOption_docsdir(__DIR__.'/../Resources/doc');
         $this->runOption_output(__DIR__.'/../../../markdown_reminders.html');
@@ -174,7 +175,7 @@ EOT;
 // -------------------
 
     /**
-     * Run the whole script depending on options setted
+     * Run the whole script depending on options set
      */
     public function run()
     {
@@ -196,17 +197,17 @@ EOT;
                         ->parse($md_content)
                         ->getContent();
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\RuntimeException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 }
                 $this->md_contents->add($md_content);
             }
@@ -227,7 +228,7 @@ EOT;
             $this->info(PHP_EOL.">>>> the parsing is complete.".PHP_EOL, true, false);
         } else {
             $this->error(
-                sprintf("An error occured while trying to write content in file '%s'", $this->output)
+                sprintf("An error occurred while trying to write content in file '%s'", $this->output)
             );
         }
         $this->endRun(1);
@@ -254,7 +255,6 @@ EOT;
     /**
      * Write a result for each processed file or string in a file
      * @param string $output
-     * @param string $output_file
      */
     public function writeOutputFile($output)
     {

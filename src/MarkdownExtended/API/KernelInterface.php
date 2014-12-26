@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended\API;
@@ -39,7 +40,7 @@ interface KernelInterface
      * The best practice is to use the class as a singleton calling `getInstance()` or
      * `create()`.
      *
-     * @params  array   $options     A set of user options values
+     * @param  array   $options     A set of user options values
      */
     public function __construct(array $options = null);
 
@@ -68,19 +69,19 @@ interface KernelInterface
     /**
      * Load a dependency
      *
-     * @param   string  $class_name     The class name to instanciate ; will be completed with current
+     * @param   string  $class_name     The class name to instantiate ; will be completed with current
      *                                  namespace if necessary
      * @return  bool                    Must return a boolean
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist
-    public static function load($class_name);
      */
+//    public static function load($class_name);
 
     /**
      * Build, retain and return a dependency instance
      *
-     * @param   string  $class_name     The class name to instanciate ; will be completed with current
+     * @param   string  $class_name     The class name to instantiate ; will be completed with current
      *                                  namespace if necessary
-     * @param   array   $params         Parameters to use for `$class_name` object instanciation
+     * @param   array   $params         Parameters to use for `$class_name` object instantiation
      *
      * @return  object                  Must return a service object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist
@@ -90,9 +91,9 @@ interface KernelInterface
     /**
      * Get a service from the container ; load it if absent
      *
-     * @param   string  $class_name     The class name to instanciate ; will be completed with current
+     * @param   string  $class_name     The class name to instantiate ; will be completed with current
      *                                  namespace if necessary
-     * @param   array   $params         Parameters to use for `$class_name` object instanciation
+     * @param   array   $params         Parameters to use for `$class_name` object instantiation
      * @param   mixed   $flag           One of the interface flags
      * @return  object                  Must return a service object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException   Must throw an exception it the class doesn't exist

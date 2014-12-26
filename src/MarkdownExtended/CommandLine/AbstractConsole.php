@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended\CommandLine;
@@ -31,19 +32,24 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * -   in "normal" rendering (no "verbose" neither than "quiet" mode), the result of the 
  *     processed content is rendered, with the file name header in case of multi-files input
  *     and command line script's errors are rendered
- * -   in "verbose" mode, some process informations are shown, informing user about what
- *     happening, follow process execution and get some execution informations such as some
+ * -   in "verbose" mode, some process information are shown, informing user about what
+ *     happening, follow process execution and get some execution information such as some
  *     some string lengths ; the command line script errors are rendered
  * -   in "quiet" mode, nothing is written through SDTOUT except PHP process errors and output
  *     rendering of parsed content ; the command line script's errors are not rendered
  *
- * For all of these cases, PHP errors catched during Markdown Extended classes execution are
+ * For all of these cases, PHP errors caught during Markdown Extended classes execution are
  * rendered and script execution may stop.
  *
  * @package MarkdownExtended\CommandLine
  */
 abstract class AbstractConsole
 {
+
+    /**
+     * @var     string  Current script's path
+     */
+    public $script_path;
 
     /**
      * @var     STDOUT
@@ -54,6 +60,11 @@ abstract class AbstractConsole
      * @var     STDIN
      */
     public $stdin;
+
+    /**
+     * @var     STDERR
+     */
+    public $stderr;
 
     /**
      * @var     \MarkdownExtended\MarkdownExtended
@@ -87,10 +98,16 @@ abstract class AbstractConsole
      */
     public function __construct()
     {
-        $this->stdout = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c+');
-        $this->stdin =  defined('STDIN') ? STDIN : fopen('php://stdin', 'c+');
+        $this->stdout   = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c+');
+        $this->stdin    = defined('STDIN')  ? STDIN  : fopen('php://stdin', 'c+');
+        $this->stderr   = defined('STDERR') ? STDERR : fopen('php://stderr', 'c+');
         if (strpos(php_sapi_name(),'cli')===false) {
             exit('<!-- NOT IN CLI -->');
+        }
+        if (isset($_SERVER['argv']) && is_array($_SERVER['argv']) && isset($_SERVER['argv'][0])) {
+            $this->setScriptPath(realpath($_SERVER['argv'][0]));
+        } else {
+            $this->setScriptPath(getcwd());
         }
         $this->getOptions();
     }
@@ -104,12 +121,16 @@ abstract class AbstractConsole
      *
      * @param   string  $str        The information to write
      * @param   bool    $new_line   May we pass a line after writing the info
+     * @param   string  $stream     The stream to write to (stdin, sdtout or stderr)
      * @return  void
      */
-    public function write($str, $new_line = true)
+    public function write($str, $new_line = true, $stream = 'stdout')
     {
-        fwrite($this->stdout, $str.($new_line===true ? PHP_EOL : ''));
-        fflush($this->stdout);
+        if (!property_exists($this, $stream)) {
+            $stream = 'stdout';
+        }
+        fwrite($this->{$stream}, $str . ($new_line===true ? PHP_EOL : ''));
+        fflush($this->{$stream});
     }
     
     /**
@@ -123,7 +144,7 @@ abstract class AbstractConsole
     public function info($str, $new_line = true, $leading_dot = true)
     {
         if (!empty($str) && $this->verbose===true) {
-            $this->write(($leading_dot ? '. ' : '').$str, $new_line);
+            $this->write( ($leading_dot ? '. ' : '') . $str, $new_line);
         }
     }
     
@@ -150,8 +171,8 @@ abstract class AbstractConsole
     public function error($str, $code = 90, $forced = false)
     {
         if ($this->quiet!==true || $forced===true) {
-            $this->write(PHP_EOL.">> ".$str.PHP_EOL);
-            $this->write("( run '--help' option to get information )");
+            $this->write(">> " . $str, true, 'stderr');
+            $this->runOption_usage($code);
         }
         if ($code>0) {
             $this->endRun();
@@ -169,27 +190,33 @@ abstract class AbstractConsole
      */
     protected function endRun($exit = false, $str = null, $leading_signs = true)
     {
-        if ($this->quiet===true) ini_restore('error_reporting'); 
-        if (!empty($str)) $this->write(($leading_signs ? '>> ' : '').$str);
-        if ($exit==true) exit(0);
+        if ($this->quiet===true) {
+            ini_restore('error_reporting');
+        }
+        if (!empty($str)) {
+            $this->write(($leading_signs ? '>> ' : '').$str);
+        }
+        if ($exit===true) {
+            exit(0);
+        }
     }
 
     /**
-     * Write a catched exception
+     * Write a caught exception
      *
      * @param   \Exception  $e
      * @return  void
      */
-    public function catched(\Exception $e)
+    public function caught(\Exception $e)
     {
         $str = sprintf(
-            'Catched "%s" [file %s - line %d]: "%s"',
+            'Caught "%s" [file %s - line %d]: "%s"',
             get_class($e),
             str_replace(realpath(__DIR__.'/../../../'), '', $e->getFile()),
             $e->getLine(), $e->getMessage()
         );
         if ($this->verbose===true || $this->debug===true) {
-            $str .= PHP_EOL.PHP_EOL.$e->getTraceAsString();
+            $str .= PHP_EOL . PHP_EOL . $e->getTraceAsString();
         }
         return $this->error($str, $e->getCode(), true);
     }
@@ -198,20 +225,21 @@ abstract class AbstractConsole
      * Exec a command
      *
      * @param   string      $cmd
+     * @param   bool        $fail_gracefully
      * @return  string|array
      * @throw   \MarkdownExtended\Exception\RuntimeException if the command fails or returns an error status
      */
-    public function exec($cmd)
+    public function exec($cmd, $fail_gracefully = false)
     {
         try {
             exec($cmd, $output, $status);
-            if ($status!==0) {
+            if ($status!==0 && $fail_gracefully!==true) {
                 throw new MDE_Exception\RuntimeException(
                     sprintf('Error exit status while executing command : [%s]!', $cmd), $status
                 );
             }
         } catch (MDE_Exception\RuntimeException $e) {
-            $this->catched($e);
+            $this->caught($e);
         }
         return is_array($output) && count($output)===1 ? $output[0] : $output;
     }
@@ -228,9 +256,9 @@ abstract class AbstractConsole
      */
     protected function readSafeStdin()
     {
-        $data = '';
-        $read = array($this->stdin);
-        $write = array();
+        $data   = '';
+        $read   = array($this->stdin);
+        $write  = array();
         $except = array();
         try {
             $result = stream_select($read, $write, $except, 0);
@@ -340,9 +368,33 @@ abstract class AbstractConsole
         $this->info("Enabling 'debug' mode");
     }
 
+    /**
+     * Run the usage option
+     *
+     * @return  void
+     */
+    public function runOption_usage($code = 0)
+    {
+        $this->write("Use option '--help' to get information.");
+        $this->endRun();
+        exit($code);
+    }
+
 // -------------------
 // Process methods
 // -------------------
+
+    /**
+     * Set the current script full path
+     *
+     * @param $path
+     * @return $this
+     */
+    public function setScriptPath($path)
+    {
+        $this->script_path = $path;
+        return $this;
+    }
 
     /**
      * Use of the PHP Markdown Extended class as a singleton
@@ -361,9 +413,9 @@ abstract class AbstractConsole
         try {
             self::$mde_instance->get('Parser', array($config), MDE_API::FAIL_WITH_ERROR);
         } catch (MDE_Exception\InvalidArgumentException $e) {
-            $this->catched($e);
+            $this->caught($e);
         } catch (MDE_Exception\RuntimeException $e) {
-            $this->catched($e);
+            $this->caught($e);
         }
         return self::$mde_instance;
     }
@@ -387,9 +439,9 @@ abstract class AbstractConsole
             }
             foreach ($content as $var=>$val) {
                 $text .= PHP_EOL
-                    .($indent>0 ? str_repeat('    ', $indent) : '')
-                    .str_pad($var, $max_length, ' ').' : '
-                    .$this->_renderOutput($val, ($indent+1));
+                    . ($indent>0 ? str_repeat('    ', $indent) : '')
+                    . str_pad($var, $max_length, ' ') . ' : '
+                    . $this->_renderOutput($val, ($indent+1));
             }
         }
         return ($indent===0 ? trim($text, PHP_EOL) : $text);
@@ -434,10 +486,9 @@ abstract class AbstractConsole
      * Write a result for each processed file or string
      *
      * @param   string  $output
-     * @param   bool    $exit
      * @return  int
      */
-    public function writeOutput($output, $exit = false)
+    public function writeOutput($output)
     {
         $clength=null;
         if (!empty($output)) {
@@ -458,22 +509,6 @@ abstract class AbstractConsole
     public function writeInputTitle($title)
     {
         $this->write("==> $title <==");
-    }
-
-    /**
-     * Build the output filename if so
-     *
-     * @param   string  $filename
-     * @return  string
-     */
-    protected function _buildOutputFilename($filename)
-    {
-        if (file_exists($filename)) {
-            $ext = strrchr($filename, '.');
-            $_f = str_replace($ext, '', $filename);
-            return $_f.'_'.self::$parsedfiles_counter.$ext;
-        }
-        return $filename;
     }
 
 }
