@@ -4,10 +4,13 @@
 *.phar  binary
 *.md    text
 
-.git*   text export-ignore
-tests/  export-ignore
-dev/    export-ignore
-vendor/ export-ignore
-build/  export-ignore
-phpdoc/ export-ignore
-phpdoc-2/  export-ignore
+.devtools   text export-ignore
+.travis.yml text export-ignore
+.git*       text export-ignore
+pre-tag-hook.sh text export-ignore
+tests/      export-ignore
+dev/        export-ignore
+vendor/     export-ignore
+build/      export-ignore
+phpdoc/     export-ignore
+phpdoc-2/   export-ignore
