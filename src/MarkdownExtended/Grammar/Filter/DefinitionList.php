@@ -102,6 +102,7 @@ class DefinitionList
     {
         // Re-usable patterns to match list item bullets and number markers:
         $result = trim(self::transformItems($matches[1]));
+        $result = str_replace('<!--dt-->', '', $result);
         $result = MarkdownExtended::get('OutputFormatBag')
 //            ->buildTag('definition_list', "\n$result\n");
             ->buildTag('definition_list', $result);
@@ -121,17 +122,16 @@ class DefinitionList
         $less_than_tab = MarkdownExtended::getConfig('less_than_tab');      
         // trim trailing blank lines:
         $list_str = preg_replace("/\n{2,}\\z/", "\n", $list_str);
+
         // Process definition terms.
         $list_str = preg_replace_callback('{
             (?>\A\n?|\n\n+)                     # leading line
-            (                                   # definition terms = $1
+            (                                   # definition term = $1
                 [ ]{0,'.$less_than_tab.'}       # leading whitespace
-                (?![:][ ]|[ ])                  # negative lookahead for a definition 
-                                                # mark (colon) or more whitespace.
+                (?![:][ ]|[ ])                  # negative lookahead for a definition mark (colon) or more whitespace.
                 (?> \S.* \n)+?                  # actual term (not whitespace). 
             )           
-            (?=\n?[ ]{0,3}:[ ])                 # lookahead for following line feed 
-                                                # with a definition mark.
+            (?=\n?[ ]{0,3}:[ ])                 # lookahead for following line feed with a definition mark.
             }xm',
             array($this, '_item_callback_dt'), $list_str);
 
@@ -146,7 +146,7 @@ class DefinitionList
             (?= \n+                             # stop at next definition mark,
                 (?:                             # next term or end of text
                     [ ]{0,'.$less_than_tab.'} [:][ ]    |
-                    <dt> | \z
+                    <!--dt--> | \z
                 )                       
             )                   
             }xm',

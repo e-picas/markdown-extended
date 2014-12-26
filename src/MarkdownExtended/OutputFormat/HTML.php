@@ -20,7 +20,7 @@ namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\API\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\OutputFormat\AbstractOutputFormat;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -29,7 +29,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * @package MarkdownExtended\OutputFormat
  */
 class HTML
-    extends AbstractOutputFormatHTML
+    extends AbstractOutputFormat
     implements OutputFormatInterface
 {
 
@@ -63,6 +63,7 @@ class HTML
         ),
         'definition_list_item_term' => array(
             'tag'=>'dt',
+            'prefix' => '<!--dt-->',
         ),
         'definition_list_item_definition' => array(
             'tag'=>'dd',
@@ -122,7 +123,7 @@ class HTML
             'closable'=>true,
         ),
     );
-        
+
     /**
      * @var string
      */
@@ -150,7 +151,12 @@ class HTML
     public function getTagString($text, $tag, array $attributes = array(), $close = false)
     {
         $attr='';
+        $prefix = '';
         if (!empty($attributes)) {
+            if (isset($attributes['mde-prefix'])) {
+                $prefix = $attributes['mde-prefix'];
+                unset($attributes['mde-prefix']);
+            }
             foreach ($attributes as $variable=>$value) {
                 if (!empty($value)) {
                     if (is_string($variable)) {
@@ -162,9 +168,9 @@ class HTML
             }
         }
         if (true===$close) {
-            return "<{$tag}{$attr}" . $this->empty_element_suffix;
+            return $prefix."<{$tag}{$attr}" . $this->empty_element_suffix;
         } else {
-            return "<{$tag}{$attr}>{$text}</{$tag}>";
+            return $prefix."<{$tag}{$attr}>{$text}</{$tag}>";
         }
     }
 

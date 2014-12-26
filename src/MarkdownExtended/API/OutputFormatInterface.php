@@ -32,7 +32,7 @@ interface OutputFormatInterface
      * @param   array   $attributes     An array of attributes constructed like "variable=>value" pairs
      * @return  string
      */
-    public function buildTag($tag_name, $content, array $attributes = array());
+    public function buildTag($tag_name, $content = null, array $attributes = array());
 
     /**
      * @param   string  $content

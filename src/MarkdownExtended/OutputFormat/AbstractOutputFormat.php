@@ -19,14 +19,17 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\API\OutputFormatInterface;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
 /**
- * Class AbstractOutputFormatHTML
+ * Class AbstractOutputFormat
+ *
  * @package MarkdownExtended\OutputFormat
  */
-class AbstractOutputFormatHTML
+abstract class AbstractOutputFormat
+    implements OutputFormatInterface
 {
 
     /**
@@ -40,7 +43,7 @@ class AbstractOutputFormatHTML
     protected $tags_map = array();
 
     /**
-     * This will try to call a method `builTagName()` if it exists, then will try to use
+     * This will try to call a method `build{TagName}()` if it exists, then will try to use
      * the object `$tags_map` static to automatically find what to do, and then call the
      * default `getTagString()` method passing it the arguments.
      *
@@ -52,6 +55,9 @@ class AbstractOutputFormatHTML
     public function buildTag($tag_name, $content = null, array $attributes = array())
     {
         $_method = 'build'.MDE_Helper::toCamelCase($tag_name);
+        if (isset($this->tags_map[$tag_name]) && isset($this->tags_map[$tag_name]['prefix'])) {
+            $attributes['mde-prefix'] = $this->tags_map[$tag_name]['prefix'];
+        }
         if (method_exists($this, $_method)) {
             return call_user_func_array(
                 array($this, $_method),
@@ -73,6 +79,14 @@ class AbstractOutputFormatHTML
             );
         }
     }
+
+    /**
+     * @param   string  $content
+     * @param   string  $tag_name
+     * @param   array   $attributes     An array of attributes constructed like "variable=>value" pairs
+     * @return  string
+     */
+    abstract public function getTagString($content, $tag_name, array $attributes = array());
 
 }
 
