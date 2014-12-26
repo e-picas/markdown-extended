@@ -70,7 +70,7 @@ Creating a release, you MAY go on the following steps:
 -   CREATING the release:
     -   merge "wip" into "master"
     -   you MUST use the `pre-commit-hook.sh` to create a release (the best practice is to
-        use the `atelierspierrot/dev-tools` package to do so) ; this MAY do:
+        use the `piwi/dev-tools` package to do so) ; this MAY do:
         -   update the version number in the `src/MarkdownExtended/MarkdownExtended.php` file
             and in the `docs/MANPAGE.php` file
         -   regenerate the `bin/markdown-extended.man` manpage from the `docs/MANPAGE.md` file
@@ -94,7 +94,7 @@ Each release-push to GitHub MAY update the <http://sites.ateliers-pierrot.fr/mar
 To automatically re-generate the "markdown-extended.phar" file from current version, you can use
 the `bin/compile` binary of the "wip" branch:
 
-    ~$ php bin/compile
+    ~$ php build/make-phar.php
 
 
 ### Generate the "markdown reminders"
@@ -102,7 +102,7 @@ the `bin/compile` binary of the "wip" branch:
 To automatically re-generate the "markdown_reminders.html" file from current version, you can use
 the `bin/build_reminders` binary:
 
-    ~$ php bin/build_reminders
+    ~$ php build/make-reminders.php
 
 
 ### Generate the man-page
@@ -161,7 +161,7 @@ To use it, run:
     ~$ mkdir .git/hooks && cp pre-commit-hook.sh .git/hooks/pre-commit
     ~$ chmod +x .git/hooks/pre-commit
 
-The hook is also compliant with the <http://github.com/atelierspierrot/dev-tools> package using
+The hook is also compliant with the <http://github.com/piwi/dev-tools> package using
 its `version-tag` tool.
 
 
@@ -169,7 +169,7 @@ its `version-tag` tool.
 more info about the release version name construction rules.
 
 ----
-"**Markdown Extended ROADMAP**" - last updated at 05 may 2014
+"**Markdown Extended ROADMAP**" - last updated at 26 december 2014
 
 Creator & maintainer: [@pierowbmstr](http://e-piwi.fr/).
 

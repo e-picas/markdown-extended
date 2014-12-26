@@ -2,8 +2,8 @@ Man:        PHP-Markdown-Extended Developer Manual
 Man-name:   markdown-extended-api
 Section:    7
 Author:     Pierre Cassat
-Date: 2014-06-13
-Version: 0.1-gamma
+Date:       27-12-2014
+Version:    0.1-gamma4
 
 
 ## NAME
@@ -14,11 +14,11 @@ The whole API is stored in the `\MarkdownExtended\API` namespace and is a set of
 you must implement to use or override the parser or some of its objects.
 
 
-## How does it work?
+## LIFE-CYCLE
 
 The full schema of a Markdown parser usage could be:
 
-            [source file content]       [options]    
+            [source file content]   [options]    
                    ||                  ||
                    \/                  \/
             ---------------        ----------                            -------------------
@@ -42,7 +42,7 @@ Additionally, it would be best that we can obtain a full formatted result simply
 can also pass this result through a template builder to construct a complex final string
 
 
-## Result in the code
+## CODING RESULTS
 
 The first item of this chain is assumed by the `\MarkdownExtended\Content` object.
 It is a simple class that just stores different infos about a parsed content, such as its 
@@ -73,7 +73,7 @@ All API classes finally used to create objects are defined as configuration entr
 Please see the `\MarkdownExtended\Config` object source for a full and up-to-date list.
 
 
-## Full usage
+## FULL USAGE
 
 ### The "kernel" object
 
@@ -164,7 +164,7 @@ that will return the exact same string as the one constructed above (a full HTML
 by default).
 
 
-## Components
+## COMPONENTS
 
 The Internal classes (required and not overloadable) are:
 
@@ -195,7 +195,7 @@ $object = \MardownExtended\MarkdownExtended::getInstance()->get( name );
 Trying to get it, if the object does not exist yet, it will be created.
 
 
-## The API kernel
+## API KERNEL
 
 The `\MarkdownExtended\API` is the central class object. It handles all the parsing
 logic and acts like a services container for other API's objects.
