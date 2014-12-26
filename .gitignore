@@ -18,7 +18,6 @@ phpdoc-2/*
 # for development ...
 # this may be commented on the "wip" branch
 dev/*
-build/*
 
 # specific MDE files
 bin/sami.php
