@@ -1,25 +1,26 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\API\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\OutputFormat\AbstractOutputFormat;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -28,7 +29,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * @package MarkdownExtended\OutputFormat
  */
 class HTML
-    extends AbstractOutputFormatHTML
+    extends AbstractOutputFormat
     implements OutputFormatInterface
 {
 
@@ -62,6 +63,7 @@ class HTML
         ),
         'definition_list_item_term' => array(
             'tag'=>'dt',
+            'prefix' => '<!--dt-->',
         ),
         'definition_list_item_definition' => array(
             'tag'=>'dd',
@@ -121,7 +123,7 @@ class HTML
             'closable'=>true,
         ),
     );
-        
+
     /**
      * @var string
      */
@@ -149,7 +151,12 @@ class HTML
     public function getTagString($text, $tag, array $attributes = array(), $close = false)
     {
         $attr='';
+        $prefix = '';
         if (!empty($attributes)) {
+            if (isset($attributes['mde-prefix'])) {
+                $prefix = $attributes['mde-prefix'];
+                unset($attributes['mde-prefix']);
+            }
             foreach ($attributes as $variable=>$value) {
                 if (!empty($value)) {
                     if (is_string($variable)) {
@@ -161,9 +168,9 @@ class HTML
             }
         }
         if (true===$close) {
-            return "<{$tag}{$attr}" . $this->empty_element_suffix;
+            return $prefix."<{$tag}{$attr}" . $this->empty_element_suffix;
         } else {
-            return "<{$tag}{$attr}>{$text}</{$tag}>";
+            return $prefix."<{$tag}{$attr}>{$text}</{$tag}>";
         }
     }
 

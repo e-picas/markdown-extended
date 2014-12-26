@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended;
@@ -79,13 +80,18 @@ class Helper
      */
     public static function smallInfo($html = false, $version_only = false)
     {
-        return (sprintf(
-            $html ? 
-                '<strong>%1$s</strong> %2$s'.($version_only===true ? '' : ' (<a href="%3$s" target="_blank" title="See online">%3$s</a>)')
-                :
-                '%1$s %2$s'.($version_only===true ? '' : PHP_EOL.'<%3$s>'),
-            MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
-        ));
+        if ($version_only) {
+            return MarkdownExtended::MDE_VERSION;
+        } else {
+            return (sprintf(
+                $html ?
+                    '<strong>%1$s</strong> %2$s (<a href="%3$s" target="_blank" title="See online">%3$s</a>)'
+                    :
+                    '%1$s %2$s'.PHP_EOL.'<%3$s>'
+                ,
+                MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
+            ));
+        }
     }
 
 // --------------

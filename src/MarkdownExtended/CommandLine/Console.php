@@ -1,18 +1,19 @@
 <?php
 /**
- * PHP Markdown Extended
+ * PHP Markdown Extended - A PHP parser for the Markdown Extended syntax
  * Copyright (c) 2008-2014 Pierre Cassat
+ * <http://github.com/piwi/markdown-extended>
  *
- * original MultiMarkdown
+ * Based on MultiMarkdown
  * Copyright (c) 2005-2009 Fletcher T. Penney
  * <http://fletcherpenney.net/>
  *
- * original PHP Markdown & Extra
- * Copyright (c) 2004-2012 Michel Fortin  
+ * Based on PHP Markdown Lib
+ * Copyright (c) 2004-2012 Michel Fortin
  * <http://michelf.com/projects/php-markdown/>
  *
- * original Markdown
- * Copyright (c) 2004-2006 John Gruber  
+ * Based on Markdown
+ * Copyright (c) 2004-2006 John Gruber
  * <http://daringfireball.net/projects/markdown/>
  */
 namespace MarkdownExtended\CommandLine;
@@ -74,6 +75,7 @@ class Console
         'e::'=>'extract::',
         't::'=>'template::',
         'man',
+        'usage',
 //      'filter-html', 
 //      'filter-styles', 
         // aliases
@@ -146,19 +148,45 @@ class Console
 // -------------------
 
     /**
+     * Run the usage option
+     *
+     * @return  void
+     */
+    public function runOption_usage($code = 0)
+    {
+        $usage_str = <<<EOT
+usage:  markdown-extended  [-h|-V]  [--help|--version|--man|--usage]
+        [-x|-v|-q|-m] [--debug|--verbose|--quiet|--multi]
+        [-o|--output filename]
+        [-c|--config filename]
+        [-f|--format format]
+        [-n|--nofilter a,b]
+        [-e|--extract [=block]]
+        [-g|--gamuts [=name]]
+        [-t|--template [=filename]]
+            input_filename  [input_filename]  [...]
+            "markdown string read from STDIN"
+Use option '--help' to get information.
+EOT;
+        $this->write($usage_str);
+        $this->endRun();
+        exit($code);
+    }
+
+    /**
      * Get the help string
      *
      * @return  void
      */
     public function runOption_help()
     {
-        $class_name = MarkdownExtended::MDE_NAME;
-        $class_version = MarkdownExtended::MDE_VERSION;
-        $class_sources = MarkdownExtended::MDE_SOURCES;
-        $help_str = <<<EOT
+        $class_name     = MarkdownExtended::MDE_NAME;
+        $class_version  = MarkdownExtended::MDE_VERSION;
+        $class_sources  = MarkdownExtended::MDE_SOURCES;
+        $help_str       = <<<EOT
 [ {$class_name} {$class_version} - CLI interface ]
 
-Converts markdown syntax text(s) source(s) from specified file(s) (or STDIN).
+Converts markdown-extended syntax text(s) source(s) from specified file(s) (or STDIN).
 The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
 
@@ -168,32 +196,37 @@ files, just write file paths as arguments, separated by space.
 To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
 You can also use the output of a previous command using the pipe notation.
 
-Usage:
-    ~$ php path/to/markdown-extended  [OPTIONS ...]  [INPUT FILE(S) OR STRING(S)]
+usage:  markdown-extended [options ...] input_filename [input_filename] [...]
 
-Options:
-    -V | --version             get Markdown version information
-    -h | --help                get this help information
-    -v | --verbose             increase verbosity of the script
-    -q | --quiet               do not write Markdown Parser or PHP error messages
-    -m | --multi               multi-files input (automatic if multiple file names found)
-    -o | --output    = FILE    specify a file (or a file mask) to write generated content in
-    -c | --config    = FILE    configuration file to use for Markdown instance (INI format)
-    -f | --format    = NAME    format of the output (default is HTML)
-    -e | --extract  [= META]   extract some data (the meta data array by default) from the Markdown input
-    -t | --template [= FILE]   load the content in a template file (configuration template by default)
-    -g | --gamuts   [= NAME]   get the list of gamuts (or just one if specified) processed on Markdown input
-    -n | --nofilter  = A,B     specify a list of filters that will be ignored during Markdown parsing
-    -x | --debug               special flag for dev
+        markdown-extended [options ...] "markdown string read from STDIN"
 
-Aliases:
-    -b | --body                get only the body part from parsed content (alias of '-e=body')
-    -s | --simple              use the simple pre-defined configuration file ; preset for input fields
+        echo "*Markdown* __content__" | markdown-extended [options ...]
 
-For a full manual, try `~$ man ./path/to/markdown-extended.man` if the file exists ;
-if it doesn't, you can try option '--man' of this script to generate it if possible.
+options:
+        --config (-c)    = file    configuration file to use (INI format)
+        --debug (-x)               special flag for dev
+        --extract (-e)  [= meta]   extract some data (the meta data array by default) from the input
+        --format (-f)    = name    format of the output (default is HTML)
+        --gamuts (-g)   [= name]   get the list of gamuts (or just one if specified) processed on input
+        --help (-h)                get this help information
+        --man                      get the script manpage path (will try to generate it of required)
+        --multi (-m)               multi-files input (automatic if multiple file names found)
+        --nofilter (-n)  = a,b     specify a list of filters that will be ignored during parsing
+        --output (-o)    = file    specify a file (or a file mask) to write generated content in
+        --quiet (-q)               decrease script's verbosity (do not write Markdown Parser or PHP error messages)
+        --template (-t) [= file]   load the content in a template file (configuration template by default)
+        --usage                    get a quick synopsis usage information
+        --verbose (-v)             increase script's verbosity
+        --version (-V)             get script's version information
 
-More infos at <{$class_sources}>.
+aliases:
+        --body (-b)                get only the body part from parsed content (alias of '-e=body')
+        --simple (-s)              use the simple pre-defined configuration file ; preset for input fields
+
+For a full manual, try `man ./path/to/markdown-extended.man` if the file exists ;
+if it doesn't, you can try option `--man` of this script to generate it if possible.
+
+More information at <{$class_sources}>.
 EOT;
         $this->write($help_str);
         $this->endRun();
@@ -208,17 +241,19 @@ EOT;
     public function runOption_version()
     {
         $info = MDE_Helper::smallInfo(false, $this->quiet);
-        $git_ok = $this->exec("which git");
-        $git_dir = getcwd() . '/.git';
-        if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
-            $remote = $this->exec("git config --get remote.origin.url");
-            if (!empty($remote) && (
-                strstr($remote, MarkdownExtended::MDE_SOURCES) ||
-                strstr($remote, str_replace('http', 'https', MarkdownExtended::MDE_SOURCES))
-            )) {
-                $versions = $this->exec("git rev-parse --abbrev-ref HEAD && git rev-parse HEAD && git log -1 --format='%ci' --date=short | cut -s -f 1 -d ' '");
-                if (!empty($versions)) {
-                    $info .= PHP_EOL.implode(' ', $versions);
+        if (!$this->quiet) {
+            $git_ok = $this->exec("which git");
+            $git_dir = getcwd() . '/.git';
+            if (!empty($git_ok) && file_exists($git_dir) && is_dir($git_dir)) {
+                $remote = $this->exec("git config --get remote.origin.url");
+                if (!empty($remote) && (
+                        strstr($remote, MarkdownExtended::MDE_SOURCES) ||
+                        strstr($remote, str_replace('http', 'https', MarkdownExtended::MDE_SOURCES))
+                    )) {
+                    $versions = $this->exec("git rev-parse --abbrev-ref HEAD && git rev-parse HEAD && git log -1 --format='%ci' --date=short | cut -s -f 1 -d ' '");
+                    if (!empty($versions)) {
+                        $info .= PHP_EOL.implode(' ', $versions);
+                    }
                 }
             }
         }
@@ -234,18 +269,53 @@ EOT;
      */
     public function runOption_man()
     {
-        $info = '';
-        $man_ok = $this->exec("which man");
-        $man_path = getcwd() . '/bin/markdown-extended.man';
+        $info       = '';
+        $online     = MarkdownExtended::MDE_SOURCES;
+        $man_ok     = $this->exec("which man");
         if (!empty($man_ok)) {
-            if (!file_exists($man_path)) {
-                $ok = $this->exec("php bin/markdown-extended -f man -o bin/markdown-extended.man docs/MANPAGE.md");
-            }
-            if (file_exists($man_path)) {
-                $info = 'OK, you can now run "man ./bin/markdown-extended.man"';
+            $man_filepath = $this->exec("man markdown-extended -w 2>/dev/null", true);
+            if (!empty($man_filepath)) {
+                $info = "The Markdown-Extended manpage is already installed. You can run:\n\tman $man_filepath";
             } else {
-                $info = 'Can not launch "man" command, file not found or command not accessible ... Try to run "man ./bin/markdown-extended.man".';
+                if (defined('MDE_PHAR') && MDE_PHAR === true) {
+                    $base_path = 'phar://mde.phar/';
+                    $man_path = $base_path . '/man/markdown-extended.man';
+                    $target_path = tempnam(sys_get_temp_dir(), 'markdown-extended.man-');
+                    if (copy($man_path, $target_path)) {
+                        $info = "OK, you can now run:\n\tman $target_path"
+                            . "\nTo install it, you should run:\n\tsudo cp $target_path {manpages place}/man3/markdown-extended.man"
+                            . "\nTo get your {manpages place}, look at '/etc/manpath.config' or '/etc/manpaths'.";
+                    } else {
+                        $info = "Can not copy the manpage!"
+                            . "\nTry to read the original source (Markdown syntax) with:"
+                            . "\n\tphp -r 'echo file_get_contents(\"phar://markdown-extended.phar/docs/MANPAGE.md\");' | less";
+                    }
+                } else {
+                    $base_path = realpath(dirname(dirname($this->script_path)));
+                    $man_path = $base_path . '/man/markdown-extended.man';
+                    $source_path = $base_path . '/docs/MANPAGE.md';
+                    if (file_exists($source_path)) {
+                        if (!file_exists($man_path)) {
+                            $ok = $this->exec("php bin/markdown-extended -f man -o $man_path $source_path");
+                        }
+                        if (file_exists($man_path)) {
+                            $info = "OK, you can now run:\n\tman $man_path"
+                                . "\nTo install it, you should run:\n\tsudo cp $man_path {manpages place}/man3/markdown-extended.man"
+                                . "\nTo get your {manpages place}, look at '/etc/manpath.config' or '/etc/manpaths'.";
+                        } else {
+                            $info = "Can not generate the manpage!"
+                                . "\nTry to read the original source (Markdown syntax) with:"
+                                . "\n\tcat $source_path | less";
+                        }
+                    } else {
+                        $info = "Original manpage's source can not be found!"
+                            ."\nYou may read it online at <{$online}>.";
+                    }
+                }
             }
+        } else {
+            $info = "The `man` command can't be found! "
+                ."\nYou may read the manpage online at <{$online}>.";
         }
         $this->write($info);
         $this->endRun();
@@ -317,7 +387,9 @@ EOT;
      */
     public function runOption_extract($type)
     {
-        if (empty($type)) $type = 'meta';
+        if (empty($type)) {
+            $type = 'meta';
+        }
         if (!array_key_exists($type, self::$extract_presets)) {
             $this->error("Unknown extract option '$type'!");
         }
@@ -333,7 +405,9 @@ EOT;
      */
     public function runOption_template($file)
     {
-        if (empty($file)) $file = true;
+        if (empty($file)) {
+            $file = true;
+        }
         $this->template = $file;
         if (true===$this->template) {
             $this->info("Setting 'template' to default, content will be loaded in a template file");
@@ -457,7 +531,7 @@ EOT;
     }
 
     /**
-     * Run the whole script depending on options setted
+     * Run the whole script depending on options set
      *
      * @return  void
      */
@@ -497,8 +571,8 @@ EOT;
             $infos = $this->runOneFile($input, null, $this->extract, $title);
             if ($this->verbose===true) {
                 $this->endRun(false, "Infos extracted from input `$input`"
-                    .(is_string($this->extract) ? " for tag `$this->extract`" : '')
-                    .' : '.PHP_EOL.$infos);
+                    . (is_string($this->extract) ? " for tag `$this->extract`" : '')
+                    . ' : ' . PHP_EOL . $infos);
             } else {
                 $this->endRun(false, $infos, false);
             }
@@ -575,7 +649,7 @@ EOT;
      * @param   string  $input
      * @param   bool    $title  Set to `true` to add title string in case of multi-input
      * @return  \MarkdownExtended\API\ContentInterface
-     * @throws  any catched exception
+     * @throws  any caught exception
      */
     public function getInput($input, $title = false)
     {
@@ -589,17 +663,17 @@ EOT;
                 try {
                     $md_content = MDE_API::factory('Content', array(null, $input));
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\RuntimeException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 }
             } elseif (!empty($input) && is_string($input)) {
                 $this->info("Loading Markdown string from STDIN [strlen: ".strlen($input)."] ... ");
@@ -609,17 +683,17 @@ EOT;
                 try {
                     $md_content = MDE_API::factory('Content', array($input));
                 } catch (\MarkdownExtended\Exception\DomainException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\RuntimeException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\MarkdownExtended\Exception\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 } catch (\Exception $e) {
-                    $this->catched($e);
+                    $this->caught($e);
                 }
             } else {
                 $this->error("Entered input seems to be neither a file (not found) nor a well-formed string!");
@@ -633,7 +707,7 @@ EOT;
      *
      * @param   \MarkdownExtended\API\ContentInterface  $md_content
      * @return  string
-     * @throws  any catched exception
+     * @throws  any caught exception
      */
     public function parseContent(\MarkdownExtended\API\ContentInterface $md_content)
     {
@@ -660,23 +734,23 @@ EOT;
                         ->getFullContent();
                 }
             } catch (\MarkdownExtended\Exception\DomainException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\RuntimeException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\Exception $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\Exception $e) {
-                $this->catched($e);
+                $this->caught($e);
             }
             if ($md_output) {
                 $this->md_parsed_content .= $md_output;
                 $this->info("OK", true, false);
             } else {
-                $this->error("An error occured while trying to parse Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
+                $this->error("An error occurred while trying to parse Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
             }
         }
         return $md_output;
@@ -688,7 +762,7 @@ EOT;
      * @param   \MarkdownExtended\API\ContentInterface   $md_content
      * @param   string                      $extract
      * @return  string
-     * @throws  any catched exception
+     * @throws  any caught exception
      */
     public function extractContent(\MarkdownExtended\API\ContentInterface $md_content, $extract)
     {
@@ -711,17 +785,17 @@ EOT;
                 );
                 $md_output = $this->_renderOutput($output);
             } catch (\MarkdownExtended\Exception\DomainException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\RuntimeException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\MarkdownExtended\Exception\Exception $e) {
-                $this->catched($e);
+                $this->caught($e);
             } catch (\Exception $e) {
-                $this->catched($e);
+                $this->caught($e);
             }
             if ($output) {
                 if (is_string($output)) {
@@ -731,10 +805,26 @@ EOT;
                 }
                 $this->info("OK [entries: ".$length."]", true, false);
             } else {
-                $this->error("An error occured while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
+                $this->error("An error occurred while trying to extract data form Markdown content ! (try to run `cd dir/to/markdown-extended ...`)");
             }
         }
         return $md_output;
+    }
+
+    /**
+     * Build the output filename if so
+     *
+     * @param   string  $filename
+     * @return  string
+     */
+    protected function _buildOutputFilename($filename)
+    {
+        if (file_exists($filename)) {
+            $ext = strrchr($filename, '.');
+            $_f = str_replace($ext, '', $filename);
+            return $_f . '_' . self::$parsedfiles_counter . $ext;
+        }
+        return $filename;
     }
 
 }
