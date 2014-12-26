@@ -150,9 +150,10 @@ class Console
     /**
      * Run the usage option
      *
+     * @param   int $exit_status
      * @return  void
      */
-    public function runOption_usage($code = 0)
+    public function runOption_usage($exit_status = 0)
     {
         $usage_str = <<<EOT
 usage:  markdown-extended  [-h|-V]  [--help|--version|--man|--usage]
@@ -170,7 +171,7 @@ Use option '--help' to get information.
 EOT;
         $this->write($usage_str);
         $this->endRun();
-        exit($code);
+        exit($exit_status);
     }
 
     /**
@@ -537,7 +538,7 @@ EOT;
      */
     public function run()
     {
-        $this->info(PHP_EOL.">>>> let's go for the parsing ...".PHP_EOL, true, false);
+        $this->info(PHP_EOL.">>>> let's go for parsing ...".PHP_EOL, true, false);
         if (!empty($this->input)) {
             if ($this->multi===true) {
                 $myoutput = $this->output;
