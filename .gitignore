@@ -1,4 +1,4 @@
-# the composer lock file
+# the composer stuff
 composer.lock
 vendor/*
 */vendor/*
