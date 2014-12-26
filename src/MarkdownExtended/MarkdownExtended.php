@@ -87,8 +87,8 @@ final class MarkdownExtended
      * Class infos ; can be automatically updated by `pre-commit-hook.sh`
      */
     const MDE_NAME      = 'PHP Markdown Extended';
-    const MDE_VERSION   = '0.1-gamma';
-    const MDE_DATE      = '12-06-2014';
+    const MDE_VERSION   = '0.1-gamma4';
+    const MDE_DATE      = '26-12-2014';
     const MDE_SOURCES   = 'http://github.com/piwi/markdown-extended';
 
     /**
