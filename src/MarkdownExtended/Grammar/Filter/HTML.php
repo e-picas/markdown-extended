@@ -416,6 +416,7 @@ class HTML
 
                     // Calculate indent before tag.
                     if (preg_match('/(?:^|\n)( *?)(?! ).*?$/', $block_text, $matches)) {
+                        /* @var callable $strlen */
                         $strlen = MarkdownExtended::getConfig('utf8_strlen');
                         $indent = $strlen($matches[1], 'UTF-8');
                     } else {

@@ -66,19 +66,19 @@ class Maths
         $math_type  = MarkdownExtended::getConfig('math_type');
         if ($math_type == "mathjax") {
             $texblock = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('span', '['.$texblock.']', array(
-                    'class'=>"MathJax_Preview",
-                ))
+                    ->buildTag('span', '['.$texblock.']', array(
+                        'class'=>"MathJax_Preview",
+                    ))
                 .MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('script', $texblock, array(
+                    ->buildTag('script', $texblock, array(
                         'type'=>"math/tex; mode=display",
-                ))
+                    ))
                 ;
         } else {
             $texblock = MarkdownExtended::get('OutputFormatBag')
-                    ->buildTag('div', $texblock, array(
-                        'class'=>"math",
-                    ))
+                ->buildTag('div', $texblock, array(
+                    'class'=>"math",
+                ))
             ;
         }
         return "\n\n".parent::hashBlock($texblock)."\n\n";
