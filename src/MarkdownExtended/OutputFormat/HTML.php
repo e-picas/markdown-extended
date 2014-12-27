@@ -217,6 +217,34 @@ class HTML
         return $this->getTagString($text, 'a', $attributes);
     }
 
+    public function buildMaths($text = null, array $attributes = array(), $type = 'block')
+    {
+        $math_type  = MarkdownExtended::getConfig('math_type');
+        if ($math_type == "mathjax") {
+            $text = $this->getTagString('['.$text.']', 'span', array(
+                    'class'=>"MathJax_Preview",
+                ))
+                .$this->getTagString($text, 'script', array(
+                    'type'=>"math/tex; mode=display",
+                ));
+        } else {
+            $text = $this->getTagString($text, $type, array(
+                    'class'=>"math",
+                ));
+        }
+        return $text;
+    }
+
+    public function buildMathsBlock($text = null, array $attributes = array())
+    {
+        return $this->buildMaths($text, $attributes, 'block');
+    }
+
+    public function buildMathsSpan($text = null, array $attributes = array())
+    {
+        return $this->buildMaths($text, $attributes, 'span');
+    }
+
 }
 
 // Endfile

@@ -63,25 +63,9 @@ class Maths
     {
         $texblock   = $matches[1];
         $texblock   = trim($texblock);
-        $math_type  = MarkdownExtended::getConfig('math_type');
-        if ($math_type == "mathjax") {
-            $texblock = MarkdownExtended::get('OutputFormatBag')
-                    ->buildTag('span', '['.$texblock.']', array(
-                        'class'=>"MathJax_Preview",
-                    ))
-                .MarkdownExtended::get('OutputFormatBag')
-                    ->buildTag('script', $texblock, array(
-                        'type'=>"math/tex; mode=display",
-                    ))
-                ;
-        } else {
-            $texblock = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('div', $texblock, array(
-                    'class'=>"math",
-                ))
-            ;
-        }
-        return "\n\n".parent::hashBlock($texblock)."\n\n";
+        $block      = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('maths_block', $texblock, array());
+        return "\n\n".parent::hashBlock($block)."\n\n";
     }
 
     /**
@@ -93,25 +77,9 @@ class Maths
     public function span($texblock)
     {
         $texblock   = trim($texblock);
-        $math_type  = MarkdownExtended::getConfig('math_type');
-        if ($math_type == "mathjax") {
-            $texblock = MarkdownExtended::get('OutputFormatBag')
-                    ->buildTag('span', '['.$texblock.']', array(
-                        'class'=>"MathJax_Preview",
-                    ))
-                .MarkdownExtended::get('OutputFormatBag')
-                    ->buildTag('script', $texblock, array(
-                        'type'=>"math/tex",
-                    ))
-            ;
-        } else {
-            $texblock = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('span', $texblock, array(
-                    'class'=>"math",
-                ))
-            ;
-        }
-        return parent::hashPart($texblock);
+        $block      = MarkdownExtended::get('OutputFormatBag')
+            ->buildTag('maths_span', $texblock, array());
+        return parent::hashPart($block);
     }
 
 }
