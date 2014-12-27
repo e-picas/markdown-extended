@@ -108,7 +108,7 @@ disables the **quiet** one.
 :   Extract the *body* part from content(s) ; alias of option **--extract=body**.
 
 **-s** , **--simple**
-:   Use the simple default configuration file defined by the `\MarkdownExtended\MarkdownExtended::SIMPLE_CONFIGFILE`
+:   Use the simple default configuration file defined by the `\MarkdownExtended\Config::SIMPLE_CONFIGFILE`
     constant ; this is a preset to treat contents coming from input fields.
 
 ### Special options

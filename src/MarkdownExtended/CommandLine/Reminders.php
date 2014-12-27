@@ -19,6 +19,7 @@
 namespace MarkdownExtended\CommandLine;
 
 use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Config;
 use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
@@ -79,7 +80,7 @@ class Reminders
         }
         $this->runOption_docsdir(__DIR__.'/../Resources/doc');
         $this->runOption_output(__DIR__.'/../../../markdown_reminders.html');
-        $this->runOption_config(MarkdownExtended::FULL_CONFIGFILE);
+        $this->runOption_config(Config::FULL_CONFIGFILE);
         $this->runOptions();
     }
 

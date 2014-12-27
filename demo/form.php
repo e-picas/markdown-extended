@@ -15,7 +15,7 @@ EOT;
 // process
 if (!empty($_POST)) {
     $posted = htmlspecialchars($_POST['mde_content']);
-    $options = array('config_file'=>\MarkdownExtended\MarkdownExtended::SIMPLE_CONFIGFILE);
+    $options = array('config_file'=>\MarkdownExtended\Config::SIMPLE_CONFIGFILE);
     $mde_content = \MarkdownExtended\MarkdownExtended::create()
         ->transformString($posted, $options);
 }

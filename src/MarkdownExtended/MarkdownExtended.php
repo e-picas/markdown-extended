@@ -91,16 +91,6 @@ final class MarkdownExtended
     const MDE_SOURCES   = 'http://github.com/piwi/markdown-extended';
 
     /**
-     * Default full options INI file
-     */
-    const FULL_CONFIGFILE = 'markdown_config.full.ini';
-
-    /**
-     * Default simple options INI file (i.e. for input fields)
-     */
-    const SIMPLE_CONFIGFILE = 'markdown_config.simple.ini';
-
-    /**
      * @var  array  table of \MarkdownExtended\MarkdownExtended instances
      */
     private static $_instances = array();

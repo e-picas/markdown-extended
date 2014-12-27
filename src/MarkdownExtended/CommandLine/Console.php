@@ -19,6 +19,7 @@
 namespace MarkdownExtended\CommandLine;
 
 use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Config;
 use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
@@ -45,41 +46,41 @@ class Console
     /**#@+
      * Command line options values
      */
-    protected $output        =false;
-    protected $multi         =false;
-    protected $config        =false;
-    protected $filter_html   =false;
-    protected $filter_styles =false;
-    protected $nofilter      =false;
-    protected $extract       =false;
-    protected $format        ='HTML';
-    protected $template      =false;
+    protected $output        = false;
+    protected $multi         = false;
+    protected $config        = false;
+    protected $filter_html   = false;
+    protected $filter_styles = false;
+    protected $nofilter      = false;
+    protected $extract       = false;
+    protected $format        = 'HTML';
+    protected $template      = false;
     /**#@-*/
 
     /**
      * Command line options
      */
     static $cli_options = array(
-        'v'=>'verbose', 
-        'q'=>'quiet', 
-        'x'=>'debug', 
-        'V'=>'version', 
-        'h'=>'help', 
-        'o:'=>'output:', 
-        'm'=>'multi', 
-        'c:'=>'config:', 
-        'f:'=>'format:', 
-        'g:'=>'gamuts::', 
-        'n:'=>'nofilter:', 
-        'e::'=>'extract::',
-        't::'=>'template::',
+        'v'     =>'verbose',
+        'q'     =>'quiet',
+        'x'     =>'debug',
+        'V'     =>'version',
+        'h'     =>'help',
+        'o:'    =>'output:',
+        'm'     =>'multi',
+        'c:'    =>'config:',
+        'f:'    =>'format:',
+        'g:'    =>'gamuts::',
+        'n:'    =>'nofilter:',
+        'e::'   =>'extract::',
+        't::'   =>'template::',
         'man',
         'usage',
 //      'filter-html', 
 //      'filter-styles', 
         // aliases
-        's'=>'simple',
-        'b'=>'body',
+        's'     =>'simple',
+        'b'     =>'body',
     );
 
     /**
@@ -138,7 +139,7 @@ class Console
         if (empty($this->options) && empty($this->input)) {
             $this->error("No argument found - nothing to do!");
         }
-        $this->runOption_config(MarkdownExtended::FULL_CONFIGFILE);
+        $this->runOption_config(Config::FULL_CONFIGFILE);
         $this->runOptions();
     }
 
@@ -503,7 +504,7 @@ EOT;
      */
     public function runOption_simple()
     {
-        $this->runOption_config(MarkdownExtended::SIMPLE_CONFIGFILE);
+        $this->runOption_config(Config::SIMPLE_CONFIGFILE);
     }
 
 // -------------------
