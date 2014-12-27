@@ -66,7 +66,7 @@ class CodeBlock
         # trim leading newlines and trailing newlines
         $codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
         $codeblock = MarkdownExtended::get('OutputFormatBag')
-            ->buildTag('preformated', $codeblock);
+            ->buildTag('preformatted', $codeblock);
         return "\n\n".parent::hashBlock($codeblock)."\n\n";
     }
 

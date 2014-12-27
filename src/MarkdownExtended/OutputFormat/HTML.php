@@ -19,8 +19,7 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -30,7 +29,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  */
 class HTML
     extends AbstractOutputFormat
-    implements OutputFormatInterface
+    implements MDE_API\OutputFormatInterface
 {
 
     /**
@@ -49,7 +48,7 @@ class HTML
         'italic' => array(
             'tag'=>'em',
         ),
-        'preformated' => array(
+        'preformatted' => array(
             'tag'=>'pre',
         ),
         'link' => array(

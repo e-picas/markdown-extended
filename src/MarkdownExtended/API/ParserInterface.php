@@ -18,6 +18,8 @@
  */
 namespace MarkdownExtended\API;
 
+use \MarkdownExtended\API as MDE_API;
+
 /**
  * Interface for a content parser
  *
@@ -45,7 +47,7 @@ interface ParserInterface
      * @param   bool                                    $secondary
      * @return  \MarkdownExtended\MarkdownExtended
      */
-    public function parse(\MarkdownExtended\API\ContentInterface $content, $secondary = false);
+    public function parse(MDE_API\ContentInterface $content, $secondary = false);
     
 }
 

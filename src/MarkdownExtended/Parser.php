@@ -20,15 +20,14 @@ namespace MarkdownExtended;
 
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
-use \MarkdownExtended\API\ParserInterface;
-use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\API as MDE_API;
 
 /**
  * PHP Markdown Extended Parser Class
  * @package MarkdownExtended
  */
 class Parser
-    implements ParserInterface
+    implements MDE_API\ParserInterface
 {
 
     /**
@@ -102,7 +101,7 @@ class Parser
 // ----------------------------------
     
     /**
-     * Main function. Performs some preprocessing on the input text
+     * Main function. Performs some pre-processing on the input text
      * and pass it through the document gamut.
      *
      * @param   \MarkdownExtended\API\ContentInterface   $content
@@ -112,7 +111,7 @@ class Parser
      * @see     self::_setup()
      * @see     self::_teardown()
      */
-    public function parse(ContentInterface $content, $secondary = false)
+    public function parse(MDE_API\ContentInterface $content, $secondary = false)
     {
         MarkdownExtended::addProcessedContent($content, $secondary);
         $this->_setup();

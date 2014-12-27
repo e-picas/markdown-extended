@@ -19,7 +19,6 @@
 namespace MarkdownExtended\CommandLine;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\CommandLine\AbstractConsole;
 use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
@@ -471,11 +470,11 @@ EOT;
                 }
             }
         } else {
-            $gamuts['initial_gamut'] = MarkdownExtended::getConfig('initial_gamut');
-            $gamuts['transform_gamut'] = MarkdownExtended::getConfig('transform_gamut');
-            $gamuts['document_gamut'] = MarkdownExtended::getConfig('document_gamut');
-            $gamuts['span_gamut'] = MarkdownExtended::getConfig('span_gamut');
-            $gamuts['block_gamut'] = MarkdownExtended::getConfig('block_gamut');
+            $gamuts['initial_gamut']    = MarkdownExtended::getConfig('initial_gamut');
+            $gamuts['transform_gamut']  = MarkdownExtended::getConfig('transform_gamut');
+            $gamuts['document_gamut']   = MarkdownExtended::getConfig('document_gamut');
+            $gamuts['span_gamut']       = MarkdownExtended::getConfig('span_gamut');
+            $gamuts['block_gamut']      = MarkdownExtended::getConfig('block_gamut');
         }
         if (!empty($gamuts)) {
             $str = $this->_renderOutput($gamuts);
@@ -663,15 +662,15 @@ EOT;
                 }
                 try {
                     $md_content = MDE_API::factory('Content', array(null, $input));
-                } catch (\MarkdownExtended\Exception\DomainException $e) {
+                } catch (MDE_Exception\DomainException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+                } catch (MDE_Exception\RuntimeException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+                } catch (MDE_Exception\UnexpectedValueException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+                } catch (MDE_Exception\InvalidArgumentException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\Exception $e) {
+                } catch (MDE_Exception\Exception $e) {
                     $this->caught($e);
                 } catch (\Exception $e) {
                     $this->caught($e);
@@ -683,15 +682,15 @@ EOT;
                 }
                 try {
                     $md_content = MDE_API::factory('Content', array($input));
-                } catch (\MarkdownExtended\Exception\DomainException $e) {
+                } catch (MDE_Exception\DomainException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+                } catch (MDE_Exception\RuntimeException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+                } catch (MDE_Exception\UnexpectedValueException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+                } catch (MDE_Exception\InvalidArgumentException $e) {
                     $this->caught($e);
-                } catch (\MarkdownExtended\Exception\Exception $e) {
+                } catch (MDE_Exception\Exception $e) {
                     $this->caught($e);
                 } catch (\Exception $e) {
                     $this->caught($e);
@@ -710,7 +709,7 @@ EOT;
      * @return  string
      * @throws  any caught exception
      */
-    public function parseContent(\MarkdownExtended\API\ContentInterface $md_content)
+    public function parseContent(MDE_API\ContentInterface $md_content)
     {
         $md_output=null;
         if (!empty($md_content)) {
@@ -734,15 +733,15 @@ EOT;
                         ->parse($md_content)
                         ->getFullContent();
                 }
-            } catch (\MarkdownExtended\Exception\DomainException $e) {
+            } catch (MDE_Exception\DomainException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+            } catch (MDE_Exception\RuntimeException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+            } catch (MDE_Exception\UnexpectedValueException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+            } catch (MDE_Exception\InvalidArgumentException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\Exception $e) {
+            } catch (MDE_Exception\Exception $e) {
                 $this->caught($e);
             } catch (\Exception $e) {
                 $this->caught($e);
@@ -765,7 +764,7 @@ EOT;
      * @return  string
      * @throws  any caught exception
      */
-    public function extractContent(\MarkdownExtended\API\ContentInterface $md_content, $extract)
+    public function extractContent(MDE_API\ContentInterface $md_content, $extract)
     {
         $md_output = '';
         $preset = self::$extract_presets[$extract];
@@ -785,15 +784,15 @@ EOT;
                     array($md_content_parsed, ucfirst($preset['getter']))
                 );
                 $md_output = $this->_renderOutput($output);
-            } catch (\MarkdownExtended\Exception\DomainException $e) {
+            } catch (MDE_Exception\DomainException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\RuntimeException $e) {
+            } catch (MDE_Exception\RuntimeException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\UnexpectedValueException $e) {
+            } catch (MDE_Exception\UnexpectedValueException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\InvalidArgumentException $e) {
+            } catch (MDE_Exception\InvalidArgumentException $e) {
                 $this->caught($e);
-            } catch (\MarkdownExtended\Exception\Exception $e) {
+            } catch (MDE_Exception\Exception $e) {
                 $this->caught($e);
             } catch (\Exception $e) {
                 $this->caught($e);

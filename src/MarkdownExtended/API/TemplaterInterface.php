@@ -26,7 +26,18 @@ namespace MarkdownExtended\API;
 interface TemplaterInterface
 {
 
+    /**
+     * Get the template file path
+     *
+     * @return mixed
+     */
     public function getTemplate();
+
+    /**
+     * Get the template content with loaded Markdown parsed content parts inserted
+     *
+     * @return mixed
+     */
     public function __toString();
 
 }

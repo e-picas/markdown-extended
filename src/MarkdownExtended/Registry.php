@@ -197,7 +197,6 @@ class Registry
             throw new MDE_Exception\InvalidArgumentException(sprintf(
                 'Registry entry must be named by alpha-numeric string, <%s> given!', $var
             ));
-            return false;
         }
         return true;
     }

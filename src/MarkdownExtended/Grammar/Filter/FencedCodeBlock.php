@@ -81,7 +81,7 @@ class FencedCodeBlock
                 MarkdownExtended::getConfig('fcb_attribute_value_mask'), $language);
         }
         $codeblock = MarkdownExtended::get('OutputFormatBag')
-            ->buildTag('preformated', $codeblock, $attributes);
+            ->buildTag('preformatted', $codeblock, $attributes);
         return "\n\n" . parent::hashBlock($codeblock) . "\n\n";
     }
 

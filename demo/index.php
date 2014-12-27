@@ -57,7 +57,7 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
 // Custom classes
 if (file_exists($d = __DIR__.'/../src/SplClassLoader.php')) {
     require_once $d;
-    $classLoader = new SplClassLoader('MDE_Overrides', __DIR__.'/user');
+    $classLoader = new SplClassLoader('MDE_Overrides', __DIR__.'/src');
     $classLoader->register();
 }
 
@@ -142,7 +142,7 @@ exit('yo');
 
 $output_bag = !empty($mde_content) ? \MarkdownExtended\MarkdownExtended::get('OutputFormatBag') : null;
 $menu = !empty($mde_content) ? $output_bag->getHelper()
-    ->getToc($mde_content, $output_bag->getFormater(), array(
+    ->getToc($mde_content, $output_bag->getFormatter(), array(
         'title_level'=>'2', 'class'=>'menu'
     )) : null;
 

@@ -19,9 +19,7 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\API\OutputFormatHelperInterface;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -30,20 +28,20 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * @package MarkdownExtended\OutputFormat
  */
 class HTMLHelper
-    implements OutputFormatHelperInterface
+    implements MDE_API\OutputFormatHelperInterface
 {
 
     /**
      * Get a complete version of parsed content, including metadata, body and notes
      *
      * @param   \MarkdownExtended\API\ContentInterface          $md_content
-     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formatter
      * @param   bool    $full_html Defines if the metadata must be returned in a `<head>` block
      * @param   bool    $include_toc Include a table-of-content (default is `false`)
      * @param   string  $html_tag Defines the HTML header tag
      * @return  string
      */
-    public function getFullContent(ContentInterface $md_content, OutputFormatInterface $formater, $full_html = true, $include_toc = false, $html_tag = '<!DOCTYPE html>')
+    public function getFullContent(MDE_API\ContentInterface $md_content, MDE_API\OutputFormatInterface $formatter, $full_html = true, $include_toc = false, $html_tag = '<!DOCTYPE html>')
     {
         $content = '';
         $title_done = false;
@@ -61,10 +59,10 @@ class HTMLHelper
             foreach ($md_content->getMetadata() as $meta_name=>$meta_content) {
                 if (!in_array($meta_name, $special_metadata)) {
                     if ($meta_name=='title') {
-                        $content .= $formater->buildTag('meta_title', $meta_content);
+                        $content .= $formatter->buildTag('meta_title', $meta_content);
                         $title_done = true;
                     } else {
-                        $content .= $formater->buildTag('meta_data', null, array(
+                        $content .= $formatter->buildTag('meta_data', null, array(
                             'name'=>$meta_name,
                             'content'=>$meta_content
                         )) . "\n";
@@ -73,7 +71,7 @@ class HTMLHelper
             }
             // last update
             if ($md_content->getLastUpdate()) {
-                $content .= $formater->buildTag('meta_data', null, array(
+                $content .= $formatter->buildTag('meta_data', null, array(
                     'http-equiv'=>'last-modified',
                     'content'=>
                         gmdate('D, d M Y H:i:s \G\M\T', $md_content->getLastUpdate()->getTimestamp())
@@ -83,14 +81,14 @@ class HTMLHelper
 
         // force title if so
         if ($full_html && !$title_done && $md_content->getTitle()) {
-            $content .= $formater->buildTag('meta_title', $md_content->getTitle()) . "\n";
+            $content .= $formatter->buildTag('meta_title', $md_content->getTitle()) . "\n";
         }
 
         if ($full_html) $content .= "</head><body>\n";
 
         // toc
         if ($md_content->getMenu()) {
-            $content .= self::getToc($md_content, $formater);
+            $content .= self::getToc($md_content, $formatter);
         }
 
         // body
@@ -102,17 +100,17 @@ class HTMLHelper
         if ($md_content->getNotes()) {
             $notes_content = '';
             foreach ($md_content->getNotes() as $id=>$note_content) {
-                $notes_content .= $formater->buildTag('ordered_list_item', $note_content['text'], array(
+                $notes_content .= $formatter->buildTag('ordered_list_item', $note_content['text'], array(
                     'id' => !empty($note_content['note-id']) ? $note_content['note-id'] : $id
                 )) . "\n";
             }
-            $notes_content = $formater->buildTag('ordered_list', $notes_content) . "\n";
-            $content .= $formater->buildTag('block', $notes_content, array('class'=>'footnotes')) . "\n";
+            $notes_content = $formatter->buildTag('ordered_list', $notes_content) . "\n";
+            $content .= $formatter->buildTag('block', $notes_content, array('class'=>'footnotes')) . "\n";
         }
 
         // last update
         if ($md_content->getLastUpdate()) {
-            $content .= $formater->buildTag('paragraph', 'Last updated at '.$md_content->getLastUpdate()->format('r')) . "\n";
+            $content .= $formatter->buildTag('paragraph', 'Last updated at '.$md_content->getLastUpdate()->format('r')) . "\n";
         }
 
         if ($full_html) $content .= "</body>\n</html>\n";
@@ -124,11 +122,11 @@ class HTMLHelper
      * Build a hierarchical menu
      *
      * @param   \MarkdownExtended\API\ContentInterface          $md_content
-     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formatter
      * @param   null/array   $attributes
      * @return  string
      */
-    public function getToc(ContentInterface $md_content, OutputFormatInterface $formater, array $attributes = null)
+    public function getToc(MDE_API\ContentInterface $md_content, MDE_API\OutputFormatInterface $formatter, array $attributes = null)
     {
         $menu = $md_content->getMenu();
         $content = $list_content = '';
@@ -147,7 +145,7 @@ class HTMLHelper
                     $list_content .= '<li>';
                 }
                 $depth += $diff;
-                $list_content .= $formater->buildTag('link', $menu_item['text'], array(
+                $list_content .= $formatter->buildTag('link', $menu_item['text'], array(
                     'href'=>'#'.$item_id,
                     'title'=>'Reach this section'
                 ));
@@ -157,14 +155,14 @@ class HTMLHelper
                 $list_content .= str_repeat('</ul></li>', $depth);
             }
 
-            $content .= $formater->buildTag(
+            $content .= $formatter->buildTag(
                 'title',
                 (isset($attributes['title_string']) ? $attributes['title_string'] : 'Table of contents'),
                 array(
                     'level'=>isset($attributes['title_level']) ? $attributes['title_level'] : '4',
                     'id'=>isset($attributes['title_id']) ? $attributes['title_id'] : 'toc'
                 ));
-            $content .= $formater->buildTag(
+            $content .= $formatter->buildTag(
                 'unordered_list',
                 $list_content,
                 array(
