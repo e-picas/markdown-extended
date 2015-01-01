@@ -1,5 +1,14 @@
 #!/bin/sh
 #
+# This file is part of the PHP-MarkdownExtended package.
+#
+# (c) Pierre Cassat <me@e-piwi.fr> and contributors
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+#
 # An example hook script called before version tag creation.
 # This will receive three arguments:
 # - $1: the project path to work on
