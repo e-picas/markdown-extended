@@ -30,11 +30,8 @@ class AutoLink
      */
     public function transform($text)
     {
-        $text = preg_replace_callback('{<([^\'">\s]+)>}i',
-            array($this, '_url_callback'), $text);
-
         // Email addresses: <address@domain.foo>
-        return preg_replace_callback('{
+        $text = preg_replace_callback('{
             <
             (?:mailto:)?
             (
@@ -53,6 +50,11 @@ class AutoLink
             >
             }xi',
             array($this, '_email_callback'), $text);
+
+        $text = preg_replace_callback('{<([^\'">\s]+)>}i',
+            array($this, '_url_callback'), $text);
+
+        return $text;
     }
 
     /**
