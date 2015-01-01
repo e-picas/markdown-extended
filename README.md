@@ -207,6 +207,6 @@ long as you mention the copyrights below:
     All rights reserved.
 
     PHP Markdown Extended
-    Copyright (c) 2008-2014 Pierre Cassat & contributors
+    Copyright (c) 2008-2015 Pierre Cassat & contributors
     <http://e-piwi.fr/>  
     All rights reserved.
