@@ -183,7 +183,7 @@ read the LICENSE file for more information, or see
 <http://opensource.org/licenses/BSD-3-Clause>. 
 
 PHP Markdown Extended - 
-Copyright (c) 2008-2014 Pierre Cassat - 
+Copyright (c) 2008-2015 Pierre Cassat - 
 <http://e-piwi.fr/>
 
 Based on MultiMarkdown - 
