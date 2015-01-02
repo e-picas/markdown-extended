@@ -1,5 +1,5 @@
 .\" author: Pierre Cassat
-.TH  "markdown-extended" "3" "2015-01-03" "Version 0.1.0-gamma.5" "PHP-Markdown-Extended Manual"
+.TH  "markdown-extended" "3" "2015-01-03" "Version 0.1.0-gamma.5-2" "PHP-Markdown-Extended Manual"
 .SH NAME
 .PP
 PHP-Markdown-Extended - A PHP parser for the Markdown Extended syntax
