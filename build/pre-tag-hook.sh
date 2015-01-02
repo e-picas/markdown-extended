@@ -39,7 +39,7 @@ PHPBIN='php'
 MDE_CONSOLE="bin/markdown-extended"
 MARKDOWNEXTENDED="src/MarkdownExtended/MarkdownExtended.php"
 MARKDOWNMANPAGE="docs/MANPAGE.md"
-MARKDOWNMANPAGE_MAN="bin/markdown-extended.man"
+MARKDOWNMANPAGE_MAN="man/markdown-extended.man"
 _VERSION="${TAG_NAME/v/}"
 _DATE=$(git log -1 --format="%ci" --date=short | cut -s -f 1 -d ' ')
 
