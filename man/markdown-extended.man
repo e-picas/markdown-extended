@@ -1,5 +1,5 @@
 .\" author: Pierre Cassat
-.TH  "markdown-extended" "3" "27-12-2014" "Version 0.1-gamma4" "PHP-Markdown-Extended Manual"
+.TH  "markdown-extended" "3" "2015-01-03" "Version 0.1.0-gamma.5" "PHP-Markdown-Extended Manual"
 .SH NAME
 .PP
 PHP-Markdown-Extended - A PHP parser for the Markdown Extended syntax
@@ -95,7 +95,7 @@ disables the \fBquiet\fP one.
 Extract the \fIbody\fP part from content(s) ; alias of option \fB--extract=body\fP.
 .TP
 \fB-s\fP , \fB--simple\fP
-Use the simple default configuration file defined by the `\fS\\MarkdownExtended\\MarkdownExtended::SIMPLE_CONFIGFILE\fP`
+Use the simple default configuration file defined by the `\fS\\MarkdownExtended\\Config::SIMPLE_CONFIGFILE\fP`
 constant ; this is a preset to treat contents coming from input fields.
 .SS Special options
 .PP
@@ -191,7 +191,7 @@ read the LICENSE file for more information, or see
 <http://opensource.org/licenses/BSD-3-Clause>.
 .PP
 PHP Markdown Extended - 
-Copyright (c) 2008-2014 Pierre Cassat - 
+Copyright (c) 2008-2015 Pierre Cassat - 
 <http://e-piwi.fr/>
 .PP
 Based on MultiMarkdown - 
