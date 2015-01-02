@@ -92,7 +92,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>Must process the filter on a text</p>
+                    <p>Wrap text between &#91; and &#93; in display math tags.</p>
                 </td>
                 <td></td>
             </tr>
@@ -152,7 +152,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_runGamut">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 37</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 29</div>
         <code>            public            string
     <strong>runGamut</strong>(string $gamut, string $text)</code>
     </h3>
@@ -194,7 +194,7 @@
     </div>
 
                 <h3 id="method_resetHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 54</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 46</div>
         <code>            public            
     <strong>resetHash</strong>()</code>
     </h3>
@@ -210,7 +210,7 @@
     </div>
 
                 <h3 id="method_setHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 65</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 57</div>
         <code>            public            
     <strong>setHash</strong>(string $key, string $text)</code>
     </h3>
@@ -243,7 +243,7 @@
     </div>
 
                 <h3 id="method_getHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 75</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 67</div>
         <code>            public            
     <strong>getHash</strong>(string $key)</code>
     </h3>
@@ -270,7 +270,7 @@
     </div>
 
                 <h3 id="method_getDefaultMethod">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 39</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 31</div>
         <code>        static    public            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
@@ -296,12 +296,12 @@
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 43</div>
+        <div class="location">at line 35</div>
         <code>            public            string
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Must process the filter on a text</p>
+        <p>Wrap text between &#91; and &#93; in display math tags.</p>
         <p>
 </p>
         <div class="tags">
@@ -333,7 +333,7 @@
     </div>
 
                 <h3 id="method_hashPart">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 71</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 63</div>
         <code>            public            string
     <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
     </h3>
@@ -387,7 +387,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashBlock">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 90</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 82</div>
         <code>            public            string
     <strong>hashBlock</strong>(string $text)</code>
     </h3>
@@ -431,7 +431,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashClean">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 104</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 96</div>
         <code>            public            string
     <strong>hashClean</strong>(string $text)</code>
     </h3>
@@ -475,7 +475,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_unhash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 116</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 108</div>
         <code>            public            string
     <strong>unhash</strong>(string $text)</code>
     </h3>
@@ -519,7 +519,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_span">
-        <div class="location">at line 93</div>
+        <div class="location">at line 69</div>
         <code>            public            string
     <strong>span</strong>(string $texblock)</code>
     </h3>

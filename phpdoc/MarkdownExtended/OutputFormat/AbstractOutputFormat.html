@@ -44,8 +44,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_buildTag">buildTag</a>(string $tag_name, string $content = null, array $attributes = array())
-                    <p>
-</p>
+                    <p>This will try to call a method <code>build{TagName}()</code> if it exists, then will try to use the object <code>$tags_map</code> static to automatically find what to do, and then call the default <code>getTagString()</code> method passing it the arguments.</p>
                 </td>
                 <td></td>
             </tr>
@@ -66,13 +65,12 @@
         <h2>Details</h2>
 
                         <h3 id="method_buildTag">
-        <div class="location">at line 55</div>
+        <div class="location">at line 47</div>
         <code>            public            string
     <strong>buildTag</strong>(string $tag_name, string $content = null, array $attributes = array())</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>This will try to call a method <code>build{TagName}()</code> if it exists, then will try to use the object <code>$tags_map</code> static to automatically find what to do, and then call the default <code>getTagString()</code> method passing it the arguments.</p>
         <p>
 </p>
         <div class="tags">
@@ -115,7 +113,7 @@
     </div>
 
                 <h3 id="method_getTagString">
-        <div class="location">at line 89</div>
+        <div class="location">at line 81</div>
         <code>    abstract        public            string
     <strong>getTagString</strong>(string $content, string $tag_name, array $attributes = array())</code>
     </h3>

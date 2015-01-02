@@ -56,7 +56,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_load">load</a>(string $format)
-                    <p>Loads a new formater</p>
+                    <p>Loads a new formatter</p>
                 </td>
                 <td></td>
             </tr>
@@ -66,7 +66,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_loadHelper">loadHelper</a>(string $format)
-                    <p>Loads a formater helper if it exists</p>
+                    <p>Loads a formatter helper if it exists</p>
                 </td>
                 <td></td>
             </tr>
@@ -76,7 +76,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___call">__call</a>($name, array $arguments = null)
-                    <p>Magic method to pass any called method from the bag to its formater</p>
+                    <p>Magic method to pass any called method from the bag to its formatter</p>
                 </td>
                 <td></td>
             </tr>
@@ -85,8 +85,8 @@
                     <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_setFormater">setFormater</a>(<a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)
-                    <p>Set the current formater</p>
+                    <a href="#method_setFormatter">setFormatter</a>(<abbr title="MarkdownExtended\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr> $formatter)
+                    <p>Set the current formatter</p>
                 </td>
                 <td></td>
             </tr>
@@ -95,8 +95,8 @@
                     <a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_getFormater">getFormater</a>()
-                    <p>Get current formater</p>
+                    <a href="#method_getFormatter">getFormatter</a>()
+                    <p>Get current formatter</p>
                 </td>
                 <td></td>
             </tr>
@@ -105,8 +105,8 @@
                     <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_setHelper">setHelper</a>(<a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a> $helper)
-                    <p>Set the current formater helper</p>
+                    <a href="#method_setHelper">setHelper</a>(<abbr title="MarkdownExtended\MDE_API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr> $helper)
+                    <p>Set the current formatter helper</p>
                 </td>
                 <td></td>
             </tr>
@@ -116,7 +116,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_getHelper">getHelper</a>()
-                    <p>Get current formater helper</p>
+                    <p>Get current formatter helper</p>
                 </td>
                 <td></td>
             </tr>
@@ -126,12 +126,12 @@
         <h2>Details</h2>
 
                         <h3 id="method_load">
-        <div class="location">at line 69</div>
+        <div class="location">at line 83</div>
         <code>            public            
     <strong>load</strong>(string $format)</code>
     </h3>
     <div class="details">
-        <p>Loads a new formater</p>
+        <p>Loads a new formatter</p>
         <p>
 </p>
         <div class="tags">
@@ -141,7 +141,7 @@
                     <tr>
                 <td>string</td>
                 <td>$format</td>
-                <td>The formater name</td>
+                <td>The formatter name</td>
             </tr>
             </table>
 
@@ -165,12 +165,12 @@
     </div>
 
                 <h3 id="method_loadHelper">
-        <div class="location">at line 93</div>
+        <div class="location">at line 107</div>
         <code>            public            
     <strong>loadHelper</strong>(string $format)</code>
     </h3>
     <div class="details">
-        <p>Loads a formater helper if it exists</p>
+        <p>Loads a formatter helper if it exists</p>
         <p>
 </p>
         <div class="tags">
@@ -180,7 +180,7 @@
                     <tr>
                 <td>string</td>
                 <td>$format</td>
-                <td>The formater name</td>
+                <td>The formatter name</td>
             </tr>
             </table>
 
@@ -204,12 +204,12 @@
     </div>
 
                 <h3 id="method___call">
-        <div class="location">at line 118</div>
+        <div class="location">at line 132</div>
         <code>            public            
     <strong>__call</strong>($name, array $arguments = null)</code>
     </h3>
     <div class="details">
-        <p>Magic method to pass any called method from the bag to its formater</p>
+        <p>Magic method to pass any called method from the bag to its formatter</p>
         <p>
 </p>
         <div class="tags">
@@ -237,7 +237,7 @@
                     <table>
                     <tr>
                 <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the method doesn't exist in the formater class</td>
+                <td>if the method doesn't exist in the formatter class</td>
             </tr>
             </table>
 
@@ -245,13 +245,13 @@
                     </div>
     </div>
 
-                <h3 id="method_setFormater">
-        <div class="location">at line 142</div>
+                <h3 id="method_setFormatter">
+        <div class="location">at line 156</div>
         <code>            public            <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
-    <strong>setFormater</strong>(<a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater)</code>
+    <strong>setFormatter</strong>(<abbr title="MarkdownExtended\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr> $formatter)</code>
     </h3>
     <div class="details">
-        <p>Set the current formater</p>
+        <p>Set the current formatter</p>
         <p>
 </p>
         <div class="tags">
@@ -259,8 +259,8 @@
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
-                <td>$formater</td>
+                <td><abbr title="MarkdownExtended\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr></td>
+                <td>$formatter</td>
                 <td>
 </td>
             </tr>
@@ -282,13 +282,13 @@
                     </div>
     </div>
 
-                <h3 id="method_getFormater">
-        <div class="location">at line 153</div>
+                <h3 id="method_getFormatter">
+        <div class="location">at line 167</div>
         <code>            public            <a href="../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a>
-    <strong>getFormater</strong>()</code>
+    <strong>getFormatter</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get current formater</p>
+        <p>Get current formatter</p>
         <p>
 </p>
         <div class="tags">
@@ -309,12 +309,12 @@
     </div>
 
                 <h3 id="method_setHelper">
-        <div class="location">at line 164</div>
+        <div class="location">at line 178</div>
         <code>            public            <a href="../MarkdownExtended/OutputFormatBag.html"><abbr title="MarkdownExtended\OutputFormatBag">OutputFormatBag</abbr></a>
-    <strong>setHelper</strong>(<a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a> $helper)</code>
+    <strong>setHelper</strong>(<abbr title="MarkdownExtended\MDE_API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr> $helper)</code>
     </h3>
     <div class="details">
-        <p>Set the current formater helper</p>
+        <p>Set the current formatter helper</p>
         <p>
 </p>
         <div class="tags">
@@ -322,7 +322,7 @@
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a></td>
+                <td><abbr title="MarkdownExtended\MDE_API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></td>
                 <td>$helper</td>
                 <td>
 </td>
@@ -346,12 +346,12 @@
     </div>
 
                 <h3 id="method_getHelper">
-        <div class="location">at line 175</div>
+        <div class="location">at line 189</div>
         <code>            public            <a href="../MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">OutputFormatHelperInterface</abbr></a>
     <strong>getHelper</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get current formater helper</p>
+        <p>Get current formatter helper</p>
         <p>
 </p>
         <div class="tags">

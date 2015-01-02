@@ -32,6 +32,26 @@
 </p>
         </div>
     
+            <h2>Constants</h2>
+
+            <table>
+                    <tr>
+                <td>FULL_CONFIGFILE</td>
+                <td class="last">
+                    <p><em>Default full options INI file</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>SIMPLE_CONFIGFILE</td>
+                <td class="last">
+                    <p><em>Default simple options INI file (i.e.</em></p>
+                    <p>for input fields)</p>
+                </td>
+            </tr>
+            </table>
+
     
             <h2>Properties</h2>
 
@@ -56,7 +76,7 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>()
-                    <p>Initialize the registry</p>
+                    <p>Create a configuration object</p>
                 </td>
                 <td></td>
             </tr>
@@ -196,12 +216,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 98</div>
+        <div class="location">at line 100</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
     <div class="details">
-        <p>Initialize the registry</p>
+        <p>Create a configuration object</p>
         <p>
 </p>
         <div class="tags">
@@ -212,7 +232,7 @@
     </div>
 
                 <h3 id="method_set">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_set"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 70</div>
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_set"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 62</div>
         <code>            public            void
     <strong>set</strong>(string $var, mixed $val)</code>
     </h3>
@@ -264,7 +284,7 @@
     </div>
 
                 <h3 id="method_add">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_add"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 90</div>
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_add"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 82</div>
         <code>            public            void
     <strong>add</strong>(string $var, mixed $val)</code>
     </h3>
@@ -320,7 +340,7 @@
     </div>
 
                 <h3 id="method_remove">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_remove"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 117</div>
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_remove"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 109</div>
         <code>            public            void
     <strong>remove</strong>(string $var, <abbr title="MarkdownExtended\null/string">null/string</abbr> $index = null)</code>
     </h3>
@@ -372,7 +392,7 @@
     </div>
 
                 <h3 id="method_get">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_get"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 141</div>
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_get"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 133</div>
         <code>            public            mixed
     <strong>get</strong>(string $var, mixed $default = null)</code>
     </h3>
@@ -415,7 +435,7 @@
     </div>
 
                 <h3 id="method_extend">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_extend"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 160</div>
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_extend"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 152</div>
         <code>        static    public            mixed
     <strong>extend</strong>(mixed $what, mixed $add)</code>
     </h3>
@@ -475,7 +495,7 @@
     </div>
 
                 <h3 id="method_validateVarname">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_validateVarname"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 194</div>
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_validateVarname"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 186</div>
         <code>        static    public            bool
     <strong>validateVarname</strong>(string $var)</code>
     </h3>
@@ -521,7 +541,7 @@
     </div>
 
                 <h3 id="method_reset">
-        <div class="location">at line 109</div>
+        <div class="location">at line 111</div>
         <code>            public            void
     <strong>reset</strong>()</code>
     </h3>
@@ -547,7 +567,7 @@
     </div>
 
                 <h3 id="method_init">
-        <div class="location">at line 122</div>
+        <div class="location">at line 124</div>
         <code>            public            void
     <strong>init</strong>(<abbr title="MarkdownExtended\null/string/array">null/string/array</abbr> $user_config = null)</code>
     </h3>
@@ -597,7 +617,7 @@
     </div>
 
                 <h3 id="method_load">
-        <div class="location">at line 156</div>
+        <div class="location">at line 158</div>
         <code>            public            void
     <strong>load</strong>(<abbr title="MarkdownExtended\string/array">string/array</abbr> $cfg_file, bool $silent = false)</code>
     </h3>
@@ -653,7 +673,7 @@
     </div>
 
                 <h3 id="method_reload">
-        <div class="location">at line 183</div>
+        <div class="location">at line 185</div>
         <code>            public            void
     <strong>reload</strong>(<abbr title="MarkdownExtended\string/array">string/array</abbr> $cfg_file = null, bool $forced = false, bool $silent = false)</code>
     </h3>
@@ -715,7 +735,7 @@
     </div>
 
                 <h3 id="method_overload">
-        <div class="location">at line 207</div>
+        <div class="location">at line 209</div>
         <code>            public            void
     <strong>overload</strong>(array $config)</code>
     </h3>
@@ -752,7 +772,7 @@
     </div>
 
                 <h3 id="method_setConfigFile">
-        <div class="location">at line 223</div>
+        <div class="location">at line 225</div>
         <code>            public            <a href="../MarkdownExtended/Config.html"><abbr title="MarkdownExtended\Config">Config</abbr></a>
     <strong>setConfigFile</strong>(string $cfg_file)</code>
     </h3>
@@ -798,7 +818,7 @@
     </div>
 
                 <h3 id="method_getConfigFile">
-        <div class="location">at line 241</div>
+        <div class="location">at line 243</div>
         <code>            public            string
     <strong>getConfigFile</strong>()</code>
     </h3>

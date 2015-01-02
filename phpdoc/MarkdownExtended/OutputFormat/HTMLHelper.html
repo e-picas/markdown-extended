@@ -43,8 +43,8 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_getFullContent">getFullContent</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)
-                    <p>This must return a full formated string ready to write a well-formed document in the considered format</p>
+                    <a href="#method_getFullContent">getFullContent</a>(<abbr title="MarkdownExtended\OutputFormat\MDE_API\ContentInterface">ContentInterface</abbr> $md_content, <abbr title="MarkdownExtended\OutputFormat\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr> $formatter, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)
+                    <p>Get a complete version of parsed content, including metadata, body and notes</p>
                 </td>
                 <td></td>
             </tr>
@@ -53,8 +53,8 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_getToc">getToc</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, array $attributes = null)
-                    <p>This must return a full formated table of contents in the considered format</p>
+                    <a href="#method_getToc">getToc</a>(<abbr title="MarkdownExtended\OutputFormat\MDE_API\ContentInterface">ContentInterface</abbr> $md_content, <abbr title="MarkdownExtended\OutputFormat\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr> $formatter, array $attributes = null)
+                    <p>Build a hierarchical menu</p>
                 </td>
                 <td></td>
             </tr>
@@ -64,12 +64,12 @@
         <h2>Details</h2>
 
                         <h3 id="method_getFullContent">
-        <div class="location">at line 46</div>
+        <div class="location">at line 36</div>
         <code>            public            string
-    <strong>getFullContent</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)</code>
+    <strong>getFullContent</strong>(<abbr title="MarkdownExtended\OutputFormat\MDE_API\ContentInterface">ContentInterface</abbr> $md_content, <abbr title="MarkdownExtended\OutputFormat\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr> $formatter, bool $full_html = true, bool $include_toc = false, string $html_tag = &#039;&lt;!DOCTYPE html&gt;&#039;)</code>
     </h3>
     <div class="details">
-        <p>This must return a full formated string ready to write a well-formed document in the considered format</p>
+        <p>Get a complete version of parsed content, including metadata, body and notes</p>
         <p>
 </p>
         <div class="tags">
@@ -77,14 +77,14 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td><abbr title="MarkdownExtended\OutputFormat\MDE_API\ContentInterface">ContentInterface</abbr></td>
                 <td>$md_content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td><a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
-                <td>$formater</td>
+                <td><abbr title="MarkdownExtended\OutputFormat\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr></td>
+                <td>$formatter</td>
                 <td>
 </td>
             </tr>
@@ -122,12 +122,12 @@
     </div>
 
                 <h3 id="method_getToc">
-        <div class="location">at line 131</div>
+        <div class="location">at line 121</div>
         <code>            public            string
-    <strong>getToc</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $md_content, <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a> $formater, array $attributes = null)</code>
+    <strong>getToc</strong>(<abbr title="MarkdownExtended\OutputFormat\MDE_API\ContentInterface">ContentInterface</abbr> $md_content, <abbr title="MarkdownExtended\OutputFormat\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr> $formatter, array $attributes = null)</code>
     </h3>
     <div class="details">
-        <p>This must return a full formated table of contents in the considered format</p>
+        <p>Build a hierarchical menu</p>
         <p>
 </p>
         <div class="tags">
@@ -135,14 +135,14 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td><abbr title="MarkdownExtended\OutputFormat\MDE_API\ContentInterface">ContentInterface</abbr></td>
                 <td>$md_content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td><a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></td>
-                <td>$formater</td>
+                <td><abbr title="MarkdownExtended\OutputFormat\MDE_API\OutputFormatInterface">OutputFormatInterface</abbr></td>
+                <td>$formatter</td>
                 <td>
 </td>
             </tr>
