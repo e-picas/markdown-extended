@@ -10,17 +10,16 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\Content;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
-use \MarkdownExtended\API\CollectionInterface;
+use \MarkdownExtended\API as MDE_API;
 
 /**
  * Class defining a collection of content objects
  * @package MarkdownExtended
  */
 class ContentCollection
-    implements  CollectionInterface
+    implements  MDE_API\CollectionInterface
 {
 
     /**
@@ -45,61 +44,66 @@ class ContentCollection
      */
     public function exists()
     {
-        return count($this->_elements)!==0;
+        return (count($this->_elements)!==0);
     }
 
     /**
-     * @return  void
+     * @return  self
      */
     public function clear()
     {
         $this->_elements = array();
+        return $this;
     }
 
     /**
      * Define a new item in the collection by key
      *
      * @param   mixed   $key
-     * @param   \MarkdownExtended\Content   $value
-     * @return  void
+     * @param   \MarkdownExtended\API\ContentInterface   $value
+     * @return  self
      */
-    public function set($key, Content $value)
+    public function set($key, MDE_API\ContentInterface $value)
     {
         $this->_elements[$key] = $value;
+        return $this;
     }
 
     /**
      * Add a new item at the end of the collection
      *
-     * @param   \MarkdownExtended\Content  $value
+     * @param   \MarkdownExtended\API\ContentInterface  $value
+     * @return  self
      */
-    public function add(Content $value)
+    public function add(MDE_API\ContentInterface $value)
     {
         $this->_elements[] = $value;
+        return $this;
     }
 
     /**
      * Delete an item of the collection by key
      *
      * @param   mixed    $key
-     * @return  void
+     * @return  self
      */
     public function remove($key)
     {
         if (isset($this->_elements[$key])) {
             unset($this->_elements[$key]);
         }
+        return $this;
     }
 
     /**
      * Get a collection item by key
      *
      * @param   mixed   $key
-     * @return  mixed/null \MarkdownExtended\Content
+     * @return  mixed/null \MarkdownExtended\API\ContentInterface
      */
     public function get($key)
     {
-        return array_key_exists($key, $this->_elements) ? $this->_elements[$key] : null;
+        return (array_key_exists($key, $this->_elements) ? $this->_elements[$key] : null);
     }
 
 // -------------------------
@@ -109,7 +113,7 @@ class ContentCollection
     /**
      * Get the current collection item
      *
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
      */
     public function current()
     {
@@ -129,7 +133,7 @@ class ContentCollection
     /**
      * Get next collection item
      *
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
      */
     public function next()
     {
@@ -139,7 +143,7 @@ class ContentCollection
     /**
      * Put the iterator on the first collection item
      *
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
      */
     public function rewind()
     {
@@ -154,13 +158,13 @@ class ContentCollection
     public function valid()
     {
         $key = $this->key();
-        return !empty($key) && $this->offsetExists($key);
+        return (!empty($key) && $this->offsetExists($key));
     }
 
     /**
      * Rewind to first collection item
      *
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
      */
     public function first()
     {
@@ -170,7 +174,7 @@ class ContentCollection
     /**
      * Go to last collection item
      *
-     * @return  \MarkdownExtended\Content
+     * @return  \MarkdownExtended\API\ContentInterface
      */
     public function last()
     {

@@ -11,9 +11,7 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\API\OutputFormatHelperInterface;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -22,23 +20,23 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * @package MarkdownExtended\OutputFormat
  */
 class DefaultHelper
-    implements OutputFormatHelperInterface
+    implements MDE_API\OutputFormatHelperInterface
 {
 
     /**
      * Get a complete version of parsed content, including metadata, body and notes
      *
      * @param   \MarkdownExtended\API\ContentInterface          $md_content
-     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formatter
      * @return  string
      */
-    public function getFullContent(ContentInterface $md_content, OutputFormatInterface $formater)
+    public function getFullContent(MDE_API\ContentInterface $md_content, MDE_API\OutputFormatInterface $formatter)
     {
         $content = '';
 
         // charset
         if ($md_content->getCharset()) {
-            $content .= $formater->buildTag('meta_data', $md_content->getCharset(), array('name'=>'charset'));
+            $content .= $formatter->buildTag('meta_data', $md_content->getCharset(), array('name'=>'charset'));
         }
 
         // metadata
@@ -47,9 +45,9 @@ class DefaultHelper
             foreach ($md_content->getMetadata() as $meta_name=>$meta_content) {
                 if (!in_array($meta_name, $special_metadata)) {
                     if ($meta_name=='title') {
-                        $content .= $formater->buildTag('meta_title', $meta_content);
+                        $content .= $formatter->buildTag('meta_title', $meta_content);
                     } else {
-                        $content .= $formater->buildTag('meta_data', $meta_content, array('name'=>$meta_name));
+                        $content .= $formatter->buildTag('meta_data', $meta_content, array('name'=>$meta_name));
                     }
                 }
             }
@@ -57,12 +55,12 @@ class DefaultHelper
 
         // page title
         if ($md_content->getTitle()) {
-            $content .= $formater->buildTag('title', $md_content->getTitle());
+            $content .= $formatter->buildTag('title', $md_content->getTitle());
         }
 
         // toc
         if ($md_content->getMenu()) {
-            $content .= $this->getToc($md_content, $formater);
+            $content .= $this->getToc($md_content, $formatter);
         }
 
         // body
@@ -74,9 +72,9 @@ class DefaultHelper
         if ($md_content->getNotes()) {
             $notes_content = '';
             foreach ($md_content->getNotes() as $id=>$note_content) {
-                $notes_content .= $formater->buildTag('ordered_list_item', $note_content['text'], $note_content);
+                $notes_content .= $formatter->buildTag('ordered_list_item', $note_content['text'], $note_content);
             }
-            $content .= $formater->buildTag('ordered_list', $notes_content, array('type'=>'footnotes'));
+            $content .= $formatter->buildTag('ordered_list', $notes_content, array('type'=>'footnotes'));
         }
 
         return $content;
@@ -86,12 +84,12 @@ class DefaultHelper
      * Build a hierarchical menu
      *
      * @param   \MarkdownExtended\API\ContentInterface          $md_content
-     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formatter
      * @return  string
      *
      * @todo rewrite it without HTML (!)
      */
-    public function getToc(ContentInterface $md_content, OutputFormatInterface $formater)
+    public function getToc(MDE_API\ContentInterface $md_content, MDE_API\OutputFormatInterface $formatter)
     {
         $menu = $md_content->getMenu();
         $content = '';
@@ -101,7 +99,7 @@ class DefaultHelper
 
             $toc_title  = MarkdownExtended::getConfig('toc_title');
             $toc_id     = MarkdownExtended::getConfig('toc_id');
-            $content    .= $formater->buildTag(
+            $content    .= $formatter->buildTag(
                 'title',
                 (!empty($toc_title) ? $toc_title : 'Table of contents'),
                 array(
@@ -128,7 +126,7 @@ class DefaultHelper
             if ($depth!=0) {
                 $menu_content .= str_repeat('</ul></li>', $depth);
             }
-            $content .= 'YO'.$formater->buildTag(
+            $content .= $formatter->buildTag(
                 'unordered_list',
                 $menu_content,
                 array(
