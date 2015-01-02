@@ -22,6 +22,7 @@ export MDDOC_FILE="${HERE}/../${MDDOC_SOURCE}"
 export DOC_SOURCE="man/markdown-extended-documentation.man"
 export DOC_FILE="${HERE}/../${DOC_SOURCE}"
 export MDE_BIN="${HERE}/../bin/markdown-extended"
+export MDE_PHP="${HERE}/../src/MarkdownExtended/MarkdownExtended.php"
 
 # checks
 
