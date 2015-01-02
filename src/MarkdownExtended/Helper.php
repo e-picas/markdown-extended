@@ -144,7 +144,7 @@ class Helper
      *        &#101;&#46;&#x63;&#111;&#x6d;</a></p>
      *
      *  Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
-     *   With some optimizations by Milian Wolff.
+     *  With some optimizations by Milian Wolff.
      *
      * @param   string  $addr   The email address to encode
      * @return  string  The encoded address

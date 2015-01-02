@@ -11,8 +11,7 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -37,7 +36,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  */
 class Man
     extends AbstractOutputFormat
-    implements OutputFormatInterface
+    implements MDE_API\OutputFormatInterface
 {
 
     /**
@@ -74,7 +73,7 @@ class Man
             'tag'=>'\fI',
             'closable'=>true,
         ),
-        'preformated' => array(
+        'preformatted' => array(
             'tag'=>'.EX',
             'end_tag'=>'.EE',
             'indentable'=>true,
@@ -341,7 +340,7 @@ class Man
             . $this->ending_tag;
     }
 
-    public function buildPreformated($text = null, array $attributes = array())
+    public function buildPreformatted($text = null, array $attributes = array())
     {
         $lines = explode("\n", $text);
         $text = '';

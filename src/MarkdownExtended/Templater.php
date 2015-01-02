@@ -10,9 +10,7 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\TemplaterInterface;
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\API\CollectionInterface;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -21,7 +19,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * @package MarkdownExtended
  */
 class Templater
-    implements TemplaterInterface
+    implements MDE_API\TemplaterInterface
 {
 
     /**
@@ -88,7 +86,7 @@ class Templater
      * @param   \MarkdownExtended\API\ContentInterface
      * @return  self
      */
-    public function load(ContentInterface $mde_content)
+    public function load(MDE_API\ContentInterface $mde_content)
     {
         $this->mde_content = $mde_content;
         return $this;
@@ -100,7 +98,7 @@ class Templater
      * @param   \MarkdownExtended\API\CollectionInterface
      * @return  self
      */
-    public function loadCollection(CollectionInterface $mde_content_collection)
+    public function loadCollection(MDE_API\CollectionInterface $mde_content_collection)
     {
         $this->mde_content_collection = $mde_content_collection;
         return $this;
@@ -347,7 +345,6 @@ class Templater
                 throw new MDE_Exception\Exception(
                     sprintf('Template file "%s" not found!', $tpl_filename)
                 );
-                return null;
             }
             return $tpl_filename;
         }

@@ -10,6 +10,8 @@
 
 namespace MarkdownExtended\API;
 
+use \MarkdownExtended\API as MDE_API;
+
 /**
  * PHP Markdown Extended OutputFormat helper interface
  *
@@ -22,19 +24,19 @@ interface OutputFormatHelperInterface
      * This must return a full formated string ready to write a well-formed document in the considered format
      *
      * @param   \MarkdownExtended\API\ContentInterface          $content
-     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formatter
      * @return  string
      */
-    public function getFullContent(\MarkdownExtended\API\ContentInterface $content, \MarkdownExtended\API\OutputFormatInterface $formater);
+    public function getFullContent(MDE_API\ContentInterface $content, MDE_API\OutputFormatInterface $formatter);
 
     /**
      * This must return a full formated table of contents in the considered format
      *
      * @param   \MarkdownExtended\API\ContentInterface          $content
-     * @param   \MarkdownExtended\API\OutputFormatInterface     $formater
+     * @param   \MarkdownExtended\API\OutputFormatInterface     $formatter
      * @return  string
      */
-    public function getToc(\MarkdownExtended\API\ContentInterface $content, \MarkdownExtended\API\OutputFormatInterface $formater);
+    public function getToc(MDE_API\ContentInterface $content, MDE_API\OutputFormatInterface $formatter);
 
 }
 

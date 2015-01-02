@@ -10,7 +10,6 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\KernelInterface;
 use \MarkdownExtended\Registry;
 use \MarkdownExtended\Config;
 use \MarkdownExtended\OutputFormatBag;
@@ -72,7 +71,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * @package MarkdownExtended
  */
 final class MarkdownExtended
-    implements KernelInterface
+    implements MDE_API\KernelInterface
 {
 
     /**
@@ -82,16 +81,6 @@ final class MarkdownExtended
     const MDE_VERSION   = '0.1-gamma4';
     const MDE_DATE      = '26-12-2014';
     const MDE_SOURCES   = 'http://github.com/piwi/markdown-extended';
-
-    /**
-     * Default full options INI file
-     */
-    const FULL_CONFIGFILE = 'markdown_config.full.ini';
-
-    /**
-     * Default simple options INI file (i.e. for input fields)
-     */
-    const SIMPLE_CONFIGFILE = 'markdown_config.simple.ini';
 
     /**
      * @var  array  table of \MarkdownExtended\MarkdownExtended instances
@@ -289,8 +278,8 @@ final class MarkdownExtended
      *
      * @param   mixed   $id     The id of the content to get
      * @return  string
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the OutputFormater class can not be found
-     * @throws  \MarkdownExtended\Exception\RuntimeException if the OutputFormater class is not valid
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the OutputFormatter class can not be found
+     * @throws  \MarkdownExtended\Exception\RuntimeException if the OutputFormatter class is not valid
      */
     public static function getFullContent($id = null)
     {
@@ -304,7 +293,7 @@ final class MarkdownExtended
             throw $e;
         }
         return $output_bag->getHelper()
-            ->getFullContent($content, $output_bag->getFormater());
+            ->getFullContent($content, $output_bag->getFormatter());
     }
     
     /**
@@ -387,8 +376,8 @@ final class MarkdownExtended
     /**
      * Get a loader object from registry / load it if absent
      *
-     * @param   string  $class_name     The class name to instanciate ; will be completed with current namespace if necessary
-     * @param   array   $params         Parameters to use for `$class` object instanciation
+     * @param   string  $class_name     The class name to instantiate ; will be completed with current namespace if necessary
+     * @param   array   $params         Parameters to use for `$class` object instantiation
      * @param   int     $flag
      * @return  object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found

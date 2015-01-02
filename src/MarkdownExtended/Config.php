@@ -24,6 +24,16 @@ class Config
 {
 
     /**
+     * Default full options INI file
+     */
+    const FULL_CONFIGFILE = 'markdown_config.full.ini';
+
+    /**
+     * Default simple options INI file (i.e. for input fields)
+     */
+    const SIMPLE_CONFIGFILE = 'markdown_config.simple.ini';
+
+    /**
      * @var     array
      */
     public static $defaults = array(
@@ -113,7 +123,7 @@ class Config
      */
     public function init($user_config = null)
     {
-        $config_file = MarkdownExtended::FULL_CONFIGFILE;
+        $config_file = self::FULL_CONFIGFILE;
         if (!empty($user_config)) {
             if (is_string($user_config)) {
                 $config_file = $user_config;

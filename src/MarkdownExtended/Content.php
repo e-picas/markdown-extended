@@ -10,7 +10,7 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -19,7 +19,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  * @package MarkdownExtended
  */
 class Content
-    implements ContentInterface
+    implements MDE_API\ContentInterface
 {
     /**
      * @var     mixed
@@ -120,11 +120,11 @@ class Content
      * @var  array
      */
     protected static $name_mapping = array(
-        'note'=>'notes',
-        'footnote'=>'footnotes',
-        'glossary'=>'glossaries',
-        'citation'=>'citations',
-        'url'=>'urls'
+        'note'      =>'notes',
+        'footnote'  =>'footnotes',
+        'glossary'  =>'glossaries',
+        'citation'  =>'citations',
+        'url'       =>'urls'
     );
 
 // -------------------------
@@ -158,8 +158,8 @@ class Content
      */
     public function __call($name, array $arguments = null)
     {
-        $method = substr($name, 0, 3) . 'Variable';
-        $variable = MDE_Helper::fromCamelCase(substr($name, 3));
+        $method     = substr($name, 0, 3) . 'Variable';
+        $variable   = MDE_Helper::fromCamelCase(substr($name, 3));
         array_unshift($arguments, $variable);
         if (method_exists($this, $method)) {
             return call_user_func_array(array($this, $method), $arguments);
@@ -173,7 +173,7 @@ class Content
     /**
      * Get an object property value
      *
-     * This will return `null` if the variable doesn't exist, and `false` if it is empty.
+     * This will return `null` if the variable does not exist, and `false` if it is empty.
      *
      * @param   string  $name
      * @return  mixed/null/false
