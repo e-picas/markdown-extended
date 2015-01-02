@@ -2,7 +2,7 @@ Man:        PHP-Markdown-Extended Manual
 Man-name:   markdown-extended
 Author:     Pierre Cassat
 Date: 2015-01-03
-Version: 0.1.0-gamma.5-2
+Version: 0.1.0-gamma.5
 
 
 ## NAME
