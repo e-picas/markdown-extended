@@ -147,7 +147,7 @@ class API
                 $_obj = $_cls->newInstanceArgs(is_null($params) ? array() : $params);
             } catch (\ReflectionException $e) {
                 throw new MDE_Exception\RuntimeException(sprintf(
-                    "An error occured trying to create a '%s' instance: '%s'!",
+                    "An error occurred trying to create a '%s' instance: '%s'!",
                     $name, $e->getMessage()
                 ));
             }
@@ -183,7 +183,7 @@ class API
                 $_obj = $_cls->newInstanceArgs(is_null($params) ? array() : $params);
             } catch (\ReflectionException $e) {
                 throw new MDE_Exception\RuntimeException(sprintf(
-                    "An error occured trying to create a '%s' instance: '%s'!",
+                    "An error occurred trying to create a '%s' instance: '%s'!",
                     $name, $e->getMessage()
                 ));
             }
