@@ -94,14 +94,15 @@ class Image
             $link_id = strtolower($alt_text); // for shortcut links like ![this][].
         }
 
-        $urls = MarkdownExtended::getVar('urls');
+        $urls   = MarkdownExtended::getVar('urls');
         $titles = MarkdownExtended::getVar('titles');
         $predef_attributes = MarkdownExtended::getVar('attributes');
         $alt_text = parent::runGamut('tool:EncodeAttribute', $alt_text);
         if (isset($urls[$link_id])) {
             $attributes = array();
-            $attributes['alt'] = $alt_text;
-            $attributes['src'] = parent::runGamut('tool:EncodeAttribute', $urls[$link_id]);
+            $attributes['alt']  = $alt_text;
+            $attributes['id']   = MDE_Helper::header2Label($link_id);
+            $attributes['src']  = parent::runGamut('tool:EncodeAttribute', $urls[$link_id]);
             if (!empty($titles[$link_id])) {
                 $attributes['title'] = parent::runGamut('tool:EncodeAttribute', $titles[$link_id]);
             }
