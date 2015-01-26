@@ -117,16 +117,17 @@ class Helper
      * Transform a header string to DOM valid label
      *
      * @param   string  $text
+     * @param   string  $separator
      * @return  string
      */
-    public static function header2Label($text) 
+    public static function header2Label($text, $separator = '-')
     {
         // strip all Markdown characters
         $text = str_replace( 
             array("'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"), 
             "", strtolower($text) );
         // strip the rest for visual signification
-        $text = str_replace( array("#", " ", "__", "/", "\\"), "_", $text );
+        $text = str_replace( array("#", " ", "__", "/", "\\"), $separator, $text );
         // strip non-ascii characters
         return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $text);
     }
