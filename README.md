@@ -64,17 +64,18 @@ Then, to use the package classes, you just need to register the `MarkdownExtende
 namespace directory using the [SplClassLoader](https://gist.github.com/jwage/221634) or
 any other custom autoloader (if required, a copy is proposed in the package):
 
-    require_once 'path/to/package/src/SplClassLoader.php';
-    $classLoader = new SplClassLoader('MarkdownExtended', '/path/to/package/src');
-    $classLoader->register();
+```php
+require_once 'path/to/package/src/SplClassLoader.php';
+$classLoader = new SplClassLoader('MarkdownExtended', '/path/to/package/src');
+$classLoader->register();
+```
 
 Another way to use the package, if you are a [Composer](http://getcomposer.org/) user,
 is to add it to your requirements in your `composer.json`:
 
-    "require": {
-        ...
-        "piwi/markdown-extended": "dev-master"
-    }
+```json
+"piwi/markdown-extended": "dev-master"
+```
 
 The namespace will be automatically added to the project's Composer autoloader.
 
@@ -97,33 +98,41 @@ the latest version can be found at <http://github.com/piwi/markdown-extended/blo
 
 The `MarkdownExtended` package can be simply call writing:
 
-    // creation of the singleton instance of \MarkdownExtended\MarkdownExtended
-    $content = \MarkdownExtended\MarkdownExtended::create()
-        // get the \MarkdownExtended\Parser object passing it some options (optional)
-        ->get('Parser', $options)
-        // launch the transformation of a source content
-        ->parse( new \MarkdownExtended\Content($source) )
-        // get the result content object
-        ->getContent();
+```php
+// creation of the singleton instance of \MarkdownExtended\MarkdownExtended
+$content = \MarkdownExtended\MarkdownExtended::create()
+    // get the \MarkdownExtended\Parser object passing it some options (optional)
+    ->get('Parser', $options)
+    // launch the transformation of a source content
+    ->parse( new \MarkdownExtended\Content($source) )
+    // get the result content object
+    ->getContent();
+```
 
 This will load in `$content` the parsed HTML version of your original Markdown `$source`.
 To get the part you need from the content, write:
 
-    echo $content->getBody();
+```php
+echo $content->getBody();
+```
 
 For simplest usage, some aliases are designed in the `MarkdownExtended` kernel:
 
-    // to parse a string content:
-    \MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
-    
-    // to parse a file content:
-    \MarkdownExtended\MarkdownExtended::transformSource($filename [, $parser_options]);
+```php
+// to parse a string content:
+\MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
+
+// to parse a file content:
+\MarkdownExtended\MarkdownExtended::transformSource($filename [, $parser_options]);
+```
 
 These two methods returns a `\MarkdownExtended\Content` object. To finally get an HTML
 version, write:
 
-    \MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
-    echo \MarkdownExtended\MarkdownExtended::getFullContent();
+```php
+\MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
+echo \MarkdownExtended\MarkdownExtended::getFullContent();
+```
 
 A full PHP documentation of the last stable release can be found at
 <http://docs.ateliers-pierrot.fr/markdown-extended/>.
@@ -135,13 +144,15 @@ To keep the package compatible with old versions of Markdown, an interface is em
 with the common `Markdown($content)` function ; to use it, just include the file
 `src/markdown.php`:
 
-    require_once 'path/to/src/markdown.php';
-    
-    // to get result of a string parsing:
-    echo Markdown($string [, $options]);
+```php
+require_once 'path/to/src/markdown.php';
 
-    // to get result of a file content parsing:
-    echo MarkdownFromSource($file_name [, $options]);
+// to get result of a string parsing:
+echo Markdown($string [, $options]);
+
+// to get result of a file content parsing:
+echo MarkdownFromSource($file_name [, $options]);
+```
 
 This way, you may be able to change your Markdown parser without so much work and, we
 hope so, a better result ;)
@@ -175,7 +186,7 @@ of this repository, modifying it and [asking to pull your modifications](http://
 on the original branch.
 
 Please note that the "master" branch is **always the latest stable version** of the code. 
-Development is done on branch "wip" and you can create a new one for your own developments.
+Development is done on branch "dev" and you can create a new one for your own developments.
 A developer help and roadmap is provided [in the docs](docs/ROADMAP.md).
 The latest version of the package documentation is available online at
 <http://docs.ateliers-pierrot.fr/markdown-extended/>.

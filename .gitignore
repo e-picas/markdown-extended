@@ -1,30 +1,23 @@
 # the composer stuff
 composer.lock
 vendor/*
-*/vendor/*
 
 # any "tmp*" file or dir anywhere
 *tmp*
 
-# user defined files
-user/*
-*/user/*
+# dev
+dev/*
 
-# the documentation, that is NOT under version-control by default
-# this may be commented on the "dev" branch
+# this is for "dev" branch only
+build/*
+demo/*
+doc/*
 phpdoc/*
 phpdoc-2/*
 
-# for development ...
-# this may be commented on the "dev" branch
-dev/*
-build/*
-
 # specific MDE files
-bin/sami.php
-bin/phpunit
-bin/pdepend
-bin/phpmd
+bin/*
+!bin/markdown-extended
 
 # no phar
 markdown-extended.phar
