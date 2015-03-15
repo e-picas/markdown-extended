@@ -12,7 +12,7 @@
 @ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
 // Namespaces loader
-require __DIR__.'/../src/bootstrap.php';
+require_once __DIR__.'/../src/bootstrap.php';
 
 // silent errors
 @error_reporting(-1);

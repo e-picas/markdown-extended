@@ -115,7 +115,7 @@ class HTMLHelper
      *
      * @param   \MarkdownExtended\API\ContentInterface          $md_content
      * @param   \MarkdownExtended\API\OutputFormatInterface     $formatter
-     * @param   null/array   $attributes
+     * @param   null|array   $attributes
      * @return  string
      */
     public function getToc(MDE_API\ContentInterface $md_content, MDE_API\OutputFormatInterface $formatter, array $attributes = null)

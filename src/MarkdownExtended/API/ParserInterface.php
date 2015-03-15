@@ -10,12 +10,11 @@
 
 namespace MarkdownExtended\API;
 
-use \MarkdownExtended\API as MDE_API;
-
 /**
  * Interface for a content parser
  *
  * @package MarkdownExtended\API
+ * @api
  */
 interface ParserInterface
 {
@@ -27,7 +26,7 @@ interface ParserInterface
      * if you want to override config options ; in this case, you can set a config file path
      * with the `config_file` index.
      *
-     * @param   array/string    $config
+     * @param   array|string    $config
      */
     public function __construct($config = null);
 
@@ -39,7 +38,7 @@ interface ParserInterface
      * @param   bool                                    $secondary
      * @return  \MarkdownExtended\MarkdownExtended
      */
-    public function parse(MDE_API\ContentInterface $content, $secondary = false);
+    public function parse(ContentInterface $content, $secondary = false);
     
 }
 

@@ -14,6 +14,7 @@ namespace MarkdownExtended\API;
  * Interface to implement for `MarkdownExtended\Content` objects
  *
  * @package MarkdownExtended\API
+ * @api
  */
 interface ContentInterface
 {

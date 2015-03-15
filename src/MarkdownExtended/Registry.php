@@ -102,7 +102,7 @@ class Registry
      * Remove something to an existing entry of the global registry, the entry is created if it not exist
      *
      * @param   string      $var
-     * @param   null/string $index
+     * @param   null|string $index
      * @return  void
      * @throws  \MarkdownExtended\Exception\RuntimeException if trying to remove a non-removable entry
      */

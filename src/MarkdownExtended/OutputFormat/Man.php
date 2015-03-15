@@ -30,8 +30,8 @@ use \MarkdownExtended\Exception as MDE_Exception;
  *
  *      ~$ ./bin/markdown-extended -o MANPAGENAME.man -f man path/to/original.md
  *
- * @see https://www.gnu.org/software/groff/
- * @see http://manpages.ubuntu.com/manpages/oneiric/man7/groff_man.7.html
+ * @link https://www.gnu.org/software/groff/
+ * @link http://manpages.ubuntu.com/manpages/oneiric/man7/groff_man.7.html
  * @package MarkdownExtended\OutputFormat
  */
 class Man

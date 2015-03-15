@@ -176,7 +176,7 @@ class Content
      * This will return `null` if the variable does not exist, and `false` if it is empty.
      *
      * @param   string  $name
-     * @return  mixed/null/false
+     * @return  mixed|null|false
      */
     protected function getVariable($name)
     {
@@ -260,7 +260,7 @@ class Content
     /**
      * Get the file dirname if so
      *
-     * @return  string/null
+     * @return  string|null
      */
     public function getDirname()
     {
@@ -291,7 +291,7 @@ class Content
     /**
      * Retrieve the content last update
      *
-     * @return  null/DateTime
+     * @return  null|DateTime
      */
     public function getLastUpdate()
     {
@@ -353,7 +353,7 @@ class Content
     /**
      * Get the meta-data stack or one entry
      *
-     * @param   null/string
+     * @param   null|string
      * @return  string
      */
     public function getMetadata($index = null)
@@ -383,9 +383,9 @@ class Content
     /**
      * Get a DOM unique ID 
      *
-     * @param   string  $reference  A reference used to store the ID (and retrieve it - by default, a uniqid)
-     * @param   null/string  $id
-     * @return  string  The unique ID created or the existing one for the reference if so
+     * @param   string       $reference  A reference used to store the ID (and retrieve it - by default, a uniqid)
+     * @param   null|string  $id
+     * @return  string                  The unique ID created or the existing one for the reference if so
      */
     public function getDomId($reference, $id = null)
     {
@@ -401,7 +401,7 @@ class Content
      * @param   string      $id         A string that will be used to construct the ID
      * @param   string      $reference  A reference used to store the ID (and retrieve it - by default `$id`)
      * @param   bool        $return_array   Allow to return an array in case of existaing reference
-     * @return  array/string    The unique ID created if the reference was empty
+     * @return  array|string    The unique ID created if the reference was empty
      *                          An array like (id=>XXX, reference=>YYY) if it was not
      */
     public function setNewDomId($id, $reference = null, $return_array = true)
