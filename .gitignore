@@ -15,10 +15,10 @@ user/*
 #phpdoc/*
 #phpdoc-2/*
 
-# for development ...
 # this may be commented on the "dev" branch
 #dev/*
 #build/*
+#demo/*
 
 # specific MDE files
 bin/sami.php
