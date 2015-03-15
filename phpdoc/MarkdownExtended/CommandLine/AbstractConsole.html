@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\CommandLine\AbstractConsole | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../traits.html">Traits</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/CommandLine.html">MarkdownExtended\CommandLine</a>\AbstractConsole</h1>
+    </div>
+        <div class="content">
+                <p>abstract     class
+    <strong>AbstractConsole</strong></p>
+
+            <div class="description">
+            <p>Command line controller/interface base</p>
+            <p>This base command line class is designed to use options '-x' or '--verbose' to increase
+script verbosity on STDOUT and '-q' or '--quiet' to decrease it. The idea is quiet simple:</p>
+
+<ul>
+<li>in "normal" rendering (no "verbose" neither than "quiet" mode), the result of the 
+processed content is rendered, with the file name header in case of multi-files input
+and command line script's errors are rendered</li>
+<li>in "verbose" mode, some process information are shown, informing user about what
+happening, follow process execution and get some execution information such as some
+some string lengths ; the command line script errors are rendered</li>
+<li>in "quiet" mode, nothing is written through SDTOUT except PHP process errors and output
+rendering of parsed content ; the command line script's errors are not rendered</li>
+</ul>
+
+<p>For all of these cases, PHP errors caught during Markdown Extended classes execution are
+rendered and script execution may stop.</p>
+        </div>
+    
+    
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_script_path">
+                                                            string
+                </td>
+                <td>$script_path</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_stdout">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDOUT">STDOUT</abbr>
+                </td>
+                <td>$stdout</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_stdin">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDIN">STDIN</abbr>
+                </td>
+                <td>$stdin</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_stderr">
+                                                            <abbr title="MarkdownExtended\CommandLine\STDERR">STDERR</abbr>
+                </td>
+                <td>$stderr</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_error_reporting">
+                                                            int
+                </td>
+                <td>$error_reporting</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>()
+                    <p>Constructor</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_write">write</a>(string $str, bool $new_line = true, string $stream = &#039;stdout&#039;)
+                    <p>Write an info to CLI output</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_info">info</a>(string $str, bool $new_line = true, bool $leading_dot = true)
+                    <p>Write an info in verbose mode</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_separator">separator</a>()
+                    <p>Write an separator line in verbose mode</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_error">error</a>(string $str, int $code = 90, bool $forced = false)
+                    <p>Write an error info and exit</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_caught">caught</a>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)
+                    <p>Write a caught exception</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string|array
+                </td>
+                <td class="last">
+                    <a href="#method_exec">exec</a>(string $cmd, bool $fail_gracefully = false)
+                    <p>Exec a command</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_verbose">runOption_verbose</a>()
+                    <p>Run the verbose option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_quiet">runOption_quiet</a>()
+                    <p>Run the quiet option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_debug">runOption_debug</a>()
+                    <p>Run the debug option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_runOption_usage">runOption_usage</a>(int $exit_status)
+                    <p>Run the usage option</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="MarkdownExtended\CommandLine\$this">$this</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_setScriptPath">setScriptPath</a>(string $path)
+                    <p>Set the current script full path</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_run">run</a>()
+                    <p>Run the whole script depending on options set</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    int
+                </td>
+                <td class="last">
+                    <a href="#method_writeOutputFile">writeOutputFile</a>(string $output, string $output_file)
+                    <p>Write a result for each processed file or string in a file</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    int
+                </td>
+                <td class="last">
+                    <a href="#method_writeOutput">writeOutput</a>(string $output)
+                    <p>Write a result for each processed file or string</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method_writeInputTitle">writeInputTitle</a>(string $title)
+                    <p>Write a title for each processed file or string</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">at line 95</div>
+        <code>            public            
+    <strong>__construct</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Constructor</p>
+        <p>Setup the input/output and verify that we are in CLI mode</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_write">
+        <div class="location">at line 124</div>
+        <code>            public            void
+    <strong>write</strong>(string $str, bool $new_line = true, string $stream = &#039;stdout&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Write an info to CLI output</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The information to write</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$new_line</td>
+                <td>May we pass a line after writing the info</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$stream</td>
+                <td>The stream to write to (stdin, sdtout or stderr)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_info">
+        <div class="location">at line 141</div>
+        <code>            public            void
+    <strong>info</strong>(string $str, bool $new_line = true, bool $leading_dot = true)</code>
+    </h3>
+    <div class="details">
+        <p>Write an info in verbose mode</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The information to write</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$new_line</td>
+                <td>May we pass a line after writing the info</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$leading_dot</td>
+                <td>Add a leading dot or not</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_separator">
+        <div class="location">at line 153</div>
+        <code>            public            void
+    <strong>separator</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Write an separator line in verbose mode</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_error">
+        <div class="location">at line 168</div>
+        <code>            public            void
+    <strong>error</strong>(string $str, int $code = 90, bool $forced = false)</code>
+    </h3>
+    <div class="details">
+        <p>Write an error info and exit</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>The information to write</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$code</td>
+                <td>The error code used to exit the script</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$forced</td>
+                <td>Force the 'help' info</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_caught">
+        <div class="location">at line 207</div>
+        <code>            public            void
+    <strong>caught</strong>(<abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr> $e)</code>
+    </h3>
+    <div class="details">
+        <p>Write a caught exception</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\CommandLine\Exception">Exception</abbr></td>
+                <td>$e</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_exec">
+        <div class="location">at line 229</div>
+        <code>            public            string|array
+    <strong>exec</strong>(string $cmd, bool $fail_gracefully = false)</code>
+    </h3>
+    <div class="details">
+        <p>Exec a command</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$cmd</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$fail_gracefully</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string|array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_verbose">
+        <div class="location">at line 338</div>
+        <code>            public            void
+    <strong>runOption_verbose</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the verbose option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_quiet">
+        <div class="location">at line 350</div>
+        <code>            public            void
+    <strong>runOption_quiet</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the quiet option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_debug">
+        <div class="location">at line 362</div>
+        <code>            public            void
+    <strong>runOption_debug</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the debug option</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runOption_usage">
+        <div class="location">at line 374</div>
+        <code>            public            void
+    <strong>runOption_usage</strong>(int $exit_status)</code>
+    </h3>
+    <div class="details">
+        <p>Run the usage option</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>int</td>
+                <td>$exit_status</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setScriptPath">
+        <div class="location">at line 391</div>
+        <code>            public            <abbr title="MarkdownExtended\CommandLine\$this">$this</abbr>
+    <strong>setScriptPath</strong>(string $path)</code>
+    </h3>
+    <div class="details">
+        <p>Set the current script full path</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\CommandLine\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_run">
+        <div class="location">at line 455</div>
+        <code>    abstract        public            
+    <strong>run</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Run the whole script depending on options set</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeOutputFile">
+        <div class="location">at line 468</div>
+        <code>            public            int
+    <strong>writeOutputFile</strong>(string $output, string $output_file)</code>
+    </h3>
+    <div class="details">
+        <p>Write a result for each processed file or string in a file</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$output_file</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>int</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeOutput">
+        <div class="location">at line 489</div>
+        <code>            public            int
+    <strong>writeOutput</strong>(string $output)</code>
+    </h3>
+    <div class="details">
+        <p>Write a result for each processed file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$output</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>int</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeInputTitle">
+        <div class="location">at line 507</div>
+        <code>            public            void
+    <strong>writeInputTitle</strong>(string $title)</code>
+    </h3>
+    <div class="details">
+        <p>Write a title for each processed file or string</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$title</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

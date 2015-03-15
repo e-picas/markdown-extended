@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Grammar\Gamut | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../traits.html">Traits</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/Grammar.html">MarkdownExtended\Grammar</a>\Gamut</h1>
+    </div>
+        <div class="content">
+                <p>    class
+    <strong>Gamut</strong></p>
+
+            <div class="description">
+            <p>Central class to execute Filters and Tools methods on a content</p>
+            <p>It can handle a list of gamuts, execute a specific method and run a single gamut.</p>
+        </div>
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>(array $gamut_aliases = null)
+                    <p>Set the gamuts aliases from config</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runGamuts">runGamuts</a>(array $gamuts, string $text = null)
+                    <p>Run a table of gamuts by priority</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runGamutsMethod">runGamutsMethod</a>(array $gamuts, string $method, string $text = null)
+                    <p>Run a table of gamuts for a specific method by priority</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runGamut">runGamut</a>(string $gamut, string $text = null, string $_method = null, bool $silent = false)
+                    <p>Run a single gamut</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">at line 35</div>
+        <code>            public            
+    <strong>__construct</strong>(array $gamut_aliases = null)</code>
+    </h3>
+    <div class="details">
+        <p>Set the gamuts aliases from config</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$gamut_aliases</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runGamuts">
+        <div class="location">at line 49</div>
+        <code>            public            string
+    <strong>runGamuts</strong>(array $gamuts, string $text = null)</code>
+    </h3>
+    <div class="details">
+        <p>Run a table of gamuts by priority</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$gamuts</td>
+                <td>The gamuts names to execute</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text for gamuts execution</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runGamutsMethod">
+        <div class="location">at line 69</div>
+        <code>            public            string
+    <strong>runGamutsMethod</strong>(array $gamuts, string $method, string $text = null)</code>
+    </h3>
+    <div class="details">
+        <p>Run a table of gamuts for a specific method by priority</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$gamuts</td>
+                <td>The gamuts names to execute</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$method</td>
+                <td>The method name to execute in each gamut</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text for gamuts execution</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if $method is not a string</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runGamut">
+        <div class="location">at line 96</div>
+        <code>            public            string
+    <strong>runGamut</strong>(string $gamut, string $text = null, string $_method = null, bool $silent = false)</code>
+    </h3>
+    <div class="details">
+        <p>Run a single gamut</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$gamut</td>
+                <td>The gamut name to execute</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text for gamuts execution</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$_method</td>
+                <td>The method name to execute in each gamut</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$silent</td>
+                <td>Throw exceptions flag (default is <code>false</code>: exceptions are thrown)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/UnexpectedValueException"><abbr title="UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td>if $gamut is not found</td>
+            </tr>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if $gamut is not a string</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>
