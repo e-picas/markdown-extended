@@ -386,8 +386,8 @@ abstract class AbstractConsole
     /**
      * Set the current script full path
      *
-     * @param $path
-     * @return $this
+     * @param   string  $path
+     * @return  $this
      */
     public function setScriptPath($path)
     {

@@ -10,9 +10,6 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\Registry;
-use \MarkdownExtended\Config;
-use \MarkdownExtended\OutputFormatBag;
 use \MarkdownExtended\API as MDE_API;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
@@ -113,7 +110,7 @@ final class MarkdownExtended
      * The best practice is to use the class as a singleton calling `getInstance()` or
      * `create()`.
      *
-     * @param   null/array  $options
+     * @param   null|array  $options
      */
     public function __construct(array $options = null)
     {
@@ -134,7 +131,7 @@ final class MarkdownExtended
      * Get a Markdown Extended instance (last created one by default)
      *
      * @param   int         $instance_id    The ID of the MDE instance to get
-     * @param   null/array  $options
+     * @param   null|array  $options
      * @return  \MarkdownExtended\MarkdownExtended
      */
     public static function getInstance($instance_id = null, array $options = null)
@@ -156,7 +153,7 @@ final class MarkdownExtended
     /**
      * Create a new MDE instance
      *
-     * @param   null/array  $options
+     * @param   null|array  $options
      * @param   int         $instance_id    The ID of the MDE instance to create
      * @return  \MarkdownExtended\MarkdownExtended
      */
@@ -180,8 +177,8 @@ final class MarkdownExtended
      * Transform a Markdown source string
      *
      * @param   string          $source
-     * @param   string/array    $parser_options
-     * @param   string/null     $key
+     * @param   string|array    $parser_options
+     * @param   string|null     $key
      * @param   bool            $secondary  Set it to `true` if parsed content may not be stored as current one
      * @return  \MarkdownExtended\API\ContentInterface
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
@@ -213,8 +210,8 @@ final class MarkdownExtended
      * Transform a Markdown source file content
      *
      * @param   string          $filename
-     * @param   string/array    $parser_options
-     * @param   string/null     $key
+     * @param   string|array    $parser_options
+     * @param   string|null     $key
      * @param   bool            $secondary  Set it to `true` if parsed content may not be stored as current one
      * @return  \MarkdownExtended\API\ContentInterface
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
@@ -353,8 +350,8 @@ final class MarkdownExtended
      * Build, retain and get a dependency instance
      *
      * @param   string      $class_name     The class name to instanciate ; will be completed with current namespace if necessary
-     * @param   null/array  $params         Parameters to use for `$class` object instanciation
-     * @param   null/string $type           The type of API object to load
+     * @param   null|array  $params         Parameters to use for `$class` object instanciation
+     * @param   null|string $type           The type of API object to load
      * @return  object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
      * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error

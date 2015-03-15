@@ -31,7 +31,7 @@ class MenuItemIterator
     );
 
     /**
-     * @param   array/string    $content    The content of the item, or the full array of item values
+     * @param   array|string    $content    The content of the item, or the full array of item values
      * @param   int     $level
      * @param   array   $attributes
      * @param   array   $children

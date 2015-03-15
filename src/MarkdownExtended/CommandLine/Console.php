@@ -116,7 +116,7 @@ class Console
     /**
      * Internal counter
      */
-    static $parsedfiles_counter=1;
+    static $parsed_files_counter = 1;
 
     /**
      * Constructor
@@ -594,7 +594,7 @@ EOT;
     {
         $return=null;
         if (!empty($input)) {
-            $num = self::$parsedfiles_counter;
+            $num = self::$parsed_files_counter;
             $this->separator();
             $this->info( "[$num] >> parsing file `$input`" );
             if ($md_content = $this->getInput($input, $title)) {
@@ -609,7 +609,7 @@ EOT;
                     }
                 }
             }
-            self::$parsedfiles_counter++;
+            self::$parsed_files_counter++;
         }
         return $return;
     }
@@ -790,7 +790,7 @@ EOT;
             } catch (\Exception $e) {
                 $this->caught($e);
             }
-            if ($output) {
+            if (!is_null($output) && false!==$output) {
                 if (is_string($output)) {
                     $length = strlen($output);
                 } elseif (is_array($output)) {
@@ -815,7 +815,7 @@ EOT;
         if (file_exists($filename)) {
             $ext = strrchr($filename, '.');
             $_f = str_replace($ext, '', $filename);
-            return $_f . '_' . self::$parsedfiles_counter . $ext;
+            return $_f . '_' . self::$parsed_files_counter . $ext;
         }
         return $filename;
     }

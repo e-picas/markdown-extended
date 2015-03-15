@@ -10,8 +10,6 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\Registry;
 use \MarkdownExtended\Helper as MDE_Helper;
 use \MarkdownExtended\Exception as MDE_Exception;
 
@@ -38,50 +36,50 @@ class Config
      */
     public static $defaults = array(
         // the default API objects
-        'content_class' => '\MarkdownExtended\Content',
-        'content_collection_class' => '\MarkdownExtended\ContentCollection',
-        'parser_class' => '\MarkdownExtended\Parser',
-        'templater_class' => '\MarkdownExtended\Templater',
-        'grammar\filter_class' => '\MarkdownExtended\Grammar\Filter',
-        'grammar\tool_class' => '\MarkdownExtended\Grammar\Tool',
+        'content_class'             => '\MarkdownExtended\Content',
+        'content_collection_class'  => '\MarkdownExtended\ContentCollection',
+        'parser_class'              => '\MarkdownExtended\Parser',
+        'templater_class'           => '\MarkdownExtended\Templater',
+        'grammar\filter_class'      => '\MarkdownExtended\Grammar\Filter',
+        'grammar\tool_class'        => '\MarkdownExtended\Grammar\Tool',
         // Gamut classes aliases
-        'gamut_aliases' => array(
-            'filter' => '\MarkdownExtended\Grammar\Filter',
-            'tool' => '\MarkdownExtended\Grammar\Tool'
-        ),
+        'gamut_aliases'             => array(
+                                        'filter'    => '\MarkdownExtended\Grammar\Filter',
+                                        'tool'      => '\MarkdownExtended\Grammar\Tool'
+                                    ),
         // the default output format
-        'output_format' => 'HTML',
+        'output_format'             => 'HTML',
         // Change to ">" for HTML output
         'html_empty_element_suffix' => ' />',
         // Define the width of a tab (4 spaces by default)
-        'tab_width' => 4,
+        'tab_width'                 => 4,
         // Table of hash values for escaped characters:
-        'escape_chars' => "0`*_{}[]()<>#+-.!:|\\",
+        'escape_chars'              => "0`*_{}[]()<>#+-.!:|\\",
         // Regex to match balanced [brackets].
         // Needed to insert a maximum bracked depth while converting to PHP.
-        'nested_brackets_depth' => 6,
+        'nested_brackets_depth'     => 6,
         // Regex to match balanced (parenthesis).
         // Needed to insert a maximum bracked depth while converting to PHP.
         'nested_url_parenthesis_depth' => 4,
         // Change to `true` to disallow markup or entities.
-        'no_markup' => false,
-        'no_entities' => false,
+        'no_markup'                 => false,
+        'no_entities'               => false,
         // Special metadata used during parsing
-        'special_metadata' => array('baseheaderlevel', 'quoteslanguage'),
+        'special_metadata'          => array('baseheaderlevel', 'quoteslanguage'),
         // Block inclusion tag
-        'block_inclusion' => '<!-- @([^ @]+)@ -->',
+        'block_inclusion'           => '<!-- @([^ @]+)@ -->',
         // Optional title attribute for links that do not have one
-        'link_mask_title' => 'See online %%',
-        'mailto_mask_title' => 'Contact %%',
+        'link_mask_title'           => 'See online %%',
+        'mailto_mask_title'         => 'Contact %%',
         // Optional attribute to define for fenced code blocks with language type
-        'fcb_language_attribute' => 'class',
+        'fcb_language_attribute'    => 'class',
         // Attribute's value construction for fenced code blocks with language type
-        'fcb_attribute_value_mask' => 'language-%%',
+        'fcb_attribute_value_mask'  => 'language-%%',
         // Predefined urls, titles and abbreviations for reference links and images.
-        'predef_urls' => array(),
-        'predef_titles' => array(),
-        'predef_attributes' => array(),
-        'predef_abbr' => array(),
+        'predef_urls'               => array(),
+        'predef_titles'             => array(),
+        'predef_attributes'         => array(),
+        'predef_abbr'               => array(),
     );
 
     /**
@@ -116,7 +114,7 @@ class Config
     /**
      * Init a new config with user options
      *
-     * @param   null/string/array   $user_config
+     * @param   null|string/array   $user_config
      * @return  void
      * @throws  \MarkdownExtended\Exception\UnexpectedValueException if file doesn't exist
      * @throws  \MarkdownExtended\Exception\DomainException if file seems malformed

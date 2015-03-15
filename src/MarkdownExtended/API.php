@@ -120,8 +120,8 @@ class API
      * Build an API object validating it if needed
      *
      * @param   string      $name           The class name to instanciate ; will be completed with current namespace if necessary
-     * @param   null/array  $params         Parameters to use for `$class` object instanciation
-     * @param   null/string $type           The type of API object to load
+     * @param   null|array  $params         Parameters to use for `$class` object instanciation
+     * @param   null|string $type           The type of API object to load
      * @return  object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
      * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error

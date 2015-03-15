@@ -162,7 +162,7 @@ class Templater
     /**
      * Parse a content to complete it and pass it in a template if necessary
      *
-     * @return self
+     * @return $this
      */
     public function parse()
     {
@@ -176,7 +176,7 @@ class Templater
     /**
      * Parse a contents collection to complete it and pass it in a template if necessary
      *
-     * @return self
+     * @return $this
      */
     public function parseCollection()
     {
@@ -199,7 +199,7 @@ class Templater
     /**
      * Parse a in-body tags
      *
-     * @return self
+     * @return $this
      */
     public function parseContent()
     {
@@ -213,7 +213,7 @@ class Templater
     /**
      * Parse a template content
      *
-     * @return self
+     * @return $this
      */
     public function parseTemplate()
     {
@@ -228,7 +228,7 @@ class Templater
     /**
      * Insert tags from 'auto_insert' config entry
      *
-     * @return self
+     * @return $this
      */
     public function autoInsert()
     {
