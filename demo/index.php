@@ -55,11 +55,13 @@ if (file_exists($a = __DIR__.'/../../../autoload.php')) {
 }
 
 // Custom classes
+/*//
 if (file_exists($d = __DIR__.'/../src/SplClassLoader.php')) {
     require_once $d;
     $classLoader = new SplClassLoader('MDE_Overrides', __DIR__.'/src');
     $classLoader->register();
 }
+//*/
 
 // -----------------------------------
 // Page Content
@@ -212,9 +214,9 @@ function emdreminders_popup(url){
                     <li><a href="index.php">Usage</a></li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <?php foreach (scandir(__DIR__.'/../docs') as $f) :
+                            <?php foreach (scandir(__DIR__.'/../doc') as $f) :
                                 if (!in_array($f, array('.','..')) && !is_dir($f)) : ?>
-                                    <li><a href="index.php?doc=../docs/<?php echo basename($f); ?>&amp;md=process">
+                                    <li><a href="index.php?doc=../doc/<?php echo basename($f); ?>&amp;md=process">
                                             <?php echo str_replace(array('_','-'), ' ', str_replace('.md', '', basename($f))); ?>
                                         </a></li>
                                 <?php endif; endforeach; ?>
