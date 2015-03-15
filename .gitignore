@@ -12,12 +12,13 @@ user/*
 
 # the documentation, that is NOT under version-control by default
 # this may be commented on the "dev" branch
-phpdoc/*
-phpdoc-2/*
+#phpdoc/*
+#phpdoc-2/*
 
 # for development ...
-# this may be commented on the "wip" branch
+# this may be commented on the "dev" branch
 #dev/*
+#build/*
 
 # specific MDE files
 bin/sami.php
