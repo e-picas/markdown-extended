@@ -3,7 +3,7 @@
     "type": "library",
     "description": "A PHP parser for the Markdown Extended syntax",
     "keywords": [ "markdown", "markdown extended", "mde" ],
-    "homepage": "http://github.com/piwi/markdown-extended",
+    "homepage": "http://aboutmde.org/",
     "license": "BSD-3-Clause",
     "authors": [{
             "name": "John Gruber",
