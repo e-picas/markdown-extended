@@ -13,7 +13,12 @@
 @ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
 // namespaces loader
-require __DIR__.'/../src/bootstrap.php';
+if (file_exists($bt = __DIR__.'/../src/bootstrap.php')) {
+    require_once $bt;
+} else {
+    echo 'MarkdownExtended bootstrapper not found!';
+    exit(1);
+}
 
 // silent errors
 @error_reporting(-1);
