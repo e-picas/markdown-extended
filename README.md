@@ -8,6 +8,7 @@ HTML. This new version of a Markdown parser tries to propose a complete set of M
 syntax tags and rules and to be PHP-5.3 compliant.
 
 [![Build Status](https://travis-ci.org/piwi/markdown-extended.svg?branch=master)](http://travis-ci.org/piwi/markdown-extended)
+[![Build Status](https://travis-ci.org/piwi/markdown-extended.svg?branch=dev)](http://travis-ci.org/piwi/markdown-extended)
 
 ----
 
