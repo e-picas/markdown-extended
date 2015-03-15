@@ -13,7 +13,6 @@ dev/*
 #demo/*
 #doc/*
 #phpdoc/*
-#phpdoc-2/*
 
 # specific MDE files
 bin/*

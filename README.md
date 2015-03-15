@@ -88,11 +88,10 @@ which embeds the whole source as a standalone binary. Its usage is the same as t
 #### Usage for writers
 
 To be compliant with the **extended** Markdown syntax, writers may construct their contents
-following the rules described in the `markdown_reminders.html` file of the package ;
-the latest version can be found at <http://sites.ateliers-pierrot.fr/markdown-extended/markdown_reminders.html>.
+following the rules described at <http://reminders.aboutmde.org/>.
 
 For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
-the latest version can be found at <http://github.com/piwi/markdown-extended/blob/master/demo/MD_syntax.md>.
+the latest version can be found at <http://github.com/piwi/markdown-extended/blob/dev/demo/MD_syntax.md>.
 
 #### PHP script usage
 

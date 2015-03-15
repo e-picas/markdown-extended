@@ -181,17 +181,6 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
 <![endif]-->
     <link rel="stylesheet" href="assets/styles.css" />
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-var emdreminders_window; // use this variable to interact with the cheat sheet window
-function emdreminders_popup(url){
-    if (!url) url='markdown_reminders.html?popup';
-    if (url.lastIndexOf("popup")==-1) url += (url.lastIndexOf("?")!=-1) ? '&popup' : '?popup';
-    emdreminders_window = window.open(url, 'markdown_reminders', 
-       'directories=0,menubar=0,status=0,location=0,scrollbars=1,resizable=1,fullscreen=0,width=840,height=380,left=120,top=120');
-    emdreminders_window.focus();
-    return false; 
-}
-</script>
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -235,7 +224,6 @@ function emdreminders_popup(url){
                                 </ul></li>
                         </ul>
                     </li>
-                    <li><a href="../markdown_reminders.html" onclick="return emdreminders_popup('../markdown_reminders.html');" title="Markdown syntax reminders (new floated window)" target="_blank">Markdown Reminders</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" role="navigation">
 <?php if (!empty($menu)) : ?>
