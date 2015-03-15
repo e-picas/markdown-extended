@@ -39,7 +39,7 @@ This document is for developers usage.
 
 ## Development notes
 
-Development of the `MarkdownExtended` namespace is done on the repository branch named "wip".
+Development of the `MarkdownExtended` namespace is done on the repository branch named "dev".
 
 To install the development environment, run:
 
@@ -52,7 +52,7 @@ This will install [Sami](http://github.com/fabpot/sami), a PHP documentation gen
 
 ### Development life-cycle
 
-As said above, all development MUST be done on the `wip` branch of the repository. Doing so we
+As said above, all development MUST be done on the `dev` branch of the repository. Doing so we
 can commit our development features to let users using a clone test and improve them.
 
 When the work gets a stable stage, it seems to be time to build and publish a new release. This
@@ -64,11 +64,11 @@ merged your updates.
 
 Creating a release, you MAY go on the following steps:
 
--   BEFORE a release, on the "wip" branch:
+-   BEFORE a release, on the "dev" branch:
     -   the best practice is to rebuild the `markdown_reminders` page before each release
     -   you MAY run the PHPUnit tests to check current work
 -   CREATING the release:
-    -   merge "wip" into "master"
+    -   merge "dev" into "master"
     -   you MUST use the `pre-commit-hook.sh` to create a release (the best practice is to
         use the `piwi/dev-tools` package to do so) ; this MAY do:
         -   update the version number in the `src/MarkdownExtended/MarkdownExtended.php` file
@@ -78,7 +78,7 @@ Creating a release, you MAY go on the following steps:
         -   create a new tag with version number name
     -   publish the release by pushing it to GitHub
 -   AFTER a release:
-    -   as the `PHAR` archive is NOT under version control, you MUST build it first in the "wip" branch,
+    -   as the `PHAR` archive is NOT under version control, you MUST build it first in the "dev" branch,
         then manually add it on "master"
     -   merge "master" into "dev"
     -   you MUST update the PHP documentation of the "dev" branch and commit it
@@ -92,7 +92,7 @@ Each release-push to GitHub MAY update the <http://sites.ateliers-pierrot.fr/mar
 ### Generate the "PHAR" archive
 
 To automatically re-generate the "markdown-extended.phar" file from current version, you can use
-the `bin/compile` binary of the "wip" branch:
+the `bin/compile` binary of the "dev" branch:
 
     ~$ php build/make-phar.php
 

@@ -175,7 +175,7 @@ of this repository, modifying it and [asking to pull your modifications](http://
 on the original branch.
 
 Please note that the "master" branch is **always the latest stable version** of the code. 
-Development is done on branch "wip" and you can create a new one for your own developments.
+Development is done on branch "dev" and you can create a new one for your own developments.
 A developer help and roadmap is provided [in the docs](docs/ROADMAP.md).
 The latest version of the package documentation is available online at
 <http://docs.ateliers-pierrot.fr/markdown-extended/>.

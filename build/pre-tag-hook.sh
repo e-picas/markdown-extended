@@ -59,8 +59,7 @@ debecho "> commiting new files ..."
 git add "$MARKDOWNEXTENDED" "$MARKDOWNMANPAGE" "$MARKDOWNMANPAGE_MAN"
 git commit -m "Automatic version number and date insertion"
 LASTSHA="$(git log -1 --format="%H")"
-git checkout wip && git cherry-pick "$LASTSHA"
 git checkout dev && git cherry-pick "$LASTSHA"
-git checkout master && git push origin master wip dev;
+git checkout master && git push origin master dev;
 
 # Endfile
