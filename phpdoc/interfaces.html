@@ -1,86 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>Interfaces | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="stylesheet.css">
-                            </head>
-        <body id="overview">
-            <div class="header">
-        <ul>
-            <li><a href="classes.html">Classes</a></li>
-                            <li><a href="namespaces.html">Namespaces</a></li>
-                        <li><a href="interfaces.html">Interfaces</a></li>
-            <li><a href="traits.html">Traits</a></li>
-            <li><a href="doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Interfaces | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/sami.css">
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/typeahead.min.js"></script>
+        <script src="sami.js"></script>
+    
+    
+    </head>
 
-            <h1>Interfaces</h1>
+    <body id="interfaces" data-name="" data-root-path="">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <table>
-                    <tr>
-                <td><a href="MarkdownExtended/API/CollectionInterface.html" target="main"><abbr title="MarkdownExtended\API\CollectionInterface">MarkdownExtended\API\CollectionInterface</abbr></a></td>
-                <td class="last">
-                    Interface CollectionInterface
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="MarkdownExtended/API/ContentInterface.html" target="main"><abbr title="MarkdownExtended\API\ContentInterface">MarkdownExtended\API\ContentInterface</abbr></a></td>
-                <td class="last">
-                    Interface to implement for <code>MarkdownExtended\Content</code> objects
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="MarkdownExtended/API/GamutInterface.html" target="main"><abbr title="MarkdownExtended\API\GamutInterface">MarkdownExtended\API\GamutInterface</abbr></a></td>
-                <td class="last">
-                    Interface GamutInterface
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="MarkdownExtended/API/KernelInterface.html" target="main"><abbr title="MarkdownExtended\API\KernelInterface">MarkdownExtended\API\KernelInterface</abbr></a></td>
-                <td class="last">
-                    Interface that defines a "kernel" principle
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="MarkdownExtended/API/OutputFormatHelperInterface.html" target="main"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">MarkdownExtended\API\OutputFormatHelperInterface</abbr></a></td>
-                <td class="last">
-                    PHP Markdown Extended OutputFormat helper interface
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="MarkdownExtended/API/OutputFormatInterface.html" target="main"><abbr title="MarkdownExtended\API\OutputFormatInterface">MarkdownExtended\API\OutputFormatInterface</abbr></a></td>
-                <td class="last">
-                    PHP Markdown Extended OutputFormat interface
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="MarkdownExtended/API/ParserInterface.html" target="main"><abbr title="MarkdownExtended\API\ParserInterface">MarkdownExtended\API\ParserInterface</abbr></a></td>
-                <td class="last">
-                    Interface for a content parser
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="MarkdownExtended/API/TemplaterInterface.html" target="main"><abbr title="MarkdownExtended\API\TemplaterInterface">MarkdownExtended\API\TemplaterInterface</abbr></a></td>
-                <td class="last">
-                    Interface TemplaterInterface
-                </td>
-            </tr>
-                    <tr>
-                <td><a href="markdown/MarkdownParserCompatibilityInterface.html" target="main"><abbr title="markdown\MarkdownParserCompatibilityInterface">markdown\MarkdownParserCompatibilityInterface</abbr></a></td>
-                <td class="last">
-                    Interface MarkdownParserCompatibilityInterface
-                </td>
-            </tr>
-            </table>
+
+                <div id="api-tree"></div>
+
         </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="classes.html">Classes</a></li>
+                                            <li><a href="namespaces.html">Namespaces</a></li>
+                                        <li><a href="interfaces.html">Interfaces</a></li>
+                    <li><a href="traits.html">Traits</a></li>
+                    <li><a href="doc-index.html">Index</a></li>
+                    <li><a href="search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div id="page-content">
+                    <div class="page-header">
+        <h1>Interfaces</h1>
+    </div>
+
+    <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/CollectionInterface.html"><abbr title="MarkdownExtended\API\CollectionInterface">MarkdownExtended\API\CollectionInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    Interface CollectionInterface
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">MarkdownExtended\API\ContentInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    Interface to implement for <code>MarkdownExtended\Content</code> objects
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/GamutInterface.html"><abbr title="MarkdownExtended\API\GamutInterface">MarkdownExtended\API\GamutInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    Interface GamutInterface
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">MarkdownExtended\API\KernelInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    Interface that defines a "kernel" principle
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/OutputFormatHelperInterface.html"><abbr title="MarkdownExtended\API\OutputFormatHelperInterface">MarkdownExtended\API\OutputFormatHelperInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    PHP Markdown Extended OutputFormat helper interface
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">MarkdownExtended\API\OutputFormatInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    PHP Markdown Extended OutputFormat interface
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/ParserInterface.html"><abbr title="MarkdownExtended\API\ParserInterface">MarkdownExtended\API\ParserInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    Interface for a content parser
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="MarkdownExtended/API/TemplaterInterface.html"><abbr title="MarkdownExtended\API\TemplaterInterface">MarkdownExtended\API\TemplaterInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    Interface TemplaterInterface
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="markdown/MarkdownParserCompatibilityInterface.html"><abbr title="markdown\MarkdownParserCompatibilityInterface">markdown\MarkdownParserCompatibilityInterface</abbr></a></em>
+                                    </div>
+                <div class="col-md-6">
+                    Interface MarkdownParserCompatibilityInterface
+                </div>
+            </div>
+            </div>
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>

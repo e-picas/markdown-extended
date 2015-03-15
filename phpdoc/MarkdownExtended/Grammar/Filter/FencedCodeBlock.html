@@ -1,166 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Grammar\Filter\FencedCodeBlock | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
-                            </head>
-        <body id="class">
-            <div class="header">
-        <ul>
-            <li><a href="../../../classes.html">Classes</a></li>
-                            <li><a href="../../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../../interfaces.html">Interfaces</a></li>
-            <li><a href="../../../traits.html">Traits</a></li>
-            <li><a href="../../../doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>MarkdownExtended\Grammar\Filter\FencedCodeBlock | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/sami.css">
+        <script src="../../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+        <script src="../../../js/typeahead.min.js"></script>
+        <script src="../../../sami.js"></script>
+    
+    
+    </head>
 
-            <div class="type">Class</div>
-    <h1><a href="../../../MarkdownExtended/Grammar/Filter.html">MarkdownExtended\Grammar\Filter</a>\FencedCodeBlock</h1>
+    <body id="class" data-name="class:MarkdownExtended_Grammar_Filter_FencedCodeBlock" data-root-path="../../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <p>    class
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../../classes.html">Classes</a></li>
+                                            <li><a href="../../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../traits.html">Traits</a></li>
+                    <li><a href="../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                                                            <li><a href="../../../MarkdownExtended.html">MarkdownExtended</a></li>
+                                        <li><a href="../../../MarkdownExtended/Grammar.html">Grammar</a></li>
+                                        <li><a href="../../../MarkdownExtended/Grammar/Filter.html">Filter</a></li>
+    
+                <li>FencedCodeBlock</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>FencedCodeBlock</h1>
+    </div>
+
+    <p>    class
     <strong>FencedCodeBlock</strong>        extends <a href="../../../MarkdownExtended/Grammar/Filter.html"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></p>
 
             <div class="description">
-            <p>Process Markdown fenced code blocks</p>
-            <p>Fenced code blocks may be written like:</p>
+            <p>Process Markdown fenced code blocks</p>            <p>Fenced code blocks may be written like:</p>
 
 <pre><code> ~~~~(language)
  my content ...
  ~~~~
 </code></pre>
-</p>
-        </div>
+</p>        </div>
+    
     
     
     
             <h2>Methods</h2>
 
-            <table>
-                    <tr>
-                <td class="type">
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_runGamut">runGamut</a>(string $gamut, string $text)
-                    <p>Run a gamut stack from a filter or tool</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Run a gamut stack from a filter or tool</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_resetHash">resetHash</a>()
-                    <p>Reset the hash table</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Reset the hash table</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_setHash">setHash</a>(string $key, string $text)
-                    <p>Reference a new hash</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Reference a new hash</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getHash">getHash</a>(string $key)
-                    <p>Retrieve a hash by its key</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Retrieve a hash by its key</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getDefaultMethod">getDefaultMethod</a>()
-                    <p>Must return a method name</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Must return a method name</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_hashPart">hashPart</a>(string $text, string $boundary = &#039;X&#039;)
-                    <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Called whenever a tag must be hashed when a function insert an atomic
+element in the text stream. Passing $text to through this function gives
+a unique text-token which will be reverted back when calling unhash.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_hashBlock">hashBlock</a>(string $text)
-                    <p>Shortcut function for hashPart with block-level boundaries.</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Shortcut function for hashPart with block-level boundaries.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_hashClean">hashClean</a>(string $text)
-                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automatically escaped, blocking invalid nested overlap.</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Called whenever a tag must be hashed when a function insert a "clean" tag
+in $text, it pass through this function and is automatically escaped,
+blocking invalid nested overlap.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_unhash">unhash</a>(string $text)
-                    <p>Swap back in all the tags hashed by _HashHTMLBlocks.</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-            </table>
+                                            <p>Swap back in all the tags hashed by _HashHTMLBlocks.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></div>
+            </div>
+            </div>
 
 
         <h2>Details</h2>
 
-                        <h3 id="method_runGamut">
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_runGamut">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 29</div>
-        <code>            public            string
+        <code>                    string
     <strong>runGamut</strong>(string $gamut, string $text)</code>
     </h3>
     <div class="details">
-        <p>Run a gamut stack from a filter or tool</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Run a gamut stack from a filter or tool</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$gamut</td>
@@ -177,7 +221,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>
@@ -190,35 +234,37 @@
                     </div>
     </div>
 
-                <h3 id="method_resetHash">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_resetHash">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 46</div>
-        <code>            public            
+        <code>                    
     <strong>resetHash</strong>()</code>
     </h3>
     <div class="details">
-        <p>Reset the hash table</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Reset the hash table</p>                                </div>
+                <div class="tags">
             
             
             
                     </div>
     </div>
 
-                <h3 id="method_setHash">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setHash">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 57</div>
-        <code>            public            
+        <code>                    
     <strong>setHash</strong>(string $key, string $text)</code>
     </h3>
     <div class="details">
-        <p>Reference a new hash</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Reference a new hash</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$key</td>
@@ -239,19 +285,20 @@
                     </div>
     </div>
 
-                <h3 id="method_getHash">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getHash">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 67</div>
-        <code>            public            
+        <code>                    
     <strong>getHash</strong>(string $key)</code>
     </h3>
     <div class="details">
-        <p>Retrieve a hash by its key</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Retrieve a hash by its key</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$key</td>
@@ -266,20 +313,21 @@
                     </div>
     </div>
 
-                <h3 id="method_getDefaultMethod">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDefaultMethod">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 31</div>
-        <code>        static    public            string
+        <code>        static            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
     <div class="details">
-        <p>Must return a method name</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Must return a method name</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>
@@ -292,20 +340,18 @@
                     </div>
     </div>
 
-                <h3 id="method_transform">
-        <div class="location">at line 36</div>
-        <code>            public            string
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_transform">
+        <div class="location">at line 37</div>
+        <code>                    string
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$text</td>
@@ -317,7 +363,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>
@@ -330,24 +376,25 @@
                     </div>
     </div>
 
-                <h3 id="method_hashPart">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_hashPart">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 63</div>
-        <code>            public            string
+        <code>                    string
     <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
-        <p>Passing $text to through this function gives
-a unique text-token which will be reverted back when calling unhash.</p>
-
-<p>The $boundary argument specify what character should be used to surround
+                    <div class="method-description">
+                                    <p>Called whenever a tag must be hashed when a function insert an atomic
+element in the text stream. Passing $text to through this function gives
+a unique text-token which will be reverted back when calling unhash.</p>                    <p>The $boundary argument specify what character should be used to surround
 the token. By convention, "B" is used for block elements that needs not
 to be wrapped into paragraph tags at the end, ":" is used for elements
-that are word separators and "X" is used in the general case.</p>
-        <div class="tags">
+that are word separators and "X" is used in the general case.</p>            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$text</td>
@@ -363,7 +410,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>The text parsed</td>
@@ -374,7 +421,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>See also</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>self::unhash()</td>
                 <td></td>
@@ -384,19 +431,20 @@ that are word separators and "X" is used in the general case.</p>
                     </div>
     </div>
 
-                <h3 id="method_hashBlock">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_hashBlock">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 82</div>
-        <code>            public            string
+        <code>                    string
     <strong>hashBlock</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Shortcut function for hashPart with block-level boundaries.</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Shortcut function for hashPart with block-level boundaries.</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$text</td>
@@ -407,7 +455,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>Pass results of the <code>hashPart()</code> function</td>
@@ -418,7 +466,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>See also</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>self::hashPart()</td>
                 <td></td>
@@ -428,19 +476,22 @@ that are word separators and "X" is used in the general case.</p>
                     </div>
     </div>
 
-                <h3 id="method_hashClean">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_hashClean">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 96</div>
-        <code>            public            string
+        <code>                    string
     <strong>hashClean</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automatically escaped, blocking invalid nested overlap.</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag
+in $text, it pass through this function and is automatically escaped,
+blocking invalid nested overlap.</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$text</td>
@@ -451,7 +502,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>Text parsed</td>
@@ -462,7 +513,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>See also</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>self::hashPart()</td>
                 <td></td>
@@ -472,19 +523,20 @@ that are word separators and "X" is used in the general case.</p>
                     </div>
     </div>
 
-                <h3 id="method_unhash">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_unhash">
         <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 108</div>
-        <code>            public            string
+        <code>                    string
     <strong>unhash</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Swap back in all the tags hashed by _HashHTMLBlocks.</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Swap back in all the tags hashed by _HashHTMLBlocks.</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$text</td>
@@ -495,7 +547,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>Pass results of the <code>_unhash_callback()</code> function</td>
@@ -506,7 +558,7 @@ that are word separators and "X" is used in the general case.</p>
             
                             <h4>See also</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>self::_unhash_callback()</td>
                 <td></td>
@@ -516,10 +568,17 @@ that are word separators and "X" is used in the general case.</p>
                     </div>
     </div>
 
+            </div>
+            </div>
+
     
             </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>

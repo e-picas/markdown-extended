@@ -1,40 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Config | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
-                            </head>
-        <body id="class">
-            <div class="header">
-        <ul>
-            <li><a href="../classes.html">Classes</a></li>
-                            <li><a href="../namespaces.html">Namespaces</a></li>
-                        <li><a href="../interfaces.html">Interfaces</a></li>
-            <li><a href="../traits.html">Traits</a></li>
-            <li><a href="../doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>MarkdownExtended\Config | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sami.css">
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/typeahead.min.js"></script>
+        <script src="../sami.js"></script>
+    
+    
+    </head>
 
-            <div class="type">Class</div>
-    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\Config</h1>
+    <body id="class" data-name="class:MarkdownExtended_Config" data-root-path="../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <p>    class
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../classes.html">Classes</a></li>
+                                            <li><a href="../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../interfaces.html">Interfaces</a></li>
+                    <li><a href="../traits.html">Traits</a></li>
+                    <li><a href="../doc-index.html">Index</a></li>
+                    <li><a href="../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                                                            <li><a href="../MarkdownExtended.html">MarkdownExtended</a></li>
+    
+                <li>Config</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>Config</h1>
+    </div>
+
+    <p>    class
     <strong>Config</strong>        extends <a href="../MarkdownExtended/Registry.html"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></p>
 
             <div class="description">
-            <p>Global configuration registry</p>
-            <p>
-</p>
-        </div>
+            <p>Global configuration registry</p>                    </div>
+    
     
             <h2>Constants</h2>
 
-            <table>
+            <table class="table table-condensed">
                     <tr>
                 <td>FULL_CONFIGFILE</td>
                 <td class="last">
@@ -46,8 +92,9 @@
                     <tr>
                 <td>SIMPLE_CONFIGFILE</td>
                 <td class="last">
-                    <p><em>Default simple options INI file (i.e.</em></p>
-                    <p>for input fields)</p>
+                    <p><em>Default simple options INI file (i.e. for input fields)</em></p>
+                    <p>
+</p>
                 </td>
             </tr>
             </table>
@@ -55,195 +102,184 @@
     
             <h2>Properties</h2>
 
-            <table>
+            <table class="table table-condensed">
                     <tr>
                 <td class="type" id="property_defaults">
-                    static                                        array
+                    static                                                            array
                 </td>
                 <td>$defaults</td>
                 <td class="last">
 </td>
+                <td></td>
             </tr>
             </table>
 
     
             <h2>Methods</h2>
 
-            <table>
-                    <tr>
-                <td class="type">
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
-                    <p>Create a configuration object</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Create a configuration object</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_set">set</a>(string $var, mixed $val)
-                    <p>Set or reset a new instance in global registry</p>
-                </td>
-                <td><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_set"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Set or reset a new instance in global registry</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_set"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_add">add</a>(string $var, mixed $val)
-                    <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>
-                </td>
-                <td><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_add"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_add"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_remove">remove</a>(string $var, null|string $index = null)
-                    <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>
-                </td>
-                <td><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_remove"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_remove"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     mixed
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_get">get</a>(string $var, mixed $default = null)
-                    <p>Get an entry from the global registry</p>
-                </td>
-                <td><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_get"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Get an entry from the global registry</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_get"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;mixed
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_extend">extend</a>(mixed $what, mixed $add)
-                    <p>Extend a value with another, if types match</p>
-                </td>
-                <td><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_extend"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Extend a value with another, if types match</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_extend"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;bool
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_validateVarname">validateVarname</a>(string $var)
-                    <p>Validate a var name</p>
-                </td>
-                <td><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_validateVarname"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Validate a var name</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../MarkdownExtended/Registry.html#method_validateVarname"><abbr title="MarkdownExtended\Registry">Registry</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_reset">reset</a>()
-                    <p>Reset data on defaults</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Reset data on defaults</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_init">init</a>(null|<abbr title="MarkdownExtended\string/array">string/array</abbr> $user_config = null)
-                    <p>Init a new config with user options</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Init a new config with user options</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_load">load</a>(<abbr title="MarkdownExtended\string/array">string/array</abbr> $cfg_file, bool $silent = false)
-                    <p>Load and parse a INI configuration file</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Load and parse a INI configuration file</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_reload">reload</a>(<abbr title="MarkdownExtended\string/array">string/array</abbr> $cfg_file = null, bool $forced = false, bool $silent = false)
-                    <p>Over-load a configuration</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Over-load a configuration</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_overload">overload</a>(array $config)
-                    <p>Over-load a configuration</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Over-load a configuration</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     <a href="../MarkdownExtended/Config.html"><abbr title="MarkdownExtended\Config">Config</abbr></a>
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_setConfigFile">setConfigFile</a>(string $cfg_file)
-                    <p>Define the object config file</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Define the object config file</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getConfigFile">getConfigFile</a>()
-                    <p>Get the object config file</p>
-                </td>
-                <td></td>
-            </tr>
-            </table>
+                                            <p>Get the object config file</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
 
 
         <h2>Details</h2>
 
-                        <h3 id="method___construct">
-        <div class="location">at line 97</div>
-        <code>            public            
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at line 98</div>
+        <code>                    
     <strong>__construct</strong>()</code>
     </h3>
     <div class="details">
-        <p>Create a configuration object</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Create a configuration object</p>                                </div>
+                <div class="tags">
             
             
             
                     </div>
     </div>
 
-                <h3 id="method_set">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_set"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 60</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_set">
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_set"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 62</div>
+        <code>                    void
     <strong>set</strong>(string $var, mixed $val)</code>
     </h3>
     <div class="details">
-        <p>Set or reset a new instance in global registry</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Set or reset a new instance in global registry</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
@@ -261,7 +297,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -272,9 +308,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if <code>$var</code> seems invalid</td>
             </tr>
             </table>
@@ -283,19 +319,20 @@
                     </div>
     </div>
 
-                <h3 id="method_add">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_add"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 80</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_add">
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_add"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 82</div>
+        <code>                    void
     <strong>add</strong>(string $var, mixed $val)</code>
     </h3>
     <div class="details">
-        <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
@@ -313,7 +350,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -324,13 +361,13 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if <code>$var</code> seems invalid</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/RuntimeException"><abbr title="RuntimeException">RuntimeException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
                 <td>if trying to add an entry of a non-extendable object</td>
             </tr>
             </table>
@@ -339,19 +376,20 @@
                     </div>
     </div>
 
-                <h3 id="method_remove">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_remove"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 107</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_remove">
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_remove"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 109</div>
+        <code>                    void
     <strong>remove</strong>(string $var, null|string $index = null)</code>
     </h3>
     <div class="details">
-        <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
@@ -369,7 +407,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -380,9 +418,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/RuntimeException"><abbr title="RuntimeException">RuntimeException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
                 <td>if trying to remove a non-removable entry</td>
             </tr>
             </table>
@@ -391,19 +429,20 @@
                     </div>
     </div>
 
-                <h3 id="method_get">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_get"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 131</div>
-        <code>            public            mixed
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_get">
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_get"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 133</div>
+        <code>                    mixed
     <strong>get</strong>(string $var, mixed $default = null)</code>
     </h3>
     <div class="details">
-        <p>Get an entry from the global registry</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Get an entry from the global registry</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
@@ -421,7 +460,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>mixed</td>
             <td>
@@ -434,19 +473,20 @@
                     </div>
     </div>
 
-                <h3 id="method_extend">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_extend"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 150</div>
-        <code>        static    public            mixed
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_extend">
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_extend"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 152</div>
+        <code>        static            mixed
     <strong>extend</strong>(mixed $what, mixed $add)</code>
     </h3>
     <div class="details">
-        <p>Extend a value with another, if types match</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Extend a value with another, if types match</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>mixed</td>
                 <td>$what</td>
@@ -464,7 +504,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>mixed</td>
             <td>
@@ -475,17 +515,17 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if trying to extend an array with not an array</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if trying to extend an object</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if type unknown</td>
             </tr>
             </table>
@@ -494,19 +534,20 @@
                     </div>
     </div>
 
-                <h3 id="method_validateVarname">
-        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_validateVarname"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 184</div>
-        <code>        static    public            bool
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_validateVarname">
+        <div class="location">in <a href="../MarkdownExtended/Registry.html#method_validateVarname"><abbr title="MarkdownExtended\Registry">Registry</abbr></a> at line 186</div>
+        <code>        static            bool
     <strong>validateVarname</strong>(string $var)</code>
     </h3>
     <div class="details">
-        <p>Validate a var name</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Validate a var name</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
@@ -518,7 +559,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>bool</td>
             <td>
@@ -529,9 +570,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if the var name is not an alpha-numeric string</td>
             </tr>
             </table>
@@ -540,20 +581,21 @@
                     </div>
     </div>
 
-                <h3 id="method_reset">
-        <div class="location">at line 108</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_reset">
+        <div class="location">at line 109</div>
+        <code>                    void
     <strong>reset</strong>()</code>
     </h3>
     <div class="details">
-        <p>Reset data on defaults</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Reset data on defaults</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -566,19 +608,20 @@
                     </div>
     </div>
 
-                <h3 id="method_init">
-        <div class="location">at line 121</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_init">
+        <div class="location">at line 122</div>
+        <code>                    void
     <strong>init</strong>(null|<abbr title="MarkdownExtended\string/array">string/array</abbr> $user_config = null)</code>
     </h3>
     <div class="details">
-        <p>Init a new config with user options</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Init a new config with user options</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>null|<abbr title="MarkdownExtended\string/array">string/array</abbr></td>
                 <td>$user_config</td>
@@ -590,7 +633,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -601,13 +644,13 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/UnexpectedValueException"><abbr title="UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
                 <td>if file doesn't exist</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/DomainException"><abbr title="DomainException">DomainException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
                 <td>if file seems malformed</td>
             </tr>
             </table>
@@ -616,19 +659,20 @@
                     </div>
     </div>
 
-                <h3 id="method_load">
-        <div class="location">at line 155</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_load">
+        <div class="location">at line 156</div>
+        <code>                    void
     <strong>load</strong>(<abbr title="MarkdownExtended\string/array">string/array</abbr> $cfg_file, bool $silent = false)</code>
     </h3>
     <div class="details">
-        <p>Load and parse a INI configuration file</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Load and parse a INI configuration file</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td><abbr title="MarkdownExtended\string/array">string/array</abbr></td>
                 <td>$cfg_file</td>
@@ -646,7 +690,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -657,13 +701,13 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/UnexpectedValueException"><abbr title="UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
                 <td>if file doesn't exist</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/DomainException"><abbr title="DomainException">DomainException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
                 <td>if file seems malformed</td>
             </tr>
             </table>
@@ -672,19 +716,20 @@
                     </div>
     </div>
 
-                <h3 id="method_reload">
-        <div class="location">at line 182</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_reload">
+        <div class="location">at line 183</div>
+        <code>                    void
     <strong>reload</strong>(<abbr title="MarkdownExtended\string/array">string/array</abbr> $cfg_file = null, bool $forced = false, bool $silent = false)</code>
     </h3>
     <div class="details">
-        <p>Over-load a configuration</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Over-load a configuration</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td><abbr title="MarkdownExtended\string/array">string/array</abbr></td>
                 <td>$cfg_file</td>
@@ -708,7 +753,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -719,13 +764,13 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/UnexpectedValueException"><abbr title="UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
                 <td>if file doesn't exist</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/DomainException"><abbr title="DomainException">DomainException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
                 <td>if file seems malformed</td>
             </tr>
             </table>
@@ -734,19 +779,20 @@
                     </div>
     </div>
 
-                <h3 id="method_overload">
-        <div class="location">at line 206</div>
-        <code>            public            void
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_overload">
+        <div class="location">at line 207</div>
+        <code>                    void
     <strong>overload</strong>(array $config)</code>
     </h3>
     <div class="details">
-        <p>Over-load a configuration</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Over-load a configuration</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>array</td>
                 <td>$config</td>
@@ -758,7 +804,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
             <td>
@@ -771,19 +817,20 @@
                     </div>
     </div>
 
-                <h3 id="method_setConfigFile">
-        <div class="location">at line 222</div>
-        <code>            public            <a href="../MarkdownExtended/Config.html"><abbr title="MarkdownExtended\Config">Config</abbr></a>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setConfigFile">
+        <div class="location">at line 223</div>
+        <code>                    <a href="../MarkdownExtended/Config.html"><abbr title="MarkdownExtended\Config">Config</abbr></a>
     <strong>setConfigFile</strong>(string $cfg_file)</code>
     </h3>
     <div class="details">
-        <p>Define the object config file</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Define the object config file</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$cfg_file</td>
@@ -795,7 +842,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td><a href="../MarkdownExtended/Config.html"><abbr title="MarkdownExtended\Config">Config</abbr></a></td>
             <td>
@@ -806,9 +853,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/UnexpectedValueException"><abbr title="UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
                 <td>if file doesn't exist</td>
             </tr>
             </table>
@@ -817,20 +864,21 @@
                     </div>
     </div>
 
-                <h3 id="method_getConfigFile">
-        <div class="location">at line 240</div>
-        <code>            public            string
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getConfigFile">
+        <div class="location">at line 241</div>
+        <code>                    string
     <strong>getConfigFile</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get the object config file</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Get the object config file</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>
@@ -843,10 +891,17 @@
                     </div>
     </div>
 
+            </div>
+            </div>
+
     
             </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>

@@ -1,135 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\API\KernelInterface | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
-                            </head>
-        <body id="class">
-            <div class="header">
-        <ul>
-            <li><a href="../../classes.html">Classes</a></li>
-                            <li><a href="../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../interfaces.html">Interfaces</a></li>
-            <li><a href="../../traits.html">Traits</a></li>
-            <li><a href="../../doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>MarkdownExtended\API\KernelInterface | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+    
+    
+    </head>
 
-            <div class="type">Interface</div>
-    <h1><a href="../../MarkdownExtended/API.html">MarkdownExtended\API</a>\KernelInterface</h1>
+    <body id="class" data-name="class:MarkdownExtended_API_KernelInterface" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <p>    interface
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">interface</span></li>
+                                                            <li><a href="../../MarkdownExtended.html">MarkdownExtended</a></li>
+                                        <li><a href="../../MarkdownExtended/API.html">API</a></li>
+    
+                <li>KernelInterface</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>KernelInterface</h1>
+    </div>
+
+    <p>    interface
     <strong>KernelInterface</strong></p>
 
             <div class="description">
-            <p>Interface that defines a "kernel" principle</p>
-            <p>It mostly forces static methods and works like a services container for:
+            <p>Interface that defines a "kernel" principle</p>            <p>It mostly forces static methods and works like a services container for:
 - a "contents" collection
 - a parser object
 - a configuration object
 - an optional templater</p>
 
-<p>It can be used as a classic class object or as a singleton instance.</p>
-        </div>
+<p>It can be used as a classic class object or as a singleton instance.</p>        </div>
+    
     
     
     
             <h2>Methods</h2>
 
-            <table>
-                    <tr>
-                <td class="type">
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>(array $options = null)
-                    <p>Initialize the registry and flush the contents stack</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Initialize the registry and flush the contents stack</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;<a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getInstance">getInstance</a>(int $instance_id = null, array $options = null)
-                    <p>Get the instance, which will be created if required</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Get the instance, which will be created if required</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;<a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_create">create</a>(array $options = null, $instance_id = null)
-                    <p>Create a new singleton instance</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Create a new singleton instance</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;object
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_factory">factory</a>(string $class_name, array $params = null)
-                    <p>Build, retain and return a dependency instance</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Build, retain and return a dependency instance</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;object
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_get">get</a>(string $class_name, array $params = null, mixed $flag = \MarkdownExtended\API::FAIL_GRACEFULLY)
-                    <p>Get a service from the container ; load it if absent</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Get a service from the container ; load it if absent</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_transformString">transformString</a>(string $source, string|array $parser_options = null, string|null $key = null, bool $secondary = false)
-                    <p>Transform a source string</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Transform a source string</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_transformSource">transformSource</a>(string $filename, string|array $parser_options = null, string|null $key = null, bool $secondary = false)
-                    <p>Transform a source file content</p>
-                </td>
-                <td></td>
-            </tr>
-            </table>
+                                            <p>Transform a source file content</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
 
 
         <h2>Details</h2>
 
-                        <h3 id="method___construct">
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
         <div class="location">at line 38</div>
-        <code>            public            
+        <code>                    
     <strong>__construct</strong>(array $options = null)</code>
     </h3>
     <div class="details">
-        <p>Initialize the registry and flush the contents stack</p>
-        <p>The best practice is to use the class as a singleton calling <code>getInstance()</code> or
-<code>create()</code>.</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Initialize the registry and flush the contents stack</p>                    <p>The best practice is to use the class as a singleton calling <code>getInstance()</code> or
+<code>create()</code>.</p>            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>array</td>
                 <td>$options</td>
@@ -143,19 +186,20 @@
                     </div>
     </div>
 
-                <h3 id="method_getInstance">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getInstance">
         <div class="location">at line 47</div>
-        <code>        static    public            <a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
+        <code>        static            <a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
     <strong>getInstance</strong>(int $instance_id = null, array $options = null)</code>
     </h3>
     <div class="details">
-        <p>Get the instance, which will be created if required</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Get the instance, which will be created if required</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>int</td>
                 <td>$instance_id</td>
@@ -171,7 +215,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td><a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a></td>
             <td>Must return the object itself</td>
@@ -183,19 +227,20 @@
                     </div>
     </div>
 
-                <h3 id="method_create">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_create">
         <div class="location">at line 56</div>
-        <code>        static    public            <a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
+        <code>        static            <a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a>
     <strong>create</strong>(array $options = null, $instance_id = null)</code>
     </h3>
     <div class="details">
-        <p>Create a new singleton instance</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Create a new singleton instance</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>array</td>
                 <td>$options</td>
@@ -213,7 +258,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td><a href="../../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a></td>
             <td>Must return the object itself for method chaining</td>
@@ -225,23 +270,25 @@
                     </div>
     </div>
 
-                <h3 id="method_factory">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_factory">
         <div class="location">at line 82</div>
-        <code>        static    public            object
+        <code>        static            object
     <strong>factory</strong>(string $class_name, array $params = null)</code>
     </h3>
     <div class="details">
-        <p>Build, retain and return a dependency instance</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Build, retain and return a dependency instance</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$class_name</td>
-                <td>The class name to instantiate ; will be completed with current namespace if necessary</td>
+                <td>The class name to instantiate ; will be completed with current
+                                 namespace if necessary</td>
             </tr>
                     <tr>
                 <td>array</td>
@@ -253,7 +300,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>object</td>
             <td>Must return a service object</td>
@@ -263,9 +310,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>Must throw an exception it the class doesn't exist</td>
             </tr>
             </table>
@@ -274,23 +321,25 @@
                     </div>
     </div>
 
-                <h3 id="method_get">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_get">
         <div class="location">at line 94</div>
-        <code>        static    public            object
+        <code>        static            object
     <strong>get</strong>(string $class_name, array $params = null, mixed $flag = \MarkdownExtended\API::FAIL_GRACEFULLY)</code>
     </h3>
     <div class="details">
-        <p>Get a service from the container ; load it if absent</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Get a service from the container ; load it if absent</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$class_name</td>
-                <td>The class name to instantiate ; will be completed with current namespace if necessary</td>
+                <td>The class name to instantiate ; will be completed with current
+                                 namespace if necessary</td>
             </tr>
                     <tr>
                 <td>array</td>
@@ -307,7 +356,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>object</td>
             <td>Must return a service object</td>
@@ -317,9 +366,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>Must throw an exception it the class doesn't exist</td>
             </tr>
             </table>
@@ -328,19 +377,20 @@
                     </div>
     </div>
 
-                <h3 id="method_transformString">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_transformString">
         <div class="location">at line 110</div>
-        <code>        static    public            <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
+        <code>        static            <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>transformString</strong>(string $source, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
     </h3>
     <div class="details">
-        <p>Transform a source string</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Transform a source string</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$source</td>
@@ -362,14 +412,15 @@
                     <tr>
                 <td>bool</td>
                 <td>$secondary</td>
-                <td>Set it to <code>true</code> if parsed content may not be stored as the current one of the collection</td>
+                <td>Set it to <code>true</code> if parsed content may not be
+                                         stored as the current one of the collection</td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
             <td>Must return a content object</td>
@@ -381,19 +432,20 @@
                     </div>
     </div>
 
-                <h3 id="method_transformSource">
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_transformSource">
         <div class="location">at line 123</div>
-        <code>        static    public            <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
+        <code>        static            <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
     <strong>transformSource</strong>(string $filename, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
     </h3>
     <div class="details">
-        <p>Transform a source file content</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Transform a source file content</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$filename</td>
@@ -415,14 +467,15 @@
                     <tr>
                 <td>bool</td>
                 <td>$secondary</td>
-                <td>Set it to <code>true</code> if parsed content may not be stored as the current one of the collection</td>
+                <td>Set it to <code>true</code> if parsed content may not be
+                                         stored as the current one of the collection</td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
             <td>Must return a content object</td>
@@ -432,9 +485,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>Must throw an exception if the <code>$filename</code> can't be found</td>
             </tr>
             </table>
@@ -443,10 +496,17 @@
                     </div>
     </div>
 
+            </div>
+            </div>
+
     
             </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>

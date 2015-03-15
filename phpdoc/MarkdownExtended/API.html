@@ -1,40 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\API | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
-                            </head>
-        <body id="class">
-            <div class="header">
-        <ul>
-            <li><a href="../classes.html">Classes</a></li>
-                            <li><a href="../namespaces.html">Namespaces</a></li>
-                        <li><a href="../interfaces.html">Interfaces</a></li>
-            <li><a href="../traits.html">Traits</a></li>
-            <li><a href="../doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>MarkdownExtended\API | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sami.css">
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/typeahead.min.js"></script>
+        <script src="../sami.js"></script>
+    
+    
+    </head>
 
-            <div class="type">Class</div>
-    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\API</h1>
+    <body id="class" data-name="class:MarkdownExtended_API" data-root-path="../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <p>    class
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../classes.html">Classes</a></li>
+                                            <li><a href="../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../interfaces.html">Interfaces</a></li>
+                    <li><a href="../traits.html">Traits</a></li>
+                    <li><a href="../doc-index.html">Index</a></li>
+                    <li><a href="../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                                                            <li><a href="../MarkdownExtended.html">MarkdownExtended</a></li>
+    
+                <li>API</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>API</h1>
+    </div>
+
+    <p>    class
     <strong>API</strong></p>
 
             <div class="description">
-            <p>The API defines all required interfaces</p>
-            <p>
-</p>
-        </div>
+            <p>The API defines all required interfaces</p>                    </div>
+    
     
             <h2>Constants</h2>
 
-            <table>
+            <table class="table table-condensed">
                     <tr>
                 <td>FAIL_GRACEFULLY</td>
                 <td class="last">
@@ -140,75 +186,71 @@
     
             <h2>Methods</h2>
 
-            <table>
-                    <tr>
-                <td class="type">
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;object
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_factory">factory</a>(string $name, null|array $params = null, null|string $type = null)
-                    <p>Build an API object validating it if needed</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Build an API object validating it if needed</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;bool
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_isValid">isValid</a>(<abbr title="MarkdownExtended\string/object">string/object</abbr> $object, string $type = null, bool $bool = false)
-                    <p>Validate an API object checking its implemented interfaces</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Validate an API object checking its implemented interfaces</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getRelativeClassname">getRelativeClassname</a>(string $class_name)
-                    <p>Get a class name without the current namespace if present</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Get a class name without the current namespace if present</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getAbsoluteClassname">getAbsoluteClassname</a>(string $class_name)
-                    <p>Get a class name with the current namespace</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                                            <p>Get a class name with the current namespace</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_debug">debug</a>()
-                    <p>Debug infos on screen during parsing</p>
-                </td>
-                <td></td>
-            </tr>
-            </table>
+                                            <p>Debug infos on screen during parsing</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
 
 
         <h2>Details</h2>
 
-                        <h3 id="method_factory">
-        <div class="location">at line 127</div>
-        <code>        static    public            object
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_factory">
+        <div class="location">at line 130</div>
+        <code>        static            object
     <strong>factory</strong>(string $name, null|array $params = null, null|string $type = null)</code>
     </h3>
     <div class="details">
-        <p>Build an API object validating it if needed</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Build an API object validating it if needed</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$name</td>
@@ -229,7 +271,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>object</td>
             <td>
@@ -240,17 +282,17 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if the class can not be found</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/RuntimeException"><abbr title="RuntimeException">RuntimeException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
                 <td>if the object creation sent an error</td>
             </tr>
                     <tr>
-                <td><a href="http://php.net/UnexpectedValueException"><abbr title="UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
                 <td>if the class seems not valid</td>
             </tr>
             </table>
@@ -259,19 +301,20 @@
                     </div>
     </div>
 
-                <h3 id="method_isValid">
-        <div class="location">at line 206</div>
-        <code>        static    public            bool
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isValid">
+        <div class="location">at line 209</div>
+        <code>        static            bool
     <strong>isValid</strong>(<abbr title="MarkdownExtended\string/object">string/object</abbr> $object, string $type = null, bool $bool = false)</code>
     </h3>
     <div class="details">
-        <p>Validate an API object checking its implemented interfaces</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Validate an API object checking its implemented interfaces</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td><abbr title="MarkdownExtended\string/object">string/object</abbr></td>
                 <td>$object</td>
@@ -294,7 +337,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>bool</td>
             <td>
@@ -305,9 +348,9 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/UnexpectedValueException"><abbr title="UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
                 <td>
 </td>
             </tr>
@@ -317,19 +360,20 @@
                     </div>
     </div>
 
-                <h3 id="method_getRelativeClassname">
-        <div class="location">at line 248</div>
-        <code>        static    public            string
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRelativeClassname">
+        <div class="location">at line 251</div>
+        <code>        static            string
     <strong>getRelativeClassname</strong>(string $class_name)</code>
     </h3>
     <div class="details">
-        <p>Get a class name without the current namespace if present</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Get a class name without the current namespace if present</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$class_name</td>
@@ -341,7 +385,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>
@@ -354,19 +398,20 @@
                     </div>
     </div>
 
-                <h3 id="method_getAbsoluteClassname">
-        <div class="location">at line 264</div>
-        <code>        static    public            string
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAbsoluteClassname">
+        <div class="location">at line 267</div>
+        <code>        static            string
     <strong>getAbsoluteClassname</strong>(string $class_name)</code>
     </h3>
     <div class="details">
-        <p>Get a class name with the current namespace</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Get a class name with the current namespace</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$class_name</td>
@@ -378,7 +423,7 @@
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
             <td>
@@ -391,26 +436,34 @@
                     </div>
     </div>
 
-                <h3 id="method_debug">
-        <div class="location">at line 275</div>
-        <code>        static    public            
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_debug">
+        <div class="location">at line 278</div>
+        <code>        static            
     <strong>debug</strong>()</code>
     </h3>
     <div class="details">
-        <p>Debug infos on screen during parsing</p>
-        <p>
-</p>
-        <div class="tags">
+                    <div class="method-description">
+                                    <p>Debug infos on screen during parsing</p>                                </div>
+                <div class="tags">
             
             
             
                     </div>
     </div>
 
+            </div>
+            </div>
+
     
             </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>
