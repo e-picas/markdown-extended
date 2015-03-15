@@ -24,9 +24,9 @@
     },
     "require": { "php": ">=5.3.0" },
     "require-dev": {
-        "sami/sami": "2.*",
-        "phpunit/phpunit": "3.7.*",
-        "phpmd/phpmd" : "1.4.*"
+        "sami/sami": "@stable",
+        "phpunit/phpunit": "@stable",
+        "phpmd/phpmd" : "@stable"
     },
     "replace": {
         "atelierspierrot/markdown-extended": "dev-master",
