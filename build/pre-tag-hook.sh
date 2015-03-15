@@ -57,7 +57,7 @@ fi
 
 debecho "> commiting new files ..."
 git add "$MARKDOWNEXTENDED" "$MARKDOWNMANPAGE" "$MARKDOWNMANPAGE_MAN"
-git commit -m "Automatic version number and date insertion"
+git commit -m "Automatic version number and date insertion (#no-changelog)"
 LASTSHA="$(git log -1 --format="%H")"
 git checkout dev && git cherry-pick "$LASTSHA"
 git checkout master && git push origin master dev;
