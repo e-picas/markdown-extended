@@ -471,7 +471,7 @@ abstract class AbstractConsole
         $fsize = null;
         if (!empty($output) && !empty($output_file)) {
             $this->info("Writing parsed content in output file `$output_file`", false);
-            if ($ok = @file_put_contents($output_file, $output)) {
+            if ($ok = file_put_contents($output_file, $output)) {
                 $fsize = MDE_Helper::getFileSize($output_file);
                 $this->info("OK [file size: $fsize]");
             } else {
