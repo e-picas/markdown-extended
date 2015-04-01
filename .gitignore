@@ -7,6 +7,7 @@ vendor/*
 
 # dev
 dev/*
+build/logs/*
 
 # this is for "dev" branch only
 #build/*
