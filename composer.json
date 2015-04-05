@@ -1,48 +1,68 @@
 {
-    "name": "piwi/markdown-extended",
-    "type": "library",
-    "description": "A PHP parser for the Markdown Extended syntax",
-    "keywords": [ "markdown", "markdown extended", "mde" ],
-    "homepage": "http://aboutmde.org/",
-    "license": "BSD-3-Clause",
-    "authors": [{
-            "name": "John Gruber",
-            "homepage": "http://daringfireball.net/"
-        },{
-            "name": "Michel Fortin",
-            "homepage": "http://michelf.com/"
-        },{
-            "name": "Fletcher T. Penney",
-            "homepage": "http://fletcherpenney.net/"
-        },{
-            "name": "Pierre Cassat",
-            "homepage": "http://e-piwi.fr/"
-    }],
-    "support": {
-        "issues": "http://github.com/piwi/markdown-extended/issues",
-        "source": "http://github.com/piwi/markdown-extended/tree/master"
-    },
-    "require": { "php": ">=5.3.0" },
-    "require-dev": {
-        "sami/sami": "@stable",
-        "phpunit/phpunit": "@stable",
-        "phpmd/phpmd" : "@stable"
-    },
-    "replace": {
-        "atelierspierrot/markdown-extended": "dev-master",
-        "atelierspierrot/extended-markdown": "dev-master"
-    },
-    "autoload": { "psr-0": { 
-        "MarkdownExtended": "src",
-        "markdown": "src"
-    } },
-    "config": {
-        "bin-dir": "bin"
-    },
-    "bin": [ "bin/markdown-extended", "man/markdown-extended.man", "man/markdown-extended-documentation.man" ],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.0.*-dev"
-        }
+  "name": "piwi/markdown-extended",
+  "type": "library",
+  "description": "Yet another PHP parser for the markdown (*extended*) syntax",
+  "keywords": [ "markdown", "markdown extended", "mde" ],
+  "homepage": "http://aboutmde.org/",
+  "license": "BSD-3-Clause",
+  "authors": [{
+    "name": "John Gruber",
+    "homepage": "http://daringfireball.net/"
+  },{
+    "name": "Michel Fortin",
+    "homepage": "http://michelf.com/"
+  },{
+    "name": "Fletcher T. Penney",
+    "homepage": "http://fletcherpenney.net/"
+  },{
+    "name": "Pierre Cassat",
+    "homepage": "http://e-piwi.fr/"
+  }],
+  "support": {
+    "issues": "http://github.com/piwi/markdown-extended/issues",
+    "source": "http://github.com/piwi/markdown-extended/tree/master"
+  },
+  "require": { "php": ">=5.3.0" },
+  "require-dev": {
+    "sami/sami": "2.*",
+    "phpunit/phpunit": "@stable",
+    "phpmd/phpmd" : "@stable",
+    "codeclimate/php-test-reporter": "dev-master"
+  },
+  "replace": {
+    "atelierspierrot/markdown-extended": "dev-master",
+    "atelierspierrot/extended-markdown": "dev-master"
+  },
+  "autoload": { "psr-0": {
+    "MarkdownExtended": "src"
+  } },
+  "autoload-dev": { "psr-0": {
+    "MarkdownExtendedDev": "src",
+    "testsMarkdownExtended": "tests"
+  } },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "scripts": {
+    "test": "./bin/phpunit",
+    "code-coverage": "./bin/phpunit --coverage-clover build/logs/clover.xml && CODECLIMATE_REPO_TOKEN=13523c00febc4ee41ddbfcbb4f81331b1810d2a1f40029ddf066cb0d875ff2ef ./bin/test-reporter"
+  },
+  "bin": [
+    "bin/markdown-extended",
+    "man/markdown-extended.3.man",
+    "man/markdown-extended.7.man"
+  ],
+  "archive": {
+    "exclude": [
+      ".DS_Store", ".AppleDouble", ".LSOverride", ".Spotlight-V100", ".Trashes", "Icon", "._*", "*~", "*~lock*",
+      "Thumbs.db", "ehthumbs.db", "Desktop.ini", "*.swp", "*.swo", "*.vi", "nbproject", ".cache", ".settings",
+      ".project", ".buildpath", ".idea", ".tmproj", "*.esproj", "*.sublime-*", "*.diff", "*.err", "*.orig", "*.log",
+      "*.rej", "*.bak", "*.tmp", "build", "dev", "phpdoc", "*.phar"
+    ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.0.*-dev"
     }
+  }
 }
