@@ -12,8 +12,8 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown automatic links
@@ -63,14 +63,17 @@ class AutoLink
      */
     protected function _url_callback($matches)
     {
-        $url = parent::runGamut('tool:EncodeAttribute', $matches[1]);
-        MarkdownExtended::getContent()->addUrl($url);
-        $block = MarkdownExtended::get('OutputFormatBag')
+        $url = parent::runGamut('tools:EncodeAttribute', $matches[1]);
+        Kernel::addConfig('urls', $url);
+
+        $block = Kernel::get('OutputFormatBag')
             ->buildTag('link', $url, array(
-                'href' => $url,
-                'title' => MDE_Helper::fillPlaceholders(
-                    MarkdownExtended::getConfig('link_mask_title'), $url)
-            ));
+                'href'  => $url,
+                'title' => Helper::fillPlaceholders(
+                    Kernel::getConfig('link_mask_title'), $url)
+                )
+            );
+
         return parent::hashPart($block);
     }
 
@@ -81,15 +84,18 @@ class AutoLink
     protected function _email_callback($matches)
     {
         $address = $matches[1];
-        list($address_link, $address_text) = MDE_Helper::encodeEmailAddress($address);
-        MarkdownExtended::getContent()->addUrl($address_text);
-        $block = MarkdownExtended::get('OutputFormatBag')
+        list($address_link, $address_text) = Helper::encodeEmailAddress($address);
+        Kernel::addConfig('urls', $address_text);
+
+        $block = Kernel::get('OutputFormatBag')
             ->buildTag('link', $address_text, array(
                 'email' => $address,
-                'href' => $address_link,
-                'title' => MDE_Helper::fillPlaceholders(
-                    MarkdownExtended::getConfig('mailto_mask_title'), $address_text)
-            ));
+                'href'  => $address_link,
+                'title' => Helper::fillPlaceholders(
+                    Kernel::getConfig('mailto_mask_title'), $address_text)
+                )
+            );
+
         return parent::hashPart($block);
     }
 

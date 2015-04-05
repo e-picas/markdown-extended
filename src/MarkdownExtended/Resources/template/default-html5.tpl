@@ -2,11 +2,10 @@
 <head>
     <meta charset="{% CHARSET %}" />
     <title>{% TITLE %}</title>
-{% META %}
+    {% META %}
 </head>
 <body>
 {% BODY %}
-<hr />
 {% NOTES %}
 </body>
 </html>

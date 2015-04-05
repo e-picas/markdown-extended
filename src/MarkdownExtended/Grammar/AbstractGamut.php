@@ -10,6 +10,7 @@
 
 namespace MarkdownExtended\Grammar;
 
+use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\MarkdownExtended;
 
 /**
@@ -24,11 +25,13 @@ abstract class AbstractGamut
      *
      * @param   string  $gamut  The name of a single Gamut or a Gamuts stack
      * @param   string  $text
+     * @param   bool    $forced Forces to run the gamut event if it is disabled
      * @return  string
      */
-    public function runGamut($gamut, $text)
+    public function runGamut($gamut, $text, $forced = false)
     {
-        return MarkdownExtended::get('Grammar\Gamut')->runGamut($gamut, $text);
+        $loader = Kernel::get('Grammar\GamutLoader');
+        return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
     }
 
 // ----------------------------------

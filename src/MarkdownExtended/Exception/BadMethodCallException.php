@@ -8,17 +8,18 @@
  * file that was distributed with this source code.
  */
 
-namespace markdown;
+namespace MarkdownExtended\Exception;
+
+use \BadMethodCallException as BaseException;
 
 /**
- * Class MarkdownExtendedParser
- * @package markdown
+ * Class BadMethodCallException
+ * @package MarkdownExtended\Exception
  */
-class MarkdownExtendedParser
-    extends MarkdownParser
+class BadMethodCallException
+    extends BaseException
 {
 
-
-
-
 }
+
+// Endfile

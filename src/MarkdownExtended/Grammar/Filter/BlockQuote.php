@@ -12,8 +12,7 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown blockquotes
@@ -73,7 +72,7 @@ class BlockQuote
         if (!empty($cite)) {
             $attributes['cite'] = $cite;
         }
-        $block = MarkdownExtended::get('OutputFormatBag')
+        $block = Kernel::get('OutputFormatBag')
     //            ->buildTag('blockquote', "\n$bq\n", $attributes);
             ->buildTag('blockquote', $bq, $attributes);
         return "\n" . parent::hashBlock($block) . "\n\n";

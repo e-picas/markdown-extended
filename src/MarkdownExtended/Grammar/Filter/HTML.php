@@ -12,8 +12,7 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown in-text HTML
@@ -409,7 +408,7 @@ class HTML
                     // Calculate indent before tag.
                     if (preg_match('/(?:^|\n)( *?)(?! ).*?$/', $block_text, $matches)) {
                         /* @var callable $strlen */
-                        $strlen = MarkdownExtended::getConfig('utf8_strlen');
+                        $strlen = Kernel::getConfig('utf8_strlen');
                         $indent = $strlen($matches[1], 'UTF-8');
                     } else {
                         $indent = 0;

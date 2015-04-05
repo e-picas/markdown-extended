@@ -12,8 +12,8 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process the inclusion of third-party Markdown files
@@ -37,9 +37,9 @@ class BlockInclusion
      */
     public function transform($text)
     {
-        $mask = MarkdownExtended::getConfig('block_inclusion');
+        $mask = Kernel::getConfig('block_inclusion');
         if (!empty($mask)) {
-            $regex = MDE_Helper::buildRegex($mask);
+            $regex = Helper::buildRegex($mask);
             $text = preg_replace_callback($regex, array($this, '_callback'), $text);
         }
         return $text;
@@ -69,9 +69,7 @@ class BlockInclusion
                 ->parse($content, true)
                 ->getContent($content_id)
                 ->getBody();
-        } catch (MDE_Exception\InvalidArgumentException $e) {
-            $parsed_content = "<!-- ERROR while parsing $filename : '{$e->getMessage()}' -->";
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $parsed_content = "<!-- ERROR while parsing $filename : '{$e->getMessage()}' -->";
         }
         return $parsed_content;

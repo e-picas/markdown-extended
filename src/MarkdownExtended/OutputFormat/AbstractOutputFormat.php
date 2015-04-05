@@ -10,18 +10,12 @@
 
 namespace MarkdownExtended\OutputFormat;
 
+use MarkdownExtended\API\Kernel;
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\Helper as MDE_Helper;
-use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\Util\Helper;
 
-/**
- * Class AbstractOutputFormat
- *
- * @package MarkdownExtended\OutputFormat
- */
 abstract class AbstractOutputFormat
-    implements OutputFormatInterface
 {
 
     /**
@@ -46,10 +40,12 @@ abstract class AbstractOutputFormat
      */
     public function buildTag($tag_name, $content = null, array $attributes = array())
     {
-        $_method = 'build'.MDE_Helper::toCamelCase($tag_name);
+        $_method = 'build'.Helper::toCamelCase($tag_name);
+
         if (isset($this->tags_map[$tag_name]) && isset($this->tags_map[$tag_name]['prefix'])) {
             $attributes['mde-prefix'] = $this->tags_map[$tag_name]['prefix'];
         }
+
         if (method_exists($this, $_method)) {
             return call_user_func_array(
                 array($this, $_method),
@@ -79,6 +75,44 @@ abstract class AbstractOutputFormat
      * @return  string
      */
     abstract public function getTagString($content, $tag_name, array $attributes = array());
+
+    public function getNotesToString(array $notes, ContentInterface $content)
+    {
+        if (empty($notes)) {
+            return '';
+        }
+
+        $data = array();
+        foreach ($notes as $var=>$val) {
+            $data[] = $this->buildTag(
+                'list_item',
+                $val['text'],
+                array('id' => $val['note-id'])
+            );
+//            ) . "\n\n";
+        }
+
+        return $this
+            ->buildTag('block',
+                $this->buildTag('ordered_list', implode(PHP_EOL, $data)),
+                array('class'=>'footnotes')
+            );
+    }
+
+    public function getMetadataToString(array $metadata, ContentInterface $content)
+    {
+        $specials   = Kernel::getConfig('special_metadata');
+        $data       = array();
+        foreach ($metadata as $var=>$val) {
+            if (!in_array($var, $specials)) {
+                $data[] = $this->buildTag('meta_data', null, array(
+                    'name'      => $var,
+                    'content'   => $val
+                ));
+            }
+        }
+        return implode(PHP_EOL, $data);
+    }
 
 }
 

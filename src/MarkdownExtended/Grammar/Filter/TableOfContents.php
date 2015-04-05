@@ -12,8 +12,7 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Construct the global Table of Contents (hierarchical list of anchors)
@@ -34,7 +33,7 @@ class TableOfContents
      */
     public function _setup()
     {
-        $this->attributes = MarkdownExtended::getConfig('table_of_contents');
+        $this->attributes = Kernel::getConfig('table_of_contents');
     }
 
     /**
@@ -43,7 +42,7 @@ class TableOfContents
      */
     public function transform($text) 
     {
-        $menu = MarkdownExtended::getContent()->getMenu();
+        $menu = Kernel::get('Content')->getMenu();
         if (empty($menu) || !is_array($menu)) $menu = array($menu);
 
         $toc = new \MarkdownExtended\Util\RecursiveMenuIterator(
@@ -51,7 +50,7 @@ class TableOfContents
         );
 
         $toc_tostring = '';
-        $toc_tostring .= MarkdownExtended::get('OutputFormatBag')
+        $toc_tostring .= Kernel::get('OutputFormatBag')
             ->buildTag(
                 'title',
                 isset($this->attributes['title']) ? $this->attributes['title'] : 'Table of contents',
@@ -61,7 +60,7 @@ class TableOfContents
                 ));
         $toc_tostring .= $this->_doItems($toc);
 
-        MarkdownExtended::getContent()
+        Kernel::get('Content')
             ->setToc($toc)
             ->setTocToString($toc_tostring)
             ;
@@ -78,7 +77,7 @@ class TableOfContents
                 $content .= $this->_doItemsRecursive($menu_item, $item_id);
             }
             if (!empty($content)) {
-                $content = MarkdownExtended::get('OutputFormatBag')
+                $content = Kernel::get('OutputFormatBag')
                     ->buildTag('unordered_list', $content, array(
                         'class'=>isset($this->attributes['class']) ? $this->attributes['class'] : 'toc-menu',
                     ));
@@ -95,7 +94,7 @@ class TableOfContents
         if (!empty($entry)) {
 //            if ($entry->getContent()) {
                  $attributes = $entry->getAttributes();
-                 $item_content = MarkdownExtended::get('OutputFormatBag')
+                 $item_content = Kernel::get('OutputFormatBag')
                      ->buildTag('link', $entry->getContent(), array_merge($attributes, array(
                         'href'=>'#'.$id,
                         'title'=>'Reach this section'
@@ -107,12 +106,12 @@ class TableOfContents
                     $children_content .= $this->_doItemsRecursive($menu_item, $item_id);
                 }
                 if (!empty($children_content)) {
-                    $item_content .= MarkdownExtended::get('OutputFormatBag')
+                    $item_content .= Kernel::get('OutputFormatBag')
                         ->buildTag('unordered_list', $children_content);
                 }
             }
             if (!empty($item_content)) {
-                return MarkdownExtended::get('OutputFormatBag')
+                return Kernel::get('OutputFormatBag')
                     ->buildTag('unordered_list_item', $item_content);
             }
         }

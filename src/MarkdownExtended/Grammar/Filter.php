@@ -10,7 +10,6 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Grammar\AbstractGamut;
 use \MarkdownExtended\API\GamutInterface;
 

@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace MarkdownExtended\Util;
+namespace MarkdownExtendedDev;
 
 use \Symfony\Component\Finder\Finder;
 
 /**
  * The Compiler class compiles the whole markdown into a phar
  *
- * Taken "as is" from Composer (<http://github.com/composer/composer>)
+ * Largely inspired from Composer (<http://github.com/composer/composer>)
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -29,16 +29,7 @@ class Compiler
     protected $_logs = array();
 
     const PHAR_FILE = 'markdown-extended.phar';
-
-    static $phar_loaders = array(
-        'autoload.php',
-        'composer/autoload_namespaces.php',
-        'composer/autoload_classmap.php',
-        'composer/autoload_real.php',
-        'composer/autoload_psr4.php',
-        'composer/include_paths.php',
-        'composer/ClassLoader.php',
-    );
+    const PHAR_NAME = 'mde.phar';
 
     public function getDefaultFinder()
     {
@@ -47,42 +38,35 @@ class Compiler
             ->ignoreVCS(true)
             ->exclude('bin')
             ->exclude('build')
+            ->exclude('dev')
+            ->exclude('doc')
             ->exclude('demo')
             ->exclude('phpdoc')
-            ->exclude('phpdoc-2')
             ->exclude('tests')
             ->exclude('tmp')
             ->exclude('vendor')
+            ->exclude('src/MarkdownExtendedDev')
             ->notName('CONTRIBUTING.md')
-            ->notName('Compiler.php')
-            ->notName('SplClassLoader.php')
             ->notName('sami.config.php')
             ->in($this->root_dir)
         ;
         return $finder;
     }
 
-    /**
-     * Compiles app into a single phar file
-     *
-     * @param   string  $pharFile   The full path to the file to create
-     * @param   string  $root_dir   The root directory path
-     */
     public function compile($pharFile = self::PHAR_FILE, $root_dir = null)
     {
         if (is_null($root_dir)) {
-            $this->root_dir = dirname(dirname(dirname(__DIR__))).DIRECTORY_SEPARATOR;
+            $this->root_dir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR;
         } else {
-            $this->root_dir = $root_dir;
+            $this->root_dir = rtrim($root_dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         }
 
         if (file_exists($pharFile)) {
             unlink($pharFile);
         }
 
-        $phar = new \Phar($pharFile, 0, 'mde.phar');
+        $phar = new \Phar($pharFile, 0, self::PHAR_NAME);
         $phar->setSignatureAlgorithm(\Phar::SHA1);
-
         $phar->startBuffering();
 
         $finder = $this->getDefaultFinder();
@@ -100,34 +84,20 @@ class Compiler
             ->name('*.man')
             ->name('*.md')
             ->name('*.html')
+            ->name('LICENSE')
         ;
         foreach ($finder as $file) {
             $this->__addFile($phar, $file, false);
         }
 
-        $vendor_path = $this->root_dir.'/vendor/';
-        foreach (self::$phar_loaders as $_loader) {
-            if (file_exists($vendor_path.$_loader)) {
-                $this->__addFile($phar, new \SplFileInfo($vendor_path.$_loader));
-            } else {
-                $this->_logs[] = sprintf('!! - Loader file "%s" not found and not added!', $_loader);
-            }
-        }
-        // special case of autoload_files.php
-        $this->__addFromString($phar, $vendor_path.'composer/autoload_files.php', '<?php return array();');
-
         // global binary
         $this->__addBin($phar);
 
-        // Stubs
+        // add the __stub
         $phar->setStub($this->__getStub());
 
         $phar->stopBuffering();
-
-        $this->__addFile($phar, new \SplFileInfo($this->root_dir.'/LICENSE'), false);
-
         unset($phar);
-        
         return $this->_logs;
     }
 
@@ -138,24 +108,11 @@ class Compiler
         $content = file_get_contents($file);
         if ($strip) {
             $content = $this->__stripWhitespace($content);
-        } elseif ('LICENSE' === basename($file)) {
-            $content = "\n".$content."\n";
         }
 
         $this->_logs[] = sprintf('Adding file "%s" (length %d)', $path, strlen($content));
         $phar->addFromString($path, $content);
-    }
-
-    private function __addFromString($phar, $file_name, $content, $strip = true)
-    {
-        $path = str_replace($this->root_dir, '', $file_name);
-
-        if ($strip) {
-            $content = $this->__stripWhitespace($content);
-        }
-
-        $this->_logs[] = sprintf('Adding string for file "%s" (length %d)', $path, strlen($content));
-        $phar->addFromString($path, $content);
+        return $this;
     }
 
     private function __addBin($phar, $binary = 'bin/markdown-extended')
@@ -163,8 +120,9 @@ class Compiler
         $content = file_get_contents($this->root_dir.'/bin/markdown-extended');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
 
-        $this->_logs[] = sprintf('Adding file "%s" (length %d)', $binary, strlen($content));
+        $this->_logs[] = sprintf('Adding binary file "%s" from source (length %d)', $binary, strlen($content));
         $phar->addFromString($binary, $content);
+        return $this;
     }
 
     /**
@@ -203,7 +161,8 @@ class Compiler
 
     private function __getStub()
     {
-        return <<<'EOF'
+        $name = self::PHAR_NAME;
+        return <<<EOF
 #!/usr/bin/env php
 <?php
 /*
@@ -215,11 +174,12 @@ class Compiler
  * file that was distributed with this source code.
  */
 
-Phar::mapPhar('mde.phar');
+Phar::mapPhar('{$name}');
 define('MDE_PHAR', true);
-require 'phar://mde.phar/bin/markdown-extended';
+require 'phar://{$name}/bin/markdown-extended';
 
 __HALT_COMPILER();
 EOF;
     }
+
 }

@@ -12,13 +12,13 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown notes: footnotes, glossary and bibliography notes
  *
- * @todo write the right reference for second call of the same note
+ * @TODO write the right reference for second call of the same note
  * @package MarkdownExtended\Grammar\Filter
  */
 class Note
@@ -43,20 +43,20 @@ class Note
     /**
      * @var array  Written notes
      */
-    static $written_notes;
+    static $written_notes = array();
 
     /**
      * Prepare all required arrays
      */
     public function _setup()
     {
-        MarkdownExtended::setVar('footnotes', array());
-        MarkdownExtended::setVar('glossaries', array());
-        MarkdownExtended::setVar('citations', array());
-        self::$notes_ordered = array();
-        self::$written_notes = array();
+        Kernel::setConfig('footnotes',  array());
+        Kernel::setConfig('glossaries', array());
+        Kernel::setConfig('citations',  array());
+        self::$notes_ordered    = array();
+        self::$written_notes    = array();
         self::$footnote_counter = 1;
-        self::$notes_counter = 0;
+        self::$notes_counter    = 0;
     }
 
     /**
@@ -67,7 +67,7 @@ class Note
      */
     public function strip($text) 
     {
-        $less_than_tab = MarkdownExtended::getConfig('less_than_tab');
+        $less_than_tab = Kernel::getConfig('less_than_tab');
 
         // Link defs are in the form: [^id]: url "optional title"
         $text = preg_replace_callback('{
@@ -119,21 +119,21 @@ class Note
     protected function _strip_callback($matches) 
     {
         if (0 != preg_match('/^(<p>)?glossary:/i', $matches[2])) {
-            MarkdownExtended::addVar('glossaries', array(
-                (MarkdownExtended::getConfig('fng_id_prefix') . $matches[1]) =>
-                    parent::runGamut('tool:Outdent', $matches[2])
+            Kernel::addConfig('glossaries', array(
+                (Kernel::getConfig('fng_id_prefix') . $matches[1]) =>
+                    parent::runGamut('tools:Outdent', $matches[2])
             ));
 
         } elseif (0 != preg_match('/^\#(.*)?/i', $matches[1])) {
-            MarkdownExtended::addVar('citations', array(
-                (MarkdownExtended::getConfig('fnc_id_prefix') . substr($matches[1],1)) =>
-                    parent::runGamut('tool:Outdent', $matches[2])
+            Kernel::addConfig('citations', array(
+                (Kernel::getConfig('fnc_id_prefix') . substr($matches[1],1)) =>
+                    parent::runGamut('tools:Outdent', $matches[2])
             ));
 
         } else {
-            MarkdownExtended::addVar('footnotes', array(
-                (MarkdownExtended::getConfig('fn_id_prefix') . $matches[1]) =>
-                    parent::runGamut('tool:Outdent', $matches[2])
+            Kernel::addConfig('footnotes', array(
+                (Kernel::getConfig('fn_id_prefix') . $matches[1]) =>
+                    parent::runGamut('tools:Outdent', $matches[2])
             ));
         }
         return '';
@@ -148,7 +148,7 @@ class Note
      */
     public function transform($text) 
     {
-        if (MarkdownExtended::getVar('in_anchor')==false) {
+        if (Kernel::getConfig('in_anchor') === false) {
             $text = preg_replace('{\[\^(.+?)\]}', "F\x1Afn:\\1\x1A:", $text);
             $text = preg_replace('{\[(.+?)\]\[\#(.+?)\]}', " [\\1, F\x1Afn:\\2\x1A:]", $text);
         }
@@ -163,9 +163,9 @@ class Note
      */
     public function append($text) 
     {
-        $footnotes  = MarkdownExtended::getVar('footnotes');
-        $glossaries = MarkdownExtended::getVar('glossaries');
-        $citations  = MarkdownExtended::getVar('citations');
+        $footnotes  = Kernel::getConfig('footnotes');
+        $glossaries = Kernel::getConfig('glossaries');
+        $citations  = Kernel::getConfig('citations');
 
         // First loop for references
         if (!empty(self::$notes_ordered)) {
@@ -184,62 +184,48 @@ class Note
             array($this, '_append_callback'), $text);
     
         if (!empty(self::$notes_ordered)) {
-            $notes_content = '';
             while (!empty(self::$notes_ordered)) {
-                $note = reset(self::$notes_ordered);
+                reset(self::$notes_ordered);
                 $note_id = key(self::$notes_ordered);
                 unset(self::$notes_ordered[$note_id]);
                 if (isset($footnotes[$note_id])) {
                     // footnotes
-                    $notes_content .= self::transformFootnote($note_id);
+                    self::transformFootnote($note_id);
                 } elseif (isset($glossaries[$note_id])) {
                     // glossary
-                    $notes_content .= self::transformGlossary($note_id);
+                    self::transformGlossary($note_id);
                 } elseif (isset($citations[$note_id])) {
                     // citations
-                    $notes_content .= self::transformCitation($note_id);
+                    self::transformCitation($note_id);
                 }
             }
-            $notes_text = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('ordered_list', $notes_content);
-/*
-            $notes_text = "\n\n" . MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('block', $notes_text, array('class'=>'footnotes')) . "\n\n";
-*/
-            $notes_text = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('block', $notes_text, array('class'=>'footnotes'));
-            MarkdownExtended::getContent()
-                ->setNotesToString($notes_text);
         }
         return $text;
     }
 
     /**
-     * Append footnote list to text.
+     * Append footnote list to Content.
      *
      * @param   string  $note_id
-     * @return  string
+     * @return  void
      */
     public function transformFootnote($note_id) 
     {
-        $text='';
-        $footnotes = MarkdownExtended::getVar('footnotes');
+        $footnotes = Kernel::getConfig('footnotes');
         if (!empty($footnotes[$note_id])) {
-            $text = $this->_doTransformNote($note_id, $footnotes[$note_id]);
+            $this->_doTransformNote($note_id, $footnotes[$note_id]);
         }
-        return $text;
     }
 
     /**
-     * Append glossary notes list to text.
+     * Append glossary notes list to Content.
      *
      * @param   string  $note_id
-     * @return  string
+     * @return  void
      */
     public function transformGlossary($note_id) 
     {
-        $text='';
-        $glossaries = MarkdownExtended::getVar('glossaries');
+        $glossaries = Kernel::getConfig('glossaries');
         if (!empty($glossaries[$note_id])) {
             $glossary = substr($glossaries[$note_id], strlen('glossary:'));
             $glossary = preg_replace_callback('{
@@ -250,21 +236,19 @@ class Note
                     (.*?)
                     }x',
                     array($this, '_glossary_callback'), $glossary);
-            $text = $this->_doTransformNote($note_id, $glossary, 'glossary', 'fng');
+            $this->_doTransformNote($note_id, $glossary, 'glossary', 'fng');
         }
-        return $text;
     }
 
     /**
-     * Append bibliography notes list to text.
+     * Append bibliography notes list to Content.
      *
      * @param   string  $note_id
-     * @return  string
+     * @return  void
      */
     public function transformCitation($note_id) 
     {
-        $text='';
-        $citations = MarkdownExtended::getVar('citations');
+        $citations = Kernel::getConfig('citations');
         if (!empty($citations[$note_id])) {
             $citation = $citations[$note_id];
             $citation = preg_replace_callback('{
@@ -275,9 +259,8 @@ class Note
                     (.*?)
                     }x',
                     array($this, '_citation_callback'), $citation);
-            $text = $this->_doTransformNote($note_id, $citation, 'citation', 'fnc', 'bibliography');
+            $this->_doTransformNote($note_id, $citation, 'citation', 'fnc', 'bibliography');
         }
-        return $text;
     }
 
     /**
@@ -288,26 +271,25 @@ class Note
      * @param   string  $type
      * @param   string  $prefix
      * @param   string  $rev
-     * @return  string
+     * @return  void
      */
     protected function _doTransformNote($note_id, $note_content, $type = 'footnote', $prefix = 'fn', $rev = null) 
     {
-        $text='';
         if (!empty($note_content)) {
             ++self::$notes_counter;
             $attributes = array();
             $attributes['rev'] = !is_null($rev) ? $rev : $type;
-            if (MarkdownExtended::getConfig($prefix . '_backlink_class') != '') {
+            if (Kernel::getConfig($prefix . '_backlink_class') != '') {
                 $attributes['class'] = 
-                    MDE_Helper::fillPlaceholders(
-                        parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig($prefix . '_backlink_class')),
+                    Helper::fillPlaceholders(
+                        parent::runGamut('tools:EncodeAttribute', Kernel::getConfig($prefix . '_backlink_class')),
                         self::$notes_counter
                     );
             }
-            if (MarkdownExtended::getConfig($prefix . '_backlink_title') != '') {
+            if (Kernel::getConfig($prefix . '_backlink_title') != '') {
                 $attributes['title'] =
-                    MDE_Helper::fillPlaceholders(
-                        parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig($prefix . '_backlink_title')),
+                    Helper::fillPlaceholders(
+                        parent::runGamut('tools:EncodeAttribute', Kernel::getConfig($prefix . '_backlink_title')),
                         self::$notes_counter
                     );
             }
@@ -317,38 +299,33 @@ class Note
             $note_content = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}', 
                     array($this, '_append_callback'), $note_content);
 
-            $note_id = parent::runGamut('tool:EncodeAttribute', $note_id);
+            $note_id = parent::runGamut('tools:EncodeAttribute', $note_id);
                 
             // Add backlink to last paragraph; create new paragraph if needed.
-            $backlink_id = MarkdownExtended::getContent()
-                ->getDomId($prefix . 'ref:' . $note_id);
+            $backlink_id = Kernel::get('DomId')
+                ->get($prefix . 'ref:' . $note_id);
             $attributes['href'] = '#' . $backlink_id;
-            $backlink = MarkdownExtended::get('OutputFormatBag')
+            $backlink = Kernel::get('OutputFormatBag')
                 ->buildTag('link', '&#8617;', $attributes);
             $note_content = trim($note_content);
             if (preg_match('{</p>$}', $note_content)) {
                 $note_content = substr($note_content, 0, -4) . "&#160;$backlink" . substr($note_content, -4);
             } else {
-                $note_content .= "\n\n" . MarkdownExtended::get('OutputFormatBag')
+                $note_content .= "\n\n" . Kernel::get('OutputFormatBag')
                     ->buildTag('paragraph', $backlink);
             }
                 
-            $footlink_id = MarkdownExtended::getContent()
-                ->getDomId($prefix . ':' . $note_id);
+            $footlink_id = Kernel::get('DomId')
+                ->get($prefix . ':' . $note_id);
             $note = array(
                 'type'=>$type,
                 'in-text-id'=>$backlink_id,
                 'note-id'=>$footlink_id,
                 'text'=>$note_content
             );
-            $_meth = 'add'.ucfirst($type);
-            MarkdownExtended::getContent()
-                ->{$_meth}($note, $note_id)
+            Kernel::get('Content')
                 ->addNote($note, $note_id);
-            $text = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('list_item', $note_content, array('id' => $footlink_id)) . "\n\n";
         }
-        return $text;
     }
 
     /**
@@ -359,10 +336,10 @@ class Note
      */
     protected function _glossary_callback($matches)
     {
-        $text = MarkdownExtended::get('OutputFormatBag')
+        $text = Kernel::get('OutputFormatBag')
             ->buildTag('span', trim($matches[1]), array('class' => 'glossary name'));
         if (isset($matches[3])) {
-            $text .= MarkdownExtended::get('OutputFormatBag')
+            $text .= Kernel::get('OutputFormatBag')
                 ->buildTag('span', $matches[2], array('class' => 'glossary sort', 'style'=>'display:none'));
         }
         return $text . "\n\n" . (isset($matches[3]) ? $matches[3] : $matches[2]);
@@ -376,7 +353,7 @@ class Note
      */
     protected function _citation_callback($matches)
     {
-        $text = MarkdownExtended::get('OutputFormatBag')
+        $text = Kernel::get('OutputFormatBag')
             ->buildTag('span', trim($matches[1]), array('class' => 'bibliography name'));
         return $text . "\n\n" . $matches[2];
     }
@@ -395,8 +372,8 @@ class Note
 
         // Create footnote marker only if it has a corresponding footnote *and*
         // the footnote hasn't been used by another marker.
-        $node_id = MarkdownExtended::getConfig('fn_id_prefix') . $note_id;
-        $footnotes = MarkdownExtended::getVar('footnotes');
+        $node_id = Kernel::getConfig('fn_id_prefix') . $note_id;
+        $footnotes = Kernel::getConfig('footnotes');
         if (isset($footnotes[$node_id])) {
             // Transfer footnote content to the ordered list.
             self::$notes_ordered[$node_id] = $footnotes[$node_id];
@@ -409,8 +386,8 @@ class Note
         
         // Create glossary marker only if it has a corresponding note *and*
         // the glossary hasn't been used by another marker.
-        $glossary_node_id = MarkdownExtended::getConfig('fng_id_prefix') . $note_id;
-        $glossaries = MarkdownExtended::getVar('glossaries');
+        $glossary_node_id = Kernel::getConfig('fng_id_prefix') . $note_id;
+        $glossaries = Kernel::getConfig('glossaries');
         if (isset($glossaries[$glossary_node_id])) {
             // Transfer footnote content to the ordered list.
             self::$notes_ordered[$glossary_node_id] = $glossaries[$glossary_node_id];
@@ -423,8 +400,8 @@ class Note
 
         // Create citation marker only if it has a corresponding note *and*
         // the glossary hasn't been used by another marker.
-        $citation_node_id = MarkdownExtended::getConfig('fnc_id_prefix') . $note_id;
-        $citations = MarkdownExtended::getVar('citations');
+        $citation_node_id = Kernel::getConfig('fnc_id_prefix') . $note_id;
+        $citations = Kernel::getConfig('citations');
         if (isset($citations[$citation_node_id])) {
             // Transfer footnote content to the ordered list.
             self::$notes_ordered[$citation_node_id] = $citations[$citation_node_id];
@@ -438,29 +415,29 @@ class Note
         if (!empty($note_id) && !empty($note_num) && !empty($note_ref)) {
             $attributes = array();
             $attributes['rel'] = $note_rev;
-            if (MarkdownExtended::getConfig($note_prefix . '_link_class') != '') {
+            if (Kernel::getConfig($note_prefix . '_link_class') != '') {
                 $attributes['class'] =
-                    MDE_Helper::fillPlaceholders(
-                        parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig($note_prefix . '_link_class')),
+                    Helper::fillPlaceholders(
+                        parent::runGamut('tools:EncodeAttribute', Kernel::getConfig($note_prefix . '_link_class')),
                         $note_num);
             }
-            if (MarkdownExtended::getConfig($note_prefix . '_link_title') != '') {
+            if (Kernel::getConfig($note_prefix . '_link_title') != '') {
                 $attributes['title'] = 
-                    MDE_Helper::fillPlaceholders(
-                        parent::runGamut('tool:EncodeAttribute', MarkdownExtended::getConfig($note_prefix . '_link_title')),
+                    Helper::fillPlaceholders(
+                        parent::runGamut('tools:EncodeAttribute', Kernel::getConfig($note_prefix . '_link_title')),
                         $note_num);
             }
-            $note_id = parent::runGamut('tool:EncodeAttribute', $note_id);
-            $backlink_id = MarkdownExtended::getContent()->getDomId($note_prefix . 'ref:' . $note_ref);
-            $footlink_id = MarkdownExtended::getContent()->getDomId($note_prefix . ':' . $note_ref);
+            $note_id = parent::runGamut('tools:EncodeAttribute', $note_id);
+            $backlink_id = Kernel::get('DomId')->get($note_prefix . 'ref:' . $note_ref);
+            $footlink_id = Kernel::get('DomId')->get($note_prefix . ':' . $note_ref);
             $attributes['href'] = '#' . $footlink_id;
-            $link = MarkdownExtended::get('OutputFormatBag')
+            $link = Kernel::get('OutputFormatBag')
                 ->buildTag('link', $note_num, $attributes);
-            return MarkdownExtended::get('OutputFormatBag')
+            return Kernel::get('OutputFormatBag')
                 ->buildTag('sup', $link, array('id'=>$backlink_id));
         }
 
-        return "[^".$matches[1]."]";
+        return "[^" . $matches[1] . "]";
     }
         
 }

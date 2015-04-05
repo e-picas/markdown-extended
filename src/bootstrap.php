@@ -8,27 +8,60 @@
  * file that was distributed with this source code.
  */
 
-// -----------------------------------
-// NAMESPACES
-// -----------------------------------
+// show errors at least initially
+$old_display_errors = ini_get('display_errors');
+@ini_set('display_errors',1);
+$old_error_reporting = error_reporting();
+@error_reporting(-1);
 
-// get the Composer autoloader
-if (file_exists($a = __DIR__.'/../../../autoload.php')) {
+// get a well-formatted path
+$bootstrapGetPath = function(array $parts) {
+    return implode(DIRECTORY_SEPARATOR,
+        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+};
+
+// MDE_BASE_PATH = PHAR or local base path
+define('MDE_BASE_PATH',
+    (defined('MDE_PHAR') && MDE_PHAR===true) ? 'phar://mde.phar/' : dirname(__DIR__) . DIRECTORY_SEPARATOR
+);
+
+// namespaces autoloader
+function mde_autoloader($className, $namespace = 'MarkdownExtended', $base_path = null)
+{
+    $extension              = '.php';
+    $namespace_separator    = '\\';
+    $className              = trim($className, $namespace_separator);
+    $base_path              = is_null($base_path) ?
+        MDE_BASE_PATH . 'src' : rtrim($base_path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+    if (substr($className, 0, strlen($namespace)) === $namespace) {
+        $class_file = str_replace(array($namespace_separator, '_'), DIRECTORY_SEPARATOR, $className) . $extension;
+        if (file_exists($try1 = $base_path . DIRECTORY_SEPARATOR . $class_file)) {
+            require_once $try1;
+        }
+        foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
+            if (file_exists($path) && file_exists($try2 = $path . DIRECTORY_SEPARATOR . $class_file)) {
+                require_once $try2;
+            }
+        }
+    }
+};
+spl_autoload_register('mde_autoloader');
+
+// try the project's Composer autoloader
+if (file_exists($a = $bootstrapGetPath(array(
+    dirname(dirname(dirname(__DIR__))), 'autoload.php'
+)))) {
     require_once $a;
-} elseif (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
+
+// else try local Composer autoloader
+} elseif (file_exists($b = $bootstrapGetPath(array(
+    dirname(__DIR__), 'vendor', 'autoload.php'
+)))) {
     require_once $b;
-
-// else try to register `MarkdownExtended` namespace
-} elseif (file_exists($c = __DIR__.'/../src/SplClassLoader.php')) {
-    require_once $c;
-    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/../src');
-    $classLoader->register();
-
-// else error, classes can't be found
-} else {
-    echo "You need to run Composer on the project to build dependencies and auto-loading"
-        ." (see: <http://getcomposer.org/doc/00-intro.md#using-composer>)!";
-    exit(1);
 }
+
+// restore error settings
+@ini_set('display_errors', $old_display_errors);
+@error_reporting($old_error_reporting);
 
 // Endfile

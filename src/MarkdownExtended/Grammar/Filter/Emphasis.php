@@ -12,8 +12,7 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown emphasis: bold & italic
@@ -111,9 +110,9 @@ class Emphasis
                     // Three-char closing marker, close em and strong.
                     array_shift($token_stack);
                     $span = parent::runGamut('span_gamut', array_shift($text_stack));
-                    $span = MarkdownExtended::get('OutputFormatBag')
+                    $span = Kernel::get('OutputFormatBag')
                         ->buildTag('italic', $span);
-                    $span = MarkdownExtended::get('OutputFormatBag')
+                    $span = Kernel::get('OutputFormatBag')
                         ->buildTag('bold', $span);
                     $text_stack[0] .= parent::hashPart($span);
                     $em = '';
@@ -124,7 +123,7 @@ class Emphasis
                     $token_stack[0] = str_repeat($token{0}, 3-$token_len);
                     $tag = $token_len == 2 ? "bold" : "italic";
                     $span = parent::runGamut('span_gamut', $text_stack[0]);
-                    $span = MarkdownExtended::get('OutputFormatBag')
+                    $span = Kernel::get('OutputFormatBag')
                         ->buildTag($tag, $span);
                     $text_stack[0] = parent::hashPart($span);
                     $$tag = ''; // $$tag stands for $em or $strong
@@ -138,7 +137,7 @@ class Emphasis
                         $shifted_token = array_shift($token_stack);
                         $tag = strlen($shifted_token) == 2 ? "bold" : "italic";
                         $span = parent::runGamut('span_gamut', array_shift($text_stack));
-                        $span = MarkdownExtended::get('OutputFormatBag')
+                        $span = Kernel::get('OutputFormatBag')
                             ->buildTag($tag, $span);
                         $text_stack[0] .= parent::hashPart($span);
                         $$tag = ''; // $$tag stands for $em or $strong
@@ -162,7 +161,7 @@ class Emphasis
                     // Closing strong marker:
                     array_shift($token_stack);
                     $span = parent::runGamut('span_gamut', array_shift($text_stack));
-                    $span = MarkdownExtended::get('OutputFormatBag')
+                    $span = Kernel::get('OutputFormatBag')
                         ->buildTag('bold', $span);
                     $text_stack[0] .= parent::hashPart($span);
                     $strong = '';
@@ -178,7 +177,7 @@ class Emphasis
                         // Closing emphasis marker:
                         array_shift($token_stack);
                         $span = parent::runGamut('span_gamut', array_shift($text_stack));
-                        $span = MarkdownExtended::get('OutputFormatBag')
+                        $span = Kernel::get('OutputFormatBag')
                             ->buildTag('italic', $span);
                         $text_stack[0] .= parent::hashPart($span);
                         $em = '';

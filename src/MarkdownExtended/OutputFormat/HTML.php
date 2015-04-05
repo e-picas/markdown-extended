@@ -11,9 +11,10 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API as MDE_API;
-use \MarkdownExtended\Helper as MDE_Helper;
-use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\OutputFormat\AbstractOutputFormat;
+use \MarkdownExtended\API\OutputFormatInterface;
+use MarkdownExtended\Util\Helper;
 
 /**
  * Format a content in full HTML
@@ -21,7 +22,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  */
 class HTML
     extends AbstractOutputFormat
-    implements MDE_API\OutputFormatInterface
+    implements OutputFormatInterface
 {
 
     /**
@@ -125,7 +126,7 @@ class HTML
      */
     public function __construct()
     {
-        $this->empty_element_suffix = MarkdownExtended::getConfig('html_empty_element_suffix');
+        $this->empty_element_suffix = Kernel::getConfig('html_empty_element_suffix');
     }
 
     /**
@@ -149,6 +150,7 @@ class HTML
                 unset($attributes['mde-prefix']);
             }
             foreach ($attributes as $variable=>$value) {
+                $value = Helper::getSafeString($value);
                 if (!empty($value)) {
                     if (is_string($variable)) {
                         $attr .= " {$variable}=\"{$value}\"";
@@ -175,7 +177,7 @@ class HTML
             $tag = 'h' . $attributes['level'];
             unset($attributes['level']);
         } else {
-            $tag = 'h' . MarkdownExtended::getVar('baseheaderlevel');
+            $tag = 'h' . Kernel::get('baseheaderlevel');
         }       
         return $this->getTagString($text, $tag, $attributes);
     }
@@ -211,7 +213,7 @@ class HTML
 
     public function buildMaths($text = null, array $attributes = array(), $type = 'div')
     {
-        $math_type  = MarkdownExtended::getConfig('math_type');
+        $math_type  = Kernel::get('math_type');
         if ($math_type == "mathjax") {
             $text = $this->getTagString('['.$text.']', 'span', array(
                     'class'=>"MathJax_Preview",

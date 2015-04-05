@@ -12,8 +12,7 @@ namespace MarkdownExtended\Grammar\Filter;
 
 use MarkdownExtended\MarkdownExtended;
 use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown spans
@@ -36,13 +35,13 @@ class Span
         $output = '';
         $span_re = '{
                 (
-                    \\\\'.MarkdownExtended::getConfig('escape_chars_re').'
+                    \\\\'.Kernel::getConfig('escaped_characters_re').'
                 |
                     (?<![`\\\\])
                     `+                        # code span marker
                 |
                     \\ \(                     # inline math
-            '.( MarkdownExtended::getConfig('no_markup') ? '' : '
+            '.( Kernel::getConfig('no_markup') ? '' : '
                 |
                     <!--    .*?     -->       # comment
                 |

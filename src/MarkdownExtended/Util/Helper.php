@@ -8,83 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace MarkdownExtended;
+namespace MarkdownExtended\Util;
 
-use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Exception\InvalidArgumentException;
 
-/**
- * Global Markdown Extended Helper
- * @package MarkdownExtended
- */
 class Helper
 {
-
-// ----------------------------------
-// DEBUG & INFO
-// ----------------------------------
-
-    /**
-     * Debug function
-     *
-     * WARNING: first argument is not used (to allow `debug` from Gamut stacks)
-     *
-     * @param   mixed   $a
-     * @param   mixed   $what
-     * @param   bool    $exit
-     * @return  string
-     */
-    public function debug($a = '', $what = null, $exit = true) 
-    {
-        echo '<pre>';
-        if (!is_null($what)) {
-            var_export($what);
-        } else {
-            $mde = MarkdownExtended::getInstance();
-            var_export($mde::$registry);
-        }
-        echo '</pre>';
-        if ($exit) exit(0);
-    }
-    
-    /**
-     * Get information string about the current Markdown Extended object
-     *
-     * @param   bool    $html
-     * @return  string
-     */
-    public static function info($html = false)
-    {
-        return (sprintf(
-            $html ? 
-                '<strong>%1$s</strong> version %2$s (<a href="%3$s" target="_blank" title="See online">%3$s</a>)'
-                :
-                '%1$s version %2$s (%3$s)',
-            MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
-        ));
-    }
-
-    /**
-     * Get information string about the current Markdown Extended object
-     *
-     * @param   bool    $html
-     * @param   bool    $version_only
-     * @return  string
-     */
-    public static function smallInfo($html = false, $version_only = false)
-    {
-        if ($version_only) {
-            return MarkdownExtended::MDE_VERSION;
-        } else {
-            return (sprintf(
-                $html ?
-                    '<strong>%1$s</strong> %2$s (<a href="%3$s" target="_blank" title="See online">%3$s</a>)'
-                    :
-                    '%1$s %2$s'.PHP_EOL.'<%3$s>'
-                ,
-                MarkdownExtended::MDE_NAME, MarkdownExtended::MDE_VERSION, MarkdownExtended::MDE_SOURCES
-            ));
-        }
-    }
 
 // --------------
 // Strings
@@ -96,7 +25,7 @@ class Helper
      * @param   string  $code
      * @return  string
      */
-    public static function escapeCodeContent($code) 
+    public static function escapeCodeContent($code)
     {
         return htmlspecialchars($code, ENT_NOQUOTES);
     }
@@ -108,7 +37,7 @@ class Helper
      * @param   string  $replacement
      * @return  string
      */
-    public static function fillPlaceholders($text, $replacement) 
+    public static function fillPlaceholders($text, $replacement)
     {
         return str_replace('%%', $replacement, $text);
     }
@@ -123,8 +52,8 @@ class Helper
     public static function header2Label($text, $separator = '-')
     {
         // strip all Markdown characters
-        $text = str_replace( 
-            array("'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"), 
+        $text = str_replace(
+            array("'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"),
             "", strtolower($text) );
         // strip the rest for visual signification
         $text = str_replace( array("#", " ", "__", "/", "\\"), $separator, $text );
@@ -150,7 +79,7 @@ class Helper
      * @param   string  $addr   The email address to encode
      * @return  string  The encoded address
      */
-    public static function encodeEmailAddress($addr) 
+    public static function encodeEmailAddress($addr)
     {
         $addr = "mailto:" . $addr;
         $chars = preg_split('/(?<!^)(?!$)/', $addr);
@@ -172,29 +101,29 @@ class Helper
         return array($addr, $text);
     }
 
-    /**
-     * Get a human readable file size
-     *
-     * @param   string  $file_path
-     * @return  string
-     */
-    public static function getFileSize($file_path)
+    public static function getSafeString($source)
     {
-        if (@file_exists($file_path)) {
-            $size = @filesize($file_path);
-            if (!empty($size)) {
-                if ($size < 1024) {
-                    return $size .' B';
-                } elseif ($size < 1048576) {
-                    return round($size / 1024, 2) .' KiB';
-                } elseif ($size < 1073741824) {
-                    return round($size / 1048576, 2) . ' MiB';
-                } else {
-                    return round($size / 1073741824, 2) . ' GiB';
+        $str = $source;
+
+        if (!is_string($source)) {
+
+            if ($source instanceof \DateTime) {
+                $str = $source->format(DATE_W3C);
+            } elseif (is_array($source)) {
+                $str = '';
+                foreach ($source as $var=>$val) {
+                    $str .= $var . ': ' . self::getSafeString($val) . PHP_EOL;
                 }
             }
+
         }
-        return '';
+
+        return $str;
+    }
+
+    public static function isSingleLine($str = '')
+    {
+        return (bool) (false === strpos($str, PHP_EOL));
     }
 
 // --------------
@@ -217,37 +146,8 @@ class Helper
             $delimiter=>'\\'.$delimiter
         );
         return $delimiter
-            .strtr($mask, $replacements)
-            .$delimiter.$options;
-    }
-
-// --------------
-// Resources finder
-// --------------
-
-    /**
-     * Find a resource file and return its path
-     *
-     * @param   string  $file_name
-     * @param   string  $type
-     * @return  string
-     */
-    public static function find($file_name, $type = null)
-    {
-        $resources_dir = __DIR__ . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR;
-        if (file_exists($file_name)) {
-            return $file_name;
-        }
-        if (file_exists(__DIR__ . DIRECTORY_SEPARATOR . $file_name)) {
-            return __DIR__ . DIRECTORY_SEPARATOR . $file_name;
-        }
-        if (file_exists($resources_dir . $file_name)) {
-            return $resources_dir . $file_name;
-        }
-        if (!empty($type)) {
-            return self::find($type . DIRECTORY_SEPARATOR . $file_name);
-        }
-        return $file_name;
+        .strtr($mask, $replacements)
+        .$delimiter.$options;
     }
 
 // --------------
@@ -294,6 +194,62 @@ class Helper
             $fromCamelCase_func = create_function('$c', 'return "'.$replace.'" . strtolower($c[1]);');
         }
         return trim(preg_replace_callback('/([A-Z])/', $fromCamelCase_func, $name), $replace);
+    }
+
+// --------------
+// Files
+// --------------
+
+    // get a well-formatted path
+    public static function getPath(array $parts)
+    {
+        return implode(
+            DIRECTORY_SEPARATOR,
+            array_map(function($p){
+                return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p);
+            }, $parts)
+        );
+    }
+
+    public static function backupFile($path)
+    {
+        $new_path = $path . '~' . date('y-m-d-H-i-s');
+        if (file_exists($new_path)) {
+            $i = 0;
+            $original_new_path = $new_path;
+            while (file_exists($new_path)) {
+                $new_path = $original_new_path . $i;
+                $i++;
+            }
+        }
+        return copy($path, $new_path);
+    }
+
+// --------------
+// Dev utilities
+// --------------
+
+    public static function debug($objs, $title = null, $html = true)
+    {
+        $str    = '';
+        $nl     = PHP_EOL . ($html ? '<br />' : '');
+        if (!empty($title)) {
+            $str .= $nl . '### ' . $title . ':' . $nl;
+        }
+        $dump = var_export($objs, true);
+        $replacements = array(
+            PHP_EOL     => ' ',
+            '  '        => ' ',
+            ',  \''     => ', \'',
+            ' => '      => '=>',
+            ' ('        => '(',
+            '( '        => '(',
+            ' )'        => ')',
+            ') '        => ')',
+            ',) '       => ')',
+        );
+        $str .= str_replace(array_keys($replacements), array_values($replacements), $dump);
+        return $str;
     }
 
 }

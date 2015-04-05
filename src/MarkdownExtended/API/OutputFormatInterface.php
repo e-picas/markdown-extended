@@ -10,12 +10,6 @@
 
 namespace MarkdownExtended\API;
 
-/**
- * PHP Markdown Extended OutputFormat interface
- *
- * @package MarkdownExtended\API
- * @api
- */
 interface OutputFormatInterface
 {
 
@@ -34,6 +28,11 @@ interface OutputFormatInterface
      * @return  string
      */
     public function getTagString($content, $tag_name, array $attributes = array());
+
+    public function getNotesToString(array $notes, ContentInterface $content);
+
+    public function getMetadataToString(array $metadata, ContentInterface $content);
+
 
 }
 

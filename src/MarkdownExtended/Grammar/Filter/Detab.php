@@ -8,17 +8,18 @@
  * file that was distributed with this source code.
  */
 
-namespace MarkdownExtended\Grammar\Tool;
+namespace MarkdownExtended\Grammar\Filter;
 
 use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\Grammar\Tool;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Class Detab
  * @package MarkdownExtended\Grammar\Tool
  */
 class Detab
-    extends Tool
+    extends Filter
 {
 
     /**
@@ -35,7 +36,7 @@ class Detab
      */
     public function init()
     {
-        MarkdownExtended::setConfig('utf8_strlen', $this->utf8_strlen);
+        Kernel::setConfig('utf8_strlen', $this->utf8_strlen);
         if (function_exists($this->utf8_strlen)) return;
         $this->utf8_strlen = create_function('$text', 'return preg_match_all(
             "/[\\\\x00-\\\\xBF]|[\\\\xC0-\\\\xFF][\\\\x80-\\\\xBF]*/",
@@ -53,7 +54,7 @@ class Detab
      * @return  string          The text parsed
      * @see     self::_detab_callback()
      */
-    public function run($text)
+    public function transform($text)
     {
         $text = preg_replace_callback('/^.*\t.*$/m', array($this, '_callback'), $text);
         return $text;
@@ -77,7 +78,7 @@ class Detab
         unset($blocks[0]); // Do not add first block twice.
         foreach ($blocks as $block) {
             // Calculate amount of space, insert spaces, insert block.
-            $amount = MarkdownExtended::getConfig('tab_width') - $strlen($line, 'UTF-8') % MarkdownExtended::getConfig('tab_width');
+            $amount = Kernel::getConfig('tab_width') - $strlen($line, 'UTF-8') % Kernel::getConfig('tab_width');
             $line .= str_repeat(" ", $amount) . $block;
         }
         return $line;
