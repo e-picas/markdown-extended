@@ -10,9 +10,30 @@
 
 namespace testsMarkdownExtended;
 
+use \MarkdownExtended\MarkdownExtended;
+
 class MarkdownExtendedBaseTest
     extends \PHPUnit_Framework_TestCase
 {
+
+    /*
+        $this->processParseTest(
+            $md,
+            $html,
+            $title
+        );
+     */
+    public function processParseTest($md, $html, $title, $strip_whitespaces = false, $strip_new_lines = false)
+    {
+        $content = (string) MarkdownExtended::parse($md);
+        if ($strip_whitespaces) {
+            $content = $this->stripWhitespaces($content);
+        }
+        if ($strip_new_lines) {
+            $content = $this->stripNewLines($content);
+        }
+        $this->assertEquals($html, $content, $title);
+    }
 
     /**
      * Get the tests test file path
@@ -29,34 +50,34 @@ class MarkdownExtendedBaseTest
      *
      * @param   array   $configuration  Optional configuration
      * @return  \MarkdownExtended\Parser
-     */
     public function createParser($configuration = null)
     {
-        return \MarkdownExtended\MarkdownExtended::getInstance()
-            ->get('Parser', $configuration);
+    return \MarkdownExtended\MarkdownExtended::getInstance()
+    ->get('Parser', $configuration);
     }
+     */
 
     /**
      * Create a markdown content
      *
      * @param   string  $content
      * @return  \MarkdownExtended\Content
-     */
     public function createContent($content = null)
     {
-        return new \MarkdownExtended\Content($content);
+    return new \MarkdownExtended\Content($content);
     }
+     */
 
     /**
      * Create a markdown content from file
      *
      * @param   string $filepath
      * @return  \MarkdownExtended\Content
-     */
     public function createSourceContent($filepath = null)
     {
-        return new \MarkdownExtended\Content(null, $filepath);
+    return new \MarkdownExtended\Content(null, $filepath);
     }
+     */
 
     /**
      * Get a trimed content body
@@ -64,13 +85,13 @@ class MarkdownExtendedBaseTest
      * @param   object  $content
      * @param   bool    $strip_whitespaces
      * @return  string
-     */
     public function getBody($content = null, $strip_whitespaces = false)
     {
-        $ctt = trim($content->getBody());
-        if (true===$strip_whitespaces) $ctt = $this->stripWhitespaces($ctt);
-        return $ctt;
+    $ctt = trim($content->getBody());
+    if (true===$strip_whitespaces) $ctt = $this->stripWhitespaces($ctt);
+    return $ctt;
     }
+     */
 
     /**
      * Strip whitespaces between tags in a string
@@ -83,11 +104,17 @@ class MarkdownExtendedBaseTest
         return preg_replace('~>\s+<~', '><', $content);
     }
 
+    public function stripNewLines($content = '')
+    {
+        return str_replace("\n", ' ', $content);
+    }
+
     /**
      * Validate class methods
      */
     public function testCreate()
     {
+/*
         $this->assertInstanceOf('\MarkdownExtended\Parser', $this->createParser(), 'baseTest->createParser failure!');
 
         $this->assertInstanceOf('\MarkdownExtended\Content', $this->createContent('test'), 'baseTest->createContent failure!');
@@ -95,6 +122,7 @@ class MarkdownExtendedBaseTest
         $this->assertFileExists($this->getTestFilepath(), 'baseTest->getTestFilepath failure!');
 
         $this->assertInstanceOf('\MarkdownExtended\Content', $this->createSourceContent($this->getTestFilepath()), 'baseTest->createSourceContent failure!');
+*/
     }
 
     /**
