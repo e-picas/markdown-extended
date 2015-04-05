@@ -18,9 +18,10 @@ build/logs/*
 # specific MDE files
 bin/*
 !bin/markdown-extended
+!bin/mde-dev
 
 # no phar
-markdown-extended.phar
+*.phar
 
 # hack to allow keeping an empty directory
 !.gitkeep
