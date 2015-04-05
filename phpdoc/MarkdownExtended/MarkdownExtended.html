@@ -1,82 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="robots" content="index, follow, all" />
-    <title>MarkdownExtended\MarkdownExtended | Markdown Extended</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\MarkdownExtended | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../traits.html">Traits</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
 
-            <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="../css/sami.css">
-        <script src="../js/jquery-1.11.1.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/typeahead.min.js"></script>
-        <script src="../sami.js"></script>
-    
-    
-    </head>
+        <div id="title">Markdown Extended</div>
 
-    <body id="class" data-name="class:MarkdownExtended_MarkdownExtended" data-root-path="../">
-            <div id="content">
-        <div id="left-column">
-                <div id="control-panel">
-                <form id="search-form" action="../search.html" method="GET">
-            <span class="glyphicon glyphicon-search"></span>
-            <input name="search"
-                   class="typeahead form-control"
-                   type="search"
-                   placeholder="Search">
-        </form>
+            <div class="type">Class</div>
+    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\MarkdownExtended</h1>
     </div>
-
-                <div id="api-tree"></div>
-
-        </div>
-        <div id="right-column">
-                <nav id="site-nav" class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../index.html">Markdown Extended</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-elements">
-                <ul class="nav navbar-nav">
-                    <li><a href="../classes.html">Classes</a></li>
-                                            <li><a href="../namespaces.html">Namespaces</a></li>
-                                        <li><a href="../interfaces.html">Interfaces</a></li>
-                    <li><a href="../traits.html">Traits</a></li>
-                    <li><a href="../doc-index.html">Index</a></li>
-                    <li><a href="../search.html">Search</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-                        <div class="namespace-breadcrumbs">
-            <ol class="breadcrumb">
-                <li><span class="label label-default">class</span></li>
-                                                            <li><a href="../MarkdownExtended.html">MarkdownExtended</a></li>
-    
-                <li>MarkdownExtended</li>
-            </ol>
-        </div>
-                <div id="page-content">
-                
-    <div class="page-header">
-        <h1>MarkdownExtended</h1>
-    </div>
-
-    <p>    class
-    <strong>MarkdownExtended</strong>        implements
-        <a href="../MarkdownExtended/API/KernelInterface.html"><abbr title="MarkdownExtended\API\KernelInterface">KernelInterface</abbr></a></p>
+        <div class="content">
+                <p>    class
+    <strong>MarkdownExtended</strong></p>
 
             <div class="description">
-            <p>PHP Markdown Extended Mother Class</p>            <p>This is the global <em>MarkdownExtended</em> class and process. It contains mostly
+            <p>PHP Markdown Extended</p>
+            <p>This is the global <em>MarkdownExtended</em> class and process. It contains mostly
 static methods that can be called from anywhere writing something like:</p>
 
 <pre><code>MarkdownExtended::my_method();
@@ -123,22 +75,14 @@ be liable for any direct, indirect, incidental, special, exemplary, or consequen
 (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits;
 or business interruption) however caused and on any theory of liability, whether in contract,
 strict liability, or tort (including negligence or otherwise) arising in any way out of the use of
-this software, even if advised of the possibility of such damage.</p>        </div>
-    
+this software, even if advised of the possibility of such damage.</p>
+        </div>
     
             <h2>Constants</h2>
 
-            <table class="table table-condensed">
+            <table>
                     <tr>
-                <td>MDE_NAME</td>
-                <td class="last">
-                    <p><em>Class infos ; can be automatically updated by <code>pre-commit-hook.sh</code></em></p>
-                    <p>
-</p>
-                </td>
-            </tr>
-                    <tr>
-                <td>MDE_VERSION</td>
+                <td>SHORTNAME</td>
                 <td class="last">
                     <p><em>
 </em></p>
@@ -147,7 +91,7 @@ this software, even if advised of the possibility of such damage.</p>        </d
                 </td>
             </tr>
                     <tr>
-                <td>MDE_DATE</td>
+                <td>NAME</td>
                 <td class="last">
                     <p><em>
 </em></p>
@@ -156,7 +100,61 @@ this software, even if advised of the possibility of such damage.</p>        </d
                 </td>
             </tr>
                     <tr>
-                <td>MDE_SOURCES</td>
+                <td>VERSION</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>DATE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>DESC</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>LINK</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>LICENSE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>SOURCES</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>COPYRIGHT</td>
                 <td class="last">
                     <p><em>
 </em></p>
@@ -167,205 +165,124 @@ this software, even if advised of the possibility of such damage.</p>        </d
             </table>
 
     
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_defaults">
+                    static                                        array
+                </td>
+                <td>$defaults</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
     
             <h2>Methods</h2>
 
-            <div class="container-fluid underlined">
-                    <div class="row">
-                <div class="col-md-2 type">
+            <table>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getAppInfo">getAppInfo</a>($shorten = false)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_parse">parse</a>($content, $options = null)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_parseString">parseString</a>($content, $options = null)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_parseSource">parseSource</a>($path, $options = null)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
                     
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(array $options = null)
-                                            <p>Initialize the registry and flush the contents stack</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getInstance">getInstance</a>(int $instance_id = null, array $options = null)
-                                            <p>Get a Markdown Extended instance (last created one by default)</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_create">create</a>(array $options = null, int $instance_id = null)
-                                            <p>Create a new MDE instance</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_transformString">transformString</a>(string $source, string|array $parser_options = null, string|null $key = null, bool $secondary = false)
-                                            <p>Transform a Markdown source string</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_transformSource">transformSource</a>(string $filename, string|array $parser_options = null, string|null $key = null, bool $secondary = false)
-                                            <p>Transform a Markdown source file content</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;void
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_addProcessedContent">addProcessedContent</a>(<abbr title="MarkdownExtended\MDE_API\ContentInterface">ContentInterface</abbr> $content, bool $secondary = false)
-                                            <p>Add a new processed content in the contents stack</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getContent">getContent</a>(mixed $id = null)
-                                            <p>Get a processed content, current by default</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getFullContent">getFullContent</a>(mixed $id = null)
-                                            <p>Get a full version of a processed content, current by default</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../MarkdownExtended/API/TemplaterInterface.html"><abbr title="MarkdownExtended\API\TemplaterInterface">TemplaterInterface</abbr></a>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getTemplater">getTemplater</a>(array $config = null)
-                                            <p>Get current processed content in a Templater</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_load">load</a>(string $class_name)
-                                            <p>Load a dependency</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;object
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_factory">factory</a>(string $class_name, null|array $params = null, null|string $type = null)
-                                            <p>Build, retain and get a dependency instance</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;object
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_get">get</a>(string $class_name, array $params = null, int $flag = MDE_API::FAIL_GRACEFULLY)
-                                            <p>Get a loader object from registry / load it if absent</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getConfig">getConfig</a>(string $var)
-                                            <p>Get a configuration entry from registry</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_setConfig">setConfig</a>(string $var, mixed $val, null|string $stack = null)
-                                            <p>Set a configuration entry in registry</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_addConfig">addConfig</a>(string $var, mixed $val)
-                                            <p>Add to a configuration entry in registry</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getVar">getVar</a>(string $var)
-                                            <p>Get a parser entry from registry</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_setVar">setVar</a>(string $var, mixed $val)
-                                            <p>Set a parser entry in registry</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_addVar">addVar</a>(string $var, mixed $val)
-                                            <p>Add to a parser entry in registry</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_unsetVar">unsetVar</a>(string $var, mixed $val = null)
-                                            <p>Unset a parser entry in registry</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-            </div>
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>($options = null)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_transform">transform</a>($content, $name = null)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_transformSource">transformSource</a>($path)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
 
 
         <h2>Details</h2>
 
-            <div id="method-details">
-                    <div class="method-item">
-                    <h3 id="method___construct">
-        <div class="location">at line 115</div>
-        <code>                    
-    <strong>__construct</strong>(array $options = null)</code>
+                        <h3 id="method_getAppInfo">
+        <div class="location">at line 90</div>
+        <code>        static    public            
+    <strong>getAppInfo</strong>($shorten = false)</code>
     </h3>
     <div class="details">
-                    <div class="method-description">
-                                    <p>Initialize the registry and flush the contents stack</p>                    <p>The best practice is to use the class as a singleton calling <code>getInstance()</code> or
-<code>create()</code>.</p>            </div>
-                <div class="tags">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
+                    <table>
                     <tr>
-                <td>array</td>
-                <td>$options</td>
-                <td>A set of user options values</td>
+                <td></td>
+                <td>$shorten</td>
+                <td>
+</td>
             </tr>
             </table>
 
@@ -375,256 +292,170 @@ this software, even if advised of the possibility of such damage.</p>        </d
                     </div>
     </div>
 
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getInstance">
-        <div class="location">at line 137</div>
-        <code>        static            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
-    <strong>getInstance</strong>(int $instance_id = null, array $options = null)</code>
+                <h3 id="method_parse">
+        <div class="location">at line 219</div>
+        <code>        static    public            
+    <strong>parse</strong>($content, $options = null)</code>
     </h3>
     <div class="details">
-                    <div class="method-description">
-                                    <p>Get a Markdown Extended instance (last created one by default)</p>                                </div>
-                <div class="tags">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
+                    <table>
                     <tr>
-                <td>int</td>
-                <td>$instance_id</td>
-                <td>The ID of the MDE instance to get</td>
-            </tr>
-                    <tr>
-                <td>array</td>
-                <td>$options</td>
-                <td>A set of user options values</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a></td>
-            <td>Must return the object itself</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_create">
-        <div class="location">at line 160</div>
-        <code>        static            <a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a>
-    <strong>create</strong>(array $options = null, int $instance_id = null)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Create a new MDE instance</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$options</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>int</td>
-                <td>$instance_id</td>
-                <td>The ID of the MDE instance to create</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../MarkdownExtended/MarkdownExtended.html"><abbr title="MarkdownExtended\MarkdownExtended">MarkdownExtended</abbr></a></td>
-            <td>Must return the object itself for method chaining</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_transformString">
-        <div class="location">at line 187</div>
-        <code>        static            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-    <strong>transformString</strong>(string $source, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Transform a Markdown source string</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$source</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>string|array</td>
-                <td>$parser_options</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>string|null</td>
-                <td>$key</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>bool</td>
-                <td>$secondary</td>
-                <td>Set it to <code>true</code> if parsed content may not be stored as current one</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
-            <td>Must return a content object</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the parser class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the parser class is not valid</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_transformSource">
-        <div class="location">at line 220</div>
-        <code>        static            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-    <strong>transformSource</strong>(string $filename, string|array $parser_options = null, string|null $key = null, bool $secondary = false)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Transform a Markdown source file content</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$filename</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>string|array</td>
-                <td>$parser_options</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>string|null</td>
-                <td>$key</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>bool</td>
-                <td>$secondary</td>
-                <td>Set it to <code>true</code> if parsed content may not be stored as current one</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
-            <td>Must return a content object</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the parser class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the parser class is not valid</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_addProcessedContent">
-        <div class="location">at line 253</div>
-        <code>        static            void
-    <strong>addProcessedContent</strong>(<abbr title="MarkdownExtended\MDE_API\ContentInterface">ContentInterface</abbr> $content, bool $secondary = false)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Add a new processed content in the contents stack</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><abbr title="MarkdownExtended\MDE_API\ContentInterface">ContentInterface</abbr></td>
+                <td></td>
                 <td>$content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td>bool</td>
-                <td>$secondary</td>
-                <td>Set it to <code>true</code> if parsed content may not be stored as current one</td>
+                <td></td>
+                <td>$options</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseString">
+        <div class="location">at line 226</div>
+        <code>        static    public            
+    <strong>parseString</strong>($content, $options = null)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$options</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseSource">
+        <div class="location">at line 232</div>
+        <code>        static    public            
+    <strong>parseSource</strong>($path, $options = null)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$path</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$options</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method___construct">
+        <div class="location">at line 242</div>
+        <code>            public            
+    <strong>__construct</strong>($options = null)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$options</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_transform">
+        <div class="location">at line 269</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>transform</strong>($content, $name = null)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$name</td>
+                <td>
+</td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table class="table table-condensed">
+                    <table>
         <tr>
-            <td>void</td>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
             <td>
 </td>
         </tr>
@@ -635,629 +466,38 @@ this software, even if advised of the possibility of such damage.</p>        </d
                     </div>
     </div>
 
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getContent">
-        <div class="location">at line 266</div>
-        <code>        static            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>
-    <strong>getContent</strong>(mixed $id = null)</code>
+                <h3 id="method_transformSource">
+        <div class="location">at line 341</div>
+        <code>            public            
+    <strong>transformSource</strong>($path)</code>
     </h3>
     <div class="details">
-                    <div class="method-description">
-                                    <p>Get a processed content, current by default</p>                                </div>
-                <div class="tags">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
+                    <table>
                     <tr>
-                <td>mixed</td>
-                <td>$id</td>
-                <td>The id of the content to get</td>
+                <td></td>
+                <td>$path</td>
+                <td>
+</td>
             </tr>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
-            <td>
-</td>
-        </tr>
-    </table>
-
             
             
                     </div>
     </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getFullContent">
-        <div class="location">at line 281</div>
-        <code>        static            string
-    <strong>getFullContent</strong>(mixed $id = null)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Get a full version of a processed content, current by default</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>mixed</td>
-                <td>$id</td>
-                <td>The id of the content to get</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the OutputFormatter class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the OutputFormatter class is not valid</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getTemplater">
-        <div class="location">at line 304</div>
-        <code>        static            <a href="../MarkdownExtended/API/TemplaterInterface.html"><abbr title="MarkdownExtended\API\TemplaterInterface">TemplaterInterface</abbr></a>
-    <strong>getTemplater</strong>(array $config = null)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Get current processed content in a Templater</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$config</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../MarkdownExtended/API/TemplaterInterface.html"><abbr title="MarkdownExtended\API\TemplaterInterface">TemplaterInterface</abbr></a></td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the Templater class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the Templater class is not valid</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_load">
-        <div class="location">at line 329</div>
-        <code>        static            bool
-    <strong>load</strong>(string $class_name)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Load a dependency</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$class_name</td>
-                <td>The class name to instanciate ; will be completed with current namespace if necessary</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>it the class doesn't exist</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
-                <td>it the creation of the object throws an exception</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_factory">
-        <div class="location">at line 360</div>
-        <code>        static            object
-    <strong>factory</strong>(string $class_name, null|array $params = null, null|string $type = null)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Build, retain and get a dependency instance</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$class_name</td>
-                <td>The class name to instanciate ; will be completed with current namespace if necessary</td>
-            </tr>
-                    <tr>
-                <td>null|array</td>
-                <td>$params</td>
-                <td>Parameters to use for <code>$class</code> object instanciation</td>
-            </tr>
-                    <tr>
-                <td>null|string</td>
-                <td>$type</td>
-                <td>The type of API object to load</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>object</td>
-            <td>Must return a service object</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the object creation sent an error</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the registry entry can't be set</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_get">
-        <div class="location">at line 383</div>
-        <code>        static            object
-    <strong>get</strong>(string $class_name, array $params = null, int $flag = MDE_API::FAIL_GRACEFULLY)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Get a loader object from registry / load it if absent</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$class_name</td>
-                <td>The class name to instantiate ; will be completed with current namespace if necessary</td>
-            </tr>
-                    <tr>
-                <td>array</td>
-                <td>$params</td>
-                <td>Parameters to use for <code>$class</code> object instantiation</td>
-            </tr>
-                    <tr>
-                <td>int</td>
-                <td>$flag</td>
-                <td>One of the interface flags</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>object</td>
-            <td>Must return a service object</td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the class can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the object creation sent an error</td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getConfig">
-        <div class="location">at line 416</div>
-        <code>        static            mixed
-    <strong>getConfig</strong>(string $var)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Get a configuration entry from registry</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setConfig">
-        <div class="location">at line 429</div>
-        <code>        static            mixed
-    <strong>setConfig</strong>(string $var, mixed $val, null|string $stack = null)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Set a configuration entry in registry</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$val</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>null|string</td>
-                <td>$stack</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_addConfig">
-        <div class="location">at line 448</div>
-        <code>        static            mixed
-    <strong>addConfig</strong>(string $var, mixed $val)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Add to a configuration entry in registry</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$val</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getVar">
-        <div class="location">at line 459</div>
-        <code>        static            mixed
-    <strong>getVar</strong>(string $var)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Get a parser entry from registry</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setVar">
-        <div class="location">at line 471</div>
-        <code>        static            mixed
-    <strong>setVar</strong>(string $var, mixed $val)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Set a parser entry in registry</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$val</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_addVar">
-        <div class="location">at line 483</div>
-        <code>        static            mixed
-    <strong>addVar</strong>(string $var, mixed $val)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Add to a parser entry in registry</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$val</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_unsetVar">
-        <div class="location">at line 495</div>
-        <code>        static            mixed
-    <strong>unsetVar</strong>(string $var, mixed $val = null)</code>
-    </h3>
-    <div class="details">
-                    <div class="method-description">
-                                    <p>Unset a parser entry in registry</p>                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$var</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$val</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-            </div>
 
     
             </div>
-                <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
-    </div>
-
-        </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
     </div>
     </body>
-
 </html>
