@@ -27,7 +27,6 @@ if (file_exists($bootstrapper = $bootstrapGetPath(array(
     dirname(__DIR__), 'src', 'bootstrap.php'
 )))) {
     require_once $bootstrapper;
-
 } else {
     trigger_error(
         sprintf('MarkdownExtended bootstrapper not found (searching "%s")!', $bootstrapper),
@@ -35,7 +34,7 @@ if (file_exists($bootstrapper = $bootstrapGetPath(array(
     );
 }
 
-// launch app's console
+// launch app's dev console
 if (strpos(php_sapi_name(),'cli') !== false) {
 
     // settings for CLI usage
@@ -44,7 +43,7 @@ if (strpos(php_sapi_name(),'cli') !== false) {
     @set_time_limit(0);
 
     // actually run the app
-    $console = new \MarkdownExtended\Console\Console();
+    $console = new \MarkdownExtendedDev\Console();
     if (defined('HARD_DEBUG') && HARD_DEBUG) {
         $console->enableHardDebug();
     }
