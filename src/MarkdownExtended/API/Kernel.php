@@ -10,6 +10,7 @@
 
 namespace MarkdownExtended\API;
 
+use MarkdownExtended\Exception\DomainException;
 use \MarkdownExtended\Exception\InvalidArgumentException;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Util\Registry;
@@ -17,13 +18,15 @@ use \MarkdownExtended\Util\Registry;
 class Kernel
 {
 
-    const TYPE_OUTPUTFORMAT         = 0;
-    const TYPE_GAMUT                = 1;
-    const TYPE_CONTENT              = 2;
+    const TYPE_OUTPUTFORMAT         = 'output_format';
+    const TYPE_GAMUT                = 'gamut';
+    const TYPE_CONTENT              = 'content';
+    const TYPE_TEMPLATE             = 'template';
 
     const OUTPUTFORMAT_INTERFACE    = 'MarkdownExtended\API\OutputFormatInterface';
     const GAMUT_INTERFACE           = 'MarkdownExtended\API\GamutInterface';
     const CONTENT_INTERFACE         = 'MarkdownExtended\API\ContentInterface';
+    const TEMPLATE_INTERFACE        = 'MarkdownExtended\API\TemplateInterface';
 
     const RESOURCE_TEMPLATE         = 'template';
     const RESOURCE_CONFIG           = 'config';
@@ -53,9 +56,33 @@ class Kernel
         self::set('config', new Registry);
     }
 
+    public static function getApiFromType($type)
+    {
+        switch ($type) {
+            case self::TYPE_OUTPUTFORMAT:
+                return self::OUTPUTFORMAT_INTERFACE;
+                break;
+            case self::TYPE_GAMUT:
+                return self::GAMUT_INTERFACE;
+                break;
+            case self::TYPE_CONTENT:
+                return self::CONTENT_INTERFACE;
+                break;
+            case self::TYPE_TEMPLATE:
+                return self::TEMPLATE_INTERFACE;
+                break;
+            default:
+                return null;
+        }
+    }
+
     public static function get($name)
     {
-        return self::getInstance()->_registry->get($name);
+        $return = self::getInstance()->_registry->get($name);
+        if (is_callable($return)) {
+            $return = call_user_func($return);
+        }
+        return $return;
     }
 
     public static function has($name)
@@ -77,68 +104,92 @@ class Kernel
 
     public static function valid($class_name, $type)
     {
-        switch ($type) {
-            case self::TYPE_OUTPUTFORMAT:
-                $api = self::OUTPUTFORMAT_INTERFACE;
-                break;
-            case self::TYPE_GAMUT:
-                $api = self::GAMUT_INTERFACE;
-                break;
-            case self::TYPE_CONTENT:
-                $api = self::CONTENT_INTERFACE;
-                break;
-            default:
-                throw new InvalidArgumentException(
-                    sprintf('Unknown API type "%s"', $type)
-                );
+        $api = self::getApiFromType($type);
+        if (empty($api)) {
+            throw new InvalidArgumentException(
+                sprintf('Unknown API type "%s"', $type)
+            );
         }
         return (bool) in_array($api, class_implements($class_name), true);
     }
 
+    public static function validate($class_name, $type, $real_name = null)
+    {
+        if (!self::valid($class_name, $type)) {
+            throw new DomainException(
+                sprintf(
+                    'Object "%s" of type "%s" must implement API interface "%s"',
+                    ($real_name ?: $class_name), $type, self::getApiFromType($type)
+                )
+            );
+        }
+        return true;
+    }
+
 // -----------------
-// Aliases
+// Configuration aliases
 // -----------------
 
     public static function getConfig($name, $default = null)
     {
-        return self::getInstance()->_registry->get('config')->get($name, $default);
+        if (false === strpos($name, '.')) {
+            return self::get('config')->get($name, $default);
+        }
+        return self::_configRecursiveIterator('get', $name, null, false, $default);
     }
 
     public static function setConfig($name, $value)
     {
-        return self::getInstance()->_registry->get('config')->set($name, $value);
+        if (false === strpos($name, '.')) {
+            return self::get('config')->set($name, $value);
+        }
+        return self::_configRecursiveIterator('set', $name, $value);
     }
 
     public static function addConfig($name, $value)
     {
-        $val = self::getConfig($name);
-        if (is_array($val)) {
-            if (is_array($value)) {
-                $val = array_merge($val, $value);
-            } else {
-                $val[] = $value;
+        return self::_configRecursiveIterator('set', $name, $value, true);
+    }
+
+    protected static function _configRecursiveIterator(
+        $type = 'get', $index, $value = null, $merge = false, $default = null
+    ) {
+        $result     = null;
+        $indexer    = new \ArrayIterator(explode('.', $index));
+        $iterator   = function (&$item, $key)
+            use (&$iterator, &$accessor, &$result, $indexer, $value, $type, $merge)
+        {
+            if ($key === $indexer->current()) {
+                $indexer->next();
+                if ($indexer->valid() && is_array($item)) {
+                    array_walk($item, $iterator);
+                    return;
+                }
+                if ($type === 'set') {
+                    if ($merge && is_array($item)) {
+                        if (is_array($value)) {
+                            $item = array_merge($item, $value);
+                        } else {
+                            $item[] = $value;
+                        }
+                    } elseif ($merge && is_string($item)) {
+                        $item .= $value;
+                    } else {
+                        $item = $value;
+                    }
+                    $result = true;
+                } elseif ($type === 'get') {
+                    $result = $item;
+                }
             }
-        } elseif (is_string($val)) {
-            $val .= $value;
-        } else {
-            $val = $value;
+            return;
+        };
+        $config = self::get('config')->getAll();
+        array_walk($config, $iterator);
+        if ($type === 'set') {
+            self::set('config', new Registry($config));
         }
-        return self::setConfig($name, $val);
-    }
-
-    public static function getOption($name, $default = null)
-    {
-        return self::getConfig($name, $default);
-    }
-
-    public static function setOption($name, $value)
-    {
-        return self::setConfig($name, $value);
-    }
-
-    public static function addOption($name, $value)
-    {
-        return self::addConfig($name, $value);
+        return $result ?: $default;
     }
 
 // -----------------

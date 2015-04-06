@@ -68,9 +68,7 @@ class FencedCodeBlock
 
         $attributes = array();
         if (!empty($language)) {
-            $attribute = Kernel::getConfig('fcb_language_attribute');
-            $attributes[$attribute] = Helper::fillPlaceholders(
-                Kernel::getConfig('fcb_attribute_value_mask'), $language);
+            $attributes['language'] = $language;
         }
         $codeblock = Kernel::get('OutputFormatBag')
             ->buildTag('preformatted', $codeblock, $attributes);

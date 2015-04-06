@@ -74,7 +74,7 @@ class MetaData
         }
         if (!empty($this->metadata)) {
             Kernel::setConfig('metadata', $this->metadata);
-            Kernel::get('Content')->setMetadata($this->metadata);
+            Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($this->metadata);
         }
         return $text;
     }
@@ -135,7 +135,7 @@ class MetaData
                         Kernel::setConfig($meta_name, $meta_value);
                     } else {
                         if ($meta_name=='title') {
-                            Kernel::get('Content')
+                            Kernel::get(Kernel::TYPE_CONTENT)
                                 ->setTitle($meta_value);
                         } else {
                             $metadata_str .= "\n" . Kernel::get('OutputFormatBag')
@@ -147,7 +147,7 @@ class MetaData
                     }
                 }
             }
-            //Kernel::get('Content')->setMetadataToString($metadata_str);
+            //Kernel::get(Kernel::TYPE_CONTENT)->setMetadataToString($metadata_str);
         }
         return $text;
     }

@@ -54,7 +54,7 @@ class GamutLoader
             );
         }
 
-        $stack = Kernel::getOption($name);
+        $stack = Kernel::getConfig($name);
         if (empty($stack)) {
             throw new InvalidArgumentException(
                 sprintf('Unknown gamut stack "%s"', $name)
@@ -206,7 +206,7 @@ class GamutLoader
         switch ($this->getGamutType($gamut)) {
             case self::FILTER_ALIAS:
                 @list($base, $class, $method) = explode(':', $gamut);
-                return $this->_runGamutFilterMethod($class, !empty($_method) ? $_method : $method, $text);
+                return $this->_runGamutFilterMethod($class, $_method ?: $method, $text);
                 break;
             case self::TOOLS_ALIAS:
                 @list($base, $method) = explode(':', $gamut);
@@ -214,7 +214,7 @@ class GamutLoader
                 break;
             default:
                 @list($class, $method) = explode(':', $gamut);
-                return $this->_runClassMethod($class, !empty($_method) ? $_method : $method, $text);
+                return $this->_runClassMethod($class, $_method ?: $method, $text);
         }
     }
 
@@ -230,12 +230,7 @@ class GamutLoader
             }
 
             $_obj = new $obj_name;
-            if (!Kernel::valid($_obj, Kernel::TYPE_GAMUT)) {
-                throw new DomainException(
-                    sprintf('Filter class "%s" does not implement interface "%s"',
-                        $obj_name, Kernel::GAMUT_INTERFACE)
-                );
-            }
+            Kernel::validate($_obj, Kernel::TYPE_GAMUT, $obj_name);
             $this->setCache($obj_name, $_obj);
         }
 
@@ -260,16 +255,11 @@ class GamutLoader
             }
 
             $_obj = new $class;
-            if (!Kernel::valid($_obj, Kernel::TYPE_GAMUT)) {
-                throw new DomainException(
-                    sprintf('Gamut class "%s" does not implement interface "%s"',
-                        $class, Kernel::GAMUT_INTERFACE)
-                );
-            }
+            Kernel::validate($_obj, Kernel::TYPE_GAMUT, $class);
             $this->setCache($class, $_obj);
         }
 
-        $method = !empty($method) ? $method : $_obj->getDefaultMethod();
+        $method = $method ?: $_obj->getDefaultMethod();
 
         if (!method_exists($_obj, $method)) {
             throw new UnexpectedValueException(

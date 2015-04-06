@@ -46,7 +46,7 @@ class DomIdRegistry
     {
         return $this->has($reference) ?
             $this->dom_ids->get($reference) : $this->set(
-                !empty($id) ? $id : $reference, $reference
+                $id ?: $reference, $reference
             );
     }
 

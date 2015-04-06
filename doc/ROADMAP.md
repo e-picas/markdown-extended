@@ -4,6 +4,16 @@ Markdown Extended Road-map
 This document is for developers usage.
 
 
+0.1.0 TODOS
+
+- review NOTE filter
+- code comments
+- documentation
+- review of embedded config files
+
+
+
+
 ## TODOS that MUST be done before version 1.0
 
 -   DONE - test the command line interface with direct stdin input, multi-input files etc
@@ -91,18 +101,9 @@ Each release-push to GitHub MAY update the <http://sites.ateliers-pierrot.fr/mar
 
 ### Generate the "PHAR" archive
 
-To automatically re-generate the "markdown-extended.phar" file from current version, you can use
-the `bin/compile` binary of the "dev" branch:
+To automatically re-generate the "markdown-extended.phar" file from current version, you can use:
 
-    ~$ php build/make-phar.php
-
-
-### Generate the "markdown reminders"
-
-To automatically re-generate the "markdown_reminders.html" file from current version, you can use
-the `bin/build_reminders` binary:
-
-    ~$ php build/make-reminders.php
+    ~$ php bin/mde-dev make-phar
 
 
 ### Generate the man-page
@@ -112,10 +113,6 @@ run:
 
     ~$ bin/markdown-extended -f man -o bin/markdown-extended.man docs/MANPAGE.md
     ~$ man ./bin/markdown-extended.man
-
-Please note that some systems REQUIRED to use the equal sign between option name and value:
-
-    ~$ bin/markdown-extended -f=man -o=bin/markdown-extended.man docs/MANPAGE.md
 
 
 ### Generate the documentation

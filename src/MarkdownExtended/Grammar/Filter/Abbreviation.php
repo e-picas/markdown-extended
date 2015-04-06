@@ -21,7 +21,7 @@ use \MarkdownExtended\API\Kernel;
  *
  *      *[abbr]: definition
  *
- * You can pre-define a set of abbreviation descriptions in the config entry `predef_abbr`.
+ * You can pre-define a set of abbreviation descriptions in the config entry `predefined_abbr`.
  * This must be define as an array of `term => description` values.
  *
  * @link http://aboutmde.org/#E5
@@ -38,7 +38,7 @@ class Abbreviation
     {
         $abbr_word_re='';
         $abbr_desciptions = array();
-        $predef_abbr = Kernel::getConfig('predef_abbr');
+        $predef_abbr = Kernel::getConfig('predefined_abbr');
         if (!empty($predef_abbr)) {
             foreach ($predef_abbr as $abbr_word => $abbr_desc) {
                 if ($abbr_word_re) $abbr_word_re .= '|';

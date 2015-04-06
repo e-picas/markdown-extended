@@ -146,9 +146,9 @@ abstract class AbstractConsole
      */
     public function parseOptions()
     {
-        $user_input = UserInput::parseOptions($this->cli_options);
-        $this->options = $user_input->options;
-        $this->arguments = $user_input->remain;
+        $user_input         = UserInput::parseOptions($this->cli_options);
+        $this->options      = $user_input->options;
+        $this->arguments    = $user_input->remain;
 
         $piped = $this->stream->getPipedInput();
         if (!empty($piped)) {

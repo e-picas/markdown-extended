@@ -68,11 +68,8 @@ class AutoLink
 
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('link', $url, array(
-                'href'  => $url,
-                'title' => Helper::fillPlaceholders(
-                    Kernel::getConfig('link_mask_title'), $url)
-                )
-            );
+                'href'  => $url
+            ));
 
         return parent::hashPart($block);
     }
@@ -84,18 +81,11 @@ class AutoLink
     protected function _email_callback($matches)
     {
         $address = $matches[1];
-        list($address_link, $address_text) = Helper::encodeEmailAddress($address);
-        Kernel::addConfig('urls', $address_text);
-
+        Kernel::addConfig('urls', $address);
         $block = Kernel::get('OutputFormatBag')
-            ->buildTag('link', $address_text, array(
-                'email' => $address,
-                'href'  => $address_link,
-                'title' => Helper::fillPlaceholders(
-                    Kernel::getConfig('mailto_mask_title'), $address_text)
-                )
-            );
-
+            ->buildTag('link', $address, array(
+                'email' => $address
+            ));
         return parent::hashPart($block);
     }
 

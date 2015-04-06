@@ -60,6 +60,12 @@ class OutputFormatBag
         'title',
         'unordered_list',
         'unordered_list_item',
+        'footnote_standard_item',
+        'footnote_standard_link',
+        'footnote_glossary_item',
+        'footnote_glossary_link',
+        'footnote_bibliography_item',
+        'footnote_bibliography_link',
     );
 
     /**
@@ -85,13 +91,9 @@ class OutputFormatBag
             );
         }
         $cls = new $cls_name;
-        if (!Kernel::valid($cls, Kernel::TYPE_OUTPUTFORMAT)) {
-            throw new DomainException(
-                sprintf('The output format "%s" does not implement interface "%s"',
-                    $format, Kernel::OUTPUTFORMAT_INTERFACE)
-            );
+        if (Kernel::validate($cls, Kernel::TYPE_OUTPUTFORMAT, $format)) {
+            $this->setFormatter($cls);
         }
-        $this->setFormatter($cls);
     }
 
     /**

@@ -147,7 +147,6 @@ class Anchor
                     $attributes
                 );
             }
-            $this->_validateLinkAttributes($attributes);
             $block = Kernel::get('OutputFormatBag')
                 ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
             $result = parent::hashPart($block);
@@ -175,34 +174,9 @@ class Anchor
         if (!empty($title)) {
             $attributes['title'] = parent::runGamut('tools:EncodeAttribute', $title);
         }
-        $this->_validateLinkAttributes($attributes);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
         return parent::hashPart($block);
-    }
-
-    /**
-     * Be sure to have a full attributes set (add a title if needed)
-     *
-     * @param   array   $attributes     Passed by reference
-     */
-    protected function _validateLinkAttributes(array &$attributes)
-    {
-        if (empty($attributes['title'])) {
-            $first_char = substr($attributes['href'], 0, 1);
-
-            if ($first_char==='#' && Kernel::getConfig('anchor_mask_title')) {
-                $attributes['title'] = Helper::fillPlaceholders(
-                    Kernel::getConfig('anchor_mask_title'), $attributes['href']);
-
-            } elseif (Kernel::getConfig('link_mask_title')) {
-                $attributes['title'] = Helper::fillPlaceholders(
-                    Kernel::getConfig('link_mask_title'),
-                    !empty($attributes['href']) ? $attributes['href'] : ''
-                );
-
-            }
-        }
     }
 
 }

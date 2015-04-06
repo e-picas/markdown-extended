@@ -14,6 +14,14 @@ $old_display_errors = ini_get('display_errors');
 $old_error_reporting = error_reporting();
 @error_reporting(-1);
 
+// PHP 5.3.3+
+if (version_compare(PHP_VERSION, '5.3.3', '<')) {
+    trigger_error(
+        sprintf('The "MarkdownExtended" application required PHP version 5.3.3 minimum (current running version is %s)', PHP_VERSION),
+        E_USER_ERROR
+    );
+}
+
 // get a well-formatted path
 $bootstrapGetPath = function(array $parts) {
     return implode(DIRECTORY_SEPARATOR,

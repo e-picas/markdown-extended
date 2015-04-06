@@ -8,26 +8,31 @@
  * file that was distributed with this source code.
  */
 
-namespace MarkdownExtended\Util;
+namespace MarkdownExtended;
 
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\API\TemplateInterface;
 use \MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\Exception\RuntimeException;
 use \MarkdownExtended\Exception\UnexpectedValueException;
+use \MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Util\Registry;
+use \MarkdownExtended\Util\CacheRegistry;
 
 class Templater
+    implements TemplateInterface
 {
 
     protected $config;
     protected $cache;
 
-    public function __construct(array $options)
+    public function __construct()
     {
-        $this->config   = new Registry($options);
+        $this->config   = new Registry(Kernel::getConfig('template_options'));
         $this->cache    = new CacheRegistry;
     }
 
-    public function parse(ContentInterface $content, $template_path)
+    public function parse(ContentInterface $content, $template_path = null)
     {
         $tpl_content    = $this->getTemplate($template_path);
         $params         = $this->getParams($content);
@@ -44,7 +49,9 @@ class Templater
     public function getTemplate($template_path)
     {
         if (true === $template_path) {
-            $template_path = $this->config->get('default_template');
+            $template_path = Kernel::getConfig(
+                'output_format_options.' . Kernel::getConfig('output_format') . '.default_template'
+            );
         }
 
         if (!file_exists($template_path)) {

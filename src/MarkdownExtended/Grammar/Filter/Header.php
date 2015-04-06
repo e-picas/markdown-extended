@@ -88,9 +88,9 @@ class Header
         return "\n".str_pad('#', $level, '#').' '.$matches[1].' '
             .(!empty($matches[2]) ? '{#'.$matches[2].'}' : '')."\n";
 /*
-        $id  = Kernel::get('Content')->setNewDomId($matches[2], null, false);
+        $id  = Kernel::get(Kernel::TYPE_CONTENT)->setNewDomId($matches[2], null, false);
         $title = parent::runGamut('span_gamut', $matches[1]);
-        Kernel::get('Content')
+        Kernel::get(Kernel::TYPE_CONTENT)
             ->addMenu(array('level'=>$level,'text'=>$title), $id);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('title', $title, array(
@@ -117,7 +117,7 @@ class Header
             $matches[3]
             :
             Helper::header2Label($matches[2]);
-//        $id  = Kernel::get('Content')->setNewDomId($id, null, false);
+//        $id  = Kernel::get(Kernel::TYPE_CONTENT)->setNewDomId($id, null, false);
         $title = parent::runGamut('span_gamut', $matches[2]);
         Kernel::addConfig('menu', array('level'=>$level,'text'=>parent::unhash($title)), $id);
         $block = Kernel::get('OutputFormatBag')
@@ -145,11 +145,11 @@ class Header
      */
     protected function _setContentTitle($string)
     {
-        $old = Kernel::get('Content')->getTitle();
+        $old = Kernel::get(Kernel::TYPE_CONTENT)->getTitle();
         if (empty($old)) {
-            $meta = Kernel::get('Content')->getMetadata();
+            $meta = Kernel::get(Kernel::TYPE_CONTENT)->getMetadata();
             $meta['title'] = $string;
-            Kernel::get('Content')->setMetadata($meta);
+            Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($meta);
         }
     }
 

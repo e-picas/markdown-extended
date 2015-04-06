@@ -17,7 +17,7 @@ class UserInput
 
     const NEGATE_SUFFIX             = 'no-';
     protected static $NEGATE_VAL    = '_negate';
-    protected static $NEGATE_INFO   = 'This option can be prohibited by "--no-%s".';
+    protected static $NEGATE_INFO   = 'This option can be negated by "--no-%s".';
 
     const ARG_NULL      = 1;
     const ARG_OPTIONAL  = 2;
@@ -28,10 +28,40 @@ class UserInput
     const TYPE_PATH     = 4;
     const TYPE_LISTITEM = 8;
 
+    /**
+     * Organize and cleanup an option definition
+     *
+     * The `$item` definition array may follow these rules:
+     *
+     * -    'description' (required) is the option description used in help string
+     * -    'argument' (required) is the argument behavior: null, optional or required
+     *      (use the `ARG_` class constants)
+     * -    'type' (optional) is the argument type (use the `TYPE_` class constants) ;
+     *      it defaults to the boolean type if the argument is null and is required otherwise ;
+     *      you can use multiple types using bitwise notation: `TYPE_1 | TYPE_2`
+     * -    'default' (optional) is the default value of the option ; it defaults to
+     *      `false` if the argument is optional or the type is boolean and `null` otherwise
+     * -    'default_arg' (optional) is the default argument value used when the argument
+     *      is optional and the option is used ; it defaults to 'default'
+     * -    'shortcut' (optional) is the one-letter option shortcut
+     * -    'negate' (optional) allows the option to be negated using option `--no-OPTION` ;
+     *      this will reset the default value of the option to `false` when the negate option
+     *      is used
+     * -    'list' (required for the LISTITEM type) defines the allowed list of option values
+     *
+     * @param   array   $item
+     * @param   string  $name
+     * @return  array
+     */
     public static function prepareOptionDefinition(array $item, $name)
     {
         $item['name'] = $name;
 
+        if (!isset($item['description'])) {
+            throw new \InvalidArgumentException(
+                sprintf('Option "%s" must define a description.', $name)
+            );
+        }
         if (!isset($item['argument'])) {
             throw new \InvalidArgumentException(
                 sprintf('Option "%s" must define if its argument is required, optional or null.', $name)
@@ -62,11 +92,11 @@ class UserInput
             }
         }
 
-        if ($item['argument'] === self::ARG_OPTIONAL) {
-            $item['_default'] = false;
-        } else {
-            $item['_default'] = isset($item['default']) ? $item['default'] : null;
-        }
+        $item['_default'] = isset($item['default']) ? $item['default'] : (
+                $item['argument'] === self::ARG_OPTIONAL ? false : null
+            );
+
+        $item['_default_arg'] = isset($item['default_arg']) ? $item['default_arg'] : $item['_default'];
 
         if (!isset($item['negate'])) {
             $item['negate'] = false;
@@ -74,14 +104,21 @@ class UserInput
 
         if (($item['type'] & self::TYPE_LISTITEM) && !isset($item['list'])) {
             throw new \InvalidArgumentException(
-                sprintf('Option "%s" must define its list of available values', $name)
+                sprintf('Option "%s" must define the list of available values', $name)
             );
         }
 
         return $item;
     }
 
-    public static function validateOptionValue($value, $definition)
+    /**
+     * Validate a user CLI option value
+     *
+     * @param   string  $value
+     * @param   array   $definition
+     * @return  bool
+     */
+    public static function validateOptionValue($value, array $definition)
     {
         // treat negation first
         if ($value === self::$NEGATE_VAL && $definition['negate'] === true) {
@@ -95,14 +132,14 @@ class UserInput
             );
         }
 
-        // inverse default `getopt()` return when no argument (which is `false`)
-        if (($definition['type'] & self::TYPE_BOOL) && $value===false) {
-            return true;
+        // return the default_arg value if not boolean and just `false`
+        if ($definition['type'] > self::TYPE_BOOL && $value === false) {
+            return $definition['_default_arg'];
         }
 
-        // return the default value if not boolean and just `false`
-        if (!($definition['type'] & self::TYPE_BOOL) && $value===false) {
-            return $definition['default'];
+        // inverse default `getopt()` return when no argument (which is `false`)
+        if (($definition['type'] & self::TYPE_BOOL) && $value === false) {
+            return true;
         }
 
         // validate a file path if needed
@@ -153,13 +190,6 @@ class UserInput
         // treat CLI options
         $options = getopt(join('', array_values($short_options)), $long_options);
 
-/*/
-        echo Helper::debug(array_values($short_options), 'short options', false);
-        echo Helper::debug(array_values($long_options), 'long options', false);
-        echo Helper::debug($default_options, 'defaults', false);
-        echo Helper::debug($options_stack, 'options stack', false);
-//*/
-
         foreach ($options as $var=>$val) {
             $index = array_key_exists($var, $options_stack) ? $options_stack[$var] : $var;
             if ($index !== $var) {
@@ -191,7 +221,7 @@ class UserInput
                 } else {
                     $argv[$i] = $arg;
                 }
-            } elseif (substr(trim($arg, '-'), 0, strlen(self::NEGATE_SUFFIX)) == self::NEGATE_SUFFIX) {
+            } elseif (substr(trim($arg, '-'), 0, strlen(self::NEGATE_SUFFIX)) === self::NEGATE_SUFFIX) {
                 $index = substr(trim($arg, '-'), strlen(self::NEGATE_SUFFIX));
                 if (array_key_exists($index, $definitions)) {
                     $options[$index] = self::validateOptionValue(self::$NEGATE_VAL, $definitions[$index]);
@@ -201,12 +231,22 @@ class UserInput
         }
         // last run for unknown options
         foreach ($argv as $i=>$arg) {
-            if (substr($arg, 0, 1)=='-') {
+            if (substr($arg, 0, 1) === '-') {
                 throw new \InvalidArgumentException(
                     sprintf('Unknown option "%s"', trim($arg, '-'))
                 );
             }
         }
+
+/*/
+        echo Helper::debug(array_values($short_options), 'short options', false);
+        echo Helper::debug(array_values($long_options), 'long options', false);
+        echo Helper::debug($default_options, 'defaults', false);
+        echo Helper::debug($options_stack, 'options stack', false);
+        echo Helper::debug($options, 'input user options', false);
+        echo Helper::debug($argv, 'remaining arguments', false);
+        echo Helper::debug(array_merge($default_options, $options), 'final full options', false);
+//*/
 
         // standard object to return
         $obj            = new \StdClass();

@@ -63,7 +63,7 @@ class Image
                 (?:
                     <(\S*)>                           # src url = $3
                 |
-                    ('.Kernel::getConfig('nested_url_parenthesis_re').')  # src url = $4
+                    ('.Kernel::getConfig('nested_parenthesis_re').')  # src url = $4
                 )
                 [ \n]*
                 (                                     # $5

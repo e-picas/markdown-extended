@@ -87,7 +87,8 @@ DESC
                 'shortcut'      => 'e',
                 'argument'      => UserInput::ARG_OPTIONAL,
                 'type'          => UserInput::TYPE_STRING,
-                'default'       => 'metadata',
+                'default'       => false,
+                'default_arg'   => 'metadata',
                 'description'   => 'Extract only a part of parsed content ("metadata" by default).'
             ))
             ->addCliOption('template', array(
@@ -95,8 +96,9 @@ DESC
                 'argument'      => UserInput::ARG_OPTIONAL,
                 'type'          => UserInput::TYPE_BOOL | UserInput::TYPE_PATH,
                 'negate'        => true,
-                'default'       => null,
-                'description'   => 'Define a template to load parsed content in (if "true", the default template will be used).'
+                'default'       => 'auto',
+                'default_arg'   => true,
+                'description'   => 'Define a template to load parsed content in (without argument, the default template will be used).'
             ))
             ->addCliOption('response', array(
                 'shortcut'      => 'r',
@@ -172,7 +174,6 @@ DESC
             }
         }
 
-//        var_export($results);
         $this->renderOutput($results);
     }
 
@@ -328,16 +329,18 @@ DESC
                     $config[$var] = 'NULL';
                 } elseif (is_bool($val)) {
                     $config[$var] = $val===true ? 'true' : 'false';
+                } elseif (is_array($val)) {
+                    foreach ($val as $subvar=>$subval) {
+                        $config[$var . '.' . $subvar] = $subval;
+                    }
                 } else {
                     $config[$var] = $val;
                 }
             }
         }
 
-        var_export($config);
-        exit('yo');
 
-
+//        var_export($config);
         $this->_writeTask($config, 'Configuration settings');
     }
 

@@ -241,7 +241,7 @@ class Man
     public function teardown($text)
     {
         $headers    = array();
-        $content    = Kernel::get('Content');
+        $content    = Kernel::get(Kernel::TYPE_CONTENT);
 
         foreach ($content->getMetadata() as $name=>$value) {
             if ($name === 'title') {

@@ -36,7 +36,7 @@ if (!defined('MDE_BASE_PATH')) {
  * @param   mixed   $options
  * @return  \MarkdownExtended\API\ContentInterface
  */
-function Markdown($text, $options = null)
+function MarkdownExtended($text, $options = null)
 {
     return \MarkdownExtended\MarkdownExtended::parseString($text, $options);
 }
@@ -48,9 +48,49 @@ function Markdown($text, $options = null)
  * @param   mixed   $options
  * @return  \MarkdownExtended\API\ContentInterface
  */
-function MarkdownFromSource($file_name, $options = null)
+function MarkdownExtendedFromSource($file_name, $options = null)
 {
     return \MarkdownExtended\MarkdownExtended::parseSource($file_name, $options);
+}
+
+if (!function_exists('Markdown')) {
+    /**
+     * Transform an input text by the MarkdownExtended
+     *
+     * @param   string  $text
+     * @param   mixed   $options
+     * @return  \MarkdownExtended\API\ContentInterface
+     */
+    function Markdown($text, $options = null)
+    {
+        return MarkdownExtended($text, $options);
+    }
+} else {
+    trigger_error(
+        'The "Markdown" function is already defined and can not be overwritten. '
+        . 'To use the MarkdownExtended parser, you must use function "MarkdownExtended()".',
+        E_USER_NOTICE
+    );
+}
+
+if (!function_exists('MarkdownFromSource')) {
+    /**
+     * Transform an input file name source by the MarkdownExtended
+     *
+     * @param   string  $file_name
+     * @param   mixed   $options
+     * @return  \MarkdownExtended\API\ContentInterface
+     */
+    function MarkdownFromSource($file_name, $options = null)
+    {
+        return MarkdownExtendedFromSource($file_name, $options);
+    }
+} else {
+    trigger_error(
+        'The "MarkdownFromSource" function is already defined and can not be overwritten. '
+        . 'To use the MarkdownExtended parser, you must use function "MarkdownExtendedFromSource()".',
+        E_USER_NOTICE
+    );
 }
 
 // Endfile

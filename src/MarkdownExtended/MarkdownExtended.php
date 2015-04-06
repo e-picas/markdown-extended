@@ -11,15 +11,15 @@
 namespace MarkdownExtended;
 
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Grammar\GamutLoader;
 use \MarkdownExtended\Exception\DomainException;
 use \MarkdownExtended\Exception\InvalidArgumentException;
 use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Util\ContentCollection;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Util\DomIdRegistry;
 use \MarkdownExtended\Util\Registry;
-use \MarkdownExtended\Util\Templater;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
 use \DateTime;
 
 /**
@@ -105,41 +105,116 @@ class MarkdownExtended
     public static function getDefaults()
     {
         return array(
-            // the default output format
-            'output_format'             => 'HTML',
-            // Change to ">" for HTML output
-            'html_empty_element_suffix' => ' />',
+            // ------------------
+            // Global parsing options
+            // ------------------
+
             // Table of hash values for escaped characters:
             'escaped_characters'        => "0`*_{}[]()<>#+-.!:|\\",
             // Define the width of a tab (4 spaces by default)
             'tab_width'                 => 4,
-            // Regex to match balanced [brackets].
+            // Regex to match balanced brackets.
             // Needed to insert a maximum bracked depth while converting to PHP.
             'nested_brackets_depth'     => 6,
-            // Regex to match balanced (parenthesis).
+            // Regex to match balanced parenthesis.
             // Needed to insert a maximum bracked depth while converting to PHP.
-            'nested_url_parenthesis_depth' => 4,
+            'nested_parenthesis_depth'  => 4,
             // Change to `true` to disallow markup or entities.
             'no_markup'                 => false,
             'no_entities'               => false,
             // Special metadata used during parsing
             'special_metadata'          => array('baseheaderlevel', 'quoteslanguage'),
             // Block inclusion tag
-            'block_inclusion'           => '<!-- @([^ @]+)@ -->',
-            // Optional title attribute for links that do not have one
-            'link_mask_title'           => 'See online %%',
-            'mailto_mask_title'         => 'Contact %%',
-            // Optional attribute to define for fenced code blocks with language type
-            'fcb_language_attribute'    => 'class',
-            // Attribute's value construction for fenced code blocks with language type
-            'fcb_attribute_value_mask'  => 'language-%%',
+            'block_inclusion_mask'      => '<!-- @([^ @]+)@ -->',
+            // Define an array of base path for block inclusions ; defaults to cwd.
+            'base_path'                 => array(getcwd()),
+            // Optional id attribute prefix for footnote links and backlinks.
+            'footnote_id_prefix'        => '',
+            // Optional id attribute prefix for glossary footnote links and backlinks.
+            'glossarynote_id_prefix'    => '',
+            // Optional id attribute prefix for citation footnote links and backlinks.
+            'bibliographynote_id_prefix'=> '',
+
+
+            // ------------------
+            // Output format options
+            // ------------------
+
+            // the default output format
+            'output_format'             => 'html',
+
+            'output_format_options'     => array(
+
+                'html'                  => array(
+                    // Change to ">" for HTML output
+                    'html_empty_element_suffix' => ' />',
+
+                    // Optional title attribute for inpage anchors links that do not have one
+                    'anchor_title_mask'         => 'Reach inpage section %%',
+                    // Optional title attribute for links that do not have one
+                    'link_title_mask'           => 'See online %%',
+                    // Optional title attribute for mailto links that do not have one
+                    'mailto_title_mask'         => 'Contact %%',
+
+                    // Optional attribute to define for fenced code blocks with language type
+                    'codeblock_language_attribute' => 'class',
+                    // Attribute's value construction for fenced code blocks with language type
+                    'codeblock_attribute_mask'  => 'language-%%',
+
+                    // Optional title attribute for footnote links and backlinks.
+                    'fn_link_title_mask'        => 'See footnote %%',
+                    'fn_backlink_title_mask'    => 'Return to content',
+
+                    // Optional class attribute for footnote links and backlinks.
+                    'fn_link_class'             => 'footnote',
+                    'fn_backlink_class'         => 'reverse_footnote',
+
+                    // Optional title attribute for glossary footnote links and backlinks.
+                    'fng_link_title_mask'       => 'See glossary entry %%',
+                    'fng_backlink_title_mask'   => 'Return to content',
+
+                    // Optional class attribute for glossary footnote links and backlinks.
+                    'fng_link_class'            => 'footnote_glossary',
+                    'fng_backlink_class'        => 'reverse_footnote_glossary',
+
+                    // Optional title attribute for bibliography footnote links and backlinks.
+                    'fnb_link_title_mask'       => 'See bibliography reference %%',
+                    'fnb_backlink_title_mask'   => 'Return to content',
+
+                    // Optional class attribute for bibliography footnote links and backlinks.
+                    'fnb_link_class'            => 'footnote_bibliography',
+                    'fnb_backlink_class'        => 'reverse_footnote_bibliography',
+
+                    // select math type to apply in '' or mathjax
+                    'math_type'                 => 'mathjax',
+
+                    // the default template to use if needed
+                    'default_template'          => 'html5',
+                ),
+
+            ),
+
+            // ------------------
+            // Initial entries options
+            // ------------------
+
             // Predefined urls, titles and abbreviations for reference links and images.
-            'predef_urls'               => array(),
-            'predef_titles'             => array(),
-            'predef_attributes'         => array(),
-            'predef_abbr'               => array(),
-            // templating
-            'templater'                 => array(
+            'predefined_urls'               => array(),
+            'predefined_titles'             => array(),
+            'predefined_attributes'         => array(),
+            'predefined_abbr'               => array(),
+
+            // ------------------
+            // Templating options
+            // ------------------
+
+            // load the result in a template?
+            // - bool to force default template or note
+            // - 'auto' to let the parser choose the best option
+            // - 'file path' to a specific template file
+            // - 'class name' to a custom `` object
+            'template'                  => 'auto',
+            'template_options'          => array(
                 // Template mask for keywords regexp
                 // i.e. "{% TOC %}" or "{%TOC%}" ("%%" will be a literal "%")
                 'keywords_mask'         => "{%% ?%s ?%%}",
@@ -149,11 +224,16 @@ class MarkdownExtended
                     'metadata'              => 'META',
                     'charset'               => 'CHARSET',
                     'title'                 => 'TITLE',
-//                'last_update'           => 'DATE'
+//                  'last_update'           => 'DATE'
                 ),
-                'default_template'      => 'html5'
+                'inline_template'       => "{% META %}\n{% BODY %}\n{% NOTES %}",
             ),
-            // full gamuts
+
+            // ------------------
+            // Filters gamuts options
+            // ------------------
+
+            // full gamuts stacks
             // each sub-item is constructed like "gamut_alias or class name : method or class name : method name"
             'initial_gamut' => array (
                 'filter:Detab:init'          => '5',
@@ -177,8 +257,7 @@ class MarkdownExtended
                 'block_gamut'               => '30',
                 'filter:MetaData:append'    => '35',
                 'filter:Note:append'        => '40',
-//            'filter:BlockInclusion'     => '50',
-//            'filter:TableOfContents'    => '60',
+                'filter:BlockInclusion'     => '50',
                 'tools:teardownOutputFormat' => '70',
             ),
             'span_gamut' => array (
@@ -251,14 +330,15 @@ class MarkdownExtended
 
         // init all dependencies
         $kernel
-            ->set('MarkdownExtended', $this)
-            ->set('OutputFormatBag', new OutputFormatBag)
-            ->set('Grammar\GamutLoader', new GamutLoader)
+            ->set('MarkdownExtended',       $this)
+            ->set('OutputFormatBag',        new OutputFormatBag)
+            ->set('Grammar\GamutLoader',    new GamutLoader)
+            ->set('ContentCollection',      new ContentCollection)
         ;
 
         // load required format
         $kernel->get('OutputFormatBag')
-            ->load($kernel->get('config')->get('output_format'));
+            ->load($kernel->getConfig('output_format'));
     }
 
     // init options as "config" dependency
@@ -289,13 +369,14 @@ class MarkdownExtended
             }
 
             $path_options = $this->loadConfigFile($path);
+            unset($path_options['config_file']);
             $this->setOptions($path_options);
             $options['loaded_config_file'] = $path;
         }
 
         if (is_array($options) && !empty($options)) {
             foreach ($options as $var=>$val) {
-                Kernel::get('config')->set($var, $val);
+                Kernel::setConfig($var, $val);
             }
         }
 
@@ -306,7 +387,7 @@ class MarkdownExtended
      * @param   string|\MarkdownExtended\Content $content
      * @return  \MarkdownExtended\Content
      */
-    public function transform($content, $name = null)
+    public function transform($content, $name = null, $primary = true)
     {
         $kernel = Kernel::getInstance();
 
@@ -317,16 +398,21 @@ class MarkdownExtended
             $content->setTitle($name);
         }
 
+        $content_collection = Kernel::get('ContentCollection');
+        $content_collection->append($content);
+        $index = $content_collection->key();
+        $content_collection->next();
+        if (!$content_collection->valid()) {
+            $content_collection->seek($index);
+        }
         $kernel
-            ->set('Content',    $content)
-            ->set('Lexer',      new Lexer)
-            ->set('DomId',      new DomIdRegistry)
-            ->set('Templater',  new Templater($kernel->getConfig('templater')))
+            ->set(Kernel::TYPE_CONTENT, function(){ return Kernel::get('ContentCollection')->current(); })
+            ->set('Lexer',              new Lexer)
+            ->set('DomId',              new DomIdRegistry)
         ;
 
         // actually parse content
-        $kernel->get('Lexer')
-            ->parse($content);
+        $kernel->get('Lexer')->parse($content);
         $body   = $content->getBody();
         $notes  = $content->getNotes();
         $meta   = $content->getMetadata();
@@ -339,16 +425,29 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
 
         // force template if needed
         $tpl = $kernel->getConfig('template');
-        if (!Helper::isSingleLine($body)) {
-            if (!is_null($tpl) && $tpl === false) {
-                $tpl = true;
-            }
+        if (!is_null($tpl) && $tpl === 'auto') {
+            $tpl = !(Helper::isSingleLine($body));
+        }
+        if (!$primary) {
+            $tpl = false;
         }
 
         // load it in a template ?
         if (!empty($tpl) && false !== $tpl) {
+            if (
+                (
+                    (is_string($tpl) && class_exists($tpl)) ||
+                    is_object($tpl)
+                ) &&
+                Kernel::validate($tpl, Kernel::TYPE_TEMPLATE)
+            ) {
+                $templater = new $tpl;
+            } else {
+                $templater = new Templater;
+            }
+            $kernel->set(Kernel::TYPE_TEMPLATE, $templater);
             $content->setContent(
-                $kernel->get('Templater')->parse($content, $tpl)
+                $templater->parse($content, $tpl)
             );
 
         } else {
@@ -370,7 +469,7 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
 
         // write the output in a file?
         $output = $kernel->getConfig('output');
-        if (!empty($output)) {
+        if (!empty($output) && $primary) {
             $name = $content->getMetadata('file_name');
             $path = Helper::fillPlaceholders(
                 $output,
@@ -378,8 +477,11 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
                     pathinfo($name, PATHINFO_FILENAME) : Helper::header2Label($content->getTitle())
                 )
             );
-            if (file_exists($path)) {
+            if (file_exists($path) && $kernel->getConfig('force') !== true) {
                 Helper::backupFile($path);
+            }
+            if (!file_exists(dirname($path))) {
+                mkdir(dirname($path));
             }
             $written = file_put_contents($path, (string) $content, LOCK_EX);
 
@@ -391,7 +493,7 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
         return $content;
     }
 
-    public function transformSource($path)
+    public function transformSource($path, $primary = true)
     {
         if (!file_exists($path)) {
             throw new DomainException(
@@ -407,11 +509,11 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
         $source     = file_get_contents($path, FILE_USE_INCLUDE_PATH);
         $content    = new Content($source, Kernel::get('config')->getAll());
         $content
-            ->setTitle($path)
             ->addMetadata('last_update', new DateTime('@'.filemtime($path)))
             ->addMetadata('file_name', $path)
         ;
-        return $this->transform($content);
+        Kernel::addConfig('base_path', realpath(dirname($path)));
+        return $this->transform($content, $path, $primary);
     }
 
     protected function loadConfigFile($path)

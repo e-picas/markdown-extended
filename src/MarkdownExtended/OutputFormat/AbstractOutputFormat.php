@@ -10,7 +10,7 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use MarkdownExtended\API\Kernel;
+use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\Util\Helper;
@@ -27,6 +27,20 @@ abstract class AbstractOutputFormat
      *      )
      */
     protected $tags_map = array();
+
+    /**
+     * Run a gamut stack from a filter or tool
+     *
+     * @param   string  $gamut  The name of a single Gamut or a Gamuts stack
+     * @param   string  $text
+     * @param   bool    $forced Forces to run the gamut event if it is disabled
+     * @return  string
+     */
+    public function runGamut($gamut, $text, $forced = false)
+    {
+        $loader = Kernel::get('Grammar\GamutLoader');
+        return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
+    }
 
     /**
      * This will try to call a method `build{TagName}()` if it exists, then will try to use
