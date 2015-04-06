@@ -2,9 +2,9 @@
 .\" man-name: markdown-extended-api
 .\" section: 7
 .\" author: Pierre Cassat
-.\" date: 27-12-2014
-.\" version: 0.1-gamma4
-.TH  "markdown-extended-api" "7" "27-12-2014" "Version 0.1-gamma4" "PHP-Markdown-Extended Developer Manual"
+.\" date: 2015-04-06
+.\" version: 0.1.0-rc
+.TH  "markdown-extended-api" "7" "2015-04-06" "Version 0.1.0-rc" "PHP-Markdown-Extended Developer Manual"
 .SH NAME
 .PP
 Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
@@ -15,7 +15,7 @@ you must implement to use or override the parser or some of its objects.
 .PP
 The parser can accept a large set of options to customize or adapt the final
 rendering. For a complete list, please see the `\fSgetDefaults()\fP` method
-of the `\fS\\MarkdownExtended\\MarkdownExtended\fP` class <http://docs.aboutmde.org/markdown-extended-php/MarkdownExtended/MarkdownExtended.html>.
+of the `\fS\\MarkdownExtended\\MarkdownExtended\fP` class <http://docs.ateliers-pierrot.fr/markdown-extended/MarkdownExtended/MarkdownExtended.html>.
 .PP
 Below is a review of interesting basic options:
 .TP
@@ -255,6 +255,6 @@ It also acts like a configuration setter/getter:
 .SH SEE ALSO
 .PP
 An online documentation of last stable version is available at
-<http://docs.aboutmde.org/markdown-extended-php/>.
+<http://docs.ateliers-pierrot.fr/markdown-extended/>.
 .PP
 php(1), pcre(3), markdown-extended(3)
