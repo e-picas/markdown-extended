@@ -33,25 +33,12 @@ $parse_options = array();
 $templater_options = array();
 $info = $error = $content = '';
 
-// -----------------------------------
-// NAMESPACE
-// -----------------------------------
-
-// get the Composer autoloader
-if (file_exists($a = __DIR__.'/../../../autoload.php')) {
-    require_once $a;
-} elseif (file_exists($b = __DIR__.'/../vendor/autoload.php')) {
-    require_once $b;
-
-// else try to register `MarkdownExtended` namespace
-} elseif (file_exists($c = __DIR__.'/../src/SplClassLoader.php')) {
-    require_once $c;
-    $classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/../src');
-    $classLoader->register();
-
-// else error, classes can't be found
+// namespaces loader
+if (file_exists($bt = dirname(__DIR__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'bootstrap.php')) {
+    require_once $bt;
 } else {
-    $error = 'You need to run Composer on your project to use this interface!';
+    echo sprintf('MarkdownExtended bootstrapper not found (searching "%s")!', $bt).PHP_EOL;
+    exit(1);
 }
 
 // Custom classes
@@ -70,9 +57,9 @@ if (file_exists($d = __DIR__.'/../src/SplClassLoader.php')) {
 // process
 if (!is_null($doc)) {
     if (empty($error)) {
-        $class_info = \MarkdownExtended\Helper::info(true);
+        $class_info = \MarkdownExtended\MarkdownExtended::SHORTNAME.'@'.\MarkdownExtended\MarkdownExtended::VERSION;
         $info = <<<EOT
-    <p><a id="classinfo_handler" class="handler" title="Infos from the MarkdownExtended class"><span class="fa fa-caret-right"></span>&nbsp;Current class infos</a></p>
+    <p><a id="classinfo_handler" class="handler" title="Info from the MarkdownExtended class"><span class="fa fa-caret-right"></span>&nbsp;Current class infos</a></p>
     <div id="classinfo"><p>$class_info</p></div>
 EOT;
         $options = array();
@@ -96,8 +83,7 @@ EOT;
                         ->transform($source_content);
 */
 //                    $source_content = file_get_contents($doc);
-                    $mde_content = \MarkdownExtended\MarkdownExtended::create()
-                        ->transformSource($doc, $options)
+                    $mde_content = \MarkdownExtended\MarkdownExtended::parseSource($doc, $options)
 //                        ->transformString($source_content, $options)
 //                        ->get('Parser', $parse_options)
 //                        ->getContent()
@@ -142,12 +128,14 @@ exit('yo');
     $js_code = true;
 }
 
-$output_bag = !empty($mde_content) ? \MarkdownExtended\MarkdownExtended::get('OutputFormatBag') : null;
+$output_bag = !empty($mde_content) ? \MarkdownExtended\API\Kernel::get('OutputFormatBag') : null;
+/*
 $menu = !empty($mde_content) ? $output_bag->getHelper()
     ->getToc($mde_content, $output_bag->getFormatter(), array(
         'title_level'=>'2', 'class'=>'menu'
     )) : null;
-
+*/
+    $menu = null;
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -280,11 +268,11 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
                     </ol>
                 </div>
     <?php endif; ?>
-    <?php if ($mde_content->getLastUpdate()) : ?>
+    <?php /*if ($mde_content->getLastUpdate()) : ?>
                 <p class="credits small text-right">Last update of this page <time datetime="<?php
                     echo $mde_content->getLastUpdate()->format('c')
                 ?>"><?php echo $mde_content->getLastUpdate()->format('F j, Y, g:i a'); ?></time>.</p>
-    <?php endif; ?>
+    <?php endif;*/ ?>
             </article>
 
 <?php elseif (!empty($page) && file_exists($page)) : ?>
