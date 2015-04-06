@@ -79,6 +79,9 @@ class Templater
             $template_path = Kernel::getConfig(
                 'output_format_options.' . Kernel::getConfig('output_format') . '.default_template'
             );
+            if (empty($template_path)) {
+                return Kernel::getConfig('template_options.inline_template');
+            }
         }
 
         if (!file_exists($template_path)) {
