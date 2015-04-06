@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown spans
@@ -98,7 +98,7 @@ class Span
                     if ($texend) {
                         $eqn = substr($str, 0, $texend);
                         $str = substr($str, $texend+2);
-                        $texspan = parent::runGamut('filter:Maths:span', $eqn);
+                        $texspan = Lexer::runGamut('filter:Maths:span', $eqn);
                         return parent::hashPart($texspan);
                     } else {
                         return $str;
@@ -112,7 +112,7 @@ class Span
                     $str, $matches)
                 ) {
                     $str = $matches[2];
-                    $codespan = parent::runGamut('filter:CodeBlock:span', $matches[1], true);
+                    $codespan = Lexer::runGamut('filter:CodeBlock:span', $matches[1], true);
                     return parent::hashPart($codespan);
                 }
                 return $token; // return as text since no ending marker found.

@@ -10,12 +10,10 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\Grammar\AbstractGamut;
 use \MarkdownExtended\API\GamutInterface;
 
 /**
- * Base class for all Filters
- * @package MarkdownExtended\Grammar
+ * Base class for all filters
  */
 abstract class Filter
     extends AbstractGamut
@@ -23,9 +21,7 @@ abstract class Filter
 {
 
     /**
-     * Must return a method name
-     *
-     * @return  string
+     * {@inheritDoc}
      */
     public static function getDefaultMethod()
     {
@@ -36,15 +32,18 @@ abstract class Filter
      * Must process the filter on a text
      *
      * @param   string  $text
+     *
      * @return  string
      */
     abstract public function transform($text);
 
 // ----------------------------------
-// HASHES
+// Hashes management
 // ----------------------------------
 
     /**
+     * Creates a hash for any sub-content
+     *
      * Called whenever a tag must be hashed when a function insert an atomic
      * element in the text stream. Passing $text to through this function gives
      * a unique text-token which will be reverted back when calling unhash.
@@ -56,7 +55,9 @@ abstract class Filter
      *
      * @param   string  $text       The text to be parsed
      * @param   string  $boundary   A one letter boundary
+     *
      * @return  string              The text parsed
+     *
      * @see     self::unhash()
      */
     public function hashPart($text, $boundary = 'X')
@@ -75,7 +76,9 @@ abstract class Filter
      * Shortcut function for hashPart with block-level boundaries.
      *
      * @param   string  $text   The text to be parsed
+     *
      * @return  string          Pass results of the `hashPart()` function
+     *
      * @see     self::hashPart()
      */
     public function hashBlock($text)
@@ -89,7 +92,9 @@ abstract class Filter
      * blocking invalid nested overlap.
      *
      * @param   string  $text   Text to parse
+     *
      * @return  string          Text parsed
+     *
      * @see     self::hashPart()
      */
     public function hashClean($text)
@@ -101,7 +106,9 @@ abstract class Filter
      * Swap back in all the tags hashed by _HashHTMLBlocks.
      *
      * @param   string  $text   The text to be parsed
-     * @return  string          Pass results of the `_unhash_callback()` function
+     *
+     * @return  string          Pass results of the `self::_unhash_callback()` function
+     *
      * @see     self::_unhash_callback()
      */
     public function unhash($text)
@@ -110,7 +117,8 @@ abstract class Filter
     }
 
     /**
-     * @param   array   $matches    A set of results of the `unhash()` function
+     * @param   array   $matches    A set of results of the `self::unhash()` function
+     *
      * @return  string
      */
     protected function _unhash_callback($matches)
@@ -119,5 +127,3 @@ abstract class Filter
     }
 
 }
-
-// Endfile

@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown emphasis: bold & italic
@@ -109,7 +109,7 @@ class Emphasis
                 if ($token_len == 3) {
                     // Three-char closing marker, close em and strong.
                     array_shift($token_stack);
-                    $span = parent::runGamut('span_gamut', array_shift($text_stack));
+                    $span = Lexer::runGamut('span_gamut', array_shift($text_stack));
                     $span = Kernel::get('OutputFormatBag')
                         ->buildTag('italic', $span);
                     $span = Kernel::get('OutputFormatBag')
@@ -122,7 +122,7 @@ class Emphasis
                     // change current token state to match the other
                     $token_stack[0] = str_repeat($token{0}, 3-$token_len);
                     $tag = $token_len == 2 ? "bold" : "italic";
-                    $span = parent::runGamut('span_gamut', $text_stack[0]);
+                    $span = Lexer::runGamut('span_gamut', $text_stack[0]);
                     $span = Kernel::get('OutputFormatBag')
                         ->buildTag($tag, $span);
                     $text_stack[0] = parent::hashPart($span);
@@ -136,7 +136,7 @@ class Emphasis
                     for ($i = 0; $i < 2; ++$i) {
                         $shifted_token = array_shift($token_stack);
                         $tag = strlen($shifted_token) == 2 ? "bold" : "italic";
-                        $span = parent::runGamut('span_gamut', array_shift($text_stack));
+                        $span = Lexer::runGamut('span_gamut', array_shift($text_stack));
                         $span = Kernel::get('OutputFormatBag')
                             ->buildTag($tag, $span);
                         $text_stack[0] .= parent::hashPart($span);
@@ -160,7 +160,7 @@ class Emphasis
                     }
                     // Closing strong marker:
                     array_shift($token_stack);
-                    $span = parent::runGamut('span_gamut', array_shift($text_stack));
+                    $span = Lexer::runGamut('span_gamut', array_shift($text_stack));
                     $span = Kernel::get('OutputFormatBag')
                         ->buildTag('bold', $span);
                     $text_stack[0] .= parent::hashPart($span);
@@ -176,7 +176,7 @@ class Emphasis
                     if (strlen($token_stack[0]) == 1) {
                         // Closing emphasis marker:
                         array_shift($token_stack);
-                        $span = parent::runGamut('span_gamut', array_shift($text_stack));
+                        $span = Lexer::runGamut('span_gamut', array_shift($text_stack));
                         $span = Kernel::get('OutputFormatBag')
                             ->buildTag('italic', $span);
                         $text_stack[0] .= parent::hashPart($span);

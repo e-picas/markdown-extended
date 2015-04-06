@@ -10,8 +10,6 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\OutputFormat\AbstractOutputFormat;
 use \MarkdownExtended\API\OutputFormatInterface;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Util\Helper;
@@ -305,16 +303,13 @@ class Man
 
     public function indent()
     {
-        if (!$this->no_paragraphing) {
-            return '.RS' . $this->new_line;
-        }
+        return !$this->no_paragraphing ? '.RS' . $this->new_line : '';
     }
     
     public function unindent()
     {
-        if (!$this->no_paragraphing) {
-            return /*$this->new_line .*/ '.RE' . $this->new_line;
-        }
+        return !$this->no_paragraphing ?
+            /*$this->new_line .*/ '.RE' . $this->new_line : '';
     }
     
     public function buildMetaData($text = null, array $attributes = array())

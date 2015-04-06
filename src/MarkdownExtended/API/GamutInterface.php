@@ -11,9 +11,8 @@
 namespace MarkdownExtended\API;
 
 /**
- * Interface GamutInterface
+ * Interface to implement for filter objects
  *
- * @package MarkdownExtended\API
  * @api
  */
 interface GamutInterface
@@ -27,5 +26,3 @@ interface GamutInterface
     public static function getDefaultMethod();
 
 }
-
-// Endfile

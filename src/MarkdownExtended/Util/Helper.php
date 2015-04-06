@@ -12,6 +12,9 @@ namespace MarkdownExtended\Util;
 
 use \MarkdownExtended\Exception\ErrorException;
 
+/**
+ * Helper class with static methods only
+ */
 class Helper
 {
 
@@ -105,6 +108,12 @@ class Helper
         return array($addr, $text);
     }
 
+    /**
+     * Gets a "safe string" from a `\DateTime` or an array
+     *
+     * @param mixed $source
+     * @return string
+     */
     public static function getSafeString($source)
     {
         $str = $source;
@@ -125,6 +134,12 @@ class Helper
         return $str;
     }
 
+    /**
+     * Tests if a content seems to be single line
+     *
+     * @param string $str
+     * @return bool
+     */
     public static function isSingleLine($str = '')
     {
         return (bool) (false === strpos($str, PHP_EOL));
@@ -194,6 +209,7 @@ class Helper
         );
     }
 
+    // actually camel-casize
     protected static function _camelcasize($text, $replace, $mask, $callback)
     {
         if (empty($text)) {
@@ -212,6 +228,16 @@ class Helper
 // Files
 // --------------
 
+    /**
+     * Reads a file and returns its content
+     *
+     * @param string $path
+     * @param int $flag
+     *
+     * @return string
+     *
+     * @throws \MarkdownExtended\Exception\ErrorException if the file can not be read
+     */
     public static function readFile($path, $flag = FILE_USE_INCLUDE_PATH)
     {
         if (!file_exists($path)) {
@@ -222,11 +248,27 @@ class Helper
         $source = file_get_contents($path, $flag);
         if (false === $source) {
             global $php_errormsg;
-            throw new ErrorException($php_errormsg);
+            throw new ErrorException(
+                !empty($php_errormsg) ? $php_errormsg :
+                    sprintf('An error occurred while trying to read file "%s"', $path)
+            );
         }
         return $source;
     }
 
+    /**
+     * Writes a file and returns content length
+     *
+     * @param string $path
+     * @param string|array $content
+     * @param bool $backup
+     * @param null $flag
+     *
+     * @return int
+     *
+     * @throws \MarkdownExtended\Exception\ErrorException if the file path can not be created
+     * @throws \MarkdownExtended\Exception\ErrorException if the file can not be written
+     */
     public static function writeFile($path, $content, $backup = true, $flag = null)
     {
         global $php_errormsg;
@@ -239,17 +281,28 @@ class Helper
         if (!file_exists(dirname($path))) {
             $dir = mkdir(dirname($path));
             if (false === $dir) {
-                throw new ErrorException($php_errormsg);
+                throw new ErrorException(
+                    !empty($php_errormsg) ? $php_errormsg :
+                        sprintf('An error occurred while trying to create directory "%s"', dirname($path))
+                );
             }
         }
         $written = file_put_contents($path, $content, $flag);
         if (false === $written) {
-            throw new ErrorException($php_errormsg);
+            throw new ErrorException(
+                !empty($php_errormsg) ? $php_errormsg :
+                    sprintf('An error occurred while trying to write data in file "%s"', $path)
+            );
         }
         return $written;
     }
 
-    // get a well-formatted path
+    /**
+     * Gets a wel-formatted path with environment-compliant directory separator
+     *
+     * @param array $parts
+     * @return string
+     */
     public static function getPath(array $parts)
     {
         return implode(
@@ -260,6 +313,12 @@ class Helper
         );
     }
 
+    /**
+     * Make a backup of a file
+     *
+     * @param string $path
+     * @return bool
+     */
     public static function backupFile($path)
     {
         $new_path = $path . '~' . date('y-m-d-H-i-s');
@@ -278,6 +337,15 @@ class Helper
 // Dev utilities
 // --------------
 
+    /**
+     * Dump quite anything with an optional title
+     *
+     * @param mixed $objs
+     * @param null|string $title
+     * @param bool $html
+     *
+     * @return string
+     */
     public static function debug($objs, $title = null, $html = true)
     {
         $str    = '';
@@ -302,5 +370,3 @@ class Helper
     }
 
 }
-
-// Endfile

@@ -10,8 +10,7 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
 
 /**

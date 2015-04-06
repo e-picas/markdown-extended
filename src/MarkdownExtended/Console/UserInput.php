@@ -10,8 +10,6 @@
 
 namespace MarkdownExtended\Console;
 
-use \MarkdownExtended\Util\Helper;
-
 class UserInput
 {
 

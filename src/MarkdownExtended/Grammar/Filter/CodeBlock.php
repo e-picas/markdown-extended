@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\API\Kernel;
 
 /**
@@ -53,7 +53,7 @@ class CodeBlock
      */
     protected function _callback($matches)
     {
-        $codeblock = parent::runGamut('tools:Outdent', $matches[1]);
+        $codeblock = Lexer::runGamut('tools:Outdent', $matches[1]);
         $codeblock = Helper::escapeCodeContent($codeblock);
         # trim leading newlines and trailing newlines
         $codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);

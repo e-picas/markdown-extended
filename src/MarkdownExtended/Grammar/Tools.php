@@ -11,20 +11,23 @@
 namespace MarkdownExtended\Grammar;
 
 use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\AbstractGamut;
 use \MarkdownExtended\API\GamutInterface;
 use \MarkdownExtended\Exception\RuntimeException;
-use \MarkdownExtended\Grammar\GamutLoader;
 
 /**
- * Abstract base class for Tools
- * @package MarkdownExtended\Grammar
+ * The base class for tools
  */
 class Tools
     extends AbstractGamut
     implements GamutInterface
 {
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws  \MarkdownExtended\Exception\RuntimeException if this method is called, which means
+     *          that the gamut was badly defined
+     */
     public static function getDefaultMethod()
     {
         throw new RuntimeException(
@@ -35,6 +38,13 @@ class Tools
         );
     }
 
+    /**
+     * Works on a content before parsing
+     *
+     * @param   string  $text   The text to parse
+     *
+     * @return  string          The text parsed
+     */
     public function prepareOutputFormat($text)
     {
         $output = Kernel::get('OutputFormatBag');
@@ -44,6 +54,13 @@ class Tools
         return $text;
     }
 
+    /**
+     * Works on a content after parsing
+     *
+     * @param   string  $text   The text to parse
+     *
+     * @return  string          The text parsed
+     */
     public function teardownOutputFormat($text)
     {
         $output = Kernel::get('OutputFormatBag');
@@ -57,6 +74,7 @@ class Tools
      * Make sure $text ends with a couple of newlines
      *
      * @param   string  $text   The text to parse
+     *
      * @return  string          The text parsed
      */
     public function AppendEndingNewLines($text)
@@ -70,7 +88,8 @@ class Tools
      * no-entities mode is set.
      *
      * @param   string  $text   The text to encode
-     * @return  string          The encoded text
+     *
+     * @return  string          The encoded parsed
      */
     public function EncodeAmpAndAngle($text)
     {
@@ -93,11 +112,12 @@ class Tools
      * is *not* suitable for attributes enclosed in single quotes.
      *
      * @param   string  $text   The attributes content
+     *
      * @return  string          The attributes content processed
      */
     public function EncodeAttribute($text)
     {
-        $text = parent::runGamut('tools:EncodeAmpAndAngle', $text);
+        $text = Lexer::runGamut('tools:EncodeAmpAndAngle', $text);
         $text = str_replace('"', '&quot;', $text);
         return $text;
     }
@@ -106,6 +126,7 @@ class Tools
      * Extract attributes from string 'a="b"'
      *
      * @param   string  $attributes The attributes to parse
+     *
      * @return  string              The attributes processed
      */
     public function ExtractAttributes($attributes)
@@ -129,6 +150,7 @@ class Tools
      * Remove one level of line-leading tabs or spaces
      *
      * @param   string  $text   The text to be parsed
+     *
      * @return  string          The text parsed
      */
     function Outdent($text)
@@ -140,6 +162,7 @@ class Tools
      * Process paragraphs
      *
      * @param   string  $text   The text to parse
+     *
      * @return  string          The text parsed
      */
     public function RebuildParagraph($text)
@@ -151,7 +174,7 @@ class Tools
 
         // Wrap <p> tags and unhashify HTML blocks
         foreach ($grafs as $key => $value) {
-            $value = trim(parent::runGamut('span_gamut', $value));
+            $value = trim(Lexer::runGamut('span_gamut', $value));
 
             // Check if this should be enclosed in a paragraph.
             // Clean tag hashes & block tag hashes are left alone.
@@ -169,7 +192,7 @@ class Tools
         $text = implode('', $grafs);
 
         // Finish by removing any tag hashes still present in $text.
-        $text = parent::runGamut('filter:HTML:unhash', $text, true);
+        $text = Lexer::runGamut('filter:HTML:unhash', $text, true);
 
         return $text;
     }
@@ -178,6 +201,7 @@ class Tools
      * Remove UTF-8 BOM and marker character in input, if present.
      *
      * @param   string  $text   The text to parse
+     *
      * @return  string          The text parsed
      */
     public function RemoveUtf8Marker($text)
@@ -189,6 +213,7 @@ class Tools
      * Standardize line endings: DOS to Unix and Mac to Unix
      *
      * @param   string  $text   The text to parse
+     *
      * @return  string          The text parsed
      */
     public function StandardizeLineEnding($text)
@@ -203,6 +228,7 @@ class Tools
      * contorted like /[ ]*\n+/ .
      *
      * @param   string  $text   The text to parse
+     *
      * @return  string          The text parsed
      */
     public function StripSpacedLines($text)
@@ -211,5 +237,3 @@ class Tools
     }
 
 }
-
-// Endfile

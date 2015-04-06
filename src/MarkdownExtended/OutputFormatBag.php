@@ -14,7 +14,6 @@ use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\API\OutputFormatInterface;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Exception\DomainException;
 use \MarkdownExtended\Exception\BadMethodCallException;
 
 class OutputFormatBag

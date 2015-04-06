@@ -13,19 +13,59 @@ namespace MarkdownExtended;
 use \MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\API\Kernel;
 
+/**
+ * The default MarkdownExtended Content object
+ */
 class Content
     implements ContentInterface
 {
 
+    /**
+     * @var string
+     */
     protected $source;
+
+    /**
+     * @var string
+     */
     protected $content;
+
+    /**
+     * @var array
+     */
     protected $parsing_options;
+
+    /**
+     * @var string
+     */
     protected $body;
+
+    /**
+     * @var string
+     */
     protected $title;
+
+    /**
+     * @var string
+     */
     protected $charset      = 'utf-8';
+
+    /**
+     * @var array
+     */
     protected $notes        = array();
+
+    /**
+     * @var array
+     */
     protected $metadata     = array();
 
+    /**
+     * Construct a new content object with a source and current parsing options
+     *
+     * @param null|string $source
+     * @param null|array $options
+     */
     public function __construct($source = null, $options = null)
     {
         if (!is_null($source)) {
@@ -36,11 +76,28 @@ class Content
         }
     }
 
+    /**
+     * Use the content as a string
+     *
+     * This basically returns `$this->getContent()`.
+     *
+     * @see self::getContent()
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->getContent();
     }
 
+    /**
+     * Get the content as an array
+     *
+     * This returns an array with all content's blocks
+     * but `parsing_options` and `source`.
+     *
+     * @return array
+     */
     public function __toArray()
     {
         return array(
@@ -53,107 +110,174 @@ class Content
         );
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setSource($source)
     {
         $this->source = $source;
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getSource()
     {
         return $this->source;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setParsingOptions(array $options)
     {
         $this->parsing_options = $options;
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getParsingOptions()
     {
         return $this->parsing_options;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setContent($content)
     {
         $this->content = $content;
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setCharset($charset)
     {
         $this->charset = trim($charset);
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getCharset()
     {
         return $this->charset;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setTitle($title)
     {
         $this->title = trim($title);
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setBody($str)
     {
         $this->body = trim($str);
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getBody()
     {
         return $this->body;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setNotes(array $notes)
     {
         $this->notes = $notes;
         return $this;
     }
 
-    public function addNote($note, $note_id)
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
+    public function addNote(array $note, $note_id)
     {
         $this->notes[$note_id] = $note;
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getNotes()
     {
         return $this->notes;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getNotesFormatted()
     {
         return Kernel::get('OutputFormatBag')
             ->getNotesToString($this->notes, $this);
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setMetadata(array $data)
     {
         $this->metadata = $data;
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function addMetadata($var, $val)
     {
         $this->metadata[$var] = $val;
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getMetadata($name = null)
     {
         if (!is_null($name)) {
@@ -162,6 +286,9 @@ class Content
         return $this->metadata;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getMetadataFormatted()
     {
         return Kernel::get('OutputFormatBag')

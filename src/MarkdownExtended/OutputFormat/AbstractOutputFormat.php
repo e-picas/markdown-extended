@@ -11,10 +11,12 @@
 namespace MarkdownExtended\OutputFormat;
 
 use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\Util\Helper;
 
+/**
+ * A basic output format class
+ */
 abstract class AbstractOutputFormat
 {
 
@@ -29,20 +31,6 @@ abstract class AbstractOutputFormat
     protected $tags_map = array();
 
     /**
-     * Run a gamut stack from a filter or tool
-     *
-     * @param   string  $gamut  The name of a single Gamut or a Gamuts stack
-     * @param   string  $text
-     * @param   bool    $forced Forces to run the gamut event if it is disabled
-     * @return  string
-     */
-    public function runGamut($gamut, $text, $forced = false)
-    {
-        $loader = Kernel::get('Grammar\GamutLoader');
-        return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
-    }
-
-    /**
      * This will try to call a method `build{TagName}()` if it exists, then will try to use
      * the object `$tags_map` static to automatically find what to do, and then call the
      * default `getTagString()` method passing it the arguments.
@@ -50,6 +38,7 @@ abstract class AbstractOutputFormat
      * @param   string  $tag_name
      * @param   string  $content
      * @param   array   $attributes     An array of attributes constructed like "variable=>value" pairs
+     *
      * @return  string
      */
     public function buildTag($tag_name, $content = null, array $attributes = array())
@@ -65,21 +54,21 @@ abstract class AbstractOutputFormat
                 array($this, $_method),
                 array($content, $attributes)
             );
-        } elseif (isset($this->tags_map[$tag_name])) {
-            $new_tag_name = isset($this->tags_map[$tag_name]['tag']) ?
-                $this->tags_map[$tag_name]['tag'] : $tag_name;
+
+        }
+
+        $closable = false;
+        if (isset($this->tags_map[$tag_name])) {
             $closable = isset($this->tags_map[$tag_name]['closable']) ?
                 $this->tags_map[$tag_name]['closable'] : false;
-            return call_user_func_array(
-                array($this, 'getTagString'),
-                array($content, $new_tag_name, $attributes, $closable)
-            );
-        } else {
-            return call_user_func_array(
-                array($this, 'getTagString'),
-                array($content, $tag_name, $attributes)
-            );
+            $tag_name = isset($this->tags_map[$tag_name]['tag']) ?
+                $this->tags_map[$tag_name]['tag'] : $tag_name;
         }
+
+        return call_user_func_array(
+            array($this, 'getTagString'),
+            array($content, $tag_name, $attributes, $closable)
+        );
     }
 
     /**

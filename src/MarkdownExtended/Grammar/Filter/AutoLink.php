@@ -10,10 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown automatic links
@@ -63,7 +62,7 @@ class AutoLink
      */
     protected function _url_callback($matches)
     {
-        $url = parent::runGamut('tools:EncodeAttribute', $matches[1]);
+        $url = Lexer::runGamut('tools:EncodeAttribute', $matches[1]);
         Kernel::addConfig('urls', $url);
 
         $block = Kernel::get('OutputFormatBag')

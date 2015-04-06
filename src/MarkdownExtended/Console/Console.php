@@ -12,6 +12,7 @@ namespace MarkdownExtended\Console;
 
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Parser;
 use \MarkdownExtended\Util\Helper;
 
 class Console
@@ -134,7 +135,7 @@ DESC
         $this->stream->debug(array('User arguments:', Helper::debug($this->arguments, null, false)));
 
         // create the MDE instance
-        $mde = new MarkdownExtended($this->getMarkdownExtendedOptions());
+        $mde = new Parser($this->getMarkdownExtendedOptions());
 
         // a special task?
         if (count($this->arguments) === 1) {
@@ -215,6 +216,7 @@ DESC
     protected function renderOutput(array $results)
     {
         $item_callback = function(&$item) {
+            /* @var $item \MarkdownExtended\API\ContentInterface */
             return $item = (is_object($item) && Kernel::valid($item, Kernel::TYPE_CONTENT) ?
                 array_filter($item->__toArray()) : $item);
         };

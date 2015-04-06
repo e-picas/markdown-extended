@@ -10,19 +10,16 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Util\CacheRegistry;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Exception\InvalidArgumentException;
 use \MarkdownExtended\Exception\UnexpectedValueException;
 use \MarkdownExtended\Exception\BadMethodCallException;
-use \MarkdownExtended\Exception\DomainException;
 
 /**
- * Central class to execute Filters and Tools methods on a content
+ * Central class to execute filters and tools methods on a content
  *
  * It can handle a list of gamuts, execute a specific method and run a single gamut.
- * @package MarkdownExtended\Grammar
  */
 class GamutLoader
     extends CacheRegistry
@@ -39,13 +36,15 @@ class GamutLoader
     protected $all_gamuts;
 
     /**
-     * Set the gamuts aliases from config
+     * Gets a gamuts' array by name
+     *
+     * @param string $name
+     *
+     * @return null|array
+     *
+     * @throws \MarkdownExtended\Exception\BadMethodCallException if `$name` seems malformed
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if `$name` can not be found
      */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function getGamutStack($name)
     {
         if (!$this->isGamutStackName($name)) {
@@ -64,16 +63,37 @@ class GamutLoader
         return $stack;
     }
 
+    /**
+     * Gets the type of gamut in "filter", "tools" or other
+     *
+     * @param string $value
+     *
+     * @return string
+     */
     public function getGamutType($value)
     {
         return substr($value, 0, strpos($value, ':'));
     }
 
+    /**
+     * Tests if a string seems to be a gamuts' stack reference
+     *
+     * @param string $value
+     *
+     * @return bool
+     */
     public function isGamutStackName($value)
     {
         return (bool) (0 !== preg_match('/^[a-zA-Z0-9_]+_gamut$/i', $value));
     }
 
+    /**
+     * Gets the "base name" of a gamut entry in "filter:class", "tools" or "custom class"
+     *
+     * @param string $gamut
+     *
+     * @return string
+     */
     public function getGamutBaseName($gamut)
     {
         switch ($this->getGamutType($gamut)) {
@@ -90,6 +110,11 @@ class GamutLoader
         }
     }
 
+    /**
+     * Gets an array of all defined gamuts
+     *
+     * @return array
+     */
     public function getAllGamuts()
     {
         if (empty($this->all_gamuts)) {
@@ -113,11 +138,28 @@ class GamutLoader
         return $this->all_gamuts;
     }
 
+    /**
+     * Gets an array of all defined gamuts as keys
+     *
+     * @see self::getAllGamuts()
+     *
+     * @return array
+     */
     public function getAllGamutsReversed()
     {
         return array_flip($this->getAllGamuts());
     }
 
+    /**
+     * Tests if a gamut is enabled
+     *
+     * This will always return `true` for tools and a gamut
+     * stack name.
+     *
+     * @param string $gamut
+     *
+     * @return bool
+     */
     public function isGamutEnabled($gamut)
     {
         return (bool) (
@@ -128,10 +170,11 @@ class GamutLoader
     }
 
     /**
-     * Run a table of gamuts by priority
+     * Runs a list of gamuts by priority on a content
      *
      * @param   array   $gamuts     The gamuts names to execute
      * @param   string  $text       The text for gamuts execution
+     *
      * @return  string
      */
     public function runGamuts(array $gamuts, $text = null)
@@ -146,13 +189,15 @@ class GamutLoader
     }
 
     /**
-     * Run a table of gamuts for a specific method by priority
+     * Runs a specific method of a list of gamuts by priority on a content
      *
      * @param   array   $gamuts     The gamuts names to execute
      * @param   string  $method     The method name to execute in each gamut
      * @param   string  $text       The text for gamuts execution
+     *
      * @return  string
-     * @throws  \MarkdownExtended\Exception\BadMethodCallException if $method is not a string
+     *
+     * @throws  \MarkdownExtended\Exception\BadMethodCallException if `$method` is not a string
      */
     public function runGamutsMethod(array $gamuts, $method, $text = null)
     {
@@ -179,16 +224,15 @@ class GamutLoader
     }
 
     /**
-     * Run a single gamut
+     * Runs a single gamut on a content
      *
      * @param   string  $gamut      The gamut name to execute
      * @param   string  $text       The text for gamuts execution
      * @param   string  $_method    The method name to execute in each gamut
+     *
      * @return  string
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if $gamut doesn't implement the required method
-     * @throws  \MarkdownExtended\Exception\DomainException if $gamut doesn't implement interface `MarkdownExtended\Grammar\GamutInterface`
-     * @throws  \MarkdownExtended\Exception\BadMethodCallException if the gamut class name is not a string
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if gamut not defined
+     *
+     * @throws  \MarkdownExtended\Exception\BadMethodCallException if `$gamut` is not a string
      */
     public function runGamut($gamut, $text = null, $_method = null)
     {
@@ -218,6 +262,17 @@ class GamutLoader
         }
     }
 
+    /**
+     * Actually runs a gamut's method on a content
+     *
+     * @param   string  $gamut      The gamut name to execute
+     * @param   string  $text       The text for gamuts execution
+     * @param   string  $method     The method name to execute in each gamut
+     *
+     * @return  string
+     *
+     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$gamut` can not be found
+     */
     protected function _runGamutFilterMethod($gamut, $method, $text)
     {
         $obj_name = self::FILTER_NAMESPACE . '\\' . $gamut;
@@ -237,11 +292,33 @@ class GamutLoader
         return $this->_runClassMethod($obj_name, $method, $text);
     }
 
+    /**
+     * Actually runs a tools method
+     *
+     * @param string $method
+     * @param string $text
+     *
+     * @return string
+     *
+     * @see self::_runClassMethod()
+     */
     protected function _runToolsMethod($method, $text)
     {
         return $this->_runClassMethod(self::TOOLS_CLASS, $method, $text);
     }
 
+    /**
+     * Global gamut's method runner
+     *
+     * @param string $class
+     * @param string $method
+     * @param string $text
+     *
+     * @return string
+     *
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` doesn't implement the required method
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` class can not be found
+     */
     protected function _runClassMethod($class, $method, $text)
     {
         if ($this->isCached($class)) {
@@ -272,5 +349,3 @@ class GamutLoader
     }
 
 }
-
-// Endfile

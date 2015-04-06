@@ -10,25 +10,8 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
-use \MarkdownExtended\Exception\DomainException;
-use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Exception\UnexpectedValueException;
-use MarkdownExtended\Util\ContentCollection;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\Util\DomIdRegistry;
-use \MarkdownExtended\Util\Registry;
-use \DateTime;
-
 /**
  * PHP Markdown Extended
- *
- * This is the global *MarkdownExtended* class and process. It contains mostly
- * static methods that can be called from anywhere writing something like:
- *
- *     MarkdownExtended::my_method();
  *
  * LICENSE
  *
@@ -49,6 +32,7 @@ use \DateTime;
  *
  * Markdown Extended
  * Copyright © 2008-2013 Pierre Cassat & contributors
+ * http://e-piwi.fr/
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -88,6 +72,12 @@ class MarkdownExtended
     const SOURCES   = 'Sources & updates: <http://github.com/piwi/markdown-extended.git>';
     const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2013 Pierre Cassat & contributors.';
 
+    /**
+     * Gets app's information
+     *
+     * @param bool $shorten
+     * @return array|string
+     */
     public static function getAppInfo($shorten = false)
     {
         if ($shorten) {
@@ -102,6 +92,11 @@ class MarkdownExtended
         );
     }
 
+    /**
+     * App's default settings
+     *
+     * @return array
+     */
     public static function getDefaults()
     {
         return array(
@@ -290,263 +285,47 @@ class MarkdownExtended
         );
     }
 
-// ---------------------
-// Static usage
-// ---------------------
-
+    /**
+     * Parse a markdown content or file
+     *
+     * @param   string  $content    A raw content or a file path to parse
+     * @param   null    $options    A set of options to override defaults
+     *
+     * @return  \MarkdownExtended\Content
+     */
     public static function parse($content, $options = null)
     {
-        $mde = new self($options);
+        $mde = new Parser($options);
         return (false === strpos($content, PHP_EOL) && file_exists($content)) ?
             $mde->transformSource($content) : $mde->transform($content);
     }
 
+    /**
+     * Parse a markdown content
+     *
+     * @param   string  $content    A raw content to parse
+     * @param   null    $options    A set of options to override defaults
+     *
+     * @return  \MarkdownExtended\Content
+     */
     public static function parseString($content, $options = null)
     {
-        $mde = new self($options);
+        $mde = new Parser($options);
         return $mde->transform($content);
     }
 
-    public static function parseSource($path, $options = null)
-    {
-        $mde = new self($options);
-        return $mde->transformSource($path);
-    }
-
-// ---------------------
-// Procedural usage
-// ---------------------
-
-    public function __construct($options = null)
-    {
-        // init the kernel
-        $kernel = Kernel::getInstance();
-
-        // init options
-        $this
-            ->resetOptions()
-            ->setOptions($options)
-        ;
-
-        // init all dependencies
-        $kernel
-            ->set('MarkdownExtended',       $this)
-            ->set('OutputFormatBag',        new OutputFormatBag)
-            ->set('Grammar\GamutLoader',    new GamutLoader)
-            ->set('ContentCollection',      new ContentCollection)
-        ;
-
-        // load required format
-        $kernel->get('OutputFormatBag')
-            ->load($kernel->getConfig('output_format'));
-    }
-
-    // init options as "config" dependency
-    public function resetOptions()
-    {
-        Kernel::set('config', new Registry($this->getDefaults()));
-        return $this;
-    }
-
-    public function setOptions($options)
-    {
-        if (is_string($options)) {
-            return $this->setOptions(array('config_file'=>$options));
-        }
-
-        if (isset($options['config_file']) && !empty($options['config_file'])) {
-            $path = $options['config_file'];
-            unset($options['config_file']);
-
-            if (!file_exists($path)) {
-                $local_path = Kernel::getResourcePath($path, Kernel::RESOURCE_CONFIG);
-                if (empty($local_path) || !file_exists($local_path)) {
-                    throw new UnexpectedValueException(
-                        sprintf('Configuration file "%s" not found', $path)
-                    );
-                }
-                $path = $local_path;
-            }
-
-            $path_options = $this->loadConfigFile($path);
-            unset($path_options['config_file']);
-            $this->setOptions($path_options);
-            $options['loaded_config_file'] = $path;
-        }
-
-        if (is_array($options) && !empty($options)) {
-            foreach ($options as $var=>$val) {
-                Kernel::setConfig($var, $val);
-            }
-        }
-
-        return $this;
-    }
-
     /**
-     * @param   string|\MarkdownExtended\Content $content
+     * Parse a markdown file
+     *
+     * @param   string  $path       A file path to parse
+     * @param   null    $options    A set of options to override defaults
+     *
      * @return  \MarkdownExtended\Content
      */
-    public function transform($content, $name = null, $primary = true)
+    public static function parseSource($path, $options = null)
     {
-        $kernel = Kernel::getInstance();
-
-        if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
-            $content = new Content($content, $kernel->get('config')->getAll());
-        }
-        if (!is_null($name)) {
-            $content->setTitle($name);
-        }
-
-        $content_collection = Kernel::get('ContentCollection');
-        $content_collection->append($content);
-        $index = $content_collection->key();
-        $content_collection->next();
-        if (!$content_collection->valid()) {
-            $content_collection->seek($index);
-        }
-        $kernel
-            ->set(Kernel::TYPE_CONTENT, function(){ return Kernel::get('ContentCollection')->current(); })
-            ->set('Lexer',              new Lexer)
-            ->set('DomId',              new DomIdRegistry)
-        ;
-
-        // actually parse content
-        $kernel->get('Lexer')->parse($content);
-        $body   = $content->getBody();
-        $notes  = $content->getNotes();
-        $meta   = $content->getMetadata();
-/*//
-var_export($body);
-var_export($notes);
-var_export($meta);
-exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
-//*/
-
-        // force template if needed
-        $tpl = $kernel->getConfig('template');
-        if (!is_null($tpl) && $tpl === 'auto') {
-            $tpl = !(Helper::isSingleLine($body));
-        }
-        if (!$primary) {
-            $tpl = false;
-        }
-
-        // load it in a template ?
-        if (!empty($tpl) && false !== $tpl) {
-            if (
-                (
-                    (is_string($tpl) && class_exists($tpl)) ||
-                    is_object($tpl)
-                ) &&
-                Kernel::validate($tpl, Kernel::TYPE_TEMPLATE)
-            ) {
-                $templater = new $tpl;
-            } else {
-                $templater = new Templater;
-            }
-            $kernel->set(Kernel::TYPE_TEMPLATE, $templater);
-            $content->setContent(
-                $templater->parse($content, $tpl)
-            );
-
-        } else {
-
-            // if source is a single line
-            if (Helper::isSingleLine($body)) {
-                $content->setContent(
-                    preg_replace('#<[/]?p>#i', '', $body)
-                );
-
-            } else {
-                $content->setContent(
-                    (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
-                    $body .
-                    (!empty($notes) ? PHP_EOL . $content->getNotesFormatted() : '')
-                );
-            }
-        }
-
-        // write the output in a file?
-        $output = $kernel->getConfig('output');
-        if (!empty($output) && $primary) {
-            $name = $content->getMetadata('file_name');
-            $path = Helper::fillPlaceholders(
-                $output,
-                (!empty($name) ?
-                    pathinfo($name, PATHINFO_FILENAME) : Helper::header2Label($content->getTitle())
-                )
-            );
-            if (file_exists($path) && $kernel->getConfig('force') !== true) {
-                Helper::backupFile($path);
-            }
-            if (!file_exists(dirname($path))) {
-                mkdir(dirname($path));
-            }
-            $written = Helper::writeFile($path, (string) $content);
-
-            // return generated file path
-            return $path;
-        }
-
-        // return the content object
-        return $content;
-    }
-
-    public function transformSource($path, $primary = true)
-    {
-        if (!file_exists($path)) {
-            throw new DomainException(
-                sprintf('Source file "%s" not found', $path)
-            );
-        }
-        if (!is_readable($path)) {
-            throw new DomainException(
-                sprintf('Source file "%s" is not readable', $path)
-            );
-        }
-
-        $source     = Helper::readFile($path);
-        $content    = new Content($source, Kernel::get('config')->getAll());
-        $content
-            ->addMetadata('last_update', new DateTime('@'.filemtime($path)))
-            ->addMetadata('file_name', $path)
-        ;
-        Kernel::addConfig('base_path', realpath(dirname($path)));
-        return $this->transform($content, $path, $primary);
-    }
-
-    protected function loadConfigFile($path)
-    {
-        if (!file_exists($path)) {
-            throw new InvalidArgumentException(
-                sprintf('Configuration file "%s" not found', $path)
-            );
-        }
-        if (!is_readable($path)) {
-            throw new InvalidArgumentException(
-                sprintf('Configuration file "%s" is not readable', $path)
-            );
-        }
-
-        $ext = pathinfo($path, PATHINFO_EXTENSION);
-        switch (strtolower($ext)) {
-            case 'ini':
-                $options = parse_ini_file($path, true);
-                break;
-            case 'json':
-                $options = json_decode(Helper::readFile($path), true);
-                break;
-            case 'php':
-                $options = include $path;
-                break;
-            default:
-                throw new InvalidArgumentException(
-                    sprintf('Unknown configuration file type "%s"', $ext)
-                );
-        }
-
-        return $options;
+        $mde = new Parser($options);
+        return $mde->transformSource($path);
     }
 
 }

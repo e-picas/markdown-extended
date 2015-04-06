@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\API\Kernel;
 
 /**
@@ -97,18 +97,18 @@ class Image
         $urls   = Kernel::getConfig('urls');
         $titles = Kernel::getConfig('titles');
         $predef_attributes = Kernel::getConfig('attributes');
-        $alt_text = parent::runGamut('tools:EncodeAttribute', $alt_text);
+        $alt_text = Lexer::runGamut('tools:EncodeAttribute', $alt_text);
         if (isset($urls[$link_id])) {
             $attributes = array();
             $attributes['alt']  = $alt_text;
             $attributes['id']   = Helper::header2Label($link_id);
-            $attributes['src']  = parent::runGamut('tools:EncodeAttribute', $urls[$link_id]);
+            $attributes['src']  = Lexer::runGamut('tools:EncodeAttribute', $urls[$link_id]);
             if (!empty($titles[$link_id])) {
-                $attributes['title'] = parent::runGamut('tools:EncodeAttribute', $titles[$link_id]);
+                $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $titles[$link_id]);
             }
             if (!empty($predef_attributes[$link_id])) {
                 $attributes = array_merge(
-                    parent::runGamut('tools:ExtractAttributes', $predef_attributes[$link_id]),
+                    Lexer::runGamut('tools:ExtractAttributes', $predef_attributes[$link_id]),
                     $attributes);
             }
             $block = Kernel::get('OutputFormatBag')
@@ -128,16 +128,15 @@ class Image
      */
     protected function _inline_callback($matches)
     {
-        $whole_match    = $matches[1];
         $alt_text       = $matches[2];
         $url            = $matches[3] == '' ? $matches[4] : $matches[3];
         $title          =& $matches[7];
 
         $attributes = array();
-        $attributes['alt'] = parent::runGamut('tools:EncodeAttribute', $alt_text);
-        $attributes['src'] = parent::runGamut('tools:EncodeAttribute', $url);
+        $attributes['alt'] = Lexer::runGamut('tools:EncodeAttribute', $alt_text);
+        $attributes['src'] = Lexer::runGamut('tools:EncodeAttribute', $url);
         if (!empty($title)) {
-            $attributes['title'] = parent::runGamut('tools:EncodeAttribute', $title);
+            $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $title);
         }
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('image', null, $attributes);

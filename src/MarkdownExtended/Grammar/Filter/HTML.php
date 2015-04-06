@@ -10,8 +10,7 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
 
 /**
@@ -303,7 +302,9 @@ class HTML
      */
     protected function _hashBlocks_inHTML($text, $hash_method, $md_attr)
     {
-        if ($text === '') return array('', '');
+        if ($text === '') {
+            return array('', '');
+        }
 
         // Regex to match `markdown` attribute inside of a tag.
         $markdown_attr_re = '
@@ -352,8 +353,10 @@ class HTML
 
         // Get the name of the starting tag.
         // (This pattern makes $base_tag_name_re safe without quoting.)
-        if (preg_match('/^<([\w:$]*)\b/', $text, $matches))
+        $base_tag_name_re = '';
+        if (preg_match('/^<([\w:$]*)\b/', $text, $matches)) {
             $base_tag_name_re = $matches[1];
+        }
 
         // Loop through every tag until we find the corresponding closing tag.
         do {
@@ -401,8 +404,8 @@ class HTML
                     $tag = preg_replace($markdown_attr_re, '', $tag);
 
                     // Check if text inside this tag must be parsed in span mode.
-                    $this->mode = $attr_m[2] . $attr_m[3];
-                    $span_mode = $this->mode == 'span' || $this->mode != 'block' &&
+                    $mode = $attr_m[2] . $attr_m[3];
+                    $span_mode = $mode == 'span' || $mode != 'block' &&
                         preg_match('{^<(?:'.$this->contain_span_tags_re.')\b}', $tag);
 
                     // Calculate indent before tag.

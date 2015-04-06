@@ -10,7 +10,9 @@
 
 namespace MarkdownExtended\Util;
 
-
+/**
+ * A special registry to manage a collection of DOM ids
+ */
 class DomIdRegistry
 {
 
@@ -19,15 +21,19 @@ class DomIdRegistry
      */
     protected $dom_ids = array();
 
+    /**
+     * Initializes the registry
+     */
     public function __construct()
     {
         $this->dom_ids = new Registry;
     }
 
     /**
-     * Verify if a reference is already defined in the DOM IDs register
+     * Verifies if a reference is already defined in the DOM IDs register
      *
      * @param   string  $reference  The reference to search
+     *
      * @return  bool    True if the reference exists in the register, false otherwise
      */
     public function has($reference)
@@ -36,10 +42,11 @@ class DomIdRegistry
     }
 
     /**
-     * Get a DOM unique ID
+     * Gets a DOM unique ID
      *
      * @param   string       $reference  A reference used to store the ID (and retrieve it - by default, a uniqid)
      * @param   null|string  $id
+     *
      * @return  string                  The unique ID created or the existing one for the reference if so
      */
     public function get($reference, $id = null)
@@ -51,11 +58,12 @@ class DomIdRegistry
     }
 
     /**
-     * Create and get a new DOM unique ID
+     * Creates and get a new DOM unique ID
      *
      * @param   string      $id         A string that will be used to construct the ID
      * @param   string      $reference  A reference used to store the ID (and retrieve it - by default `$id`)
      * @param   bool        $return_array   Allow to return an array in case of existing reference
+     *
      * @return  array|string    The unique ID created if the reference was empty
      *                          An array like (id=>XXX, reference=>YYY) if it was not
      */
@@ -87,5 +95,3 @@ class DomIdRegistry
     }
 
 }
-
-// Endfile

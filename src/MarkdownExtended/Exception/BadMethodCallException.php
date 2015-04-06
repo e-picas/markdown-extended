@@ -13,8 +13,7 @@ namespace MarkdownExtended\Exception;
 use \BadMethodCallException as BaseException;
 
 /**
- * Class BadMethodCallException
- * @package MarkdownExtended\Exception
+ * Specific BadMethodCallException
  */
 class BadMethodCallException
     extends BaseException

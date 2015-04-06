@@ -10,9 +10,8 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Lexer;
 use \MarkdownExtended\API\Kernel;
 
 /**
@@ -137,18 +136,18 @@ class Anchor
 
         if (isset($urls[$link_id])) {
             $attributes = array();
-            $attributes['href'] = parent::runGamut('tools:EncodeAttribute', $urls[$link_id]);
+            $attributes['href'] = Lexer::runGamut('tools:EncodeAttribute', $urls[$link_id]);
             if (!empty($titles[$link_id])) {
-                $attributes['title'] = parent::runGamut('tools:EncodeAttribute', $titles[$link_id]);
+                $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $titles[$link_id]);
             }
             if (!empty($predef_attributes[$link_id])) {
                 $attributes = array_merge(
-                    parent::runGamut('tools:ExtractAttributes', $predef_attributes[$link_id]),
+                    Lexer::runGamut('tools:ExtractAttributes', $predef_attributes[$link_id]),
                     $attributes
                 );
             }
             $block = Kernel::get('OutputFormatBag')
-                ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
+                ->buildTag('link', Lexer::runGamut('span_gamut', $link_text), $attributes);
             $result = parent::hashPart($block);
 
         } else {
@@ -164,18 +163,17 @@ class Anchor
      */
     protected function _inline_callback($matches)
     {
-        $whole_match    =  $matches[1];
         $link_text      =  $matches[2];
         $url            =  $matches[3] === '' ? $matches[4] : $matches[3];
         $title          =& $matches[7];
 
         $attributes = array();
-        $attributes['href'] = parent::runGamut('tools:EncodeAttribute', $url);
+        $attributes['href'] = Lexer::runGamut('tools:EncodeAttribute', $url);
         if (!empty($title)) {
-            $attributes['title'] = parent::runGamut('tools:EncodeAttribute', $title);
+            $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $title);
         }
         $block = Kernel::get('OutputFormatBag')
-            ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
+            ->buildTag('link', Lexer::runGamut('span_gamut', $link_text), $attributes);
         return parent::hashPart($block);
     }
 

@@ -13,8 +13,7 @@ namespace MarkdownExtended\Exception;
 use \DomainException as BaseException;
 
 /**
- * Class DomainException
- * @package MarkdownExtended\Exception
+ * Specific DomainException
  */
 class DomainException
     extends BaseException

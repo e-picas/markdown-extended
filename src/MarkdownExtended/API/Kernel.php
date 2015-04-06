@@ -33,8 +33,14 @@ class Kernel
     const RESOURCE_TEMPLATE_MASK    = 'default-%s.tpl';
     const RESOURCE_CONFIG_MASK      = 'config-%s.ini';
 
+    /**
+     * @var \MarkdownExtended\Util\Registry
+     */
     private $_registry;
 
+    /**
+     * @var self
+     */
     private static $_instance;
 
     private function __construct()

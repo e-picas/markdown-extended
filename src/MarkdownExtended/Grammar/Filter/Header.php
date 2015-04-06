@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\API\Kernel;
 
 /**
@@ -89,7 +89,7 @@ class Header
             .(!empty($matches[2]) ? '{#'.$matches[2].'}' : '')."\n";
 /*
         $id  = Kernel::get(Kernel::TYPE_CONTENT)->setNewDomId($matches[2], null, false);
-        $title = parent::runGamut('span_gamut', $matches[1]);
+        $title = Lexer::runGamut('span_gamut', $matches[1]);
         Kernel::get(Kernel::TYPE_CONTENT)
             ->addMenu(array('level'=>$level,'text'=>$title), $id);
         $block = Kernel::get('OutputFormatBag')
@@ -118,7 +118,7 @@ class Header
             :
             Helper::header2Label($matches[2]);
 //        $id  = Kernel::get(Kernel::TYPE_CONTENT)->setNewDomId($id, null, false);
-        $title = parent::runGamut('span_gamut', $matches[2]);
+        $title = Lexer::runGamut('span_gamut', $matches[2]);
         Kernel::addConfig('menu', array('level'=>$level,'text'=>parent::unhash($title)), $id);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('title', $title, array(

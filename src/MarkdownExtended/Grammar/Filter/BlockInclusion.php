@@ -10,9 +10,8 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\API\Kernel;
 
 /**
@@ -60,9 +59,9 @@ class BlockInclusion
                 $base_path = array($base_path);
             }
             foreach ($base_path as $path) {
-                $f = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
-                if (file_exists($f)) {
-                    $filename = $f;
+                $file = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
+                if (file_exists($file)) {
+                    $filename = $file;
                     break;
                 }
             }

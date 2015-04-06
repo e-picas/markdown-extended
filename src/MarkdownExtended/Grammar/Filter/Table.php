@@ -10,10 +10,10 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\API\Kernel;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Util\Helper;
 
 /**
  * Process Markdown tables
@@ -23,6 +23,8 @@ use MarkdownExtended\Util\Helper;
 class Table
     extends Filter
 {
+
+    protected $table_id;
 
     /**
      * Form HTML tables.
@@ -165,7 +167,7 @@ class Table
         $text = '';
         if (!empty($caption)) {
             $this->table_id = Helper::header2Label($caption);
-            $text .= preg_replace_callback('/\[(.*)\]/', array($this, '_doCaption'), parent::runGamut('span_gamut', $caption));
+            $text .= preg_replace_callback('/\[(.*)\]/', array($this, '_doCaption'), Lexer::runGamut('span_gamut', $caption));
         }
 
         $lines = '';
@@ -173,7 +175,7 @@ class Table
             $line = '';
             // Parsing span elements, including code spans, character escapes,
             // and inline HTML tags, so that pipes inside those gets ignored.
-            $_header    = parent::runGamut('filter:Span', $_header);
+            $_header    = Lexer::runGamut('filter:Span', $_header);
 
             // Split row by cell.
             $_header    = preg_replace('/[|] *$/m', '', $_header);
@@ -199,7 +201,7 @@ class Table
                         $cell_attributes['colspan'] = $headspans[$n];
                     }
                     $line .= Kernel::get('OutputFormatBag')
-                        ->buildTag('table_cell_head', parent::runGamut('span_gamut', trim($__header)), $cell_attributes) . "\n";
+                        ->buildTag('table_cell_head', Lexer::runGamut('span_gamut', trim($__header)), $cell_attributes) . "\n";
                 }
             }
             $lines .= Kernel::get('OutputFormatBag')
@@ -216,7 +218,7 @@ class Table
             $line = '';
             // Parsing span elements, including code spans, character escapes,
             // and inline HTML tags, so that pipes inside those gets ignored.
-            $row = parent::runGamut('filter:Span', $row);
+            $row = Lexer::runGamut('filter:Span', $row);
 
             // Split row by cell.
             $row_cells = preg_split('/ *[|] */', $row, $col_count);
@@ -240,7 +242,7 @@ class Table
                     $cell_attributes['colspan'] = $colspans[$n];
                 }
                 $line .= Kernel::get('OutputFormatBag')
-                    ->buildTag('table_cell', parent::runGamut('span_gamut', trim($cell)), $cell_attributes) . "\n";
+                    ->buildTag('table_cell', Lexer::runGamut('span_gamut', trim($cell)), $cell_attributes) . "\n";
                 }
             }
             $lines .= Kernel::get('OutputFormatBag')

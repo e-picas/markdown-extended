@@ -10,10 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown notes: footnotes, glossary and bibliography notes
@@ -133,19 +132,19 @@ class Note
         if (0 !== preg_match('/^(<p>)?glossary:/i', $matches[2])) {
             Kernel::addConfig('glossaries', array(
                 (Kernel::getConfig('glossarynote_id_prefix') . $matches[1]) =>
-                    parent::runGamut('tools:Outdent', $matches[2])
+                    Lexer::runGamut('tools:Outdent', $matches[2])
             ));
 
         } elseif (0 !== preg_match('/^\#(.*)?/i', $matches[1])) {
             Kernel::addConfig('bibliographies', array(
                 (Kernel::getConfig('bibliographynote_id_prefix') . substr($matches[1],1)) =>
-                    parent::runGamut('tools:Outdent', $matches[2])
+                    Lexer::runGamut('tools:Outdent', $matches[2])
             ));
 
         } else {
             Kernel::addConfig('footnotes', array(
                 (Kernel::getConfig('footnote_id_prefix') . $matches[1]) =>
-                    parent::runGamut('tools:Outdent', $matches[2])
+                    Lexer::runGamut('tools:Outdent', $matches[2])
             ));
         }
         return '';
@@ -323,11 +322,11 @@ class Note
             $type_info              = $this->getTypeInfo($type);
 
             $note_content   .= "\n"; // Need to append newline before parsing.
-            $note_content   = parent::runGamut('html_block_gamut', $note_content . "\n");
+            $note_content   = Lexer::runGamut('html_block_gamut', $note_content . "\n");
             $note_content   = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
                                 array($this, '_append_callback'), $note_content);
 
-            $note_id        = parent::runGamut('tools:EncodeAttribute', $note_id);
+            $note_id        = Lexer::runGamut('tools:EncodeAttribute', $note_id);
             $backlink_id    = Kernel::get('DomId')
                                 ->get($type_info['prefix'] . 'ref:' . $note_id);
             $footlink_id    = Kernel::get('DomId')

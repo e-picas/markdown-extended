@@ -11,11 +11,9 @@
 namespace MarkdownExtended\Grammar;
 
 use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\MarkdownExtended;
 
 /**
- * The base class for all Filters and Tools
- * @package MarkdownExtended\Grammar
+ * A basic class for filters and tools with management of parsing "hashes"
  */
 abstract class AbstractGamut
 {
@@ -26,6 +24,7 @@ abstract class AbstractGamut
      * @param   string  $gamut  The name of a single Gamut or a Gamuts stack
      * @param   string  $text
      * @param   bool    $forced Forces to run the gamut event if it is disabled
+     *
      * @return  string
      */
     public function runGamut($gamut, $text, $forced = false)
@@ -35,7 +34,7 @@ abstract class AbstractGamut
     }
 
 // ----------------------------------
-// HASHES
+// Hashes management
 // ----------------------------------
 
     /**
@@ -73,5 +72,3 @@ abstract class AbstractGamut
     }
 
 }
-
-// Endfile

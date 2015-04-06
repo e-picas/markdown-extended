@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown abbreviations
@@ -94,7 +94,7 @@ class Abbreviation
             $attributes = array();
             $desc = trim($abbr_desciptions[$abbr]);
             if (!empty($desc)) {
-                $attributes['title'] = parent::runGamut('tools:EncodeAttribute', $desc);
+                $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $desc);
             }
             $abbr = Kernel::get('OutputFormatBag')
                 ->buildTag('abbreviation', $abbr, $attributes);

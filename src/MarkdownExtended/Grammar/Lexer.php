@@ -10,14 +10,19 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Exception\UnexpectedValueException;
 use \MarkdownExtended\Content;
 
+/**
+ * The lexer dispatches the content to the gamuts loader
+ */
 class Lexer
 {
 
+    /**
+     * Sets up some regex masks based on current configuration
+     */
     public function __construct()
     {
         // init config
@@ -45,11 +50,12 @@ class Lexer
 // ----------------------------------
     
     /**
-     * Main function. Performs some pre-processing on the input text
+     * Performs some pre-processing on the input text
      * and pass it through the document gamut.
      *
      * @param   \MarkdownExtended\Content   $content
-     * @return  \MarkdownExtended\MarkdownExtended
+     *
+     * @return  \MarkdownExtended\Content
      */
     public function parse(Content $content)
     {
@@ -71,14 +77,32 @@ class Lexer
 // ----------------------------------
 // GAMUTS
 // ----------------------------------
-    
+
+    /**
+     * Run a gamut stack from a filter or tool
+     *
+     * @param   string  $gamut  The name of a single Gamut or a Gamuts stack
+     * @param   string  $text
+     * @param   bool    $forced Forces to run the gamut event if it is disabled
+     *
+     * @return  string
+     */
+    public static function runGamut($gamut, $text, $forced = false)
+    {
+        $loader = Kernel::get('Grammar\GamutLoader');
+        return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
+    }
+
     /**
      * Call to MarkdownExtended\Grammar\GamutLoader for an array of gamuts
      *
      * @param   array   $gamuts
      * @param   string  $text
+     *
      * @return  string
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if gamuts table not found
+     *
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamuts` seems malformed
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamuts` table can not be found
      */
     public function runGamuts($gamuts, $text = null)
     {
@@ -105,7 +129,9 @@ class Lexer
     }
 
     /**
-     * Setting up extra-specific variables.
+     * Setting up extra-specific variables
+     *
+     * This will call any `_setup()` method of all enabled filters.
      */
     protected function _setup() 
     {
@@ -118,7 +144,9 @@ class Lexer
     }
     
     /**
-     * Clearing extra-specific variables.
+     * Clearing extra-specific variables
+     *
+     * This will call any `_teardown()` method of all enabled filters.
      */
     protected function _teardown() 
     {
@@ -142,5 +170,3 @@ class Lexer
     }
 
 }
-
-// Endfile

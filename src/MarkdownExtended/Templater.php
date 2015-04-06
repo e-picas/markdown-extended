@@ -19,19 +19,36 @@ use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Util\Registry;
 use \MarkdownExtended\Util\CacheRegistry;
 
+/**
+ * The default template object of MarkdownExtended
+ */
 class Templater
     implements TemplateInterface
 {
 
+    /**
+     * @var \MarkdownExtended\Util\Registry
+     */
     protected $config;
+
+    /**
+     * @var \MarkdownExtended\Util\CacheRegistry
+     */
     protected $cache;
 
+    /**
+     * Initializes object's registries
+     */
     public function __construct()
     {
         $this->config   = new Registry(Kernel::getConfig('template_options'));
         $this->cache    = new CacheRegistry;
     }
 
+    /**
+     * {@inheritdoc}
+     * @return mixed|string
+     */
     public function parse(ContentInterface $content, $template_path = null)
     {
         $tpl_content    = $this->getTemplate($template_path);
@@ -46,6 +63,16 @@ class Templater
         return $tpl_content;
     }
 
+    /**
+     * Gets a template file content
+     *
+     * @param string $template_path
+     *
+     * @return mixed|string
+     *
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the template can not be found
+     * @throws \MarkdownExtended\Exception\RuntimeException if the template file is not readable
+     */
     public function getTemplate($template_path)
     {
         if (true === $template_path) {
@@ -79,6 +106,15 @@ class Templater
         return $tpl_content;
     }
 
+    /**
+     * Gets the array of parameters to pass in the template based on a content object
+     *
+     * @param \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return array
+     *
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the keyword can not be found in content
+     */
     public function getParams(ContentInterface $content)
     {
         $params = array();
@@ -102,11 +138,16 @@ class Templater
         return $params;
     }
 
+    /**
+     * Gets a keyword tag from configuration
+     *
+     * @param string $keyword
+     *
+     * @return string
+     */
     protected function _buildKeywordMask($keyword)
     {
         return sprintf($this->config->get('keywords_mask'), $keyword);
     }
 
 }
-
-// Endfile

@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\API\OutputFormatInterface;
+use \MarkdownExtended\Grammar\Lexer;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Grammar\Filter\Note;
 
@@ -259,14 +259,14 @@ class HTML
         if ($this->getConfig($type_info['prefix'] . '_backlink_class')) {
             $attributes['class'] =
                 Helper::fillPlaceholders(
-                    parent::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_class')),
+                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_class')),
                     $attributes['counter']
                 );
         }
         if ($this->getConfig($type_info['prefix'] . '_backlink_title_mask')) {
             $attributes['title'] =
                 Helper::fillPlaceholders(
-                    parent::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_title_mask')),
+                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_title_mask')),
                     $attributes['counter']
                 );
         }
@@ -302,13 +302,13 @@ class HTML
         if ($this->getConfig($type_info['prefix'] . '_link_class')) {
             $attributes['class'] =
                 Helper::fillPlaceholders(
-                    parent::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_class')),
+                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_class')),
                     $text);
         }
         if ($this->getConfig($type_info['prefix'] . '_link_title_mask')) {
             $attributes['title'] =
                 Helper::fillPlaceholders(
-                    parent::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_title_mask')),
+                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_title_mask')),
                     $text);
         }
 

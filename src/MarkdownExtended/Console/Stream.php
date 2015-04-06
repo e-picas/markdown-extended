@@ -18,15 +18,34 @@ class Stream
     const VERBOSITY_NORMAL  = 2;
     const VERBOSITY_VERBOSE = 4;
     const VERBOSITY_DEBUG   = 8;
+
+    /**
+     * @var int
+     */
     protected $verbosity    = self::VERBOSITY_NORMAL;
 
     const IO_STDIN          = 'stdin';
     const IO_STDOUT         = 'stdout';
     const IO_STDERR         = 'stderr';
+
+    /**
+     * @var resource
+     */
     protected $stdin;
+
+    /**
+     * @var resource
+     */
     protected $stdout;
+
+    /**
+     * @var resource
+     */
     protected $stderr;
 
+    /**
+     * @var callable
+     */
     protected $exception_callback;
 
     const PADDER            = '    ';
@@ -37,7 +56,7 @@ class Stream
     {
         set_exception_handler(array($this, 'handleException'));
         $this
-            ->setStream(self::IO_STDIN, defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c+'))
+            ->setStream(self::IO_STDIN,  defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c+'))
             ->setStream(self::IO_STDOUT, defined('STDIN')  ? STDIN  : fopen('php://stdin', 'c+'))
             ->setStream(self::IO_STDERR, defined('STDERR') ? STDERR : fopen('php://stderr', 'c+'))
         ;

@@ -12,6 +12,9 @@ namespace MarkdownExtended\Util;
 
 use \MarkdownExtended\Exception\InvalidArgumentException;
 
+/**
+ * Basic registry object
+ */
 class Registry
 {
 
@@ -22,6 +25,8 @@ class Registry
 
     /**
      * Initialize the registry
+     *
+     * @param array $data
      */
     public function __construct(array $data = array())
     {
@@ -33,10 +38,11 @@ class Registry
 // ------------------
 
     /**
-     * Set or reset a new instance in global registry
+     * Sets or resets a new instance in global registry
      *
      * @param   string  $var
      * @param   mixed   $val
+     *
      * @return  void
      */
     public function set($var, $val)
@@ -45,10 +51,11 @@ class Registry
     }
 
     /**
-     * Add something to an existing entry of the global registry, the entry is created if it not exist
+     * Adds something to an existing entry of the global registry, the entry is created if it not exist
      *
      * @param   string  $var
      * @param   mixed   $val
+     *
      * @return  void
      */
     public function add($var, $val)
@@ -60,16 +67,23 @@ class Registry
         }
     }
 
+    /**
+     * Tests if an index exists in the registry
+     *
+     * @param string $var
+     * @return bool
+     */
     public function has($var)
     {
         return (bool) isset($this->data[$var]);
     }
 
     /**
-     * Remove something to an existing entry of the global registry, the entry is created if it not exist
+     * Removes something to an existing entry of the global registry, the entry is created if it not exist
      *
      * @param   string      $var
      * @param   null|string $index
+     *
      * @return  void
      */
     public function remove($var, $index = null)
@@ -86,10 +100,11 @@ class Registry
     }
 
     /**
-     * Get an entry from the global registry
+     * Gets an entry from the global registry
      *
      * @param   string  $var
      * @param   mixed   $default
+     *
      * @return  mixed
      */
     public function get($var, $default = null)
@@ -98,7 +113,7 @@ class Registry
     }
 
     /**
-     * Get the global registry
+     * Gets the global registry
      *
      * @return  array
      */
@@ -112,11 +127,13 @@ class Registry
 // --------------
 
     /**
-     * Extend a value with another, if types match
+     * Extends a value with another, if types match
      *
      * @param   mixed   $what
      * @param   mixed   $add
+     *
      * @return  mixed
+     *
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if trying to extend an array with not an array
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if trying to extend an object
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if type unknown
@@ -149,5 +166,3 @@ class Registry
     }
 
 }
-
-// Endfile

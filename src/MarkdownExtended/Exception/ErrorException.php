@@ -13,8 +13,7 @@ namespace MarkdownExtended\Exception;
 use \ErrorException as BaseException;
 
 /**
- * Class ErrorException
- * @package MarkdownExtended\Exception
+ * Specific ErrorException
  */
 class ErrorException
     extends BaseException

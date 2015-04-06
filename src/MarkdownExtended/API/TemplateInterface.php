@@ -10,10 +10,15 @@
 
 namespace MarkdownExtended\API;
 
+/**
+ * Interface to implement for all template objects
+ */
 interface TemplateInterface
 {
 
     /**
+     * Insert a content in a template
+     *
      * @param   \MarkdownExtended\API\ContentInterface  $content
      *
      * @return  string

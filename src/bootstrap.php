@@ -8,12 +8,6 @@
  * file that was distributed with this source code.
  */
 
-// show errors at least initially
-$old_display_errors = ini_get('display_errors');
-@ini_set('display_errors',1);
-$old_error_reporting = error_reporting();
-@error_reporting(-1);
-
 // PHP 5.3.3+
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     trigger_error(
@@ -67,9 +61,5 @@ if (file_exists($a = $bootstrapGetPath(array(
 )))) {
     require_once $b;
 }
-
-// restore error settings
-@ini_set('display_errors', $old_display_errors);
-@error_reporting($old_error_reporting);
 
 // Endfile

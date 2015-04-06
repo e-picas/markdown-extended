@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown list items
@@ -46,7 +46,6 @@ class ListItem
      */
     public function transform($text) 
     {
-        $marker_any_re = '(?:'.self::$marker_ul_re.'|'.self::$marker_ol_re.')';
         $markers_relist = array(
             self::$marker_ul_re => self::$marker_ol_re,
             self::$marker_ol_re => self::$marker_ul_re,
@@ -184,12 +183,12 @@ class ListItem
         if ($leading_line || $trailing_blank_line || preg_match('/\n{2,}/', $item)) {
             // Replace marker with the appropriate whitespace indentation
             $item = $leading_space . str_repeat(' ', strlen($marker_space)) . $item;
-            $item = parent::runGamut('html_block_gamut', parent::runGamut('tools:Outdent', $item)."\n");
+            $item = Lexer::runGamut('html_block_gamut', Lexer::runGamut('tools:Outdent', $item)."\n");
         } else {
             // Recursion for sub-lists:
-            $item = self::transform(parent::runGamut('tools:Outdent', $item));
+            $item = self::transform(Lexer::runGamut('tools:Outdent', $item));
             $item = preg_replace('/\n+$/', '', $item);
-            $item = parent::runGamut('span_gamut', $item);
+            $item = Lexer::runGamut('span_gamut', $item);
         }
 
         return Kernel::get('OutputFormatBag')

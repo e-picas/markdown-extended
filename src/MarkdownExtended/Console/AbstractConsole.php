@@ -10,27 +10,80 @@
 
 namespace MarkdownExtended\Console;
 
-use MarkdownExtended\MarkdownExtended;
-
 abstract class AbstractConsole
 {
 
     const LICENSE_FILE              = 'LICENSE';
     const MANIFEST_FILE             = 'composer.json';
 
+    /**
+     * @var null|string
+     */
     protected $name                 = null;
+
+    /**
+     * @var null|string
+     */
     protected $short_name           = null;
+
+    /**
+     * @var null|string
+     */
     protected $version              = null;
+
+    /**
+     * @var null|string
+     */
     protected $description          = null;
+
+    /**
+     * @var null|string
+     */
     protected $short_version_str    = null;
+
+    /**
+     * @var null|string
+     */
     protected $long_version_str     = null;
+
+    /**
+     * @var null|string
+     */
     protected $usage                = null;
+
+    /**
+     * @var null|string
+     */
     protected $synopsis             = null;
+
+    /**
+     * @var null|string
+     */
     protected $script_path          = null;
+
+    /**
+     * @var array
+     */
     protected $cli_options          = array();
+
+    /**
+     * @var array
+     */
     protected $options              = array();
+
+    /**
+     * @var array
+     */
     protected $arguments            = array();
+
+    /**
+     * @var \MarkdownExtended\Console\Stream
+     */
     protected $stream;
+
+    /**
+     * @var bool
+     */
     protected $arg_required;
 
     public function __construct()
