@@ -10,10 +10,10 @@ dev/*
 build/logs/*
 
 # this is for "dev" branch only
-build/*
-demo/*
-doc/*
-phpdoc/*
+#build/*
+#demo/*
+#doc/*
+#phpdoc/*
 
 # specific MDE files
 bin/*
