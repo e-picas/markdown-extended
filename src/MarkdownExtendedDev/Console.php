@@ -10,9 +10,9 @@
 
 namespace MarkdownExtendedDev;
 
-use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Console\AbstractConsole;
 use \MarkdownExtended\Console\UserInput;
+use \MarkdownExtended\Parser;
 use \MarkdownExtended\Util\Helper;
 
 class Console
@@ -26,7 +26,7 @@ class Console
         $this
             ->setName('MDE dev tools')
             ->setSynopsis(
-                $script . ' [OPTIONS] make-phar / check-phar'
+                $script . ' [OPTIONS] make-phar / check-phar / make-manpage-(3/7) / make-manpages'
             )
             ->setUsage(<<<MSG
 Dev tasks:
@@ -223,7 +223,8 @@ MSG
         $this->stream->verboseln(
             sprintf('Generating "%s" from "%s" ...', $output, $input)
         );
-        $mde = new MarkdownExtended(array(
+        $mde = new Parser(array(
+            'force'         => false,
             'output_format' => 'man',
             'output'        => $output
         ));
