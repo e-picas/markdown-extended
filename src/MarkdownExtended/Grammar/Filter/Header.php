@@ -10,10 +10,10 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Util\Helper;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown headers
@@ -88,11 +88,11 @@ class Header
         return "\n".str_pad('#', $level, '#').' '.$matches[1].' '
             .(!empty($matches[2]) ? '{#'.$matches[2].'}' : '')."\n";
 /*
-        $id  = MarkdownExtended::getContent()->setNewDomId($matches[2], null, false);
-        $title = parent::runGamut('span_gamut', $matches[1]);
-        MarkdownExtended::getContent()
+        $id  = Kernel::get(Kernel::TYPE_CONTENT)->setNewDomId($matches[2], null, false);
+        $title = Lexer::runGamut('span_gamut', $matches[1]);
+        Kernel::get(Kernel::TYPE_CONTENT)
             ->addMenu(array('level'=>$level,'text'=>$title), $id);
-        $block = MarkdownExtended::get('OutputFormatBag')
+        $block = Kernel::get('OutputFormatBag')
             ->buildTag('title', $title, array(
                 'level'=>$level,
                 'id'=>$id
@@ -116,12 +116,11 @@ class Header
         $id  = !empty($matches[3]) ?
             $matches[3]
             :
-            MDE_Helper::header2Label($matches[2]);
-        $id  = MarkdownExtended::getContent()->setNewDomId($id, null, false);
-        $title = parent::runGamut('span_gamut', $matches[2]);
-        MarkdownExtended::getContent()
-            ->addMenu(array('level'=>$level,'text'=>parent::unhash($title)), $id);
-        $block = MarkdownExtended::get('OutputFormatBag')
+            Helper::header2Label($matches[2]);
+//        $id  = Kernel::get(Kernel::TYPE_CONTENT)->setNewDomId($id, null, false);
+        $title = Lexer::runGamut('span_gamut', $matches[2]);
+        Kernel::addConfig('menu', array('level'=>$level,'text'=>parent::unhash($title)), $id);
+        $block = Kernel::get('OutputFormatBag')
             ->buildTag('title', $title, array(
                 'level'=>$level,
                 'id'=>$id
@@ -137,7 +136,7 @@ class Header
      */
     protected function _getRebasedHeaderLevel()
     {
-        $base_level = MarkdownExtended::getVar('baseheaderlevel');
+        $base_level = Kernel::getConfig('baseheaderlevel');
         return !empty($base_level) ? $base_level-1 : 0;
     }
 
@@ -146,14 +145,12 @@ class Header
      */
     protected function _setContentTitle($string)
     {
-        $old = MarkdownExtended::getContent()->getTitle();
+        $old = Kernel::get(Kernel::TYPE_CONTENT)->getTitle();
         if (empty($old)) {
-            $meta = MarkdownExtended::getContent()->getMetadata();
+            $meta = Kernel::get(Kernel::TYPE_CONTENT)->getMetadata();
             $meta['title'] = $string;
-            MarkdownExtended::getContent()->setMetadata($meta);
+            Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($meta);
         }
     }
 
 }
-
-// Endfile

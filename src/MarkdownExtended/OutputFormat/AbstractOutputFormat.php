@@ -10,18 +10,14 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\Helper as MDE_Helper;
-use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\Util\Helper;
 
 /**
- * Class AbstractOutputFormat
- *
- * @package MarkdownExtended\OutputFormat
+ * A basic output format class
  */
 abstract class AbstractOutputFormat
-    implements OutputFormatInterface
 {
 
     /**
@@ -42,34 +38,37 @@ abstract class AbstractOutputFormat
      * @param   string  $tag_name
      * @param   string  $content
      * @param   array   $attributes     An array of attributes constructed like "variable=>value" pairs
+     *
      * @return  string
      */
     public function buildTag($tag_name, $content = null, array $attributes = array())
     {
-        $_method = 'build'.MDE_Helper::toCamelCase($tag_name);
+        $_method = 'build'.Helper::toCamelCase($tag_name);
+
         if (isset($this->tags_map[$tag_name]) && isset($this->tags_map[$tag_name]['prefix'])) {
             $attributes['mde-prefix'] = $this->tags_map[$tag_name]['prefix'];
         }
+
         if (method_exists($this, $_method)) {
             return call_user_func_array(
                 array($this, $_method),
                 array($content, $attributes)
             );
-        } elseif (isset($this->tags_map[$tag_name])) {
-            $new_tag_name = isset($this->tags_map[$tag_name]['tag']) ?
-                $this->tags_map[$tag_name]['tag'] : $tag_name;
+
+        }
+
+        $closable = false;
+        if (isset($this->tags_map[$tag_name])) {
             $closable = isset($this->tags_map[$tag_name]['closable']) ?
                 $this->tags_map[$tag_name]['closable'] : false;
-            return call_user_func_array(
-                array($this, 'getTagString'),
-                array($content, $new_tag_name, $attributes, $closable)
-            );
-        } else {
-            return call_user_func_array(
-                array($this, 'getTagString'),
-                array($content, $tag_name, $attributes)
-            );
+            $tag_name = isset($this->tags_map[$tag_name]['tag']) ?
+                $this->tags_map[$tag_name]['tag'] : $tag_name;
         }
+
+        return call_user_func_array(
+            array($this, 'getTagString'),
+            array($content, $tag_name, $attributes, $closable)
+        );
     }
 
     /**
@@ -80,6 +79,58 @@ abstract class AbstractOutputFormat
      */
     abstract public function getTagString($content, $tag_name, array $attributes = array());
 
-}
+    /**
+     * Gets the notes list as string
+     *
+     * @param   array $notes
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return string
+     */
+    public function getNotesToString(array $notes, ContentInterface $content)
+    {
+        if (empty($notes)) {
+            return '';
+        }
 
-// Endfile
+        $data = array();
+        foreach ($notes as $var=>$val) {
+            $data[] = $this->buildTag(
+                'list_item',
+                $val['text'],
+                array('id' => $val['note-id'])
+            );
+//            ) . "\n\n";
+        }
+
+        return $this
+            ->buildTag('block',
+                $this->buildTag('ordered_list', implode(PHP_EOL, $data)),
+                array('class'=>'footnotes')
+            );
+    }
+
+    /**
+     * Gets the metadata list as string
+     *
+     * @param   array $metadata
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return string
+     */
+    public function getMetadataToString(array $metadata, ContentInterface $content)
+    {
+        $specials   = Kernel::getConfig('special_metadata');
+        $data       = array();
+        foreach ($metadata as $var=>$val) {
+            if (!in_array($var, $specials)) {
+                $data[] = $this->buildTag('meta_data', null, array(
+                    'name'      => $var,
+                    'content'   => $val
+                ));
+            }
+        }
+        return implode(PHP_EOL, $data);
+    }
+
+}

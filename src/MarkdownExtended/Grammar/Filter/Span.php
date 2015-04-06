@@ -10,10 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown spans
@@ -36,13 +35,13 @@ class Span
         $output = '';
         $span_re = '{
                 (
-                    \\\\'.MarkdownExtended::getConfig('escape_chars_re').'
+                    \\\\'.Kernel::getConfig('escaped_characters_re').'
                 |
                     (?<![`\\\\])
                     `+                        # code span marker
                 |
                     \\ \(                     # inline math
-            '.( MarkdownExtended::getConfig('no_markup') ? '' : '
+            '.( Kernel::getConfig('no_markup')===true ? '' : '
                 |
                     <!--    .*?     -->       # comment
                 |
@@ -66,14 +65,14 @@ class Span
             $parts = preg_split($span_re, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
 
             // Create token from text preceding tag.
-            if ($parts[0] != "") {
+            if ($parts[0] !== '') {
                 $output .= $parts[0];
             }
 
             // Check if we reach the end.
             if (isset($parts[1])) {
                 $output .= self::handleSpanToken($parts[1], $parts[2]);
-                $str = $parts[2];
+                $str    = $parts[2];
             } else {
                 break;
             }
@@ -99,7 +98,7 @@ class Span
                     if ($texend) {
                         $eqn = substr($str, 0, $texend);
                         $str = substr($str, $texend+2);
-                        $texspan = parent::runGamut('filter:Maths:span', $eqn);
+                        $texspan = Lexer::runGamut('filter:Maths:span', $eqn);
                         return parent::hashPart($texspan);
                     } else {
                         return $str;
@@ -113,7 +112,7 @@ class Span
                     $str, $matches)
                 ) {
                     $str = $matches[2];
-                    $codespan = parent::runGamut('filter:CodeBlock:span', $matches[1]);
+                    $codespan = Lexer::runGamut('filter:CodeBlock:span', $matches[1], true);
                     return parent::hashPart($codespan);
                 }
                 return $token; // return as text since no ending marker found.
@@ -123,5 +122,3 @@ class Span
     }
 
 }
-
-// Endfile

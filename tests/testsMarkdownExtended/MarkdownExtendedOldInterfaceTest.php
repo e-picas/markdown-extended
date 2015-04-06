@@ -35,14 +35,14 @@ class MarkdownExtendedOldInterfaceTest
         // Markdown
         $this->assertEquals(
             $this->getTestExpectedBody(),
-            trim(Markdown(file_get_contents($this->getTestFilepath()))),
+            trim(Markdown(file_get_contents($this->getTestFilepath()))->getBody()),
             'Markdown() failure'
         );
 
         // MarkdownFromSource
         $this->assertEquals(
             $this->getTestExpectedBody(),
-            trim(MarkdownFromSource($this->getTestFilepath())),
+            trim(MarkdownFromSource($this->getTestFilepath())->getBody()),
             'MarkdownFromSource() failure'
         );
 

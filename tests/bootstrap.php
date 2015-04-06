@@ -8,8 +8,10 @@
  * file that was distributed with this source code.
  */
 
-require_once __DIR__.'/../src/SplClassLoader.php';
-$classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/../src');
-$classLoader->register();
-$classLoader_tests = new SplClassLoader('testsMarkdownExtended', __DIR__.'/../tests');
-$classLoader_tests->register();
+// the global bootstrapper
+require_once __DIR__.'/../src/bootstrap.php';
+
+// register the testsMarkdownExtended namespace
+spl_autoload_register(function($name) {
+    mde_autoloader($name, 'testsMarkdownExtended', __DIR__);
+});

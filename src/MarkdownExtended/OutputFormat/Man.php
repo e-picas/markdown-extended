@@ -10,10 +10,9 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\API as MDE_API;
-use \MarkdownExtended\Helper as MDE_Helper;
-use \MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\API\OutputFormatInterface;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Util\Helper;
 
 /**
  * Format a content in UNIX Manpage format
@@ -36,7 +35,7 @@ use \MarkdownExtended\Exception as MDE_Exception;
  */
 class Man
     extends AbstractOutputFormat
-    implements MDE_API\OutputFormatInterface
+    implements OutputFormatInterface
 {
 
     /**
@@ -168,7 +167,7 @@ class Man
      */
     public function buildTag($tag_name, $content = null, array $attributes = array())
     {
-        $_method = 'build'.MDE_Helper::toCamelCase($tag_name);
+        $_method = 'build'.Helper::toCamelCase($tag_name);
         if (method_exists($this, $_method)) {
             return call_user_func_array(
                 array($this, $_method),
@@ -234,6 +233,32 @@ class Man
     }
 
 // -------------------
+// Content's blocks builder
+// -------------------
+
+    public function teardown($text)
+    {
+        $headers    = array();
+        $content    = Kernel::get(Kernel::TYPE_CONTENT);
+
+        foreach ($content->getMetadata() as $name=>$value) {
+            if ($name === 'title') {
+                $headers['name'] = $value;
+            } elseif (in_array($name, self::$headers_meta_data)) {
+                $headers[$name] = $value;
+            }
+        }
+
+        $title = $content->getTitle();
+        if (empty($headers['name']) && $title) {
+            $headers['name'] = $title;
+        }
+
+        $text = $this->buildTag('meta_title', null, $headers) . $text;
+        return $text;
+    }
+
+// -------------------
 // Tag specific builder
 // -------------------
 
@@ -278,16 +303,13 @@ class Man
 
     public function indent()
     {
-        if (!$this->no_paragraphing) {
-            return '.RS' . $this->new_line;
-        }
+        return !$this->no_paragraphing ? '.RS' . $this->new_line : '';
     }
     
     public function unindent()
     {
-        if (!$this->no_paragraphing) {
-            return /*$this->new_line .*/ '.RE' . $this->new_line;
-        }
+        return !$this->no_paragraphing ?
+            /*$this->new_line .*/ '.RE' . $this->new_line : '';
     }
     
     public function buildMetaData($text = null, array $attributes = array())
@@ -297,9 +319,9 @@ class Man
             if (empty($attributes['content']) && !empty($text)) {
                 $attributes['content'] = $text;
             }
-            return '.\" ' . $attributes['name'] . ': ' . $attributes['content'] . $this->new_line;
+            return '.\" ' . $attributes['name'] . ': ' . Helper::getSafeString($attributes['content']) /*. $this->new_line*/;
         }
-        return '.\" ' . $text . $this->new_line;
+        return '.\" ' . $text /*. $this->new_line*/;
     }
 
     public function buildMetaTitle($text = null, array $attributes = array())
@@ -528,5 +550,3 @@ class Man
     }
 
 }
-
-// Endfile

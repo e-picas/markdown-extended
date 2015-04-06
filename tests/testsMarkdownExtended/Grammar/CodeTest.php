@@ -19,46 +19,49 @@ class CodeTest extends MarkdownExtendedBaseTest
     {
 
         // simple code
-        $markdownParser = $this->createParser();
-        $markdownContent1 = $this->createContent('my text with `some code` for test ...');
-        $content1 = $markdownParser->parse($markdownContent1)->getContent();
-        $this->assertEquals(
-            '<p>my text with <code>some code</code> for test ...</p>',
-            $this->getBody($content1), 'Code fails!');
+        $this->processParseTest(
+            'my text with `some code` for test ...',
+            'my text with <code>some code</code> for test ...',
+            'Code fails!'
+        );
 
         // code blocks
-        $markdownContent4 = $this->createContent("
+        $this->processParseTest(
+            "para1
+
     My code here
-        ");
-        $content4 = $markdownParser->parse($markdownContent4)->getContent();
-        $this->assertEquals(
-            '<pre>My code here</pre>',
-            $this->getBody($content4, true), 'Code block fails!');
+
+para2",
+            '<p>para1</p><pre>My code here</pre><p>para2</p>',
+            'Code block fails!',
+            true
+        );
 
         // fenced code blocks
-        $markdownContent5 = $this->createContent("
+        $this->processParseTest(
+            "
 ~~~~
 My code here
 ~~~~
-        ");
-        $content5 = $markdownParser->parse($markdownContent5)->getContent();
-        $this->assertEquals(
+        ",
             '<pre>My code here
 </pre>',
-            $this->getBody($content5, true), 'Fenced code block fails!');
+            'Fenced code block fails!',
+            true
+        );
 
         // fenced code blocks with language
-        $markdownContent6 = $this->createContent("
+        $this->processParseTest(
+            "
 ~~~~html
 My code here
 ~~~~
-        ");
-        $content6 = $markdownParser->parse($markdownContent6)->getContent();
-        $this->assertEquals(
-            '<pre data-language="html">My code here
+        ",
+            '<pre class="language-html">My code here
 </pre>',
-            $this->getBody($content6, true), 'Fenced code block with language info fails!');
-
+            'Fenced code block with language info fails!',
+            true
+        );
 
     }
     

@@ -10,10 +10,8 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown definitions links
@@ -46,7 +44,7 @@ class LinkDefinition
     public function strip($text)
     {
         return preg_replace_callback('{
-                ^[ ]{0,'.MarkdownExtended::getConfig('less_than_tab').'}\[(.+)\][ ]?:   # id = $1
+                ^[ ]{0,'.Kernel::getConfig('less_than_tab').'}\[(.+)\][ ]?:   # id = $1
                   [ ]*
                   \n?                   # maybe *one* newline
                   [ ]*
@@ -91,13 +89,10 @@ class LinkDefinition
     {
         $link_id = strtolower($matches[1]);
         $url = $matches[2] == '' ? $matches[3] : $matches[2];
-        MarkdownExtended::addVar('urls', array($link_id=>$url));
-        MarkdownExtended::addVar('titles', array($link_id=>$matches[4]));
-        MarkdownExtended::addVar('attributes', array($link_id=>$matches[5]));
-        MarkdownExtended::getContent()->addUrl($url, $link_id);
+        Kernel::addConfig('urls', array($link_id=>$url));
+        Kernel::addConfig('titles', array($link_id=>$matches[4]));
+        Kernel::addConfig('attributes', array($link_id=>$matches[5]));
         return '';
     }
 
 }
-
-// Endfile

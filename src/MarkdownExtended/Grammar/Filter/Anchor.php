@@ -10,10 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown links
@@ -38,7 +37,7 @@ class Anchor
      */
     public function _setup()
     {
-        MarkdownExtended::setVar('in_anchor', false);
+        Kernel::setConfig('in_anchor', false);
     }
 
     /**
@@ -49,14 +48,17 @@ class Anchor
      */
     public function transform($text)
     {
-        if (MarkdownExtended::getVar('in_anchor')==true) return $text;
-        MarkdownExtended::setVar('in_anchor', true);
+        if (Kernel::getConfig('in_anchor') === true) {
+            return $text;
+        }
+
+        Kernel::setConfig('in_anchor', true);
 
         // First, handle reference-style links: [link text] [id]
         $text = preg_replace_callback('{
             (                                       # wrap whole match in $1
               \[
-                ('.MarkdownExtended::getConfig('nested_brackets_re').') # link text = $2
+                ('.Kernel::getConfig('nested_brackets_re').') # link text = $2
               \]
 
               [ ]?                                  # one optional space
@@ -73,14 +75,14 @@ class Anchor
         $text = preg_replace_callback('{
             (                                               # wrap whole match in $1
               \[
-                ('.MarkdownExtended::getConfig('nested_brackets_re').') # link text = $2
+                ('.Kernel::getConfig('nested_brackets_re').') # link text = $2
               \]
               \(                                            # literal paren
                 [ \n]*
                 (?:
                     <(.+?)>                                 # href = $3
                 |
-                    ('.MarkdownExtended::getConfig('nested_url_parenthesis_re').') # href = $4
+                    ('.Kernel::getConfig('nested_parenthesis_re').') # href = $4
                 )
                 [ \n]*
                 (                                           # $5
@@ -106,7 +108,7 @@ class Anchor
             }xs',
             array($this, '_reference_callback'), $text);
 
-        MarkdownExtended::setVar('in_anchor', false);
+        Kernel::setConfig('in_anchor', false);
         return $text;
     }
 
@@ -128,28 +130,30 @@ class Anchor
         // lower-case and turn embedded newlines into spaces
         $link_id = preg_replace('{[ ]?\n}', ' ', strtolower($link_id));
 
-        $urls = MarkdownExtended::getVar('urls');
-        $titles = MarkdownExtended::getVar('titles');
-        $predef_attributes = MarkdownExtended::getVar('attributes');
+        $urls   = Kernel::getConfig('urls');
+        $titles = Kernel::getConfig('titles');
+        $predef_attributes = Kernel::getConfig('attributes');
+
         if (isset($urls[$link_id])) {
             $attributes = array();
-            $attributes['href'] = parent::runGamut('tool:EncodeAttribute', $urls[$link_id]);
+            $attributes['href'] = Lexer::runGamut('tools:EncodeAttribute', $urls[$link_id]);
             if (!empty($titles[$link_id])) {
-                $attributes['title'] = parent::runGamut('tool:EncodeAttribute', $titles[$link_id]);
+                $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $titles[$link_id]);
             }
             if (!empty($predef_attributes[$link_id])) {
                 $attributes = array_merge(
-                    parent::runGamut('tool:ExtractAttributes', $predef_attributes[$link_id]),
+                    Lexer::runGamut('tools:ExtractAttributes', $predef_attributes[$link_id]),
                     $attributes
                 );
             }
-            $this->_validateLinkAttributes($attributes);
-            $block = MarkdownExtended::get('OutputFormatBag')
-                ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
+            $block = Kernel::get('OutputFormatBag')
+                ->buildTag('link', Lexer::runGamut('span_gamut', $link_text), $attributes);
             $result = parent::hashPart($block);
+
         } else {
             $result = $whole_match;
         }
+
         return $result;
     }
 
@@ -159,44 +163,18 @@ class Anchor
      */
     protected function _inline_callback($matches)
     {
-        $whole_match    =  $matches[1];
         $link_text      =  $matches[2];
-        $url            =  $matches[3] == '' ? $matches[4] : $matches[3];
+        $url            =  $matches[3] === '' ? $matches[4] : $matches[3];
         $title          =& $matches[7];
 
         $attributes = array();
-        $attributes['href'] = parent::runGamut('tool:EncodeAttribute', $url);
+        $attributes['href'] = Lexer::runGamut('tools:EncodeAttribute', $url);
         if (!empty($title)) {
-            $attributes['title'] = parent::runGamut('tool:EncodeAttribute', $title);
+            $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $title);
         }
-        $this->_validateLinkAttributes($attributes);
-        $block = MarkdownExtended::get('OutputFormatBag')
-            ->buildTag('link', parent::runGamut('span_gamut', $link_text), $attributes);
+        $block = Kernel::get('OutputFormatBag')
+            ->buildTag('link', Lexer::runGamut('span_gamut', $link_text), $attributes);
         return parent::hashPart($block);
     }
 
-    /**
-     * Be sure to have a full attributes set (add a title if needed)
-     *
-     * @param   array   $attributes     Passed by reference
-     */
-    protected function _validateLinkAttributes(array &$attributes)
-    {
-        if (empty($attributes['title'])) {
-            $first_char = substr($attributes['href'], 0, 1);
-            if ($first_char=='#' && MarkdownExtended::getConfig('anchor_mask_title')) {
-                $attributes['title'] = MDE_Helper::fillPlaceholders(
-                    MarkdownExtended::getConfig('anchor_mask_title'), $attributes['href']);
-
-            } elseif (MarkdownExtended::getConfig('link_mask_title')) {
-                $attributes['title'] = MDE_Helper::fillPlaceholders(
-                    MarkdownExtended::getConfig('link_mask_title'),
-                    !empty($attributes['href']) ? $attributes['href'] : ''
-                );
-            }
-        }
-    }
-
 }
-
-// Endfile

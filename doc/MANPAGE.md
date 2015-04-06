@@ -1,27 +1,26 @@
 Man:        PHP-Markdown-Extended Manual
 Man-name:   markdown-extended
 Author:     Pierre Cassat
-Date: 2015-01-03
+Date: 2015-04-01
 Version: 0.1.0-gamma.5
 
 
 ## NAME
 
-PHP-Markdown-Extended - A PHP parser for the Markdown Extended syntax
+PHP-Markdown-Extended - Yet another PHP parser for the markdown (*extended*) syntax.
 
 
 ## SYNOPSIS
 
 **markdown-extended**  [*options*]  (*--*)  [*arguments*]
 
-**markdown-extended**  [**-h**|**-V**]  [**--help**|**--version**]
-    [**-x**|**-v**|**-q**|**-m**] [**--debug**|**--verbose**|**--quiet**|**--multi**]
+**markdown-extended**  [**-V**|**--version**]  [**-h**|**--help**]
+    [**-x**|**-v**|**-q**] [**--debug**|**--verbose**|**--quiet**]
     [**-o**|**--output** *filename*]
     [**-c**|**--config** *filename*]
     [**-f**|**--format** *format*]
-    [**-n**|**--nofilter** *a,b*]
+    [**-r**|**--response** *type*]
     [**-e**|**--extract** [=*block*]]
-    [**-g**|**--gamuts** [=*name*]]
     [**-t**|**--template** [=*filename*]]
         *input_filename*  [*input_filename*]  [...]
         "*markdown string read from STDIN*"
@@ -37,9 +36,10 @@ To transform a file content, write its path as script argument. To process a lis
 files, just write file paths as arguments, separated by space.
 
 To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
+To process a list of input strings, just write them as arguments, separated by space.
 You can also use the output of a previous command using the pipe notation.
 
-For more information about the Markdown-Extended syntax, see <http://aboutmde.org/>.
+For more information about the **Markdown-Extended syntax**, see <http://aboutmde.org/>.
 
 ## OPTIONS
 
@@ -56,75 +56,83 @@ argument.
 
 Options are treated in the command line order (`-vq` will finally retain `-q`).
 
-### The following options are supported:
-
-**-c** , **--config** *filename*
-:   Define a specific configuration filename to use for the Markdown Parser ;
-    configuration files must be in *INI* format.
-
-**-e** , **--extract** [=*meta*]
-:   Define a content block to extract ; default extracted block is *metadata*.
-
-**-f** , **--format** *type*
-:   Define the output format to use to generate final rendering ; formats are stored in
-    PHP namespace `\MarkdownExtended\OutputFormat` ; default is *HTML*.
-
-**-g** , **--gamuts** [=*name*]
-:   Define a single gamut or a list of gamuts to execute the content transformation.
+### The following options are supported by the CLI interface:
 
 **-h** , **--help**
 :   Get a simple help information.
-
-**-m** , **--multi**
-:   Treat multi-files input ; this option is automatically enables if multiple file
-    names are found as arguments.
-
-**-n** , **--nofilter** *name-a,name-b*
-:   Define a coma separated list of filters to disable during the content transformation.
-
-**-o** , **--output** *filename*
-:   Specify a single file name or a file name mask to write generated content in ; by
-    default, files are generated in current working directory.
-
-**-q** , **--quiet**
-:   Decrease script's verbosity ; only result strings, Markdown Parser and PHP error
-    messages are written on *STDOUT* ; this mode disables the **verbose** one.
-
-**-t** , **--template** [=*filename*]
-:   Return the content inserted in a parsed template file ; if no **file** argument is 
-    passed, this will use the configuration template file.
 
 **-V** , **--version**
 :   Get the current package version number and information ; use option **quiet** to
 get only the version number.
 
+**-r** , **--response** *type*
+:   Specify the CLI response type to get in *plain* (default), *json* or *php* ; using
+    another type than "plain" will render the full content object (not just the parsed content) ;
+    using the "php" response type will render a serialization of concerned contents.
+
+**-e** , **--extract** [=*meta*]
+:   Define a content block to extract ; default extracted block is *metadata* ; you can
+    extract any "block" of the content object ; use a metadata name to extract its value.
+
+**-q** , **--quiet**
+:   Decrease script's verbosity ; only result strings, Markdown parser and PHP error
+    messages are written on *STDOUT* or *STDERR* ; this mode disables **verbose** one.
+
 **-v** , **--verbose**
 :   Increase script's verbosity ; some steps are explained on *STDOUT* ; this mode
-disables the **quiet** one.
+disables **quiet** one.
 
-### Some aliases are defined for quicker usage:
+A special **--debug** or **-x** option can be used during development to drastically
+increase script's verbosity.
 
-**-b** , **--body**
-:   Extract the *body* part from content(s) ; alias of option **--extract=body**.
+### The following options are loaded in the markdown parser:
 
-**-s** , **--simple**
-:   Use the simple default configuration file defined by the `\MarkdownExtended\Config::SIMPLE_CONFIGFILE`
-    constant ; this is a preset to treat contents coming from input fields.
+**-c** , **--config** *filename*
+:   Define a specific configuration filename to use for the Markdown parser ;
+    configuration files must be in *INI* or *JSON* format.
 
-### Special options
+**-f** , **--format** *type*
+:   Define the output format to use to generate final rendering ; internal formats 
+    are "html" and "man" (for manpage) ; you can specify your own output format class ; 
+    default is *html*.
 
-A special **--debug** or **-x** option can be used during development ; it enables the *$debug*
-flag of the PHP `\MarkdownExtended\CommandLine` namespace objects.
+**-o** , **--output** *filename*
+:   Specify a single file name or a file names mask to write generated content(s) in ; by
+    default, files are generated in current working directory ; masks may use the *%%* string
+    which will be fill in with content's identifier.
 
-Use option **--usage** to get the command quick synopsis.
+**-t** , **--template** [=*filename*]
+:   Return the content inserted in a parsed template file ; if no **filename** argument is 
+    passed, this will use the configuration template file.
 
-Use option **--man** to re-generate this manpage if possible.
+
+## RESULT
+
+The command result can have various types. Actually, for all the types described below, the
+*--response* option will define the final response content type.
+
+With no *--extract* neither *--output* option defined, the command will render a `Content` 
+object with transformed content. In fact, if you use the default "plain" response type, the
+result will write the rendering content (a raw string) on the terminal. If you specify the
+"json" or "php" response type, the full object will be dumped, with the following items:
+
+-   *content*: the final rendered content ; this can be the "body" only for a simple one-line
+    markdown content, the "metadata + body + notes" as a string for a more complex markdown content
+    and the rendering of the parsed template if a *--template* option was used ;
+-   *body*: the actual "body" of the parsed content, without metadata and notes ;
+-   *notes*: the footnotes of the content (if so) as an array ;
+-   *metadata*: the metadata of the content (if so) as an array ;
+-   *charset*: the defined character set of the content ;
+-   *title*: the guessed title of the content.
+
+If you use a *--output* option, the content described above will be written in a file and the result
+rendered on terminal will be the name of this file.
 
 
 ## MESSAGES
 
 The script output is designed to use options **-v** or **--verbose** to increase
-script verbosity on *STDOUT* and **-q** or **--quiet** to decrease it. The idea is quiet simple:
+script verbosity and **-q** or **--quiet** to decrease it. The idea is quiet simple:
 
 -   in "**normal**" rendering (no "verbose" neither than "quiet" mode), the result of the 
     processed content is rendered, with the file name header in case of multi-files input

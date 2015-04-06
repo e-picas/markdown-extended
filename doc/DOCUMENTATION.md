@@ -6,28 +6,63 @@ Date:       27-12-2014
 Version:    0.1-gamma4
 
 
-## NAME
+NAME
+----
 
-PHP-Markdown-Extended-API - Developer documentation of the internal API of PHP-Markdown-Extended.
+Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
 
 The whole API is stored in the `\MarkdownExtended\API` namespace and is a set of interfaces
 you must implement to use or override the parser or some of its objects.
 
 
-## LIFE-CYCLE
+PARSER OPTIONS
+--------------
+
+The parser can accept a large set of options to customize or adapt the final
+rendering. For a complete list, please see the `getDefaults()` method
+of [the `\MarkdownExtended\MarkdownExtended` class](http://docs.aboutmde.org/markdown-extended-php/MarkdownExtended/MarkdownExtended.html).
+
+Below is a review of interesting basic options:
+
+template
+:   Type: bool / 'auto' / file path
+:   Default: `false` if the content has no metadata / `true` otherwise
+:   If it is `true`, the default (basic) template is used, otherwise, the template
+    defined at `file path` will be used. The default value is `auto`, which let the
+    parser choose if a template seems required (basically if the parsed content has
+    metadata or not). You can set it on `false` to never use a template.
+
+config_file
+:   Type: file path
+:   Default: `null`
+:   Define a configuration file to overwrite defaults ; configuration files may be
+    in [INI](http://en.wikipedia.org/wiki/INI_file), [JSON](http://json.org/) or 
+    raw [PHP array](http://php.net/array) formats (it must return an array).
+
+output_format
+:   Type: string
+:   Default: `html`
+:   The output format to use to build final rendering.
+
+output
+:   Type: string
+:   Default: `null`
+
+
+LIFE-CYCLE
+----------
 
 The full schema of a Markdown parser usage could be:
 
-            [source file content]   [options]    
-                   ||                  ||
-                   \/                  \/
-            ---------------        ----------                            -------------------
-            |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATTED RESULT |
-            ---------------        ----------                            -------------------
-                   /\                  /\                                         ||
-                   ||                  ||                                         \/
-                [string]        [ configuration ]                           [special infos]
-
+    [source file content]   [options]    
+           ||                  ||
+           \/                  \/
+    ---------------        ----------                            -------------------
+    |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATTED RESULT |
+    ---------------        ----------                            -------------------
+           /\                  /\                                         ||
+           ||                  ||                                         \/
+        [string]        [ configuration ]                           [special info]
 
 The original Markdown source can be either a buffered string (a form field for example)
 or the content of a Markdown file
@@ -35,220 +70,132 @@ or the content of a Markdown file
 We want to parse the source content with a hand on options used during this parsing
 (no need to parse metadata in a content that will never have some for example)
 
-Finally, we want to get a formatted content and to be able to retrieve certain infos
+Finally, we want to get a formatted content and to be able to retrieve certain information
 from it, such as its metadata, its menu or the footnotes of the whole parsed result
 
 Additionally, it would be best that we can obtain a full formatted result simply but
 can also pass this result through a template builder to construct a complex final string
 
 
-## CODING RESULTS
+PARSER API
+----------
 
-The first item of this chain is assumed by the `\MarkdownExtended\Content` object.
-It is a simple class that just stores different infos about a parsed content, such as its 
-original source, the body of the result (the real parsed content), its menu, its metadata, 
-its DOM ids and its footnotes. This object is overloadable but MUST implement the
-`\MarkdownExtended\API\ContentInterface` interface.
+The public direct parser's access is the `\MarkdownExtended\MarkdownExtended`
+object. It handles transformation and constructs dependencies. It returns a
+parsed content as a `\MarkdownExtended\Content` object implementing the API
+interface `\MarkdownExtended\API\ContentInterface`. The rendered final format
+transformations are done by an object implementing the API interface
+`\MarkdownExtended\API\OutputFormatInterface` which is called and managed
+by the `\MarkdownExtended\OutputFormatBag` object. Internal available formats
+are stored in the `\MarkdownExtended\OutputFormat` namespace. The filters applied
+during content's parsing are managed by the `\MarkdownExtended\Grammar\Lexer`
+object, which actually call various "gamuts" methods or classes using the
+`\MarkdownExtended\Grammar\GamutsLoader` object. Each filter gamut is an
+object implementing the API interface `\MarkdownExtended\API\GamutInterface`.
+The parser can load parsed content in a template file using an object implementing
+the API interface `\MarkdownExtended\API\TemplateInterface` and defaults to
+the `\MarkdownExtended\Templater` object.
 
-The second step is handled by the `\MarkdownExtended\Parser` object where lives the central
-work of the syntax rules transformations. It depends on a configuration that can be reset
-at every call. This object is overloadable but MUST implement the
-`\MarkdownExtended\API\ParserInterface` interface.
+Finally, the internal central service container registering all the objects
+involved in the parsing process is the `\MarkdownExtended\API\Kernel`, which
+only contains static methods.
 
-Finally, the whole thing is contained in the `\MarkdownExtended\MarkdownExtended` object
-that is a kind of global container for the Markdown work.
+### Public *MarkdownExtended*
 
-All API classes finally used to create objects are defined as configuration entries like:
+The public `\MarkdownExtended\MarkdownExtended` object follows a simple static API:
 
-```php
-// the default API objects
-'content_class'             => '\MarkdownExtended\Content',
-'content_collection_class'  => '\MarkdownExtended\ContentCollection',
-'parser_class'              => '\MarkdownExtended\Parser',
-'templater_class'           => '\MarkdownExtended\Templater',
-'grammar\filter_class'      => '\MarkdownExtended\Grammar\Filter',
-'grammar\tool_class'        => '\MarkdownExtended\Grammar\Tool',
-```
+    \MarkdownExtended\MarkdownExtended::parse( content/file path , options ) : \MarkdownExtended\Content
 
-Please see the `\MarkdownExtended\Config` object source for a full and up-to-date list.
+    \MarkdownExtended\MarkdownExtended::parseString( content , options ) : \MarkdownExtended\Content
 
+    \MarkdownExtended\MarkdownExtended::parseFile( file path , options ) : \MarkdownExtended\Content
 
-## FULL USAGE
+It also proposes a literal procedural usage API:
 
-### The "kernel" object
+    $parser = new \MarkdownExtended\MarkdownExtended( options );
+    
+    $content = $parser->transform( source string );
+    
+    $content = $parser->transformSource( source file path );
 
-Creation of the container as a singleton instance:
+### The *Content* object 
 
-```php
-$mde = \MarkdownExtended\MarkdownExtended::create( options );
-// to retrieve the same instance after creation:
-$mde = \MarkdownExtended\MarkdownExtended::getInstance();
-```
+The transformation process of the parser returns an object implementing interface
+`\MarkdownExtended\API\ContentInterface`. You can define your own object by passing
+it directly to the `\MarkdownExtended\MarkdownExtended` parse methods (instead of a
+raw string or file name).
 
-### The *Content* object
+The content object API allows to access each "block" of content and
+to write the object directly:
 
-Creation of a new content object:
+    string  Content::__toString()
+    array   Content::__toArray()
 
-```php
-// with a string:
-$source = new \MarkdownExtended\Content( $string );
+    string  Content::getContent()
 
-// with a file to get content from:
-$source = new \MarkdownExtended\Content( null, $filepath );
-```
+    string  Content::getCharset()
+    string  Content::getTitle()
+    string  Content::getBody()
+    array   Content::getNotes()
+    array   Content::getMetadata()
 
-If you configured your own object, use:
+    string  Content::getNotesFormatted()
+    string  Content::getMetadataFormatted()
 
-```php
-// get or create your own object instance
-$source = \MarkdownExtended\MarkdownExtended::get(
-    'content', $config_as_an_array
-);
-```
+    string  Content::getSource()
+    array   Content::getParsingOptions()
 
-### The *Parser* object
+### The *Filters* objects
 
-Get the parser instance from the container:
+A filter must implement the `\MarkdownExtended\API\GamutInterface` interface 
+and may extend the `\MarkdownExtended\Grammar\Filter` object:
 
-```php
-$parser = $mde->get('Parser', $parser_options);    
-```
+    Filter->getDefaultMethod()
+    Filter->transform( text )
 
-If you configured your own object, use:
+Filters stacks to run during transformation are defined in the `xxx_gamut` items
+of the configuration.
 
-```php
-// get or create your own object instance
-$source = \MarkdownExtended\MarkdownExtended::get(
-    'Parser', $parser_options_as_an_array
-);
-```
+### The *OutputFormat* rendering
 
-### The markdown process
+An output format renderer must implement the `\MarkdownExtended\API\OutputFormatInterface`
+interface defines some basic methods to build a content:
 
-Make the source transformation:
+    OutputFormat->buildTag( tag_name, content = null, array attributes = array() )
 
-```php
-// this will return the Container
-$markdown = $parser->parse($source)
-    // and this will return the Content object transformed
-    ->getContent();
-```
+    OutputFormat->getTagString( content, tag_name, array attributes = array() )
 
-### The transformed content
+### The *Template* renderer
 
-Then, get the transformed content and other infos from the *Content* object:
+A template object must implement the `\MarkdownExtended\API\TemplateInterface`
+interface, which contains one single method:
+ 
+    Template->parse( ContentInterface )
 
-```php
-echo "<html><head>"
-    .$markdown->getMetadataHtml()   // the content metadata HTML formatted
-    ."</head><body>"
-    .$markdown->getBody()           // the content HTML body
-    ."<hr />"
-    .$markdown->getNotesHtml()      // the content footnotes HTML formatted
-    ."</body></html>";
-```
+### The app's *Kernel*
 
-In case of a simple source (such as a textarea field):
+It acts like a service container:
 
-```php
-echo $markdown->getBody();
-```
+    \MarkdownExtended\Kernel->get('MarkdownExtended')
+    \MarkdownExtended\Kernel->get('Content')
+    \MarkdownExtended\Kernel->get('ContentCollection')
+    \MarkdownExtended\Kernel->get('Lexer')
+    \MarkdownExtended\Kernel->get('Grammar\GamutLoader')
+    \MarkdownExtended\Kernel->get('OutputFormatBag')
+    \MarkdownExtended\Kernel->get('Template')
+    \MarkdownExtended\Kernel->get('DomId')
 
-For simplest calls, a *Helper* is designed to allow usage of:
+It also acts like a configuration setter/getter:
 
-```php
-echo \MarkdownExtended\MarkdownExtended::getFullContent();
-```
+    \MarkdownExtended\Kernel::setConfig( index.subindex , value )
+    \MarkdownExtended\Kernel::addConfig( index.subindex , value )
+    \MarkdownExtended\Kernel::getConfig( index.subindex )
+    
 
-that will return the exact same string as the one constructed above (a full HTML page
-by default).
+SEE ALSO
+--------
 
-
-## COMPONENTS
-
-The Internal classes (required and not overloadable) are:
-
--   the API: `\MarkdownExtended\API`
--   the "kernel" object: `\MarkdownExtended\MarkdownExtended`
--   the configuration handler: `\MarkdownExtended\Config`
--   the registry (works as a container): `\MarkdownExtended\Registry`
--   the "output formatter" which depends on your chosen format: `\MarkdownExtended\OutputFormatBag`
-
-The API classes, overloadables, are:
-
--   the "parser" who will handle all parsing steps: `\MarkdownExtended\Parser`,
-    which must implement the `\MarkdownExtended\API\ParserInterface`
--   a "content" single object: `\MarkdownExtended\Content`,
-    which must implement the `\MarkdownExtended\API\ContentInterface`
--   a collection of "contents": `\MarkdownExtended\ContentCollection`,
-    which must implement the `\MarkdownExtended\API\CollectionInterface`
--   a "templater" object to load a parsed content in a template file: `\MarkdownExtended\Templater`,
-    which must implement the `\MarkdownExtended\API\TemplaterInterface`
-
-Each object is loaded as a service in the kernel and can be retrieved from the kernel instance
-with a simple getter:
-
-```php
-$object = \MardownExtended\MarkdownExtended::getInstance()->get( name );
-```
-
-Trying to get it, if the object does not exist yet, it will be created.
-
-
-## API KERNEL
-
-The `\MarkdownExtended\API` is the central class object. It handles all the parsing
-logic and acts like a services container for other API's objects.
-
-The `\MarkdownExtended\MarkdownExtended` is the base public class object. It proposes
-a large set of aliases to manage your contents (the original ones and their parsed results).
-
-```php
-// creation of the singleton instance of \MarkdownExtended\MarkdownExtended
-$parser = \MarkdownExtended\MarkdownExtended::create( [options] );
-```
-
-The best practice is to use the kernel as a singleton instance but you are allowed to use
-it as a "classic" object creating it like any other PHP object.
-
-The *MarkdownExtended* package can be simply call writing:
-
-```php
-// creation of the singleton instance of \MarkdownExtended\MarkdownExtended
-$content = \MarkdownExtended\MarkdownExtended::create()
-    // get the \MarkdownExtended\Parser object passing it some options (optional)
-    ->get('Parser', $options)
-    // launch the transformation of a source content
-    ->parse( new \MarkdownExtended\Content($source) )
-    // get the result content object
-    ->getContent();
-```
-
-This will load in *$content* the parsed HTML version of your original Markdown *$source*.
-To get the part you need from the content, write:
-
-```php
-echo $content->getBody();
-```
-
-For simplest usage, some aliases are designed in the *MarkdownExtended* kernel:
-
-```php
-// to parse a string content:
-\MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
-
-// to parse a file content:
-\MarkdownExtended\MarkdownExtended::transformSource($filename [, $parser_options]);
-```
-
-These two methods returns a *Content* object. To finally get an HTML
-version, write:
-
-```php
-\MarkdownExtended\MarkdownExtended::transformString($source [, $parser_options]);
-echo \MarkdownExtended\MarkdownExtended::getFullContent();
-```
-
-## SEE ALSO
+An online documentation of last stable version is available at
+<http://docs.aboutmde.org/markdown-extended-php/>.
 
 php(1), pcre(3), markdown-extended(3)

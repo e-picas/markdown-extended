@@ -17,10 +17,8 @@ class ImageTest extends MarkdownExtendedBaseTest
 
     public function testCreate()
     {
-        $markdownParser = $this->createParser();
-
-        // classic image
-        $markdownContent5 = $this->createContent("
+        $this->processParseTest(
+            "
 This is a definition with two paragraphs. Lorem ipsum
 dolor sit amet, consectetuer adipiscing elit. Aliquam
 hendrerit mi posuere lectus.
@@ -28,11 +26,12 @@ hendrerit mi posuere lectus.
 
 Vestibulum enim wisi, viverra nec, fringilla in, laoreet
 vitae, risus.
-        ");
-        $content5 = $markdownParser->parse($markdownContent5)->getContent();
-        $this->assertEquals(
+        ",
             '<p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. <img alt="Alt text" src="http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png" title="Optional image title" /></p><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>',
-            str_replace("\n", ' ', $this->getBody($content5, true)), 'Image fails!');
+            'Image fails!',
+            true,
+            true
+        );
 
     }
     

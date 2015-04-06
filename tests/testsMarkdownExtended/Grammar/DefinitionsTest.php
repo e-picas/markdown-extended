@@ -17,10 +17,8 @@ class DefinitionsTest extends MarkdownExtendedBaseTest
 
     public function testCreate()
     {
-        $markdownParser = $this->createParser();
-
-        // abbreviation
-        $markdownContent5 = $this->createContent("
+        $this->processParseTest(
+            "
 Term 1
 :   This is a definition with two paragraphs. Lorem ipsum
     dolor sit amet, consectetuer adipiscing elit. Aliquam
@@ -31,11 +29,11 @@ Term 1
 
 :   Second definition for term 1, also wrapped in a paragraph
     because of the blank line preceding it.
-        ");
-        $content5 = $markdownParser->parse($markdownContent5)->getContent();
-        $this->assertEquals(
+        ",
             '<dl><dt>Term 1</dt><dd><p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p></dd><dd><p>Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it.</p></dd></dl>',
-            str_replace("\n", ' ', $this->getBody($content5, true)), 'Definitions list fails!');
+            'Definitions list fails!',
+            true, true
+        );
 
     }
     
