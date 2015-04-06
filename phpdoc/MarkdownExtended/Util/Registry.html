@@ -26,6 +26,11 @@
                 <p>    class
     <strong>Registry</strong></p>
 
+            <div class="description">
+            <p>Basic registry object</p>
+            <p>
+</p>
+        </div>
     
     
     
@@ -48,7 +53,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_set">set</a>(string $var, mixed $val)
-                    <p>Set or reset a new instance in global registry</p>
+                    <p>Sets or resets a new instance in global registry</p>
                 </td>
                 <td></td>
             </tr>
@@ -58,18 +63,17 @@
                 </td>
                 <td class="last">
                     <a href="#method_add">add</a>(string $var, mixed $val)
-                    <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>
+                    <p>Adds something to an existing entry of the global registry, the entry is created if it not exist</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    bool
                 </td>
                 <td class="last">
-                    <a href="#method_has">has</a>($var)
-                    <p>
-</p>
+                    <a href="#method_has">has</a>(string $var)
+                    <p>Tests if an index exists in the registry</p>
                 </td>
                 <td></td>
             </tr>
@@ -79,7 +83,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_remove">remove</a>(string $var, null|string $index = null)
-                    <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>
+                    <p>Removes something to an existing entry of the global registry, the entry is created if it not exist</p>
                 </td>
                 <td></td>
             </tr>
@@ -89,7 +93,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_get">get</a>(string $var, mixed $default = null)
-                    <p>Get an entry from the global registry</p>
+                    <p>Gets an entry from the global registry</p>
                 </td>
                 <td></td>
             </tr>
@@ -99,7 +103,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_getAll">getAll</a>()
-                    <p>Get the global registry</p>
+                    <p>Gets the global registry</p>
                 </td>
                 <td></td>
             </tr>
@@ -109,7 +113,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_extend">extend</a>(mixed $what, mixed $add)
-                    <p>Extend a value with another, if types match</p>
+                    <p>Extends a value with another, if types match</p>
                 </td>
                 <td></td>
             </tr>
@@ -119,7 +123,7 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 26</div>
+        <div class="location">at line 31</div>
         <code>            public            
     <strong>__construct</strong>(array $data = array())</code>
     </h3>
@@ -146,12 +150,12 @@
     </div>
 
                 <h3 id="method_set">
-        <div class="location">at line 42</div>
+        <div class="location">at line 48</div>
         <code>            public            void
     <strong>set</strong>(string $var, mixed $val)</code>
     </h3>
     <div class="details">
-        <p>Set or reset a new instance in global registry</p>
+        <p>Sets or resets a new instance in global registry</p>
         <p>
 </p>
         <div class="tags">
@@ -189,12 +193,12 @@
     </div>
 
                 <h3 id="method_add">
-        <div class="location">at line 54</div>
+        <div class="location">at line 61</div>
         <code>            public            void
     <strong>add</strong>(string $var, mixed $val)</code>
     </h3>
     <div class="details">
-        <p>Add something to an existing entry of the global registry, the entry is created if it not exist</p>
+        <p>Adds something to an existing entry of the global registry, the entry is created if it not exist</p>
         <p>
 </p>
         <div class="tags">
@@ -232,13 +236,12 @@
     </div>
 
                 <h3 id="method_has">
-        <div class="location">at line 63</div>
-        <code>            public            
-    <strong>has</strong>($var)</code>
+        <div class="location">at line 76</div>
+        <code>            public            bool
+    <strong>has</strong>(string $var)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Tests if an index exists in the registry</p>
         <p>
 </p>
         <div class="tags">
@@ -246,7 +249,7 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$var</td>
                 <td>
 </td>
@@ -254,18 +257,28 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_remove">
-        <div class="location">at line 75</div>
+        <div class="location">at line 89</div>
         <code>            public            void
     <strong>remove</strong>(string $var, null|string $index = null)</code>
     </h3>
     <div class="details">
-        <p>Remove something to an existing entry of the global registry, the entry is created if it not exist</p>
+        <p>Removes something to an existing entry of the global registry, the entry is created if it not exist</p>
         <p>
 </p>
         <div class="tags">
@@ -303,12 +316,12 @@
     </div>
 
                 <h3 id="method_get">
-        <div class="location">at line 95</div>
+        <div class="location">at line 110</div>
         <code>            public            mixed
     <strong>get</strong>(string $var, mixed $default = null)</code>
     </h3>
     <div class="details">
-        <p>Get an entry from the global registry</p>
+        <p>Gets an entry from the global registry</p>
         <p>
 </p>
         <div class="tags">
@@ -346,12 +359,12 @@
     </div>
 
                 <h3 id="method_getAll">
-        <div class="location">at line 105</div>
+        <div class="location">at line 120</div>
         <code>            public            array
     <strong>getAll</strong>()</code>
     </h3>
     <div class="details">
-        <p>Get the global registry</p>
+        <p>Gets the global registry</p>
         <p>
 </p>
         <div class="tags">
@@ -372,12 +385,12 @@
     </div>
 
                 <h3 id="method_extend">
-        <div class="location">at line 124</div>
+        <div class="location">at line 141</div>
         <code>        static    public            mixed
     <strong>extend</strong>(mixed $what, mixed $add)</code>
     </h3>
     <div class="details">
-        <p>Extend a value with another, if types match</p>
+        <p>Extends a value with another, if types match</p>
         <p>
 </p>
         <div class="tags">

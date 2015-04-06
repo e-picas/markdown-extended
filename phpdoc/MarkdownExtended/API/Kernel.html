@@ -31,6 +31,42 @@
 
             <table>
                     <tr>
+                <td>TYPE_OUTPUTFORMAT</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TYPE_GAMUT</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TYPE_CONTENT</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TYPE_TEMPLATE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
                 <td>OUTPUTFORMAT_INTERFACE</td>
                 <td class="last">
                     <p><em>
@@ -50,6 +86,51 @@
             </tr>
                     <tr>
                 <td>CONTENT_INTERFACE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TEMPLATE_INTERFACE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RESOURCE_TEMPLATE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RESOURCE_CONFIG</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RESOURCE_TEMPLATE_MASK</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>RESOURCE_CONFIG_MASK</td>
                 <td class="last">
                     <p><em>
 </em></p>
@@ -81,6 +162,17 @@
                 </td>
                 <td class="last">
                     <a href="#method_createInstance">createInstance</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getApiFromType">getApiFromType</a>($type)
                     <p>
 </p>
                 </td>
@@ -135,7 +227,7 @@
                     static&nbsp;
                 </td>
                 <td class="last">
-                    <a href="#method_getOption">getOption</a>($name)
+                    <a href="#method_valid">valid</a>($class_name, $type)
                     <p>
 </p>
                 </td>
@@ -146,7 +238,7 @@
                     static&nbsp;
                 </td>
                 <td class="last">
-                    <a href="#method_setOption">setOption</a>($name, $value)
+                    <a href="#method_validate">validate</a>($class_name, $type, $real_name = null)
                     <p>
 </p>
                 </td>
@@ -157,18 +249,7 @@
                     static&nbsp;
                 </td>
                 <td class="last">
-                    <a href="#method_addOption">addOption</a>($name, $value)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    static&nbsp;
-                </td>
-                <td class="last">
-                    <a href="#method_getConfig">getConfig</a>($name)
+                    <a href="#method_getConfig">getConfig</a>($name, $default = null)
                     <p>
 </p>
                 </td>
@@ -196,13 +277,24 @@
                 </td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getResourcePath">getResourcePath</a>($name, $type)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
             </table>
 
 
         <h2>Details</h2>
 
                         <h3 id="method_getInstance">
-        <div class="location">at line 31</div>
+        <div class="location">at line 51</div>
         <code>        static    public            
     <strong>getInstance</strong>()</code>
     </h3>
@@ -219,7 +311,7 @@
     </div>
 
                 <h3 id="method_createInstance">
-        <div class="location">at line 39</div>
+        <div class="location">at line 59</div>
         <code>        static    public            
     <strong>createInstance</strong>()</code>
     </h3>
@@ -235,8 +327,36 @@
                     </div>
     </div>
 
+                <h3 id="method_getApiFromType">
+        <div class="location">at line 65</div>
+        <code>        static    public            
+    <strong>getApiFromType</strong>($type)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$type</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_get">
-        <div class="location">at line 45</div>
+        <div class="location">at line 85</div>
         <code>        static    public            
     <strong>get</strong>($name)</code>
     </h3>
@@ -264,7 +384,7 @@
     </div>
 
                 <h3 id="method_has">
-        <div class="location">at line 50</div>
+        <div class="location">at line 94</div>
         <code>        static    public            
     <strong>has</strong>($name)</code>
     </h3>
@@ -292,7 +412,7 @@
     </div>
 
                 <h3 id="method_set">
-        <div class="location">at line 55</div>
+        <div class="location">at line 99</div>
         <code>        static    public            
     <strong>set</strong>($name, $value)</code>
     </h3>
@@ -326,7 +446,7 @@
     </div>
 
                 <h3 id="method_remove">
-        <div class="location">at line 61</div>
+        <div class="location">at line 105</div>
         <code>        static    public            
     <strong>remove</strong>($name)</code>
     </h3>
@@ -353,10 +473,10 @@
                     </div>
     </div>
 
-                <h3 id="method_getOption">
-        <div class="location">at line 71</div>
+                <h3 id="method_valid">
+        <div class="location">at line 111</div>
         <code>        static    public            
-    <strong>getOption</strong>($name)</code>
+    <strong>valid</strong>($class_name, $type)</code>
     </h3>
     <div class="details">
         <p>
@@ -369,7 +489,13 @@
                     <table>
                     <tr>
                 <td></td>
-                <td>$name</td>
+                <td>$class_name</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$type</td>
                 <td>
 </td>
             </tr>
@@ -381,10 +507,10 @@
                     </div>
     </div>
 
-                <h3 id="method_setOption">
-        <div class="location">at line 76</div>
+                <h3 id="method_validate">
+        <div class="location">at line 122</div>
         <code>        static    public            
-    <strong>setOption</strong>($name, $value)</code>
+    <strong>validate</strong>($class_name, $type, $real_name = null)</code>
     </h3>
     <div class="details">
         <p>
@@ -397,47 +523,19 @@
                     <table>
                     <tr>
                 <td></td>
-                <td>$name</td>
+                <td>$class_name</td>
                 <td>
 </td>
             </tr>
                     <tr>
                 <td></td>
-                <td>$value</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_addOption">
-        <div class="location">at line 81</div>
-        <code>        static    public            
-    <strong>addOption</strong>($name, $value)</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td></td>
-                <td>$name</td>
+                <td>$type</td>
                 <td>
 </td>
             </tr>
                     <tr>
                 <td></td>
-                <td>$value</td>
+                <td>$real_name</td>
                 <td>
 </td>
             </tr>
@@ -450,9 +548,9 @@
     </div>
 
                 <h3 id="method_getConfig">
-        <div class="location">at line 98</div>
+        <div class="location">at line 139</div>
         <code>        static    public            
-    <strong>getConfig</strong>($name)</code>
+    <strong>getConfig</strong>($name, $default = null)</code>
     </h3>
     <div class="details">
         <p>
@@ -469,6 +567,12 @@
                 <td>
 </td>
             </tr>
+                    <tr>
+                <td></td>
+                <td>$default</td>
+                <td>
+</td>
+            </tr>
             </table>
 
             
@@ -478,7 +582,7 @@
     </div>
 
                 <h3 id="method_setConfig">
-        <div class="location">at line 103</div>
+        <div class="location">at line 147</div>
         <code>        static    public            
     <strong>setConfig</strong>($name, $value)</code>
     </h3>
@@ -512,7 +616,7 @@
     </div>
 
                 <h3 id="method_addConfig">
-        <div class="location">at line 108</div>
+        <div class="location">at line 155</div>
         <code>        static    public            
     <strong>addConfig</strong>($name, $value)</code>
     </h3>
@@ -534,6 +638,40 @@
                     <tr>
                 <td></td>
                 <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getResourcePath">
+        <div class="location">at line 205</div>
+        <code>        static    public            
+    <strong>getResourcePath</strong>($name, $type)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$type</td>
                 <td>
 </td>
             </tr>

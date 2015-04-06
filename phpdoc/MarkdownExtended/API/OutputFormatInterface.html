@@ -26,6 +26,11 @@
                 <p>    interface
     <strong>OutputFormatInterface</strong></p>
 
+            <div class="description">
+            <p>Interface to implement for any output format object</p>
+            <p>
+</p>
+        </div>
     
     
     
@@ -38,8 +43,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_buildTag">buildTag</a>(string $tag_name, string $content = null, array $attributes = array())
-                    <p>
-</p>
+                    <p>This may construct a valid string for concerned tag, content and attributes</p>
                 </td>
                 <td></td>
             </tr>
@@ -54,19 +58,40 @@
                 </td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getNotesToString">getNotesToString</a>(array $notes, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getMetadataToString">getMetadataToString</a>(array $metadata, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
             </table>
 
 
         <h2>Details</h2>
 
                         <h3 id="method_buildTag">
-        <div class="location">at line 22</div>
+        <div class="location">at line 28</div>
         <code>            public            string
     <strong>buildTag</strong>(string $tag_name, string $content = null, array $attributes = array())</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>This may construct a valid string for concerned tag, content and attributes</p>
         <p>
 </p>
         <div class="tags">
@@ -76,14 +101,12 @@
                     <tr>
                 <td>string</td>
                 <td>$tag_name</td>
-                <td>
-</td>
+                <td>The tag name to construct</td>
             </tr>
                     <tr>
                 <td>string</td>
                 <td>$content</td>
-                <td>
-</td>
+                <td>Concerned content</td>
             </tr>
                     <tr>
                 <td>array</td>
@@ -109,7 +132,7 @@
     </div>
 
                 <h3 id="method_getTagString">
-        <div class="location">at line 30</div>
+        <div class="location">at line 37</div>
         <code>            public            string
     <strong>getTagString</strong>(string $content, string $tag_name, array $attributes = array())</code>
     </h3>
@@ -125,14 +148,12 @@
                     <tr>
                 <td>string</td>
                 <td>$content</td>
-                <td>
-</td>
+                <td>Concerned content</td>
             </tr>
                     <tr>
                 <td>string</td>
                 <td>$tag_name</td>
-                <td>
-</td>
+                <td>The tag name to construct</td>
             </tr>
                     <tr>
                 <td>array</td>
@@ -152,6 +173,74 @@
         </tr>
     </table>
 
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getNotesToString">
+        <div class="location">at line 39</div>
+        <code>            public            
+    <strong>getNotesToString</strong>(array $notes, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$notes</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getMetadataToString">
+        <div class="location">at line 41</div>
+        <code>            public            
+    <strong>getMetadataToString</strong>(array $metadata, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$metadata</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
             
             
                     </div>

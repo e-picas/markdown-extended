@@ -27,6 +27,11 @@
     <strong>Content</strong>        implements
         <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></p>
 
+            <div class="description">
+            <p>The default MarkdownExtended Content object</p>
+            <p>
+</p>
+        </div>
     
     
     
@@ -38,251 +43,228 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>($source = null, $options = null)
-                    <p>
-</p>
+                    <a href="#method___construct">__construct</a>(null|string $source = null, null|array $options = null)
+                    <p>Construct a new content object with a source and current parsing options</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    string
                 </td>
                 <td class="last">
                     <a href="#method___toString">__toString</a>()
-                    <p>
-</p>
+                    <p>Use the content as a string</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    array
                 </td>
                 <td class="last">
                     <a href="#method___toArray">__toArray</a>()
-                    <p>
-</p>
+                    <p>Get the content as an array</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_setSource">setSource</a>($source)
-                    <p>
-</p>
+                    <a href="#method_setSource">setSource</a>(string $source)
+                    <p>Sets the original source of the content</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    string
                 </td>
                 <td class="last">
                     <a href="#method_getSource">getSource</a>()
-                    <p>
-</p>
+                    <p>Gets the original source of the content</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_setContent">setContent</a>($content)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_getContent">getContent</a>()
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_setCharset">setCharset</a>($charset)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_getCharset">getCharset</a>()
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_setTitle">setTitle</a>($title)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_getTitle">getTitle</a>()
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_setParsingOptions">setParsingOptions</a>(array $options)
-                    <p>
-</p>
+                    <p>Sets the array of options used to parse the content</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    array
                 </td>
                 <td class="last">
                     <a href="#method_getParsingOptions">getParsingOptions</a>()
-                    <p>
-</p>
+                    <p>Gets the array of options used to parse the content</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_setBody">setBody</a>($str)
-                    <p>
-</p>
+                    <a href="#method_setContent">setContent</a>(string $content)
+                    <p>Sets the content's "final" content</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getContent">getContent</a>()
+                    <p>Gets the content's "final" content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_setCharset">setCharset</a>(string $charset)
+                    <p>Sets the content's character set</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getCharset">getCharset</a>()
+                    <p>Gets the content's character set</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_setTitle">setTitle</a>(string $title)
+                    <p>Sets the content's title</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getTitle">getTitle</a>()
+                    <p>Gets the content's title</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_setBody">setBody</a>(string $str)
+                    <p>Sets the content's body</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
                 </td>
                 <td class="last">
                     <a href="#method_getBody">getBody</a>()
-                    <p>
-</p>
+                    <p>Gets the content's body</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_setNotes">setNotes</a>(array $notes)
-                    <p>
-</p>
+                    <p>Sets the content's footnotes</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_addNote">addNote</a>($note, $note_id)
-                    <p>
-</p>
+                    <a href="#method_addNote">addNote</a>(array $note, string $note_id)
+                    <p>Adds a content's footnote</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    array
                 </td>
                 <td class="last">
                     <a href="#method_getNotes">getNotes</a>()
-                    <p>
-</p>
+                    <p>Gets the content's notes</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    string
                 </td>
                 <td class="last">
-                    <a href="#method_getNotesToString">getNotesToString</a>()
-                    <p>
-</p>
+                    <a href="#method_getNotesFormatted">getNotesFormatted</a>()
+                    <p>Gets the content's notes formatted in current output format</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
                     <a href="#method_setMetadata">setMetadata</a>(array $data)
-                    <p>
-</p>
+                    <p>Sets content's metadata</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_addMetadata">addMetadata</a>($var, $val)
-                    <p>
-</p>
+                    <a href="#method_addMetadata">addMetadata</a>(string $var, string $val)
+                    <p>Adds a new content's metadata</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    null|string|array
                 </td>
                 <td class="last">
-                    <a href="#method_getMetadata">getMetadata</a>($name = null)
-                    <p>
-</p>
+                    <a href="#method_getMetadata">getMetadata</a>(null $name = null)
+                    <p>Gets one or all content's metadata</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    string
                 </td>
                 <td class="last">
-                    <a href="#method_getMetadataToString">getMetadataToString</a>()
-                    <p>
-</p>
+                    <a href="#method_getMetadataFormatted">getMetadataFormatted</a>()
+                    <p>Gets content's metadata formatted in current output format</p>
                 </td>
                 <td></td>
             </tr>
@@ -292,13 +274,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 29</div>
+        <div class="location">at line 69</div>
         <code>            public            
-    <strong>__construct</strong>($source = null, $options = null)</code>
+    <strong>__construct</strong>(null|string $source = null, null|array $options = null)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Construct a new content object with a source and current parsing options</p>
         <p>
 </p>
         <div class="tags">
@@ -306,13 +287,13 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>null|string</td>
                 <td>$source</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>null|array</td>
                 <td>$options</td>
                 <td>
 </td>
@@ -326,47 +307,72 @@
     </div>
 
                 <h3 id="method___toString">
-        <div class="location">at line 39</div>
-        <code>            public            
+        <div class="location">at line 88</div>
+        <code>            public            string
     <strong>__toString</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
-</p>
+        <p>Use the content as a string</p>
+        <p>This basically returns <code>$this-&gt;getContent()</code>.</p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
+                            <h4>See also</h4>
+
+                    <table>
+                    <tr>
+                <td>self::getContent()</td>
+                <td></td>
+            </tr>
+            </table>
+
                     </div>
     </div>
 
                 <h3 id="method___toArray">
-        <div class="location">at line 44</div>
-        <code>            public            
+        <div class="location">at line 101</div>
+        <code>            public            array
     <strong>__toArray</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
-</p>
+        <p>Get the content as an array</p>
+        <p>This returns an array with all content's blocks
+but <code>parsing_options</code> and <code>source</code>.</p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_setSource">
-        <div class="location">at line 56</div>
-        <code>            public            
-    <strong>setSource</strong>($source)</code>
+        <div class="location">at line 117</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>setSource</strong>(string $source)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Sets the original source of the content</p>
         <p>
 </p>
         <div class="tags">
@@ -374,7 +380,7 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$source</td>
                 <td>
 </td>
@@ -382,171 +388,54 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getSource">
-        <div class="location">at line 62</div>
-        <code>            public            
+        <div class="location">at line 126</div>
+        <code>            public            string
     <strong>getSource</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_setContent">
-        <div class="location">at line 67</div>
-        <code>            public            
-    <strong>setContent</strong>($content)</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
+        <p>Gets the original source of the content</p>
         <p>
 </p>
         <div class="tags">
-                            <h4>Parameters</h4>
+            
+                            <h4>Return Value</h4>
 
                     <table>
-                    <tr>
-                <td></td>
-                <td>$content</td>
-                <td>
+        <tr>
+            <td>string</td>
+            <td>
 </td>
-            </tr>
-            </table>
+        </tr>
+    </table>
 
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_getContent">
-        <div class="location">at line 73</div>
-        <code>            public            
-    <strong>getContent</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_setCharset">
-        <div class="location">at line 78</div>
-        <code>            public            
-    <strong>setCharset</strong>($charset)</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td></td>
-                <td>$charset</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_getCharset">
-        <div class="location">at line 84</div>
-        <code>            public            
-    <strong>getCharset</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_setTitle">
-        <div class="location">at line 89</div>
-        <code>            public            
-    <strong>setTitle</strong>($title)</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td></td>
-                <td>$title</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_getTitle">
-        <div class="location">at line 95</div>
-        <code>            public            
-    <strong>getTitle</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-            
             
             
                     </div>
     </div>
 
                 <h3 id="method_setParsingOptions">
-        <div class="location">at line 100</div>
-        <code>            public            
+        <div class="location">at line 135</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
     <strong>setParsingOptions</strong>(array $options)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Sets the array of options used to parse the content</p>
         <p>
 </p>
         <div class="tags">
@@ -562,36 +451,119 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getParsingOptions">
-        <div class="location">at line 106</div>
-        <code>            public            
+        <div class="location">at line 144</div>
+        <code>            public            array
     <strong>getParsingOptions</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets the array of options used to parse the content</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
-                <h3 id="method_setBody">
-        <div class="location">at line 111</div>
-        <code>            public            
-    <strong>setBody</strong>($str)</code>
+                <h3 id="method_setContent">
+        <div class="location">at line 153</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>setContent</strong>(string $content)</code>
     </h3>
     <div class="details">
+        <p>Sets the content's "final" content</p>
+        <p>This may be a concatenation of some of content's blocks
+depending on parsing options (i.e. with or without template).
+The "$content" may be the string returned when using the
+object like a string.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getContent">
+        <div class="location">at line 162</div>
+        <code>            public            string
+    <strong>getContent</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Gets the content's "final" content</p>
         <p>
 </p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setCharset">
+        <div class="location">at line 171</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>setCharset</strong>(string $charset)</code>
+    </h3>
+    <div class="details">
+        <p>Sets the content's character set</p>
         <p>
 </p>
         <div class="tags">
@@ -599,7 +571,133 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
+                <td>$charset</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getCharset">
+        <div class="location">at line 180</div>
+        <code>            public            string
+    <strong>getCharset</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Gets the content's character set</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setTitle">
+        <div class="location">at line 189</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>setTitle</strong>(string $title)</code>
+    </h3>
+    <div class="details">
+        <p>Sets the content's title</p>
+        <p>If no title is found, a good practice when parsing a
+file content is to load the filename as title.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$title</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getTitle">
+        <div class="location">at line 198</div>
+        <code>            public            string
+    <strong>getTitle</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Gets the content's title</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setBody">
+        <div class="location">at line 207</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>setBody</strong>(string $str)</code>
+    </h3>
+    <div class="details">
+        <p>Sets the content's body</p>
+        <p>The "body" is the raw transformed content, without
+addition of footnotes and metadata.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
                 <td>$str</td>
                 <td>
 </td>
@@ -607,36 +705,54 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getBody">
-        <div class="location">at line 117</div>
-        <code>            public            
+        <div class="location">at line 216</div>
+        <code>            public            string
     <strong>getBody</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets the content's body</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_setNotes">
-        <div class="location">at line 122</div>
-        <code>            public            
+        <div class="location">at line 225</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
     <strong>setNotes</strong>(array $notes)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Sets the content's footnotes</p>
         <p>
 </p>
         <div class="tags">
@@ -652,33 +768,52 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_addNote">
-        <div class="location">at line 128</div>
-        <code>            public            
-    <strong>addNote</strong>($note, $note_id)</code>
+        <div class="location">at line 235</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>addNote</strong>(array $note, string $note_id)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
+        <p>Adds a content's footnote</p>
+        <p>A footnote definition is returned by the filter
+as an array like:</p>
+
+<pre><code> array(
+     count:          the note index in global notes' list
+     type:           footnote / glossary / bibliography
+     in-text-id:     ID of the note marker in the body
+     note-id:        ID of the footnote definition in the body
+     text:           content of the footnote definition
+ )
+</code></pre>
 </p>
         <div class="tags">
                             <h4>Parameters</h4>
 
                     <table>
                     <tr>
-                <td></td>
+                <td>array</td>
                 <td>$note</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$note_id</td>
                 <td>
 </td>
@@ -686,53 +821,80 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getNotes">
-        <div class="location">at line 134</div>
-        <code>            public            
+        <div class="location">at line 244</div>
+        <code>            public            array
     <strong>getNotes</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets the content's notes</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
-                <h3 id="method_getNotesToString">
-        <div class="location">at line 142</div>
-        <code>            public            
-    <strong>getNotesToString</strong>()</code>
+                <h3 id="method_getNotesFormatted">
+        <div class="location">at line 252</div>
+        <code>            public            string
+    <strong>getNotesFormatted</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets the content's notes formatted in current output format</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_setMetadata">
-        <div class="location">at line 148</div>
-        <code>            public            
+        <div class="location">at line 262</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
     <strong>setMetadata</strong>(array $data)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Sets content's metadata</p>
         <p>
 </p>
         <div class="tags">
@@ -748,33 +910,45 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_addMetadata">
-        <div class="location">at line 154</div>
-        <code>            public            
-    <strong>addMetadata</strong>($var, $val)</code>
+        <div class="location">at line 272</div>
+        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>addMetadata</strong>(string $var, string $val)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
+        <p>Adds a new content's metadata</p>
+        <p>A metadata item is a simple array entry like:</p>
+
+<pre><code> meta_name =&gt; meta_value
+</code></pre>
 </p>
         <div class="tags">
                             <h4>Parameters</h4>
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$var</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$val</td>
                 <td>
 </td>
@@ -782,19 +956,28 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getMetadata">
-        <div class="location">at line 160</div>
-        <code>            public            
-    <strong>getMetadata</strong>($name = null)</code>
+        <div class="location">at line 281</div>
+        <code>            public            null|string|array
+    <strong>getMetadata</strong>(null $name = null)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets one or all content's metadata</p>
         <p>
 </p>
         <div class="tags">
@@ -802,7 +985,7 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>null</td>
                 <td>$name</td>
                 <td>
 </td>
@@ -810,23 +993,42 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>null|string|array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
-                <h3 id="method_getMetadataToString">
-        <div class="location">at line 168</div>
-        <code>            public            
-    <strong>getMetadataToString</strong>()</code>
+                <h3 id="method_getMetadataFormatted">
+        <div class="location">at line 292</div>
+        <code>            public            string
+    <strong>getMetadataFormatted</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets content's metadata formatted in current output format</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>

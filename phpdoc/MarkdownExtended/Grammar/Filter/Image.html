@@ -42,10 +42,10 @@
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_runGamut">runGamut</a>(string $gamut, string $text)
+                    <a href="#method_runGamut">runGamut</a>(string $gamut, string $text, bool $forced = false)
                     <p>Run a gamut stack from a filter or tool</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/API/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -55,7 +55,7 @@
                     <a href="#method_resetHash">resetHash</a>()
                     <p>Reset the hash table</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/API/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -65,7 +65,7 @@
                     <a href="#method_setHash">setHash</a>(string $key, string $text)
                     <p>Reference a new hash</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/API/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -75,7 +75,7 @@
                     <a href="#method_getHash">getHash</a>(string $key)
                     <p>Retrieve a hash by its key</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/API/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -103,7 +103,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_hashPart">hashPart</a>(string $text, string $boundary = &#039;X&#039;)
-                    <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
+                    <p>Creates a hash for any sub-content</p>
                 </td>
                 <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
             </tr>
@@ -143,9 +143,9 @@
         <h2>Details</h2>
 
                         <h3 id="method_runGamut">
-        <div class="location">in <a href="../../../MarkdownExtended/API/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a> at line 29</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 30</div>
         <code>            public            string
-    <strong>runGamut</strong>(string $gamut, string $text)</code>
+    <strong>runGamut</strong>(string $gamut, string $text, bool $forced = false)</code>
     </h3>
     <div class="details">
         <p>Run a gamut stack from a filter or tool</p>
@@ -166,6 +166,11 @@
                 <td>
 </td>
             </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$forced</td>
+                <td>Forces to run the gamut event if it is disabled</td>
+            </tr>
             </table>
 
             
@@ -185,7 +190,7 @@
     </div>
 
                 <h3 id="method_resetHash">
-        <div class="location">in <a href="../../../MarkdownExtended/API/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a> at line 46</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 48</div>
         <code>            public            
     <strong>resetHash</strong>()</code>
     </h3>
@@ -201,7 +206,7 @@
     </div>
 
                 <h3 id="method_setHash">
-        <div class="location">in <a href="../../../MarkdownExtended/API/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a> at line 57</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 59</div>
         <code>            public            
     <strong>setHash</strong>(string $key, string $text)</code>
     </h3>
@@ -234,7 +239,7 @@
     </div>
 
                 <h3 id="method_getHash">
-        <div class="location">in <a href="../../../MarkdownExtended/API/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\API\AbstractGamut">AbstractGamut</abbr></a> at line 67</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 69</div>
         <code>            public            
     <strong>getHash</strong>(string $key)</code>
     </h3>
@@ -261,7 +266,7 @@
     </div>
 
                 <h3 id="method_getDefaultMethod">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 30</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 26</div>
         <code>        static    public            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
@@ -324,13 +329,14 @@
     </div>
 
                 <h3 id="method_hashPart">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 62</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 63</div>
         <code>            public            string
     <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert an atomic element in the text stream.</p>
-        <p>Passing $text to through this function gives
+        <p>Creates a hash for any sub-content</p>
+        <p>Called whenever a tag must be hashed when a function insert an atomic
+element in the text stream. Passing $text to through this function gives
 a unique text-token which will be reverted back when calling unhash.</p>
 
 <p>The $boundary argument specify what character should be used to surround
@@ -378,7 +384,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashBlock">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 81</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 84</div>
         <code>            public            string
     <strong>hashBlock</strong>(string $text)</code>
     </h3>
@@ -422,7 +428,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_hashClean">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 95</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 100</div>
         <code>            public            string
     <strong>hashClean</strong>(string $text)</code>
     </h3>
@@ -466,7 +472,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_unhash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 107</div>
+        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 114</div>
         <code>            public            string
     <strong>unhash</strong>(string $text)</code>
     </h3>
@@ -491,7 +497,7 @@ that are word separators and "X" is used in the general case.</p>
                     <table>
         <tr>
             <td>string</td>
-            <td>Pass results of the <code>_unhash_callback()</code> function</td>
+            <td>Pass results of the <code>self::_unhash_callback()</code> function</td>
         </tr>
     </table>
 

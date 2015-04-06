@@ -24,7 +24,7 @@
     </div>
         <div class="content">
                 <p>    class
-    <strong>HTML</strong>        extends <a href="../../MarkdownExtended/API/AbstractOutputFormat.html"><abbr title="MarkdownExtended\API\AbstractOutputFormat">AbstractOutputFormat</abbr></a>        implements
+    <strong>HTML</strong>        extends <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a>        implements
         <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></p>
 
             <div class="description">
@@ -46,7 +46,7 @@
                     <a href="#method_buildTag">buildTag</a>(string $tag_name, string $content = null, array $attributes = array())
                     <p>This will try to call a method <code>build{TagName}()</code> if it exists, then will try to use the object <code>$tags_map</code> static to automatically find what to do, and then call the default <code>getTagString()</code> method passing it the arguments.</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../MarkdownExtended/API/AbstractOutputFormat.html#method_buildTag"><abbr title="MarkdownExtended\API\AbstractOutputFormat">AbstractOutputFormat</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_buildTag"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -57,6 +57,28 @@
                     <p>Builder of HTML tags :     &lt;TAG ATTR1="ATTR_VAL1" ...</p>
                 </td>
                 <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getNotesToString">getNotesToString</a>(array $notes, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
+                    <p>
+</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getNotesToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getMetadataToString">getMetadataToString</a>(array $metadata, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
+                    <p>
+</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getMetadataToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -128,6 +150,17 @@
                     
                 </td>
                 <td class="last">
+                    <a href="#method_buildPreformatted">buildPreformatted</a>($text = null, array $attributes = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
                     <a href="#method_buildMaths">buildMaths</a>($text = null, array $attributes = array(), $type = &#039;div&#039;)
                     <p>
 </p>
@@ -156,13 +189,79 @@
                 </td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_buildFootnoteStandardItem">buildFootnoteStandardItem</a>($text = null, array $attributes = array(), $note_type = Note::FOOTNOTE_DEFAULT)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_buildFootnoteGlossaryItem">buildFootnoteGlossaryItem</a>($text = null, array $attributes = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_buildFootnoteBibliographyItem">buildFootnoteBibliographyItem</a>($text = null, array $attributes = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_buildFootnoteStandardLink">buildFootnoteStandardLink</a>($text = null, array $attributes = array(), $note_type = Note::FOOTNOTE_DEFAULT)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_buildFootnoteGlossaryLink">buildFootnoteGlossaryLink</a>($text = null, array $attributes = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_buildFootnoteBibliographyLink">buildFootnoteBibliographyLink</a>($text = null, array $attributes = array())
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
             </table>
 
 
         <h2>Details</h2>
 
                         <h3 id="method_buildTag">
-        <div class="location">in <a href="../../MarkdownExtended/API/AbstractOutputFormat.html#method_buildTag"><abbr title="MarkdownExtended\API\AbstractOutputFormat">AbstractOutputFormat</abbr></a> at line 39</div>
+        <div class="location">in <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_buildTag"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a> at line 44</div>
         <code>            public            string
     <strong>buildTag</strong>(string $tag_name, string $content = null, array $attributes = array())</code>
     </h3>
@@ -210,7 +309,7 @@
     </div>
 
                 <h3 id="method_getTagString">
-        <div class="location">at line 143</div>
+        <div class="location">at line 146</div>
         <code>            public            string
     <strong>getTagString</strong>(string $text, string $tag, array $attributes = array(), bool $close = false)</code>
     </h3>
@@ -261,8 +360,76 @@
                     </div>
     </div>
 
+                <h3 id="method_getNotesToString">
+        <div class="location">in <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getNotesToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a> at line 82</div>
+        <code>            public            
+    <strong>getNotesToString</strong>(array $notes, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$notes</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getMetadataToString">
+        <div class="location">in <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getMetadataToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a> at line 105</div>
+        <code>            public            
+    <strong>getMetadataToString</strong>(array $metadata, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$metadata</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method___construct">
-        <div class="location">at line 127</div>
+        <div class="location">at line 129</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
@@ -278,7 +445,7 @@
     </div>
 
                 <h3 id="method_buildTitle">
-        <div class="location">at line 174</div>
+        <div class="location">at line 177</div>
         <code>            public            
     <strong>buildTitle</strong>($text, array $attributes = array())</code>
     </h3>
@@ -312,7 +479,7 @@
     </div>
 
                 <h3 id="method_buildMetaData">
-        <div class="location">at line 185</div>
+        <div class="location">at line 188</div>
         <code>            public            
     <strong>buildMetaData</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -346,7 +513,7 @@
     </div>
 
                 <h3 id="method_buildComment">
-        <div class="location">at line 196</div>
+        <div class="location">at line 199</div>
         <code>            public            
     <strong>buildComment</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -380,7 +547,7 @@
     </div>
 
                 <h3 id="method_buildParagraph">
-        <div class="location">at line 201</div>
+        <div class="location">at line 204</div>
         <code>            public            
     <strong>buildParagraph</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -414,7 +581,7 @@
     </div>
 
                 <h3 id="method_buildLink">
-        <div class="location">at line 206</div>
+        <div class="location">at line 209</div>
         <code>            public            
     <strong>buildLink</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -447,8 +614,42 @@
                     </div>
     </div>
 
+                <h3 id="method_buildPreformatted">
+        <div class="location">at line 215</div>
+        <code>            public            
+    <strong>buildPreformatted</strong>($text = null, array $attributes = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_buildMaths">
-        <div class="location">at line 214</div>
+        <div class="location">at line 227</div>
         <code>            public            
     <strong>buildMaths</strong>($text = null, array $attributes = array(), $type = &#039;div&#039;)</code>
     </h3>
@@ -488,7 +689,7 @@
     </div>
 
                 <h3 id="method_buildMathsBlock">
-        <div class="location">at line 232</div>
+        <div class="location">at line 245</div>
         <code>            public            
     <strong>buildMathsBlock</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -522,9 +723,225 @@
     </div>
 
                 <h3 id="method_buildMathsSpan">
-        <div class="location">at line 237</div>
+        <div class="location">at line 250</div>
         <code>            public            
     <strong>buildMathsSpan</strong>($text = null, array $attributes = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildFootnoteStandardItem">
+        <div class="location">at line 255</div>
+        <code>            public            
+    <strong>buildFootnoteStandardItem</strong>($text = null, array $attributes = array(), $note_type = Note::FOOTNOTE_DEFAULT)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$note_type</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildFootnoteGlossaryItem">
+        <div class="location">at line 288</div>
+        <code>            public            
+    <strong>buildFootnoteGlossaryItem</strong>($text = null, array $attributes = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildFootnoteBibliographyItem">
+        <div class="location">at line 293</div>
+        <code>            public            
+    <strong>buildFootnoteBibliographyItem</strong>($text = null, array $attributes = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildFootnoteStandardLink">
+        <div class="location">at line 298</div>
+        <code>            public            
+    <strong>buildFootnoteStandardLink</strong>($text = null, array $attributes = array(), $note_type = Note::FOOTNOTE_DEFAULT)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$note_type</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildFootnoteGlossaryLink">
+        <div class="location">at line 325</div>
+        <code>            public            
+    <strong>buildFootnoteGlossaryLink</strong>($text = null, array $attributes = array())</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$attributes</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildFootnoteBibliographyLink">
+        <div class="location">at line 330</div>
+        <code>            public            
+    <strong>buildFootnoteBibliographyLink</strong>($text = null, array $attributes = array())</code>
     </h3>
     <div class="details">
         <p>

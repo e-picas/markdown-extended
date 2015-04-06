@@ -26,6 +26,11 @@
                 <p>    class
     <strong>CacheRegistry</strong></p>
 
+            <div class="description">
+            <p>Object to manage a cache registry</p>
+            <p>
+</p>
+        </div>
     
     
     
@@ -38,41 +43,37 @@
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>()
-                    <p>
-</p>
+                    <p>Initialize the cache registry</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    bool
                 </td>
                 <td class="last">
-                    <a href="#method_isCached">isCached</a>($index)
-                    <p>
-</p>
+                    <a href="#method_isCached">isCached</a>(string $index)
+                    <p>Tests if an index is cached</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    mixed
                 </td>
                 <td class="last">
-                    <a href="#method_getCache">getCache</a>($index)
-                    <p>
-</p>
+                    <a href="#method_getCache">getCache</a>(string $index)
+                    <p>Gets current cached content of an index</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <abbr title="MarkdownExtended\Util\$this">$this</abbr>
                 </td>
                 <td class="last">
-                    <a href="#method_setCache">setCache</a>($index, $object)
-                    <p>
-</p>
+                    <a href="#method_setCache">setCache</a>(string $index, mixed $object)
+                    <p>Sets a cached content for an index</p>
                 </td>
                 <td></td>
             </tr>
@@ -82,13 +83,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 19</div>
+        <div class="location">at line 27</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Initialize the cache registry</p>
         <p>
 </p>
         <div class="tags">
@@ -99,13 +99,12 @@
     </div>
 
                 <h3 id="method_isCached">
-        <div class="location">at line 24</div>
-        <code>            public            
-    <strong>isCached</strong>($index)</code>
+        <div class="location">at line 38</div>
+        <code>            public            bool
+    <strong>isCached</strong>(string $index)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Tests if an index is cached</p>
         <p>
 </p>
         <div class="tags">
@@ -113,7 +112,7 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$index</td>
                 <td>
 </td>
@@ -121,19 +120,28 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getCache">
-        <div class="location">at line 29</div>
-        <code>            public            
-    <strong>getCache</strong>($index)</code>
+        <div class="location">at line 49</div>
+        <code>            public            mixed
+    <strong>getCache</strong>(string $index)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets current cached content of an index</p>
         <p>
 </p>
         <div class="tags">
@@ -141,7 +149,7 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$index</td>
                 <td>
 </td>
@@ -149,19 +157,28 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>mixed</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_setCache">
-        <div class="location">at line 34</div>
-        <code>            public            
-    <strong>setCache</strong>($index, $object)</code>
+        <div class="location">at line 62</div>
+        <code>            public            <abbr title="MarkdownExtended\Util\$this">$this</abbr>
+    <strong>setCache</strong>(string $index, mixed $object)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Sets a cached content for an index</p>
         <p>
 </p>
         <div class="tags">
@@ -169,13 +186,13 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$index</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>mixed</td>
                 <td>$object</td>
                 <td>
 </td>
@@ -183,6 +200,16 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\Util\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>

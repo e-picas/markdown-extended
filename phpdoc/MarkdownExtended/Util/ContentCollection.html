@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Util\Templater | Markdown Extended</title>
+        <title>MarkdownExtended\Util\ContentCollection | Markdown Extended</title>
                     <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
                             </head>
         <body id="class">
@@ -20,12 +20,17 @@
         <div id="title">Markdown Extended</div>
 
             <div class="type">Class</div>
-    <h1><a href="../../MarkdownExtended/Util.html">MarkdownExtended\Util</a>\Templater</h1>
+    <h1><a href="../../MarkdownExtended/Util.html">MarkdownExtended\Util</a>\ContentCollection</h1>
     </div>
         <div class="content">
                 <p>    class
-    <strong>Templater</strong></p>
+    <strong>ContentCollection</strong>        extends <a href="http://php.net/ArrayIterator"><abbr title="ArrayIterator">ArrayIterator</abbr></a></p>
 
+            <div class="description">
+            <p>A simple Content objects collection</p>
+            <p>
+</p>
+        </div>
     
     
     
@@ -37,9 +42,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>(array $options)
-                    <p>
-</p>
+                    <a href="#method___construct">__construct</a>(array $data = array())
+                    <p>Constructs a new collection being sure that data are all <code>\MarkdownExtended\API\ContentInterface</code></p>
                 </td>
                 <td></td>
             </tr>
@@ -48,9 +52,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_parse">parse</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content, $template_path)
-                    <p>
-</p>
+                    <a href="#method_append">append</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
+                    <p>Appends a new collection entry</p>
                 </td>
                 <td></td>
             </tr>
@@ -59,20 +62,8 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method_getTemplate">getTemplate</a>($template_path)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method_getParams">getParams</a>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
-                    <p>
-</p>
+                    <a href="#method_offsetSet">offsetSet</a>(string $index, string $content)
+                    <p>Sets a collection entry</p>
                 </td>
                 <td></td>
             </tr>
@@ -82,13 +73,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 23</div>
+        <div class="location">at line 27</div>
         <code>            public            
-    <strong>__construct</strong>(array $options)</code>
+    <strong>__construct</strong>(array $data = array())</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Constructs a new collection being sure that data are all <code>\MarkdownExtended\API\ContentInterface</code></p>
         <p>
 </p>
         <div class="tags">
@@ -97,7 +87,7 @@
                     <table>
                     <tr>
                 <td>array</td>
-                <td>$options</td>
+                <td>$data</td>
                 <td>
 </td>
             </tr>
@@ -109,76 +99,13 @@
                     </div>
     </div>
 
-                <h3 id="method_parse">
-        <div class="location">at line 29</div>
+                <h3 id="method_append">
+        <div class="location">at line 42</div>
         <code>            public            
-    <strong>parse</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content, $template_path)</code>
+    <strong>append</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
-                <td>$content</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td></td>
-                <td>$template_path</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_getTemplate">
-        <div class="location">at line 43</div>
-        <code>            public            
-    <strong>getTemplate</strong>($template_path)</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td></td>
-                <td>$template_path</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_getParams">
-        <div class="location">at line 80</div>
-        <code>            public            
-    <strong>getParams</strong>(<a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
-    </h3>
-    <div class="details">
-        <p>
-</p>
+        <p>Appends a new collection entry</p>
         <p>
 </p>
         <div class="tags">
@@ -195,6 +122,57 @@
 
             
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>it the argument does not implement <code>\MarkdownExtended\API\ContentInterface</code></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_offsetSet">
+        <div class="location">at line 63</div>
+        <code>            public            
+    <strong>offsetSet</strong>(string $index, string $content)</code>
+    </h3>
+    <div class="details">
+        <p>Sets a collection entry</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>it the argument does not implement <code>\MarkdownExtended\API\ContentInterface</code></td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>

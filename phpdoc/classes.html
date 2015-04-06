@@ -25,27 +25,10 @@
                 <table>
                     <tr>
                 <td>
-                                        <a href="MarkdownExtended/API/AbstractGamut.html" target="main"><abbr title="MarkdownExtended\API\AbstractGamut">MarkdownExtended\API\AbstractGamut</abbr></a>
-                                    </td>
-                <td>
-                    The base class for all Filters and Tools
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/API/AbstractOutputFormat.html" target="main"><abbr title="MarkdownExtended\API\AbstractOutputFormat">MarkdownExtended\API\AbstractOutputFormat</abbr></a>
-                                    </td>
-                <td>
-                    
-
-                </td>
-            </tr>
-                    <tr>
-                <td>
                     <em>                    <a href="MarkdownExtended/API/ContentInterface.html" target="main"><abbr title="MarkdownExtended\API\ContentInterface">MarkdownExtended\API\ContentInterface</abbr></a>
                     </em>                </td>
                 <td>
-                    Interface to implement for <code>MarkdownExtended\Content</code> objects
+                    Interface to implement for content objects
                 </td>
             </tr>
                     <tr>
@@ -53,7 +36,7 @@
                     <em>                    <a href="MarkdownExtended/API/GamutInterface.html" target="main"><abbr title="MarkdownExtended\API\GamutInterface">MarkdownExtended\API\GamutInterface</abbr></a>
                     </em>                </td>
                 <td>
-                    Interface GamutInterface
+                    Interface to implement for filter objects
                 </td>
             </tr>
                     <tr>
@@ -70,8 +53,15 @@
                     <em>                    <a href="MarkdownExtended/API/OutputFormatInterface.html" target="main"><abbr title="MarkdownExtended\API\OutputFormatInterface">MarkdownExtended\API\OutputFormatInterface</abbr></a>
                     </em>                </td>
                 <td>
-                    
-
+                    Interface to implement for any output format object
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                    <em>                    <a href="MarkdownExtended/API/TemplateInterface.html" target="main"><abbr title="MarkdownExtended\API\TemplateInterface">MarkdownExtended\API\TemplateInterface</abbr></a>
+                    </em>                </td>
+                <td>
+                    Interface to implement for all template objects
                 </td>
             </tr>
                     <tr>
@@ -115,8 +105,7 @@
                                         <a href="MarkdownExtended/Content.html" target="main"><abbr title="MarkdownExtended\Content">MarkdownExtended\Content</abbr></a>
                                     </td>
                 <td>
-                    
-
+                    The default MarkdownExtended Content object
                 </td>
             </tr>
                     <tr>
@@ -124,7 +113,7 @@
                                         <a href="MarkdownExtended/Exception/BadMethodCallException.html" target="main"><abbr title="MarkdownExtended\Exception\BadMethodCallException">MarkdownExtended\Exception\BadMethodCallException</abbr></a>
                                     </td>
                 <td>
-                    Class BadMethodCallException
+                    Specific BadMethodCallException
                 </td>
             </tr>
                     <tr>
@@ -132,7 +121,15 @@
                                         <a href="MarkdownExtended/Exception/DomainException.html" target="main"><abbr title="MarkdownExtended\Exception\DomainException">MarkdownExtended\Exception\DomainException</abbr></a>
                                     </td>
                 <td>
-                    Class DomainException
+                    Specific DomainException
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                                        <a href="MarkdownExtended/Exception/ErrorException.html" target="main"><abbr title="MarkdownExtended\Exception\ErrorException">MarkdownExtended\Exception\ErrorException</abbr></a>
+                                    </td>
+                <td>
+                    Specific ErrorException
                 </td>
             </tr>
                     <tr>
@@ -140,7 +137,7 @@
                                         <a href="MarkdownExtended/Exception/Exception.html" target="main"><abbr title="MarkdownExtended\Exception\Exception">MarkdownExtended\Exception\Exception</abbr></a>
                                     </td>
                 <td>
-                    Class Exception
+                    Specific Exception
                 </td>
             </tr>
                     <tr>
@@ -148,7 +145,7 @@
                                         <a href="MarkdownExtended/Exception/InvalidArgumentException.html" target="main"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">MarkdownExtended\Exception\InvalidArgumentException</abbr></a>
                                     </td>
                 <td>
-                    Class InvalidArgumentException
+                    Specific InvalidArgumentException
                 </td>
             </tr>
                     <tr>
@@ -156,7 +153,7 @@
                                         <a href="MarkdownExtended/Exception/RuntimeException.html" target="main"><abbr title="MarkdownExtended\Exception\RuntimeException">MarkdownExtended\Exception\RuntimeException</abbr></a>
                                     </td>
                 <td>
-                    Class RuntimeException
+                    Specific RuntimeException
                 </td>
             </tr>
                     <tr>
@@ -164,7 +161,15 @@
                                         <a href="MarkdownExtended/Exception/UnexpectedValueException.html" target="main"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">MarkdownExtended\Exception\UnexpectedValueException</abbr></a>
                                     </td>
                 <td>
-                    Class UnexpectedValueException
+                    Specific UnexpectedValueException
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                                        <a href="MarkdownExtended/Grammar/AbstractGamut.html" target="main"><abbr title="MarkdownExtended\Grammar\AbstractGamut">MarkdownExtended\Grammar\AbstractGamut</abbr></a>
+                                    </td>
+                <td>
+                    A basic class for filters and tools with management of parsing "hashes"
                 </td>
             </tr>
                     <tr>
@@ -172,7 +177,7 @@
                                         <a href="MarkdownExtended/Grammar/Filter.html" target="main"><abbr title="MarkdownExtended\Grammar\Filter">MarkdownExtended\Grammar\Filter</abbr></a>
                                     </td>
                 <td>
-                    Base class for all Filters
+                    Base class for all filters
                 </td>
             </tr>
                     <tr>
@@ -229,6 +234,14 @@
                                     </td>
                 <td>
                     Process Markdown definitions lists
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                                        <a href="MarkdownExtended/Grammar/Filter/Detab.html" target="main"><abbr title="MarkdownExtended\Grammar\Filter\Detab">MarkdownExtended\Grammar\Filter\Detab</abbr></a>
+                                    </td>
+                <td>
+                    Class Detab
                 </td>
             </tr>
                     <tr>
@@ -345,18 +358,10 @@
             </tr>
                     <tr>
                 <td>
-                                        <a href="MarkdownExtended/Grammar/Filter/TableOfContents.html" target="main"><abbr title="MarkdownExtended\Grammar\Filter\TableOfContents">MarkdownExtended\Grammar\Filter\TableOfContents</abbr></a>
-                                    </td>
-                <td>
-                    Construct the global Table of Contents (hierarchical list of anchors)
-                </td>
-            </tr>
-                    <tr>
-                <td>
                                         <a href="MarkdownExtended/Grammar/GamutLoader.html" target="main"><abbr title="MarkdownExtended\Grammar\GamutLoader">MarkdownExtended\Grammar\GamutLoader</abbr></a>
                                     </td>
                 <td>
-                    Central class to execute Filters and Tools methods on a content
+                    Central class to execute filters and tools methods on a content
                 </td>
             </tr>
                     <tr>
@@ -364,96 +369,15 @@
                                         <a href="MarkdownExtended/Grammar/Lexer.html" target="main"><abbr title="MarkdownExtended\Grammar\Lexer">MarkdownExtended\Grammar\Lexer</abbr></a>
                                     </td>
                 <td>
-                    
-
+                    The lexer dispatches the content to the gamuts loader
                 </td>
             </tr>
                     <tr>
                 <td>
-                                        <a href="MarkdownExtended/Grammar/Tool.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool">MarkdownExtended\Grammar\Tool</abbr></a>
+                                        <a href="MarkdownExtended/Grammar/Tools.html" target="main"><abbr title="MarkdownExtended\Grammar\Tools">MarkdownExtended\Grammar\Tools</abbr></a>
                                     </td>
                 <td>
-                    Abstract base class for Tools
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/AppendEndingNewLines.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\AppendEndingNewLines">MarkdownExtended\Grammar\Tool\AppendEndingNewLines</abbr></a>
-                                    </td>
-                <td>
-                    Class AppendEndingNewLines
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/Detab.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\Detab">MarkdownExtended\Grammar\Tool\Detab</abbr></a>
-                                    </td>
-                <td>
-                    Class Detab
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/EncodeAmpAndAngle.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\EncodeAmpAndAngle">MarkdownExtended\Grammar\Tool\EncodeAmpAndAngle</abbr></a>
-                                    </td>
-                <td>
-                    Class EncodeAmpAndAngle
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/EncodeAttribute.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\EncodeAttribute">MarkdownExtended\Grammar\Tool\EncodeAttribute</abbr></a>
-                                    </td>
-                <td>
-                    Class EncodeAttribute
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/ExtractAttributes.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\ExtractAttributes">MarkdownExtended\Grammar\Tool\ExtractAttributes</abbr></a>
-                                    </td>
-                <td>
-                    Class ExtractAttributes
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/Outdent.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\Outdent">MarkdownExtended\Grammar\Tool\Outdent</abbr></a>
-                                    </td>
-                <td>
-                    Class Outdent
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/RebuildParagraph.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\RebuildParagraph">MarkdownExtended\Grammar\Tool\RebuildParagraph</abbr></a>
-                                    </td>
-                <td>
-                    Class RebuildParagraph
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/RemoveUtf8Marker.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\RemoveUtf8Marker">MarkdownExtended\Grammar\Tool\RemoveUtf8Marker</abbr></a>
-                                    </td>
-                <td>
-                    Class RemoveUtf8Marker
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/StandardizeLineEnding.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\StandardizeLineEnding">MarkdownExtended\Grammar\Tool\StandardizeLineEnding</abbr></a>
-                                    </td>
-                <td>
-                    Class StandardizeLineEnding
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Grammar/Tool/StripSpacedLines.html" target="main"><abbr title="MarkdownExtended\Grammar\Tool\StripSpacedLines">MarkdownExtended\Grammar\Tool\StripSpacedLines</abbr></a>
-                                    </td>
-                <td>
-                    Class StripSpacedLines
+                    The base class for tools
                 </td>
             </tr>
                     <tr>
@@ -475,6 +399,14 @@
             </tr>
                     <tr>
                 <td>
+                                        <a href="MarkdownExtended/OutputFormat/AbstractOutputFormat.html" target="main"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">MarkdownExtended\OutputFormat\AbstractOutputFormat</abbr></a>
+                                    </td>
+                <td>
+                    A basic output format class
+                </td>
+            </tr>
+                    <tr>
+                <td>
                                         <a href="MarkdownExtended/OutputFormat/HTML.html" target="main"><abbr title="MarkdownExtended\OutputFormat\HTML">MarkdownExtended\OutputFormat\HTML</abbr></a>
                                     </td>
                 <td>
@@ -491,11 +423,35 @@
             </tr>
                     <tr>
                 <td>
-                                        <a href="MarkdownExtended/Util/CacheRegistry.html" target="main"><abbr title="MarkdownExtended\Util\CacheRegistry">MarkdownExtended\Util\CacheRegistry</abbr></a>
+                                        <a href="MarkdownExtended/Parser.html" target="main"><abbr title="MarkdownExtended\Parser">MarkdownExtended\Parser</abbr></a>
                                     </td>
                 <td>
                     
 
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                                        <a href="MarkdownExtended/Templater.html" target="main"><abbr title="MarkdownExtended\Templater">MarkdownExtended\Templater</abbr></a>
+                                    </td>
+                <td>
+                    The default template object of MarkdownExtended
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                                        <a href="MarkdownExtended/Util/CacheRegistry.html" target="main"><abbr title="MarkdownExtended\Util\CacheRegistry">MarkdownExtended\Util\CacheRegistry</abbr></a>
+                                    </td>
+                <td>
+                    Object to manage a cache registry
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                                        <a href="MarkdownExtended/Util/ContentCollection.html" target="main"><abbr title="MarkdownExtended\Util\ContentCollection">MarkdownExtended\Util\ContentCollection</abbr></a>
+                                    </td>
+                <td>
+                    A simple Content objects collection
                 </td>
             </tr>
                     <tr>
@@ -503,8 +459,7 @@
                                         <a href="MarkdownExtended/Util/DomIdRegistry.html" target="main"><abbr title="MarkdownExtended\Util\DomIdRegistry">MarkdownExtended\Util\DomIdRegistry</abbr></a>
                                     </td>
                 <td>
-                    
-
+                    A special registry to manage a collection of DOM ids
                 </td>
             </tr>
                     <tr>
@@ -512,8 +467,7 @@
                                         <a href="MarkdownExtended/Util/Helper.html" target="main"><abbr title="MarkdownExtended\Util\Helper">MarkdownExtended\Util\Helper</abbr></a>
                                     </td>
                 <td>
-                    
-
+                    Helper class with static methods only
                 </td>
             </tr>
                     <tr>
@@ -521,17 +475,7 @@
                                         <a href="MarkdownExtended/Util/Registry.html" target="main"><abbr title="MarkdownExtended\Util\Registry">MarkdownExtended\Util\Registry</abbr></a>
                                     </td>
                 <td>
-                    
-
-                </td>
-            </tr>
-                    <tr>
-                <td>
-                                        <a href="MarkdownExtended/Util/Templater.html" target="main"><abbr title="MarkdownExtended\Util\Templater">MarkdownExtended\Util\Templater</abbr></a>
-                                    </td>
-                <td>
-                    
-
+                    Basic registry object
                 </td>
             </tr>
             </table>

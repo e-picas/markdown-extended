@@ -3,38 +3,34 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Grammar\Filter\Abbreviation | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
+        <title>MarkdownExtended\Grammar\Tools | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
                             </head>
         <body id="class">
             <div class="header">
         <ul>
-            <li><a href="../../../classes.html">Classes</a></li>
-                            <li><a href="../../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../../interfaces.html">Interfaces</a></li>
-            <li><a href="../../../traits.html">Traits</a></li>
-            <li><a href="../../../doc-index.html">Index</a></li>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../traits.html">Traits</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
             
         </ul>
 
         <div id="title">Markdown Extended</div>
 
             <div class="type">Class</div>
-    <h1><a href="../../../MarkdownExtended/Grammar/Filter.html">MarkdownExtended\Grammar\Filter</a>\Abbreviation</h1>
+    <h1><a href="../../MarkdownExtended/Grammar.html">MarkdownExtended\Grammar</a>\Tools</h1>
     </div>
         <div class="content">
                 <p>    class
-    <strong>Abbreviation</strong>        extends <a href="../../../MarkdownExtended/Grammar/Filter.html"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></p>
+    <strong>Tools</strong>        extends <a href="../../MarkdownExtended/Grammar/AbstractGamut.html"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a>        implements
+        <a href="../../MarkdownExtended/API/GamutInterface.html"><abbr title="MarkdownExtended\API\GamutInterface">GamutInterface</abbr></a></p>
 
             <div class="description">
-            <p>Process Markdown abbreviations</p>
-            <p>Process abbreviations written like:</p>
-
-<pre><code> *[abbr]: definition
-</code></pre>
-
-<p>You can pre-define a set of abbreviation descriptions in the config entry <code>predefined_abbr</code>.
-This must be define as an array of <code>term =&gt; description</code> values.</p>
+            <p>The base class for tools</p>
+            <p>
+</p>
         </div>
     
     
@@ -50,7 +46,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     <a href="#method_runGamut">runGamut</a>(string $gamut, string $text, bool $forced = false)
                     <p>Run a gamut stack from a filter or tool</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -60,7 +56,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     <a href="#method_resetHash">resetHash</a>()
                     <p>Reset the hash table</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -70,7 +66,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     <a href="#method_setHash">setHash</a>(string $key, string $text)
                     <p>Reference a new hash</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -80,7 +76,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     <a href="#method_getHash">getHash</a>(string $key)
                     <p>Retrieve a hash by its key</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type">
@@ -90,15 +86,15 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     <a href="#method_getDefaultMethod">getDefaultMethod</a>()
                     <p>Must return a method name</p>
                 </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
+                <td></td>
             </tr>
                     <tr>
                 <td class="type">
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_transform">transform</a>(string $text)
-                    <p>Find defined abbreviations in text and wrap them in <abbr> elements</p>
+                    <a href="#method_prepareOutputFormat">prepareOutputFormat</a>(string $text)
+                    <p>Works on a content before parsing</p>
                 </td>
                 <td></td>
             </tr>
@@ -107,58 +103,8 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_hashPart">hashPart</a>(string $text, string $boundary = &#039;X&#039;)
-                    <p>Creates a hash for any sub-content</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    string
-                </td>
-                <td class="last">
-                    <a href="#method_hashBlock">hashBlock</a>(string $text)
-                    <p>Shortcut function for hashPart with block-level boundaries.</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    string
-                </td>
-                <td class="last">
-                    <a href="#method_hashClean">hashClean</a>(string $text)
-                    <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automatically escaped, blocking invalid nested overlap.</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    string
-                </td>
-                <td class="last">
-                    <a href="#method_unhash">unhash</a>(string $text)
-                    <p>Swap back in all the tags hashed by _HashHTMLBlocks.</p>
-                </td>
-                <td><small>from&nbsp;<a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method__setup">_setup</a>()
-                    <p>Prepare masks for predefined abbreviations and descriptions</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
-                    
-                </td>
-                <td class="last">
-                    <a href="#method__teardown">_teardown</a>()
-                    <p>Reset masks created by the <code>_setup()</code> method</p>
+                    <a href="#method_teardownOutputFormat">teardownOutputFormat</a>(string $text)
+                    <p>Works on a content after parsing</p>
                 </td>
                 <td></td>
             </tr>
@@ -167,8 +113,88 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     string
                 </td>
                 <td class="last">
-                    <a href="#method_strip">strip</a>(string $text)
-                    <p>Strips abbreviations from text, stores titles in hash references.</p>
+                    <a href="#method_AppendEndingNewLines">AppendEndingNewLines</a>(string $text)
+                    <p>Make sure $text ends with a couple of newlines</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_EncodeAmpAndAngle">EncodeAmpAndAngle</a>(string $text)
+                    <p>Smart processing for ampersands and angle brackets that need to be encoded.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_EncodeAttribute">EncodeAttribute</a>(string $text)
+                    <p>Encode text for a double-quoted HTML attribute.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_ExtractAttributes">ExtractAttributes</a>(string $attributes)
+                    <p>Extract attributes from string 'a="b"'</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_Outdent">Outdent</a>(string $text)
+                    <p>Remove one level of line-leading tabs or spaces</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_RebuildParagraph">RebuildParagraph</a>(string $text)
+                    <p>Process paragraphs</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_RemoveUtf8Marker">RemoveUtf8Marker</a>(string $text)
+                    <p>Remove UTF-8 BOM and marker character in input, if present.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_StandardizeLineEnding">StandardizeLineEnding</a>(string $text)
+                    <p>Standardize line endings: DOS to Unix and Mac to Unix</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_StripSpacedLines">StripSpacedLines</a>(string $text)
+                    <p>Strip any lines consisting only of spaces and tabs.</p>
                 </td>
                 <td></td>
             </tr>
@@ -178,7 +204,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
         <h2>Details</h2>
 
                         <h3 id="method_runGamut">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 30</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_runGamut"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 30</div>
         <code>            public            string
     <strong>runGamut</strong>(string $gamut, string $text, bool $forced = false)</code>
     </h3>
@@ -225,7 +251,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
     </div>
 
                 <h3 id="method_resetHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 48</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_resetHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 48</div>
         <code>            public            
     <strong>resetHash</strong>()</code>
     </h3>
@@ -241,7 +267,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
     </div>
 
                 <h3 id="method_setHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 59</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_setHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 59</div>
         <code>            public            
     <strong>setHash</strong>(string $key, string $text)</code>
     </h3>
@@ -274,7 +300,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
     </div>
 
                 <h3 id="method_getHash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 69</div>
+        <div class="location">in <a href="../../MarkdownExtended/Grammar/AbstractGamut.html#method_getHash"><abbr title="MarkdownExtended\Grammar\AbstractGamut">AbstractGamut</abbr></a> at line 69</div>
         <code>            public            
     <strong>getHash</strong>(string $key)</code>
     </h3>
@@ -301,7 +327,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
     </div>
 
                 <h3 id="method_getDefaultMethod">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_getDefaultMethod"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 26</div>
+        <div class="location">at line 31</div>
         <code>        static    public            string
     <strong>getDefaultMethod</strong>()</code>
     </h3>
@@ -326,13 +352,13 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     </div>
     </div>
 
-                <h3 id="method_transform">
-        <div class="location">at line 68</div>
+                <h3 id="method_prepareOutputFormat">
+        <div class="location">at line 48</div>
         <code>            public            string
-    <strong>transform</strong>(string $text)</code>
+    <strong>prepareOutputFormat</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Find defined abbreviations in text and wrap them in <abbr> elements</p>
+        <p>Works on a content before parsing</p>
         <p>
 </p>
         <div class="tags">
@@ -342,55 +368,7 @@ This must be define as an array of <code>term =&gt; description</code> values.</
                     <tr>
                 <td>string</td>
                 <td>$text</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>string</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_hashPart">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashPart"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 63</div>
-        <code>            public            string
-    <strong>hashPart</strong>(string $text, string $boundary = &#039;X&#039;)</code>
-    </h3>
-    <div class="details">
-        <p>Creates a hash for any sub-content</p>
-        <p>Called whenever a tag must be hashed when a function insert an atomic
-element in the text stream. Passing $text to through this function gives
-a unique text-token which will be reverted back when calling unhash.</p>
-
-<p>The $boundary argument specify what character should be used to surround
-the token. By convention, "B" is used for block elements that needs not
-to be wrapped into paragraph tags at the end, ":" is used for elements
-that are word separators and "X" is used in the general case.</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>string</td>
-                <td>$text</td>
-                <td>The text to be parsed</td>
-            </tr>
-                    <tr>
-                <td>string</td>
-                <td>$boundary</td>
-                <td>A one letter boundary</td>
+                <td>The text to parse</td>
             </tr>
             </table>
 
@@ -406,25 +384,191 @@ that are word separators and "X" is used in the general case.</p>
 
             
             
-                            <h4>See also</h4>
-
-                    <table>
-                    <tr>
-                <td>self::unhash()</td>
-                <td></td>
-            </tr>
-            </table>
-
                     </div>
     </div>
 
-                <h3 id="method_hashBlock">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashBlock"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 84</div>
+                <h3 id="method_teardownOutputFormat">
+        <div class="location">at line 64</div>
         <code>            public            string
-    <strong>hashBlock</strong>(string $text)</code>
+    <strong>teardownOutputFormat</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Shortcut function for hashPart with block-level boundaries.</p>
+        <p>Works on a content after parsing</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text to parse</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The text parsed</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_AppendEndingNewLines">
+        <div class="location">at line 80</div>
+        <code>            public            string
+    <strong>AppendEndingNewLines</strong>(string $text)</code>
+    </h3>
+    <div class="details">
+        <p>Make sure $text ends with a couple of newlines</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text to parse</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The text parsed</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_EncodeAmpAndAngle">
+        <div class="location">at line 94</div>
+        <code>            public            string
+    <strong>EncodeAmpAndAngle</strong>(string $text)</code>
+    </h3>
+    <div class="details">
+        <p>Smart processing for ampersands and angle brackets that need to be encoded.</p>
+        <p>Valid character entities are left alone unless the
+no-entities mode is set.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text to encode</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The encoded parsed</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_EncodeAttribute">
+        <div class="location">at line 118</div>
+        <code>            public            string
+    <strong>EncodeAttribute</strong>(string $text)</code>
+    </h3>
+    <div class="details">
+        <p>Encode text for a double-quoted HTML attribute.</p>
+        <p>This function
+is <em>not</em> suitable for attributes enclosed in single quotes.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The attributes content</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The attributes content processed</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_ExtractAttributes">
+        <div class="location">at line 132</div>
+        <code>            public            string
+    <strong>ExtractAttributes</strong>(string $attributes)</code>
+    </h3>
+    <div class="details">
+        <p>Extract attributes from string 'a="b"'</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$attributes</td>
+                <td>The attributes to parse</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The attributes processed</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_Outdent">
+        <div class="location">at line 156</div>
+        <code>            public            string
+    <strong>Outdent</strong>(string $text)</code>
+    </h3>
+    <div class="details">
+        <p>Remove one level of line-leading tabs or spaces</p>
         <p>
 </p>
         <div class="tags">
@@ -444,31 +588,22 @@ that are word separators and "X" is used in the general case.</p>
                     <table>
         <tr>
             <td>string</td>
-            <td>Pass results of the <code>hashPart()</code> function</td>
+            <td>The text parsed</td>
         </tr>
     </table>
 
             
             
-                            <h4>See also</h4>
-
-                    <table>
-                    <tr>
-                <td>self::hashPart()</td>
-                <td></td>
-            </tr>
-            </table>
-
                     </div>
     </div>
 
-                <h3 id="method_hashClean">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_hashClean"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 100</div>
+                <h3 id="method_RebuildParagraph">
+        <div class="location">at line 168</div>
         <code>            public            string
-    <strong>hashClean</strong>(string $text)</code>
+    <strong>RebuildParagraph</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Called whenever a tag must be hashed when a function insert a "clean" tag in $text, it pass through this function and is automatically escaped, blocking invalid nested overlap.</p>
+        <p>Process paragraphs</p>
         <p>
 </p>
         <div class="tags">
@@ -478,7 +613,7 @@ that are word separators and "X" is used in the general case.</p>
                     <tr>
                 <td>string</td>
                 <td>$text</td>
-                <td>Text to parse</td>
+                <td>The text to parse</td>
             </tr>
             </table>
 
@@ -488,31 +623,22 @@ that are word separators and "X" is used in the general case.</p>
                     <table>
         <tr>
             <td>string</td>
-            <td>Text parsed</td>
+            <td>The text parsed</td>
         </tr>
     </table>
 
             
             
-                            <h4>See also</h4>
-
-                    <table>
-                    <tr>
-                <td>self::hashPart()</td>
-                <td></td>
-            </tr>
-            </table>
-
                     </div>
     </div>
 
-                <h3 id="method_unhash">
-        <div class="location">in <a href="../../../MarkdownExtended/Grammar/Filter.html#method_unhash"><abbr title="MarkdownExtended\Grammar\Filter">Filter</abbr></a> at line 114</div>
+                <h3 id="method_RemoveUtf8Marker">
+        <div class="location">at line 207</div>
         <code>            public            string
-    <strong>unhash</strong>(string $text)</code>
+    <strong>RemoveUtf8Marker</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Swap back in all the tags hashed by _HashHTMLBlocks.</p>
+        <p>Remove UTF-8 BOM and marker character in input, if present.</p>
         <p>
 </p>
         <div class="tags">
@@ -522,7 +648,7 @@ that are word separators and "X" is used in the general case.</p>
                     <tr>
                 <td>string</td>
                 <td>$text</td>
-                <td>The text to be parsed</td>
+                <td>The text to parse</td>
             </tr>
             </table>
 
@@ -532,63 +658,22 @@ that are word separators and "X" is used in the general case.</p>
                     <table>
         <tr>
             <td>string</td>
-            <td>Pass results of the <code>self::_unhash_callback()</code> function</td>
+            <td>The text parsed</td>
         </tr>
     </table>
 
             
             
-                            <h4>See also</h4>
-
-                    <table>
-                    <tr>
-                <td>self::_unhash_callback()</td>
-                <td></td>
-            </tr>
-            </table>
-
                     </div>
     </div>
 
-                <h3 id="method__setup">
-        <div class="location">at line 37</div>
-        <code>            public            
-    <strong>_setup</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>Prepare masks for predefined abbreviations and descriptions</p>
-        <p>
-</p>
-        <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method__teardown">
-        <div class="location">at line 56</div>
-        <code>            public            
-    <strong>_teardown</strong>()</code>
-    </h3>
-    <div class="details">
-        <p>Reset masks created by the <code>_setup()</code> method</p>
-        <p>
-</p>
-        <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_strip">
-        <div class="location">at line 113</div>
+                <h3 id="method_StandardizeLineEnding">
+        <div class="location">at line 219</div>
         <code>            public            string
-    <strong>strip</strong>(string $text)</code>
+    <strong>StandardizeLineEnding</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Strips abbreviations from text, stores titles in hash references.</p>
+        <p>Standardize line endings: DOS to Unix and Mac to Unix</p>
         <p>
 </p>
         <div class="tags">
@@ -598,8 +683,7 @@ that are word separators and "X" is used in the general case.</p>
                     <tr>
                 <td>string</td>
                 <td>$text</td>
-                <td>
-</td>
+                <td>The text to parse</td>
             </tr>
             </table>
 
@@ -609,8 +693,43 @@ that are word separators and "X" is used in the general case.</p>
                     <table>
         <tr>
             <td>string</td>
-            <td>
-</td>
+            <td>The text parsed</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_StripSpacedLines">
+        <div class="location">at line 234</div>
+        <code>            public            string
+    <strong>StripSpacedLines</strong>(string $text)</code>
+    </h3>
+    <div class="details">
+        <p>Strip any lines consisting only of spaces and tabs.</p>
+        <p>This makes subsequent regex easier to write, because we can
+match consecutive blank lines with /\n+/ instead of something
+contorted like /[ ]*\n+/ .</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text to parse</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The text parsed</td>
         </tr>
     </table>
 

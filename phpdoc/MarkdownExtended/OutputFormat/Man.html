@@ -24,7 +24,7 @@
     </div>
         <div class="content">
                 <p>    class
-    <strong>Man</strong>        extends <a href="../../MarkdownExtended/API/AbstractOutputFormat.html"><abbr title="MarkdownExtended\API\AbstractOutputFormat">AbstractOutputFormat</abbr></a>        implements
+    <strong>Man</strong>        extends <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a>        implements
         <a href="../../MarkdownExtended/API/OutputFormatInterface.html"><abbr title="MarkdownExtended\API\OutputFormatInterface">OutputFormatInterface</abbr></a></p>
 
             <div class="description">
@@ -96,6 +96,28 @@
                     
                 </td>
                 <td class="last">
+                    <a href="#method_getNotesToString">getNotesToString</a>(array $notes, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
+                    <p>
+</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getNotesToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_getMetadataToString">getMetadataToString</a>(array $metadata, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)
+                    <p>
+</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getMetadataToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
                     <a href="#method___construct">__construct</a>()
                     <p>Remind some commons</p>
                 </td>
@@ -118,6 +140,17 @@
                 <td class="last">
                     <a href="#method_trimString">trimString</a>(null $text = null)
                     <p>Special <code>trim()</code> to actually trim and "r-trim" last EOL</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method_teardown">teardown</a>($text)
+                    <p>
+</p>
                 </td>
                 <td></td>
             </tr>
@@ -479,7 +512,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_buildTag">
-        <div class="location">at line 169</div>
+        <div class="location">at line 168</div>
         <code>            public            string
     <strong>buildTag</strong>(string $tag_name, string $content = null, array $attributes = array())</code>
     </h3>
@@ -527,7 +560,7 @@
     </div>
 
                 <h3 id="method_getTagString">
-        <div class="location">at line 192</div>
+        <div class="location">at line 191</div>
         <code>            public            string
     <strong>getTagString</strong>(string $content, string $tag_name, array $attributes = array())</code>
     </h3>
@@ -575,8 +608,76 @@
                     </div>
     </div>
 
+                <h3 id="method_getNotesToString">
+        <div class="location">in <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getNotesToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a> at line 82</div>
+        <code>            public            
+    <strong>getNotesToString</strong>(array $notes, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$notes</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getMetadataToString">
+        <div class="location">in <a href="../../MarkdownExtended/OutputFormat/AbstractOutputFormat.html#method_getMetadataToString"><abbr title="MarkdownExtended\OutputFormat\AbstractOutputFormat">AbstractOutputFormat</abbr></a> at line 105</div>
+        <code>            public            
+    <strong>getMetadataToString</strong>(array $metadata, <a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$metadata</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method___construct">
-        <div class="location">at line 152</div>
+        <div class="location">at line 151</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
@@ -592,7 +693,7 @@
     </div>
 
                 <h3 id="method_escapeString">
-        <div class="location">at line 205</div>
+        <div class="location">at line 204</div>
         <code>            public            null|string
     <strong>escapeString</strong>(null $text = null, bool $escape_slashes = false, bool $strip_blank_lines = true)</code>
     </h3>
@@ -641,7 +742,7 @@
     </div>
 
                 <h3 id="method_trimString">
-        <div class="location">at line 229</div>
+        <div class="location">at line 228</div>
         <code>            public            string
     <strong>trimString</strong>(null $text = null)</code>
     </h3>
@@ -677,8 +778,36 @@
                     </div>
     </div>
 
+                <h3 id="method_teardown">
+        <div class="location">at line 239</div>
+        <code>            public            
+    <strong>teardown</strong>($text)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td></td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_buildTitle">
-        <div class="location">at line 243</div>
+        <div class="location">at line 268</div>
         <code>            public            
     <strong>buildTitle</strong>($text, array $attributes = array())</code>
     </h3>
@@ -712,7 +841,7 @@
     </div>
 
                 <h3 id="method_indent">
-        <div class="location">at line 279</div>
+        <div class="location">at line 304</div>
         <code>            public            
     <strong>indent</strong>()</code>
     </h3>
@@ -729,7 +858,7 @@
     </div>
 
                 <h3 id="method_unindent">
-        <div class="location">at line 286</div>
+        <div class="location">at line 309</div>
         <code>            public            
     <strong>unindent</strong>()</code>
     </h3>
@@ -746,7 +875,7 @@
     </div>
 
                 <h3 id="method_buildMetaData">
-        <div class="location">at line 293</div>
+        <div class="location">at line 315</div>
         <code>            public            
     <strong>buildMetaData</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -780,7 +909,7 @@
     </div>
 
                 <h3 id="method_buildMetaTitle">
-        <div class="location">at line 305</div>
+        <div class="location">at line 327</div>
         <code>            public            
     <strong>buildMetaTitle</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -814,7 +943,7 @@
     </div>
 
                 <h3 id="method_buildParagraph">
-        <div class="location">at line 316</div>
+        <div class="location">at line 338</div>
         <code>            public            
     <strong>buildParagraph</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -848,7 +977,7 @@
     </div>
 
                 <h3 id="method_buildBold">
-        <div class="location">at line 329</div>
+        <div class="location">at line 351</div>
         <code>            public            
     <strong>buildBold</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -882,7 +1011,7 @@
     </div>
 
                 <h3 id="method_buildItalic">
-        <div class="location">at line 336</div>
+        <div class="location">at line 358</div>
         <code>            public            
     <strong>buildItalic</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -916,7 +1045,7 @@
     </div>
 
                 <h3 id="method_buildPreformatted">
-        <div class="location">at line 343</div>
+        <div class="location">at line 365</div>
         <code>            public            
     <strong>buildPreformatted</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -950,7 +1079,7 @@
     </div>
 
                 <h3 id="method_buildCode">
-        <div class="location">at line 372</div>
+        <div class="location">at line 394</div>
         <code>            public            
     <strong>buildCode</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -984,7 +1113,7 @@
     </div>
 
                 <h3 id="method_buildAbbreviation">
-        <div class="location">at line 379</div>
+        <div class="location">at line 401</div>
         <code>            public            
     <strong>buildAbbreviation</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1018,7 +1147,7 @@
     </div>
 
                 <h3 id="method_buildDefinitionList">
-        <div class="location">at line 389</div>
+        <div class="location">at line 411</div>
         <code>            public            
     <strong>buildDefinitionList</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1052,7 +1181,7 @@
     </div>
 
                 <h3 id="method_buildDefinitionListItemTerm">
-        <div class="location">at line 395</div>
+        <div class="location">at line 417</div>
         <code>            public            
     <strong>buildDefinitionListItemTerm</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1086,7 +1215,7 @@
     </div>
 
                 <h3 id="method_buildDefinitionListItemDefinition">
-        <div class="location">at line 403</div>
+        <div class="location">at line 425</div>
         <code>            public            
     <strong>buildDefinitionListItemDefinition</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1120,7 +1249,7 @@
     </div>
 
                 <h3 id="method_buildNewLine">
-        <div class="location">at line 410</div>
+        <div class="location">at line 432</div>
         <code>            public            
     <strong>buildNewLine</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1154,7 +1283,7 @@
     </div>
 
                 <h3 id="method_buildHorizontalRule">
-        <div class="location">at line 415</div>
+        <div class="location">at line 437</div>
         <code>            public            
     <strong>buildHorizontalRule</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1188,7 +1317,7 @@
     </div>
 
                 <h3 id="method_buildComment">
-        <div class="location">at line 420</div>
+        <div class="location">at line 442</div>
         <code>            public            
     <strong>buildComment</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1222,7 +1351,7 @@
     </div>
 
                 <h3 id="method_buildListItem">
-        <div class="location">at line 425</div>
+        <div class="location">at line 447</div>
         <code>            public            
     <strong>buildListItem</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1256,7 +1385,7 @@
     </div>
 
                 <h3 id="method_buildUnorderedListItem">
-        <div class="location">at line 433</div>
+        <div class="location">at line 455</div>
         <code>            public            
     <strong>buildUnorderedListItem</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1290,7 +1419,7 @@
     </div>
 
                 <h3 id="method_buildOrderedListItem">
-        <div class="location">at line 440</div>
+        <div class="location">at line 462</div>
         <code>            public            
     <strong>buildOrderedListItem</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1324,7 +1453,7 @@
     </div>
 
                 <h3 id="method_buildList">
-        <div class="location">at line 451</div>
+        <div class="location">at line 473</div>
         <code>            public            
     <strong>buildList</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1358,7 +1487,7 @@
     </div>
 
                 <h3 id="method_buildUnorderedList">
-        <div class="location">at line 459</div>
+        <div class="location">at line 481</div>
         <code>            public            
     <strong>buildUnorderedList</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1392,7 +1521,7 @@
     </div>
 
                 <h3 id="method_buildOrderedList">
-        <div class="location">at line 464</div>
+        <div class="location">at line 486</div>
         <code>            public            
     <strong>buildOrderedList</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1426,7 +1555,7 @@
     </div>
 
                 <h3 id="method_buildLink">
-        <div class="location">at line 470</div>
+        <div class="location">at line 492</div>
         <code>            public            
     <strong>buildLink</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1460,7 +1589,7 @@
     </div>
 
                 <h3 id="method_buildBlockquote">
-        <div class="location">at line 490</div>
+        <div class="location">at line 512</div>
         <code>            public            
     <strong>buildBlockquote</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1494,7 +1623,7 @@
     </div>
 
                 <h3 id="method_buildTableCaption">
-        <div class="location">at line 501</div>
+        <div class="location">at line 523</div>
         <code>            public            
     <strong>buildTableCaption</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1528,7 +1657,7 @@
     </div>
 
                 <h3 id="method_buildTableBody">
-        <div class="location">at line 505</div>
+        <div class="location">at line 527</div>
         <code>            public            
     <strong>buildTableBody</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1562,7 +1691,7 @@
     </div>
 
                 <h3 id="method_buildTableHeader">
-        <div class="location">at line 509</div>
+        <div class="location">at line 531</div>
         <code>            public            
     <strong>buildTableHeader</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1596,7 +1725,7 @@
     </div>
 
                 <h3 id="method_buildTableFooter">
-        <div class="location">at line 513</div>
+        <div class="location">at line 535</div>
         <code>            public            
     <strong>buildTableFooter</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1630,7 +1759,7 @@
     </div>
 
                 <h3 id="method_buildTableLine">
-        <div class="location">at line 517</div>
+        <div class="location">at line 539</div>
         <code>            public            
     <strong>buildTableLine</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1664,7 +1793,7 @@
     </div>
 
                 <h3 id="method_buildTableCell">
-        <div class="location">at line 521</div>
+        <div class="location">at line 543</div>
         <code>            public            
     <strong>buildTableCell</strong>($text = null, array $attributes = array())</code>
     </h3>
@@ -1698,7 +1827,7 @@
     </div>
 
                 <h3 id="method_buildTableCellHead">
-        <div class="location">at line 525</div>
+        <div class="location">at line 547</div>
         <code>            public            
     <strong>buildTableCellHead</strong>($text = null, array $attributes = array())</code>
     </h3>
