@@ -36,9 +36,20 @@ interface OutputFormatInterface
      */
     public function getTagString($content, $tag_name, array $attributes = array());
 
+    /**
+     * Gets the notes list as string
+     *
+     * @param   array $notes
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     */
     public function getNotesToString(array $notes, ContentInterface $content);
 
+    /**
+     * Gets the metadata list as string
+     *
+     * @param   array $metadata
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     */
     public function getMetadataToString(array $metadata, ContentInterface $content);
-
 
 }

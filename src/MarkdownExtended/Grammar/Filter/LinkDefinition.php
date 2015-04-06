@@ -96,5 +96,3 @@ class LinkDefinition
     }
 
 }
-
-// Endfile

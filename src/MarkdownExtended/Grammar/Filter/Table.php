@@ -268,5 +268,3 @@ class Table
     }
 
 }
-
-// Endfile

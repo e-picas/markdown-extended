@@ -76,5 +76,3 @@ class CodeBlock
     }
 
 }
-
-// Endfile

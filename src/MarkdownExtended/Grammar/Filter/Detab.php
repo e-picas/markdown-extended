@@ -85,5 +85,3 @@ class Detab
     }
 
 }
-
-// Endfile

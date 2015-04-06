@@ -26,5 +26,3 @@ interface TemplateInterface
     public function parse(ContentInterface $content);
 
 }
-
-// Endfile

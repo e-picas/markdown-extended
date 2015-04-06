@@ -89,5 +89,3 @@ class AutoLink
     }
 
 }
-
-// Endfile

@@ -550,5 +550,3 @@ class Man
     }
 
 }
-
-// Endfile

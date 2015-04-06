@@ -195,5 +195,3 @@ class Emphasis
     }
 
 }
-
-// Endfile

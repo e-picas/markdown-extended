@@ -127,30 +127,18 @@ class MetaData
     {
         $metadata = Kernel::getConfig('metadata');
         if (!empty($metadata)) {
-            $metadata_str='';
             foreach($metadata as $meta_name=>$meta_value) {
                 if (!empty($meta_name) && is_string($meta_name)) {
                     if (in_array($meta_name, $this->special_metadata)) {
                         Kernel::setConfig($meta_name, $meta_value);
-                    } else {
-                        if ($meta_name=='title') {
-                            Kernel::get(Kernel::TYPE_CONTENT)
-                                ->setTitle($meta_value);
-                        } else {
-                            $metadata_str .= "\n" . Kernel::get('OutputFormatBag')
-                                ->buildTag('meta_data', null, array(
-                                    'name'=>$meta_name,
-                                    'content'=>$meta_value
-                                ));
-                        }
+                    } elseif ($meta_name=='title') {
+                        Kernel::get(Kernel::TYPE_CONTENT)
+                            ->setTitle($meta_value);
                     }
                 }
             }
-            //Kernel::get(Kernel::TYPE_CONTENT)->setMetadataToString($metadata_str);
         }
         return $text;
     }
 
 }
-
-// Endfile

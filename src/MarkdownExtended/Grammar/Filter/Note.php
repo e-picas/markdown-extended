@@ -462,5 +462,3 @@ class Note
     }
 
 }
-
-// Endfile

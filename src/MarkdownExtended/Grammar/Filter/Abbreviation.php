@@ -138,5 +138,3 @@ class Abbreviation
     }
 
 }
-
-// Endfile

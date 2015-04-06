@@ -122,5 +122,3 @@ class Span
     }
 
 }
-
-// Endfile

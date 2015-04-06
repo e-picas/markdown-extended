@@ -192,10 +192,7 @@ class ListItem
         }
 
         return Kernel::get('OutputFormatBag')
-//            ->buildTag('list_item', $item) . "\n";
-            ->buildTag('list_item', $item);
+            ->buildTag('list_item', $item)/* . "\n"*/;
     }
 
 }
-
-// Endfile

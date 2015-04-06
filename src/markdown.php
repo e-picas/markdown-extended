@@ -92,5 +92,3 @@ if (!function_exists('MarkdownFromSource')) {
         E_USER_NOTICE
     );
 }
-
-// Endfile

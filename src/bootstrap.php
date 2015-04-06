@@ -61,5 +61,3 @@ if (file_exists($a = $bootstrapGetPath(array(
 )))) {
     require_once $b;
 }
-
-// Endfile

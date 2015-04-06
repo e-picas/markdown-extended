@@ -377,5 +377,3 @@ class HTML
     }
 
 }
-
-// Endfile

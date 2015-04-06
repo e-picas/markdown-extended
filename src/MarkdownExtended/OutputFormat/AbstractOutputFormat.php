@@ -79,6 +79,14 @@ abstract class AbstractOutputFormat
      */
     abstract public function getTagString($content, $tag_name, array $attributes = array());
 
+    /**
+     * Gets the notes list as string
+     *
+     * @param   array $notes
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return string
+     */
     public function getNotesToString(array $notes, ContentInterface $content)
     {
         if (empty($notes)) {
@@ -102,6 +110,14 @@ abstract class AbstractOutputFormat
             );
     }
 
+    /**
+     * Gets the metadata list as string
+     *
+     * @param   array $metadata
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return string
+     */
     public function getMetadataToString(array $metadata, ContentInterface $content)
     {
         $specials   = Kernel::getConfig('special_metadata');
@@ -118,5 +134,3 @@ abstract class AbstractOutputFormat
     }
 
 }
-
-// Endfile

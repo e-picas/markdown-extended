@@ -178,5 +178,3 @@ class Anchor
     }
 
 }
-
-// Endfile

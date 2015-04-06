@@ -185,14 +185,8 @@ class DefinitionList
             $def = rtrim($def);
             $def = Lexer::runGamut('span_gamut', Lexer::runGamut('tools:Outdent', $def));
         }
-/*
-        return "\n" . Kernel::get('OutputFormatBag')
-            ->buildTag('definition_list_item_definition', $def) . "\n";
-*/
-        return Kernel::get('OutputFormatBag')
-            ->buildTag('definition_list_item_definition', $def);
+        return /*"\n" .*/ Kernel::get('OutputFormatBag')
+            ->buildTag('definition_list_item_definition', $def)/* . "\n"*/;
     }
 
 }
-
-// Endfile
