@@ -10,221 +10,294 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\Helper as MDE_Helper;
-use \MarkdownExtended\Exception as MDE_Exception;
-use \MarkdownExtended\API as MDE_API;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Grammar\GamutLoader;
+use \MarkdownExtended\Exception\DomainException;
+use \MarkdownExtended\Exception\InvalidArgumentException;
+use \MarkdownExtended\Exception\UnexpectedValueException;
+use \MarkdownExtended\Util\ContentCollection;
+use \MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Util\DomIdRegistry;
+use \MarkdownExtended\Util\Registry;
+use \DateTime;
 
 /**
- * PHP Markdown Extended Parser Class
- * @package MarkdownExtended
+ * Global MarkdownExtended parser
  */
 class Parser
-    implements MDE_API\ParserInterface
 {
 
     /**
-     * Internal hashes used during transformation.
-     */
-    protected $urls = array();
-    protected $titles = array();
-    protected $attributes = array();
-    protected $ids = array();
-
-    /**
-     * @var array
-     */
-    protected $all_gamuts;
-
-// ----------------------------------
-// CONSTRUCTORS
-// ----------------------------------
-    
-    /**
-     * Constructor function: Initialize the parser object
+     * Constructs a new parser with optional custom options or configuration file
      *
-     * The `$config` arguments accept both a string (a config INI file path) or an array
-     * if you want to override config options ; in this case, you can set a config file path
-     * with the `config_file` index.
-     *
-     * @param   array/string    $config
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if a class load fails
-     * @throws  \MarkdownExtended\Exception\RuntimeException if an object creation sent an error
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException it the creation of an object throws an exception
+     * @param null|string|array $options A set of options or a configuration file path to override defaults
      */
-    public function __construct($config = null) 
+    public function __construct($options = null)
     {
-        // Init all dependencies
-        try {
-            MarkdownExtended::get('Config')->init($config);
-            MarkdownExtended::factory('Grammar\Gamut', array(MarkdownExtended::getConfig('gamut_aliases')));
-            MarkdownExtended::load('Grammar\Filter');
-            MarkdownExtended::load('Grammar\Tool');
-            MarkdownExtended::get('OutputFormatBag')->load(MarkdownExtended::getConfig('output_format'));
-        } catch (MDE_Exception\InvalidArgumentException $e) {
-            throw $e;
-        } catch (MDE_Exception\UnexpectedValueException $e) {
-            throw $e;
-        } catch (MDE_Exception\RuntimeException $e) {
-            throw $e;
-        }
+        // init the kernel
+        $kernel = Kernel::getInstance();
 
-        // Init config
-        MarkdownExtended::setConfig('nested_brackets_re', 
-            str_repeat('(?>[^\[\]]+|\[', MarkdownExtended::getConfig('nested_brackets_depth')).
-            str_repeat('\])*', MarkdownExtended::getConfig('nested_brackets_depth'))
-        );  
-        MarkdownExtended::setConfig('nested_url_parenthesis_re', 
-            str_repeat('(?>[^()\s]+|\(', MarkdownExtended::getConfig('nested_url_parenthesis_depth')).
-            str_repeat('(?>\)))*', MarkdownExtended::getConfig('nested_url_parenthesis_depth'))
-        );      
-        MarkdownExtended::setConfig('escape_chars_re', 
-            '['
-            .preg_quote(MarkdownExtended::getConfig('escape_chars'))
-            .']');
-        MarkdownExtended::setConfig('less_than_tab',
-            (MarkdownExtended::getConfig('tab_width') - 1));
+        // init options
+        $this
+            ->resetOptions()
+            ->setOptions($options)
+        ;
 
-        // Initial gamuts
-        $this->runGamuts('initial_gamut');
-    }
+        // init all dependencies
+        $kernel
+            ->set('MarkdownExtended',       $this)
+            ->set('OutputFormatBag',        new OutputFormatBag)
+            ->set('Grammar\GamutLoader',    new GamutLoader)
+            ->set('ContentCollection',      new ContentCollection)
+        ;
 
-// ----------------------------------
-// PARSER
-// ----------------------------------
-    
-    /**
-     * Main function. Performs some pre-processing on the input text
-     * and pass it through the document gamut.
-     *
-     * @param   \MarkdownExtended\API\ContentInterface   $content
-     * @param   bool    $secondary
-     * @return  \MarkdownExtended\MarkdownExtended
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if a gamut run fails
-     * @see     self::_setup()
-     * @see     self::_teardown()
-     */
-    public function parse(MDE_API\ContentInterface $content, $secondary = false)
-    {
-        MarkdownExtended::addProcessedContent($content, $secondary);
-        $this->_setup();
-        $text = $content->getSource();
-
-        try {
-            // Run first transform gamut methods
-            $text = $this->runGamuts('transform_gamut', $text);
-
-            // If 'special_gamut', run only this
-            $special_gamut = MarkdownExtended::getConfig('special_gamut');
-            if (!empty($special_gamut)) {
-                $text = $this->runGamuts('special_gamut', $text);
-            } else {
-                // Else run document gamut methods
-                $text = $this->runGamuts('document_gamut', $text);
-            }
-        } catch (MDE_Exception\UnexpectedValueException $e) {
-            throw $e;
-        }
-
-        $content->setBody($text . "\n");
-        $this->_teardown();
-        
-        return MarkdownExtended::getInstance();
-    }
-
-// ----------------------------------
-// GAMUTS
-// ----------------------------------
-    
-    /**
-     * Call to MarkdownExtended\Grammar\Gamut for an array of gamuts
-     *
-     * @param   array   $gamuts
-     * @param   string  $text
-     * @return  string
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if gamuts table not found
-     */
-    public function runGamuts($gamuts, $text = null)
-    {
-        if (empty($gamuts)) return $text;
-
-        if (is_string($gamuts)) {
-            $gamuts = MarkdownExtended::getConfig($gamuts);
-            if (empty($gamuts) || !is_array($gamuts)) {
-                throw new MDE_Exception\UnexpectedValueException(sprintf(
-                    "Called gamut table can't be found, get <%s>!", $gamuts
-                ));
-            }
-        }
-
-        if (!empty($gamuts) && is_array($gamuts)) {
-            return MarkdownExtended::get('Grammar\Gamut')
-                ->runGamuts($gamuts, $text);
-        }
-        return $text;
+        // load required format
+        $kernel->get('OutputFormatBag')
+            ->load($kernel->getConfig('output_format'));
     }
 
     /**
-     * @return  array
+     * Resets options to defaults
+     *
+     * @return $this
      */
-    public function getAllGamuts()
+    public function resetOptions()
     {
-        if (empty($this->all_gamuts)) {
-            $this->all_gamuts = array();
-            $full_gamuts = array_merge(
-                MarkdownExtended::getConfig('initial_gamut'),
-                MarkdownExtended::getConfig('transform_gamut'),
-                MarkdownExtended::getConfig('document_gamut'),
-                MarkdownExtended::getConfig('span_gamut'),
-                MarkdownExtended::getConfig('block_gamut')
-            );
-            foreach ($full_gamuts as $name=>$p) {
-                @list($type, $class, $method) = explode(':', $name);
-                if (!empty($class)) {
-                    $newgamut_name = $type.':'.$class;
-                    if (!array_key_exists($newgamut_name, $this->all_gamuts)) {
-                        $this->all_gamuts[$newgamut_name] = $p;
-                    }
+        Kernel::set('config', new Registry(MarkdownExtended::getDefaults()));
+        return $this;
+    }
+
+    /**
+     * Defines custom options or configuration file
+     *
+     * @param string|array $options A set of options or a configuration file path to override defaults
+     *
+     * @return $this|\MarkdownExtended\Parser
+     */
+    public function setOptions($options)
+    {
+        if (is_string($options)) {
+            return $this->setOptions(array('config_file'=>$options));
+        }
+
+        if (isset($options['config_file']) && !empty($options['config_file'])) {
+            $path = $options['config_file'];
+            unset($options['config_file']);
+
+            if (!file_exists($path)) {
+                $local_path = Kernel::getResourcePath($path, Kernel::RESOURCE_CONFIG);
+                if (empty($local_path) || !file_exists($local_path)) {
+                    throw new UnexpectedValueException(
+                        sprintf('Configuration file "%s" not found', $path)
+                    );
                 }
+                $path = $local_path;
+            }
+
+            $path_options = $this->loadConfigFile($path);
+            unset($path_options['config_file']);
+            $this->setOptions($path_options);
+            $options['loaded_config_file'] = $path;
+        }
+
+        if (is_array($options) && !empty($options)) {
+            foreach ($options as $var=>$val) {
+                Kernel::setConfig($var, $val);
             }
         }
-        return $this->all_gamuts;
+
+        return $this;
     }
 
     /**
-     * Setting up Extra-specific variables.
+     * Transforms a string
+     *
+     * @param   string|\MarkdownExtended\API\ContentInterface $content
+     * @param   null $name
+     * @param   bool $primary
+     *
+     * @return \MarkdownExtended\API\ContentInterface|string
      */
-    protected function _setup() 
+    public function transform($content, $name = null, $primary = true)
     {
-        // Clear global hashes.
-        MarkdownExtended::setVar('cross_references', array());
-        MarkdownExtended::setVar('urls', MarkdownExtended::getConfig('predef_urls'));
-        MarkdownExtended::setVar('titles', MarkdownExtended::getConfig('predef_titles'));
-        MarkdownExtended::setVar('attributes', MarkdownExtended::getConfig('predef_attributes'));
-        MarkdownExtended::setVar('predef_abbr', MarkdownExtended::getConfig('predef_abbr'));
-        MarkdownExtended::setVar('html_hashes', array());
+        /* @var $kernel \MarkdownExtended\API\Kernel */
+        $kernel = Kernel::getInstance();
 
-        // Launch all dependencies '_setup'
-        MarkdownExtended::get('Grammar\Gamut')
-            ->runGamutsMethod($this->getAllGamuts(), '_setup');
+        if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
+            $content = new Content($content, $kernel->get('config')->getAll());
+        }
+        if (!is_null($name)) {
+            $content->setTitle($name);
+        }
+
+        $content_collection = Kernel::get('ContentCollection');
+        $content_collection->append($content);
+        $index = $content_collection->key();
+        $content_collection->next();
+        if (!$content_collection->valid()) {
+            $content_collection->seek($index);
+        }
+        $kernel
+            ->set(Kernel::TYPE_CONTENT, function(){ return Kernel::get('ContentCollection')->current(); })
+            ->set('Lexer',              new Lexer)
+            ->set('DomId',              new DomIdRegistry)
+        ;
+
+        // actually parse content
+        $kernel->get('Lexer')->parse($content);
+        $body   = $content->getBody();
+        $notes  = $content->getNotes();
+        $meta   = $content->getMetadata();
+/*//
+var_export($body);
+var_export($notes);
+var_export($meta);
+exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
+//*/
+
+        // force template if needed
+        $tpl = $kernel->getConfig('template');
+        if (!is_null($tpl) && $tpl === 'auto') {
+            $tpl = !(Helper::isSingleLine($body));
+        }
+        if (!$primary) {
+            $tpl = false;
+        }
+
+        // load it in a template ?
+        if (!empty($tpl) && false !== $tpl) {
+            if (
+                (
+                    (is_string($tpl) && class_exists($tpl)) ||
+                    is_object($tpl)
+                ) &&
+                Kernel::validate($tpl, Kernel::TYPE_TEMPLATE)
+            ) {
+                $templater = new $tpl;
+            } else {
+                $templater = new Templater;
+            }
+            $kernel->set(Kernel::TYPE_TEMPLATE, $templater);
+            $content->setContent(
+                $templater->parse($content, $tpl)
+            );
+
+        } else {
+
+            // if source is a single line
+            if (Helper::isSingleLine($body)) {
+                $content->setContent(
+                    preg_replace('#<[/]?p>#i', '', $body)
+                );
+
+            } else {
+                $content->setContent(
+                    (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
+                    $body .
+                    (!empty($notes) ? PHP_EOL . $content->getNotesFormatted() : '')
+                );
+            }
+        }
+
+        // write the output in a file?
+        $output = $kernel->getConfig('output');
+        if (!empty($output) && $primary) {
+            $name = $content->getMetadata('file_name');
+            $path = Helper::fillPlaceholders(
+                $output,
+                (!empty($name) ?
+                    pathinfo($name, PATHINFO_FILENAME) : Helper::header2Label($content->getTitle())
+                )
+            );
+            if (file_exists($path) && $kernel->getConfig('force') !== true) {
+                Helper::backupFile($path);
+            }
+            if (!file_exists(dirname($path))) {
+                mkdir(dirname($path));
+            }
+            $written = Helper::writeFile($path, (string) $content);
+
+            // return generated file path
+            return $path;
+        }
+
+        // return the content object
+        return $content;
     }
-    
+
     /**
-     * Clearing Extra-specific variables.
+     * Transforms a source file
+     *
+     * @param   string $path
+     * @param   bool $primary
+     * @return  \MarkdownExtended\API\ContentInterface|string
+     *
+     * @throws \MarkdownExtended\Exception\DomainException if the file can not be found or read
      */
-    protected function _teardown() 
+    public function transformSource($path, $primary = true)
     {
-        // Clear global hashes.
-        MarkdownExtended::setVar('urls', MarkdownExtended::getConfig('predef_urls'));
-        MarkdownExtended::setVar('titles', MarkdownExtended::getConfig('predef_titles'));
-        MarkdownExtended::setVar('attributes', MarkdownExtended::getConfig('predef_attributes'));
-        MarkdownExtended::setVar('predef_abbr', MarkdownExtended::getConfig('predef_abbr'));
-        MarkdownExtended::setVar('html_hashes', array());
+        if (!file_exists($path)) {
+            throw new DomainException(
+                sprintf('Source file "%s" not found', $path)
+            );
+        }
+        if (!is_readable($path)) {
+            throw new DomainException(
+                sprintf('Source file "%s" is not readable', $path)
+            );
+        }
 
-        // Launch all dependencies '_teardown'
-        MarkdownExtended::get('Grammar\Gamut')
-            ->runGamutsMethod($this->getAllGamuts(), '_teardown');
+        $source     = Helper::readFile($path);
+        $content    = new Content($source, Kernel::get('config')->getAll());
+        $content
+            ->addMetadata('last_update', new DateTime('@'.filemtime($path)))
+            ->addMetadata('file_name', $path)
+        ;
+        Kernel::addConfig('base_path', realpath(dirname($path)));
+        return $this->transform($content, $path, $primary);
     }
-    
+
+    /**
+     * Loads a configuration file
+     *
+     * @param string $path
+     *
+     * @return array|mixed
+     *
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file can not be found or is not readable
+     */
+    protected function loadConfigFile($path)
+    {
+        if (!file_exists($path)) {
+            throw new InvalidArgumentException(
+                sprintf('Configuration file "%s" not found', $path)
+            );
+        }
+        if (!is_readable($path)) {
+            throw new InvalidArgumentException(
+                sprintf('Configuration file "%s" is not readable', $path)
+            );
+        }
+
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        switch (strtolower($ext)) {
+            case 'ini':
+                $options = parse_ini_file($path, true);
+                break;
+            case 'json':
+                $options = json_decode(Helper::readFile($path), true);
+                break;
+            case 'php':
+                $options = include $path;
+                break;
+            default:
+                throw new InvalidArgumentException(
+                    sprintf('Unknown configuration file type "%s"', $ext)
+                );
+        }
+
+        return $options;
+    }
+
 }
-
-// Endfile

@@ -17,17 +17,20 @@ class LinkTest extends MarkdownExtendedBaseTest
 
     public function testCreate()
     {
-        $markdownParser = $this->createParser();
 
         // classic link
-        $markdownContent3 = $this->createContent('[Composer](http://getcomposer.org/)');
-        $content3 = $markdownParser->parse($markdownContent3)->getContent();
-        $this->assertEquals('<p><a href="http://getcomposer.org/" title="See online http://getcomposer.org/">Composer</a></p>', $this->getBody($content3), 'Simple links not work!');
+        $this->processParseTest(
+            '[Composer](http://getcomposer.org/)',
+            '<a href="http://getcomposer.org/" title="See online http://getcomposer.org/">Composer</a>',
+            'Simple links not work!'
+        );
 
         // link with a title
-        $markdownContent4 = $this->createContent('[Composer](http://getcomposer.org/ "My title")');
-        $content4 = $markdownParser->parse($markdownContent4)->getContent();
-        $this->assertEquals('<p><a href="http://getcomposer.org/" title="My title">Composer</a></p>', $this->getBody($content4), 'Links with title does not work!');
+        $this->processParseTest(
+            '[Composer](http://getcomposer.org/ "My title")',
+            '<a href="http://getcomposer.org/" title="My title">Composer</a>',
+            'Links with title does not work!'
+        );
 
     }
     

@@ -17,10 +17,11 @@ class HeaderTest extends MarkdownExtendedBaseTest
 
     public function testCreate()
     {
-        $markdownParser = $this->createParser();
-        $markdownContent = $this->createContent('#Hello World');
-        $content = $markdownParser->parse($markdownContent)->getContent();
-        $this->assertEquals('<h1 id="hello-world">Hello World</h1>', $this->getBody($content), 'Header fails!');
+        $this->processParseTest(
+            '#Hello World',
+            '<h1 id="hello-world">Hello World</h1>',
+            'Header fails!'
+        );
     }
     
 }

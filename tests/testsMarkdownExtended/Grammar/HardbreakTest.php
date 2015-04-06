@@ -17,21 +17,20 @@ class HardbreakTest extends MarkdownExtendedBaseTest
 
     public function testCreate()
     {
-        $markdownParser = $this->createParser();
-
-        // abbreviation
-        $markdownContent5 = $this->createContent("
+        $this->processParseTest(
+            "
 This is a definition with two paragraphs. Lorem ipsum
 dolor sit amet, consectetuer adipiscing elit. Aliquam
 hendrerit mi posuere lectus.
 
 Vestibulum enim wisi, viverra nec, fringilla in, laoreet
 vitae, risus.
-        ");
-        $content5 = $markdownParser->parse($markdownContent5)->getContent();
-        $this->assertEquals(
+        ",
             '<p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>',
-            str_replace("\n", ' ', $this->getBody($content5, true)), 'Hard break fails!');
+            'Hard break fails!',
+            true,
+            true
+        );
 
     }
     

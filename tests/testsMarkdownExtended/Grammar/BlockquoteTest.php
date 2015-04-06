@@ -17,21 +17,18 @@ class BlockquoteTest extends MarkdownExtendedBaseTest
 
     public function testCreate()
     {
-        $markdownParser = $this->createParser();
-
-        // abbreviation
-        $markdownContent5 = $this->createContent("
+        $this->processParseTest(
+            "
 > My citation
 >
 > With a paragraph and some `code`
 >
 >     and even a preformatted string
-        ");
-        $content5 = $markdownParser->parse($markdownContent5)->getContent();
-        $this->assertEquals(
+        ",
             '<blockquote><p>My citation</p><p>With a paragraph and some <code>code</code></p><pre>and even a preformatted string</pre></blockquote>',
-            $this->getBody($content5, true), 'Blockquote fails!');
-
+            'Blockquote fails!',
+            true
+        );
     }
     
 }

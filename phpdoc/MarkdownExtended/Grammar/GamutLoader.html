@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Grammar\GamutLoader | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../traits.html">Traits</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/Grammar.html">MarkdownExtended\Grammar</a>\GamutLoader</h1>
+    </div>
+        <div class="content">
+                <p>    class
+    <strong>GamutLoader</strong>        extends <a href="../../MarkdownExtended/Util/CacheRegistry.html"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a></p>
+
+            <div class="description">
+            <p>Central class to execute filters and tools methods on a content</p>
+            <p>It can handle a list of gamuts, execute a specific method and run a single gamut.</p>
+        </div>
+    
+            <h2>Constants</h2>
+
+            <table>
+                    <tr>
+                <td>FILTER_ALIAS</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TOOLS_ALIAS</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>FILTER_NAMESPACE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TOOLS_CLASS</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+            </table>
+
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>()
+                    <p>Initialize the cache registry</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Util/CacheRegistry.html#method___construct"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_isCached">isCached</a>(string $index)
+                    <p>Tests if an index is cached</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Util/CacheRegistry.html#method_isCached"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    mixed
+                </td>
+                <td class="last">
+                    <a href="#method_getCache">getCache</a>(string $index)
+                    <p>Gets current cached content of an index</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Util/CacheRegistry.html#method_getCache"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="MarkdownExtended\Util\$this">$this</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_setCache">setCache</a>(string $index, mixed $object)
+                    <p>Sets a cached content for an index</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../MarkdownExtended/Util/CacheRegistry.html#method_setCache"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    null|array
+                </td>
+                <td class="last">
+                    <a href="#method_getGamutStack">getGamutStack</a>(string $name)
+                    <p>Gets a gamuts' array by name</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getGamutType">getGamutType</a>(string $value)
+                    <p>Gets the type of gamut in "filter", "tools" or other</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_isGamutStackName">isGamutStackName</a>(string $value)
+                    <p>Tests if a string seems to be a gamuts' stack reference</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_getGamutBaseName">getGamutBaseName</a>(string $gamut)
+                    <p>Gets the "base name" of a gamut entry in "filter:class", "tools" or "custom class"</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_getAllGamuts">getAllGamuts</a>()
+                    <p>Gets an array of all defined gamuts</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_getAllGamutsReversed">getAllGamutsReversed</a>()
+                    <p>Gets an array of all defined gamuts as keys</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_isGamutEnabled">isGamutEnabled</a>(string $gamut)
+                    <p>Tests if a gamut is enabled</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runGamuts">runGamuts</a>(array $gamuts, string $text = null)
+                    <p>Runs a list of gamuts by priority on a content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runGamutsMethod">runGamutsMethod</a>(array $gamuts, string $method, string $text = null)
+                    <p>Runs a specific method of a list of gamuts by priority on a content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    string
+                </td>
+                <td class="last">
+                    <a href="#method_runGamut">runGamut</a>(string $gamut, string $text = null, string $_method = null)
+                    <p>Runs a single gamut on a content</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">in <a href="../../MarkdownExtended/Util/CacheRegistry.html#method___construct"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a> at line 27</div>
+        <code>            public            
+    <strong>__construct</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Initialize the cache registry</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_isCached">
+        <div class="location">in <a href="../../MarkdownExtended/Util/CacheRegistry.html#method_isCached"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a> at line 38</div>
+        <code>            public            bool
+    <strong>isCached</strong>(string $index)</code>
+    </h3>
+    <div class="details">
+        <p>Tests if an index is cached</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getCache">
+        <div class="location">in <a href="../../MarkdownExtended/Util/CacheRegistry.html#method_getCache"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a> at line 49</div>
+        <code>            public            mixed
+    <strong>getCache</strong>(string $index)</code>
+    </h3>
+    <div class="details">
+        <p>Gets current cached content of an index</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>mixed</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setCache">
+        <div class="location">in <a href="../../MarkdownExtended/Util/CacheRegistry.html#method_setCache"><abbr title="MarkdownExtended\Util\CacheRegistry">CacheRegistry</abbr></a> at line 62</div>
+        <code>            public            <abbr title="MarkdownExtended\Util\$this">$this</abbr>
+    <strong>setCache</strong>(string $index, mixed $object)</code>
+    </h3>
+    <div class="details">
+        <p>Sets a cached content for an index</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$index</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$object</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\Util\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getGamutStack">
+        <div class="location">at line 48</div>
+        <code>            public            null|array
+    <strong>getGamutStack</strong>(string $name)</code>
+    </h3>
+    <div class="details">
+        <p>Gets a gamuts' array by name</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>null|array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/BadMethodCallException.html"><abbr title="MarkdownExtended\Exception\BadMethodCallException">BadMethodCallException</abbr></a></td>
+                <td>if <code>$name</code> seems malformed</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if <code>$name</code> can not be found</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getGamutType">
+        <div class="location">at line 73</div>
+        <code>            public            string
+    <strong>getGamutType</strong>(string $value)</code>
+    </h3>
+    <div class="details">
+        <p>Gets the type of gamut in "filter", "tools" or other</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_isGamutStackName">
+        <div class="location">at line 85</div>
+        <code>            public            bool
+    <strong>isGamutStackName</strong>(string $value)</code>
+    </h3>
+    <div class="details">
+        <p>Tests if a string seems to be a gamuts' stack reference</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getGamutBaseName">
+        <div class="location">at line 97</div>
+        <code>            public            string
+    <strong>getGamutBaseName</strong>(string $gamut)</code>
+    </h3>
+    <div class="details">
+        <p>Gets the "base name" of a gamut entry in "filter:class", "tools" or "custom class"</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$gamut</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getAllGamuts">
+        <div class="location">at line 118</div>
+        <code>            public            array
+    <strong>getAllGamuts</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Gets an array of all defined gamuts</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getAllGamutsReversed">
+        <div class="location">at line 148</div>
+        <code>            public            array
+    <strong>getAllGamutsReversed</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Gets an array of all defined gamuts as keys</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table>
+                    <tr>
+                <td>self::getAllGamuts()</td>
+                <td></td>
+            </tr>
+            </table>
+
+                    </div>
+    </div>
+
+                <h3 id="method_isGamutEnabled">
+        <div class="location">at line 163</div>
+        <code>            public            bool
+    <strong>isGamutEnabled</strong>(string $gamut)</code>
+    </h3>
+    <div class="details">
+        <p>Tests if a gamut is enabled</p>
+        <p>This will always return <code>true</code> for tools and a gamut
+stack name.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$gamut</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runGamuts">
+        <div class="location">at line 180</div>
+        <code>            public            string
+    <strong>runGamuts</strong>(array $gamuts, string $text = null)</code>
+    </h3>
+    <div class="details">
+        <p>Runs a list of gamuts by priority on a content</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$gamuts</td>
+                <td>The gamuts names to execute</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text for gamuts execution</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runGamutsMethod">
+        <div class="location">at line 202</div>
+        <code>            public            string
+    <strong>runGamutsMethod</strong>(array $gamuts, string $method, string $text = null)</code>
+    </h3>
+    <div class="details">
+        <p>Runs a specific method of a list of gamuts by priority on a content</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$gamuts</td>
+                <td>The gamuts names to execute</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$method</td>
+                <td>The method name to execute in each gamut</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text for gamuts execution</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/BadMethodCallException.html"><abbr title="MarkdownExtended\Exception\BadMethodCallException">BadMethodCallException</abbr></a></td>
+                <td>if <code>$method</code> is not a string</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_runGamut">
+        <div class="location">at line 237</div>
+        <code>            public            string
+    <strong>runGamut</strong>(string $gamut, string $text = null, string $_method = null)</code>
+    </h3>
+    <div class="details">
+        <p>Runs a single gamut on a content</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$gamut</td>
+                <td>The gamut name to execute</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>The text for gamuts execution</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$_method</td>
+                <td>The method name to execute in each gamut</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/BadMethodCallException.html"><abbr title="MarkdownExtended\Exception\BadMethodCallException">BadMethodCallException</abbr></a></td>
+                <td>if <code>$gamut</code> is not a string</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

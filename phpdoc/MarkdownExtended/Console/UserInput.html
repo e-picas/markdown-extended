@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Console\UserInput | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../traits.html">Traits</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/Console.html">MarkdownExtended\Console</a>\UserInput</h1>
+    </div>
+        <div class="content">
+                <p>    class
+    <strong>UserInput</strong></p>
+
+    
+            <h2>Constants</h2>
+
+            <table>
+                    <tr>
+                <td>NEGATE_SUFFIX</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>ARG_NULL</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>ARG_OPTIONAL</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>ARG_REQUIRED</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TYPE_BOOL</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TYPE_STRING</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TYPE_PATH</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>TYPE_LISTITEM</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+            </table>
+
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    static&nbsp;array
+                </td>
+                <td class="last">
+                    <a href="#method_prepareOptionDefinition">prepareOptionDefinition</a>(array $item, string $name)
+                    <p>Organize and cleanup an option definition</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;bool
+                </td>
+                <td class="last">
+                    <a href="#method_validateOptionValue">validateOptionValue</a>(string $value, array $definition)
+                    <p>Validate a user CLI option value</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;object
+                </td>
+                <td class="last">
+                    <a href="#method_parseOptions">parseOptions</a>(array $definitions)
+                    <p>Parse the command line user options based on CLI options definitions</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getOptionsInfo">getOptionsInfo</a>(array $definitions)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getOptionsSynopsis">getOptionsSynopsis</a>(array $definitions)
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;
+                </td>
+                <td class="last">
+                    <a href="#method_getSanitizedUserInput">getSanitizedUserInput</a>()
+                    <p>
+</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_prepareOptionDefinition">
+        <div class="location">at line 54</div>
+        <code>        static    public            array
+    <strong>prepareOptionDefinition</strong>(array $item, string $name)</code>
+    </h3>
+    <div class="details">
+        <p>Organize and cleanup an option definition</p>
+        <p>The <code>$item</code> definition array may follow these rules:</p>
+
+<ul>
+<li>'description' (required) is the option description used in help string</li>
+<li>'argument' (required) is the argument behavior: null, optional or required
+ (use the <code>ARG_</code> class constants)</li>
+<li>'type' (optional) is the argument type (use the <code>TYPE_</code> class constants) ;
+ it defaults to the boolean type if the argument is null and is required otherwise ;
+ you can use multiple types using bitwise notation: <code>TYPE_1 | TYPE_2</code></li>
+<li>'default' (optional) is the default value of the option ; it defaults to
+ <code>false</code> if the argument is optional or the type is boolean and <code>null</code> otherwise</li>
+<li>'default_arg' (optional) is the default argument value used when the argument
+ is optional and the option is used ; it defaults to 'default'</li>
+<li>'shortcut' (optional) is the one-letter option shortcut</li>
+<li>'negate' (optional) allows the option to be negated using option <code>--no-OPTION</code> ;
+ this will reset the default value of the option to <code>false</code> when the negate option
+ is used</li>
+<li>'list' (required for the LISTITEM type) defines the allowed list of option values</li>
+</ul>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$item</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_validateOptionValue">
+        <div class="location">at line 119</div>
+        <code>        static    public            bool
+    <strong>validateOptionValue</strong>(string $value, array $definition)</code>
+    </h3>
+    <div class="details">
+        <p>Validate a user CLI option value</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$definition</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseOptions">
+        <div class="location">at line 167</div>
+        <code>        static    public            object
+    <strong>parseOptions</strong>(array $definitions)</code>
+    </h3>
+    <div class="details">
+        <p>Parse the command line user options based on CLI options definitions</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$definitions</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>object</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getOptionsInfo">
+        <div class="location">at line 257</div>
+        <code>        static    public            
+    <strong>getOptionsInfo</strong>(array $definitions)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$definitions</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getOptionsSynopsis">
+        <div class="location">at line 281</div>
+        <code>        static    public            
+    <strong>getOptionsSynopsis</strong>(array $definitions)</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$definitions</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getSanitizedUserInput">
+        <div class="location">at line 317</div>
+        <code>        static    public            
+    <strong>getSanitizedUserInput</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>
+</p>
+        <p>
+</p>
+        <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

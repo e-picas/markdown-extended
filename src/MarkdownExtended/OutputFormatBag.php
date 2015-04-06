@@ -10,14 +10,12 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\Helper as MDE_Helper;
-use \MarkdownExtended\Exception as MDE_Exception;
-use \MarkdownExtended\API as MDE_API;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\API\OutputFormatInterface;
+use \MarkdownExtended\Util\Helper;
+use \MarkdownExtended\Exception\InvalidArgumentException;
+use \MarkdownExtended\Exception\BadMethodCallException;
 
-/**
- * PHP Markdown Extended OutputFormat container
- * @package MarkdownExtended
- */
 class OutputFormatBag
 {
 
@@ -61,6 +59,12 @@ class OutputFormatBag
         'title',
         'unordered_list',
         'unordered_list_item',
+        'footnote_standard_item',
+        'footnote_standard_link',
+        'footnote_glossary_item',
+        'footnote_glossary_link',
+        'footnote_bibliography_item',
+        'footnote_bibliography_link',
     );
 
     /**
@@ -69,57 +73,25 @@ class OutputFormatBag
     protected $formatter;
 
     /**
-     * @var     \MarkdownExtended\API\OutputFormatHelperInterface
-     */
-    protected $helper;
-
-    /**
      * Loads a new formatter
      *
      * @param   string  $format     The formatter name
      * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
-     * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error
      */
     public function load($format)
     {
-        $class_name = $format;
-        if (!class_exists($class_name)) {
-            $class_name = '\MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format);
+        $cls_name = $format;
+        if (!class_exists($cls_name)) {
+            $cls_name = '\MarkdownExtended\OutputFormat\\'.Helper::toCamelCase($format);
         }
-        try {
-            $_obj = MarkdownExtended::factory($class_name, null, 'output_format');
-            $this->setFormatter($_obj);
-            $this->loadHelper($format);
-        } catch (MDE_Exception\RuntimeException $e) {
-            throw $e;
-        } catch (MDE_Exception\InvalidArgumentException $e) {
-            throw $e;
+        if (!class_exists($cls_name)) {
+            throw new InvalidArgumentException(
+                sprintf('Output format "%s" not found', $format)
+            );
         }
-    }
-
-    /**
-     * Loads a formatter helper if it exists
-     *
-     * @param   string  $format     The formatter name
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the class can not be found
-     * @throws  \MarkdownExtended\Exception\RuntimeException if the object creation sent an error
-     */
-    public function loadHelper($format)
-    {
-        $class_name = $format.'Helper';
-        if (!class_exists($class_name)) {
-            $class_name = '\MarkdownExtended\OutputFormat\\'.MDE_Helper::toCamelCase($format).'Helper';
-        }
-        if (!class_exists($class_name)) {
-            $class_name = '\MarkdownExtended\OutputFormat\\DefaultHelper';
-        }
-        try {
-            $_obj = MarkdownExtended::factory($class_name, null, 'output_format_helper');
-            $this->setHelper($_obj);
-        } catch (MDE_Exception\RuntimeException $e) {
-            throw $e;
-        } catch (MDE_Exception\InvalidArgumentException $e) {
-            throw $e;
+        $cls = new $cls_name;
+        if (Kernel::validate($cls, Kernel::TYPE_OUTPUTFORMAT, $format)) {
+            $this->setFormatter($cls);
         }
     }
 
@@ -131,7 +103,9 @@ class OutputFormatBag
      */
     public function __call($name, array $arguments = null)
     {
-        if (empty($this->formatter)) return;
+        if (empty($this->formatter)) {
+            return null;
+        }
 
         if (method_exists($this->getFormatter(), $name)) {
             if (!empty($arguments)) {
@@ -140,10 +114,10 @@ class OutputFormatBag
                 return call_user_func(array($this->getFormatter(), $name));
             }
         } else {
-            throw new MDE_Exception\InvalidArgumentException(sprintf(
-                'Call to undefined method "%s" on formatter "%s"!',
-                $name, get_class($this->getFormatter())
-            ));
+            throw new BadMethodCallException(
+                sprintf('Call to undefined method "%s" on formatter "%s"',
+                    $name, get_class($this->getFormatter()))
+            );
         }
     }
 
@@ -153,7 +127,7 @@ class OutputFormatBag
      * @param   \MarkdownExtended\API\OutputFormatInterface $formatter
      * @return  self
      */
-    public function setFormatter(MDE_API\OutputFormatInterface $formatter)
+    public function setFormatter(OutputFormatInterface $formatter)
     {
         $this->formatter = $formatter;
         return $this;
@@ -169,28 +143,4 @@ class OutputFormatBag
         return $this->formatter;
     }
 
-    /**
-     * Set the current formatter helper
-     *
-     * @param   \MarkdownExtended\API\OutputFormatHelperInterface
-     * @return  self
-     */
-    public function setHelper(MDE_API\OutputFormatHelperInterface $helper)
-    {
-        $this->helper = $helper;
-        return $this;
-    }
-
-    /**
-     * Get current formatter helper
-     *
-     * @return  \MarkdownExtended\API\OutputFormatHelperInterface
-     */
-    public function getHelper()
-    {
-        return $this->helper;
-    }
-
 }
-
-// Endfile

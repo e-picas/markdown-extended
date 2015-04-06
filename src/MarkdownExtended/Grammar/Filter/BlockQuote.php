@@ -10,10 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown blockquotes
@@ -63,7 +62,7 @@ class BlockQuote
         $cite = isset($matches[2]) ? $matches[2] : null;
         // trim one level of quoting - trim whitespace-only lines
         $bq = preg_replace('/^[ ]*>[ ]?(\((.+?)\))?|^[ ]+$/m', '', $bq);
-        $bq = parent::runGamut('html_block_gamut', $bq); # recurse
+        $bq = Lexer::runGamut('html_block_gamut', $bq); # recurse
         $bq = preg_replace('/^/m', "  ", $bq);
         // These leading spaces cause problem with <pre> content,
         // so we need to fix that:
@@ -73,7 +72,7 @@ class BlockQuote
         if (!empty($cite)) {
             $attributes['cite'] = $cite;
         }
-        $block = MarkdownExtended::get('OutputFormatBag')
+        $block = Kernel::get('OutputFormatBag')
     //            ->buildTag('blockquote', "\n$bq\n", $attributes);
             ->buildTag('blockquote', $bq, $attributes);
         return "\n" . parent::hashBlock($block) . "\n\n";
@@ -93,5 +92,3 @@ class BlockQuote
     }
 
 }
-
-// Endfile

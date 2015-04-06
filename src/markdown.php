@@ -8,14 +8,24 @@
  * file that was distributed with this source code.
  */
 
-// Show errors at least initially
-@ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+// get a well-formatted path
+$bootstrapGetPath = function(array $parts) {
+    return implode(DIRECTORY_SEPARATOR,
+        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+};
 
-// Namespaces loader
-require_once __DIR__.'/../src/bootstrap.php';
+// namespaces loader if needed
+if (!defined('MDE_BASE_PATH')) {
+    if (file_exists($bootstrapper = $bootstrapGetPath(array(__DIR__, 'bootstrap.php')))) {
+        require_once $bootstrapper;
 
-// silent errors
-@error_reporting(-1);
+    } else {
+        trigger_error(
+            sprintf('MarkdownExtended bootstrapper not found (searching "%s")!', $bootstrapper),
+            E_USER_ERROR
+        );
+    }
+}
 
 // standard markdown functions for compatibility
 
@@ -24,21 +34,11 @@ require_once __DIR__.'/../src/bootstrap.php';
  *
  * @param   string  $text
  * @param   mixed   $options
- * @param   string  $type   The part of the content to get ; can be 'full', 'body' (default)
- *                          or false to get the `Content` object
- * @return  string
+ * @return  \MarkdownExtended\API\ContentInterface
  */
-function Markdown($text, $options = null, $type = 'body')
+function MarkdownExtended($text, $options = null)
 {
-    \MarkdownExtended\MarkdownExtended::getInstance()
-        ->transformString($text, $options);
-    if ($type==='full') {
-        return \MarkdownExtended\MarkdownExtended::getFullContent();
-    } elseif ($type==='body') {
-        return \MarkdownExtended\MarkdownExtended::getContent()->getBody();
-    } else {
-        return \MarkdownExtended\MarkdownExtended::getContent();
-    }
+    return \MarkdownExtended\MarkdownExtended::parseString($text, $options);
 }
 
 /**
@@ -46,31 +46,49 @@ function Markdown($text, $options = null, $type = 'body')
  *
  * @param   string  $file_name
  * @param   mixed   $options
- * @param   string  $type   The part of the content to get ; can be 'full', 'body' (default)
- *                          or false to get the `Content` object
- * @return  string
+ * @return  \MarkdownExtended\API\ContentInterface
  */
-function MarkdownFromSource($file_name, $options = null, $type = 'body')
+function MarkdownExtendedFromSource($file_name, $options = null)
 {
-    \MarkdownExtended\MarkdownExtended::getInstance()
-        ->transformSource($file_name, $options);
-    if ($type==='full') {
-        return \MarkdownExtended\MarkdownExtended::getFullContent();
-    } elseif ($type==='body') {
-        return \MarkdownExtended\MarkdownExtended::getContent()->getBody();
-    } else {
-        return \MarkdownExtended\MarkdownExtended::getContent();
+    return \MarkdownExtended\MarkdownExtended::parseSource($file_name, $options);
+}
+
+if (!function_exists('Markdown')) {
+    /**
+     * Transform an input text by the MarkdownExtended
+     *
+     * @param   string  $text
+     * @param   mixed   $options
+     * @return  \MarkdownExtended\API\ContentInterface
+     */
+    function Markdown($text, $options = null)
+    {
+        return MarkdownExtended($text, $options);
     }
+} else {
+    trigger_error(
+        'The "Markdown" function is already defined and can not be overwritten. '
+        . 'To use the MarkdownExtended parser, you must use function "MarkdownExtended()".',
+        E_USER_NOTICE
+    );
 }
 
-/**
- * Use the MarkdownExtended command line interface
- */
-function MarkdownCli()
-{
-    \MarkdownExtended\MarkdownExtended::getInstance()
-        ->get('CommandLine\Console')
-        ->run();
+if (!function_exists('MarkdownFromSource')) {
+    /**
+     * Transform an input file name source by the MarkdownExtended
+     *
+     * @param   string  $file_name
+     * @param   mixed   $options
+     * @return  \MarkdownExtended\API\ContentInterface
+     */
+    function MarkdownFromSource($file_name, $options = null)
+    {
+        return MarkdownExtendedFromSource($file_name, $options);
+    }
+} else {
+    trigger_error(
+        'The "MarkdownFromSource" function is already defined and can not be overwritten. '
+        . 'To use the MarkdownExtended parser, you must use function "MarkdownExtendedFromSource()".',
+        E_USER_NOTICE
+    );
 }
-
-// Endfile

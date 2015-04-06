@@ -11,23 +11,23 @@
 namespace testsMarkdownExtended\Grammar;
 
 use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtended\MarkdownExtended;
 
 class AbbreviationTest extends MarkdownExtendedBaseTest
 {
 
     public function testCreate()
     {
-        $markdownParser = $this->createParser();
-
         // abbreviation
-        $markdownContent5 = $this->createContent("
+        $this->processParseTest(
+            "
 A text whit HTML expression.
 
 *[HTML]: Hyper Text Markup Language
-        ");
-        $content5 = $markdownParser->parse($markdownContent5)->getContent();
-        $this->assertEquals('<p>A text whit <abbr title="Hyper Text Markup Language">HTML</abbr> expression.</p>', $this->getBody($content5), 'Abbreviation fails!');
-
+        ",
+            'A text whit <abbr title="Hyper Text Markup Language">HTML</abbr> expression.',
+            'Abbreviation fails!'
+        );
     }
     
 }

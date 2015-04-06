@@ -10,10 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown abbreviations
@@ -22,7 +21,7 @@ use MarkdownExtended\Exception as MDE_Exception;
  *
  *      *[abbr]: definition
  *
- * You can pre-define a set of abbreviation descriptions in the config entry `predef_abbr`.
+ * You can pre-define a set of abbreviation descriptions in the config entry `predefined_abbr`.
  * This must be define as an array of `term => description` values.
  *
  * @link http://aboutmde.org/#E5
@@ -39,7 +38,7 @@ class Abbreviation
     {
         $abbr_word_re='';
         $abbr_desciptions = array();
-        $predef_abbr = MarkdownExtended::getVar('predef_abbr');
+        $predef_abbr = Kernel::getConfig('predefined_abbr');
         if (!empty($predef_abbr)) {
             foreach ($predef_abbr as $abbr_word => $abbr_desc) {
                 if ($abbr_word_re) $abbr_word_re .= '|';
@@ -47,8 +46,8 @@ class Abbreviation
                 $abbr_desciptions[$abbr_word] = trim($abbr_desc);
             }
         }
-        MarkdownExtended::setVar('abbr_word_re', $abbr_word_re);
-        MarkdownExtended::setVar('abbr_desciptions', $abbr_desciptions);
+        Kernel::setConfig('abbr_word_re', $abbr_word_re);
+        Kernel::setConfig('abbr_desciptions', $abbr_desciptions);
     }
 
     /**
@@ -56,8 +55,8 @@ class Abbreviation
      */
     public function _teardown()
     {
-        MarkdownExtended::setVar('abbr_desciptions', array());
-        MarkdownExtended::setVar('abbr_word_re', '');
+        Kernel::setConfig('abbr_desciptions', array());
+        Kernel::setConfig('abbr_word_re', '');
     }
 
     /**
@@ -68,12 +67,12 @@ class Abbreviation
      */
     public function transform($text)
     {
-        if (MarkdownExtended::getConfig('abbr_word_re')) {
+        if (Kernel::getConfig('abbr_word_re')) {
             // cannot use the /x modifier because abbr_word_re may
             // contain significant spaces:
             $text = preg_replace_callback('{'.
                 '(?<![\w\x1A])'.
-                '(?:'.MarkdownExtended::getConfig('abbr_word_re').')'.
+                '(?:'.Kernel::getConfig('abbr_word_re').')'.
                 '(?![\w\x1A])'.
                 '}',
                 array($this, '_callback'), $text);
@@ -90,14 +89,14 @@ class Abbreviation
     protected function _callback($matches)
     {
         $abbr = $matches[0];
-        $abbr_desciptions = MarkdownExtended::getConfig('abbr_desciptions');
+        $abbr_desciptions = Kernel::getConfig('abbr_desciptions');
         if (isset($abbr_desciptions[$abbr])) {
             $attributes = array();
             $desc = trim($abbr_desciptions[$abbr]);
             if (!empty($desc)) {
-                $attributes['title'] = parent::runGamut('tool:EncodeAttribute', $desc);
+                $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $desc);
             }
-            $abbr = MarkdownExtended::get('OutputFormatBag')
+            $abbr = Kernel::get('OutputFormatBag')
                 ->buildTag('abbreviation', $abbr, $attributes);
             return parent::hashBlock($abbr);
         } else {
@@ -115,7 +114,7 @@ class Abbreviation
     {
         return preg_replace_callback('{
                 ^[ ]{0,'.
-                MarkdownExtended::getConfig('less_than_tab')
+                Kernel::getConfig('less_than_tab')
                 .'}\*\[(.+?)\][ ]?: # abbr_id = $1
                 (.*)                # text = $2 (no blank lines allowed)
             }xm',
@@ -131,13 +130,11 @@ class Abbreviation
      */
     protected function _strip_callback($matches)
     {
-        MarkdownExtended::addConfig('abbr_word_re',
-            (MarkdownExtended::getConfig('abbr_word_re') ? '|' : '' ).preg_quote($matches[1])
+        Kernel::addConfig('abbr_word_re',
+            (Kernel::getConfig('abbr_word_re') ? '|' : '' ).preg_quote($matches[1])
         );
-        MarkdownExtended::addConfig('abbr_desciptions', array($matches[1] => trim($matches[2])));
+        Kernel::addConfig('abbr_desciptions', array($matches[1] => trim($matches[2])));
         return '';
     }
 
 }
-
-// Endfile
