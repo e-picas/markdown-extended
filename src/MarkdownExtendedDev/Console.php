@@ -12,6 +12,7 @@ namespace MarkdownExtendedDev;
 
 use \MarkdownExtended\Console\AbstractConsole;
 use \MarkdownExtended\Console\UserInput;
+use MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Parser;
 use \MarkdownExtended\Util\Helper;
 
@@ -26,7 +27,7 @@ class Console
         $this
             ->setName('MDE dev tools')
             ->setSynopsis(
-                $script . ' [OPTIONS] make-phar / check-phar / make-manpage-(3/7) / make-manpages'
+                $script . ' [OPTIONS] make-phar / check-phar / make-release / make-manpage-(3/7) / make-manpages'
             )
             ->setUsage(<<<MSG
 Dev tasks:
@@ -39,6 +40,8 @@ Dev tasks:
     make-manpage-7  : rebuild the "man/markdown-extended.7.man" manpage
                       (default source is "doc/DOCUMENTATION.md")
     make-manpages   : rebuild both manpages
+    make-release    : increase version-number and prepare a release
+                      (use the "--release" option to set the release number)
 
 You can also call Composer's scripts:
     composer test               : run PHPUnit test suite
@@ -63,6 +66,15 @@ MSG
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_PATH,
                 'description'   => 'Set the base path for the CLI work.'
+            ))
+            ->addCliOption('release', array(
+                'shortcut'      => 'r',
+                'argument'      => UserInput::ARG_REQUIRED,
+                'type'          => UserInput::TYPE_STRING,
+                'description'   => array(
+                    'Set a version number for the "make-release" action.',
+                    '(you can use "major", "minor" and "patch" for automation ; default is "patch")'
+                )
             ))
         ;
 
@@ -116,6 +128,9 @@ MSG
                 case 'make-manpages':
                     $this->makeManpage3();
                     $this->makeManpage7();
+                    break;
+                case 'make-release':
+                    $this->makeRelease();
                     break;
                 default:
                     throw new \InvalidArgumentException(
@@ -183,6 +198,129 @@ MSG
         $phar->extractTo($output);
         $this->stream->writeln(
             sprintf('> ok, PHAR "%s" extracted to "%s"', $input, $output)
+        );
+    }
+
+    protected function makeRelease()
+    {
+        $version = $this->getOption('release');
+        if (empty($version)) {
+            $version = 'patch';
+        }
+
+        $actual = explode('-', MarkdownExtended::VERSION);
+        $this->stream->verboseln(
+            sprintf('Actual version is "%s"', MarkdownExtended::VERSION)
+        );
+
+        list($major, $minor, $patch) = explode('.', $actual[0]);
+        $final = null;
+        switch ($version) {
+            case 'major':
+                $major++;
+                $minor = $patch = 0;
+                break;
+            case 'minor':
+                $minor++;
+                $patch = 0;
+                break;
+            case 'patch':
+                $patch++;
+                break;
+            default:
+                $final = $version;
+        }
+        if (is_null($final)) {
+            $final = implode('.', array($major, $minor, $patch));
+        }
+
+        if (count($actual) > 1) {
+            $final .= '-' . $actual[2];
+        }
+        $date = date('Y-m-d');
+
+        $this->stream->verboseln(
+            sprintf('New version is "%s". You have 2 sec to cancel ("Ctrl+C") ...', $final)
+        );
+        sleep(2);
+
+        // the MDE class file
+        $md_class = realpath(Helper::getPath(array(
+            dirname(__DIR__),
+            'MarkdownExtended',
+            'MarkdownExtended.php'
+        )));
+        $this->stream->verboseln(
+            sprintf('Updating "%s" ...', $md_class)
+        );
+        $content = Helper::readFile($md_class);
+        $content = preg_replace(
+            Helper::buildRegex('VERSION([ ]+)=([ ]+)\'' . $actual[0] . '\';'),
+            'VERSION$1=$2\'' . $final . '\';',
+            $content
+        );
+        $content = preg_replace(
+            Helper::buildRegex('DATE([ ]+)=([ ]+)\'\d{4}\-\d{2}-\d{2}\';'),
+            'DATE$1=$2\'' . $date . '\';',
+            $content
+        );
+        if (Helper::writeFile($md_class, $content, false)) {
+            $this->stream->writeln($md_class);
+        }
+
+        // the section 3 manpage
+        $man3 = realpath(Helper::getPath(array(
+            dirname(dirname(__DIR__)),
+            'doc',
+            'MANPAGE.md'
+        )));
+        $this->stream->verboseln(
+            sprintf('Updating "%s" ...', $man3)
+        );
+        $content = Helper::readFile($man3);
+        $content = preg_replace(
+            Helper::buildRegex('Version:([ ]+)' . $actual[0]),
+            'Version:${1}' . $final,
+            $content
+        );
+        $content = preg_replace(
+            Helper::buildRegex('Date:([ ]+)\d{4}\-\d{2}-\d{2}'),
+            'Date:${1}' . $date,
+            $content
+        );
+        if (Helper::writeFile($man3, $content, false)) {
+            $this->stream->writeln($man3);
+        }
+
+        // the section 7 manpage
+        $man7 = realpath(Helper::getPath(array(
+            dirname(dirname(__DIR__)),
+            'doc',
+            'DOCUMENTATION.md'
+        )));
+        $this->stream->verboseln(
+            sprintf('Updating "%s" ...', $man7)
+        );
+        $content = Helper::readFile($man7);
+        $content = preg_replace(
+            Helper::buildRegex('Version:([ ]+)' . $actual[0]),
+            'Version:${1}' . $final,
+            $content
+        );
+        $content = preg_replace(
+            Helper::buildRegex('Date:([ ]+)\d{4}\-\d{2}-\d{2}'),
+            'Date:${1}' . $date,
+            $content
+        );
+        if (Helper::writeFile($man7, $content, false)) {
+            $this->stream->writeln($man7);
+        }
+
+        $this->makeManpage3();
+        $this->makeManpage7();
+
+        $this->stream->writeln(
+            'OK, new release number and date updated ... you should now commit changes.'
         );
     }
 
