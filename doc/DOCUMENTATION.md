@@ -20,7 +20,7 @@ PARSER OPTIONS
 
 The parser can accept a large set of options to customize or adapt the final
 rendering. For a complete list, please see the `getDefaults()` method
-of [the `\MarkdownExtended\MarkdownExtended` class](http://docs.aboutmde.org/markdown-extended-php/MarkdownExtended/MarkdownExtended.html).
+of [the `\MarkdownExtended\MarkdownExtended` class](http://docs.ateliers-pierrot.fr/markdown-extended/MarkdownExtended/MarkdownExtended.html).
 
 Below is a review of interesting basic options:
 
@@ -196,6 +196,6 @@ SEE ALSO
 --------
 
 An online documentation of last stable version is available at
-<http://docs.aboutmde.org/markdown-extended-php/>.
+<http://docs.ateliers-pierrot.fr/markdown-extended/>.
 
 php(1), pcre(3), markdown-extended(3)

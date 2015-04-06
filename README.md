@@ -119,7 +119,7 @@ $content = $parser->transformSource( 'my-markdown-file.md' );
 ```
 
 A full PHP documentation of the last stable release can be found at
-<http://docs.aboutmde.org/markdown-extended-php/>.
+<http://docs.ateliers-pierrot.fr/markdown-extended/>.
 
 ### Old parsers compatibility
 
@@ -177,7 +177,7 @@ Please note that the "master" branch is **always the latest stable version** of 
 Development is done on branch "dev" and you can create a new one for your own developments.
 A developer help and roadmap is provided [in the docs](docs/ROADMAP.md).
 The latest version of the package documentation is available online at
-<http://docs.aboutmde.org/markdown-extended-php/>.
+<http://docs.ateliers-pierrot.fr/markdown-extended/>.
 
 Note that the package is integrated with [Travis CI](http://travis-ci.org/).
 
