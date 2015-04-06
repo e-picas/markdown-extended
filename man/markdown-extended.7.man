@@ -1,34 +1,70 @@
+.\" man: PHP-Markdown-Extended Developer Manual
+.\" man-name: markdown-extended-api
+.\" section: 7
 .\" author: Pierre Cassat
+.\" date: 27-12-2014
+.\" version: 0.1-gamma4
 .TH  "markdown-extended-api" "7" "27-12-2014" "Version 0.1-gamma4" "PHP-Markdown-Extended Developer Manual"
 .SH NAME
 .PP
-PHP-Markdown-Extended-API - Developer documentation of the internal API of PHP-Markdown-Extended.
+Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
 .PP
 The whole API is stored in the `\fS\\MarkdownExtended\\API\fP` namespace and is a set of interfaces
 you must implement to use or override the parser or some of its objects.
+.SH PARSER OPTIONS
+.PP
+The parser can accept a large set of options to customize or adapt the final
+rendering. For a complete list, please see the `\fSgetDefaults()\fP` method
+of the `\fS\\MarkdownExtended\\MarkdownExtended\fP` class <http://docs.aboutmde.org/markdown-extended-php/MarkdownExtended/MarkdownExtended.html>.
+.PP
+Below is a review of interesting basic options:
+.TP
+template
+Type: bool / 'auto' / file path
+Default: `\fSfalse\fP` if the content has no metadata / `\fStrue\fP` otherwise
+If it is `\fStrue\fP`, the default (basic) template is used, otherwise, the template
+defined at `\fSfile path\fP` will be used. The default value is `\fSauto\fP`, which let the
+parser choose if a template seems required (basically if the parsed content has
+metadata or not). You can set it on `\fSfalse\fP` to never use a template.
+.TP
+config_file
+Type: file path
+Default: `\fSnull\fP`
+Define a configuration file to overwrite defaults ; configuration files may be
+in INI <http://en.wikipedia.org/wiki/INI_file>, JSON <http://json.org/> or 
+raw PHP array <http://php.net/array> formats (it must return an array).
+.TP
+output_format
+Type: string
+Default: `\fShtml\fP`
+The output format to use to build final rendering.
+.TP
+output
+Type: string
+Default: `\fSnull\fP`
 .SH LIFE-CYCLE
 .PP
 The full schema of a Markdown parser usage could be:
 .RS
 
 .EX
-        [source file content]   [options]    
+[source file content]   [options]    
 .br
-               ||                  ||
+       ||                  ||
 .br
-               \\/                  \\/
+       \\/                  \\/
 .br
-        ---------------        ----------                            -------------------
+---------------        ----------                            -------------------
 .br
-        |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATTED RESULT |
+|  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATTED RESULT |
 .br
-        ---------------        ----------                            -------------------
+---------------        ----------                            -------------------
 .br
-               /\\                  /\\                                         ||
+       /\\                  /\\                                         ||
 .br
-               ||                  ||                                         \\/
+       ||                  ||                                         \\/
 .br
-            [string]        [ configuration ]                           [special infos]
+    [string]        [ configuration ]                           [special info]
 .EE
 .RE
 .PP
@@ -38,322 +74,187 @@ or the content of a Markdown file
 We want to parse the source content with a hand on options used during this parsing
 (no need to parse metadata in a content that will never have some for example)
 .PP
-Finally, we want to get a formatted content and to be able to retrieve certain infos
+Finally, we want to get a formatted content and to be able to retrieve certain information
 from it, such as its metadata, its menu or the footnotes of the whole parsed result
 .PP
 Additionally, it would be best that we can obtain a full formatted result simply but
 can also pass this result through a template builder to construct a complex final string
-.SH CODING RESULTS
+.SH PARSER API
 .PP
-The first item of this chain is assumed by the `\fS\\MarkdownExtended\\Content\fP` object.
-It is a simple class that just stores different infos about a parsed content, such as its 
-original source, the body of the result (the real parsed content), its menu, its metadata, 
-its DOM ids and its footnotes. This object is overloadable but MUST implement the
-`\fS\\MarkdownExtended\\API\\ContentInterface\fP` interface.
+The public direct parser's access is the `\fS\\MarkdownExtended\\MarkdownExtended\fP`
+object. It handles transformation and constructs dependencies. It returns a
+parsed content as a `\fS\\MarkdownExtended\\Content\fP` object implementing the API
+interface `\fS\\MarkdownExtended\\API\\ContentInterface\fP`. The rendered final format
+transformations are done by an object implementing the API interface
+`\fS\\MarkdownExtended\\API\\OutputFormatInterface\fP` which is called and managed
+by the `\fS\\MarkdownExtended\\OutputFormatBag\fP` object. Internal available formats
+are stored in the `\fS\\MarkdownExtended\\OutputFormat\fP` namespace. The filters applied
+during content's parsing are managed by the `\fS\\MarkdownExtended\\Grammar\\Lexer\fP`
+object, which actually call various "gamuts" methods or classes using the
+`\fS\\MarkdownExtended\\Grammar\\GamutsLoader\fP` object. Each filter gamut is an
+object implementing the API interface `\fS\\MarkdownExtended\\API\\GamutInterface\fP`.
+The parser can load parsed content in a template file using an object implementing
+the API interface `\fS\\MarkdownExtended\\API\\TemplateInterface\fP` and defaults to
+the `\fS\\MarkdownExtended\\Templater\fP` object.
 .PP
-The second step is handled by the `\fS\\MarkdownExtended\\Parser\fP` object where lives the central
-work of the syntax rules transformations. It depends on a configuration that can be reset
-at every call. This object is overloadable but MUST implement the
-`\fS\\MarkdownExtended\\API\\ParserInterface\fP` interface.
+Finally, the internal central service container registering all the objects
+involved in the parsing process is the `\fS\\MarkdownExtended\\API\\Kernel\fP`, which
+only contains static methods.
+.SS Public \fIMarkdownExtended\fP
 .PP
-Finally, the whole thing is contained in the `\fS\\MarkdownExtended\\MarkdownExtended\fP` object
-that is a kind of global container for the Markdown work.
-.PP
-All API classes finally used to create objects are defined as configuration entries like:
+The public `\fS\\MarkdownExtended\\MarkdownExtended\fP` object follows a simple static API:
 .RS
 
 .EX
-// the default API objects
-.br
-\'content_class'             => '\\MarkdownExtended\\Content',
-.br
-\'content_collection_class'  => '\\MarkdownExtended\\ContentCollection',
-.br
-\'parser_class'              => '\\MarkdownExtended\\Parser',
-.br
-\'templater_class'           => '\\MarkdownExtended\\Templater',
-.br
-\'grammar\\filter_class'      => '\\MarkdownExtended\\Grammar\\Filter',
-.br
-\'grammar\\tool_class'        => '\\MarkdownExtended\\Grammar\\Tool',
+\\MarkdownExtended\\MarkdownExtended::parse( content/file path , options ) : \\MarkdownExtended\\Content
 .br
 
+.br
+\\MarkdownExtended\\MarkdownExtended::parseString( content , options ) : \\MarkdownExtended\\Content
+.br
+
+.br
+\\MarkdownExtended\\MarkdownExtended::parseFile( file path , options ) : \\MarkdownExtended\\Content
 .EE
 .RE
 .PP
-Please see the `\fS\\MarkdownExtended\\Config\fP` object source for a full and up-to-date list.
-.SH FULL USAGE
-.SS The "kernel" object
-.PP
-Creation of the container as a singleton instance:
+It also proposes a literal procedural usage API:
 .RS
 
 .EX
-$mde = \\MarkdownExtended\\MarkdownExtended::create( options );
-.br
-// to retrieve the same instance after creation:
-.br
-$mde = \\MarkdownExtended\\MarkdownExtended::getInstance();
+$parser = new \\MarkdownExtended\\MarkdownExtended( options );
 .br
 
+.br
+$content = $parser->transform( source string );
+.br
+
+.br
+$content = $parser->transformSource( source file path );
 .EE
 .RE
 .SS The \fIContent\fP object
 .PP
-Creation of a new content object:
+The transformation process of the parser returns an object implementing interface
+`\fS\\MarkdownExtended\\API\\ContentInterface\fP`. You can define your own object by passing
+it directly to the `\fS\\MarkdownExtended\\MarkdownExtended\fP` parse methods (instead of a
+raw string or file name).
+.PP
+The content object API allows to access each "block" of content and
+to write the object directly:
 .RS
 
 .EX
-// with a string:
+string  Content::__toString()
 .br
-$source = new \\MarkdownExtended\\Content( $string );
+array   Content::__toArray()
+.br
+
+.br
+string  Content::getContent()
 .br
 
 .br
-// with a file to get content from:
+string  Content::getCharset()
 .br
-$source = new \\MarkdownExtended\\Content( null, $filepath );
+string  Content::getTitle()
+.br
+string  Content::getBody()
+.br
+array   Content::getNotes()
+.br
+array   Content::getMetadata()
 .br
 
+.br
+string  Content::getNotesFormatted()
+.br
+string  Content::getMetadataFormatted()
+.br
+
+.br
+string  Content::getSource()
+.br
+array   Content::getParsingOptions()
+.EE
+.RE
+.SS The \fIFilters\fP objects
+.PP
+A filter must implement the `\fS\\MarkdownExtended\\API\\GamutInterface\fP` interface 
+and may extend the `\fS\\MarkdownExtended\\Grammar\\Filter\fP` object:
+.RS
+
+.EX
+Filter->getDefaultMethod()
+.br
+Filter->transform( text )
 .EE
 .RE
 .PP
-If you configured your own object, use:
+Filters stacks to run during transformation are defined in the `\fSxxx_gamut\fP` items
+of the configuration.
+.SS The \fIOutputFormat\fP rendering
+.PP
+An output format renderer must implement the `\fS\\MarkdownExtended\\API\\OutputFormatInterface\fP`
+interface defines some basic methods to build a content:
 .RS
 
 .EX
-// get or create your own object instance
-.br
-$source = \\MarkdownExtended\\MarkdownExtended::get(
-.br
-    'content', $config_as_an_array
-.br
-);
+OutputFormat->buildTag( tag_name, content = null, array attributes = array() )
 .br
 
+.br
+OutputFormat->getTagString( content, tag_name, array attributes = array() )
 .EE
 .RE
-.SS The \fIParser\fP object
+.SS The \fITemplate\fP renderer
 .PP
-Get the parser instance from the container:
+A template object must implement the `\fS\\MarkdownExtended\\API\\TemplateInterface\fP`
+interface, which contains one single method:
 .RS
 
 .EX
-$parser = $mde->get('Parser', $parser_options);    
-.br
-
+Template->parse( ContentInterface )
 .EE
 .RE
+.SS The app's \fIKernel\fP
 .PP
-If you configured your own object, use:
+It acts like a service container:
 .RS
 
 .EX
-// get or create your own object instance
+\\MarkdownExtended\\Kernel->get('MarkdownExtended')
 .br
-$source = \\MarkdownExtended\\MarkdownExtended::get(
+\\MarkdownExtended\\Kernel->get('Content')
 .br
-    'Parser', $parser_options_as_an_array
+\\MarkdownExtended\\Kernel->get('ContentCollection')
 .br
-);
+\\MarkdownExtended\\Kernel->get('Lexer')
 .br
-
-.EE
-.RE
-.SS The markdown process
-.PP
-Make the source transformation:
-.RS
-
-.EX
-// this will return the Container
+\\MarkdownExtended\\Kernel->get('Grammar\\GamutLoader')
 .br
-$markdown = $parser->parse($source)
+\\MarkdownExtended\\Kernel->get('OutputFormatBag')
 .br
-    // and this will return the Content object transformed
+\\MarkdownExtended\\Kernel->get('Template')
 .br
-    ->getContent();
-.br
-
-.EE
-.RE
-.SS The transformed content
-.PP
-Then, get the transformed content and other infos from the \fIContent\fP object:
-.RS
-
-.EX
-echo "<html><head>"
-.br
-    .$markdown->getMetadataHtml()   // the content metadata HTML formatted
-.br
-    ."</head><body>"
-.br
-    .$markdown->getBody()           // the content HTML body
-.br
-    ."<hr />"
-.br
-    .$markdown->getNotesHtml()      // the content footnotes HTML formatted
-.br
-    ."</body></html>";
-.br
-
+\\MarkdownExtended\\Kernel->get('DomId')
 .EE
 .RE
 .PP
-In case of a simple source (such as a textarea field):
+It also acts like a configuration setter/getter:
 .RS
 
 .EX
-echo $markdown->getBody();
+\\MarkdownExtended\\Kernel::setConfig( index.subindex , value )
 .br
-
-.EE
-.RE
-.PP
-For simplest calls, a \fIHelper\fP is designed to allow usage of:
-.RS
-
-.EX
-echo \\MarkdownExtended\\MarkdownExtended::getFullContent();
+\\MarkdownExtended\\Kernel::addConfig( index.subindex , value )
 .br
-
-.EE
-.RE
-.PP
-that will return the exact same string as the one constructed above (a full HTML page
-by default).
-.SH COMPONENTS
-.PP
-The Internal classes (required and not overloadable) are:
-.RS
-.IP \(bu 
-the API: `\fS\\MarkdownExtended\\API\fP`
-.IP \(bu 
-the "kernel" object: `\fS\\MarkdownExtended\\MarkdownExtended\fP`
-.IP \(bu 
-the configuration handler: `\fS\\MarkdownExtended\\Config\fP`
-.IP \(bu 
-the registry (works as a container): `\fS\\MarkdownExtended\\Registry\fP`
-.IP \(bu 
-the "output formatter" which depends on your chosen format: `\fS\\MarkdownExtended\\OutputFormatBag\fP`
-.RE
-.PP
-The API classes, overloadables, are:
-.RS
-.IP \(bu 
-the "parser" who will handle all parsing steps: `\fS\\MarkdownExtended\\Parser\fP`,
-which must implement the `\fS\\MarkdownExtended\\API\\ParserInterface\fP`
-.IP \(bu 
-a "content" single object: `\fS\\MarkdownExtended\\Content\fP`,
-which must implement the `\fS\\MarkdownExtended\\API\\ContentInterface\fP`
-.IP \(bu 
-a collection of "contents": `\fS\\MarkdownExtended\\ContentCollection\fP`,
-which must implement the `\fS\\MarkdownExtended\\API\\CollectionInterface\fP`
-.IP \(bu 
-a "templater" object to load a parsed content in a template file: `\fS\\MarkdownExtended\\Templater\fP`,
-which must implement the `\fS\\MarkdownExtended\\API\\TemplaterInterface\fP`
-.RE
-.PP
-Each object is loaded as a service in the kernel and can be retrieved from the kernel instance
-with a simple getter:
-.RS
-
-.EX
-$object = \\MardownExtended\\MarkdownExtended::getInstance()->get( name );
-.br
-
-.EE
-.RE
-.PP
-Trying to get it, if the object does not exist yet, it will be created.
-.SH API KERNEL
-.PP
-The `\fS\\MarkdownExtended\\API\fP` is the central class object. It handles all the parsing
-logic and acts like a services container for other API's objects.
-.PP
-The `\fS\\MarkdownExtended\\MarkdownExtended\fP` is the base public class object. It proposes
-a large set of aliases to manage your contents (the original ones and their parsed results).
-.RS
-
-.EX
-// creation of the singleton instance of \\MarkdownExtended\\MarkdownExtended
-.br
-$parser = \\MarkdownExtended\\MarkdownExtended::create( [options] );
-.br
-
-.EE
-.RE
-.PP
-The best practice is to use the kernel as a singleton instance but you are allowed to use
-it as a "classic" object creating it like any other PHP object.
-.PP
-The \fIMarkdownExtended\fP package can be simply call writing:
-.RS
-
-.EX
-// creation of the singleton instance of \\MarkdownExtended\\MarkdownExtended
-.br
-$content = \\MarkdownExtended\\MarkdownExtended::create()
-.br
-    // get the \\MarkdownExtended\\Parser object passing it some options (optional)
-.br
-    ->get('Parser', $options)
-.br
-    // launch the transformation of a source content
-.br
-    ->parse( new \\MarkdownExtended\\Content($source) )
-.br
-    // get the result content object
-.br
-    ->getContent();
-.br
-
-.EE
-.RE
-.PP
-This will load in \fI$content\fP the parsed HTML version of your original Markdown \fI$source\fP.
-To get the part you need from the content, write:
-.RS
-
-.EX
-echo $content->getBody();
-.br
-
-.EE
-.RE
-.PP
-For simplest usage, some aliases are designed in the \fIMarkdownExtended\fP kernel:
-.RS
-
-.EX
-// to parse a string content:
-.br
-\\MarkdownExtended\\MarkdownExtended::transformString($source [, $parser_options]);
-.br
-
-.br
-// to parse a file content:
-.br
-\\MarkdownExtended\\MarkdownExtended::transformSource($filename [, $parser_options]);
-.br
-
-.EE
-.RE
-.PP
-These two methods returns a \fIContent\fP object. To finally get an HTML
-version, write:
-.RS
-
-.EX
-\\MarkdownExtended\\MarkdownExtended::transformString($source [, $parser_options]);
-.br
-echo \\MarkdownExtended\\MarkdownExtended::getFullContent();
-.br
-
+\\MarkdownExtended\\Kernel::getConfig( index.subindex )
 .EE
 .RE
 .SH SEE ALSO
 .PP
+An online documentation of last stable version is available at
+<http://docs.aboutmde.org/markdown-extended-php/>.
+.PP
 php(1), pcre(3), markdown-extended(3)
-

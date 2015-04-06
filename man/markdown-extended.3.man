@@ -1,20 +1,23 @@
+.\" man: PHP-Markdown-Extended Manual
+.\" man-name: markdown-extended
 .\" author: Pierre Cassat
-.TH  "markdown-extended" "3" "2015-01-03" "Version 0.1.0-gamma.5" "PHP-Markdown-Extended Manual"
+.\" date: 2015-04-01
+.\" version: 0.1.0-gamma.5
+.TH  "markdown-extended" "3" "2015-04-01" "Version 0.1.0-gamma.5" "PHP-Markdown-Extended Manual"
 .SH NAME
 .PP
-PHP-Markdown-Extended - A PHP parser for the Markdown Extended syntax
+PHP-Markdown-Extended - Yet another PHP parser for the markdown (\fIextended\fP) syntax.
 .SH SYNOPSIS
 .PP
 \fBmarkdown-extended\fP  [\fIoptions\fP]  (\fI--\fP)  [\fIarguments\fP]
 .PP
-\fBmarkdown-extended\fP  [\fB-h\fP|\fB-V\fP]  [\fB--help\fP|\fB--version\fP]
-    [\fB-x\fP|\fB-v\fP|\fB-q\fP|\fB-m\fP] [\fB--debug\fP|\fB--verbose\fP|\fB--quiet\fP|\fB--multi\fP]
+\fBmarkdown-extended\fP  [\fB-V\fP|\fB--version\fP]  [\fB-h\fP|\fB--help\fP]
+    [\fB-x\fP|\fB-v\fP|\fB-q\fP] [\fB--debug\fP|\fB--verbose\fP|\fB--quiet\fP]
     [\fB-o\fP|\fB--output\fP \fIfilename\fP]
     [\fB-c\fP|\fB--config\fP \fIfilename\fP]
     [\fB-f\fP|\fB--format\fP \fIformat\fP]
-    [\fB-n\fP|\fB--nofilter\fP \fIa,b\fP]
+    [\fB-r\fP|\fB--response\fP \fItype\fP]
     [\fB-e\fP|\fB--extract\fP [=\fIblock\fP]]
-    [\fB-g\fP|\fB--gamuts\fP [=\fIname\fP]]
     [\fB-t\fP|\fB--template\fP [=\fIfilename\fP]]
         \fIinput_filename\fP  [\fIinput_filename\fP]  [...]
         "\fImarkdown string read from STDIN\fP"
@@ -28,9 +31,10 @@ To transform a file content, write its path as script argument. To process a lis
 files, just write file paths as arguments, separated by space.
 .PP
 To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
+To process a list of input strings, just write them as arguments, separated by space.
 You can also use the output of a previous command using the pipe notation.
 .PP
-For more information about the Markdown-Extended syntax, see <http://aboutmde.org/>.
+For more information about the \fBMarkdown-Extended syntax\fP, see <http://aboutmde.org/>.
 .SH OPTIONS
 .SS Usage of script's options
 .PP
@@ -44,71 +48,85 @@ is optional (see the list below). It is NOT required when the option requires an
 argument.
 .PP
 Options are treated in the command line order (`\fS-vq\fP` will finally retain `\fS-q\fP`).
-.SS The following options are supported:
-.TP
-\fB-c\fP , \fB--config\fP \fIfilename\fP
-Define a specific configuration filename to use for the Markdown Parser ;
-configuration files must be in \fIINI\fP format.
-.TP
-\fB-e\fP , \fB--extract\fP [=\fImeta\fP]
-Define a content block to extract ; default extracted block is \fImetadata\fP.
-.TP
-\fB-f\fP , \fB--format\fP \fItype\fP
-Define the output format to use to generate final rendering ; formats are stored in
-PHP namespace `\fS\\MarkdownExtended\\OutputFormat\fP` ; default is \fIHTML\fP.
-.TP
-\fB-g\fP , \fB--gamuts\fP [=\fIname\fP]
-Define a single gamut or a list of gamuts to execute the content transformation.
+.SS The following options are supported by the CLI interface:
 .TP
 \fB-h\fP , \fB--help\fP
 Get a simple help information.
-.TP
-\fB-m\fP , \fB--multi\fP
-Treat multi-files input ; this option is automatically enables if multiple file
-names are found as arguments.
-.TP
-\fB-n\fP , \fB--nofilter\fP \fIname-a,name-b\fP
-Define a coma separated list of filters to disable during the content transformation.
-.TP
-\fB-o\fP , \fB--output\fP \fIfilename\fP
-Specify a single file name or a file name mask to write generated content in ; by
-default, files are generated in current working directory.
-.TP
-\fB-q\fP , \fB--quiet\fP
-Decrease script's verbosity ; only result strings, Markdown Parser and PHP error
-messages are written on \fISTDOUT\fP ; this mode disables the \fBverbose\fP one.
-.TP
-\fB-t\fP , \fB--template\fP [=\fIfilename\fP]
-Return the content inserted in a parsed template file ; if no \fBfile\fP argument is 
-passed, this will use the configuration template file.
 .TP
 \fB-V\fP , \fB--version\fP
 Get the current package version number and information ; use option \fBquiet\fP to
 get only the version number.
 .TP
+\fB-r\fP , \fB--response\fP \fItype\fP
+Specify the CLI response type to get in \fIplain\fP (default), \fIjson\fP or \fIphp\fP ; using
+another type than "plain" will render the full content object (not just the parsed content) ;
+using the "php" response type will render a serialization of concerned contents.
+.TP
+\fB-e\fP , \fB--extract\fP [=\fImeta\fP]
+Define a content block to extract ; default extracted block is \fImetadata\fP ; you can
+extract any "block" of the content object ; use a metadata name to extract its value.
+.TP
+\fB-q\fP , \fB--quiet\fP
+Decrease script's verbosity ; only result strings, Markdown parser and PHP error
+messages are written on \fISTDOUT\fP or \fISTDERR\fP ; this mode disables \fBverbose\fP one.
+.TP
 \fB-v\fP , \fB--verbose\fP
 Increase script's verbosity ; some steps are explained on \fISTDOUT\fP ; this mode
-disables the \fBquiet\fP one.
-.SS Some aliases are defined for quicker usage:
+disables \fBquiet\fP one.
+.PP
+A special \fB--debug\fP or \fB-x\fP option can be used during development to drastically
+increase script's verbosity.
+.SS The following options are loaded in the markdown parser:
 .TP
-\fB-b\fP , \fB--body\fP
-Extract the \fIbody\fP part from content(s) ; alias of option \fB--extract=body\fP.
+\fB-c\fP , \fB--config\fP \fIfilename\fP
+Define a specific configuration filename to use for the Markdown parser ;
+configuration files must be in \fIINI\fP or \fIJSON\fP format.
 .TP
-\fB-s\fP , \fB--simple\fP
-Use the simple default configuration file defined by the `\fS\\MarkdownExtended\\Config::SIMPLE_CONFIGFILE\fP`
-constant ; this is a preset to treat contents coming from input fields.
-.SS Special options
+\fB-f\fP , \fB--format\fP \fItype\fP
+Define the output format to use to generate final rendering ; internal formats 
+are "html" and "man" (for manpage) ; you can specify your own output format class ; 
+default is \fIhtml\fP.
+.TP
+\fB-o\fP , \fB--output\fP \fIfilename\fP
+Specify a single file name or a file names mask to write generated content(s) in ; by
+default, files are generated in current working directory ; masks may use the \fI%%\fP string
+which will be fill in with content's identifier.
+.TP
+\fB-t\fP , \fB--template\fP [=\fIfilename\fP]
+Return the content inserted in a parsed template file ; if no \fBfilename\fP argument is 
+passed, this will use the configuration template file.
+.SH RESULT
 .PP
-A special \fB--debug\fP or \fB-x\fP option can be used during development ; it enables the \fI$debug\fP
-flag of the PHP `\fS\\MarkdownExtended\\CommandLine\fP` namespace objects.
+The command result can have various types. Actually, for all the types described below, the
+\fI--response\fP option will define the final response content type.
 .PP
-Use option \fB--usage\fP to get the command quick synopsis.
+With no \fI--extract\fP neither \fI--output\fP option defined, the command will render a `\fSContent\fP` 
+object with transformed content. In fact, if you use the default "plain" response type, the
+result will write the rendering content (a raw string) on the terminal. If you specify the
+"json" or "php" response type, the full object will be dumped, with the following items:
+.RS
+.IP \(bu 
+\fIcontent\fP: the final rendered content ; this can be the "body" only for a simple one-line
+markdown content, the "metadata + body + notes" as a string for a more complex markdown content
+and the rendering of the parsed template if a \fI--template\fP option was used ;
+.IP \(bu 
+\fIbody\fP: the actual "body" of the parsed content, without metadata and notes ;
+.IP \(bu 
+\fInotes\fP: the footnotes of the content (if so) as an array ;
+.IP \(bu 
+\fImetadata\fP: the metadata of the content (if so) as an array ;
+.IP \(bu 
+\fIcharset\fP: the defined character set of the content ;
+.IP \(bu 
+\fItitle\fP: the guessed title of the content.
+.RE
 .PP
-Use option \fB--man\fP to re-generate this manpage if possible.
+If you use a \fI--output\fP option, the content described above will be written in a file and the result
+rendered on terminal will be the name of this file.
 .SH MESSAGES
 .PP
 The script output is designed to use options \fB-v\fP or \fB--verbose\fP to increase
-script verbosity on \fISTDOUT\fP and \fB-q\fP or \fB--quiet\fP to decrease it. The idea is quiet simple:
+script verbosity and \fB-q\fP or \fB--quiet\fP to decrease it. The idea is quiet simple:
 .RS
 .IP \(bu 
 in "\fBnormal\fP" rendering (no "verbose" neither than "quiet" mode), the result of the 
@@ -214,4 +232,3 @@ Created and maintained by Pierre Cassat (piwi - <http://e-piwi.fr/>) & contribut
 .SH SEE ALSO
 .PP
 php(1), pcre(3)
-
