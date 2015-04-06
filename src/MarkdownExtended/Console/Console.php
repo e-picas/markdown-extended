@@ -142,7 +142,7 @@ DESC
             $task_method = 'runTask' . Helper::toCamelCase(str_replace('-', '_', array_shift($args)));
             if (method_exists($this, $task_method)) {
                 call_user_func(array($this, $task_method));
-                exit(0);
+                $this->stream->_exit();
             }
         }
 
@@ -225,13 +225,13 @@ DESC
                 $this->stream->write(
                     json_encode($item_callback(array_shift($results)))
                 );
-                exit(0);
+                $this->stream->_exit();
             }
             array_walk($results, $item_callback);
             $this->stream->write(
                 json_encode($results)
             );
-            exit(0);
+            $this->stream->_exit();
         }
 
         // PHP output
@@ -240,13 +240,13 @@ DESC
                 $this->stream->write(
                     serialize($item_callback(array_shift($results)))
                 );
-                exit(0);
+                $this->stream->_exit();
             }
             array_walk($results, $item_callback);
             $this->stream->write(
                 serialize($results)
             );
-            exit(0);
+            $this->stream->_exit();
         }
 
         // plain output
@@ -263,7 +263,7 @@ DESC
     protected function runTaskLicense()
     {
         if (file_exists($license = getcwd() . DIRECTORY_SEPARATOR . self::LICENSE_FILE)) {
-            $this->_writeTask(file_get_contents($license), 'License');
+            $this->_writeTask(Helper::readFile($license), 'License');
         } else {
             $this->stream->writeln('LICENSE file not found', Stream::IO_STDERR);
         }
@@ -273,7 +273,7 @@ DESC
     protected function runTaskManifest()
     {
         if (file_exists($manifest = getcwd() . DIRECTORY_SEPARATOR . self::MANIFEST_FILE)) {
-            $content = json_decode(file_get_contents($manifest), true);
+            $content = json_decode(Helper::readFile($manifest), true);
 
             foreach (array('extra', 'autoload', 'config', 'scripts') as $entry) {
                 if (isset($content[$entry])) {

@@ -202,7 +202,7 @@ class UserInput
         }
 
         // extract remaining options
-        $argv = $_SERVER['argv'];
+        $argv = self::getSanitizedUserInput();
         array_shift($argv);
         foreach ($argv as $i=>$arg) {
             if (array_key_exists(trim($arg, '-'), $options) || in_array($arg, $options, true)) {
@@ -252,7 +252,7 @@ class UserInput
         $obj            = new \StdClass();
         $obj->options   = array_merge($default_options, $options);
         $obj->remain    = $argv;
-        $obj->original  = $_SERVER['argv'];
+        $obj->original  = self::getSanitizedUserInput();
         return $obj;
     }
 
@@ -314,6 +314,13 @@ class UserInput
                 ')' : '';
         }
         return $str;
+    }
+
+    public static function getSanitizedUserInput()
+    {
+        return array_map(function($item) {
+            return filter_var($item, FILTER_UNSAFE_RAW);
+        }, $_SERVER['argv']);
     }
 
 }

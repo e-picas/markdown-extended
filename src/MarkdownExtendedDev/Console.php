@@ -83,14 +83,14 @@ MSG
         $this->stream->debug('User options:' . Helper::debug($this->options, null, false));
 
         // base path ?
-        $bp = $this->getOption('base-path');
-        if (!empty($bp)) {
-            if (!file_exists($bp) || !is_dir($bp)) {
+        $base_path = $this->getOption('base-path');
+        if (!empty($base_path)) {
+            if (!file_exists($base_path) || !is_dir($base_path)) {
                 throw new \InvalidArgumentException(
-                    sprintf('Invalid base path "%s" (no existing or not a directory)', $bp)
+                    sprintf('Invalid base path "%s" (no existing or not a directory)', $base_path)
                 );
             }
-            chdir($bp);
+            chdir($base_path);
         }
         if (!file_exists('src/MarkdownExtended/MarkdownExtended.php')) {
             throw new \RuntimeException(
@@ -126,10 +126,10 @@ MSG
         } catch (\Exception $e) {
             echo 'Error: ['.get_class($e).'] '
                 .$e->getMessage().' at '.$e->getFile().':'.$e->getLine();
-            exit(1);
+            $this->stream->_exit(1);
         }
 
-        exit(0);
+        $this->stream->_exit();
     }
 
     protected function makePhar()

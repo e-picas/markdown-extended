@@ -209,9 +209,6 @@ class HTML
     public function buildLink($text = null, array $attributes = array())
     {
         $this->_validateLinkAttributes($attributes, $text);
-        if (isset($attributes['email'])) {
-            unset($attributes['email']);
-        }
         return $this->getTagString($text, 'a', $attributes);
     }
 
@@ -222,6 +219,7 @@ class HTML
             $attributes[$attribute] = Helper::fillPlaceholders(
                 $this->getConfig('codeblock_attribute_mask'), $attributes['language']
             );
+            unset($attributes['language']);
         }
         return "\n" . $this->getTagString($text, 'pre', $attributes) . "\n";
     }
@@ -346,23 +344,27 @@ class HTML
      */
     protected function _validateLinkAttributes(array &$attributes, &$text)
     {
-        if (empty($attributes['title'])) {
+        if (isset($attributes['email'])) {
+            list($address_link, $address_text) = Helper::encodeEmailAddress($attributes['email']);
+            if (!isset($attributes['href']) || empty($attributes['href'])) {
+                $attributes['href'] = $address_link;
+            }
+            if ($this->getConfig('mailto_title_mask') && empty($attributes['title'])) {
+                $attributes['title'] = Helper::fillPlaceholders(
+                    $this->getConfig('mailto_title_mask'),
+                    $address_text
+                );
+            }
+            unset($attributes['email']);
+            $text = $address_text;
+        }
+
+        if (empty($attributes['title']) && isset($attributes['href'])) {
             $first_char = substr($attributes['href'], 0, 1);
 
             if ($first_char==='#' && $this->getConfig('anchor_title_mask')) {
                 $attributes['title'] = Helper::fillPlaceholders(
                     $this->getConfig('anchor_title_mask'), $attributes['href']);
-
-            } elseif (isset($attributes['email']) && $this->getConfig('mailto_title_mask')) {
-                list($address_link, $address_text) = Helper::encodeEmailAddress($attributes['email']);
-                if (empty($attributes['href'])) {
-                    $attributes['href'] = $address_link;
-                }
-                $attributes['title'] = Helper::fillPlaceholders(
-                    $this->getConfig('mailto_title_mask'),
-                    $address_text
-                );
-                $text = $address_link;
 
             } elseif ($this->getConfig('link_title_mask')) {
                 $attributes['title'] = Helper::fillPlaceholders(

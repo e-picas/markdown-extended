@@ -11,6 +11,7 @@
 namespace MarkdownExtendedDev;
 
 use \Symfony\Component\Finder\Finder;
+use \MarkdownExtended\Util\Helper;
 
 /**
  * The Compiler class compiles the whole markdown into a phar
@@ -105,7 +106,7 @@ class Compiler
     {
         $path = str_replace($this->root_dir, '', $file->getRealPath());
 
-        $content = file_get_contents($file);
+        $content = Helper::readFile($file);
         if ($strip) {
             $content = $this->__stripWhitespace($content);
         }
@@ -117,7 +118,7 @@ class Compiler
 
     private function __addBin($phar, $binary = 'bin/markdown-extended')
     {
-        $content = file_get_contents($this->root_dir.'/bin/markdown-extended');
+        $content = Helper::readFile($this->root_dir.'/bin/markdown-extended');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
 
         $this->_logs[] = sprintf('Adding binary file "%s" from source (length %d)', $binary, strlen($content));

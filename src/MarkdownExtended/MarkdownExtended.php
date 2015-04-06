@@ -483,7 +483,7 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
             if (!file_exists(dirname($path))) {
                 mkdir(dirname($path));
             }
-            $written = file_put_contents($path, (string) $content, LOCK_EX);
+            $written = Helper::writeFile($path, (string) $content);
 
             // return generated file path
             return $path;
@@ -506,7 +506,7 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
             );
         }
 
-        $source     = file_get_contents($path, FILE_USE_INCLUDE_PATH);
+        $source     = Helper::readFile($path);
         $content    = new Content($source, Kernel::get('config')->getAll());
         $content
             ->addMetadata('last_update', new DateTime('@'.filemtime($path)))
@@ -535,7 +535,7 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
                 $options = parse_ini_file($path, true);
                 break;
             case 'json':
-                $options = json_decode(file_get_contents($path), true);
+                $options = json_decode(Helper::readFile($path), true);
                 break;
             case 'php':
                 $options = include $path;

@@ -10,7 +10,7 @@
 
 namespace MarkdownExtended\Util;
 
-use \MarkdownExtended\Exception\InvalidArgumentException;
+use \MarkdownExtended\Exception\ErrorException;
 
 class Helper
 {
@@ -81,19 +81,23 @@ class Helper
      */
     public static function encodeEmailAddress($addr)
     {
-        $addr = "mailto:" . $addr;
-        $chars = preg_split('/(?<!^)(?!$)/', $addr);
-        $seed = (int)abs(crc32($addr) / strlen($addr)); // Deterministic seed.
+        $addr   = "mailto:" . $addr;
+        $chars  = preg_split('/(?<!^)(?!$)/', $addr);
+        $seed   = (int)abs(crc32($addr) / strlen($addr)); // Deterministic seed.
         foreach ($chars as $key => $char) {
             $ord = ord($char);
             // Ignore non-ascii chars.
             if ($ord < 128) {
-                $r = ($seed * (1 + $key)) % 100; // Pseudo-random function.
+                $rand = ($seed * (1 + $key)) % 100; // Pseudo-random function.
                 // roughly 10% raw, 45% hex, 45% dec
                 // '@' *must* be encoded. I insist.
-                if ($r > 90 && $char != '@') /* do nothing */;
-                else if ($r < 45) $chars[$key] = '&#x'.dechex($ord).';';
-                else              $chars[$key] = '&#'.$ord.';';
+                if ($rand > 90 && $char != '@') {
+                    /* do nothing */;
+                } else if ($rand < 45) {
+                    $chars[$key] = '&#x'.dechex($ord).';';
+                } else {
+                    $chars[$key] = '&#'.$ord.';';
+                }
             }
         }
         $addr = implode('', $chars);
@@ -164,15 +168,12 @@ class Helper
      */
     public static function toCamelCase($name, $replace = '_', $capitalize_first_char = true)
     {
-        if (empty($name)) return $name;
-        if ($capitalize_first_char) {
-            $name[0] = strtoupper($name[0]);
-        }
-        static $toCamelCase_func;
-        if (empty($toCamelCase_func)) {
-            $toCamelCase_func = create_function('$c', 'return strtoupper($c[1]);');
-        }
-        return trim(preg_replace_callback('#'.$replace.'([a-z])#', $toCamelCase_func, $name), $replace);
+        return self::_camelcasize(
+            $capitalize_first_char ? ucfirst($name) : $name,
+            $replace,
+            $replace.'([a-z])',
+            function ($matches) { return ucfirst($matches[1]); }
+        );
     }
 
     /**
@@ -185,20 +186,68 @@ class Helper
      */
     public static function fromCamelCase($name, $replace = '_', $lowerize_first_char = true)
     {
-        if (empty($name)) return $name;
-        if ($lowerize_first_char) {
-            $name[0] = strtolower($name[0]);
+        return self::_camelcasize(
+            $lowerize_first_char ? strtolower(substr($name, 0, 1)) . substr($name, 1) : $name,
+            $replace,
+            '([A-Z])',
+            function ($matches) use ($replace) { return $replace . strtolower($matches[1]); }
+        );
+    }
+
+    protected static function _camelcasize($text, $replace, $mask, $callback)
+    {
+        if (empty($text)) {
+            return $text;
         }
-        static $fromCamelCase_func;
-        if (empty($fromCamelCase_func)) {
-            $fromCamelCase_func = create_function('$c', 'return "'.$replace.'" . strtolower($c[1]);');
-        }
-        return trim(preg_replace_callback('/([A-Z])/', $fromCamelCase_func, $name), $replace);
+        return trim(
+            preg_replace_callback(
+                self::buildRegex($mask),
+                $callback,
+                $text
+            ),
+            $replace);
     }
 
 // --------------
 // Files
 // --------------
+
+    public static function readFile($path, $flag = FILE_USE_INCLUDE_PATH)
+    {
+        if (!file_exists($path)) {
+            throw new ErrorException(
+                sprintf('File "%s" not found', $path)
+            );
+        }
+        $source = file_get_contents($path, $flag);
+        if (false === $source) {
+            global $php_errormsg;
+            throw new ErrorException($php_errormsg);
+        }
+        return $source;
+    }
+
+    public static function writeFile($path, $content, $backup = true, $flag = null)
+    {
+        global $php_errormsg;
+        if (is_null($flag)) {
+            $flag = FILE_USE_INCLUDE_PATH | LOCK_EX;
+        }
+        if (file_exists($path) && $backup) {
+            self::backupFile($path);
+        }
+        if (!file_exists(dirname($path))) {
+            $dir = mkdir(dirname($path));
+            if (false === $dir) {
+                throw new ErrorException($php_errormsg);
+            }
+        }
+        $written = file_put_contents($path, $content, $flag);
+        if (false === $written) {
+            throw new ErrorException($php_errormsg);
+        }
+        return $written;
+    }
 
     // get a well-formatted path
     public static function getPath(array $parts)
@@ -215,11 +264,11 @@ class Helper
     {
         $new_path = $path . '~' . date('y-m-d-H-i-s');
         if (file_exists($new_path)) {
-            $i = 0;
+            $counter = 0;
             $original_new_path = $new_path;
             while (file_exists($new_path)) {
-                $new_path = $original_new_path . $i;
-                $i++;
+                $new_path = $original_new_path . $counter;
+                $counter++;
             }
         }
         return copy($path, $new_path);
@@ -232,9 +281,9 @@ class Helper
     public static function debug($objs, $title = null, $html = true)
     {
         $str    = '';
-        $nl     = PHP_EOL . ($html ? '<br />' : '');
+        $newl   = PHP_EOL . ($html ? '<br />' : '');
         if (!empty($title)) {
-            $str .= $nl . '### ' . $title . ':' . $nl;
+            $str .= $newl . '### ' . $title . ':' . $newl;
         }
         $dump = var_export($objs, true);
         $replacements = array(

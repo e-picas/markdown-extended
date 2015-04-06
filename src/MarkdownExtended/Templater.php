@@ -70,7 +70,7 @@ class Templater
                     sprintf('Template "%s" is not readable', $template_path)
                 );
             }
-            $tpl_content = file_get_contents($template_path);
+            $tpl_content = Helper::readFile($template_path);
             $this->cache->setCache($template_path, $tpl_content);
         } else {
             $tpl_content = $this->cache->getCache($template_path);

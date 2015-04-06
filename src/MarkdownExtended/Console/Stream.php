@@ -27,7 +27,7 @@ class Stream
     protected $stdout;
     protected $stderr;
 
-    protected $exception_handler_callback;
+    protected $exception_callback;
 
     const PADDER            = '    ';
     const VERBOSE_PREFIX    = '[V] ';
@@ -61,7 +61,7 @@ class Stream
                 sprintf('A handler callback must be callable (got "%s")', gettype($callback))
             );
         }
-        $this->exception_handler_callback = $callback;
+        $this->exception_callback = $callback;
         return $this;
     }
 
@@ -74,6 +74,11 @@ class Stream
     public function getVerbosity()
     {
         return $this->verbosity;
+    }
+
+    public function _exit($code = 0)
+    {
+        exit($code);
     }
 
     /**
@@ -101,11 +106,11 @@ class Stream
         }
         $this->write($str, true, self::IO_STDERR);
 
-        if (!is_null($this->exception_handler_callback) && is_callable($this->exception_handler_callback)) {
-            call_user_func($this->exception_handler_callback, $e);
+        if (!is_null($this->exception_callback) && is_callable($this->exception_callback)) {
+            call_user_func($this->exception_callback, $e);
         }
 
-        exit($e->getCode());
+        $this->_exit($e->getCode());
     }
 
     /**

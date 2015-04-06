@@ -25,7 +25,7 @@ class MarkdownExtendedBaseTest
      */
     public function processParseTest($md, $html, $title, $strip_whitespaces = false, $strip_new_lines = false)
     {
-        $content = (string) MarkdownExtended::parse($md);
+        $content = (string) MarkdownExtended::parse($md, array('template'=>false));
         if ($strip_whitespaces) {
             $content = $this->stripWhitespaces($content);
         }

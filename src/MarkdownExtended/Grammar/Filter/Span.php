@@ -41,7 +41,7 @@ class Span
                     `+                        # code span marker
                 |
                     \\ \(                     # inline math
-            '.( Kernel::getConfig('no_markup') ? '' : '
+            '.( Kernel::getConfig('no_markup')===true ? '' : '
                 |
                     <!--    .*?     -->       # comment
                 |
@@ -65,14 +65,14 @@ class Span
             $parts = preg_split($span_re, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
 
             // Create token from text preceding tag.
-            if ($parts[0] != "") {
+            if ($parts[0] !== '') {
                 $output .= $parts[0];
             }
 
             // Check if we reach the end.
             if (isset($parts[1])) {
                 $output .= self::handleSpanToken($parts[1], $parts[2]);
-                $str = $parts[2];
+                $str    = $parts[2];
             } else {
                 break;
             }
@@ -112,7 +112,7 @@ class Span
                     $str, $matches)
                 ) {
                     $str = $matches[2];
-                    $codespan = parent::runGamut('filter:CodeBlock:span', $matches[1]);
+                    $codespan = parent::runGamut('filter:CodeBlock:span', $matches[1], true);
                     return parent::hashPart($codespan);
                 }
                 return $token; // return as text since no ending marker found.

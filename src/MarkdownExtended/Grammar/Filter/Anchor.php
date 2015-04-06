@@ -49,7 +49,7 @@ class Anchor
      */
     public function transform($text)
     {
-        if (Kernel::getConfig('in_anchor')===true) {
+        if (Kernel::getConfig('in_anchor') === true) {
             return $text;
         }
 
@@ -83,7 +83,7 @@ class Anchor
                 (?:
                     <(.+?)>                                 # href = $3
                 |
-                    ('.Kernel::getConfig('nested_url_parenthesis_re').') # href = $4
+                    ('.Kernel::getConfig('nested_parenthesis_re').') # href = $4
                 )
                 [ \n]*
                 (                                           # $5
@@ -166,7 +166,7 @@ class Anchor
     {
         $whole_match    =  $matches[1];
         $link_text      =  $matches[2];
-        $url            =  $matches[3] == '' ? $matches[4] : $matches[3];
+        $url            =  $matches[3] === '' ? $matches[4] : $matches[3];
         $title          =& $matches[7];
 
         $attributes = array();

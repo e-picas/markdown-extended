@@ -36,8 +36,9 @@ abstract class AbstractConsole
     public function __construct()
     {
         // current script path
-        if (isset($_SERVER['argv']) && is_array($_SERVER['argv']) && isset($_SERVER['argv'][0])) {
-            $this->script_path = realpath($_SERVER['argv'][0]);
+        $argv = UserInput::getSanitizedUserInput();
+        if (!empty($argv) && is_array($argv) && isset($argv[0])) {
+            $this->script_path = realpath($argv[0]);
         } else {
             $this->script_path = getcwd();
         }
@@ -263,17 +264,17 @@ abstract class AbstractConsole
         // help string
         if ($this->getOption('help')) {
             $this->runHelp();
-            exit(0);
+            $this->stream->_exit();
         }
         // version string
         if ($this->getOption('version')) {
             $this->runVersion();
-            exit(0);
+            $this->stream->_exit();
         }
         // no argument = usage
         if ($this->arg_required===true && empty($this->arguments)) {
             $this->runUsage();
-            exit(0);
+            $this->stream->_exit();
         }
 
         return $this;
