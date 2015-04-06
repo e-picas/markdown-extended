@@ -648,23 +648,13 @@ EOT;
     {
         $md_content=null;
         if (!empty($input)) {
-            if (@file_exists($input)) {
+            if (file_exists($input)) {
                 $this->info("Loading input file `$input` ... ");
                 if ($title===true) {
                     $this->writeInputTitle($input);
                 }
                 try {
                     $md_content = MDE_API::factory('Content', array(null, $input));
-                } catch (MDE_Exception\DomainException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\RuntimeException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\UnexpectedValueException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\InvalidArgumentException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\Exception $e) {
-                    $this->caught($e);
                 } catch (\Exception $e) {
                     $this->caught($e);
                 }
@@ -675,16 +665,6 @@ EOT;
                 }
                 try {
                     $md_content = MDE_API::factory('Content', array($input));
-                } catch (MDE_Exception\DomainException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\RuntimeException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\UnexpectedValueException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\InvalidArgumentException $e) {
-                    $this->caught($e);
-                } catch (MDE_Exception\Exception $e) {
-                    $this->caught($e);
                 } catch (\Exception $e) {
                     $this->caught($e);
                 }
@@ -726,16 +706,6 @@ EOT;
                         ->parse($md_content)
                         ->getFullContent();
                 }
-            } catch (MDE_Exception\DomainException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\RuntimeException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\UnexpectedValueException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\InvalidArgumentException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\Exception $e) {
-                $this->caught($e);
             } catch (\Exception $e) {
                 $this->caught($e);
             }
@@ -777,16 +747,6 @@ EOT;
                     array($md_content_parsed, ucfirst($preset['getter']))
                 );
                 $md_output = $this->_renderOutput($output);
-            } catch (MDE_Exception\DomainException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\RuntimeException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\UnexpectedValueException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\InvalidArgumentException $e) {
-                $this->caught($e);
-            } catch (MDE_Exception\Exception $e) {
-                $this->caught($e);
             } catch (\Exception $e) {
                 $this->caught($e);
             }

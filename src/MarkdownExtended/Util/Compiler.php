@@ -28,7 +28,7 @@ class Compiler
 
     protected $_logs = array();
 
-    static $phar_file = 'markdown-extended.phar';
+    const PHAR_FILE = 'markdown-extended.phar';
 
     static $phar_loaders = array(
         'autoload.php',
@@ -65,12 +65,13 @@ class Compiler
     /**
      * Compiles app into a single phar file
      *
-     * @param  string            $pharFile The full path to the file to create
+     * @param   string  $pharFile   The full path to the file to create
+     * @param   string  $root_dir   The root directory path
      */
-    public function compile($pharFile = 'markdown-extended.phar', $root_dir = null)
+    public function compile($pharFile = self::PHAR_FILE, $root_dir = null)
     {
         if (is_null($root_dir)) {
-            $this->root_dir = __DIR__.'/../../..';
+            $this->root_dir = dirname(dirname(dirname(__DIR__))).DIRECTORY_SEPARATOR;
         } else {
             $this->root_dir = $root_dir;
         }
@@ -112,6 +113,8 @@ class Compiler
                 $this->_logs[] = sprintf('!! - Loader file "%s" not found and not added!', $_loader);
             }
         }
+        // special case of autoload_files.php
+        $this->__addFromString($phar, $vendor_path.'composer/autoload_files.php', '<?php return array();');
 
         // global binary
         $this->__addBin($phar);
@@ -130,7 +133,7 @@ class Compiler
 
     private function __addFile($phar, $file, $strip = true)
     {
-        $path = str_replace(dirname(dirname(dirname(__DIR__))).DIRECTORY_SEPARATOR, '', $file->getRealPath());
+        $path = str_replace($this->root_dir, '', $file->getRealPath());
 
         $content = file_get_contents($file);
         if ($strip) {
@@ -140,6 +143,18 @@ class Compiler
         }
 
         $this->_logs[] = sprintf('Adding file "%s" (length %d)', $path, strlen($content));
+        $phar->addFromString($path, $content);
+    }
+
+    private function __addFromString($phar, $file_name, $content, $strip = true)
+    {
+        $path = str_replace($this->root_dir, '', $file_name);
+
+        if ($strip) {
+            $content = $this->__stripWhitespace($content);
+        }
+
+        $this->_logs[] = sprintf('Adding string for file "%s" (length %d)', $path, strlen($content));
         $phar->addFromString($path, $content);
     }
 

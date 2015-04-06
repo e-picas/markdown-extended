@@ -180,30 +180,20 @@ final class MarkdownExtended
      * @param   string|array    $parser_options
      * @param   string|null     $key
      * @param   bool            $secondary  Set it to `true` if parsed content may not be stored as current one
+     *
      * @return  \MarkdownExtended\API\ContentInterface
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
-     * @throws  \MarkdownExtended\Exception\RuntimeException if the parser class is not valid
+     *
+     * @throws  \Exception      MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
+     * @throws  \Exception      MarkdownExtended\Exception\RuntimeException if the parser class is not valid
      */
     public static function transformString($source, $parser_options = null, $key = null, $secondary = false)
     {
-        $_this = self::getInstance();
         try {
             $content = MDE_API::factory('Content', array($source));
-            $content->setId($key);
-            if (!empty($_this->global_options)) {
-                if (is_null($parser_options)) $parser_options = array();
-                if (!is_array($parser_options)) $parser_options = array($parser_options);
-                $parser_options = array_merge($_this->global_options, $parser_options);
-            }
-            $parser = $_this->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
-        } catch (MDE_Exception\InvalidArgumentException $e) {
-            throw $e;
-        } catch (MDE_Exception\RuntimeException $e) {
+            return self::transformContent($content, $parser_options, $key, $secondary);
+        } catch (\Exception $e) {
             throw $e;
         }
-        return $parser
-            ->parse($content, $secondary)
-            ->getContent();
     }
     
     /**
@@ -213,15 +203,40 @@ final class MarkdownExtended
      * @param   string|array    $parser_options
      * @param   string|null     $key
      * @param   bool            $secondary  Set it to `true` if parsed content may not be stored as current one
+     *
      * @return  \MarkdownExtended\API\ContentInterface
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
-     * @throws  \MarkdownExtended\Exception\RuntimeException if the parser class is not valid
+     *
+     * @throws  \Exception      MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
+     * @throws  \Exception      MarkdownExtended\Exception\RuntimeException if the parser class is not valid
      */
     public static function transformSource($filename, $parser_options = null, $key = null, $secondary = false)
     {
-        $_this = self::getInstance();
         try {
             $content = MDE_API::factory('Content', array(null, $filename));
+            return self::transformContent($content, $parser_options, $key, $secondary);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Transform a Markdown source file content
+     *
+     * @param   \MarkdownExtended\API\ContentInterface    $content
+     * @param   string|array        $parser_options
+     * @param   string|null         $key
+     * @param   bool                $secondary  Set it to `true` if parsed content may not be stored as current one
+     *
+     * @return  \MarkdownExtended\API\ContentInterface
+     *
+     * @throws  \Exception      MarkdownExtended\Exception\InvalidArgumentException if the parser class can not be found
+     * @throws  \Exception      MarkdownExtended\Exception\RuntimeException if the parser class is not valid
+     */
+    public static function transformContent(
+        \MarkdownExtended\API\ContentInterface $content, $parser_options = null, $key = null, $secondary = false
+    ) {
+        $_this = self::getInstance();
+        try {
             $content->setId($key);
             if (!empty($_this->global_options)) {
                 if (is_null($parser_options)) $parser_options = array();
@@ -229,16 +244,14 @@ final class MarkdownExtended
                 $parser_options = array_merge($_this->global_options, $parser_options);
             }
             $parser = $_this->get('Parser', array($parser_options), MDE_API::FAIL_WITH_ERROR);
-        } catch (MDE_Exception\InvalidArgumentException $e) {
-            throw $e;
-        } catch (MDE_Exception\RuntimeException $e) {
+            return $parser
+                ->parse($content, $secondary)
+                ->getContent();
+        } catch (\Exception $e) {
             throw $e;
         }
-        return $parser
-            ->parse($content, $secondary)
-            ->getContent();
     }
-    
+
 // --------------
 // CONTENTS
 // --------------
