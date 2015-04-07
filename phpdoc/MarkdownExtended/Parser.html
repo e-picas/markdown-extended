@@ -26,6 +26,11 @@
                 <p>    class
     <strong>Parser</strong></p>
 
+            <div class="description">
+            <p>Global MarkdownExtended parser</p>
+            <p>
+</p>
+        </div>
     
     
     
@@ -37,53 +42,48 @@
                     
                 </td>
                 <td class="last">
-                    <a href="#method___construct">__construct</a>($options = null)
-                    <p>
-</p>
+                    <a href="#method___construct">__construct</a>(null|string|array $options = null)
+                    <p>Constructs a new parser with optional custom options or configuration file</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <abbr title="MarkdownExtended\$this">$this</abbr>
                 </td>
                 <td class="last">
                     <a href="#method_resetOptions">resetOptions</a>()
-                    <p>
-</p>
+                    <p>Resets options to defaults</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <abbr title="MarkdownExtended\$this">$this</abbr>
                 </td>
                 <td class="last">
-                    <a href="#method_setOptions">setOptions</a>($options)
-                    <p>
-</p>
+                    <a href="#method_setOptions">setOptions</a>(string|array $options)
+                    <p>Defines custom options or configuration file</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                    <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>|string
                 </td>
                 <td class="last">
-                    <a href="#method_transform">transform</a>($content, $name = null, $primary = true)
-                    <p>
-</p>
+                    <a href="#method_transform">transform</a>(string|<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content, null $name = null, bool $primary = true)
+                    <p>Transforms a string</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    
+                    <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>|string
                 </td>
                 <td class="last">
-                    <a href="#method_transformSource">transformSource</a>($path, $primary = true)
-                    <p>
-</p>
+                    <a href="#method_transformSource">transformSource</a>(string $path, bool $primary = true)
+                    <p>Transforms a source file</p>
                 </td>
                 <td></td>
             </tr>
@@ -93,13 +93,12 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 28</div>
+        <div class="location">at line 36</div>
         <code>            public            
-    <strong>__construct</strong>($options = null)</code>
+    <strong>__construct</strong>(null|string|array $options = null)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Constructs a new parser with optional custom options or configuration file</p>
         <p>
 </p>
         <div class="tags">
@@ -107,10 +106,9 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>null|string|array</td>
                 <td>$options</td>
-                <td>
-</td>
+                <td>A set of options or a configuration file path to override defaults</td>
             </tr>
             </table>
 
@@ -121,30 +119,47 @@
     </div>
 
                 <h3 id="method_resetOptions">
-        <div class="location">at line 53</div>
-        <code>            public            
+        <div class="location">at line 67</div>
+        <code>            public            <abbr title="MarkdownExtended\$this">$this</abbr>
     <strong>resetOptions</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Resets options to defaults</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
+                            <h4>See also</h4>
+
+                    <table>
+                    <tr>
+                <td>\MarkdownExtended\MarkdownExtended::getDefaults()</td>
+                <td></td>
+            </tr>
+            </table>
+
                     </div>
     </div>
 
                 <h3 id="method_setOptions">
-        <div class="location">at line 59</div>
-        <code>            public            
-    <strong>setOptions</strong>($options)</code>
+        <div class="location">at line 80</div>
+        <code>            public            <abbr title="MarkdownExtended\$this">$this</abbr>
+    <strong>setOptions</strong>(string|array $options)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Defines custom options or configuration file</p>
         <p>
 </p>
         <div class="tags">
@@ -152,27 +167,35 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string|array</td>
                 <td>$options</td>
-                <td>
-</td>
+                <td>A set of options or a configuration file path to override defaults</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="MarkdownExtended\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 98</div>
-        <code>            public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
-    <strong>transform</strong>($content, $name = null, $primary = true)</code>
+        <div class="location">at line 124</div>
+        <code>            public            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>|string
+    <strong>transform</strong>(string|<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content, null $name = null, bool $primary = true)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Transforms a string</p>
         <p>
 </p>
         <div class="tags">
@@ -180,19 +203,19 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string|<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a></td>
                 <td>$content</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>null</td>
                 <td>$name</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$primary</td>
                 <td>
 </td>
@@ -204,7 +227,7 @@
 
                     <table>
         <tr>
-            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td><a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>|string</td>
             <td>
 </td>
         </tr>
@@ -216,13 +239,12 @@
     </div>
 
                 <h3 id="method_transformSource">
-        <div class="location">at line 205</div>
-        <code>            public            
-    <strong>transformSource</strong>($path, $primary = true)</code>
+        <div class="location">at line 240</div>
+        <code>            public            <a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>|string
+    <strong>transformSource</strong>(string $path, bool $primary = true)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Transforms a source file</p>
         <p>
 </p>
         <div class="tags">
@@ -230,13 +252,13 @@
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$path</td>
                 <td>
 </td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$primary</td>
                 <td>
 </td>
@@ -244,7 +266,26 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a>|string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../MarkdownExtended/Exception/DomainException.html"><abbr title="MarkdownExtended\Exception\DomainException">DomainException</abbr></a></td>
+                <td>if the file can not be found or read</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>

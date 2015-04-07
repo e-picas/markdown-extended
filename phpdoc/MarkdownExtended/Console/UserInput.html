@@ -26,6 +26,11 @@
                 <p>    class
     <strong>UserInput</strong></p>
 
+            <div class="description">
+            <p>A class to manage command line options based on a set of definitions</p>
+            <p>
+</p>
+        </div>
     
             <h2>Constants</h2>
 
@@ -42,44 +47,39 @@
                     <tr>
                 <td>ARG_NULL</td>
                 <td class="last">
-                    <p><em>
-</em></p>
-                    <p>
-</p>
+                    <p><em>Use this when concerned option does NOT have any argument (i.e.</em></p>
+                    <p>for flags)</p>
                 </td>
             </tr>
                     <tr>
                 <td>ARG_OPTIONAL</td>
                 <td class="last">
-                    <p><em>
-</em></p>
-                    <p>
-</p>
+                    <p><em>Use this when concerned option can accept an argument but this is not required (i.e.</em></p>
+                    <p>a default value is defined)</p>
+
+<p>The optional argument MUST be written separated to the option by an equal sign.</p>
                 </td>
             </tr>
                     <tr>
                 <td>ARG_REQUIRED</td>
                 <td class="last">
-                    <p><em>
-</em></p>
-                    <p>
-</p>
+                    <p><em>Use this when concerned option REQUIRES an argument</em></p>
+                    <p>The equal sign between the option and its argument is not required.</p>
                 </td>
             </tr>
                     <tr>
                 <td>TYPE_BOOL</td>
                 <td class="last">
-                    <p><em>
-</em></p>
-                    <p>
-</p>
+                    <p><em>Use this to define a boolean option (i.e.</em></p>
+                    <p>1 or 0)</p>
+
+<p>This is the default for option with no argument (i.e. <code>self::ARG_NULL</code>)</p>
                 </td>
             </tr>
                     <tr>
                 <td>TYPE_STRING</td>
                 <td class="last">
-                    <p><em>
-</em></p>
+                    <p><em>Use this to define an option as a string</em></p>
                     <p>
 </p>
                 </td>
@@ -87,19 +87,17 @@
                     <tr>
                 <td>TYPE_PATH</td>
                 <td class="last">
-                    <p><em>
-</em></p>
-                    <p>
-</p>
+                    <p><em>Use this do define an option as a file path</em></p>
+                    <p>An error will be thrown if the option only have this type and its value
+can not be found in file system.</p>
                 </td>
             </tr>
                     <tr>
                 <td>TYPE_LISTITEM</td>
                 <td class="last">
-                    <p><em>
-</em></p>
-                    <p>
-</p>
+                    <p><em>Use this to define an option as a list item</em></p>
+                    <p>Using this type, you are REQUIRED to define a <code>list</code> argument in
+the option's definition.</p>
                 </td>
             </tr>
             </table>
@@ -141,34 +139,31 @@
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;array
                 </td>
                 <td class="last">
                     <a href="#method_getOptionsInfo">getOptionsInfo</a>(array $definitions)
-                    <p>
-</p>
+                    <p>Gets an automatic information of a set of options</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;array
                 </td>
                 <td class="last">
                     <a href="#method_getOptionsSynopsis">getOptionsSynopsis</a>(array $definitions)
-                    <p>
-</p>
+                    <p>Gets an automatic synopsis of a set of options</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;array
                 </td>
                 <td class="last">
                     <a href="#method_getSanitizedUserInput">getSanitizedUserInput</a>()
-                    <p>
-</p>
+                    <p>Gets the input array of options and arguments</p>
                 </td>
                 <td></td>
             </tr>
@@ -178,7 +173,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_prepareOptionDefinition">
-        <div class="location">at line 54</div>
+        <div class="location">at line 96</div>
         <code>        static    public            array
     <strong>prepareOptionDefinition</strong>(array $item, string $name)</code>
     </h3>
@@ -239,7 +234,7 @@
     </div>
 
                 <h3 id="method_validateOptionValue">
-        <div class="location">at line 119</div>
+        <div class="location">at line 161</div>
         <code>        static    public            bool
     <strong>validateOptionValue</strong>(string $value, array $definition)</code>
     </h3>
@@ -282,7 +277,7 @@
     </div>
 
                 <h3 id="method_parseOptions">
-        <div class="location">at line 167</div>
+        <div class="location">at line 209</div>
         <code>        static    public            object
     <strong>parseOptions</strong>(array $definitions)</code>
     </h3>
@@ -319,13 +314,12 @@
     </div>
 
                 <h3 id="method_getOptionsInfo">
-        <div class="location">at line 257</div>
-        <code>        static    public            
+        <div class="location">at line 305</div>
+        <code>        static    public            array
     <strong>getOptionsInfo</strong>(array $definitions)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets an automatic information of a set of options</p>
         <p>
 </p>
         <div class="tags">
@@ -341,19 +335,28 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getOptionsSynopsis">
-        <div class="location">at line 281</div>
-        <code>        static    public            
+        <div class="location">at line 335</div>
+        <code>        static    public            array
     <strong>getOptionsSynopsis</strong>(array $definitions)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets an automatic synopsis of a set of options</p>
         <p>
 </p>
         <div class="tags">
@@ -369,23 +372,42 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getSanitizedUserInput">
-        <div class="location">at line 317</div>
-        <code>        static    public            
+        <div class="location">at line 382</div>
+        <code>        static    public            array
     <strong>getSanitizedUserInput</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets the input array of options and arguments</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>

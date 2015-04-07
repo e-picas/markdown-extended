@@ -28,13 +28,7 @@
 
             <div class="description">
             <p>PHP Markdown Extended</p>
-            <p>This is the global <em>MarkdownExtended</em> class and process. It contains mostly
-static methods that can be called from anywhere writing something like:</p>
-
-<pre><code>MarkdownExtended::my_method();
-</code></pre>
-
-<p>LICENSE</p>
+            <p>LICENSE</p>
 
 <p>Mardown
 Copyright © 2004-2006, John Gruber
@@ -172,56 +166,51 @@ this software, even if advised of the possibility of such damage.</p>
             <table>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;array|string
                 </td>
                 <td class="last">
-                    <a href="#method_getAppInfo">getAppInfo</a>($shorten = false)
-                    <p>
-</p>
+                    <a href="#method_getAppInfo">getAppInfo</a>(bool $shorten = false)
+                    <p>Gets app's information</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;array
                 </td>
                 <td class="last">
                     <a href="#method_getDefaults">getDefaults</a>()
-                    <p>
-</p>
+                    <p>App's default settings</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_parse">parse</a>($content, $options = null)
-                    <p>
-</p>
+                    <a href="#method_parse">parse</a>(string $content, null $options = null)
+                    <p>Parse a markdown content or file</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_parseString">parseString</a>($content, $options = null)
-                    <p>
-</p>
+                    <a href="#method_parseString">parseString</a>(string $content, null $options = null)
+                    <p>Parse a markdown content</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;
+                    static&nbsp;<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_parseSource">parseSource</a>($path, $options = null)
-                    <p>
-</p>
+                    <a href="#method_parseSource">parseSource</a>(string $path, null $options = null)
+                    <p>Parse a markdown file</p>
                 </td>
                 <td></td>
             </tr>
@@ -231,13 +220,12 @@ this software, even if advised of the possibility of such damage.</p>
         <h2>Details</h2>
 
                         <h3 id="method_getAppInfo">
-        <div class="location">at line 80</div>
-        <code>        static    public            
-    <strong>getAppInfo</strong>($shorten = false)</code>
+        <div class="location">at line 81</div>
+        <code>        static    public            array|string
+    <strong>getAppInfo</strong>(bool $shorten = false)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Gets app's information</p>
         <p>
 </p>
         <div class="tags">
@@ -245,7 +233,7 @@ this software, even if advised of the possibility of such damage.</p>
 
                     <table>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$shorten</td>
                 <td>
 </td>
@@ -253,36 +241,54 @@ this software, even if advised of the possibility of such damage.</p>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array|string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_getDefaults">
-        <div class="location">at line 94</div>
-        <code>        static    public            
+        <div class="location">at line 100</div>
+        <code>        static    public            array
     <strong>getDefaults</strong>()</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>App's default settings</p>
         <p>
 </p>
         <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_parse">
-        <div class="location">at line 282</div>
-        <code>        static    public            
-    <strong>parse</strong>($content, $options = null)</code>
+        <div class="location">at line 296</div>
+        <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>parse</strong>(string $content, null $options = null)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Parse a markdown content or file</p>
         <p>
 </p>
         <div class="tags">
@@ -290,33 +296,40 @@ this software, even if advised of the possibility of such damage.</p>
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$content</td>
-                <td>
-</td>
+                <td>A raw content or a file path to parse</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>null</td>
                 <td>$options</td>
-                <td>
-</td>
+                <td>A set of options to override defaults</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_parseString">
-        <div class="location">at line 289</div>
-        <code>        static    public            
-    <strong>parseString</strong>($content, $options = null)</code>
+        <div class="location">at line 311</div>
+        <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>parseString</strong>(string $content, null $options = null)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Parse a markdown content</p>
         <p>
 </p>
         <div class="tags">
@@ -324,33 +337,40 @@ this software, even if advised of the possibility of such damage.</p>
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$content</td>
-                <td>
-</td>
+                <td>A raw content to parse</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>null</td>
                 <td>$options</td>
-                <td>
-</td>
+                <td>A set of options to override defaults</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
     </div>
 
                 <h3 id="method_parseSource">
-        <div class="location">at line 295</div>
-        <code>        static    public            
-    <strong>parseSource</strong>($path, $options = null)</code>
+        <div class="location">at line 325</div>
+        <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>parseSource</strong>(string $path, null $options = null)</code>
     </h3>
     <div class="details">
-        <p>
-</p>
+        <p>Parse a markdown file</p>
         <p>
 </p>
         <div class="tags">
@@ -358,20 +378,28 @@ this software, even if advised of the possibility of such damage.</p>
 
                     <table>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$path</td>
-                <td>
-</td>
+                <td>A file path to parse</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>null</td>
                 <td>$options</td>
-                <td>
-</td>
+                <td>A set of options to override defaults</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
