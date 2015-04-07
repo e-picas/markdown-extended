@@ -70,7 +70,7 @@ class BlockInclusion
         $content_collection = Kernel::get('ContentCollection');
         $index = $content_collection->key();
         try {
-            $parsed_content = Kernel::get('MarkdownExtended')
+            $parsed_content = Kernel::get('Parser')
                 ->transformSource($filename, false);
         } catch (\Exception $e) {
             $parsed_content = Kernel::get('OutputFormatBag')

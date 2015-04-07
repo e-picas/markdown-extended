@@ -46,7 +46,7 @@ class Parser
 
         // init all dependencies
         $kernel
-            ->set('MarkdownExtended',       $this)
+            ->set('Parser',                 $this)
             ->set('OutputFormatBag',        new OutputFormatBag)
             ->set('Grammar\GamutLoader',    new GamutLoader)
             ->set('ContentCollection',      new ContentCollection)
@@ -61,6 +61,8 @@ class Parser
      * Resets options to defaults
      *
      * @return $this
+     *
+     * @see \MarkdownExtended\MarkdownExtended::getDefaults()
      */
     public function resetOptions()
     {
@@ -73,7 +75,7 @@ class Parser
      *
      * @param string|array $options A set of options or a configuration file path to override defaults
      *
-     * @return $this|\MarkdownExtended\Parser
+     * @return $this
      */
     public function setOptions($options)
     {
