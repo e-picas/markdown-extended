@@ -19,10 +19,10 @@ class ConsoleTest
      */
     public function testCommandRunner()
     {
-        $res = $this->runCommand('php --version');
+        $res = $this->runCommand('php -r "echo \'TEST\';"');
         $this->assertEquals(
-            strtolower(substr($res['stdout'], 0, 3)),
-            'php',
+            $res['stdout'],
+            'TEST',
             'Command runner does not work'
         );
     }
