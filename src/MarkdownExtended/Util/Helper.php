@@ -229,6 +229,22 @@ class Helper
 // --------------
 
     /**
+     * Gets a wel-formatted path with environment-compliant directory separator
+     *
+     * @param array $parts
+     * @return string
+     */
+    public static function getPath(array $parts)
+    {
+        return implode(
+            DIRECTORY_SEPARATOR,
+            array_map(function($p){
+                return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p);
+            }, $parts)
+        );
+    }
+
+    /**
      * Reads a file and returns its content
      *
      * @param string $path
@@ -295,22 +311,6 @@ class Helper
             );
         }
         return $written;
-    }
-
-    /**
-     * Gets a wel-formatted path with environment-compliant directory separator
-     *
-     * @param array $parts
-     * @return string
-     */
-    public static function getPath(array $parts)
-    {
-        return implode(
-            DIRECTORY_SEPARATOR,
-            array_map(function($p){
-                return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p);
-            }, $parts)
-        );
     }
 
     /**
