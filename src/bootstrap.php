@@ -8,9 +8,6 @@
  * file that was distributed with this source code.
  */
 
-// if MDE_BASE_PATH is already defined, strip the followings
-if (defined('MDE_BASE_PATH')) { return; }
-
 // PHP 5.3.3+
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     trigger_error(
@@ -26,30 +23,36 @@ $bootstrapGetPath = function(array $parts) {
 };
 
 // MDE_BASE_PATH = PHAR or local base path
-define('MDE_BASE_PATH',
-    (defined('MDE_PHAR') && MDE_PHAR===true) ? 'phar://mde.phar/' : dirname(__DIR__) . DIRECTORY_SEPARATOR
-);
+if (!defined('MDE_BASE_PATH')) {
+    define('MDE_BASE_PATH',
+        (defined('MDE_PHAR') && MDE_PHAR===true) ? 'phar://mde.phar/' : dirname(__DIR__) . DIRECTORY_SEPARATOR
+    );
+}
 
 // namespaces autoloader
-function mde_autoloader($className, $namespace = 'MarkdownExtended', $base_path = null)
-{
-    $extension              = '.php';
-    $namespace_separator    = '\\';
-    $className              = trim($className, $namespace_separator);
-    $base_path              = is_null($base_path) ?
-        MDE_BASE_PATH . 'src' : rtrim($base_path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-    if (substr($className, 0, strlen($namespace)) === $namespace) {
-        $class_file = str_replace(array($namespace_separator, '_'), DIRECTORY_SEPARATOR, $className) . $extension;
-        if (file_exists($try1 = $base_path . DIRECTORY_SEPARATOR . $class_file)) {
-            require_once $try1;
-        }
-        foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
-            if (file_exists($path) && file_exists($try2 = $path . DIRECTORY_SEPARATOR . $class_file)) {
-                require_once $try2;
+if (!function_exists('mde_autoloader')) {
+    function mde_autoloader($className, $namespace = 'MarkdownExtended', $base_path = null)
+    {
+        $extension              = '.php';
+        $namespace_separator    = '\\';
+        $className              = trim($className, $namespace_separator);
+        $base_path              = is_null($base_path) ?
+            MDE_BASE_PATH . 'src' : rtrim($base_path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        if (substr($className, 0, strlen($namespace)) === $namespace) {
+            $class_file = str_replace(array($namespace_separator, '_'), DIRECTORY_SEPARATOR, $className) . $extension;
+            if (file_exists($try1 = $base_path . DIRECTORY_SEPARATOR . $class_file)) {
+                require_once $try1;
+            }
+            foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
+                if (file_exists($path) && file_exists($try2 = $path . DIRECTORY_SEPARATOR . $class_file)) {
+                    require_once $try2;
+                }
             }
         }
-    }
-};
+    };
+}
+
+// register the MarkdownExtended namespace loader
 spl_autoload_register('mde_autoloader');
 
 // try the project's Composer autoloader
