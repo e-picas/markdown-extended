@@ -16,6 +16,9 @@
 $dtmz = @date_default_timezone_get();
 date_default_timezone_set($dtmz?:'Europe/Paris');
 
+// parse composer.json
+$package = json_decode(file_get_contents(dirname(__DIR__).'/composer.json'), true);
+
 // arguments settings
 $doc = isset($_GET['doc']) ? $_GET['doc'] : null;
 $md = isset($_GET['md']) ? $_GET['md'] : 'none';
@@ -149,12 +152,12 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
             <title><?php echo $meta_content; ?></title>
             <?php $title_done = true; ?>
         <?php else: ?>
-            <meta name="<?php echo $meta_name; ?>" content="<?php echo $meta_content; ?>" />
+            <meta name="<?php echo $meta_name; ?>" content="<?php echo \MarkdownExtended\Util\Helper::getSafeString($meta_content); ?>" />
         <?php endif; ?>
     <?php endforeach; ?>
 <?php endif; ?>
 <?php if (!$title_done) : ?>
-    <title>Test & documentation of PHP "MarkdownExtended" package</title>
+    <title>Test & documentation of <?php echo \MarkdownExtended\MarkdownExtended::NAME; ?></title>
 <?php endif; ?>
 <meta name="description" content="A complete PHP 5.3 version of the Markdown syntax parser" />
 <!-- Bootstrap -->
@@ -184,7 +187,7 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">MarkdownExtended</a>
+                <a class="navbar-brand" href="#"><?php echo \MarkdownExtended\MarkdownExtended::NAME; ?></a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul id="navigation_menu" class="nav navbar-nav" role="navigation">
@@ -212,6 +215,7 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
                                 </ul></li>
                         </ul>
                     </li>
+                    <li><a href="http://docs.ateliers-pierrot.fr/markdown-extended/">API</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" role="navigation">
 <?php if (!empty($menu)) : ?>
@@ -229,9 +233,9 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
         <a id="top"></a>
 
         <header role="banner">
-            <h1>The PHP "<em>MarkdownExtended</em>" package <br><small>A complete PHP 5.3 package for Markdown Extended syntax parsing</small></h1>
+            <h1><em><?php echo \MarkdownExtended\MarkdownExtended::SHORTNAME; ?></em><br><small><?php echo \MarkdownExtended\MarkdownExtended::DESC; ?></small></h1>
             <div class="hat">
-                <p>These pages show and demonstrate the use and functionality of the <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> PHP package you just downloaded.</p>
+                <p>These pages show and demonstrate the use and functionality of the <a href="<?php echo \MarkdownExtended\MarkdownExtended::LINK; ?>"><?php echo $package['name']; ?></a> PHP package you just downloaded.</p>
             </div>
         </header>
 
@@ -291,11 +295,8 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
 
     <footer id="footer">
         <div class="container">
-            <div class="text-muted pull-left">
-                This page is <a href="" title="Check now online" id="html_validation">HTML5</a> & <a href="" title="Check now online" id="css_validation">CSS3</a> valid.
-            </div>
             <div class="text-muted pull-right">
-                <a href="http://github.com/piwi/markdown-extended">piwi/markdown-extended</a> package by <a href="https://github.com/piwi">@piwi</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
+                <a href="<?php echo $package['homepage']; ?>"><?php echo $package['name']; ?></a> package by <a href="https://github.com/piwi">@piwi</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
                 <p class="text-muted small" id="user_agent"></p>
             </div>
         </div>
@@ -359,7 +360,7 @@ $(function() {
 
 // list GitHub infos
     initHandler( 'github' );
-    var github = 'https://api.github.com/repos/piwi/markdown-extended/';
+    var github = 'https://api.github.com/repos/<?php echo $package['name']; ?>/';
     // commits list
     var github_commits = $('#github').find('#commits_list');
     getGitHubCommits(github, function(data){
