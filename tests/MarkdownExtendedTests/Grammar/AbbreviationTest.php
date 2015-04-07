@@ -8,23 +8,23 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended\Grammar;
+namespace MarkdownExtendedTests\Grammar;
 
-use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtendedTests\ParserTest;
 use \MarkdownExtended\MarkdownExtended;
 
-class AbbreviationTest extends MarkdownExtendedBaseTest
+class AbbreviationTest extends ParserTest
 {
 
     public function testCreate()
     {
-        // abbreviation
-        $this->processParseTest(
-            "
+        $md = "
 A text whit HTML expression.
 
 *[HTML]: Hyper Text Markup Language
-        ",
+        ";
+        $this->assertEquals(
+            (string) MarkdownExtended::parse($md, array('template'=>false)),
             'A text whit <abbr title="Hyper Text Markup Language">HTML</abbr> expression.',
             'Abbreviation fails!'
         );

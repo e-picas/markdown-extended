@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended\Grammar;
+namespace MarkdownExtendedTests\Grammar;
 
-use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtendedTests\ParserTest;
+use \MarkdownExtended\MarkdownExtended;
 
-class HorizontalRuleTest extends MarkdownExtendedBaseTest
+class HorizontalRuleTest extends ParserTest
 {
 
     public function testCreate()
     {
-        $this->processParseTest(
-            "
+        $md = <<<MSG
 This is a definition with two paragraphs. Lorem ipsum
 dolor sit amet, consectetuer adipiscing elit. Aliquam
 hendrerit mi posuere lectus.
@@ -27,13 +27,14 @@ hendrerit mi posuere lectus.
 
 Vestibulum enim wisi, viverra nec, fringilla in, laoreet
 vitae, risus.
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p><hr /><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>',
-            'Horizontal rule fails!',
-            true,
-            true
+            'Horizontal rule fails!'
         );
-
     }
     
 }

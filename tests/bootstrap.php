@@ -11,7 +11,7 @@
 // the global bootstrapper
 require_once __DIR__.'/../src/bootstrap.php';
 
-// register the testsMarkdownExtended namespace
+// register the MarkdownExtendedTests namespace
 spl_autoload_register(function($name) {
-    mde_autoloader($name, 'testsMarkdownExtended', __DIR__);
+    mde_autoloader($name, 'MarkdownExtendedTests', __DIR__);
 });

@@ -8,61 +8,64 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended\Grammar;
+namespace MarkdownExtendedTests\Grammar;
 
-use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtendedTests\ParserTest;
+use \MarkdownExtended\MarkdownExtended;
 
-class TableTest extends MarkdownExtendedBaseTest
+class TableTest extends ParserTest
 {
 
     public function testCreate()
     {
 
         // simple table
-        $this->processParseTest(
-            "
+        $md = <<<MSG
 | First Header  | Second Header |
 | ------------- | ------------: |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr></tbody></table>',
-            'Simple table fails!',
-            true,
-            true
+            'Simple table fails!'
         );
 
         // simple table with no leading pipe
-        $this->processParseTest(
-            "
+        $md = <<<MSG
 First Header  | Second Header |
 ------------- | ------------: |
 Content Cell  | Content Cell  |
 Content Cell  | Content Cell  |
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr></tbody></table>',
-            'Simple table with no leading pipe fails!',
-            true,
-            true
+            'Simple table with no leading pipe fails!'
         );
 
         // simple table with not constant spacing
-        $this->processParseTest(
-            "
+        $md = <<<MSG
 | First Header | Second Header |
 | ------------ | ------------: |
 | Cell | Cell |
 | Cell | Cell |
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Cell</td><td style="text-align:right;">Cell</td></tr><tr><td>Cell</td><td style="text-align:right;">Cell</td></tr></tbody></table>',
-            'Simple table with not constant spacing cells fails!',
-            true,
-            true
+            'Simple table with not constant spacing cells fails!'
         );
 
         // table with multiple headers and label before
-        $this->processParseTest(
-            "
+        $md = <<<MSG
 [prototype *table*]
 |             | Grouping                    ||
 First Header  | Second Header | Third header |
@@ -73,17 +76,18 @@ Content Cell  | **Cell**      | **Cell**     |
 New section   |   More        |         Data |
 And more      |           And more          ||
 And more                     || And more     |
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<table><caption id="prototype-table">[prototype <em>table</em>]</caption><thead><tr><th></th><th style="text-align:right;" colspan="2">Grouping</th></tr><tr><th>First Header</th><th style="text-align:right;">Second Header</th><th style="text-align:center;">Third header</th></tr><tr><th>First comment</th><th style="text-align:right;">Second comment</th><th style="text-align:center;">Third comment</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;" colspan="2"><em>Long Cell</em></td></tr><tr><td>Content Cell</td><td style="text-align:right;"><strong>Cell</strong></td><td style="text-align:center;"><strong>Cell</strong></td></tr><tr><td>New section</td><td style="text-align:right;">More</td><td style="text-align:center;">Data</td></tr><tr><td>And more</td><td style="text-align:right;" colspan="2">And more</td></tr><tr><td colspan="2">And more</td><td style="text-align:center;">And more</td></tr></tbody></table>',
-            'Complex table with multiple headers and caption above fails!',
-            true,
-            true
+            'Complex table with multiple headers and caption above fails!'
         );
 
         // table with multiple headers and label after
-/*
-        $this->processParseTest(
-            "
+/*/
+        $md = <<<MSG
 |             | Grouping                    ||
 First Header  | Second Header | Third header |
 First comment  | Second comment | Third comment |
@@ -94,18 +98,19 @@ New section   |   More        |         Data |
 And more      |           And more          ||
 And more                     || And more     |
 [prototype *table*]
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<table><caption id="prototype_table">[prototype <em>table</em>]</caption><thead><tr><th></th><th style="text-align:right;" colspan="2">Grouping</th></tr><tr><th>First Header</th><th style="text-align:right;">Second Header</th><th style="text-align:center;">Third header</th></tr><tr><th>First comment</th><th style="text-align:right;">Second comment</th><th style="text-align:center;">Third comment</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;" colspan="2"><em>Long Cell</em></td></tr><tr><td>Content Cell</td><td style="text-align:right;"><strong>Cell</strong></td><td style="text-align:center;"><strong>Cell</strong></td></tr><tr><td>New section</td><td style="text-align:right;">More</td><td style="text-align:center;">Data</td></tr><tr><td>And more</td><td style="text-align:right;" colspan="2">And more</td></tr><tr><td colspan="2">And more</td><td style="text-align:center;">And more</td></tr></tbody></table>',
-            'Complex table with multiple headers and caption below fails!',
-            true,
-            true
+            'Complex table with multiple headers and caption below fails!'
         );
-*/
+//*/
 
         // table with multiple bodies
-/*
-        $this->processParseTest(
-            "
+/*/
+        $md = <<<MSG
 |             | Grouping                    ||
 First Header  | Second Header | Third header |
 ------------- | ------------: | :----------: |
@@ -113,14 +118,15 @@ Content Cell  |  *Long Cell*                ||
 Content Cell  | **Cell**      | **Cell**     |
 
 New section   |   More        |         Data |
-And more      |           And more          ||
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<table><thead><tr><th></th><th style="text-align:right;" colspan="2">Grouping</th></tr><tr><th>First Header</th><th style="text-align:right;">Second Header</th><th style="text-align:center;">Third header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;" colspan="2"><em>Long Cell</em></td></tr><tr><td>Content Cell</td><td style="text-align:right;"><strong>Cell</strong></td><td style="text-align:center;"><strong>Cell</strong></td></tr></tbody><tbody><tr><td>New section</td><td style="text-align:right;">More</td><td style="text-align:center;">Data</td></tr><tr><td>And more</td><td style="text-align:right;" colspan="2">And more</td></tr></tbody></table>',
-            'Complex table with multiple bodies fails!',
-            true,
-            true
+            'Complex table with multiple bodies fails!'
         );
-*/
+//*/
     }
     
 }

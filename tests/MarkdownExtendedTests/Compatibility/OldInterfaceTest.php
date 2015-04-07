@@ -8,10 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended;
+namespace MarkdownExtendedTests\Compatibility;
 
-class MarkdownExtendedOldInterfaceTest
-    extends MarkdownExtendedBaseTest
+use \MarkdownExtendedTests\ParserTest;
+
+class OldInterfaceTest
+    extends ParserTest
 {
 
     /**
@@ -21,7 +23,9 @@ class MarkdownExtendedOldInterfaceTest
      */
     public function getOldInterfaceFilepath()
     {
-        return __DIR__.'/../../src/markdown.php';
+        return $this->getPath(array(
+             $this->getBasePath(), 'src', 'markdown.php'
+        ));
     }
 
     /**

@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended\Grammar;
+namespace MarkdownExtendedTests\Grammar;
 
-use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtendedTests\ParserTest;
+use \MarkdownExtended\MarkdownExtended;
 
-class DefinitionsTest extends MarkdownExtendedBaseTest
+class DefinitionsTest extends ParserTest
 {
 
     public function testCreate()
     {
-        $this->processParseTest(
-            "
+        $md = <<<MSG
 Term 1
 :   This is a definition with two paragraphs. Lorem ipsum
     dolor sit amet, consectetuer adipiscing elit. Aliquam
@@ -29,10 +29,13 @@ Term 1
 
 :   Second definition for term 1, also wrapped in a paragraph
     because of the blank line preceding it.
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<dl><dt>Term 1</dt><dd><p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p></dd><dd><p>Second definition for term 1, also wrapped in a paragraph because of the blank line preceding it.</p></dd></dl>',
-            'Definitions list fails!',
-            true, true
+            'Definitions list fails!'
         );
 
     }

@@ -8,30 +8,31 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended\Grammar;
+namespace MarkdownExtendedTests\Grammar;
 
-use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtendedTests\ParserTest;
+use \MarkdownExtended\MarkdownExtended;
 
-class HardbreakTest extends MarkdownExtendedBaseTest
+class HardbreakTest extends ParserTest
 {
 
     public function testCreate()
     {
-        $this->processParseTest(
-            "
+        $md = <<<MSG
 This is a definition with two paragraphs. Lorem ipsum
 dolor sit amet, consectetuer adipiscing elit. Aliquam
 hendrerit mi posuere lectus.
 
 Vestibulum enim wisi, viverra nec, fringilla in, laoreet
 vitae, risus.
-        ",
+MSG;
+        $this->assertEquals(
+            $this->stripNewLines($this->stripWhitespaces(
+                (string) MarkdownExtended::parse($md, array('template'=>false))
+            )),
             '<p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>',
-            'Hard break fails!',
-            true,
-            true
+            'Hard break fails!'
         );
-
     }
     
 }

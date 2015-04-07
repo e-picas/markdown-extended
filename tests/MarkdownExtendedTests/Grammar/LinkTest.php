@@ -8,26 +8,29 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended\Grammar;
+namespace MarkdownExtendedTests\Grammar;
 
-use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtendedTests\ParserTest;
+use \MarkdownExtended\MarkdownExtended;
 
-class LinkTest extends MarkdownExtendedBaseTest
+class LinkTest extends ParserTest
 {
 
     public function testCreate()
     {
 
         // classic link
-        $this->processParseTest(
-            '[Composer](http://getcomposer.org/)',
+        $md = '[Composer](http://getcomposer.org/)';
+        $this->assertEquals(
+            (string) MarkdownExtended::parse($md, array('template'=>false)),
             '<a href="http://getcomposer.org/" title="See online http://getcomposer.org/">Composer</a>',
             'Simple links not work!'
         );
 
         // link with a title
-        $this->processParseTest(
-            '[Composer](http://getcomposer.org/ "My title")',
+        $md = '[Composer](http://getcomposer.org/ "My title")';
+        $this->assertEquals(
+            (string) MarkdownExtended::parse($md, array('template'=>false)),
             '<a href="http://getcomposer.org/" title="My title">Composer</a>',
             'Links with title does not work!'
         );

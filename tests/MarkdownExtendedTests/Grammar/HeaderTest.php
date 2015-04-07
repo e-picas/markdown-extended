@@ -8,17 +8,19 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended\Grammar;
+namespace MarkdownExtendedTests\Grammar;
 
-use \testsMarkdownExtended\MarkdownExtendedBaseTest;
+use \MarkdownExtendedTests\ParserTest;
+use \MarkdownExtended\MarkdownExtended;
 
-class HeaderTest extends MarkdownExtendedBaseTest
+class HeaderTest extends ParserTest
 {
 
     public function testCreate()
     {
-        $this->processParseTest(
-            '#Hello World',
+        $md = '#Hello World';
+        $this->assertEquals(
+            (string) MarkdownExtended::parse($md, array('template'=>false)),
             '<h1 id="hello-world">Hello World</h1>',
             'Header fails!'
         );

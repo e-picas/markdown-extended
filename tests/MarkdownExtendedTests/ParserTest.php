@@ -8,32 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace testsMarkdownExtended;
+namespace MarkdownExtendedTests;
 
 use \MarkdownExtended\MarkdownExtended;
 
-class MarkdownExtendedBaseTest
-    extends \PHPUnit_Framework_TestCase
+class ParserTest
+    extends BaseUnitTest
 {
-
-    /*
-        $this->processParseTest(
-            $md,
-            $html,
-            $title
-        );
-     */
-    public function processParseTest($md, $html, $title, $strip_whitespaces = false, $strip_new_lines = false)
-    {
-        $content = (string) MarkdownExtended::parse($md, array('template'=>false));
-        if ($strip_whitespaces) {
-            $content = $this->stripWhitespaces($content);
-        }
-        if ($strip_new_lines) {
-            $content = $this->stripNewLines($content);
-        }
-        $this->assertEquals($html, $content, $title);
-    }
 
     /**
      * Get the tests test file path
@@ -42,7 +23,7 @@ class MarkdownExtendedBaseTest
      */
     public function getTestFilepath()
     {
-        return __DIR__.'/test.md';
+        return $this->getResourcePath('test.md');
     }
 
     /**
@@ -92,22 +73,6 @@ class MarkdownExtendedBaseTest
     return $ctt;
     }
      */
-
-    /**
-     * Strip whitespaces between tags in a string
-     *
-     * @param   string  $content
-     * @return  string
-     */
-    public function stripWhitespaces($content = '')
-    {
-        return preg_replace('~>\s+<~', '><', $content);
-    }
-
-    public function stripNewLines($content = '')
-    {
-        return str_replace("\n", ' ', $content);
-    }
 
     /**
      * Validate class methods

@@ -12,7 +12,7 @@
 >
     <testsuites>
         <testsuite name="MarkdownExtended Test Suite">
-            <directory>./tests/testsMarkdownExtended/</directory>
+            <directory>./tests/MarkdownExtendedTests/</directory>
         </testsuite>
     </testsuites>
 
