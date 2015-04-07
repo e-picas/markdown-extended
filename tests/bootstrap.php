@@ -8,8 +8,24 @@
  * file that was distributed with this source code.
  */
 
-require_once __DIR__.'/../src/SplClassLoader.php';
-$classLoader = new SplClassLoader('MarkdownExtended', __DIR__.'/../src');
-$classLoader->register();
-$classLoader_tests = new SplClassLoader('testsMarkdownExtended', __DIR__.'/../tests');
-$classLoader_tests->register();
+// get a well-formatted path
+$bootstrapGetPath = function(array $parts) {
+    return implode(DIRECTORY_SEPARATOR,
+        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+};
+
+// the global bootstrapper
+if (file_exists($bootstrapper = $bootstrapGetPath(array(dirname(__DIR__), 'src', 'bootstrap.php')))) {
+    require_once $bootstrapper;
+
+} else {
+    trigger_error(
+        sprintf('MarkdownExtended bootstrapper not found (searching "%s")!', $bootstrapper),
+        E_USER_ERROR
+    );
+}
+
+// register the MarkdownExtendedTests namespace
+spl_autoload_register(function($name) {
+    mde_autoloader($name, 'MarkdownExtendedTests', __DIR__);
+});

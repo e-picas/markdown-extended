@@ -10,15 +10,12 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown list items
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class ListItem
     extends Filter
@@ -47,7 +44,6 @@ class ListItem
      */
     public function transform($text) 
     {
-        $marker_any_re = '(?:'.self::$marker_ul_re.'|'.self::$marker_ol_re.')';
         $markers_relist = array(
             self::$marker_ul_re => self::$marker_ol_re,
             self::$marker_ol_re => self::$marker_ul_re,
@@ -58,7 +54,7 @@ class ListItem
             $whole_list_re = '
                 (                                   # $1 = whole list
                   (                                 # $2
-                    ([ ]{0,'.MarkdownExtended::getConfig('less_than_tab').'})   # $3 = number of spaces
+                    ([ ]{0,'.Kernel::getConfig('less_than_tab').'})   # $3 = number of spaces
                     ('.$marker_re.')                # $4 = first list item marker
                     [ ]+
                   )
@@ -113,7 +109,7 @@ class ListItem
         $list_type = preg_match('/'.self::$marker_ul_re.'/', $matches[4]) ? "unordered" : "ordered";        
         $marker_any_re = ( $list_type == "unordered" ? self::$marker_ul_re : self::$marker_ol_re );
         $list = self::transformItems($list, $marker_any_re);        
-        $block = MarkdownExtended::get('OutputFormatBag')
+        $block = Kernel::get('OutputFormatBag')
             ->buildTag($list_type . '_list', $list);
         return "\n" . parent::hashBlock($block) . "\n\n";
     }
@@ -185,19 +181,16 @@ class ListItem
         if ($leading_line || $trailing_blank_line || preg_match('/\n{2,}/', $item)) {
             // Replace marker with the appropriate whitespace indentation
             $item = $leading_space . str_repeat(' ', strlen($marker_space)) . $item;
-            $item = parent::runGamut('html_block_gamut', parent::runGamut('tool:Outdent', $item)."\n");
+            $item = Lexer::runGamut('html_block_gamut', Lexer::runGamut('tools:Outdent', $item)."\n");
         } else {
             // Recursion for sub-lists:
-            $item = self::transform(parent::runGamut('tool:Outdent', $item));
+            $item = self::transform(Lexer::runGamut('tools:Outdent', $item));
             $item = preg_replace('/\n+$/', '', $item);
-            $item = parent::runGamut('span_gamut', $item);
+            $item = Lexer::runGamut('span_gamut', $item);
         }
 
-        return MarkdownExtended::get('OutputFormatBag')
-//            ->buildTag('list_item', $item) . "\n";
-            ->buildTag('list_item', $item);
+        return Kernel::get('OutputFormatBag')
+            ->buildTag('list_item', $item)/* . "\n"*/;
     }
 
 }
-
-// Endfile

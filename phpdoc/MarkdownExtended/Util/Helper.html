@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\Util\Helper | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../classes.html">Classes</a></li>
+                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../traits.html">Traits</a></li>
+            <li><a href="../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../MarkdownExtended/Util.html">MarkdownExtended\Util</a>\Helper</h1>
+    </div>
+        <div class="content">
+                <p>    class
+    <strong>Helper</strong></p>
+
+            <div class="description">
+            <p>Helper class with static methods only</p>
+            <p>
+</p>
+        </div>
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_escapeCodeContent">escapeCodeContent</a>(string $code)
+                    <p>Escape the code blocks contents to get HTML entities</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_fillPlaceholders">fillPlaceholders</a>(string $text, string $replacement)
+                    <p>Replace any <code>%%</code> mask by a replacement</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_header2Label">header2Label</a>(string $text, string $separator = &#039;-&#039;)
+                    <p>Transform a header string to DOM valid label</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_encodeEmailAddress">encodeEmailAddress</a>(string $addr)
+                    <p>Input: an email address, e.g.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getSafeString">getSafeString</a>(mixed $source)
+                    <p>Gets a "safe string" from a <code>\DateTime</code> or an array</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;bool
+                </td>
+                <td class="last">
+                    <a href="#method_isSingleLine">isSingleLine</a>(string $str = &#039;&#039;)
+                    <p>Tests if a content seems to be single line</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_buildRegex">buildRegex</a>(string $mask, string $delimiter = &#039;#&#039;, string $options = &#039;i&#039;)
+                    <p>Get a ready-to-use regular expression from a string pattern</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_toCamelCase">toCamelCase</a>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)
+                    <p>Transform a name in CamelCase</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_fromCamelCase">fromCamelCase</a>(string $name, string $replace = &#039;_&#039;, bool $lowerize_first_char = true)
+                    <p>Transform a name from CamelCase to other</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_getPath">getPath</a>(array $parts)
+                    <p>Gets a wel-formatted path with environment-compliant directory separator</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_readFile">readFile</a>(string $path, int $flag = FILE_USE_INCLUDE_PATH)
+                    <p>Reads a file and returns its content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;int
+                </td>
+                <td class="last">
+                    <a href="#method_writeFile">writeFile</a>(string $path, string|array $content, bool $backup = true, null $flag = null)
+                    <p>Writes a file and returns content length</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;bool
+                </td>
+                <td class="last">
+                    <a href="#method_backupFile">backupFile</a>(string $path)
+                    <p>Make a backup of a file</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
+                    <a href="#method_debug">debug</a>(mixed $objs, null|string $title = null, bool $html = true)
+                    <p>Dump quite anything with an optional title</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_escapeCodeContent">
+        <div class="location">at line 31</div>
+        <code>        static    public            string
+    <strong>escapeCodeContent</strong>(string $code)</code>
+    </h3>
+    <div class="details">
+        <p>Escape the code blocks contents to get HTML entities</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$code</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_fillPlaceholders">
+        <div class="location">at line 43</div>
+        <code>        static    public            string
+    <strong>fillPlaceholders</strong>(string $text, string $replacement)</code>
+    </h3>
+    <div class="details">
+        <p>Replace any <code>%%</code> mask by a replacement</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$replacement</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_header2Label">
+        <div class="location">at line 55</div>
+        <code>        static    public            string
+    <strong>header2Label</strong>(string $text, string $separator = &#039;-&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Transform a header string to DOM valid label</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$text</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$separator</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_encodeEmailAddress">
+        <div class="location">at line 85</div>
+        <code>        static    public            string
+    <strong>encodeEmailAddress</strong>(string $addr)</code>
+    </h3>
+    <div class="details">
+        <p>Input: an email address, e.g.</p>
+        <p>"foo@example.com"</p>
+
+<p>Output: the email address as a mailto link, with each character
+     of the address encoded as either a decimal or hex entity, in
+     the hopes of foiling most address harvesting spam bots. E.g.:</p>
+
+   <p><a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;o&#111;
+       &#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#111;
+       &#x6d;">&#x66;o&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;
+       &#101;&#46;&#x63;&#111;&#x6d;</a></p>
+
+<p>Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
+ With some optimizations by Milian Wolff.</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$addr</td>
+                <td>The email address to encode</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The encoded address</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getSafeString">
+        <div class="location">at line 117</div>
+        <code>        static    public            string
+    <strong>getSafeString</strong>(mixed $source)</code>
+    </h3>
+    <div class="details">
+        <p>Gets a "safe string" from a <code>\DateTime</code> or an array</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>mixed</td>
+                <td>$source</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_isSingleLine">
+        <div class="location">at line 143</div>
+        <code>        static    public            bool
+    <strong>isSingleLine</strong>(string $str = &#039;&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Tests if a content seems to be single line</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$str</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_buildRegex">
+        <div class="location">at line 160</div>
+        <code>        static    public            string
+    <strong>buildRegex</strong>(string $mask, string $delimiter = &#039;#&#039;, string $options = &#039;i&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Get a ready-to-use regular expression from a string pattern</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$mask</td>
+                <td>The string to construct the expression</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$delimiter</td>
+                <td>The delimiter to use for the expression (default is <code>#</code>)</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$options</td>
+                <td>The options to use for the expression (default is <code>i</code>)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_toCamelCase">
+        <div class="location">at line 184</div>
+        <code>        static    public            string
+    <strong>toCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)</code>
+    </h3>
+    <div class="details">
+        <p>Transform a name in CamelCase</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td>The string to transform</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$replace</td>
+                <td>Replacement character</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$capitalize_first_char</td>
+                <td>May the first letter be in upper case (default is <code>true</code>)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The CamelCase version of <code>$name</code></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_fromCamelCase">
+        <div class="location">at line 202</div>
+        <code>        static    public            string
+    <strong>fromCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $lowerize_first_char = true)</code>
+    </h3>
+    <div class="details">
+        <p>Transform a name from CamelCase to other</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td>The string to transform</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$replace</td>
+                <td>Replacement character</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$lowerize_first_char</td>
+                <td>May the first letter be in lower case (default is <code>true</code>)</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The not<em>camel</em>case version of <code>$name</code></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getPath">
+        <div class="location">at line 237</div>
+        <code>        static    public            string
+    <strong>getPath</strong>(array $parts)</code>
+    </h3>
+    <div class="details">
+        <p>Gets a wel-formatted path with environment-compliant directory separator</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>array</td>
+                <td>$parts</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_readFile">
+        <div class="location">at line 257</div>
+        <code>        static    public            string
+    <strong>readFile</strong>(string $path, int $flag = FILE_USE_INCLUDE_PATH)</code>
+    </h3>
+    <div class="details">
+        <p>Reads a file and returns its content</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$flag</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/ErrorException.html"><abbr title="MarkdownExtended\Exception\ErrorException">ErrorException</abbr></a></td>
+                <td>if the file can not be read</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_writeFile">
+        <div class="location">at line 288</div>
+        <code>        static    public            int
+    <strong>writeFile</strong>(string $path, string|array $content, bool $backup = true, null $flag = null)</code>
+    </h3>
+    <div class="details">
+        <p>Writes a file and returns content length</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>string|array</td>
+                <td>$content</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$backup</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>null</td>
+                <td>$flag</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>int</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/ErrorException.html"><abbr title="MarkdownExtended\Exception\ErrorException">ErrorException</abbr></a></td>
+                <td>if the file path can not be created</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/ErrorException.html"><abbr title="MarkdownExtended\Exception\ErrorException">ErrorException</abbr></a></td>
+                <td>if the file can not be written</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+                <h3 id="method_backupFile">
+        <div class="location">at line 322</div>
+        <code>        static    public            bool
+    <strong>backupFile</strong>(string $path)</code>
+    </h3>
+    <div class="details">
+        <p>Make a backup of a file</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_debug">
+        <div class="location">at line 349</div>
+        <code>        static    public            string
+    <strong>debug</strong>(mixed $objs, null|string $title = null, bool $html = true)</code>
+    </h3>
+    <div class="details">
+        <p>Dump quite anything with an optional title</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>mixed</td>
+                <td>$objs</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>null|string</td>
+                <td>$title</td>
+                <td>
+</td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$html</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

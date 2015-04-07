@@ -10,17 +10,13 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown mathematics
  *
  * taken from <http://github.com/drdrang/php-markdown-extra-math>
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class Maths
     extends Filter
@@ -55,7 +51,7 @@ class Maths
     {
         $texblock   = $matches[1];
         $texblock   = trim($texblock);
-        $block      = MarkdownExtended::get('OutputFormatBag')
+        $block      = Kernel::get('OutputFormatBag')
             ->buildTag('maths_block', $texblock, array());
         return "\n\n".parent::hashBlock($block)."\n\n";
     }
@@ -69,11 +65,9 @@ class Maths
     public function span($texblock)
     {
         $texblock   = trim($texblock);
-        $block      = MarkdownExtended::get('OutputFormatBag')
+        $block      = Kernel::get('OutputFormatBag')
             ->buildTag('maths_span', $texblock, array());
         return parent::hashPart($block);
     }
 
 }
-
-// Endfile

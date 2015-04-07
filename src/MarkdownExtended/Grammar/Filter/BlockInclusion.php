@@ -10,20 +10,18 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\Util\Helper;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process the inclusion of third-party Markdown files
  *
- * Search any tag in the content written using the `block_inclusion` config entry mask
+ * Search any tag in the content written using the `block_inclusion_mask` config entry mask
  * and replace it by the parsing result if its content.
  *
  * The default inclusion mask is "<!-- @file_name.md@ -->"
  *
- * @package MarkdownExtended\Grammar\Filter
  */
 class BlockInclusion
     extends Filter
@@ -37,16 +35,16 @@ class BlockInclusion
      */
     public function transform($text)
     {
-        $mask = MarkdownExtended::getConfig('block_inclusion');
+        $mask = Kernel::getConfig('block_inclusion_mask');
         if (!empty($mask)) {
-            $regex = MDE_Helper::buildRegex($mask);
+            $regex = Helper::buildRegex($mask);
             $text = preg_replace_callback($regex, array($this, '_callback'), $text);
         }
         return $text;
     }
 
     /**
-     * Process each inclusion, errors are wirtten as comments
+     * Process each inclusion, errors are written as comments
      *
      * @param   array   $matches    One set of results form the `transform()` function
      * @return  string              The result of the inclusion parsed if so
@@ -54,29 +52,32 @@ class BlockInclusion
     protected function _callback($matches)
     {
         $filename = $matches[1];
-        try {
-            $base_dirname = \MarkdownExtended\MarkdownExtended::getInstance()
-                ->getContent()
-                ->getDirname();
-            if (!file_exists($filename)) {
-                $filename = rtrim($base_dirname, DIRECTORY_SEPARATOR)
-                    . DIRECTORY_SEPARATOR . $filename;
+        if (!file_exists($filename)) {
+            $base_path = Kernel::getConfig('base_path');
+            if (!is_array($base_path)) {
+                $base_path = array($base_path);
             }
-            $content = new \MarkdownExtended\Content(null, $filename);
-            $content_id = $content->getId();
-            $parsed_content = \MarkdownExtended\MarkdownExtended::getInstance()
-                ->get('Parser')
-                ->parse($content, true)
-                ->getContent($content_id)
-                ->getBody();
-        } catch (MDE_Exception\InvalidArgumentException $e) {
-            $parsed_content = "<!-- ERROR while parsing $filename : '{$e->getMessage()}' -->";
-        } catch (Exception $e) {
-            $parsed_content = "<!-- ERROR while parsing $filename : '{$e->getMessage()}' -->";
+            foreach ($base_path as $path) {
+                $file = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
+                if (file_exists($file)) {
+                    $filename = $file;
+                    break;
+                }
+            }
         }
+
+        $content_collection = Kernel::get('ContentCollection');
+        $index = $content_collection->key();
+        try {
+            $parsed_content = Kernel::get('Parser')
+                ->transformSource($filename, false);
+        } catch (\Exception $e) {
+            $parsed_content = Kernel::get('OutputFormatBag')
+                ->buildTag('comment', "ERROR while parsing $filename : '{$e->getMessage()}'");
+        }
+        Kernel::get('ContentCollection')->seek($index);
+
         return $parsed_content;
     }
 
 }
-
-// Endfile

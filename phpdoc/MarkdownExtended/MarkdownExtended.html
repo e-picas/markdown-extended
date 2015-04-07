@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>MarkdownExtended\MarkdownExtended | Markdown Extended</title>
+                    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../classes.html">Classes</a></li>
+                            <li><a href="../namespaces.html">Namespaces</a></li>
+                        <li><a href="../interfaces.html">Interfaces</a></li>
+            <li><a href="../traits.html">Traits</a></li>
+            <li><a href="../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">Markdown Extended</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../MarkdownExtended.html">MarkdownExtended</a>\MarkdownExtended</h1>
+    </div>
+        <div class="content">
+                <p>    class
+    <strong>MarkdownExtended</strong></p>
+
+            <div class="description">
+            <p>PHP Markdown Extended</p>
+            <p>LICENSE</p>
+
+<p>Mardown
+Copyright © 2004-2006, John Gruber
+http://daringfireball.net/
+All rights reserved.</p>
+
+<p>MultiMarkdown
+Copyright © 2005-2009 Fletcher T. Penney
+http://fletcherpenney.net/
+All rights reserved.</p>
+
+<p>PHP Markdown &amp; Extra
+Copyright © 2004-2012 Michel Fortin
+http://michelf.com/projects/php-markdown/
+All rights reserved.</p>
+
+<p>Markdown Extended
+Copyright © 2008-2013 Pierre Cassat &amp; contributors
+http://e-piwi.fr/
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted
+provided that the following conditions are met:</p>
+
+<ul>
+<li><p>Redistributions of source code must retain the above copyright notice, this list of conditions
+and the following disclaimer.</p></li>
+<li><p>Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+and the following disclaimer in the documentation and/or other materials provided with the distribution.</p></li>
+<li><p>Neither the names “Markdown”, "Markdown Extra", "Multi Markdown", "Markdown Extended" nor the names of
+their contributors may be used to endorse or promote products derived from this software without specific
+prior written permission.</p></li>
+</ul>
+
+<p>This software is provided by the copyright holders and contributors “as is” and any express or
+implied warranties, including, but not limited to, the implied warranties of merchantability and
+fitness for a particular purpose are disclaimed. In no event shall the copyright owner or contributors
+be liable for any direct, indirect, incidental, special, exemplary, or consequential damages
+(including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits;
+or business interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way out of the use of
+this software, even if advised of the possibility of such damage.</p>
+        </div>
+    
+            <h2>Constants</h2>
+
+            <table>
+                    <tr>
+                <td>SHORTNAME</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>NAME</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>VERSION</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>DATE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>DESC</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>LINK</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>LICENSE</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>SOURCES</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>COPYRIGHT</td>
+                <td class="last">
+                    <p><em>
+</em></p>
+                    <p>
+</p>
+                </td>
+            </tr>
+            </table>
+
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    static&nbsp;array|string
+                </td>
+                <td class="last">
+                    <a href="#method_getAppInfo">getAppInfo</a>(bool $shorten = false)
+                    <p>Gets app's information</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;array
+                </td>
+                <td class="last">
+                    <a href="#method_getDefaults">getDefaults</a>()
+                    <p>App's default settings</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_parse">parse</a>(string $content, null $options = null)
+                    <p>Parse a markdown content or file</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_parseString">parseString</a>(string $content, null $options = null)
+                    <p>Parse a markdown content</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;<a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_parseSource">parseSource</a>(string $path, null $options = null)
+                    <p>Parse a markdown file</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method_getAppInfo">
+        <div class="location">at line 81</div>
+        <code>        static    public            array|string
+    <strong>getAppInfo</strong>(bool $shorten = false)</code>
+    </h3>
+    <div class="details">
+        <p>Gets app's information</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>bool</td>
+                <td>$shorten</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array|string</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getDefaults">
+        <div class="location">at line 100</div>
+        <code>        static    public            array
+    <strong>getDefaults</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>App's default settings</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parse">
+        <div class="location">at line 296</div>
+        <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>parse</strong>(string $content, null $options = null)</code>
+    </h3>
+    <div class="details">
+        <p>Parse a markdown content or file</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$content</td>
+                <td>A raw content or a file path to parse</td>
+            </tr>
+                    <tr>
+                <td>null</td>
+                <td>$options</td>
+                <td>A set of options to override defaults</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseString">
+        <div class="location">at line 311</div>
+        <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>parseString</strong>(string $content, null $options = null)</code>
+    </h3>
+    <div class="details">
+        <p>Parse a markdown content</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$content</td>
+                <td>A raw content to parse</td>
+            </tr>
+                    <tr>
+                <td>null</td>
+                <td>$options</td>
+                <td>A set of options to override defaults</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_parseSource">
+        <div class="location">at line 325</div>
+        <code>        static    public            <a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a>
+    <strong>parseSource</strong>(string $path, null $options = null)</code>
+    </h3>
+    <div class="details">
+        <p>Parse a markdown file</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td>A file path to parse</td>
+            </tr>
+                    <tr>
+                <td>null</td>
+                <td>$options</td>
+                <td>A set of options to override defaults</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../MarkdownExtended/Content.html"><abbr title="MarkdownExtended\Content">Content</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>

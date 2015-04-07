@@ -10,15 +10,11 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown horizontal rules
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class HorizontalRule
     extends Filter
@@ -41,10 +37,8 @@ class HorizontalRule
                 [ ]*            # Tailing spaces
                 $               # End of line.
             }mx',
-            "\n" . parent::hashBlock(MarkdownExtended::get('OutputFormatBag')->buildTag('horizontal_rule')) . "\n",
+            "\n" . parent::hashBlock(Kernel::get('OutputFormatBag')->buildTag('horizontal_rule')) . "\n",
             $text);
     }
 
 }
-
-// Endfile

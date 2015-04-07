@@ -10,17 +10,13 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use MarkdownExtended\MarkdownExtended;
-use MarkdownExtended\Grammar\Filter;
-use MarkdownExtended\Helper as MDE_Helper;
-use MarkdownExtended\Exception as MDE_Exception;
+use \MarkdownExtended\Grammar\Filter;
+use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown hard breaks
  *
  * Hard breaks are written as one or more blank line(s).
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class HardBreak
     extends Filter
@@ -41,9 +37,7 @@ class HardBreak
      */
     protected function _callback($matches)
     {
-        return parent::hashPart(MarkdownExtended::get('OutputFormatBag')->buildTag('new_line')."\n");
+        return parent::hashPart(Kernel::get('OutputFormatBag')->buildTag('new_line')."\n");
     }
 
 }
-
-// Endfile
