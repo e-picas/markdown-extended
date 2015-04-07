@@ -18,7 +18,6 @@ use \MarkdownExtended\Grammar\Lexer;
  * Process Markdown notes: footnotes, glossary and bibliography notes
  *
  * @TODO: write the right reference for second call of the same note
- * @package MarkdownExtended\Grammar\Filter
  */
 class Note
     extends Filter

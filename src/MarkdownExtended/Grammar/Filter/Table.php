@@ -17,8 +17,6 @@ use \MarkdownExtended\Util\Helper;
 
 /**
  * Process Markdown tables
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class Table
     extends Filter

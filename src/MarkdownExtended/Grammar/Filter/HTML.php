@@ -15,8 +15,6 @@ use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown in-text HTML
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class HTML
     extends Filter

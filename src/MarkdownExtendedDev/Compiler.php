@@ -20,7 +20,6 @@ use \MarkdownExtended\Util\Helper;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jordi Boggiano <j.boggiano@seld.be>
- * @package MarkdownExtended\Util
  */
 class Compiler
 {

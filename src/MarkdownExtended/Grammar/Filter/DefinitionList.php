@@ -33,7 +33,6 @@ use \MarkdownExtended\Grammar\Lexer;
  *        Term 2
  *        :   This definition has a code block, a blockquote and a list.
  *
- * @package MarkdownExtended\Grammar\Filter
  */
 class DefinitionList
     extends Filter

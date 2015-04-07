@@ -17,8 +17,6 @@ use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown code blocks
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class CodeBlock
     extends Filter

@@ -15,8 +15,6 @@ use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown meta data
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class MetaData
     extends Filter

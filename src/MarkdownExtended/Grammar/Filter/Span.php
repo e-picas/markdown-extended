@@ -16,8 +16,6 @@ use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown spans
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class Span
     extends Filter

@@ -16,8 +16,6 @@ use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown list items
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class ListItem
     extends Filter

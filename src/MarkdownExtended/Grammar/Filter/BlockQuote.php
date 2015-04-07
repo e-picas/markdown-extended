@@ -22,7 +22,6 @@ use \MarkdownExtended\Grammar\Lexer;
  *      > Citation text
  *          multi-line if required and **tagged**
  *
- * @package MarkdownExtended\Grammar\Filter
  */
 class BlockQuote
     extends Filter

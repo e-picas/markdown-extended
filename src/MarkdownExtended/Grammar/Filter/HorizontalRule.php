@@ -15,8 +15,6 @@ use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown horizontal rules
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class HorizontalRule
     extends Filter

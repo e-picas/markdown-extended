@@ -34,7 +34,6 @@ use \MarkdownExtended\API\Kernel;
  *  ...
  *  ###### Header 6   {#header2}
  *
- * @package MarkdownExtended\Grammar\Filter
  */
 class Header
     extends Filter

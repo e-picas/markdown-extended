@@ -17,8 +17,6 @@ use \MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown images
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class Image
     extends Filter

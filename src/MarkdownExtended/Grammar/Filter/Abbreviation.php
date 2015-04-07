@@ -25,7 +25,6 @@ use \MarkdownExtended\Grammar\Lexer;
  * This must be define as an array of `term => description` values.
  *
  * @link http://aboutmde.org/#E5
- * @package MarkdownExtended\Grammar\Filter
  */
 class Abbreviation
     extends Filter

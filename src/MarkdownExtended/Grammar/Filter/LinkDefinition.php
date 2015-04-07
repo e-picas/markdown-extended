@@ -20,7 +20,6 @@ use \MarkdownExtended\API\Kernel;
  *
  *      ^[id]: url "optional title"
  *
- * @package MarkdownExtended\Grammar\Filter
  */
 class LinkDefinition
     extends Filter

@@ -16,8 +16,6 @@ use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown emphasis: bold & italic
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class Emphasis
     extends Filter

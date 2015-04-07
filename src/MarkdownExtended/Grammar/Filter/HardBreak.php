@@ -17,8 +17,6 @@ use \MarkdownExtended\API\Kernel;
  * Process Markdown hard breaks
  *
  * Hard breaks are written as one or more blank line(s).
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class HardBreak
     extends Filter

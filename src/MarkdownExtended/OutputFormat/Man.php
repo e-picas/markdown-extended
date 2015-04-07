@@ -31,7 +31,6 @@ use \MarkdownExtended\Util\Helper;
  *
  * @link https://www.gnu.org/software/groff/
  * @link http://manpages.ubuntu.com/manpages/oneiric/man7/groff_man.7.html
- * @package MarkdownExtended\OutputFormat
  */
 class Man
     extends AbstractOutputFormat

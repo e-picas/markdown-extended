@@ -22,7 +22,6 @@ use \MarkdownExtended\API\Kernel;
  *
  * The default inclusion mask is "<!-- @file_name.md@ -->"
  *
- * @package MarkdownExtended\Grammar\Filter
  */
 class BlockInclusion
     extends Filter

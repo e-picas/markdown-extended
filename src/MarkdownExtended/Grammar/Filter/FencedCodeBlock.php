@@ -23,7 +23,6 @@ use \MarkdownExtended\API\Kernel;
  *      my content ...
  *      ~~~~
  *
- * @package MarkdownExtended\Grammar\Filter
  */
 class FencedCodeBlock
     extends Filter

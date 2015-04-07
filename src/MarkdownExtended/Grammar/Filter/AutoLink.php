@@ -16,8 +16,6 @@ use \MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown automatic links
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class AutoLink
     extends Filter

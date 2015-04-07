@@ -15,7 +15,6 @@ use \MarkdownExtended\API\Kernel;
 
 /**
  * Class Detab
- * @package MarkdownExtended\Grammar\Tool
  */
 class Detab
     extends Filter

@@ -18,9 +18,8 @@ use \MarkdownExtended\Grammar\Filter\Note;
 
 /**
  * Format a content in full HTML
- * @package MarkdownExtended\OutputFormat
  */
-class HTML
+class Html
     extends AbstractOutputFormat
     implements OutputFormatInterface
 {

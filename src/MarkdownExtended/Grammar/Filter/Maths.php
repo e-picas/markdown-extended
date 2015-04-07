@@ -17,8 +17,6 @@ use \MarkdownExtended\API\Kernel;
  * Process Markdown mathematics
  *
  * taken from <http://github.com/drdrang/php-markdown-extra-math>
- *
- * @package MarkdownExtended\Grammar\Filter
  */
 class Maths
     extends Filter
