@@ -110,12 +110,81 @@ and pulling new commits:
     git pull upstream dev
 
 
+### Development life-cycle
+
+As said above, all development MUST be done on the `dev` branch of the repository. Doing so we
+can commit our development features to let users using a clone test and improve them.
+
+When the work gets a stable stage, it seems to be time to build and publish a new release. This
+is done by creating a tag named like `vX.Y.Z[-status]`[^1] from the "master" branch after having
+merged the "dev" one in.
+
+
 ### Coding rules
 
 -   use space (no tab) ; 1 tab = 4 spaces ; this is valid for all languages
 -   comment your work (just enough)
 -   in case of error in a PHP script, ALWAYS throw one of the `MarkdownExtended\Exception`s with a message
 
+
+How-tos
+-------
+
+### Generate the "PHAR" archive
+
+To automatically re-generate the "markdown-extended.phar" file from current version, you can use:
+
+    ~$ php bin/mde-dev make-phar
+
+
+### Generate the man-page
+
+To automatically re-generate the manpages of the package, you can use:
+
+    ~$ php bin/mde-dev make-manpage-3
+    ~$ php bin/mde-dev make-manpage-7
+    ~$ php bin/mde-dev make-manpages    # this will run both
+
+To generate them manually, you can run:
+
+    ~$ bin/markdown-extended -f man -o bin/markdown-extended.3.man doc/MANPAGE.md
+    ~$ man ./bin/markdown-extended.3.man
+    ~$ bin/markdown-extended -f man -o bin/markdown-extended.7.man doc/DOCUMENTATION.md
+    ~$ man ./bin/markdown-extended.7.man
+
+
+### Generate the documentation
+
+You can (re-)generate a full PHP documentation, at any time, running:
+
+    ~$ php bin/sami.php update sami.config.php
+
+The documentation is built in the `phpdoc/` directory in the package, and requires a temporary
+directory for its generation that is configured on:
+
+    path/to/markdown-extended/../tmp/cache/markdown-extended/
+
+You can modify this setting editing the `sami.config.php` file.
+
+
+### Launch unit-tests
+
+You can verify that your package passes all tests running:
+
+    ~$ php bin/phpunit
+
+All tests are stored in the `tests/` directory of the package.
+
+
+### Mess detection
+
+You can check code mess running:
+
+    ~$ php bin/phpmd src text codesize
+
+
+[^1]: Please see the [Semantic Versioning](http://semver.org/) work by Tom Preston-Werner for
+more info about the release version name construction rules.
 
 ----
 

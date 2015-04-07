@@ -6,6 +6,7 @@ vendor/*
 *tmp*
 
 # dev
+TODOS*
 dev/*
 build/logs/*
 
