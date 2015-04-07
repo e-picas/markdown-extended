@@ -15,7 +15,7 @@ PHP-Markdown-Extended - Yet another PHP parser for the markdown (*extended*) syn
 **markdown-extended**  [*options*]  (*--*)  [*arguments*]
 
 **markdown-extended**  [**-V**|**--version**]  [**-h**|**--help**]
-    [**-x**|**-v**|**-q**] [**--debug**|**--verbose**|**--quiet**]
+    [**-x**|**-v**|**-q**] [**--debug**|**--verbose**|**--quiet**|**--force**]
     [**-o**|**--output** *filename*]
     [**-c**|**--config** *filename*]
     [**-f**|**--format** *format*]
@@ -105,6 +105,9 @@ increase script's verbosity.
 :   Return the content inserted in a parsed template file ; if no **filename** argument is 
     passed, this will use the configuration template file.
 
+**--force**
+:   Use this to not backup generated files (the default behavior is to backup all existing files
+    to a "FILENAME.EXT~YYYY-MM-DD-HH-II-SS" file).
 
 ## RESULT
 
@@ -216,4 +219,4 @@ Created and maintained by Pierre Cassat (piwi - <http://e-piwi.fr/>) & contribut
 
 ## SEE ALSO
 
-php(1), pcre(3)
+php(1), pcre(3), markdown-extended(7)

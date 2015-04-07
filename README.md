@@ -3,7 +3,7 @@ PHP Markdown Extended
 
 Yet another PHP parser for the markdown (*extended*) syntax.
 
-**PHP Markdown Extended** is a PHP class to transform Markdown text files or strings in
+**PHP Markdown Extended** is a PHP parser to transform Markdown text files or strings in
 HTML or other formats. This new version of a Markdown parser tries to follow the 
 [extended syntax specifications](http://manifest.aboutmde.org/) and is PHP-5.3 compliant
 and highly customizable.
@@ -105,11 +105,12 @@ $content
 ;
 ```
 
-You can also use it as a procedural non-static object:
+You can also use the `\MarkdownExtended\Parser` object as a procedural non-static
+object (this is in fact what the static methods above really do):
 
 ```php
 // create an instance with custom options
-$parser = new \MarkdownExtended\MarkdownExtended( $options );
+$parser = new \MarkdownExtended\Parser( $options );
 
 // parse a string
 $content = $parser->transform( "my markdown string" );

@@ -2,6 +2,12 @@
 
 * (upcoming release)
 
+    * 223930a - new 'make-release' dev action (piwi)
+    * 19cbc6d - manage the case where no default template is set (inline template instead) (piwi)
+    * 164210f - externalization of the work in Parser (piwi)
+    * 38f3100 - review of filters & API (piwi)
+    * abf5629 - rename manpages with section number (piwi)
+    * d7cbdef - [REFOUND] large review of the code (piwi)
     * 7ade2d9 - usage of '@stable' development dependencies (piwi)
     * 7ae5dfc - usage of my fork of the SplClassLoader (piwi)
     * 30ca234 - improve bootstraper inclusion in console (piwi)

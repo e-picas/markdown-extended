@@ -110,9 +110,10 @@ The public `\MarkdownExtended\MarkdownExtended` object follows a simple static A
 
     \MarkdownExtended\MarkdownExtended::parseFile( file path , options ) : \MarkdownExtended\Content
 
-It also proposes a literal procedural usage API:
+These methods actually distribute the "real" work to the `\MarkdownExtended\Parser` 
+object, which can be used as a literal procedural object like:
 
-    $parser = new \MarkdownExtended\MarkdownExtended( options );
+    $parser = new \MarkdownExtended\Parser( options );
     
     $content = $parser->transform( source string );
     
