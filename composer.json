@@ -39,7 +39,7 @@
   },
   "autoload-dev": { "psr-0": {
     "MarkdownExtendedDev": "src",
-    "testsMarkdownExtended": "tests"
+    "MarkdownExtendedTests": "tests"
   } },
   "config": {
     "bin-dir": "bin"

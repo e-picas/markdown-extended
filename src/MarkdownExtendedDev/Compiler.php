@@ -83,7 +83,7 @@ class Compiler
             ->name('*.ini')
             ->name('*.man')
             ->name('*.md')
-            ->name('*.html')
+            ->name('*.tpl')
             ->name('LICENSE')
         ;
         foreach ($finder as $file) {
