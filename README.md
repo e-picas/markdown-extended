@@ -17,20 +17,26 @@ and highly customizable.
 Installation
 ------------
 
-### Raw PHP package
-
 You can use this package in your work in many ways.
+
+### Raw PHP package
 
 First, you can clone the [GitHub](http://github.com/piwi/markdown-extended)
 repository and include it "as is" in your poject:
 
-    $ wget --no-check-certificate http://github.com/piwi/markdown-extended
+```bash
+$ git clone http://github.com/piwi/markdown-extended
+```
 
 You can also download an [archive](http://github.com/piwi/markdown-extended/downloads)
-from Github.
+from Github:
+
+```bash
+$ wget --no-check-certificate https://github.com/piwi/markdown-extended/archive/master.zip
+```
 
 Then, to use the package classes, you just need to include its *bootstrapper* which
-will register its namespaces to PHP using:
+will register its namespaces in current runtime environment:
 
 ```php
 require_once 'path/to/package/src/bootstrap.php';
@@ -56,14 +62,18 @@ the whole source as a standalone binary. Its usage is the same as the
 to each release on the repository, you can download it running 
 (here for the 'X.Y.Z' release):
 
-    $ curl https://github.com/piwi/markdown-extended/releases/download/X.Y.Z/markdown-extended.phar -o markdown-extended
-    $ chmod a+x markdown-extended
-    $ ./markdown-extended --help
+```bash
+$ curl https://github.com/piwi/markdown-extended/releases/download/X.Y.Z/markdown-extended.phar -o markdown-extended
+$ chmod a+x markdown-extended
+$ ./markdown-extended --help
+```
 
 For simplicity, you can move it in your binaries (locally or globally):
 
-    $ mv ./markdown-extended ~/bin
-    $ sudo mv ./markdown-extended /usr/local/bin/
+```bash
+$ mv ./markdown-extended ~/bin
+$ sudo mv ./markdown-extended /usr/local/bin/
+```
 
 
 Usage
@@ -140,31 +150,38 @@ A full PHP documentation of the last stable release can be found at
 
 A command line interface is proposed in the package running:
 
-    $ ./bin/markdown-extended --help
+```bash
+$ ./bin/markdown-extended --help
+```
 
 The interface allows to parse one or more files, extract some information from sources,
-write the results in files and some other stuff.
+write the results in files and some other stuff. A large set of options are available
+to customize the transformation.
 
 A full *manpage* should be available in the package:
 
-    $ man ./man/markdown-extended.man
+```bash
+$ man ./man/markdown-extended.3.man
+```
 
-Examples of cli usage:
+#### Examples of cli usage:
 
-    # transform a simple string
-    $ ./bin/markdown-extended "my **markdown** _extended_ string"
-    my <strong>markdown</strong> <em>extended</em> string
+```bash
+# transform a simple string
+$ ./bin/markdown-extended "my **markdown** _extended_ string"
+my <strong>markdown</strong> <em>extended</em> string
 
-    # transform a file content with output to STDOUT
-    $ ./bin/markdown-extended my-markdown-file.md
-    ...
+# transform a file content with output to STDOUT
+$ ./bin/markdown-extended my-markdown-file.md
+...
 
-    # transform a file content with output in file
-    $ ./bin/markdown-extended --output=my-transformed-markdown.html my-markdown-file.md
-    ...
+# transform a file content with output in file
+$ ./bin/markdown-extended --output=my-transformed-markdown.html my-markdown-file.md
+...
 
-    # generate the manpage itslef
-    $ ./bin/markdown-extended -f man -o man/markdown-extended.man doc/MANPAGE.md
+# generate the manpage itslef
+$ ./bin/markdown-extended -f man -o man/markdown-extended.man doc/MANPAGE.md
+```
 
 ### Old parsers compatibility
 
@@ -196,8 +213,9 @@ let an information about its first authors.
 
 As the sources are hosted on a [GIT](http://git-scm.com/) repository on
 [GitHub](http://github.com/piwi/markdown-extended), you can modify it, to
-ameliorate a feature or correct an error. Please read the `CONTRIBUTING.md`
-file of the package for more information.
+ameliorate a feature or correct an error. Please read the [`CONTRIBUTING.md`
+file of the package](https://github.com/piwi/markdown-extended/blob/master/CONTRIBUTING.md) 
+for more info.
 
 
 Licenses

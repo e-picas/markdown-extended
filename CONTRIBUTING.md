@@ -120,13 +120,6 @@ is done by creating a tag named like `vX.Y.Z[-status]`[^1] from the "master" bra
 merged the "dev" one in.
 
 
-### Coding rules
-
--   use space (no tab) ; 1 tab = 4 spaces ; this is valid for all languages
--   comment your work (just enough)
--   in case of error in a PHP script, ALWAYS throw one of the `MarkdownExtended\Exception`s with a message
-
-
 How-tos
 -------
 
@@ -183,6 +176,14 @@ Note that the package is integrated with [Travis CI](http://travis-ci.org/).
 You can check code mess running:
 
     ~$ php bin/phpmd src text codesize
+
+
+Coding rules
+------------
+
+-   use space (no tab) ; 1 tab = 4 spaces ; this is valid for all languages
+-   comment your work (just enough)
+-   in case of error in a PHP script, ALWAYS throw one of the `MarkdownExtended\Exception`s with a message
 
 
 [^1]: Please see the [Semantic Versioning](http://semver.org/) work by Tom Preston-Werner for
