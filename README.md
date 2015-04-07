@@ -17,12 +17,14 @@ and highly customizable.
 Installation
 ------------
 
+### Raw PHP package
+
 You can use this package in your work in many ways.
 
 First, you can clone the [GitHub](http://github.com/piwi/markdown-extended)
 repository and include it "as is" in your poject:
 
-    ~$ wget --no-check-certificate http://github.com/piwi/markdown-extended
+    $ wget --no-check-certificate http://github.com/piwi/markdown-extended
 
 You can also download an [archive](http://github.com/piwi/markdown-extended/downloads)
 from Github.
@@ -34,6 +36,8 @@ will register its namespaces to PHP using:
 require_once 'path/to/package/src/bootstrap.php';
 ```
 
+### Using Composer
+
 Another way to use the package, if you are a [Composer](http://getcomposer.org/) user,
 is to add it to your requirements in your `composer.json`:
 
@@ -43,13 +47,23 @@ is to add it to your requirements in your `composer.json`:
 
 The namespace will be automatically added to the project's Composer autoloader.
 
-If you plan to use the parser as a single binary, you can use the PHAR archive directly,
-which embeds the whole source as a standalone binary. Its usage is the same as the
-`bin/markdown-extended` script described below.
+### Using a standalone version
 
-    $ curl -O http://releases.aboutmde.org/markdown-extended-php/markdown-extended.phar
-    $ chmod a+x markdown-extended.phar
-    $ ./markdown-extended.phar --help
+Finally, if you plan to use the parser as a single binary, you can use a 
+[PHAR archive](http://php.net/manual/en/book.phar.php) directly, which embeds 
+the whole source as a standalone binary. Its usage is the same as the 
+`bin/markdown-extended` script described below. The archive is attached 
+to each release on the repository, you can download it running 
+(here for the 'X.Y.Z' release):
+
+    $ curl https://github.com/piwi/markdown-extended/releases/download/X.Y.Z/markdown-extended.phar -o markdown-extended
+    $ chmod a+x markdown-extended
+    $ ./markdown-extended --help
+
+For simplicity, you can move it in your binaries (locally or globally):
+
+    $ mv ./markdown-extended ~/bin
+    $ sudo mv ./markdown-extended /usr/local/bin/
 
 
 Usage
@@ -63,7 +77,7 @@ following the rules described at <http://cheatsheet.aboutmde.org/>.
 For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
 the latest version can be found at <http://github.com/piwi/markdown-extended/blob/dev/demo/MD_syntax.md>.
 
-### PHP script usage
+### Usage for developers
 
 The `MarkdownExtended` package can be simply call writing:
 
@@ -122,6 +136,36 @@ $content = $parser->transformSource( 'my-markdown-file.md' );
 A full PHP documentation of the last stable release can be found at
 <http://docs.ateliers-pierrot.fr/markdown-extended/>.
 
+### Command line usage
+
+A command line interface is proposed in the package running:
+
+    $ ./bin/markdown-extended --help
+
+The interface allows to parse one or more files, extract some information from sources,
+write the results in files and some other stuff.
+
+A full *manpage* should be available in the package:
+
+    $ man ./man/markdown-extended.man
+
+Examples of cli usage:
+
+    # transform a simple string
+    $ ./bin/markdown-extended "my **markdown** _extended_ string"
+    my <strong>markdown</strong> <em>extended</em> string
+
+    # transform a file content with output to STDOUT
+    $ ./bin/markdown-extended my-markdown-file.md
+    ...
+
+    # transform a file content with output in file
+    $ ./bin/markdown-extended --output=my-transformed-markdown.html my-markdown-file.md
+    ...
+
+    # generate the manpage itslef
+    $ ./bin/markdown-extended -f man -o man/markdown-extended.man doc/MANPAGE.md
+
 ### Old parsers compatibility
 
 To keep the package compatible with old versions of Markdown, an interface is embedded
@@ -141,24 +185,6 @@ echo MarkdownFromSource($file_name [, $options]);
 This way, you may be able to change your Markdown parser without so much work and, 
 I hope so, a better result ;)
 
-### Command line usage
-
-A command line interface is proposed in the package running:
-
-    ~$ ./bin/markdown-extended --help
-
-The interface allows to parse one or more files, extract some information from sources,
-write the results in files and some other stuff.
-
-A full *manpage* should be available in the package:
-
-    ~$ man ./man/markdown-extended.man
-
-To re-generate the man-page from file `doc/MANPAGE.md` with the interface itself, run:
-
-    ~$ ./bin/markdown-extended -f man -o man/markdown-extended.man doc/MANPAGE.md
-    ~$ man ./man/markdown-extended.man
-
 
 Open-Source & Community
 -----------------------
@@ -170,17 +196,8 @@ let an information about its first authors.
 
 As the sources are hosted on a [GIT](http://git-scm.com/) repository on
 [GitHub](http://github.com/piwi/markdown-extended), you can modify it, to
-ameliorate a feature or correct an error, by [creating your own fork](http://help.github.com/articles/fork-a-repo)
-of this repository, modifying it and [asking to pull your modifications](http://github.com/piwi/markdown-extended/pulls)
-on the original branch.
-
-Please note that the "master" branch is **always the latest stable version** of the code. 
-Development is done on branch "dev" and you can create a new one for your own developments.
-A developer help and roadmap is provided [in the docs](docs/ROADMAP.md).
-The latest version of the package documentation is available online at
-<http://docs.ateliers-pierrot.fr/markdown-extended/>.
-
-Note that the package is integrated with [Travis CI](http://travis-ci.org/).
+ameliorate a feature or correct an error. Please read the `CONTRIBUTING.md`
+file of the package for more information.
 
 
 Licenses

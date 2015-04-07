@@ -175,6 +175,8 @@ You can verify that your package passes all tests running:
 
 All tests are stored in the `tests/` directory of the package.
 
+Note that the package is integrated with [Travis CI](http://travis-ci.org/).
+
 
 ### Mess detection
 
