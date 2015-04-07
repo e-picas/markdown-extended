@@ -8,6 +8,9 @@
  * file that was distributed with this source code.
  */
 
+// if MDE_BASE_PATH is already defined, strip the followings
+if (defined('MDE_BASE_PATH')) { return; }
+
 // PHP 5.3.3+
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     trigger_error(
