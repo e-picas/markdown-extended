@@ -10,6 +10,10 @@
 
 namespace MarkdownExtended\Console;
 
+
+/**
+ * A class to manage command line options based on a set of definitions
+ */
 class UserInput
 {
 
@@ -17,13 +21,51 @@ class UserInput
     protected static $NEGATE_VAL    = '_negate';
     protected static $NEGATE_INFO   = 'This option can be negated by "--no-%s".';
 
+    /**
+     * Use this when concerned option does NOT have any argument (i.e. for flags)
+     */
     const ARG_NULL      = 1;
+
+    /**
+     * Use this when concerned option can accept an argument but this is not required (i.e. a default value is defined)
+     *
+     * The optional argument MUST be written separated to the option by an equal sign.
+     */
     const ARG_OPTIONAL  = 2;
+
+    /**
+     * Use this when concerned option REQUIRES an argument
+     *
+     * The equal sign between the option and its argument is not required.
+     */
     const ARG_REQUIRED  = 4;
 
+    /**
+     * Use this to define a boolean option (i.e. 1 or 0)
+     *
+     * This is the default for option with no argument (i.e. `self::ARG_NULL`)
+     */
     const TYPE_BOOL     = 1;
+
+    /**
+     * Use this to define an option as a string
+     */
     const TYPE_STRING   = 2;
+
+    /**
+     * Use this do define an option as a file path
+     *
+     * An error will be thrown if the option only have this type and its value
+     * can not be found in file system.
+     */
     const TYPE_PATH     = 4;
+
+    /**
+     * Use this to define an option as a list item
+     *
+     * Using this type, you are REQUIRED to define a `list` argument in
+     * the option's definition.
+     */
     const TYPE_LISTITEM = 8;
 
     /**
@@ -254,6 +296,12 @@ class UserInput
         return $obj;
     }
 
+    /**
+     * Gets an automatic information of a set of options
+     *
+     * @param array $definitions
+     * @return array
+     */
     public static function getOptionsInfo(array $definitions)
     {
         $info = array();
@@ -278,6 +326,12 @@ class UserInput
         return $info;
     }
 
+    /**
+     * Gets an automatic synopsis of a set of options
+     *
+     * @param array $definitions
+     * @return array
+     */
     public static function getOptionsSynopsis(array $definitions)
     {
         $info = array();
@@ -295,7 +349,13 @@ class UserInput
         return $info;
     }
 
-    protected static function getOptionArgumentString($item)
+    /**
+     * Gets an option value type as string
+     *
+     * @param array $item
+     * @return string
+     */
+    protected static function getOptionArgumentString(array $item)
     {
         $str = '';
         if (self::ARG_NULL !== $item['argument']) {
@@ -314,6 +374,11 @@ class UserInput
         return $str;
     }
 
+    /**
+     * Gets the input array of options and arguments
+     *
+     * @return array
+     */
     public static function getSanitizedUserInput()
     {
         return array_map(function($item) {

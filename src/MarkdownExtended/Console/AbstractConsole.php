@@ -86,6 +86,9 @@ abstract class AbstractConsole
      */
     protected $arg_required;
 
+    /**
+     * Initializes a new console app
+     */
     public function __construct()
     {
         // current script path
@@ -110,6 +113,13 @@ abstract class AbstractConsole
         ;
     }
 
+    /**
+     * Sets console's stream handler
+     *
+     * @param \MarkdownExtended\Console\Stream $stream
+     *
+     * @return $this
+     */
     public function setStream(Stream $stream)
     {
         $this->stream = $stream;
@@ -117,76 +127,168 @@ abstract class AbstractConsole
         return $this;
     }
 
+    /**
+     * Defines if an argument is required or not
+     *
+     * If it is required, the `self::runCommonOptions()` method
+     * will show the usage string without argument.
+     *
+     * @param bool $arg_required
+     *
+     * @return $this
+     */
     public function setArgumentRequired($arg_required)
     {
         $this->arg_required = (bool) $arg_required;
         return $this;
     }
 
+    /**
+     * Sets the command's name
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * Sets the command's short-name
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setShortname($name)
     {
         $this->short_name = $name;
         if (function_exists('cli_set_process_title')) {
-            cli_set_process_title($this->short_name);
+            // the @ is for a PHP bug: "cli_set_process_title had an error: Not initialized correctly"
+            @cli_set_process_title($this->short_name);
         } elseif (function_exists('setproctitle')) {
             setproctitle($this->short_name);
         }
         return $this;
     }
 
+    /**
+     * Sets the command's version number
+     *
+     * @param string $version
+     *
+     * @return $this
+     */
     public function setVersion($version)
     {
         $this->version = $version;
         return $this;
     }
 
+    /**
+     * Sets the command's short version string
+     *
+     * This is rendered when running `cmd --version --quiet`
+     *
+     * @param string $str
+     *
+     * @return $this
+     */
     public function setShortVersionString($str)
     {
         $this->short_version_str = $str;
         return $this;
     }
 
+    /**
+     * Sets the command's long version string
+     *
+     * This is rendered when running `cmd --version`
+     *
+     * @param string $str
+     *
+     * @return $this
+     */
     public function setLongVersionString($str)
     {
         $this->long_version_str = $str;
         return $this;
     }
 
+    /**
+     * Sets the command's description
+     *
+     * @param string $str
+     *
+     * @return $this
+     */
     public function setDescription($str)
     {
         $this->description = $str;
         return $this;
     }
 
+    /**
+     * Sets the command's usage string
+     *
+     * @param string $str
+     *
+     * @return $this
+     */
     public function setUsage($str)
     {
         $this->usage = $str;
         return $this;
     }
 
+    /**
+     * Sets the command's synopsis
+     *
+     * @param string $str
+     *
+     * @return $this
+     */
     public function setSynopsis($str)
     {
         $this->synopsis = $str;
         return $this;
     }
 
+    /**
+     * Adds a new CLI option available for the command
+     *
+     * See the `\MarkdownExtended\Console\UserInput::prepareOptionDefinition()`
+     * method for a full review of what `$opt` can contain.
+     *
+     * @param string $name
+     * @param array $opt
+     *
+     * @return $this
+     */
     public function addCliOption($name, array $opt)
     {
         $this->cli_options[$name] = $opt;
         return $this;
     }
 
+    /**
+     * Gets a script's option value
+     *
+     * @param string $name
+     * @param null $default
+     * @return null|mixed
+     */
     public function getOption($name, $default = null)
     {
         return isset($this->options[$name]) ? $this->options[$name] : $default;
     }
 
+    /**
+     * Enables hard debugging
+     */
     public function enableHardDebug()
     {
         $this->options['debug'] = true;
@@ -212,6 +314,9 @@ abstract class AbstractConsole
         return $this;
     }
 
+    /**
+     * Runs the `--version` option
+     */
     public function runVersion()
     {
         if ($this->stream->getVerbosity() === Stream::VERBOSITY_QUIET) {
@@ -225,6 +330,9 @@ abstract class AbstractConsole
         $this->stream->writeln($info);
     }
 
+    /**
+     * Runs the `--help` option
+     */
     public function runHelp()
     {
         $help_info = array(
@@ -248,6 +356,9 @@ abstract class AbstractConsole
         }
     }
 
+    /**
+     * Runs the usage string
+     */
     public function runUsage()
     {
         $help_info = array(
@@ -269,8 +380,14 @@ abstract class AbstractConsole
         }
     }
 
+    /**
+     * Actually run command's process
+     */
     abstract function run();
 
+    /**
+     * Load common options to command's sepcific ones
+     */
     protected function initCommonOptions()
     {
         $this
@@ -303,6 +420,9 @@ abstract class AbstractConsole
         return $this;
     }
 
+    /**
+     * Runs common options if used
+     */
     protected function runCommonOptions()
     {
         // set verbosity

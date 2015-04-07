@@ -15,10 +15,19 @@ use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Parser;
 use \MarkdownExtended\Util\Helper;
 
+/**
+ * This is the markdown-extended shell script definition
+ *
+ * It is called by the `bin/markdown-extended` script and
+ * defines it whole process.
+ */
 class Console
     extends AbstractConsole
 {
 
+    /**
+     * Initialized the command
+     */
     public function __construct()
     {
         parent::__construct();
@@ -121,6 +130,9 @@ DESC
         ;
     }
 
+    /**
+     * Actually run the command process
+     */
     public function run()
     {
         // common options
@@ -178,6 +190,11 @@ DESC
         $this->renderOutput($results);
     }
 
+    /**
+     * Constructs the options to pass to the parser from cli's options
+     *
+     * @return array
+     */
     protected function getMarkdownExtendedOptions()
     {
         $mde_data = $this->options;
@@ -213,6 +230,11 @@ DESC
         return $mde_data;
     }
 
+    /**
+     * Renders the process' output
+     *
+     * @param array $results
+     */
     protected function renderOutput(array $results)
     {
         $item_callback = function(&$item) {

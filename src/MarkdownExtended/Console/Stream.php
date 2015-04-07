@@ -14,9 +14,24 @@ namespace MarkdownExtended\Console;
 class Stream
 {
 
+    /**
+     * Quiet verbosity flag
+     */
     const VERBOSITY_QUIET   = 1;
+
+    /**
+     * Normal verbosity flag
+     */
     const VERBOSITY_NORMAL  = 2;
+
+    /**
+     * Verbose verbosity flag
+     */
     const VERBOSITY_VERBOSE = 4;
+
+    /**
+     * Debug verbosity flag
+     */
     const VERBOSITY_DEBUG   = 8;
 
     /**
@@ -24,24 +39,35 @@ class Stream
      */
     protected $verbosity    = self::VERBOSITY_NORMAL;
 
+    /**
+     * Use this instead of written raw 'stdin'
+     */
     const IO_STDIN          = 'stdin';
+
+    /**
+     * Use this instead of written raw 'stdout'
+     */
     const IO_STDOUT         = 'stdout';
+
+    /**
+     * Use this instead of written raw 'stderr'
+     */
     const IO_STDERR         = 'stderr';
 
     /**
      * @var resource
      */
-    protected $stdin;
+    public $stdin;
 
     /**
      * @var resource
      */
-    protected $stdout;
+    public $stdout;
 
     /**
      * @var resource
      */
-    protected $stderr;
+    public $stderr;
 
     /**
      * @var callable
@@ -52,27 +78,87 @@ class Stream
     const VERBOSE_PREFIX    = '[V] ';
     const DEBUG_PREFIX      = '[D] ';
 
+    /**
+     * Initializes all streams
+     */
     public function __construct()
     {
         set_exception_handler(array($this, 'handleException'));
         $this
-            ->setStream(self::IO_STDIN,  defined('STDOUT') ? STDOUT : fopen('php://stdout', 'c+'))
-            ->setStream(self::IO_STDOUT, defined('STDIN')  ? STDIN  : fopen('php://stdin', 'c+'))
-            ->setStream(self::IO_STDERR, defined('STDERR') ? STDERR : fopen('php://stderr', 'c+'))
+            ->setStream(self::IO_STDIN,  fopen('php://stdin',  'w'))
+            ->setStream(self::IO_STDOUT, fopen('php://stdout', 'w'))
+            ->setStream(self::IO_STDERR, fopen('php://stderr', 'w'))
         ;
     }
 
+    /**
+     * Sets a stream resource by type in stdin, stdout or stderr
+     *
+     * @param   string      $type
+     * @param   resource    $stream
+     *
+     * @return  $this
+     */
     public function setStream($type, $stream)
     {
-        if (!is_resource($stream)) {
+        if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
             throw new \InvalidArgumentException(
                 sprintf('A "%s" console stream must be a resource (got "%s")', $type, gettype($stream))
             );
         }
-        $this->{$type} = $stream;
+        switch ($type) {
+            case self::IO_STDIN:
+                $this->stdin = $stream;
+                break;
+            case self::IO_STDOUT:
+                $this->stdout = $stream;
+                break;
+            case self::IO_STDERR:
+                $this->stderr = $stream;
+                break;
+            default:
+                throw new \InvalidArgumentException(
+                    sprintf('Unknown stream type "%s"', $type)
+                );
+        }
         return $this;
     }
 
+    /**
+     * Gets a stream by type: stdin, stdout or stderr
+     *
+     * @param   string $type
+     *
+     * @return  resource
+     */
+    public function getStream($type)
+    {
+        switch ($type) {
+            case self::IO_STDIN:
+                return $this->stdin;
+                break;
+            case self::IO_STDOUT:
+                return $this->stdout;
+                break;
+            case self::IO_STDERR:
+                return $this->stderr;
+                break;
+            default:
+                throw new \InvalidArgumentException(
+                    sprintf('Unknown stream type "%s"', $type)
+                );
+        }
+    }
+
+    /**
+     * Sets a callback triggered when an exception is caught
+     *
+     * The callback is triggered like `callback( exception )`
+     *
+     * @param   callable $callback
+     *
+     * @return  $this
+     */
     public function setExceptionHandlerCallback($callback)
     {
         if (!is_callable($callback)) {
@@ -84,17 +170,34 @@ class Stream
         return $this;
     }
 
+    /**
+     * Sets stream verbosity flag
+     *
+     * @param int $int
+     *
+     * @return $this
+     */
     public function setVerbosity($int)
     {
         $this->verbosity = $int;
         return $this;
     }
 
+    /**
+     * Gets stream verbosity flag
+     *
+     * @return int
+     */
     public function getVerbosity()
     {
         return $this->verbosity;
     }
 
+    /**
+     * Actually exits current process
+     *
+     * @param int $code
+     */
     public function _exit($code = 0)
     {
         exit($code);
@@ -147,8 +250,13 @@ class Stream
                 sprintf('Unknown IO stream type "%s"', $stream)
             );
         }
-        fwrite($this->{$stream}, $str . ($new_line===true ? PHP_EOL : ''));
-        fflush($this->{$stream});
+        $stream_io = $this->getStream($stream);
+        if (false === fwrite($stream_io, $str . ($new_line===true ? PHP_EOL : ''))) {
+            throw new \RuntimeException(
+                sprintf('Can not write output to stream "%s"', $stream)
+            );
+        }
+        fflush($stream_io);
     }
 
     /**
