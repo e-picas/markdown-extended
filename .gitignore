@@ -20,8 +20,8 @@ bin/*
 #phpdoc/*
 
 # this is for all branches but "phar-latest"
-!bin/mde-dev
-*.phar
+#!bin/mde-dev
+#*.phar
 
 # this is for "phar-latest" branch only
 doc/*
