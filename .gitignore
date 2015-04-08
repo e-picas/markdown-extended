@@ -10,18 +10,30 @@ TODOS*
 dev/*
 build/logs/*
 
-# this is for "dev" branch only
+# specific MDE files
+bin/*
+!bin/markdown-extended
+
+# this is for "master" branch only
 build/*
 demo/*
 phpdoc/*
 
-# specific MDE files
-bin/*
-!bin/markdown-extended
+# this is for all branches but "phar-latest"
 !bin/mde-dev
-
-# no phar
 *.phar
+
+# this is for "phar-latest" branch only
+#doc/*
+#src/*
+#tests/*
+#.travis.yml
+#.editorconfig
+#.gitattributes
+#phpunit.xml.dist
+#sami.config.php
+#composer.json
+#!bin/markdown-extended.phar
 
 # hack to allow keeping an empty directory
 !.gitkeep
