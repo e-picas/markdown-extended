@@ -7,7 +7,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-# this install script is taken "as-is" from <https://github.com/sstephenson/bats>
+# This install script is largely inspired by <https://github.com/sstephenson/bats>
 #
 set -e
 
@@ -28,19 +28,54 @@ abs_dirname() {
 }
 
 PREFIX="$1"
+TYPE="${2:-true}"
+ROOT_DIR="$(abs_dirname "$0")"
 if [ -z "$1" ]; then
-    {   echo "usage: $0 <prefix>"
+    {   echo "usage: $0 <prefix> [global=true]"
         echo "  e.g. $0 /usr/local"
+        echo "       $0 ~/bin false"
+        echo "       $0 my/path 0"
     } >&2
     exit 1
 fi
 
-ROOT_DIR="$(abs_dirname "$0")"
-mkdir -p "$PREFIX"/{bin,share/man/{man3,man7}}
-cp -R "$ROOT_DIR"/bin/* "$PREFIX"/bin
-echo "markdown-extended is now installed to $PREFIX/bin/markdown-extended"
-echo "to begin, run: 'markdown-extended --help'"
-cp "$ROOT_DIR"/man/markdown-extended.3.man "$PREFIX"/share/man/man3/markdown-extended.3
-echo "for usage manpage, run: 'man 3 markdown-extended'"
-cp "$ROOT_DIR"/man/markdown-extended.7.man "$PREFIX"/share/man/man3/markdown-extended.7
-echo "for documentation manpage, run: 'man 7 markdown-extended'"
+# global install
+if [ "$TYPE" == 'true' ]; then
+    # install binaries
+    mkdir -p "$PREFIX"/{bin,share/man/{man3,man7}}
+    cp -R "$ROOT_DIR"/bin/markdown-extended* "$PREFIX"/bin
+    chmod a+x "$PREFIX"/bin/markdown-extended*
+    # install manpages
+    cp "$ROOT_DIR"/man/markdown-extended.3.man "$PREFIX"/share/man/man3/markdown-extended.3
+    cp "$ROOT_DIR"/man/markdown-extended.7.man "$PREFIX"/share/man/man7/markdown-extended.7
+    # info
+    cat <<MSG
+markdown-extended is now installed at "${PREFIX}/bin/markdown-extended"
+to begin, run:
+    'markdown-extended --help'
+for usage manpage, run:
+    'man 3 markdown-extended'
+for documentation manpage, run:
+    'man 7 markdown-extended'
+MSG
+
+# local install
+else
+    # install binaries
+    cp -R "$ROOT_DIR"/bin/markdown-extended* "$PREFIX"/
+    chmod a+x "$PREFIX"/markdown-extended*
+    # install manpages
+    cp "$ROOT_DIR"/man/markdown-extended.3.man "$PREFIX"/
+    cp "$ROOT_DIR"/man/markdown-extended.7.man "$PREFIX"/
+    # info
+    cat <<MSG
+markdown-extended is now installed at "${PREFIX}/markdown-extended"
+to begin, run:
+    '${PREFIX}/markdown-extended --help'
+for usage manpage, run:
+    'man ${PREFIX}/markdown-extended.3.man'
+for documentation manpage, run:
+    'man ${PREFIX}/markdown-extended.7.man'
+MSG
+
+fi
