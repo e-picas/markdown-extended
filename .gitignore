@@ -15,25 +15,25 @@ bin/*
 !bin/markdown-extended
 
 # this is for "dev" branch only
-build/*
-demo/*
-phpdoc/*
+#build/*
+#demo/*
+#phpdoc/*
 
 # this is for all branches but "phar-latest"
-#!bin/mde-dev
-#*.phar
+!bin/mde-dev
+*.phar
 
 # this is for "phar-latest" branch only
-doc/*
-src/*
-tests/*
-.travis.yml
-.editorconfig
-.gitattributes
-phpunit.xml.dist
-sami.config.php
-composer.json
-!bin/markdown-extended.phar
+#doc/*
+#src/*
+#tests/*
+#.travis.yml
+#.editorconfig
+#.gitattributes
+#phpunit.xml.dist
+#sami.config.php
+#composer.json
+#!bin/markdown-extended.phar
 
 # hack to allow keeping an empty directory
 !.gitkeep
