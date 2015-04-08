@@ -14,7 +14,7 @@ build/logs/*
 bin/*
 !bin/markdown-extended
 
-# this is for "dev" branch only
+# this is for "master" branch only
 #build/*
 #demo/*
 #phpdoc/*
