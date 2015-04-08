@@ -33,6 +33,7 @@ tests/*
 phpunit.xml.dist
 sami.config.php
 composer.json
+CONTRIBUTING.md
 !bin/markdown-extended.phar
 
 # hack to allow keeping an empty directory
