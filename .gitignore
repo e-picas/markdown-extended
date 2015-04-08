@@ -14,7 +14,7 @@ build/logs/*
 bin/*
 !bin/markdown-extended
 
-# this is for "master" branch only
+# this is for all branches but "dev"
 #build/*
 #demo/*
 #phpdoc/*
@@ -33,6 +33,7 @@ bin/*
 #phpunit.xml.dist
 #sami.config.php
 #composer.json
+#CONTRIBUTING.md
 #!bin/markdown-extended.phar
 
 # hack to allow keeping an empty directory
