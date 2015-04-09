@@ -107,4 +107,5 @@ class BaseUnitTest
     {
         return $this->stripNewLines($this->stripWhitespaces($content));
     }
+
 }

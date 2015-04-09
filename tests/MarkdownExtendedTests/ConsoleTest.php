@@ -53,7 +53,7 @@ class ConsoleTest
         $descriptors = array(
             0 => array('pipe', 'r'),
             1 => array('pipe', 'w'),
-            2 => array('pipe', 'a'),
+            2 => array('pipe', 'w'),
         );
         $pipes = array();
 
@@ -69,6 +69,14 @@ class ConsoleTest
         }
         $status = proc_close($resource);
 
+/*/
+echo PHP_EOL . "running cmd: " . var_export($command,true);
+echo PHP_EOL . "result: " . var_export(array(
+        'stdout' => trim($stdout, PHP_EOL),
+        'status' => $status,
+        'stderr' => trim($stderr, PHP_EOL)
+    ),true);
+//*/
         return array(
             'stdout' => trim($stdout, PHP_EOL),
             'status' => $status,
