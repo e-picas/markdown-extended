@@ -103,57 +103,99 @@ the option's definition.</p>
             </table>
 
     
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_NEGATE_VAL">
+                    static                                        
+                </td>
+                <td>$NEGATE_VAL</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_NEGATE_INFO">
+                    static                                        
+                </td>
+                <td>$NEGATE_INFO</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
     
             <h2>Methods</h2>
 
             <table>
                     <tr>
                 <td class="type">
-                    static&nbsp;array
+                    
                 </td>
                 <td class="last">
-                    <a href="#method_prepareOptionDefinition">prepareOptionDefinition</a>(array $item, string $name)
-                    <p>Organize and cleanup an option definition</p>
+                    <a href="#method___construct">__construct</a>(array $definitions)
+                    <p>
+</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;bool
+                    <a href="../../MarkdownExtended/Console/UserOption.html"><abbr title="MarkdownExtended\Console\UserOption">UserOption</abbr></a>
                 </td>
                 <td class="last">
-                    <a href="#method_validateOptionValue">validateOptionValue</a>(string $value, array $definition)
-                    <p>Validate a user CLI option value</p>
+                    <a href="#method_getOption">getOption</a>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)
+                    <p>Gets an option object by name or shortcut</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;object
+                    array
                 </td>
                 <td class="last">
-                    <a href="#method_parseOptions">parseOptions</a>(array $definitions)
-                    <p>Parse the command line user options based on CLI options definitions</p>
+                    <a href="#method_getIndexedOptions">getIndexedOptions</a>()
+                    <p>Gets the array of options indexed by their names</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;array
+                    array
                 </td>
                 <td class="last">
-                    <a href="#method_getOptionsInfo">getOptionsInfo</a>(array $definitions)
+                    <a href="#method_getFilteredOptions">getFilteredOptions</a>(string $name)
+                    <p>Gets an array of a value of each option, indexed by their names</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_getOptionsInfo">getOptionsInfo</a>()
                     <p>Gets an automatic information of a set of options</p>
                 </td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type">
-                    static&nbsp;array
+                    array
                 </td>
                 <td class="last">
-                    <a href="#method_getOptionsSynopsis">getOptionsSynopsis</a>(array $definitions)
+                    <a href="#method_getOptionsSynopsis">getOptionsSynopsis</a>()
                     <p>Gets an automatic synopsis of a set of options</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    object
+                </td>
+                <td class="last">
+                    <a href="#method_parseOptions">parseOptions</a>()
+                    <p>Parse the command line user options based on CLI options definitions</p>
                 </td>
                 <td></td>
             </tr>
@@ -172,32 +214,15 @@ the option's definition.</p>
 
         <h2>Details</h2>
 
-                        <h3 id="method_prepareOptionDefinition">
-        <div class="location">at line 96</div>
-        <code>        static    public            array
-    <strong>prepareOptionDefinition</strong>(array $item, string $name)</code>
+                        <h3 id="method___construct">
+        <div class="location">at line 77</div>
+        <code>            public            
+    <strong>__construct</strong>(array $definitions)</code>
     </h3>
     <div class="details">
-        <p>Organize and cleanup an option definition</p>
-        <p>The <code>$item</code> definition array may follow these rules:</p>
-
-<ul>
-<li>'description' (required) is the option description used in help string</li>
-<li>'argument' (required) is the argument behavior: null, optional or required
- (use the <code>ARG_</code> class constants)</li>
-<li>'type' (optional) is the argument type (use the <code>TYPE_</code> class constants) ;
- it defaults to the boolean type if the argument is null and is required otherwise ;
- you can use multiple types using bitwise notation: <code>TYPE_1 | TYPE_2</code></li>
-<li>'default' (optional) is the default value of the option ; it defaults to
- <code>false</code> if the argument is optional or the type is boolean and <code>null</code> otherwise</li>
-<li>'default_arg' (optional) is the default argument value used when the argument
- is optional and the option is used ; it defaults to 'default'</li>
-<li>'shortcut' (optional) is the one-letter option shortcut</li>
-<li>'negate' (optional) allows the option to be negated using option <code>--no-OPTION</code> ;
- this will reset the default value of the option to <code>false</code> when the negate option
- is used</li>
-<li>'list' (required for the LISTITEM type) defines the allowed list of option values</li>
-</ul>
+        <p>
+</p>
+        <p>
 </p>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -205,10 +230,94 @@ the option's definition.</p>
                     <table>
                     <tr>
                 <td>array</td>
-                <td>$item</td>
+                <td>$definitions</td>
                 <td>
 </td>
             </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getOption">
+        <div class="location">at line 101</div>
+        <code>            public            <a href="../../MarkdownExtended/Console/UserOption.html"><abbr title="MarkdownExtended\Console\UserOption">UserOption</abbr></a>
+    <strong>getOption</strong>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)</code>
+    </h3>
+    <div class="details">
+        <p>Gets an option object by name or shortcut</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><abbr title="MarkdownExtended\Console\$name">$name</abbr></td>
+                <td>$name</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../MarkdownExtended/Console/UserOption.html"><abbr title="MarkdownExtended\Console\UserOption">UserOption</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getIndexedOptions">
+        <div class="location">at line 113</div>
+        <code>            public            array
+    <strong>getIndexedOptions</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Gets the array of options indexed by their names</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getFilteredOptions">
+        <div class="location">at line 129</div>
+        <code>            public            array
+    <strong>getFilteredOptions</strong>(string $name)</code>
+    </h3>
+    <div class="details">
+        <p>Gets an array of a value of each option, indexed by their names</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
                     <tr>
                 <td>string</td>
                 <td>$name</td>
@@ -233,107 +342,16 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_validateOptionValue">
-        <div class="location">at line 161</div>
-        <code>        static    public            bool
-    <strong>validateOptionValue</strong>(string $value, array $definition)</code>
-    </h3>
-    <div class="details">
-        <p>Validate a user CLI option value</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>string</td>
-                <td>$value</td>
-                <td>
-</td>
-            </tr>
-                    <tr>
-                <td>array</td>
-                <td>$definition</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>bool</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-                <h3 id="method_parseOptions">
-        <div class="location">at line 209</div>
-        <code>        static    public            object
-    <strong>parseOptions</strong>(array $definitions)</code>
-    </h3>
-    <div class="details">
-        <p>Parse the command line user options based on CLI options definitions</p>
-        <p>
-</p>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>array</td>
-                <td>$definitions</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table>
-        <tr>
-            <td>object</td>
-            <td>
-</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
                 <h3 id="method_getOptionsInfo">
-        <div class="location">at line 305</div>
-        <code>        static    public            array
-    <strong>getOptionsInfo</strong>(array $definitions)</code>
+        <div class="location">at line 143</div>
+        <code>            public            array
+    <strong>getOptionsInfo</strong>()</code>
     </h3>
     <div class="details">
         <p>Gets an automatic information of a set of options</p>
         <p>
 </p>
         <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>array</td>
-                <td>$definitions</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
             
                             <h4>Return Value</h4>
 
@@ -351,26 +369,15 @@ the option's definition.</p>
     </div>
 
                 <h3 id="method_getOptionsSynopsis">
-        <div class="location">at line 335</div>
-        <code>        static    public            array
-    <strong>getOptionsSynopsis</strong>(array $definitions)</code>
+        <div class="location">at line 158</div>
+        <code>            public            array
+    <strong>getOptionsSynopsis</strong>()</code>
     </h3>
     <div class="details">
         <p>Gets an automatic synopsis of a set of options</p>
         <p>
 </p>
         <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table>
-                    <tr>
-                <td>array</td>
-                <td>$definitions</td>
-                <td>
-</td>
-            </tr>
-            </table>
-
             
                             <h4>Return Value</h4>
 
@@ -387,8 +394,43 @@ the option's definition.</p>
                     </div>
     </div>
 
+                <h3 id="method_parseOptions">
+        <div class="location">at line 174</div>
+        <code>            public            object
+    <strong>parseOptions</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Parse the command line user options based on CLI options definitions</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>object</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/InvalidArgumentException"><abbr title="InvalidArgumentException">InvalidArgumentException</abbr></a></td>
+                <td>if an option is unknown</td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
                 <h3 id="method_getSanitizedUserInput">
-        <div class="location">at line 382</div>
+        <div class="location">at line 230</div>
         <code>        static    public            array
     <strong>getSanitizedUserInput</strong>()</code>
     </h3>
