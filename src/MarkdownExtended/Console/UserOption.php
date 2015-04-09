@@ -48,6 +48,11 @@ class UserOption
      *
      * @param array $item
      * @param string $name
+     *
+     * @throws \InvalidArgumentException if the option does not define a description
+     * @throws \InvalidArgumentException if the option does not define an argument type
+     * @throws \InvalidArgumentException if the option does not define a type and its argument is required
+     * @throws \InvalidArgumentException if the option's argument is a list item but no list is defined
      */
     public function __construct(array $item, $name)
     {
@@ -82,6 +87,9 @@ class UserOption
         $this->rebuildDefinition();
     }
 
+    /**
+     * Rebuild options elements
+     */
     protected function rebuildDefinition()
     {
         $arg_suffix = '';
@@ -115,7 +123,11 @@ class UserOption
      * Validate a user CLI option value
      *
      * @param   string  $value
+     *
      * @return  bool
+     *
+     * @throws \InvalidArgumentException if the option requires an argument and do not received one
+     * @throws \InvalidArgumentException if the option's type validation fails
      */
     public function validateUserValue($value)
     {

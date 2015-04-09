@@ -72,6 +72,7 @@ class UserInput
 
     protected $options;
     protected $options_indexed;
+    protected $user_options;
 
     public function __construct(array $definitions)
     {
@@ -167,26 +168,13 @@ class UserInput
      * Parse the command line user options based on CLI options definitions
      *
      * @return  object
+     *
+     * @throws \InvalidArgumentException if an option is unknown
      */
     public function parseOptions()
     {
-        // extract from definitions
-        $short_options      = $this->getFilteredOptions('short_option');
-        $long_options       = $this->getFilteredOptions('long_option');
-        $default_options    = $this->getFilteredOptions('_default');
-
         // treat CLI options
-        $options = getopt(join('', array_values($short_options)), $long_options);
-
-        foreach ($options as $var=>$val) {
-            if ($option = $this->getOption($var)) {
-                if ($option->get('name') !== $var) {
-                    $options[$option->get('name')] = $val;
-                    unset($options[$var]);
-                }
-                $options[$option->get('name')] = $option->validateUserValue($val);
-            }
-        }
+        $options = $this->getopt();
 
         // extract remaining options
         $argv = self::getSanitizedUserInput();
@@ -225,21 +213,13 @@ class UserInput
             }
         }
 
-/*/
-        echo Helper::debug(array_values($short_options), 'short options', false);
-        echo Helper::debug(array_values($long_options), 'long options', false);
-        echo Helper::debug($default_options, 'defaults', false);
-        echo Helper::debug($options, 'input user options', false);
-        echo Helper::debug($argv, 'remaining arguments', false);
-        echo Helper::debug(array_merge($default_options, $options), 'final full options', false);
-//*/
-
+//        $this->_hardDebug();
         // standard object to return
-        $obj            = new \StdClass();
-        $obj->options   = array_merge($default_options, $options);
-        $obj->remain    = $argv;
-        $obj->original  = self::getSanitizedUserInput();
-        return $obj;
+        $this->user_options            = new \StdClass();
+        $this->user_options->options   = array_merge($this->getFilteredOptions('_default'), $options);
+        $this->user_options->remain    = $argv;
+        $this->user_options->original  = self::getSanitizedUserInput();
+        return $this->user_options;
     }
 
     /**
@@ -252,6 +232,44 @@ class UserInput
         return array_map(function($item) {
             return filter_var($item, FILTER_UNSAFE_RAW);
         }, $_SERVER['argv']);
+    }
+
+    /**
+     * Process internal PHP `getopt()` on defined options
+     *
+     * @return array
+     *
+     * @see http://php.net/getopt
+     */
+    protected function getopt()
+    {
+        $short_options  = $this->getFilteredOptions('short_option');
+        $long_options   = $this->getFilteredOptions('long_option');
+        $options        = getopt(join('', array_values($short_options)), $long_options);
+        foreach ($options as $var => $val) {
+            if ($option = $this->getOption($var)) {
+                if ($option->get('name') !== $var) {
+                    $options[$option->get('name')] = $val;
+                    unset($options[$var]);
+                }
+                $options[$option->get('name')] = $option->validateUserValue($val);
+            }
+        }
+        return $options;
+    }
+
+    // hard debug of object options & user input
+    private function _hardDebug()
+    {
+        $short_options  = $this->getFilteredOptions('short_option');
+        $long_options   = $this->getFilteredOptions('long_option');
+        $defaults       = $this->getFilteredOptions('_default');
+        echo Helper::debug(array_values($short_options), 'short options', false);
+        echo Helper::debug(array_values($long_options), 'long options', false);
+        echo Helper::debug($defaults, 'defaults', false);
+        echo Helper::debug($this->user_options->original, 'input user options', false);
+        echo Helper::debug($this->user_options->remaining, 'remaining arguments', false);
+        echo Helper::debug($this->user_options->options, 'final full options', false);
     }
 
 }
