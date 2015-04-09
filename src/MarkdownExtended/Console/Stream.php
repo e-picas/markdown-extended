@@ -232,7 +232,7 @@ class Stream
             call_user_func($this->exception_callback, $e);
         }
 
-        $this->_exit($e->getCode());
+        $this->_exit($e->getCode() > 0 ? $e->getCode() : 1);
     }
 
     /**
