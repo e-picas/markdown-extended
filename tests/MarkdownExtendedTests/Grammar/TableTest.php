@@ -27,11 +27,11 @@ class TableTest extends ParserTest
 | Content Cell  | Content Cell  |
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr></tbody></table>',
-            'Simple table fails!'
+            '[parsing] test of simple table'
         );
 
         // simple table with no leading pipe
@@ -42,11 +42,11 @@ Content Cell  | Content Cell  |
 Content Cell  | Content Cell  |
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr></tbody></table>',
-            'Simple table with no leading pipe fails!'
+            '[parsing] test of simple table with no leading pipe'
         );
 
         // simple table with not constant spacing
@@ -57,11 +57,11 @@ MSG;
 | Cell | Cell |
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Cell</td><td style="text-align:right;">Cell</td></tr><tr><td>Cell</td><td style="text-align:right;">Cell</td></tr></tbody></table>',
-            'Simple table with not constant spacing cells fails!'
+            '[parsing] test of simple table with not constant spaced cells'
         );
 
         // table with multiple headers and label before
@@ -78,11 +78,11 @@ And more      |           And more          ||
 And more                     || And more     |
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<table><caption id="prototype-table">[prototype <em>table</em>]</caption><thead><tr><th></th><th style="text-align:right;" colspan="2">Grouping</th></tr><tr><th>First Header</th><th style="text-align:right;">Second Header</th><th style="text-align:center;">Third header</th></tr><tr><th>First comment</th><th style="text-align:right;">Second comment</th><th style="text-align:center;">Third comment</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;" colspan="2"><em>Long Cell</em></td></tr><tr><td>Content Cell</td><td style="text-align:right;"><strong>Cell</strong></td><td style="text-align:center;"><strong>Cell</strong></td></tr><tr><td>New section</td><td style="text-align:right;">More</td><td style="text-align:center;">Data</td></tr><tr><td>And more</td><td style="text-align:right;" colspan="2">And more</td></tr><tr><td colspan="2">And more</td><td style="text-align:center;">And more</td></tr></tbody></table>',
-            'Complex table with multiple headers and caption above fails!'
+            '[parsing] test of complex table with multiple headers and a caption above'
         );
 
         // table with multiple headers and label after
@@ -100,11 +100,11 @@ And more                     || And more     |
 [prototype *table*]
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<table><caption id="prototype_table">[prototype <em>table</em>]</caption><thead><tr><th></th><th style="text-align:right;" colspan="2">Grouping</th></tr><tr><th>First Header</th><th style="text-align:right;">Second Header</th><th style="text-align:center;">Third header</th></tr><tr><th>First comment</th><th style="text-align:right;">Second comment</th><th style="text-align:center;">Third comment</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;" colspan="2"><em>Long Cell</em></td></tr><tr><td>Content Cell</td><td style="text-align:right;"><strong>Cell</strong></td><td style="text-align:center;"><strong>Cell</strong></td></tr><tr><td>New section</td><td style="text-align:right;">More</td><td style="text-align:center;">Data</td></tr><tr><td>And more</td><td style="text-align:right;" colspan="2">And more</td></tr><tr><td colspan="2">And more</td><td style="text-align:center;">And more</td></tr></tbody></table>',
-            'Complex table with multiple headers and caption below fails!'
+            '[parsing] test of a complex table with multiple headers and a caption below'
         );
 //*/
 
@@ -120,11 +120,11 @@ Content Cell  | **Cell**      | **Cell**     |
 New section   |   More        |         Data |
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<table><thead><tr><th></th><th style="text-align:right;" colspan="2">Grouping</th></tr><tr><th>First Header</th><th style="text-align:right;">Second Header</th><th style="text-align:center;">Third header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;" colspan="2"><em>Long Cell</em></td></tr><tr><td>Content Cell</td><td style="text-align:right;"><strong>Cell</strong></td><td style="text-align:center;"><strong>Cell</strong></td></tr></tbody><tbody><tr><td>New section</td><td style="text-align:right;">More</td><td style="text-align:center;">Data</td></tr><tr><td>And more</td><td style="text-align:right;" colspan="2">And more</td></tr></tbody></table>',
-            'Complex table with multiple bodies fails!'
+            '[parsing] test of complex table with multiple bodies'
         );
 //*/
     }

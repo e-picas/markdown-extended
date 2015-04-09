@@ -105,7 +105,8 @@ An HTML demonstration and the code documentation are available on the "dev" bran
 ### Usage for writers
 
 To be compliant with the **extended** Markdown syntax, writers may construct their contents
-following the rules described at <http://cheatsheet.aboutmde.org/>.
+following the rules described at <http://cheatsheet.aboutmde.org/> (all basic markdown rules
+are still available and valid).
 
 For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
 the latest version can be found at <http://github.com/piwi/markdown-extended/blob/dev/demo/MD_syntax.md>.

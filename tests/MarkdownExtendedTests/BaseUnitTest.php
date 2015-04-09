@@ -21,19 +21,19 @@ class BaseUnitTest
     {
         $this->assertFileExists(
             $this->getPath(array(dirname(__DIR__), 'bootstrap.php')),
-            'getPath() fails for path to "tests/bootstrap.php"'
+            '[internal test] getPath() to "tests/bootstrap.php"'
         );
         $this->assertFileExists(
             $this->getPath(array($this->getBasePath(), 'composer.json')),
-            'getBasePath() fails for root path to "composer.json"'
+            '[internal test] getBasePath() to "composer.json"'
         );
         $this->assertFileExists(
             $this->getResourcePath('test.md'),
-            'getResourcePath() fails for path to "tests/test.md" as a string'
+            '[internal test] getResourcePath() to "tests/test.md" as a string'
         );
         $this->assertFileExists(
             $this->getResourcePath(array('test.md')),
-            'getResourcePath() fails for path to "tests/test.md" as an array'
+            '[internal test] getResourcePath() to "tests/test.md" as an array'
         );
     }
 
@@ -87,7 +87,7 @@ class BaseUnitTest
      */
     public function stripWhitespaces($content = '')
     {
-        return preg_replace('~>\s+<~', '><', $content);
+        return trim(preg_replace('~>\s+<~', '><', $content));
     }
 
     /**
@@ -98,6 +98,14 @@ class BaseUnitTest
     public function stripNewLines($content = '')
     {
         return str_replace("\n", ' ', $content);
+    }
+
+    /**
+     * Alias of stripWhitespaces & stripNewLines
+     */
+    public function stripWhitespaceAndNewLines($content = '')
+    {
+        return $this->stripNewLines($this->stripWhitespaces($content));
     }
 
 }

@@ -10,6 +10,7 @@
 
 namespace MarkdownExtended;
 
+use MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Grammar\Lexer;
 use \MarkdownExtended\Grammar\GamutLoader;
@@ -35,9 +36,6 @@ class Parser
      */
     public function __construct($options = null)
     {
-        // init the kernel
-        $kernel = Kernel::getInstance();
-
         // init options
         $this
             ->resetOptions()
@@ -45,7 +43,7 @@ class Parser
         ;
 
         // init all dependencies
-        $kernel
+        $this->getKernel()
             ->set('Parser',                 $this)
             ->set('OutputFormatBag',        new OutputFormatBag)
             ->set('Grammar\GamutLoader',    new GamutLoader)
@@ -53,8 +51,19 @@ class Parser
         ;
 
         // load required format
-        $kernel->get('OutputFormatBag')
-            ->load($kernel->getConfig('output_format'));
+        $this->getKernel()
+            ->get('OutputFormatBag')
+                ->load($this->getKernel()->getConfig('output_format'));
+    }
+
+    /**
+     * Gets app's Kernel
+     *
+     * @return \MarkdownExtended\API\Kernel
+     */
+    public static function getKernel()
+    {
+        return Kernel::getInstance();
     }
 
     /**
@@ -66,7 +75,7 @@ class Parser
      */
     public function resetOptions()
     {
-        Kernel::set('config', new Registry(MarkdownExtended::getDefaults()));
+        $this->getKernel()->set('config', new Registry(MarkdownExtended::getDefaults()));
         return $this;
     }
 
@@ -105,7 +114,7 @@ class Parser
 
         if (is_array($options) && !empty($options)) {
             foreach ($options as $var=>$val) {
-                Kernel::setConfig($var, $val);
+                $this->getKernel()->setConfig($var, $val);
             }
         }
 
@@ -123,45 +132,27 @@ class Parser
      */
     public function transform($content, $name = null, $primary = true)
     {
-        /* @var $kernel \MarkdownExtended\API\Kernel */
-        $kernel = Kernel::getInstance();
-
-        if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
-            $content = new Content($content, $kernel->get('config')->getAll());
+        if (!is_object($content) || !$this->getKernel()->valid($content, Kernel::TYPE_CONTENT)) {
+            $content = new Content($content, $this->getKernel()->get('config')->getAll());
         }
         if (!is_null($name)) {
             $content->setTitle($name);
         }
 
-        $content_collection = Kernel::get('ContentCollection');
-        $content_collection->append($content);
-        $index = $content_collection->key();
-        $content_collection->next();
-        if (!$content_collection->valid()) {
-            $content_collection->seek($index);
-        }
-        $kernel
+        $this->_registerContent($content);
+        $this->getKernel()
             ->set(Kernel::TYPE_CONTENT, function(){ return Kernel::get('ContentCollection')->current(); })
             ->set('Lexer',              new Lexer)
             ->set('DomId',              new DomIdRegistry)
         ;
 
         // actually parse content
-        $kernel->get('Lexer')->parse($content);
-        $body   = $content->getBody();
-        $notes  = $content->getNotes();
-        $meta   = $content->getMetadata();
-/*//
-var_export($body);
-var_export($notes);
-var_export($meta);
-exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
-//*/
+        $this->getKernel()->get('Lexer')->parse($content);
 
         // force template if needed
-        $tpl = $kernel->getConfig('template');
+        $tpl = $this->getKernel()->getConfig('template');
         if (!is_null($tpl) && $tpl === 'auto') {
-            $tpl = !(Helper::isSingleLine($body));
+            $tpl = !(Helper::isSingleLine($content->getBody()));
         }
         if (!$primary) {
             $tpl = false;
@@ -169,59 +160,17 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
 
         // load it in a template ?
         if (!empty($tpl) && false !== $tpl) {
-            if (
-                (
-                    (is_string($tpl) && class_exists($tpl)) ||
-                    is_object($tpl)
-                ) &&
-                Kernel::validate($tpl, Kernel::TYPE_TEMPLATE)
-            ) {
-                $templater = new $tpl;
-            } else {
-                $templater = new Templater;
-            }
-            $kernel->set(Kernel::TYPE_TEMPLATE, $templater);
-            $content->setContent(
-                $templater->parse($content, $tpl)
-            );
-
+            $this->parseTemplate($tpl, $content);
         } else {
-
-            // if source is a single line
-            if (Helper::isSingleLine($body)) {
-                $content->setContent(
-                    preg_replace('#<[/]?p>#i', '', $body)
-                );
-
-            } else {
-                $content->setContent(
-                    (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
-                    $body .
-                    (!empty($notes) ? PHP_EOL . $content->getNotesFormatted() : '')
-                );
-            }
+            $this->constructContentContent($content);
         }
 
+//        $this->_hardDebugContent($content);
         // write the output in a file?
-        $output = $kernel->getConfig('output');
+        $output = $this->getKernel()->getConfig('output');
         if (!empty($output) && $primary) {
-            $name = $content->getMetadata('file_name');
-            $path = Helper::fillPlaceholders(
-                $output,
-                (!empty($name) ?
-                    pathinfo($name, PATHINFO_FILENAME) : Helper::header2Label($content->getTitle())
-                )
-            );
-            if (file_exists($path) && $kernel->getConfig('force') !== true) {
-                Helper::backupFile($path);
-            }
-            if (!file_exists(dirname($path))) {
-                mkdir(dirname($path));
-            }
-            $written = Helper::writeFile($path, (string) $content);
-
             // return generated file path
-            return $path;
+            return $this->writeOutputFile($output, $content);
         }
 
         // return the content object
@@ -251,12 +200,12 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
         }
 
         $source     = Helper::readFile($path);
-        $content    = new Content($source, Kernel::get('config')->getAll());
+        $content    = new Content($source, $this->getKernel()->get('config')->getAll());
         $content
             ->addMetadata('last_update', new DateTime('@'.filemtime($path)))
             ->addMetadata('file_name', $path)
         ;
-        Kernel::addConfig('base_path', realpath(dirname($path)));
+        $this->getKernel()->addConfig('base_path', realpath(dirname($path)));
         return $this->transform($content, $path, $primary);
     }
 
@@ -300,6 +249,123 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
         }
 
         return $options;
+    }
+
+    /**
+     * Constructs a content's content
+     *
+     * This will load a simple not-paragraphed content if the original
+     * body seems to be a single line and a concatenation of the
+     * metadata + body + notes otherwise.
+     *
+     * @param \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return \MarkdownExtended\API\ContentInterface
+     */
+    protected function constructContentContent(ContentInterface $content)
+    {
+        $body = $content->getBody();
+        // if source is a single line
+        if (Helper::isSingleLine($body)) {
+            $content->setContent(
+                preg_replace('#<[/]?p>#i', '', $body)
+            );
+
+        } else {
+            $content->setContent(
+                (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
+                $body .
+                (!empty($notes) ? PHP_EOL . $content->getNotesFormatted() : '')
+            );
+        }
+        return $content;
+    }
+
+    /**
+     * Inserts a content in a template
+     *
+     * @param string|\MarkdownExtended\API\TemplateInterface $template
+     * @param \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return \MarkdownExtended\API\ContentInterface
+     */
+    protected function parseTemplate($template, ContentInterface $content)
+    {
+        // create a new templater if needed
+        if (
+            (
+                (is_string($template) && class_exists($template)) ||
+                is_object($template)
+            ) &&
+            $this->getKernel()->validate($template, Kernel::TYPE_TEMPLATE)
+        ) {
+            $templater = new $template;
+        } else {
+            $templater = new Templater;
+        }
+
+        // register the templater
+        $this->getKernel()->set(Kernel::TYPE_TEMPLATE, $templater);
+
+        // parse content into template
+        $content->setContent(
+            $templater->parse($content, $template)
+        );
+
+        return $content;
+    }
+
+    /**
+     * Writes a content in a local path and returns written length
+     *
+     * @param string $path
+     * @param \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return int
+     */
+    protected function writeOutputFile($path, ContentInterface $content)
+    {
+        $name = $content->getMetadata('file_name');
+        $path = Helper::fillPlaceholders(
+            $path,
+            (!empty($name) ?
+                pathinfo($name, PATHINFO_FILENAME) : Helper::header2Label($content->getTitle())
+            )
+        );
+
+        // make a backup if path exists and `option[force]!==true`
+        if (file_exists($path) && $this->getKernel()->getConfig('force') !== true) {
+            Helper::backupFile($path);
+        }
+
+        // write output
+        if (!file_exists(dirname($path))) {
+            mkdir(dirname($path));
+        }
+        Helper::writeFile($path, (string) $content);
+
+        // return created path
+        return $path;
+    }
+
+    // register a new content in collection
+    private function _registerContent(ContentInterface $content)
+    {
+        $content_collection = $this->getKernel()->get('ContentCollection');
+        $content_collection->append($content);
+        $index = $content_collection->key();
+        $content_collection->next();
+        if (!$content_collection->valid()) {
+            $content_collection->seek($index);
+        }
+    }
+
+    // hard debug of a content object
+    private function _hardDebugContent(ContentInterface $content)
+    {
+        echo Helper::debug($content->getBody(), 'content body');
+        echo Helper::debug($content->getNotes(), 'content notes', false);
+        echo Helper::debug($content->getMetadata(), 'content metadata', false);
     }
 
 }

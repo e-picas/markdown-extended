@@ -10,6 +10,8 @@
 
 namespace MarkdownExtended\Console;
 
+use \MarkdownExtended\Util\Registry;
+use \MarkdownExtended\Util\Helper;
 
 /**
  * A class to manage command line options based on a set of definitions
@@ -18,8 +20,8 @@ class UserInput
 {
 
     const NEGATE_SUFFIX             = 'no-';
-    protected static $NEGATE_VAL    = '_negate';
-    protected static $NEGATE_INFO   = 'This option can be negated by "--no-%s".';
+    public static $NEGATE_VAL       = '_negate';
+    public static $NEGATE_INFO      = 'This option can be negated by "--no-%s".';
 
     /**
      * Use this when concerned option does NOT have any argument (i.e. for flags)
@@ -68,178 +70,111 @@ class UserInput
      */
     const TYPE_LISTITEM = 8;
 
-    /**
-     * Organize and cleanup an option definition
-     *
-     * The `$item` definition array may follow these rules:
-     *
-     * -    'description' (required) is the option description used in help string
-     * -    'argument' (required) is the argument behavior: null, optional or required
-     *      (use the `ARG_` class constants)
-     * -    'type' (optional) is the argument type (use the `TYPE_` class constants) ;
-     *      it defaults to the boolean type if the argument is null and is required otherwise ;
-     *      you can use multiple types using bitwise notation: `TYPE_1 | TYPE_2`
-     * -    'default' (optional) is the default value of the option ; it defaults to
-     *      `false` if the argument is optional or the type is boolean and `null` otherwise
-     * -    'default_arg' (optional) is the default argument value used when the argument
-     *      is optional and the option is used ; it defaults to 'default'
-     * -    'shortcut' (optional) is the one-letter option shortcut
-     * -    'negate' (optional) allows the option to be negated using option `--no-OPTION` ;
-     *      this will reset the default value of the option to `false` when the negate option
-     *      is used
-     * -    'list' (required for the LISTITEM type) defines the allowed list of option values
-     *
-     * @param   array   $item
-     * @param   string  $name
-     * @return  array
-     */
-    public static function prepareOptionDefinition(array $item, $name)
+    protected $options;
+    protected $options_indexed;
+    protected $user_options;
+
+    public function __construct(array $definitions)
     {
-        $item['name'] = $name;
+        $this->options          = new Registry;
+        $this->options_indexed  = array();
 
-        if (!isset($item['description'])) {
-            throw new \InvalidArgumentException(
-                sprintf('Option "%s" must define a description.', $name)
-            );
-        }
-        if (!isset($item['argument'])) {
-            throw new \InvalidArgumentException(
-                sprintf('Option "%s" must define if its argument is required, optional or null.', $name)
-            );
-        }
-
-        $arg_suffix = '';
-        switch ($item['argument']) {
-            case self::ARG_OPTIONAL: $arg_suffix = '::'; break;
-            case self::ARG_REQUIRED: $arg_suffix = ':'; break;
-        }
-        $item['long_option']    = $name . $arg_suffix;
-        $item['short_option']   = !empty($item['shortcut']) ? $item['shortcut'] . $arg_suffix : null;
-
-        if (!isset($item['type'])) {
-            if ($item['argument'] === self::ARG_NULL) {
-                $item['type'] = self::TYPE_BOOL;
-            } else {
-                throw new \InvalidArgumentException(
-                    sprintf('Option "%s" must define its type', $name)
-                );
+        $counter = 0;
+        foreach ($definitions as $name=>$item) {
+            $option = new UserOption($item, $name);
+            $this->options->set($counter, $option);
+            $this->options_indexed[$name] = $counter;
+            if ($option->has('shortcut')) {
+                $this->options_indexed[$option->get('shortcut')] = $counter;
             }
+            $counter++;
         }
-
-        if (!isset($item['default'])) {
-            if ($item['type'] === self::TYPE_BOOL) {
-                $item['default'] = false;
-            }
-        }
-
-        $item['_default'] = isset($item['default']) ? $item['default'] : (
-                $item['argument'] === self::ARG_OPTIONAL ? false : null
-            );
-
-        $item['_default_arg'] = isset($item['default_arg']) ? $item['default_arg'] : $item['_default'];
-
-        if (!isset($item['negate'])) {
-            $item['negate'] = false;
-        }
-
-        if (($item['type'] & self::TYPE_LISTITEM) && !isset($item['list'])) {
-            throw new \InvalidArgumentException(
-                sprintf('Option "%s" must define the list of available values', $name)
-            );
-        }
-
-        return $item;
     }
 
     /**
-     * Validate a user CLI option value
+     * Gets an option object by name or shortcut
      *
-     * @param   string  $value
-     * @param   array   $definition
-     * @return  bool
+     * @param $name
+     *
+     * @return \MarkdownExtended\Console\UserOption
      */
-    public static function validateOptionValue($value, array $definition)
+    public function getOption($name)
     {
-        // treat negation first
-        if ($value === self::$NEGATE_VAL && $definition['negate'] === true) {
-            return false;
-        }
+        $name = rtrim($name, ':');
+        return array_key_exists($name, $this->options_indexed) ?
+            $this->options->get($this->options_indexed[$name]) : null;
+    }
 
-        // be sure to have a value when required
-        if ($definition['argument'] === self::ARG_REQUIRED && empty($value)) {
-            throw new \InvalidArgumentException(
-                sprintf('Option "%s" requires a value', $definition['name'])
-            );
+    /**
+     * Gets the array of options indexed by their names
+     *
+     * @return array
+     */
+    public function getIndexedOptions()
+    {
+        $options = array();
+        foreach ($this->options->getAll() as $item) {
+            $options[$item->get('name')] = $item;
         }
+        return $options;
+    }
 
-        // return the default_arg value if not boolean and just `false`
-        if ($definition['type'] > self::TYPE_BOOL && $value === false) {
-            return $definition['_default_arg'];
+    /**
+     * Gets an array of a value of each option, indexed by their names
+     *
+     * @param string $name
+     *
+     * @return array
+     */
+    public function getFilteredOptions($name)
+    {
+        $data = array();
+        foreach ($this->getIndexedOptions() as $i=>$item) {
+            $data[$i] = $item->get($name);
         }
+        return $data;
+    }
 
-        // inverse default `getopt()` return when no argument (which is `false`)
-        if (($definition['type'] & self::TYPE_BOOL) && $value === false) {
-            return true;
+    /**
+     * Gets an automatic information of a set of options
+     *
+     * @return array
+     */
+    public function getOptionsInfo()
+    {
+        $info = array();
+        foreach ($this->options->getAll() as $name=>$item) {
+            list($_index, $_data) = $item->getInfo();
+            $info[$_index] = $_data;
         }
+        return $info;
+    }
 
-        // validate a file path if needed
-        if (($definition['type'] & self::TYPE_PATH) && !file_exists($value)) {
-            throw new \InvalidArgumentException(
-                sprintf('Option "%s" must be a valid file path', $definition['name'])
-            );
+    /**
+     * Gets an automatic synopsis of a set of options
+     *
+     * @return array
+     */
+    public function getOptionsSynopsis()
+    {
+        $info = array();
+        foreach ($this->options->getAll() as $name=>$item) {
+            $info[] = $item->getSynopsis();
         }
-
-        // validate a list item if needed
-        if (($definition['type'] & self::TYPE_LISTITEM) && !in_array($value, $definition['list'], true)) {
-            throw new \InvalidArgumentException(
-                sprintf('Option "%s" must be a value in "%s" (got "%s")',
-                    $definition['name'], implode('", "', $definition['list']), $value)
-            );
-        }
-
-        return $value;
+        return $info;
     }
 
     /**
      * Parse the command line user options based on CLI options definitions
      *
-     * @param   array $definitions
      * @return  object
+     *
+     * @throws \InvalidArgumentException if an option is unknown
      */
-    public static function parseOptions(array $definitions)
+    public function parseOptions()
     {
-        // be sure to have fully qualified definitions
-        foreach ($definitions as $name=>$item) {
-            $definitions[$name] = self::prepareOptionDefinition($item, $name);
-        }
-
-        // extract from definitions
-        $short_options = array_filter(array_map(function($item) {
-            return $item['short_option'];
-        }, $definitions));
-        $long_options = array_filter(array_map(function($item) {
-            return $item['long_option'];
-        }, $definitions));
-        $default_options = array_map(function($item) {
-            return $item['_default'];
-        }, $definitions);
-        $options_stack = array_flip(array_map(function($item) {
-            return isset($item['shortcut']) ? $item['shortcut'] : $item['name'];
-        }, $definitions));
-
         // treat CLI options
-        $options = getopt(join('', array_values($short_options)), $long_options);
-
-        foreach ($options as $var=>$val) {
-            $index = array_key_exists($var, $options_stack) ? $options_stack[$var] : $var;
-            if ($index !== $var) {
-                $options[$index] = $val;
-                unset($options[$var]);
-            }
-            if (array_key_exists($index, $definitions)) {
-                $options[$index] = self::validateOptionValue($val, $definitions[$index]);
-            }
-        }
+        $options = $this->getopt();
 
         // extract remaining options
         $argv = self::getSanitizedUserInput();
@@ -248,11 +183,11 @@ class UserInput
             if (array_key_exists(trim($arg, '-'), $options) || in_array($arg, $options, true)) {
                 unset($argv[$i]);
             } elseif (
-                preg_match('/^-([a-zA-Z]+)$/', $arg, $matches) ||
-                preg_match('/^-([a-zA-Z]+)=(.*)/', $arg, $matches)
+                preg_match('/^[-]+([a-zA-Z]+)$/', $arg, $matches) ||
+                preg_match('/^[-]+([a-zA-Z]+)=(.*)/', $arg, $matches)
             ) {
                 foreach (str_split($matches[1]) as $letter) {
-                    if (array_key_exists($letter, $options_stack)) {
+                    if ($option = $this->getOption($letter)) {
                         $arg = str_replace($letter, '', $arg);
                     }
                 }
@@ -263,8 +198,8 @@ class UserInput
                 }
             } elseif (substr(trim($arg, '-'), 0, strlen(self::NEGATE_SUFFIX)) === self::NEGATE_SUFFIX) {
                 $index = substr(trim($arg, '-'), strlen(self::NEGATE_SUFFIX));
-                if (array_key_exists($index, $definitions)) {
-                    $options[$index] = self::validateOptionValue(self::$NEGATE_VAL, $definitions[$index]);
+                if ($option = $this->getOption($index)) {
+                    $options[$index] = $option->validateUserValue(self::$NEGATE_VAL);
                     unset($argv[$i]);
                 }
             }
@@ -278,100 +213,13 @@ class UserInput
             }
         }
 
-/*/
-        echo Helper::debug(array_values($short_options), 'short options', false);
-        echo Helper::debug(array_values($long_options), 'long options', false);
-        echo Helper::debug($default_options, 'defaults', false);
-        echo Helper::debug($options_stack, 'options stack', false);
-        echo Helper::debug($options, 'input user options', false);
-        echo Helper::debug($argv, 'remaining arguments', false);
-        echo Helper::debug(array_merge($default_options, $options), 'final full options', false);
-//*/
-
+//        $this->_hardDebug();
         // standard object to return
-        $obj            = new \StdClass();
-        $obj->options   = array_merge($default_options, $options);
-        $obj->remain    = $argv;
-        $obj->original  = self::getSanitizedUserInput();
-        return $obj;
-    }
-
-    /**
-     * Gets an automatic information of a set of options
-     *
-     * @param array $definitions
-     * @return array
-     */
-    public static function getOptionsInfo(array $definitions)
-    {
-        $info = array();
-
-        foreach ($definitions as $name=>$item) {
-            $item = self::prepareOptionDefinition($item, $name);
-            $index = '';
-            if (!empty($item['shortcut'])) {
-                $index .= '-' . $item['shortcut'] . ', ';
-            }
-            $index .= '--' . $item['name'] . self::getOptionArgumentString($item);
-            if ($item['negate'] === true) {
-                $info[$index] = array(
-                    $item['description'],
-                    sprintf(self::$NEGATE_INFO, $name)
-                );
-            } else {
-                $info[$index] = $item['description'];
-            }
-        }
-
-        return $info;
-    }
-
-    /**
-     * Gets an automatic synopsis of a set of options
-     *
-     * @param array $definitions
-     * @return array
-     */
-    public static function getOptionsSynopsis(array $definitions)
-    {
-        $info = array();
-
-        foreach ($definitions as $name=>$item) {
-            $item = self::prepareOptionDefinition($item, $name);
-            $str = '[--' . $item['name'];
-            if (!empty($item['shortcut'])) {
-                $str .= '|-' . $item['shortcut'];
-            }
-            $str .= self::getOptionArgumentString($item) . ']';
-            $info[] = $str;
-        }
-
-        return $info;
-    }
-
-    /**
-     * Gets an option value type as string
-     *
-     * @param array $item
-     * @return string
-     */
-    protected static function getOptionArgumentString(array $item)
-    {
-        $str = '';
-        if (self::ARG_NULL !== $item['argument']) {
-            $str .= self::ARG_OPTIONAL == $item['argument'] ?
-                ' (=' : ' =';
-            if ($item['type'] & self::TYPE_PATH) {
-                $str .= 'PATH';
-            } elseif ($item['type'] & self::TYPE_STRING) {
-                $str .= 'STRING';
-            } else {
-                $str .= 'true/false';
-            }
-            $str .= self::ARG_OPTIONAL == $item['argument'] ?
-                ')' : '';
-        }
-        return $str;
+        $this->user_options            = new \StdClass();
+        $this->user_options->options   = array_merge($this->getFilteredOptions('_default'), $options);
+        $this->user_options->remain    = $argv;
+        $this->user_options->original  = self::getSanitizedUserInput();
+        return $this->user_options;
     }
 
     /**
@@ -384,6 +232,43 @@ class UserInput
         return array_map(function($item) {
             return filter_var($item, FILTER_UNSAFE_RAW);
         }, $_SERVER['argv']);
+    }
+
+    /**
+     * Process internal PHP `getopt()` on defined options
+     *
+     * @return array
+     *
+     * @see http://php.net/getopt
+     */
+    protected function getopt()
+    {
+        $short_options  = $this->getFilteredOptions('short_option');
+        $long_options   = $this->getFilteredOptions('long_option');
+        $options        = getopt(join('', array_values($short_options)), $long_options);
+        foreach ($options as $var => $val) {
+            if ($option = $this->getOption($var)) {
+                if ($option->get('name') !== $var) {
+                    $options[$option->get('name')] = $val;
+                    unset($options[$var]);
+                }
+                $options[$option->get('name')] = $option->validateUserValue($val);
+            }
+        }
+        return $options;
+    }
+
+    // hard debug of object options & user input
+    private function _hardDebug()
+    {
+        $short_options  = $this->getFilteredOptions('short_option');
+        $long_options   = $this->getFilteredOptions('long_option');
+        echo Helper::debug(array_values($short_options), 'short options', false);
+        echo Helper::debug(array_values($long_options), 'long options', false);
+        echo Helper::debug($this->getFilteredOptions('_default'), 'defaults', false);
+        echo Helper::debug($this->user_options->original, 'input user options', false);
+        echo Helper::debug($this->user_options->remaining, 'remaining arguments', false);
+        echo Helper::debug($this->user_options->options, 'final full options', false);
     }
 
 }

@@ -109,7 +109,7 @@ class Registry
      */
     public function get($var, $default = null)
     {
-        return isset($this->data[$var]) ? $this->data[$var] : $default;
+        return $this->has($var) ? $this->data[$var] : $default;
     }
 
     /**

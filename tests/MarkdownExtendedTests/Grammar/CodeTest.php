@@ -24,7 +24,7 @@ class CodeTest extends ParserTest
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, array('template'=>false)),
             'my text with <code>some code</code> for test ...',
-            'Code fails!'
+            '[parsing] test of code span'
         );
 
         // code blocks
@@ -40,7 +40,7 @@ MSG;
                 (string) MarkdownExtended::parse($md, array('template'=>false))
             ),
             '<p>para1</p><pre>My code here</pre><p>para2</p>',
-            'Code block fails!'
+            '[parsing] test of code block'
         );
 
         // fenced code blocks
@@ -55,7 +55,7 @@ MSG;
             ),
             '<pre>My code here
 </pre>',
-            'Fenced code block fails!'
+            '[parsing] test of fenced code block'
         );
 
         // fenced code blocks with language
@@ -72,7 +72,7 @@ MSG;
             ),
             '<pre class="language-html">My code here
 </pre>',
-            'Fenced code block with language info fails!'
+            '[parsing] test of fenced code block with language info'
         );
 
     }

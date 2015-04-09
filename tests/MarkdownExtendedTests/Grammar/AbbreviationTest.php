@@ -26,7 +26,7 @@ A text whit HTML expression.
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, array('template'=>false)),
             'A text whit <abbr title="Hyper Text Markup Language">HTML</abbr> expression.',
-            'Abbreviation fails!'
+            '[parsing] Test of abbreviation'
         );
     }
     

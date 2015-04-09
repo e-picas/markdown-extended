@@ -82,6 +82,11 @@ abstract class AbstractConsole
     protected $stream;
 
     /**
+     * @var \MarkdownExtended\Console\UserInput
+     */
+    protected $user_input;
+
+    /**
      * @var bool
      */
     protected $arg_required;
@@ -124,6 +129,19 @@ abstract class AbstractConsole
     {
         $this->stream = $stream;
         $this->stream->setExceptionHandlerCallback(array($this, 'runUsage'));
+        return $this;
+    }
+
+    /**
+     * Sets console's user input handler
+     *
+     * @param \MarkdownExtended\Console\UserInput $input
+     *
+     * @return $this
+     */
+    public function setUserInput(UserInput $input)
+    {
+        $this->user_input = $input;
         return $this;
     }
 
@@ -260,7 +278,7 @@ abstract class AbstractConsole
     /**
      * Adds a new CLI option available for the command
      *
-     * See the `\MarkdownExtended\Console\UserInput::prepareOptionDefinition()`
+     * See the `\MarkdownExtended\Console\UserOption`
      * method for a full review of what `$opt` can contain.
      *
      * @param string $name
@@ -302,7 +320,10 @@ abstract class AbstractConsole
      */
     public function parseOptions()
     {
-        $user_input         = UserInput::parseOptions($this->cli_options);
+        if (empty($this->user_input)) {
+            $this->setUserInput(new UserInput($this->cli_options));
+        }
+        $user_input         = $this->user_input->parseOptions();
         $this->options      = $user_input->options;
         $this->arguments    = $user_input->remain;
 
@@ -342,7 +363,7 @@ abstract class AbstractConsole
             Stream::PADDER . $this->synopsis,
             '',
             'Options:',
-            UserInput::getOptionsInfo($this->cli_options),
+            $this->user_input->getOptionsInfo(),
             '',
             $this->usage,
         );
@@ -365,7 +386,7 @@ abstract class AbstractConsole
             str_pad('usage:', strlen(str_repeat(Stream::PADDER, 2)), ' ')  . $this->synopsis
         );
 
-        $usage_options  = UserInput::getOptionsSynopsis($this->cli_options);
+        $usage_options  = $this->user_input->getOptionsSynopsis();
         $counter        = 0;
         $linelen        = 2;
         while ($counter < count($usage_options)) {

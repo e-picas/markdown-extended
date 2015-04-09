@@ -22,7 +22,7 @@ class EmphasisTest extends ParserTest
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, array('template'=>false)),
             '<strong>Hello</strong> <em>World</em>',
-            'Emphasis fails!'
+            '[parsing] test of emphasis'
         );
     }
     
