@@ -139,13 +139,7 @@ class Parser
             $content->setTitle($name);
         }
 
-        $content_collection = $this->getKernel()->get('ContentCollection');
-        $content_collection->append($content);
-        $index = $content_collection->key();
-        $content_collection->next();
-        if (!$content_collection->valid()) {
-            $content_collection->seek($index);
-        }
+        $this->_registerContent($content);
         $this->getKernel()
             ->set(Kernel::TYPE_CONTENT, function(){ return Kernel::get('ContentCollection')->current(); })
             ->set('Lexer',              new Lexer)
@@ -154,20 +148,11 @@ class Parser
 
         // actually parse content
         $this->getKernel()->get('Lexer')->parse($content);
-        $body   = $content->getBody();
-        $notes  = $content->getNotes();
-        $meta   = $content->getMetadata();
-/*//
-var_export($body);
-var_export($notes);
-var_export($meta);
-exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
-//*/
 
         // force template if needed
         $tpl = $this->getKernel()->getConfig('template');
         if (!is_null($tpl) && $tpl === 'auto') {
-            $tpl = !(Helper::isSingleLine($body));
+            $tpl = !(Helper::isSingleLine($content->getBody()));
         }
         if (!$primary) {
             $tpl = false;
@@ -176,24 +161,11 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
         // load it in a template ?
         if (!empty($tpl) && false !== $tpl) {
             $this->parseTemplate($tpl, $content);
-
         } else {
-
-            // if source is a single line
-            if (Helper::isSingleLine($body)) {
-                $content->setContent(
-                    preg_replace('#<[/]?p>#i', '', $body)
-                );
-
-            } else {
-                $content->setContent(
-                    (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
-                    $body .
-                    (!empty($notes) ? PHP_EOL . $content->getNotesFormatted() : '')
-                );
-            }
+            $this->constructContentContent($content);
         }
 
+//        $this->_hardDebugContent($content);
         // write the output in a file?
         $output = $this->getKernel()->getConfig('output');
         if (!empty($output) && $primary) {
@@ -280,6 +252,36 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
     }
 
     /**
+     * Constructs a content's content
+     *
+     * This will load a simple not-paragraphed content if the original
+     * body seems to be a single line and a concatenation of the
+     * metadata + body + notes otherwise.
+     *
+     * @param \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return \MarkdownExtended\API\ContentInterface
+     */
+    protected function constructContentContent(ContentInterface $content)
+    {
+        $body = $content->getBody();
+        // if source is a single line
+        if (Helper::isSingleLine($body)) {
+            $content->setContent(
+                preg_replace('#<[/]?p>#i', '', $body)
+            );
+
+        } else {
+            $content->setContent(
+                (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
+                $body .
+                (!empty($notes) ? PHP_EOL . $content->getNotesFormatted() : '')
+            );
+        }
+        return $content;
+    }
+
+    /**
      * Inserts a content in a template
      *
      * @param string|\MarkdownExtended\API\TemplateInterface $template
@@ -344,6 +346,30 @@ exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
 
         // return created path
         return $path;
+    }
+
+    // register a new content in collection
+    private function _registerContent(ContentInterface $content)
+    {
+        $content_collection = $this->getKernel()->get('ContentCollection');
+        $content_collection->append($content);
+        $index = $content_collection->key();
+        $content_collection->next();
+        if (!$content_collection->valid()) {
+            $content_collection->seek($index);
+        }
+    }
+
+    // hard debug of a content object
+    private function _hardDebugContent(ContentInterface $content)
+    {
+        $body   = $content->getBody();
+        $notes  = $content->getNotes();
+        $meta   = $content->getMetadata();
+        var_export($body);
+        var_export($notes);
+        var_export($meta);
+        exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
     }
 
 }
