@@ -76,7 +76,7 @@ class Helper
      *        &#x6d;">&#x66;o&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;
      *        &#101;&#46;&#x63;&#111;&#x6d;</a></p>
      *
-     *  Based by a filter by Matthew Wickline, posted to BBEdit-Talk.
+     *  Based on a filter by Matthew Wickline, posted to BBEdit-Talk.
      *  With some optimizations by Milian Wolff.
      *
      * @param   string  $addr   The email address to encode

@@ -263,10 +263,9 @@ class UserInput
     {
         $short_options  = $this->getFilteredOptions('short_option');
         $long_options   = $this->getFilteredOptions('long_option');
-        $defaults       = $this->getFilteredOptions('_default');
         echo Helper::debug(array_values($short_options), 'short options', false);
         echo Helper::debug(array_values($long_options), 'long options', false);
-        echo Helper::debug($defaults, 'defaults', false);
+        echo Helper::debug($this->getFilteredOptions('_default'), 'defaults', false);
         echo Helper::debug($this->user_options->original, 'input user options', false);
         echo Helper::debug($this->user_options->remaining, 'remaining arguments', false);
         echo Helper::debug($this->user_options->options, 'final full options', false);

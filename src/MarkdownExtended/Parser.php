@@ -363,13 +363,9 @@ class Parser
     // hard debug of a content object
     private function _hardDebugContent(ContentInterface $content)
     {
-        $body   = $content->getBody();
-        $notes  = $content->getNotes();
-        $meta   = $content->getMetadata();
-        var_export($body);
-        var_export($notes);
-        var_export($meta);
-        exit(PHP_EOL.'-- EXIT --'.PHP_EOL);
+        echo Helper::debug($content->getBody(), 'content body');
+        echo Helper::debug($content->getNotes(), 'content notes', false);
+        echo Helper::debug($content->getMetadata(), 'content metadata', false);
     }
 
 }
