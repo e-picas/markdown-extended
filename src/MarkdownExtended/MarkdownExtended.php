@@ -10,6 +10,8 @@
 
 namespace MarkdownExtended;
 
+use \MarkdownExtended\API\Kernel;
+
 /**
  * PHP Markdown Extended
  *
@@ -59,6 +61,7 @@ namespace MarkdownExtended;
  *
  */
 class MarkdownExtended
+    extends Parser
 {
 
     const SHORTNAME = 'markdown-extended-php';
@@ -294,7 +297,7 @@ class MarkdownExtended
      */
     public static function parse($content, $options = null)
     {
-        $mde = new Parser($options);
+        $mde = new self($options);
         return (false === strpos($content, PHP_EOL) && file_exists($content)) ?
             $mde->transformSource($content) : $mde->transform($content);
     }
@@ -309,7 +312,7 @@ class MarkdownExtended
      */
     public static function parseString($content, $options = null)
     {
-        $mde = new Parser($options);
+        $mde = new self($options);
         return $mde->transform($content);
     }
 
@@ -323,7 +326,7 @@ class MarkdownExtended
      */
     public static function parseSource($path, $options = null)
     {
-        $mde = new Parser($options);
+        $mde = new self($options);
         return $mde->transformSource($path);
     }
 
