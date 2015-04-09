@@ -30,7 +30,7 @@ class BlockquoteTest extends ParserTest
                 (string) MarkdownExtended::parse($md, array('template'=>false))
             ),
             '<blockquote><p>My citation</p><p>With a paragraph and some <code>code</code></p><pre>and even a preformatted string</pre></blockquote>',
-            'Blockquote fails!'
+            '[parsing] test of blockquote'
         );
     }
     

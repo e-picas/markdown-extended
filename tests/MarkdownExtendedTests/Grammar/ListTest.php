@@ -28,11 +28,11 @@ class ListTest extends ParserTest
 -   third item
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<ul><li>first item</li><li>second item  <ul><li>first sub-item</li><li>second sub-item</li></ul></li><li>third item</li></ul>',
-            'Unordered list fails!'
+            '[parsing] test of unordered list'
         );
 
         // ordered list
@@ -44,11 +44,11 @@ MSG;
 5.   third item
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<ol><li>first item</li><li>second item  <ol><li>first sub-item</li><li>second sub-item</li></ol></li><li>third item</li></ol>',
-            'Ordered list fails!'
+            '[parsing] test of ordered list'
         );
     }
     

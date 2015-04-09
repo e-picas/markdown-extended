@@ -24,7 +24,7 @@ class LinkTest extends ParserTest
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, array('template'=>false)),
             '<a href="http://getcomposer.org/" title="See online http://getcomposer.org/">Composer</a>',
-            'Simple links not work!'
+            '[parsing] test of simple links'
         );
 
         // link with a title
@@ -32,7 +32,7 @@ class LinkTest extends ParserTest
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, array('template'=>false)),
             '<a href="http://getcomposer.org/" title="My title">Composer</a>',
-            'Links with title does not work!'
+            '[parsing] test of links with title'
         );
 
     }

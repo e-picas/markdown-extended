@@ -28,11 +28,11 @@ Vestibulum enim wisi, viverra nec, fringilla in, laoreet
 vitae, risus.
 MSG;
         $this->assertEquals(
-            $this->stripNewLines($this->stripWhitespaces(
+            $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, array('template'=>false))
-            )),
+            ),
             '<p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. <img alt="Alt text" src="http://upload.wikimedia.org/wikipedia/commons/7/70/Example.png" title="Optional image title" /></p><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>',
-            'Image fails!'
+            '[parsing] test of image'
         );
     }
     

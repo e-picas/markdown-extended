@@ -23,7 +23,7 @@ class ConsoleTest
         $this->assertEquals(
             $res['stdout'],
             'TEST',
-            'Command runner does not work'
+            '[internal test] command runner'
         );
     }
 

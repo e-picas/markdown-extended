@@ -22,7 +22,7 @@ class HeaderTest extends ParserTest
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, array('template'=>false)),
             '<h1 id="hello-world">Hello World</h1>',
-            'Header fails!'
+            '[parsing] test of header'
         );
     }
     
