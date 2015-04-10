@@ -11,7 +11,7 @@
 // PHP 5.3.3+
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     trigger_error(
-        sprintf('The "MarkdownExtended" application required PHP version 5.3.3 minimum (current running version is %s)', PHP_VERSION),
+        sprintf('The "MarkdownExtended" application requires PHP version 5.3.3 minimum (current running version is %s)', PHP_VERSION),
         E_USER_ERROR
     );
 }
