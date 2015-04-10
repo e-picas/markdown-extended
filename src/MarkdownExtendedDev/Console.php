@@ -203,19 +203,21 @@ MSG
 
     protected function makeRelease()
     {
-        $version = $this->getOption('release');
-        if (empty($version)) {
-            $version = 'patch';
+        $target = $this->getOption('release');
+        if (empty($target)) {
+            $target = 'patch';
         }
+        $target_parts = explode('-', $target);
 
-        $actual = explode('-', MarkdownExtended::VERSION);
+        $actual = MarkdownExtended::VERSION;
         $this->stream->verboseln(
             sprintf('Actual version is "%s"', MarkdownExtended::VERSION)
         );
+        $actual_parts = explode('-', $actual);
 
-        list($major, $minor, $patch) = explode('.', $actual[0]);
+        list($major, $minor, $patch) = explode('.', $actual_parts[0]);
         $final = null;
-        switch ($version) {
+        switch ($target) {
             case 'major':
                 $major++;
                 $minor = $patch = 0;
@@ -228,18 +230,19 @@ MSG
                 $patch++;
                 break;
             default:
-                $final = $version;
+                $final = $target_parts[0];
         }
         if (is_null($final)) {
             $final = implode('.', array($major, $minor, $patch));
         }
-
-        if (count($actual) > 1) {
-            $final .= '-' . $actual[2];
+        if (count($target_parts) > 1) {
+            $final .= '-' . $target_parts[1];
+        } elseif (count($actual_parts) > 1) {
+            $final .= '-' . $actual_parts[1];
         }
         $date = date('Y-m-d');
 
-        $this->stream->verboseln(
+        $this->stream->writeln(
             sprintf('New version is "%s". You have 2 sec to cancel ("Ctrl+C") ...', $final)
         );
         sleep(2);
@@ -255,7 +258,7 @@ MSG
         );
         $content = Helper::readFile($md_class);
         $content = preg_replace(
-            Helper::buildRegex('VERSION([ ]+)=([ ]+)\'' . $actual[0] . '\';'),
+            Helper::buildRegex('VERSION([ ]+)=([ ]+)\'' . $actual . '\';'),
             'VERSION$1=$2\'' . $final . '\';',
             $content
         );
@@ -279,7 +282,7 @@ MSG
         );
         $content = Helper::readFile($man3);
         $content = preg_replace(
-            Helper::buildRegex('Version:([ ]+)' . $actual[0]),
+            Helper::buildRegex('Version:([ ]+)' . $actual),
             'Version:${1}' . $final,
             $content
         );
@@ -303,7 +306,7 @@ MSG
         );
         $content = Helper::readFile($man7);
         $content = preg_replace(
-            Helper::buildRegex('Version:([ ]+)' . $actual[0]),
+            Helper::buildRegex('Version:([ ]+)' . $actual),
             'Version:${1}' . $final,
             $content
         );
