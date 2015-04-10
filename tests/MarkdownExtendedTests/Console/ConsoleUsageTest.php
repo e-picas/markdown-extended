@@ -231,4 +231,105 @@ MSG
         );
     }
 
+    /**
+     * Test a call on a simple string with a custom template
+     *
+     * @runInSeparateProcess
+     */
+    public function testExtract()
+    {
+        $file = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
+        $meta = array(
+            'meta1' => 'a value for meta 1',
+            'meta2' => 'another value for meta 2'
+        );
+        $meta_str = '';
+        foreach ($meta as $var=>$val) {
+            $meta_str .= $var.': '.$val.PHP_EOL;
+        }
+        $body = $this->stripWhitespaceAndNewLines(
+            <<<MSG
+<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
+voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
+<blockquote>
+  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
+      expedita distinctio.</p>
+</blockquote>
+<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
+tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+perferendis doloribus asperiores repellat.</p>
+MSG
+        );
+        $html = $this->stripWhitespaceAndNewLines(
+            <<<MSG
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>tests/test-meta.md</title>
+    <meta name="meta1" content="a value for meta 1" />
+<meta name="meta2" content="another value for meta 2" />
+</head>
+<body>
+{$body}
+</body>
+</html>
+MSG
+        );
+
+        // full content
+        $res1 = $this->runCommand($this->getBaseCmd().' '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res1['stdout'])),
+            $html,
+            'Test of the CLI on a file with metadata'
+        );
+
+        // extraction of metadata
+        $res2 = $this->runCommand($this->getBaseCmd().' -e '.$file);
+        $this->assertEquals(
+            trim($res2['stdout']),
+            trim($meta_str),
+            'Test of the CLI on a file with metadata extraction without argument (short option "-e")'
+        );
+        $res3 = $this->runCommand($this->getBaseCmd().' --extract '.$file);
+        $this->assertEquals(
+            trim($res3['stdout']),
+            trim($meta_str),
+            'Test of the CLI on a file with metadata extraction without argument (long option "--extract")'
+        );
+
+        // extraction of a single metadata
+        $res4 = $this->runCommand($this->getBaseCmd().' -e=meta1 '.$file);
+        $this->assertEquals(
+            trim($res4['stdout']),
+            $meta['meta1'],
+            'Test of the CLI on a file with one single metadata extraction (short option "-e=meta1")'
+        );
+        $res5 = $this->runCommand($this->getBaseCmd().' --extract=meta1 '.$file);
+        $this->assertEquals(
+            trim($res5['stdout']),
+            $meta['meta1'],
+            'Test of the CLI on a file with one single metadata extraction (long option "--extract=meta1")'
+        );
+
+        // extraction of the body
+        $res6 = $this->runCommand($this->getBaseCmd().' -e=body '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($res6['stdout']),
+            $body,
+            'Test of the CLI on a file with body extraction (short option "-e=body")'
+        );
+        $res7 = $this->runCommand($this->getBaseCmd().' --extract=body '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($res7['stdout']),
+            $body,
+            'Test of the CLI on a file with body extraction (short option "--extract=body")'
+        );
+    }
+
 }

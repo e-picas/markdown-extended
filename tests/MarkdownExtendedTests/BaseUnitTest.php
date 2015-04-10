@@ -108,4 +108,12 @@ class BaseUnitTest
         return $this->stripNewLines($this->stripWhitespaces($content));
     }
 
+    /**
+     * Strip local base path from a content
+     */
+    public function cleanupBasePath($content = '')
+    {
+        return str_replace($this->getBasePath() . DIRECTORY_SEPARATOR, '', $content);
+    }
+
 }
