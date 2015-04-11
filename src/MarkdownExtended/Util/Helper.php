@@ -231,16 +231,14 @@ class Helper
     /**
      * Gets a wel-formatted path with environment-compliant directory separator
      *
-     * @param array $parts
+     * @param array|string $parts
      * @return string
      */
-    public static function getPath(array $parts)
+    public static function getPath($parts)
     {
-        return implode(
-            DIRECTORY_SEPARATOR,
-            array_map(function($p){
-                return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p);
-            }, $parts)
+        return implode(DIRECTORY_SEPARATOR, array_map(
+            function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+            is_array($parts) ? $parts : array($parts))
         );
     }
 
