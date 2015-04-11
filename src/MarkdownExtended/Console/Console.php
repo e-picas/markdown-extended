@@ -246,8 +246,9 @@ DESC
         // JSON output
         if ($this->getOption('response')==='json') {
             if (count($results)===1) {
+                $result = array_shift($results);
                 $this->stream->write(
-                    json_encode($item_callback(array_shift($results)))
+                    json_encode($item_callback($result))
                 );
                 $this->stream->_exit();
             }
