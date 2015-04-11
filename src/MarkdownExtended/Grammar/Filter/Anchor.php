@@ -148,7 +148,6 @@ class Anchor
             $block = Kernel::get('OutputFormatBag')
                 ->buildTag('link', Lexer::runGamut('span_gamut', $link_text), $attributes);
             $result = parent::hashPart($block);
-
         } else {
             $result = $whole_match;
         }
@@ -175,5 +174,4 @@ class Anchor
             ->buildTag('link', Lexer::runGamut('span_gamut', $link_text), $attributes);
         return parent::hashPart($block);
     }
-
 }

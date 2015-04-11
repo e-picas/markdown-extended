@@ -11,15 +11,17 @@
 // PHP 5.3.3+
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     trigger_error(
-        sprintf('The "MarkdownExtended" application required PHP version 5.3.3 minimum (current running version is %s)', PHP_VERSION),
+        sprintf('The "MarkdownExtended" application requires PHP version 5.3.3 minimum (current running version is %s)', PHP_VERSION),
         E_USER_ERROR
     );
 }
 
 // get a well-formatted path
-$bootstrapGetPath = function(array $parts) {
-    return implode(DIRECTORY_SEPARATOR,
-        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+$bootstrapGetPath = function ($parts) {
+    return implode(DIRECTORY_SEPARATOR, array_map(
+        function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        is_array($parts) ? $parts : array($parts)
+    ));
 };
 
 // MDE_BASE_PATH = PHAR or local base path
@@ -49,7 +51,7 @@ if (!function_exists('mde_autoloader')) {
                 }
             }
         }
-    };
+    }
 }
 
 // register the MarkdownExtended namespace loader

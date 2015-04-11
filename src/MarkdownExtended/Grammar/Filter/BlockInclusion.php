@@ -79,5 +79,4 @@ class BlockInclusion
 
         return $parsed_content;
     }
-
 }

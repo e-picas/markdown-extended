@@ -47,7 +47,7 @@ class BaseUnitTest
     {
         return implode(
             DIRECTORY_SEPARATOR,
-            array_map(function($p){
+            array_map(function ($p) {
                 return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p);
             }, $parts)
         );
@@ -108,4 +108,43 @@ class BaseUnitTest
         return $this->stripNewLines($this->stripWhitespaces($content));
     }
 
+    /**
+     * Strip local base path from a content
+     */
+    public function cleanupBasePath($content = '')
+    {
+        return str_replace($this->getBasePath() . DIRECTORY_SEPARATOR, '', $content);
+    }
+
+    /**
+     * Gets temporary directory
+     */
+    public function getTempDir()
+    {
+        return $this->getPath(array($this->getBasePath(), 'tmp'));
+    }
+
+    /**
+     * Cleanup temporary directory
+     */
+    public function flushTempDir()
+    {
+        $tmp = $this->getTempDir();
+        exec('rm -rf '.$tmp);
+        mkdir($tmp);
+    }
+
+    /**
+     * Tests if a file exists in tmp dir by file name or regex mask
+     */
+    public function tempFileExists($file)
+    {
+        $dir = new \DirectoryIterator($this->getTempDir());
+        foreach ($dir as $f) {
+            if (0 !== preg_match('#^'.$file.'$#i', $f->getFilename())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -51,5 +51,4 @@ interface OutputFormatInterface
      * @param   \MarkdownExtended\API\ContentInterface $content
      */
     public function getMetadataToString(array $metadata, ContentInterface $content);
-
 }

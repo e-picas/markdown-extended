@@ -10,7 +10,6 @@
 
 namespace MarkdownExtended\Console;
 
-
 class Stream
 {
 
@@ -287,7 +286,7 @@ class Stream
         foreach ($table as $var=>$val) {
             if (is_array($val)) {
                 $counter        = 0;
-                $lineBuilder    = function($item, $key) use ($maxlen, $stream, $var, &$counter) {
+                $lineBuilder    = function ($item, $key) use ($maxlen, $stream, $var, &$counter) {
                     $str = ' '
                         . str_pad(($counter===0 ? $var : ''), $maxlen, ' ', STR_PAD_LEFT)
                         . self::PADDER
@@ -351,7 +350,7 @@ class Stream
                 if (is_string($item)) {
                     $this->write(self::DEBUG_PREFIX . $item, $new_line, $stream);
                 } else {
-                    $this->write(var_export($item,true), $new_line, $stream);
+                    $this->write(var_export($item, true), $new_line, $stream);
                 }
             }
         }
@@ -394,5 +393,4 @@ class Stream
         }
         return $data;
     }
-
 }

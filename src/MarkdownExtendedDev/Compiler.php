@@ -181,5 +181,4 @@ require 'phar://{$name}/bin/markdown-extended';
 __HALT_COMPILER();
 EOF;
     }
-
 }

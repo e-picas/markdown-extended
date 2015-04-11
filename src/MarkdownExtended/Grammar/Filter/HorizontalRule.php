@@ -40,5 +40,4 @@ class HorizontalRule
             "\n" . parent::hashBlock(Kernel::get('OutputFormatBag')->buildTag('horizontal_rule')) . "\n",
             $text);
     }
-
 }

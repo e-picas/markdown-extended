@@ -40,7 +40,9 @@ class Abbreviation
         $predef_abbr = Kernel::getConfig('predefined_abbr');
         if (!empty($predef_abbr)) {
             foreach ($predef_abbr as $abbr_word => $abbr_desc) {
-                if ($abbr_word_re) $abbr_word_re .= '|';
+                if ($abbr_word_re) {
+                    $abbr_word_re .= '|';
+                }
                 $abbr_word_re .= preg_quote($abbr_word);
                 $abbr_desciptions[$abbr_word] = trim($abbr_desc);
             }
@@ -130,10 +132,9 @@ class Abbreviation
     protected function _strip_callback($matches)
     {
         Kernel::addConfig('abbr_word_re',
-            (Kernel::getConfig('abbr_word_re') ? '|' : '' ).preg_quote($matches[1])
+            (Kernel::getConfig('abbr_word_re') ? '|' : '').preg_quote($matches[1])
         );
         Kernel::addConfig('abbr_desciptions', array($matches[1] => trim($matches[2])));
         return '';
     }
-
 }

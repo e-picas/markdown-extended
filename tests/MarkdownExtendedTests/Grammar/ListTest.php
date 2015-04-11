@@ -51,5 +51,4 @@ MSG;
             '[parsing] test of ordered list'
         );
     }
-    
 }

@@ -140,5 +140,4 @@ class Image
             ->buildTag('image', null, $attributes);
         return parent::hashPart($block);
     }
-
 }

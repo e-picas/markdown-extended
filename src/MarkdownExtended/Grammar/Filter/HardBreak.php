@@ -39,5 +39,4 @@ class HardBreak
     {
         return parent::hashPart(Kernel::get('OutputFormatBag')->buildTag('new_line')."\n");
     }
-
 }

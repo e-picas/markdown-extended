@@ -29,11 +29,15 @@ class ConsoleTest
 
     /**
      * Gets the basic 'php bin/markdown-extended' string
+     *
+     * We force here a default timezone to avoid PHP errors while
+     * using internal `DateTime` objects.
+     *
      * @return string
      */
     public function getBaseCmd()
     {
-        return 'php ' . $this->getPath(array('.', 'bin', 'markdown-extended'));
+        return 'php -d date.timezone=UTC ' . $this->getPath(array('.', 'bin', 'markdown-extended'));
     }
 
     /**
@@ -83,5 +87,4 @@ echo PHP_EOL . "result: " . var_export(array(
             'stderr' => trim($stderr, PHP_EOL)
         );
     }
-
 }

@@ -133,7 +133,7 @@ class Lexer
      *
      * This will call any `_setup()` method of all enabled filters.
      */
-    protected function _setup() 
+    protected function _setup()
     {
         // clear global hashes
         $this->_clearHashes();
@@ -148,7 +148,7 @@ class Lexer
      *
      * This will call any `_teardown()` method of all enabled filters.
      */
-    protected function _teardown() 
+    protected function _teardown()
     {
         // clear global hashes
         $this->_clearHashes();
@@ -168,5 +168,4 @@ class Lexer
         Kernel::setConfig('attributes',         Kernel::getConfig('predefined_attributes', array()));
         Kernel::setConfig('predefined_abbr',    Kernel::getConfig('predefined_abbr', array()));
     }
-
 }

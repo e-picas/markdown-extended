@@ -34,5 +34,4 @@ MSG;
             '[parsing] test of hard break'
         );
     }
-    
 }

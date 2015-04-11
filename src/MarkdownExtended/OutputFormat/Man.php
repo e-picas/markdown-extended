@@ -117,7 +117,7 @@ class Man
      * @deprecated Titles are not filtered now
      */
     public static $sections = array(
-        'name', 'synopsis', 'syntax', 'availability', 'description', 'options', 'files', 'resources', 'environment', 'diagnosis', 'bugs', 'author', 'see also', 
+        'name', 'synopsis', 'syntax', 'availability', 'description', 'options', 'files', 'resources', 'environment', 'diagnosis', 'bugs', 'author', 'see also',
         'examples', 'standards', 'license', 'history', 'exit status', 'messages', 'copyright', 'reporting bugs', 'notes'
     );
 
@@ -155,7 +155,7 @@ class Man
 
     /**
      * This will try to call a method `build{TagName}()` if it exists, then will try to use
-     * the object `$tags_map` static to automatically find what to do, and then call the 
+     * the object `$tags_map` static to automatically find what to do, and then call the
      * default `getTagString()` method passing it the arguments.
      *
      * @param string $tag_name
@@ -547,5 +547,4 @@ class Man
     {
         return $this->buildBold($text) . ' | ';
     }
-
 }

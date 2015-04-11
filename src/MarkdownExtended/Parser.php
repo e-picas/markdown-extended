@@ -132,37 +132,25 @@ class Parser
      */
     public function transform($content, $name = null, $primary = true)
     {
-        if (!is_object($content) || !$this->getKernel()->valid($content, Kernel::TYPE_CONTENT)) {
-            $content = new Content($content, $this->getKernel()->get('config')->getAll());
-        }
+        $content = $this->getApiContent($content);
         if (!is_null($name)) {
             $content->setTitle($name);
         }
 
-        $this->_registerContent($content);
-        $this->getKernel()
-            ->set(Kernel::TYPE_CONTENT, function(){ return Kernel::get('ContentCollection')->current(); })
-            ->set('Lexer',              new Lexer)
-            ->set('DomId',              new DomIdRegistry)
-        ;
-
         // actually parse content
-        $this->getKernel()->get('Lexer')->parse($content);
+        $content = $this->parseContent($content);
 
         // force template if needed
         $tpl = $this->getKernel()->getConfig('template');
         if (!is_null($tpl) && $tpl === 'auto') {
             $tpl = !(Helper::isSingleLine($content->getBody()));
         }
-        if (!$primary) {
-            $tpl = false;
-        }
 
         // load it in a template ?
-        if (!empty($tpl) && false !== $tpl) {
+        if (!empty($tpl) && $primary) {
             $this->parseTemplate($tpl, $content);
         } else {
-            $this->constructContentContent($content);
+            $this->constructContent($content);
         }
 
 //        $this->_hardDebugContent($content);
@@ -252,6 +240,43 @@ class Parser
     }
 
     /**
+     * Gets a valid content object
+     *
+     * @param $content
+     *
+     * @return \MarkdownExtended\API\ContentInterface
+     */
+    protected function getApiContent($content)
+    {
+        if (!is_object($content) || !$this->getKernel()->valid($content, Kernel::TYPE_CONTENT)) {
+            $content = new Content($content, $this->getKernel()->get('config')->getAll());
+        }
+        return $content;
+    }
+
+    /**
+     * Actually do content's parsing
+     *
+     * @param \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return \MarkdownExtended\API\ContentInterface
+     */
+    protected function parseContent(ContentInterface $content)
+    {
+        $this->_registerContent($content);
+        $this->getKernel()
+            ->set(Kernel::TYPE_CONTENT, function () { return Kernel::get('ContentCollection')->current(); })
+            ->set('Lexer',              new Lexer)
+            ->set('DomId',              new DomIdRegistry)
+        ;
+
+        // actually parse content
+        $this->getKernel()->get('Lexer')->parse($content);
+
+        return $content;
+    }
+
+    /**
      * Constructs a content's content
      *
      * This will load a simple not-paragraphed content if the original
@@ -262,7 +287,7 @@ class Parser
      *
      * @return \MarkdownExtended\API\ContentInterface
      */
-    protected function constructContentContent(ContentInterface $content)
+    protected function constructContent(ContentInterface $content)
     {
         $body = $content->getBody();
         // if source is a single line
@@ -270,7 +295,6 @@ class Parser
             $content->setContent(
                 preg_replace('#<[/]?p>#i', '', $body)
             );
-
         } else {
             $content->setContent(
                 (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
@@ -325,6 +349,7 @@ class Parser
      */
     protected function writeOutputFile($path, ContentInterface $content)
     {
+        // construct output file name
         $name = $content->getMetadata('file_name');
         $path = Helper::fillPlaceholders(
             $path,
@@ -333,16 +358,11 @@ class Parser
             )
         );
 
-        // make a backup if path exists and `option[force]!==true`
-        if (file_exists($path) && $this->getKernel()->getConfig('force') !== true) {
-            Helper::backupFile($path);
-        }
+        // make a backup `option[force]!==true`
+        $backup = (bool) $this->getKernel()->getConfig('force') !== true;
 
         // write output
-        if (!file_exists(dirname($path))) {
-            mkdir(dirname($path));
-        }
-        Helper::writeFile($path, (string) $content);
+        Helper::writeFile($path, (string) $content, $backup);
 
         // return created path
         return $path;
@@ -367,5 +387,4 @@ class Parser
         echo Helper::debug($content->getNotes(), 'content notes', false);
         echo Helper::debug($content->getMetadata(), 'content metadata', false);
     }
-
 }

@@ -12,7 +12,6 @@ namespace MarkdownExtended\Console;
 
 use \MarkdownExtended\Util\Registry;
 
-
 /**
  * A class to manage one command line option based on a definition
  *
@@ -270,5 +269,4 @@ class UserOption
     {
         $this->data[$name] = $value;
     }
-
 }

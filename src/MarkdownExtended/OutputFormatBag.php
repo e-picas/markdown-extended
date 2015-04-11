@@ -142,5 +142,4 @@ class OutputFormatBag
     {
         return $this->formatter;
     }
-
 }

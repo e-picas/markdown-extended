@@ -132,7 +132,6 @@ class GamutLoader
                     }
                 }
             }
-
         }
 
         return $this->all_gamuts;
@@ -323,7 +322,6 @@ class GamutLoader
     {
         if ($this->isCached($class)) {
             $_obj = $this->getCache($class);
-
         } else {
             if (!class_exists($class)) {
                 throw new UnexpectedValueException(
@@ -347,5 +345,4 @@ class GamutLoader
         $text = call_user_func(array($_obj, $method), $text);
         return $text;
     }
-
 }

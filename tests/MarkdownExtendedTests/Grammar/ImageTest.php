@@ -35,5 +35,4 @@ MSG;
             '[parsing] test of image'
         );
     }
-    
 }

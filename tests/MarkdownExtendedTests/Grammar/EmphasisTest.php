@@ -25,5 +25,4 @@ class EmphasisTest extends ParserTest
             '[parsing] test of emphasis'
         );
     }
-    
 }

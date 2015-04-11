@@ -1,9 +1,9 @@
 .\" man: PHP-Markdown-Extended Manual
 .\" man-name: markdown-extended
 .\" author: Pierre Cassat
-.\" date: 2015-04-06
-.\" version: 0.1.0-rc
-.TH  "markdown-extended" "3" "2015-04-06" "Version 0.1.0-rc" "PHP-Markdown-Extended Manual"
+.\" date: 2015-04-10
+.\" version: 0.1.0-dev
+.TH  "markdown-extended" "3" "2015-04-10" "Version 0.1.0-dev" "PHP-Markdown-Extended Manual"
 .SH NAME
 .PP
 PHP-Markdown-Extended - Yet another PHP parser for the markdown (\fIextended\fP) syntax.
@@ -12,7 +12,7 @@ PHP-Markdown-Extended - Yet another PHP parser for the markdown (\fIextended\fP)
 \fBmarkdown-extended\fP  [\fIoptions\fP]  (\fI--\fP)  [\fIarguments\fP]
 .PP
 \fBmarkdown-extended\fP  [\fB-V\fP|\fB--version\fP]  [\fB-h\fP|\fB--help\fP]
-    [\fB-x\fP|\fB-v\fP|\fB-q\fP] [\fB--debug\fP|\fB--verbose\fP|\fB--quiet\fP]
+    [\fB-x\fP|\fB-v\fP|\fB-q\fP] [\fB--debug\fP|\fB--verbose\fP|\fB--quiet\fP|\fB--force\fP]
     [\fB-o\fP|\fB--output\fP \fIfilename\fP]
     [\fB-c\fP|\fB--config\fP \fIfilename\fP]
     [\fB-f\fP|\fB--format\fP \fIformat\fP]
@@ -95,6 +95,10 @@ which will be fill in with content's identifier.
 \fB-t\fP , \fB--template\fP [=\fIfilename\fP]
 Return the content inserted in a parsed template file ; if no \fBfilename\fP argument is 
 passed, this will use the configuration template file.
+.TP
+\fB--force\fP
+Use this to not backup generated files (the default behavior is to backup all existing files
+to a "FILENAME.EXT~YYYY-MM-DD-HH-II-SS" file).
 .SH RESULT
 .PP
 The command result can have various types. Actually, for all the types described below, the
@@ -231,4 +235,4 @@ To transmit bugs, see <http://github.com/piwi/markdown-extended/issues>.
 Created and maintained by Pierre Cassat (piwi - <http://e-piwi.fr/>) & contributors.
 .SH SEE ALSO
 .PP
-php(1), pcre(3)
+php(1), pcre(3), markdown-extended(7)

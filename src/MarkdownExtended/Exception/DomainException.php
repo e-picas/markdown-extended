@@ -18,5 +18,4 @@ use \DomainException as BaseException;
 class DomainException
     extends BaseException
 {
-
 }

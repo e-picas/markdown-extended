@@ -69,5 +69,4 @@ class Maths
             ->buildTag('maths_span', $texblock, array());
         return parent::hashPart($block);
     }
-
 }

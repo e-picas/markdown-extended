@@ -66,8 +66,8 @@ class MarkdownExtended
 
     const SHORTNAME = 'markdown-extended-php';
     const NAME      = 'Markdown Extended';
-    const VERSION   = '0.1.0-rc';
-    const DATE      = '2015-04-06';
+    const VERSION   = '0.1.0-dev';
+    const DATE      = '2015-04-10';
     const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
     const LINK      = 'http://github.com/piwi/markdown-extended.git';
     const LICENSE   = 'BSD-3-Clause open source license <http://opensource.org/licenses/BSD-3-Clause>';
@@ -232,11 +232,11 @@ class MarkdownExtended
 
             // full gamuts stacks
             // each sub-item is constructed like "gamut_alias or class name : method or class name : method name"
-            'initial_gamut' => array (
+            'initial_gamut' => array(
                 'filter:Detab:init'          => '5',
                 'filter:Emphasis:prepare'    => '10',
             ),
-            'transform_gamut' => array (
+            'transform_gamut' => array(
                 'tools:RemoveUtf8Marker'     => '5',
                 'tools:StandardizeLineEnding'=> '10',
                 'tools:AppendEndingNewLines' => '15',
@@ -244,7 +244,7 @@ class MarkdownExtended
                 'filter:HTML'                => '25',
                 'tools:StripSpacedLines'     => '30',
             ),
-            'document_gamut' => array (
+            'document_gamut' => array(
                 'tools:prepareOutputFormat' => '0',
                 'filter:MetaData:strip'     => '1',
                 'filter:FencedCodeBlock'    => '5',
@@ -257,7 +257,7 @@ class MarkdownExtended
                 'filter:BlockInclusion'     => '50',
                 'tools:teardownOutputFormat' => '70',
             ),
-            'span_gamut' => array (
+            'span_gamut' => array(
                 'filter:Span'               => '-30',
                 'filter:Note'               => '5',
                 'filter:Image'              => '10',
@@ -268,7 +268,7 @@ class MarkdownExtended
                 'filter:HardBreak'          => '60',
                 'filter:Abbreviation'       => '70',
             ),
-            'block_gamut' => array (
+            'block_gamut' => array(
                 'filter:FencedCodeBlock'    => '5',
                 'filter:Header'             => '10',
                 'filter:Table'              => '15',
@@ -280,7 +280,7 @@ class MarkdownExtended
                 'filter:Maths'              => '70',
                 'tools:RebuildParagraph'    => '100',
             ),
-            'html_block_gamut' => array (
+            'html_block_gamut' => array(
                 'filter:HTML'               => '10',
                 'block_gamut'               => '20',
             ),
@@ -329,5 +329,4 @@ class MarkdownExtended
         $mde = new self($options);
         return $mde->transformSource($path);
     }
-
 }

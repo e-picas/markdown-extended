@@ -79,7 +79,7 @@ class ParserTest
      */
     public function testCreate()
     {
-/*
+        /*
         $this->assertInstanceOf('\MarkdownExtended\Parser', $this->createParser(), 'baseTest->createParser failure!');
 
         $this->assertInstanceOf('\MarkdownExtended\Content', $this->createContent('test'), 'baseTest->createContent failure!');
@@ -124,7 +124,7 @@ EOF;
         return <<<EOF
 <p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
 voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
-<blockquote>  
+<blockquote>
   <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
       mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
       expedita distinctio.</p>
@@ -137,5 +137,4 @@ tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias conseq
 perferendis doloribus asperiores repellat.</p>
 EOF;
     }
-
 }

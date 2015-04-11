@@ -29,5 +29,4 @@ A text whit HTML expression.
             '[parsing] Test of abbreviation'
         );
     }
-    
 }

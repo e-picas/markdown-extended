@@ -229,7 +229,7 @@ class UserInput
      */
     public static function getSanitizedUserInput()
     {
-        return array_map(function($item) {
+        return array_map(function ($item) {
             return filter_var($item, FILTER_UNSAFE_RAW);
         }, $_SERVER['argv']);
     }
@@ -270,5 +270,4 @@ class UserInput
         echo Helper::debug($this->user_options->remaining, 'remaining arguments', false);
         echo Helper::debug($this->user_options->options, 'final full options', false);
     }
-
 }
