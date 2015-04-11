@@ -9,9 +9,11 @@
  */
 
 // get a well-formatted path
-$bootstrapGetPath = function(array $parts) {
-    return implode(DIRECTORY_SEPARATOR,
-        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+$bootstrapGetPath = function($parts) {
+    return implode(DIRECTORY_SEPARATOR, array_map(
+        function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        is_array($parts) ? $parts : array($parts)
+    ));
 };
 
 // namespaces loader if needed
@@ -21,7 +23,7 @@ if (!defined('MDE_BASE_PATH')) {
 
     } else {
         trigger_error(
-            sprintf('MarkdownExtended bootstrapper not found (searching "%s")!', $bootstrapper),
+            sprintf('MarkdownExtended bootstrapper not found (searching "%s")', $bootstrapper),
             E_USER_ERROR
         );
     }

@@ -17,9 +17,11 @@ if (version_compare(PHP_VERSION, '5.3.3', '<')) {
 }
 
 // get a well-formatted path
-$bootstrapGetPath = function(array $parts) {
-    return implode(DIRECTORY_SEPARATOR,
-        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+$bootstrapGetPath = function($parts) {
+    return implode(DIRECTORY_SEPARATOR, array_map(
+        function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        is_array($parts) ? $parts : array($parts)
+    ));
 };
 
 // MDE_BASE_PATH = PHAR or local base path
@@ -49,7 +51,7 @@ if (!function_exists('mde_autoloader')) {
                 }
             }
         }
-    };
+    }
 }
 
 // register the MarkdownExtended namespace loader

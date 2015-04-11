@@ -26,15 +26,17 @@ if (function_exists('ini_set')) {
 // prick blocker: CLI usage only
 if (strpos(PHP_SAPI,'cli') === false) {
     trigger_error(
-        sprintf('This file is for command line usage only (current SAPI is "%s"!', PHP_SAPI),
+        sprintf('This file is for command line usage only (current SAPI is "%s")', PHP_SAPI),
         E_USER_ERROR
     );
 }
 
 // get a well-formatted path
-$bootstrapGetPath = function(array $parts) {
-    return implode(DIRECTORY_SEPARATOR,
-        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+$bootstrapGetPath = function($parts) {
+    return implode(DIRECTORY_SEPARATOR, array_map(
+        function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        is_array($parts) ? $parts : array($parts)
+    ));
 };
 
 // namespaces loader
@@ -45,7 +47,7 @@ if (file_exists($bootstrapper = $bootstrapGetPath(array(
 
 } else {
     trigger_error(
-        sprintf('App\'s bootstrapper not found (searching "%s")!', $bootstrapper),
+        sprintf('App\'s bootstrapper not found (searching "%s")', $bootstrapper),
         E_USER_ERROR
     );
 }

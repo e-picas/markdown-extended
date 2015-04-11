@@ -16,10 +16,25 @@
 @ini_set('display_errors',1);
 @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
+// settings for CLI usage
+@ini_set('register_argc_argv', 1);
+@ini_set('html_errors', 0);
+@set_time_limit(0);
+
+// prick blocker: CLI usage only
+if (strpos(PHP_SAPI,'cli') === false) {
+    trigger_error(
+        sprintf('This file is for command line usage only (current SAPI is "%s")', PHP_SAPI),
+        E_USER_ERROR
+    );
+}
+
 // get a well-formatted path
-$bootstrapGetPath = function(array $parts) {
-    return implode(DIRECTORY_SEPARATOR,
-        array_map(function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); }, $parts));
+$bootstrapGetPath = function($parts) {
+    return implode(DIRECTORY_SEPARATOR, array_map(
+        function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        is_array($parts) ? $parts : array($parts)
+    ));
 };
 
 // namespaces loader
@@ -27,31 +42,18 @@ if (file_exists($bootstrapper = $bootstrapGetPath(array(
     dirname(__DIR__), 'src', 'bootstrap.php'
 )))) {
     require_once $bootstrapper;
+
 } else {
     trigger_error(
-        sprintf('MarkdownExtended bootstrapper not found (searching "%s")!', $bootstrapper),
+        sprintf('MarkdownExtended bootstrapper not found (searching "%s")', $bootstrapper),
         E_USER_ERROR
     );
 }
 
 // launch app's dev console
-if (strpos(php_sapi_name(),'cli') !== false) {
-
-    // settings for CLI usage
-    @ini_set('register_argc_argv', 1);
-    @ini_set('html_errors', 0);
-    @set_time_limit(0);
-
-    // actually run the app
-    $console = new \MarkdownExtendedDev\Console();
-    if (defined('HARD_DEBUG') && HARD_DEBUG) {
-        $console->enableHardDebug();
-    }
-    $console->run();
-
-// prick blocker
-} else {
-    trigger_error('This file is for command line usage only!', E_USER_ERROR);
+$console = new \MarkdownExtendedDev\Console();
+if (defined('HARD_DEBUG') && HARD_DEBUG) {
+    $console->enableHardDebug();
 }
-
-// Endfile
+// actually run the app
+$console->run();
