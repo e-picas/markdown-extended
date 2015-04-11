@@ -25,6 +25,8 @@ class Console
     extends AbstractConsole
 {
 
+    protected $results = array();
+
     /**
      * Initialized the command
      */
@@ -160,13 +162,12 @@ DESC
         }
 
         // treat arguments one by one
-        $results = array();
         $counter = 1;
         foreach ($this->arguments as $i=>$input) {
             if (false === strpos($input, PHP_EOL) && file_exists($input)) {
-                $results[$input] = $mde->transformSource($input);
+                $this->results[$input] = $mde->transformSource($input);
             } else {
-                $results['STDIN#' . $counter] = $mde->transform($input, $counter);
+                $this->results['STDIN#' . $counter] = $mde->transform($input, $counter);
                 $counter++;
             }
         }
@@ -177,17 +178,37 @@ DESC
             if (!is_string($extract)) {
                 $extract = 'metadata';
             }
-            foreach ($results as $i=>$item) {
+            foreach ($this->results as $i=>$item) {
                 $method = 'get' . Helper::toCamelCase($extract);
                 if (method_exists($item, $method)) {
-                    $results[$i] = call_user_func(array($item, $method));
+                    $this->results[$i] = call_user_func(array($item, $method));
                 } else {
-                    $results[$i] = call_user_func(array($item, 'getMetadata'), $extract);
+                    $this->results[$i] = call_user_func(array($item, 'getMetadata'), $extract);
                 }
             }
         }
 
-        $this->renderOutput($results);
+        $this->renderOutput();
+    }
+
+    /**
+     * Gets rendering results
+     *
+     * @param bool $as_array
+     * @return array
+     */
+    public function getResults($as_array = false)
+    {
+        $results = $this->results;
+        if ($as_array) {
+            $item_callback = function(&$item) {
+                /* @var $item \MarkdownExtended\API\ContentInterface */
+                return $item = (is_object($item) && Kernel::valid($item, Kernel::TYPE_CONTENT) ?
+                    array_filter($item->__toArray()) : $item);
+            };
+            array_walk($results, $item_callback);
+        }
+        return $results;
     }
 
     /**
@@ -232,56 +253,73 @@ DESC
 
     /**
      * Renders the process' output
-     *
-     * @param array $results
      */
-    protected function renderOutput(array $results)
+    protected function renderOutput()
     {
-        $item_callback = function(&$item) {
-            /* @var $item \MarkdownExtended\API\ContentInterface */
-            return $item = (is_object($item) && Kernel::valid($item, Kernel::TYPE_CONTENT) ?
-                array_filter($item->__toArray()) : $item);
-        };
-
-        // JSON output
-        if ($this->getOption('response')==='json') {
-            if (count($results)===1) {
-                $result = array_shift($results);
-                $this->stream->write(
-                    json_encode($item_callback($result))
-                );
-                $this->stream->_exit();
-            }
-            array_walk($results, $item_callback);
-            $this->stream->write(
-                json_encode($results)
-            );
-            $this->stream->_exit();
+        switch ($this->getOption('response')) {
+            case 'json':
+                $this->renderOutputJson();
+                break;
+            case 'php':
+                $this->renderOutputPhp();
+                break;
+            default:
+            case 'plain':
+                $this->renderOutputPlain();
         }
+    }
 
-        // PHP output
-        if ($this->getOption('response')==='php') {
-            if (count($results)===1) {
-                $this->stream->write(
-                    serialize($item_callback(array_shift($results)))
-                );
-                $this->stream->_exit();
-            }
-            array_walk($results, $item_callback);
-            $this->stream->write(
-                serialize($results)
-            );
-            $this->stream->_exit();
-        }
-
-        // plain output
+    /**
+     * Renders results in plain text format
+     */
+    protected function renderOutputPlain()
+    {
+        $results = $this->getResults();
         foreach ($results as $i=>$result) {
             if (count($results)>1) {
                 $this->stream->writeln("==> $i <==");
             }
             $this->stream->write(Helper::getSafeString($result));
         }
+        $this->stream->_exit();
+    }
 
+    /**
+     * Renders results in JSON format
+     */
+    protected function renderOutputJson()
+    {
+        $results = $this->getResults(true);
+        if (count($results)===1) {
+            $result = array_shift($results);
+            $this->stream->write(
+                json_encode($result)
+            );
+            $this->stream->_exit();
+        }
+        $this->stream->write(
+            json_encode($results)
+        );
+        $this->stream->_exit();
+    }
+
+    /**
+     * Renders results in PHP format
+     */
+    protected function renderOutputPhp()
+    {
+        $results = $this->getResults(true);
+        if (count($results)===1) {
+            $result = array_shift($results);
+            $this->stream->write(
+                serialize($result)
+            );
+            $this->stream->_exit();
+        }
+        $this->stream->write(
+            serialize($results)
+        );
+        $this->stream->_exit();
     }
 
     // dump LICENSE file
