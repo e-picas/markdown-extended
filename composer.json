@@ -27,6 +27,7 @@
     "sami/sami": "2.*",
     "phpunit/phpunit": "@stable",
     "phpmd/phpmd" : "@stable",
+    "fabpot/php-cs-fixer": "@stable",
     "codeclimate/php-test-reporter": "dev-master"
   },
   "replace": {
