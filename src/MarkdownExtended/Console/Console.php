@@ -25,6 +25,8 @@ class Console
     extends AbstractConsole
 {
 
+
+    protected $mde = array();
     protected $results = array();
 
     /**
@@ -133,62 +135,17 @@ DESC
     }
 
     /**
-     * Actually run the command process
+     * Gets markdown parser with current options
+     *
+     * @return array|\MarkdownExtended\Parser
      */
-    public function run()
+    public function getMarkdownExtendedParser()
     {
-        // common options
-        $this->runCommonOptions();
-        if (Stream::VERBOSITY_DEBUG <= $this->stream->getVerbosity()) {
-            error_log(get_called_class() . ' :: starting a new run in debug mode');
+        // create the MDE instance if needed
+        if (empty($this->mde)) {
+            $this->mde = new Parser($this->getMarkdownExtendedOptions());
         }
-
-        // hard debug info
-        $this->stream->debug(array('CLI available options:', Helper::debug($this->cli_options, null, false)));
-        $this->stream->debug(array('User options:', Helper::debug($this->options, null, false)));
-        $this->stream->debug(array('User arguments:', Helper::debug($this->arguments, null, false)));
-
-        // create the MDE instance
-        $mde = new Parser($this->getMarkdownExtendedOptions());
-
-        // a special task?
-        if (count($this->arguments) === 1) {
-            $args = $this->arguments;
-            $task_method = 'runTask' . Helper::toCamelCase(str_replace('-', '_', array_shift($args)));
-            if (method_exists($this, $task_method)) {
-                call_user_func(array($this, $task_method));
-                $this->stream->_exit();
-            }
-        }
-
-        // treat arguments one by one
-        $counter = 1;
-        foreach ($this->arguments as $i=>$input) {
-            if (false === strpos($input, PHP_EOL) && file_exists($input)) {
-                $this->results[$input] = $mde->transformSource($input);
-            } else {
-                $this->results['STDIN#' . $counter] = $mde->transform($input, $counter);
-                $counter++;
-            }
-        }
-
-        // extraction?
-        if (false !== $this->getOption('extract')) {
-            $extract = $this->getOption('extract');
-            if (!is_string($extract)) {
-                $extract = 'metadata';
-            }
-            foreach ($this->results as $i=>$item) {
-                $method = 'get' . Helper::toCamelCase($extract);
-                if (method_exists($item, $method)) {
-                    $this->results[$i] = call_user_func(array($item, $method));
-                } else {
-                    $this->results[$i] = call_user_func(array($item, 'getMetadata'), $extract);
-                }
-            }
-        }
-
-        $this->renderOutput();
+        return $this->mde;
     }
 
     /**
@@ -249,6 +206,77 @@ DESC
         }
 
         return $mde_data;
+    }
+
+    /**
+     * Actually run the command process
+     */
+    public function run()
+    {
+        // common options
+        $this->runCommonOptions();
+        if (Stream::VERBOSITY_DEBUG <= $this->stream->getVerbosity()) {
+            error_log(get_called_class() . ' :: starting a new run in debug mode');
+        }
+
+        // hard debug info
+        $this->stream->debug(array('CLI available options:', Helper::debug($this->cli_options, null, false)));
+        $this->stream->debug(array('User options:', Helper::debug($this->options, null, false)));
+        $this->stream->debug(array('User arguments:', Helper::debug($this->arguments, null, false)));
+
+        // a special task?
+        if (count($this->arguments) === 1) {
+            $args = $this->arguments;
+            $task_method = 'runTask' . Helper::toCamelCase(str_replace('-', '_', array_shift($args)));
+            if (method_exists($this, $task_method)) {
+                call_user_func(array($this, $task_method));
+                $this->stream->_exit();
+            }
+        }
+
+        // parse arguments and render results
+        $this
+            ->parseArguments()
+            ->renderOutput();
+    }
+
+    /**
+     * Actually process arguments with markdown transformation
+     *
+     * @return $this
+     */
+    protected function parseArguments()
+    {
+        // treat arguments one by one
+        $counter = 1;
+        foreach ($this->arguments as $i=>$input) {
+            if (false === strpos($input, PHP_EOL) && file_exists($input)) {
+                $this->results[$input] =
+                    $this->getMarkdownExtendedParser()->transformSource($input);
+            } else {
+                $this->results['STDIN#' . $counter] =
+                    $this->getMarkdownExtendedParser()->transform($input, $counter);
+                $counter++;
+            }
+        }
+
+        // extraction?
+        if (false !== $this->getOption('extract')) {
+            $extract = $this->getOption('extract');
+            if (!is_string($extract)) {
+                $extract = 'metadata';
+            }
+            foreach ($this->results as $i=>$item) {
+                $method = 'get' . Helper::toCamelCase($extract);
+                if (method_exists($item, $method)) {
+                    $this->results[$i] = call_user_func(array($item, $method));
+                } else {
+                    $this->results[$i] = call_user_func(array($item, 'getMetadata'), $extract);
+                }
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -322,7 +350,9 @@ DESC
         $this->stream->_exit();
     }
 
-    // dump LICENSE file
+    /**
+     * Dumps the LICENSE file
+     */
     protected function runTaskLicense()
     {
         if (file_exists($license = getcwd() . DIRECTORY_SEPARATOR . self::LICENSE_FILE)) {
@@ -332,13 +362,15 @@ DESC
         }
     }
 
-    // dump composer.json file
+    /**
+     * Dumps the composer.json file
+     */
     protected function runTaskManifest()
     {
         if (file_exists($manifest = getcwd() . DIRECTORY_SEPARATOR . self::MANIFEST_FILE)) {
             $content = json_decode(Helper::readFile($manifest), true);
 
-            foreach (array('extra', 'autoload', 'config', 'scripts') as $entry) {
+            foreach (array('extra', 'autoload', 'autoload-dev', 'config', 'scripts', 'archive') as $entry) {
                 if (isset($content[$entry])) {
                     unset($content[$entry]);
                 }
@@ -362,9 +394,14 @@ DESC
         }
     }
 
-    // list runtime filters
+    /**
+     * Lists runtime filters
+     */
     protected function runTaskFiltersList()
     {
+        // create the MDE instance
+        $mde = $this->getMarkdownExtendedParser();
+
         $loader = Kernel::get('Grammar\GamutLoader');
 
         $gamuts = array();
@@ -380,9 +417,14 @@ DESC
         $this->_writeTask($gamuts, 'Runtime filters');
     }
 
-    // list runtime config
+    /**
+     * Lists runtime configuration settings
+     */
     protected function runTaskConfigList()
     {
+        // create the MDE instance
+        $mde = $this->getMarkdownExtendedParser();
+
         $loader = Kernel::get('Grammar\GamutLoader');
 
         $config = array();
