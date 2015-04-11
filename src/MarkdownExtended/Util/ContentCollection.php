@@ -72,5 +72,4 @@ class ContentCollection
         }
         parent::offsetSet($index, $content);
     }
-
 }

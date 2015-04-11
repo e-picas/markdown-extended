@@ -140,7 +140,9 @@ class Registry
      */
     public static function extend($what, $add)
     {
-        if (empty($what)) return $add;
+        if (empty($what)) {
+            return $add;
+        }
         switch (gettype($what)) {
             case 'string': return $what.$add; break;
             case 'numeric': return ($what+$add); break;
@@ -164,5 +166,4 @@ class Registry
                 break;
         }
     }
-
 }

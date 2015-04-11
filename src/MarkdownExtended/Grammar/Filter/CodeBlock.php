@@ -72,5 +72,4 @@ class CodeBlock
             ->buildTag('code', Helper::escapeCodeContent(trim($code)));
         return parent::hashPart($codeblock);
     }
-
 }

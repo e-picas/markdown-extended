@@ -12,11 +12,11 @@
 # <http://fletcherpenney.net/>
 #
 # original PHP Markdown & Extra
-# Copyright (c) 2004-2012 Michel Fortin  
+# Copyright (c) 2004-2012 Michel Fortin
 # <http://michelf.com/projects/php-markdown/>
 #
 # original Markdown
-# Copyright (c) 2004-2006 John Gruber  
+# Copyright (c) 2004-2006 John Gruber
 # <http://daringfireball.net/projects/markdown/>
 
 @error_reporting(-1);

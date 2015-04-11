@@ -20,8 +20,8 @@ use \MarkdownExtended\Grammar\Lexer;
  * Definitions lists may be written as:
  *
  *       Term 1
- *        :   This is a definition with two paragraphs. Lorem ipsum 
- *            dolor sit amet, consectetuer adipiscing elit. Aliquam 
+ *        :   This is a definition with two paragraphs. Lorem ipsum
+ *            dolor sit amet, consectetuer adipiscing elit. Aliquam
  *            hendrerit mi posuere lectus.
  *
  *           Vestibulum enim wisi, viverra nec, fringilla in, laoreet
@@ -44,7 +44,7 @@ class DefinitionList
      * @param   string  $text
      * @return  string
      */
-    public function transform($text) 
+    public function transform($text)
     {
         $less_than_tab = Kernel::getConfig('less_than_tab');
         // Re-usable pattern to match any entire dl list:
@@ -88,7 +88,7 @@ class DefinitionList
      * @param   array   $matches    The results form the `transform()` method
      * @return  string
      */
-    protected function _callback($matches) 
+    protected function _callback($matches)
     {
         // Re-usable patterns to match list item bullets and number markers:
         $result = trim(self::transformItems($matches[1]));
@@ -107,7 +107,7 @@ class DefinitionList
      * @param   string  $list_str   The result string form the `_callback()` function
      * @return  string
      */
-    public function transformItems($list_str) 
+    public function transformItems($list_str)
     {
         $less_than_tab = Kernel::getConfig('less_than_tab');
         // trim trailing blank lines:
@@ -119,8 +119,8 @@ class DefinitionList
             (                                   # definition term = $1
                 [ ]{0,'.$less_than_tab.'}       # leading whitespace
                 (?![:][ ]|[ ])                  # negative lookahead for a definition mark (colon) or more whitespace.
-                (?> \S.* \n)+?                  # actual term (not whitespace). 
-            )           
+                (?> \S.* \n)+?                  # actual term (not whitespace).
+            )
             (?=\n?[ ]{0,3}:[ ])                 # lookahead for following line feed with a definition mark.
             }xm',
             array($this, '_item_callback_dt'), $list_str);
@@ -137,8 +137,8 @@ class DefinitionList
                 (?:                             # next term or end of text
                     [ ]{0,'.$less_than_tab.'} [:][ ]    |
                     <!--dt--> | \z
-                )                       
-            )                   
+                )
+            )
             }xm',
             array($this, '_item_callback_dd'), $list_str);
 
@@ -151,7 +151,7 @@ class DefinitionList
      * @param   array   $matches
      * @return  string
      */
-    protected function _item_callback_dt($matches) 
+    protected function _item_callback_dt($matches)
     {
         $terms = explode("\n", trim($matches[1]));
         $text = '';
@@ -169,7 +169,7 @@ class DefinitionList
      * @param   array   $matches
      * @return  string
      */
-    protected function _item_callback_dd($matches) 
+    protected function _item_callback_dd($matches)
     {
         $leading_line   = $matches[1];
         $marker_space   = $matches[2];
@@ -187,5 +187,4 @@ class DefinitionList
         return /*"\n" .*/ Kernel::get('OutputFormatBag')
             ->buildTag('definition_list_item_definition', $def)/* . "\n"*/;
     }
-
 }

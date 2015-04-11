@@ -24,7 +24,7 @@ class Detab
      * String length function for detab. `_initDetab` will create a function to
      * hanlde UTF-8 if the default function does not exist.
      */
-    var $utf8_strlen = 'mb_strlen';
+    public $utf8_strlen = 'mb_strlen';
 
     /**
      * Check for the availability of the function in the `utf8_strlen` property
@@ -82,5 +82,4 @@ class Detab
         }
         return $line;
     }
-
 }

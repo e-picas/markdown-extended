@@ -85,5 +85,4 @@ class AutoLink
             ));
         return parent::hashPart($block);
     }
-
 }

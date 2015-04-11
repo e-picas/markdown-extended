@@ -64,5 +64,4 @@ class CacheRegistry
         $this->_cache->set($index, $object);
         return $this;
     }
-
 }

@@ -137,7 +137,6 @@ MSG
                         sprintf('Unknown task "%s"', $task)
                     );
             }
-
         } catch (\Exception $e) {
             echo 'Error: ['.get_class($e).'] '
                 .$e->getMessage().' at '.$e->getFile().':'.$e->getLine();
@@ -373,5 +372,4 @@ MSG
             $mde->transformSource($input)
         );
     }
-
 }

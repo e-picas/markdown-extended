@@ -265,7 +265,7 @@ class Parser
     {
         $this->_registerContent($content);
         $this->getKernel()
-            ->set(Kernel::TYPE_CONTENT, function(){ return Kernel::get('ContentCollection')->current(); })
+            ->set(Kernel::TYPE_CONTENT, function () { return Kernel::get('ContentCollection')->current(); })
             ->set('Lexer',              new Lexer)
             ->set('DomId',              new DomIdRegistry)
         ;
@@ -295,7 +295,6 @@ class Parser
             $content->setContent(
                 preg_replace('#<[/]?p>#i', '', $body)
             );
-
         } else {
             $content->setContent(
                 (!empty($meta) ? $content->getMetadataFormatted() . PHP_EOL : '') .
@@ -388,5 +387,4 @@ class Parser
         echo Helper::debug($content->getNotes(), 'content notes', false);
         echo Helper::debug($content->getMetadata(), 'content metadata', false);
     }
-
 }

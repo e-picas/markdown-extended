@@ -294,5 +294,4 @@ class Content
         return Kernel::get('OutputFormatBag')
             ->getMetadataToString($this->metadata, $this);
     }
-
 }

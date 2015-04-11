@@ -18,5 +18,4 @@ use \UnexpectedValueException as BaseException;
 class UnexpectedValueException
     extends BaseException
 {
-
 }

@@ -70,5 +70,4 @@ abstract class AbstractGamut
     {
         return self::$html_hashes[$key];
     }
-
 }

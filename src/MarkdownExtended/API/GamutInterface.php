@@ -24,5 +24,4 @@ interface GamutInterface
      * @return  string
      */
     public static function getDefaultMethod();
-
 }

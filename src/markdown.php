@@ -9,9 +9,9 @@
  */
 
 // get a well-formatted path
-$bootstrapGetPath = function($parts) {
+$bootstrapGetPath = function ($parts) {
     return implode(DIRECTORY_SEPARATOR, array_map(
-        function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
         is_array($parts) ? $parts : array($parts)
     ));
 };
@@ -20,7 +20,6 @@ $bootstrapGetPath = function($parts) {
 if (!defined('MDE_BASE_PATH')) {
     if (file_exists($bootstrapper = $bootstrapGetPath(array(__DIR__, 'bootstrap.php')))) {
         require_once $bootstrapper;
-
     } else {
         trigger_error(
             sprintf('MarkdownExtended bootstrapper not found (searching "%s")', $bootstrapper),

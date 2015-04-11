@@ -93,5 +93,4 @@ class DomIdRegistry
         $this->dom_ids->set($_reference, $new_id);
         return $return;
     }
-
 }

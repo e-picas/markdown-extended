@@ -22,7 +22,7 @@ use \MarkdownExtended\API\Kernel;
  *
  *    Header 1  {#header1}
  *    ========
- *  
+ *
  *    Header 2  {#header2}
  *    --------
  *
@@ -118,7 +118,7 @@ class Header
             Helper::header2Label($matches[2]);
 //        $id  = Kernel::get(Kernel::TYPE_CONTENT)->setNewDomId($id, null, false);
         $title = Lexer::runGamut('span_gamut', $matches[2]);
-        Kernel::addConfig('menu', array('level'=>$level,'text'=>parent::unhash($title)), $id);
+        Kernel::addConfig('menu', array('level'=>$level, 'text'=>parent::unhash($title)), $id);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('title', $title, array(
                 'level'=>$level,
@@ -151,5 +151,4 @@ class Header
             Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($meta);
         }
     }
-
 }

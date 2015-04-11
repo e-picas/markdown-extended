@@ -83,6 +83,4 @@ class FencedCodeBlock
     {
         return str_repeat(Kernel::get('OutputFormatBag')->buildTag('new_line'), strlen($matches[0]));
     }
-
-
 }

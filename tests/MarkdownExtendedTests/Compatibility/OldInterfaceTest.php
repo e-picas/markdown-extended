@@ -33,23 +33,25 @@ class OldInterfaceTest
      */
     public function testCreate()
     {
-        $this->assertFileExists($this->getOldInterfaceFilepath(), 'getOldInterfaceFilepath failure!');
+        // file exists
+        $this->assertFileExists(
+            $this->getOldInterfaceFilepath(),
+            'markdown.php file existence for compatibility'
+        );
         require_once $this->getOldInterfaceFilepath();
 
         // Markdown
         $this->assertEquals(
-            $this->getTestExpectedBody(),
-            trim(Markdown(file_get_contents($this->getTestFilepath()))->getBody()),
+            $this->stripWhitespaceAndNewLines($this->getTestExpectedBody()),
+            $this->stripWhitespaceAndNewLines(Markdown(file_get_contents($this->getTestFilepath()))->getBody()),
             'Test of the Markdown() function'
         );
 
         // MarkdownFromSource
         $this->assertEquals(
-            $this->getTestExpectedBody(),
-            trim(MarkdownFromSource($this->getTestFilepath())->getBody()),
+            $this->stripWhitespaceAndNewLines($this->getTestExpectedBody()),
+            $this->stripWhitespaceAndNewLines(MarkdownFromSource($this->getTestFilepath())->getBody()),
             'Test of the MarkdownFromSource() function'
         );
-
     }
-    
 }

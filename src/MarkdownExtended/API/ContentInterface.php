@@ -210,5 +210,4 @@ interface ContentInterface
      * @return string
      */
     public function getMetadataFormatted();
-
 }

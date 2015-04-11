@@ -18,5 +18,4 @@ use \BadMethodCallException as BaseException;
 class BadMethodCallException
     extends BaseException
 {
-
 }

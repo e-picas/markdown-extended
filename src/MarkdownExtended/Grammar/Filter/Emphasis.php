@@ -25,25 +25,25 @@ class Emphasis
      * Redefining emphasis markers so that emphasis by underscore does not
      * work in the middle of a word.
      */
-    var $em_relist = array(
+    public $em_relist = array(
         ''  => '(?:(?<!\*)\*(?!\*)|(?<![a-zA-Z0-9_])_(?!_))(?=\S|$)(?![\.,:;]\s)',
         '*' => '(?<=\S|^)(?<!\*)\*(?!\*)',
         '_' => '(?<=\S|^)(?<!_)_(?![a-zA-Z0-9_])',
     );
 
-    var $strong_relist = array(
+    public $strong_relist = array(
         ''   => '(?:(?<!\*)\*\*(?!\*)|(?<![a-zA-Z0-9_])__(?!_))(?=\S|$)(?![\.,:;]\s)',
         '**' => '(?<=\S|^)(?<!\*)\*\*(?!\*)',
         '__' => '(?<=\S|^)(?<!_)__(?![a-zA-Z0-9_])',
     );
 
-    var $em_strong_relist = array(
+    public $em_strong_relist = array(
         ''    => '(?:(?<!\*)\*\*\*(?!\*)|(?<![a-zA-Z0-9_])___(?!_))(?=\S|$)(?![\.,:;]\s)',
         '***' => '(?<=\S|^)(?<!\*)\*\*\*(?!\*)',
         '___' => '(?<=\S|^)(?<!_)___(?![a-zA-Z0-9_])',
     );
 
-    static $em_strong_prepared_relist;
+    public static $em_strong_prepared_relist;
     /**#@-*/
 
     /**
@@ -127,7 +127,7 @@ class Emphasis
                     $$tag = ''; // $$tag stands for $em or $strong
                 }
                 $tree_char_em = false;
-            } else if ($token_len == 3) {
+            } elseif ($token_len == 3) {
                 if ($em) {
                     // Reached closing marker for both em and strong.
                     // Closing strong marker:
@@ -149,7 +149,7 @@ class Emphasis
                     array_unshift($text_stack, '');
                     $tree_char_em = true;
                 }
-            } else if ($token_len == 2) {
+            } elseif ($token_len == 2) {
                 if ($strong) {
                     // Unwind any dangling emphasis marker:
                     if (strlen($token_stack[0]) == 1) {
@@ -191,5 +191,4 @@ class Emphasis
         }
         return $text_stack[0];
     }
-
 }

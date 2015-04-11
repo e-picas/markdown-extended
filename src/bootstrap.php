@@ -17,9 +17,9 @@ if (version_compare(PHP_VERSION, '5.3.3', '<')) {
 }
 
 // get a well-formatted path
-$bootstrapGetPath = function($parts) {
+$bootstrapGetPath = function ($parts) {
     return implode(DIRECTORY_SEPARATOR, array_map(
-        function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
         is_array($parts) ? $parts : array($parts)
     ));
 };

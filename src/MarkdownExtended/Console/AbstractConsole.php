@@ -404,7 +404,7 @@ abstract class AbstractConsole
     /**
      * Actually run command's process
      */
-    abstract function run();
+    abstract public function run();
 
     /**
      * Load common options to command's sepcific ones
@@ -473,5 +473,4 @@ abstract class AbstractConsole
 
         return $this;
     }
-
 }

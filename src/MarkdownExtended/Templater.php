@@ -152,5 +152,4 @@ class Templater
     {
         return sprintf($this->config->get('keywords_mask'), $keyword);
     }
-
 }

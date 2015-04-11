@@ -47,7 +47,7 @@ class BaseUnitTest
     {
         return implode(
             DIRECTORY_SEPARATOR,
-            array_map(function($p){
+            array_map(function ($p) {
                 return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p);
             }, $parts)
         );
@@ -147,5 +147,4 @@ class BaseUnitTest
         }
         return false;
     }
-
 }

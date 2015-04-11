@@ -99,5 +99,4 @@ class ConsoleTasksTest
             'Test of the CLI filters-list task (output not empty)'
         );
     }
-
 }

@@ -93,5 +93,4 @@ class LinkDefinition
         Kernel::addConfig('attributes', array($link_id=>$matches[5]));
         return '';
     }
-
 }

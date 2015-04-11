@@ -1,10 +1,10 @@
 <?php
 // show errors at least initially
-@ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+@ini_set('display_errors', '1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
 // set a default timezone to avoid PHP5 warnings
 $dtmz = date_default_timezone_get();
-date_default_timezone_set( !empty($dtmz) ? $dtmz:'Europe/Paris' );
+date_default_timezone_set(!empty($dtmz) ? $dtmz:'Europe/Paris');
 
 $class_info = \MarkdownExtended\Helper::info(true);
 $info = <<<EOT
@@ -45,7 +45,9 @@ if (!empty($_POST)) {
         <legend>Markdown text field</legend>
         <label for="mde_input_content">Input a comment with Markdown tags:</label>
         <textarea name="mde_content" id="mde_input_content" style="width: 100%; heightm: auto; min-height: 200px"><?php
-        if (!empty($mde_content)) echo $mde_content->getSource();
+        if (!empty($mde_content)) {
+            echo $mde_content->getSource();
+        }
         ?></textarea>
         <p class="comment">Allowed tags are : emphasis (bold and italic), links and images, code spans and blocks, blockquotes, simple lists and definitions lists, abbreviations, horizontal rules and tables.</p>
     </fieldset>

@@ -24,5 +24,4 @@ interface TemplateInterface
      * @return  string
      */
     public function parse(ContentInterface $content);
-
 }

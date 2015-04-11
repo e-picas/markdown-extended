@@ -6,7 +6,7 @@
  * `E_ALL & ~E_STRICT` => for hard dev in PHP5.4 avoiding strict warnings
  * `E_ALL & ~E_NOTICE & ~E_STRICT` => classic setting
  */
-@ini_set('display_errors','1'); @error_reporting(E_ALL);
+@ini_set('display_errors', '1'); @error_reporting(E_ALL);
 //@ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_STRICT);
 //@ini_set('display_errors','1'); @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
@@ -25,9 +25,13 @@ $md = isset($_GET['md']) ? $_GET['md'] : 'none';
 $arg_ln = isset($_GET['ln']) ? $_GET['ln'] : 'en';
 $page = isset($_GET['page']) ? $_GET['page'] : null;
 if (!empty($page)) {
-    if (file_exists($page.'.php')) $page = $page . '.php';
-    elseif (file_exists($page.'.html')) $page = $page . '.html';
-    else unset($page);
+    if (file_exists($page.'.php')) {
+        $page = $page . '.php';
+    } elseif (file_exists($page.'.html')) {
+        $page = $page . '.html';
+    } else {
+        unset($page);
+    }
 }
 
 // contents settings
@@ -77,7 +81,7 @@ EOT;
 EOT;
             switch ($md) {
                 case 'none'; default:
-                    $content = '<pre>'.file_get_contents($doc).'</pre>'; 
+                    $content = '<pre>'.file_get_contents($doc).'</pre>';
                     break;
                 case 'process';
 /*
@@ -195,9 +199,9 @@ $menu = !empty($mde_content) ? $output_bag->getHelper()
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <?php foreach (scandir(__DIR__.'/../doc') as $f) :
-                                if (!in_array($f, array('.','..')) && !is_dir($f)) : ?>
+                                if (!in_array($f, array('.', '..')) && !is_dir($f)) : ?>
                                     <li><a href="index.php?doc=../doc/<?php echo basename($f); ?>&amp;md=process">
-                                            <?php echo str_replace(array('_','-'), ' ', str_replace('.md', '', basename($f))); ?>
+                                            <?php echo str_replace(array('_', '-'), ' ', str_replace('.md', '', basename($f))); ?>
                                         </a></li>
                                 <?php endif; endforeach; ?>
                         </ul>

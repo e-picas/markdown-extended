@@ -152,9 +152,9 @@ class Table
             $attributes[$n] = array();
             if (preg_match('/^ *-+: *$/', $s)) {
                 $attributes[$n]['style'] = 'text-align:right;';
-            } else if (preg_match('/^ *:-+: *$/', $s)) {
+            } elseif (preg_match('/^ *:-+: *$/', $s)) {
                 $attributes[$n]['style'] = 'text-align:center;';
-            } else if (preg_match('/^ *:-+ *$/', $s)) {
+            } elseif (preg_match('/^ *:-+ *$/', $s)) {
                 $attributes[$n]['style'] = 'text-align:left;';
             }
         }
@@ -185,10 +185,14 @@ class Table
             $headspans = array();
             foreach ($_headers as $_i => $_cell) {
                 if ($_cell=='') {
-                    if ($_i==0) $headspans[1]=2;
-                    else {
-                        if (isset($headspans[$_i-1])) $headspans[$_i-1]++;
-                        else $headspans[$_i-1]=2;
+                    if ($_i==0) {
+                        $headspans[1]=2;
+                    } else {
+                        if (isset($headspans[$_i-1])) {
+                            $headspans[$_i-1]++;
+                        } else {
+                            $headspans[$_i-1]=2;
+                        }
                     }
                 }
             }
@@ -226,20 +230,24 @@ class Table
             $colspans = array();
             foreach ($row_cells as $_i => $_cell) {
                 if ($_cell=='') {
-                    if ($_i==0) $colspans[1]=2;
-                    else {
-                        if (isset($colspans[$_i-1])) $colspans[$_i-1]++;
-                        else $colspans[$_i-1]=2;
+                    if ($_i==0) {
+                        $colspans[1]=2;
+                    } else {
+                        if (isset($colspans[$_i-1])) {
+                            $colspans[$_i-1]++;
+                        } else {
+                            $colspans[$_i-1]=2;
+                        }
                     }
                 }
             }
             foreach ($row_cells as $n => $cell) {
                 if ($cell!='') {
-                $cell_attributes = $attributes[$n];
-                if (isset($colspans[$n])) {
-                    $cell_attributes['colspan'] = $colspans[$n];
-                }
-                $line .= Kernel::get('OutputFormatBag')
+                    $cell_attributes = $attributes[$n];
+                    if (isset($colspans[$n])) {
+                        $cell_attributes['colspan'] = $colspans[$n];
+                    }
+                    $line .= Kernel::get('OutputFormatBag')
                     ->buildTag('table_cell', Lexer::runGamut('span_gamut', trim($cell)), $cell_attributes) . "\n";
                 }
             }
@@ -264,5 +272,4 @@ class Table
                 'id'=>$this->table_id
             ));
     }
-
 }

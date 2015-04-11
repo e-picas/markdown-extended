@@ -34,7 +34,5 @@ class LinkTest extends ParserTest
             '<a href="http://getcomposer.org/" title="My title">Composer</a>',
             '[parsing] test of links with title'
         );
-
     }
-    
 }

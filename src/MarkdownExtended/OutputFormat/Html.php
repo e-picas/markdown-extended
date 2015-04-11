@@ -180,7 +180,7 @@ class Html
             unset($attributes['level']);
         } else {
             $tag = 'h' . Kernel::get('baseheaderlevel');
-        }       
+        }
         return $this->getTagString($text, $tag, $attributes);
     }
     
@@ -364,15 +364,12 @@ class Html
             if ($first_char==='#' && $this->getConfig('anchor_title_mask')) {
                 $attributes['title'] = Helper::fillPlaceholders(
                     $this->getConfig('anchor_title_mask'), $attributes['href']);
-
             } elseif ($this->getConfig('link_title_mask')) {
                 $attributes['title'] = Helper::fillPlaceholders(
                     $this->getConfig('link_title_mask'),
                     !empty($attributes['href']) ? $attributes['href'] : ''
                 );
-
             }
         }
     }
-
 }

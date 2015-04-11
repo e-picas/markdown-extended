@@ -66,7 +66,6 @@ class ConsoleUsageTest
      */
     public function testSimpleStringTemplate()
     {
-
         $res1 = $this->runCommand($this->getBaseCmd().' --template "my **markdown** _extended_ simple string"');
         $res2 = $this->runCommand($this->getBaseCmd().' -t "my **markdown** _extended_ simple string"');
         $html = $this->stripWhitespaceAndNewLines(
@@ -171,7 +170,6 @@ MSG
      */
     public function testSimpleStringAsJson()
     {
-
         $res1 = $this->runCommand($this->getBaseCmd().' --response json "my **markdown** _extended_ simple string"');
         $res2 = $this->runCommand($this->getBaseCmd().' --response=json "my **markdown** _extended_ simple string"');
         $res3 = $this->runCommand($this->getBaseCmd().' -r json "my **markdown** _extended_ simple string"');
@@ -468,5 +466,4 @@ MSG
 
         $this->flushTempDir();
     }
-
 }

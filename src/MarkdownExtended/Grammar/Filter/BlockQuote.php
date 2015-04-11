@@ -89,5 +89,4 @@ class BlockQuote
         $pre = preg_replace('/^  /m', '', $pre);
         return $pre;
     }
-
 }

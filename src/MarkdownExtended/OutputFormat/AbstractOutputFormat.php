@@ -54,7 +54,6 @@ abstract class AbstractOutputFormat
                 array($this, $_method),
                 array($content, $attributes)
             );
-
         }
 
         $closable = false;
@@ -132,5 +131,4 @@ abstract class AbstractOutputFormat
         }
         return implode(PHP_EOL, $data);
     }
-
 }

@@ -42,7 +42,7 @@ class ListItem
      * @param   string  $text
      * @return  string
      */
-    public function transform($text) 
+    public function transform($text)
     {
         $markers_relist = array(
             self::$marker_ul_re => self::$marker_ol_re,
@@ -102,13 +102,13 @@ class ListItem
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
-    protected function _callback($matches) 
+    protected function _callback($matches)
     {
         $marker_any_re = '(?:'.self::$marker_ul_re.'|'.self::$marker_ol_re.')';
         $list = $matches[1] . "\n";
-        $list_type = preg_match('/'.self::$marker_ul_re.'/', $matches[4]) ? "unordered" : "ordered";        
-        $marker_any_re = ( $list_type == "unordered" ? self::$marker_ul_re : self::$marker_ol_re );
-        $list = self::transformItems($list, $marker_any_re);        
+        $list_type = preg_match('/'.self::$marker_ul_re.'/', $matches[4]) ? "unordered" : "ordered";
+        $marker_any_re = ($list_type == "unordered" ? self::$marker_ul_re : self::$marker_ol_re);
+        $list = self::transformItems($list, $marker_any_re);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag($list_type . '_list', $list);
         return "\n" . parent::hashBlock($block) . "\n\n";
@@ -143,7 +143,7 @@ class ListItem
      * @param   string  $marker_any_re  The marker we are processing
      * @return  string                  The list string parsed
      */
-    public function transformItems($list_str, $marker_any_re) 
+    public function transformItems($list_str, $marker_any_re)
     {
         self::$list_level++;
 
@@ -170,7 +170,7 @@ class ListItem
      * @param   array   $matches    A set of results of the `transform()` function
      * @return  string
      */
-    protected function _items_callback($matches) 
+    protected function _items_callback($matches)
     {
         $item                   =   $matches[4];
         $leading_line           =&  $matches[1];
@@ -192,5 +192,4 @@ class ListItem
         return Kernel::get('OutputFormatBag')
             ->buildTag('list_item', $item)/* . "\n"*/;
     }
-
 }

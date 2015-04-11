@@ -18,5 +18,4 @@ use \ErrorException as BaseException;
 class ErrorException
     extends BaseException
 {
-
 }

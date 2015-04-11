@@ -38,22 +38,22 @@ class Note
     /**
      * @var int  Give the current footnote, glossary or bibliography number.
      */
-    static $footnote_counter;
+    public static $footnote_counter;
         
     /**
      * @var int  Give the total parsed notes number.
      */
-    static $notes_counter;
+    public static $notes_counter;
         
     /**
      * @var array  Ordered notes
      */
-    static $notes_ordered;
+    public static $notes_ordered;
 
     /**
      * @var array  Written notes
      */
-    static $written_notes = array();
+    public static $written_notes = array();
 
     /**
      * Prepare all required arrays
@@ -75,7 +75,7 @@ class Note
      * @param   string  $text
      * @return  string
      */
-    public function strip($text) 
+    public function strip($text)
     {
         $less_than_tab = Kernel::getConfig('less_than_tab');
 
@@ -85,15 +85,15 @@ class Note
               [ ]*
               \n?                           # maybe *one* newline
             (                               # text = $2 (no blank lines allowed)
-                (?:                 
+                (?:
                     .+                      # actual text
                 |
-                    \n                      # newlines but 
+                    \n                      # newlines but
                     (?!\[\^.+?\]:\s)        # negative lookahead for footnote marker.
-                    (?!\n+[ ]{0,3}\S)       # ensure line is not blank and followed 
+                    (?!\n+[ ]{0,3}\S)       # ensure line is not blank and followed
                                             # by non-indented content
                 )*
-            )       
+            )
             }xm',
             array($this, '_strip_callback'),
             $text);
@@ -104,15 +104,15 @@ class Note
               [ ]*
               \n?                           # maybe *one* newline
             (                               # text = $2 (no blank lines allowed)
-                (?:                 
+                (?:
                     .+                      # actual text
                 |
-                    \n                      # newlines but 
+                    \n                      # newlines but
                     (?!\[\^.+?\]:\s)        # negative lookahead for footnote marker.
-                    (?!\n+[ ]{0,3}\S)       # ensure line is not blank and followed 
+                    (?!\n+[ ]{0,3}\S)       # ensure line is not blank and followed
                                             # by non-indented content
                 )*
-            )       
+            )
             }xm',
             array($this, '_strip_callback'),
             $text);
@@ -126,20 +126,18 @@ class Note
      * @param   array   $matches    Results from the `transform()` function
      * @return  string
      */
-    protected function _strip_callback($matches) 
+    protected function _strip_callback($matches)
     {
         if (0 !== preg_match('/^(<p>)?glossary:/i', $matches[2])) {
             Kernel::addConfig('glossaries', array(
                 (Kernel::getConfig('glossarynote_id_prefix') . $matches[1]) =>
                     Lexer::runGamut('tools:Outdent', $matches[2])
             ));
-
         } elseif (0 !== preg_match('/^\#(.*)?/i', $matches[1])) {
             Kernel::addConfig('bibliographies', array(
-                (Kernel::getConfig('bibliographynote_id_prefix') . substr($matches[1],1)) =>
+                (Kernel::getConfig('bibliographynote_id_prefix') . substr($matches[1], 1)) =>
                     Lexer::runGamut('tools:Outdent', $matches[2])
             ));
-
         } else {
             Kernel::addConfig('footnotes', array(
                 (Kernel::getConfig('footnote_id_prefix') . $matches[1]) =>
@@ -150,13 +148,13 @@ class Note
     }
 
     /**
-     * Replace footnote references in $text [string][#id] and [^id] with a special text-token 
+     * Replace footnote references in $text [string][#id] and [^id] with a special text-token
      * which will be replaced by the actual footnote marker in appendFootnotes.
      *
      * @param   string  $text
      * @return  string
      */
-    public function transform($text) 
+    public function transform($text)
     {
         if (Kernel::getConfig('in_anchor') === false) {
             $text = preg_replace('{\[\^(.+?)\]}', "F\x1Afn:\\1\x1A:", $text);
@@ -171,7 +169,7 @@ class Note
      * @param   string  $text
      * @return  string
      */
-    public function append($text) 
+    public function append($text)
     {
         $footnotes      = Kernel::getConfig('footnotes');
         $glossaries     = Kernel::getConfig('glossaries');
@@ -190,7 +188,7 @@ class Note
             }
         }
     
-        $text = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}', 
+        $text = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
             array($this, '_append_callback'), $text);
     
         while (!empty(self::$notes_ordered)) {
@@ -209,7 +207,6 @@ class Note
             // bibliographies
             } elseif (isset($bibliographies[$note_id])) {
                 self::transformBibliography($note_id);
-
             }
         }
 
@@ -222,7 +219,7 @@ class Note
      * @param   string  $note_id
      * @return  void
      */
-    public function transformFootnote($note_id) 
+    public function transformFootnote($note_id)
     {
         $footnotes = Kernel::getConfig('footnotes');
         if (!empty($footnotes[$note_id])) {
@@ -236,7 +233,7 @@ class Note
      * @param   string  $note_id
      * @return  void
      */
-    public function transformGlossary($note_id) 
+    public function transformGlossary($note_id)
     {
         $glossaries = Kernel::getConfig('glossaries');
         if (!empty($glossaries[$note_id])) {
@@ -276,7 +273,7 @@ class Note
      * @param   string  $note_id
      * @return  void
      */
-    public function transformBibliography($note_id) 
+    public function transformBibliography($note_id)
     {
         $bibliographies = Kernel::getConfig('bibliographies');
         if (!empty($bibliographies[$note_id])) {
@@ -358,7 +355,7 @@ class Note
      * @param   array   $matches
      * @return  string
      */
-    protected function _append_callback($matches) 
+    protected function _append_callback($matches)
     {
         $note_id    = $matches[1];
         $note_num   = $note_ref     = null;
@@ -459,5 +456,4 @@ class Note
         }
         return $data;
     }
-
 }

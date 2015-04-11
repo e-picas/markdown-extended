@@ -33,5 +33,4 @@ class BlockquoteTest extends ParserTest
             '[parsing] test of blockquote'
         );
     }
-    
 }

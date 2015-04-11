@@ -125,5 +125,4 @@ abstract class Filter
     {
         return $this->getHash($matches[0]);
     }
-
 }

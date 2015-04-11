@@ -132,7 +132,7 @@ class Tools
     public function ExtractAttributes($attributes)
     {
         $attrs = array();
-        $callback = function($matches) use ($attrs) {
+        $callback = function ($matches) use ($attrs) {
             $attrs[$matches[1]] = $matches[3];
         };
         preg_replace_callback('{
@@ -153,7 +153,7 @@ class Tools
      *
      * @return  string          The text parsed
      */
-    function Outdent($text)
+    public function Outdent($text)
     {
         return preg_replace('/^(\t|[ ]{1,'.Kernel::getConfig('tab_width').'})/m', '', $text);
     }
@@ -235,5 +235,4 @@ class Tools
     {
         return preg_replace('/^[ ]+$/m', '', $text);
     }
-
 }

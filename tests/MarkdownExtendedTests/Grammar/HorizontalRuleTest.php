@@ -36,5 +36,4 @@ MSG;
             '[parsing] test of horizontal rule'
         );
     }
-    
 }

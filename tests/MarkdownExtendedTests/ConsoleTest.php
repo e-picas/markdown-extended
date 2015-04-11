@@ -87,5 +87,4 @@ echo PHP_EOL . "result: " . var_export(array(
             'stderr' => trim($stderr, PHP_EOL)
         );
     }
-
 }

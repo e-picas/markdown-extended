@@ -25,5 +25,4 @@ class HeaderTest extends ParserTest
             '[parsing] test of header'
         );
     }
-    
 }

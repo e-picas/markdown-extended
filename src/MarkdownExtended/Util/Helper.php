@@ -57,9 +57,9 @@ class Helper
         // strip all Markdown characters
         $text = str_replace(
             array("'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"),
-            "", strtolower($text) );
+            "", strtolower($text));
         // strip the rest for visual signification
-        $text = str_replace( array("#", " ", "__", "/", "\\"), $separator, $text );
+        $text = str_replace(array("#", " ", "__", "/", "\\"), $separator, $text);
         // strip non-ascii characters
         return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $text);
     }
@@ -96,7 +96,7 @@ class Helper
                 // '@' *must* be encoded. I insist.
                 if ($rand > 90 && $char != '@') {
                     /* do nothing */;
-                } else if ($rand < 45) {
+                } elseif ($rand < 45) {
                     $chars[$key] = '&#x'.dechex($ord).';';
                 } else {
                     $chars[$key] = '&#'.$ord.';';
@@ -119,7 +119,6 @@ class Helper
         $str = $source;
 
         if (!is_string($source)) {
-
             if ($source instanceof \DateTime) {
                 $str = $source->format(DATE_W3C);
             } elseif (is_array($source)) {
@@ -128,7 +127,6 @@ class Helper
                     $str .= $var . ': ' . self::getSafeString($val) . PHP_EOL;
                 }
             }
-
         }
 
         return $str;
@@ -237,7 +235,7 @@ class Helper
     public static function getPath($parts)
     {
         return implode(DIRECTORY_SEPARATOR, array_map(
-            function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+            function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
             is_array($parts) ? $parts : array($parts))
         );
     }
@@ -366,5 +364,4 @@ class Helper
         $str .= str_replace(array_keys($replacements), array_values($replacements), $dump);
         return $str;
     }
-
 }

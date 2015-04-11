@@ -158,7 +158,7 @@ DESC
     {
         $results = $this->results;
         if ($as_array) {
-            $item_callback = function(&$item) {
+            $item_callback = function (&$item) {
                 /* @var $item \MarkdownExtended\API\ContentInterface */
                 return $item = (is_object($item) && Kernel::valid($item, Kernel::TYPE_CONTENT) ?
                     array_filter($item->__toArray()) : $item);
@@ -178,7 +178,7 @@ DESC
         $mde_data = $this->options;
 
         // strip unused options
-        foreach (array('help', 'version','debug','quiet','verbose','extract','response') as $n) {
+        foreach (array('help', 'version', 'debug', 'quiet', 'verbose', 'extract', 'response') as $n) {
             unset($mde_data[$n]);
         }
 
@@ -410,7 +410,7 @@ DESC
                 $gamuts[$var] = $val;
             }
         }
-        array_walk($gamuts, function(&$item) {
+        array_walk($gamuts, function (&$item) {
             $item = array_flip($item);
         });
 
@@ -463,5 +463,4 @@ DESC
         }
         $this->stream->writeln('----');
     }
-
 }

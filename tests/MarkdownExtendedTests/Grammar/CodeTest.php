@@ -74,7 +74,5 @@ MSG;
 </pre>',
             '[parsing] test of fenced code block with language info'
         );
-
     }
-    
 }

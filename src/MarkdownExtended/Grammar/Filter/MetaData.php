@@ -43,7 +43,9 @@ class MetaData
         Kernel::setConfig('metadata', array());
         $this->metadata = array();
         $this->special_metadata = Kernel::getConfig('special_metadata');
-        if (empty($this->special_metadata)) $this->special_metadata = array();
+        if (empty($this->special_metadata)) {
+            $this->special_metadata = array();
+        }
         self::$inMetaData = -1;
     }
 
@@ -89,7 +91,9 @@ class MetaData
             $line = preg_replace_callback(
                 '/^\s*(.+)$/', array($this, '_callback_nextline'), $line);
         }
-        if (strlen($line)) $line .= "\n";
+        if (strlen($line)) {
+            $line .= "\n";
+        }
         return $line;
     }
 
@@ -125,7 +129,7 @@ class MetaData
     {
         $metadata = Kernel::getConfig('metadata');
         if (!empty($metadata)) {
-            foreach($metadata as $meta_name=>$meta_value) {
+            foreach ($metadata as $meta_name=>$meta_value) {
                 if (!empty($meta_name) && is_string($meta_name)) {
                     if (in_array($meta_name, $this->special_metadata)) {
                         Kernel::setConfig($meta_name, $meta_value);
@@ -138,5 +142,4 @@ class MetaData
         }
         return $text;
     }
-
 }

@@ -28,7 +28,7 @@ class Span
      * @param   string  $str
      * @return  string
      */
-    function transform($str)
+    public function transform($str)
     {
         $output = '';
         $span_re = '{
@@ -39,7 +39,7 @@ class Span
                     `+                        # code span marker
                 |
                     \\ \(                     # inline math
-            '.( Kernel::getConfig('no_markup')===true ? '' : '
+            '.(Kernel::getConfig('no_markup')===true ? '' : '
                 |
                     <!--    .*?     -->       # comment
                 |
@@ -87,7 +87,7 @@ class Span
      * @param   string  $str
      * @return  string
      */
-    function handleSpanToken($token, &$str)
+    public function handleSpanToken($token, &$str)
     {
         switch ($token{0}) {
             case "\\":
@@ -118,5 +118,4 @@ class Span
                 return parent::hashPart($token);
         }
     }
-
 }

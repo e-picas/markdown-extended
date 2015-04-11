@@ -162,9 +162,7 @@ class Kernel
     ) {
         $result     = null;
         $indexer    = new \ArrayIterator(explode('.', $index));
-        $iterator   = function (&$item, $key)
-            use (&$iterator, &$accessor, &$result, $indexer, $value, $type, $merge)
-        {
+        $iterator   = function (&$item, $key) use (&$iterator, &$accessor, &$result, $indexer, $value, $type, $merge) {
             if ($key === $indexer->current()) {
                 $indexer->next();
                 if ($indexer->valid() && is_array($item)) {
@@ -218,9 +216,7 @@ class Kernel
             if (file_exists($final = $local_path . DIRECTORY_SEPARATOR . $final_name)) {
                 return $final;
             }
-
         }
         return null;
     }
-
 }
