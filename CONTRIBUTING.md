@@ -18,7 +18,7 @@ Bugs are inevitable and exist in all software. If you find one and want to trans
 But ... a bug report is helpful as long as it can be understood, reproduced, and that it permits to
 identify the error (and what caused it). A good bug report MUST follow these guidelines:
 
--   **first**: search in the issue tracker if your bug has not been transmitted yet ; if you find it,
+-   **first**: search in the issue tracker if your bug has not been transmitted yet ; if you find an existing one,
     you can add a new comment to the appropriate thread with your experience if it seems different
     from the others ;
 -   **then**: check if it exists right now: try to reproduce it with the current code to confirm it still exists ;
@@ -91,7 +91,7 @@ Then you can create your own branch with the name of your feature:
 The development process of the package requires some external dependencies to work, loaded via
 [Composer](http://getcomposer.org/). To install them, run:
 
-    // install Composer if your don't have it
+    // install Composer if you don't have it
     curl -sS https://getcomposer.org/installer | php
 
     // install PHP dependencies
@@ -116,78 +116,104 @@ As said above, all development MUST be done on the `dev` branch of the repositor
 can commit our development features to let users using a clone test and improve them.
 
 When the work gets a stable stage, it seems to be time to build and publish a new release. This
-is done by creating a tag named like `vX.Y.Z[-status]`[^1] from the "master" branch after having
-merged the "dev" one in.
+is done by creating a tag named like `vX.Y.Z[-status]` from the "master" branch after having
+merged the "dev" one in. Please see the [Semantic Versioning](http://semver.org/) work by 
+Tom Preston-Werner for more info about the release version name construction rules.
 
 
 How-tos
 -------
 
+All the dependencies used here are installed as "dev-dependencies" by Composer running:
+
+    $ php composer.phar install --dev
+
 ### Generate the "PHAR" archive
 
 To automatically re-generate the "markdown-extended.phar" file from current version, you can use:
 
-    ~$ php bin/mde-dev make-phar
+    $ php bin/mde-dev make-phar
 
+The archive's content can be extracted and check running:
+
+    $ php bin/mde-dev check-phar
 
 ### Generate the man-page
 
 To automatically re-generate the manpages of the package, you can use:
 
-    ~$ php bin/mde-dev make-manpage-3
-    ~$ php bin/mde-dev make-manpage-7
-    ~$ php bin/mde-dev make-manpages    # this will run both
+    $ php bin/mde-dev make-manpage-3
+    $ php bin/mde-dev make-manpage-7
+    $ php bin/mde-dev make-manpages    # this will run both
 
 To generate them manually, you can run:
 
-    ~$ bin/markdown-extended -f man -o bin/markdown-extended.3.man doc/MANPAGE.md
-    ~$ man ./bin/markdown-extended.3.man
-    ~$ bin/markdown-extended -f man -o bin/markdown-extended.7.man doc/DOCUMENTATION.md
-    ~$ man ./bin/markdown-extended.7.man
+    $ bin/markdown-extended -f man -o bin/markdown-extended.3.man doc/MANPAGE.md
+    $ man ./bin/markdown-extended.3.man
+    $ bin/markdown-extended -f man -o bin/markdown-extended.7.man doc/DOCUMENTATION.md
+    $ man ./bin/markdown-extended.7.man
 
+### Check dependencies
+
+The package is integrated in [Version Eye](https://www.versioneye.com/user/projects/550e3650bc1c12efc3000067)
+to check if its dependencies are up-to-date.
 
 ### Generate the documentation
 
+The app's API documentation is generated with [Sami](https://github.com/FriendsOfPHP/Sami).
+
 You can (re-)generate a full PHP documentation, at any time, running:
 
-    ~$ php bin/sami.php update sami.config.php
+    $ php bin/sami.php update sami.config.php
 
 The documentation is built in the `phpdoc/` directory in the package, and requires a temporary
-directory for its generation that is configured on:
-
-    path/to/markdown-extended/../tmp/cache/markdown-extended/
-
+directory for its generation that is configured on `../tmp/cache/markdown-extended/`.
 You can modify this setting editing the `sami.config.php` file.
-
 
 ### Launch unit-tests
 
+The unit-testing of the app is handled with [PHPUnit](https://phpunit.de/).
+
 You can verify that your package passes all tests running:
 
-    ~$ php bin/phpunit
+    $ php bin/phpunit
 
-All tests are stored in the `tests/` directory of the package.
+All tests are stored in the `tests/` directory of the package and
+the configuration file used by PHPUnit is `phpunit.xml.dist` at the root
+of the package.
 
-Note that the package is integrated with [Travis CI](http://travis-ci.org/).
+Note that the package is integrated in [Travis CI](https://travis-ci.org/piwi/markdown-extended/builds).
 
+### Fix coding standards errors
 
-### Mess detection
+You can check and fix code writing errors using [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
+by running:
+
+    $ php bin/php-cs-fixer fix -v
+
+This tool loads and uses the `.php_cs` configuration file by default.
+
+### Mess detection & code quality
+
+App's code "mess" can be tested with [PHP Mess Detector](http://phpmd.org/).
 
 You can check code mess running:
 
-    ~$ php bin/phpmd src text codesize
+    $ php bin/phpmd src text codesize
 
+Note that the package is integrated in [Code Climate](https://codeclimate.com/github/piwi/markdown-extended).
 
 Coding rules
 ------------
+
+You MUST follow the [PHP Standard Recommendations](http://www.php-fig.org/).
+
+Always keep in mind the followings:
 
 -   use space (no tab) ; 1 tab = 4 spaces ; this is valid for all languages
 -   comment your work (just enough)
 -   in case of error in a PHP script, ALWAYS throw one of the `MarkdownExtended\Exception`s with a message
 
-
-[^1]: Please see the [Semantic Versioning](http://semver.org/) work by Tom Preston-Werner for
-more info about the release version name construction rules.
 
 ----
 
