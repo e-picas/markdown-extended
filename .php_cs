@@ -11,6 +11,9 @@
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in(__DIR__)
+    ->name('*.php')
+    ->name('markdown-extended')
+    ->name('mde-dev')
 ;
 
 return Symfony\CS\Config\Config::create()
