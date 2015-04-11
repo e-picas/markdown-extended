@@ -232,7 +232,7 @@ MSG
     }
 
     /**
-     * Test a call on a simple string with a custom template
+     * Test a call on a file with a custom template
      *
      * @runInSeparateProcess
      */
@@ -330,6 +330,143 @@ MSG
             $body,
             'Test of the CLI on a file with body extraction (short option "--extract=body")'
         );
+    }
+
+    /**
+     * Test a call on a file with output generation
+     *
+     * @runInSeparateProcess
+     */
+    public function testOutput()
+    {
+        $this->flushTempDir();
+
+        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
+        $output = $this->getPath(array($this->getBasePath(), 'tmp', 'test-output-%s.html'));
+        $html = $this->stripWhitespaceAndNewLines(
+            <<<MSG
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>tests/test-meta.md</title>
+    <meta name="meta1" content="a value for meta 1" />
+<meta name="meta2" content="another value for meta 2" />
+</head>
+<body>
+<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
+voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
+<blockquote>
+  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
+      expedita distinctio.</p>
+</blockquote>
+<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
+tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+perferendis doloribus asperiores repellat.</p>
+</body>
+</html>
+MSG
+        );
+
+        // short option
+        $output1 = sprintf($output, '1');
+        $res1 = $this->runCommand($this->getBaseCmd().' -o '.$output1.' '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res1['stdout'])),
+            $this->cleanupBasePath($output1),
+            'Test of the CLI on a file with short option output generation (file path output)'
+        );
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath(file_get_contents($output1))),
+            $html,
+            'Test of the CLI on a file with short option output generation (file content)'
+        );
+
+        // long option
+        $output2 = sprintf($output, '2');
+        $res2 = $this->runCommand($this->getBaseCmd().' --output '.$output2.' '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res2['stdout'])),
+            $this->cleanupBasePath($output2),
+            'Test of the CLI on a file with long option output generation (file path output)'
+        );
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath(file_get_contents($output2))),
+            $html,
+            'Test of the CLI on a file with long option output generation (file content)'
+        );
+
+        $this->flushTempDir();
+    }
+
+    /**
+     * Test a call on a file with output generation and backup
+     *
+     * @runInSeparateProcess
+     */
+    public function testOutputBackup()
+    {
+        $this->flushTempDir();
+
+        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
+        $output = $this->getPath(array($this->getBasePath(), 'tmp', 'test-output.html'));
+        $regex  = basename($output).'~([0-9]{2}-?){6}';
+
+        // first generation
+        $res1 = $this->runCommand($this->getBaseCmd().' -o '.$output.' '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res1['stdout'])),
+            $this->cleanupBasePath($output),
+            'Test of the CLI on a file with short option output generation N (file path output)'
+        );
+        $this->assertFileExists(
+            $this->stripWhitespaceAndNewLines($res1['stdout']),
+            'Test of the CLI on a file with short option output generation N (file exists)'
+        );
+
+        // second generation
+        $res2 = $this->runCommand($this->getBaseCmd().' -o '.$output.' '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res2['stdout'])),
+            $this->cleanupBasePath($output),
+            'Test of the CLI on a file with short option output generation N+1 (file path output)'
+        );
+        $this->assertFileExists(
+            $this->stripWhitespaceAndNewLines($res2['stdout']),
+            'Test of the CLI on a file with short option output generation N+1 (file exists)'
+        );
+
+        // test if the file was backuped
+        $this->assertTrue(
+            $this->tempFileExists($regex),
+            'Test of the CLI on a file with short option output generation N+1 (backup exists)'
+        );
+
+        $this->flushTempDir();
+
+        // third generation
+        $res3 = $this->runCommand($this->getBaseCmd().' --force -o '.$output.' '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res3['stdout'])),
+            $this->cleanupBasePath($output),
+            'Test of the CLI on a file with short option output generation N+2 and the force option (file path output)'
+        );
+        $this->assertFileExists(
+            $this->stripWhitespaceAndNewLines($res3['stdout']),
+            'Test of the CLI on a file with short option output generation N+2 and the force option (file exists)'
+        );
+
+        // test if the file was NOT backuped
+        $this->assertFalse(
+            $this->tempFileExists($regex),
+            'Test of the CLI on a file with short option output generation N+2 and the force option (backup may NOT exist)'
+        );
+
+        $this->flushTempDir();
     }
 
 }
