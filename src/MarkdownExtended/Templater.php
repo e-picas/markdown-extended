@@ -120,9 +120,11 @@ class Templater
      */
     public function getParams(ContentInterface $content)
     {
-        $params = array();
+        $params     = array();
+        $keywords   = $this->config->get('keywords');
 
-        foreach ($this->config->get('keywords') as $var=>$word) {
+        // all options keywords
+        foreach ($keywords as $var=>$word) {
             $mask   = $this->_buildKeywordMask($word);
             $method = 'get' . Helper::toCamelCase($var);
             if (!method_exists($content, $method)) {
@@ -136,6 +138,17 @@ class Templater
                     array($content, method_exists($content, $method_tostring) ? $method_tostring : $method)
                 );
             };
+        }
+
+        // all metadata: META:name
+        $meta = $content->getMetadata();
+        if (!empty($meta) && isset($keywords['metadata'])) {
+            foreach ($meta as $name=>$value) {
+                $mask = $this->_buildKeywordMask($keywords['metadata'].':'.$name);
+                $params[$mask] = function () use ($value) {
+                    return $value;
+                };
+            }
         }
 
         return $params;
