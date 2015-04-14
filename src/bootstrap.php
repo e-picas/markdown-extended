@@ -16,6 +16,10 @@ if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     );
 }
 
+// set a default timezone to avoid PHP5 warnings
+$dtmz = @date_default_timezone_get();
+@date_default_timezone_set($dtmz?:'UTC');
+
 // get a well-formatted path
 $bootstrapGetPath = function ($parts) {
     return implode(DIRECTORY_SEPARATOR, array_map(
