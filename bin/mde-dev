@@ -13,7 +13,7 @@
 //define('HARD_DEBUG', true);
 
 // show errors
-@ini_set('display_errors',1);
+@ini_set('display_errors', 1);
 @error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
 // settings for CLI usage
@@ -22,7 +22,7 @@
 @set_time_limit(0);
 
 // prick blocker: CLI usage only
-if (strpos(PHP_SAPI,'cli') === false) {
+if (strpos(PHP_SAPI, 'cli') === false) {
     trigger_error(
         sprintf('This file is for command line usage only (current SAPI is "%s")', PHP_SAPI),
         E_USER_ERROR
@@ -30,9 +30,9 @@ if (strpos(PHP_SAPI,'cli') === false) {
 }
 
 // get a well-formatted path
-$bootstrapGetPath = function($parts) {
+$bootstrapGetPath = function ($parts) {
     return implode(DIRECTORY_SEPARATOR, array_map(
-        function($p){ return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
+        function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
         is_array($parts) ? $parts : array($parts)
     ));
 };
@@ -42,7 +42,6 @@ if (file_exists($bootstrapper = $bootstrapGetPath(array(
     dirname(__DIR__), 'src', 'bootstrap.php'
 )))) {
     require_once $bootstrapper;
-
 } else {
     trigger_error(
         sprintf('MarkdownExtended bootstrapper not found (searching "%s")', $bootstrapper),
