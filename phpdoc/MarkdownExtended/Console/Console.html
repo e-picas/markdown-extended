@@ -66,7 +66,7 @@ defines it whole process.</p>
                 </td>
                 <td class="last">
                     <a href="#method___construct">__construct</a>()
-                    <p>Initialized the command</p>
+                    <p>Initializes a new console app</p>
                 </td>
                 <td></td>
             </tr>
@@ -256,7 +256,27 @@ defines it whole process.</p>
                 </td>
                 <td class="last">
                     <a href="#method_run">run</a>()
-                    <p>Actually run the command process</p>
+                    <p>Actually run command's process</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array|<a href="../../MarkdownExtended/Parser.html"><abbr title="MarkdownExtended\Parser">Parser</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_getMarkdownExtendedParser">getMarkdownExtendedParser</a>()
+                    <p>Gets markdown parser with current options</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_getResults">getResults</a>(bool $as_array = false)
+                    <p>Gets rendering results</p>
                 </td>
                 <td></td>
             </tr>
@@ -266,12 +286,12 @@ defines it whole process.</p>
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 31</div>
+        <div class="location">at line 35</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
     <div class="details">
-        <p>Initialized the command</p>
+        <p>Initializes a new console app</p>
         <p>
 </p>
         <div class="tags">
@@ -862,16 +882,79 @@ method for a full review of what <code>$opt</code> can contain.</p>
     </div>
 
                 <h3 id="method_run">
-        <div class="location">at line 136</div>
+        <div class="location">at line 214</div>
         <code>            public            
     <strong>run</strong>()</code>
     </h3>
     <div class="details">
-        <p>Actually run the command process</p>
+        <p>Actually run command's process</p>
         <p>
 </p>
         <div class="tags">
             
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getMarkdownExtendedParser">
+        <div class="location">at line 142</div>
+        <code>            public            array|<a href="../../MarkdownExtended/Parser.html"><abbr title="MarkdownExtended\Parser">Parser</abbr></a>
+    <strong>getMarkdownExtendedParser</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Gets markdown parser with current options</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array|<a href="../../MarkdownExtended/Parser.html"><abbr title="MarkdownExtended\Parser">Parser</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getResults">
+        <div class="location">at line 157</div>
+        <code>            public            array
+    <strong>getResults</strong>(bool $as_array = false)</code>
+    </h3>
+    <div class="details">
+        <p>Gets rendering results</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>bool</td>
+                <td>$as_array</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>

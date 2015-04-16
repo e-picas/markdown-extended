@@ -132,7 +132,7 @@
                     static&nbsp;string
                 </td>
                 <td class="last">
-                    <a href="#method_getPath">getPath</a>(array $parts)
+                    <a href="#method_getPath">getPath</a>(array|string $parts)
                     <p>Gets a wel-formatted path with environment-compliant directory separator</p>
                 </td>
                 <td></td>
@@ -389,7 +389,7 @@
     </div>
 
                 <h3 id="method_isSingleLine">
-        <div class="location">at line 143</div>
+        <div class="location">at line 141</div>
         <code>        static    public            bool
     <strong>isSingleLine</strong>(string $str = &#039;&#039;)</code>
     </h3>
@@ -426,7 +426,7 @@
     </div>
 
                 <h3 id="method_buildRegex">
-        <div class="location">at line 160</div>
+        <div class="location">at line 158</div>
         <code>        static    public            string
     <strong>buildRegex</strong>(string $mask, string $delimiter = &#039;#&#039;, string $options = &#039;i&#039;)</code>
     </h3>
@@ -472,7 +472,7 @@
     </div>
 
                 <h3 id="method_toCamelCase">
-        <div class="location">at line 184</div>
+        <div class="location">at line 182</div>
         <code>        static    public            string
     <strong>toCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)</code>
     </h3>
@@ -517,7 +517,7 @@
     </div>
 
                 <h3 id="method_fromCamelCase">
-        <div class="location">at line 202</div>
+        <div class="location">at line 200</div>
         <code>        static    public            string
     <strong>fromCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $lowerize_first_char = true)</code>
     </h3>
@@ -562,9 +562,9 @@
     </div>
 
                 <h3 id="method_getPath">
-        <div class="location">at line 237</div>
+        <div class="location">at line 235</div>
         <code>        static    public            string
-    <strong>getPath</strong>(array $parts)</code>
+    <strong>getPath</strong>(array|string $parts)</code>
     </h3>
     <div class="details">
         <p>Gets a wel-formatted path with environment-compliant directory separator</p>
@@ -575,7 +575,7 @@
 
                     <table>
                     <tr>
-                <td>array</td>
+                <td>array|string</td>
                 <td>$parts</td>
                 <td>
 </td>
@@ -599,7 +599,7 @@
     </div>
 
                 <h3 id="method_readFile">
-        <div class="location">at line 257</div>
+        <div class="location">at line 253</div>
         <code>        static    public            string
     <strong>readFile</strong>(string $path, int $flag = FILE_USE_INCLUDE_PATH)</code>
     </h3>
@@ -651,7 +651,7 @@
     </div>
 
                 <h3 id="method_writeFile">
-        <div class="location">at line 288</div>
+        <div class="location">at line 284</div>
         <code>        static    public            int
     <strong>writeFile</strong>(string $path, string|array $content, bool $backup = true, null $flag = null)</code>
     </h3>
@@ -719,7 +719,7 @@
     </div>
 
                 <h3 id="method_backupFile">
-        <div class="location">at line 322</div>
+        <div class="location">at line 318</div>
         <code>        static    public            bool
     <strong>backupFile</strong>(string $path)</code>
     </h3>
@@ -756,7 +756,7 @@
     </div>
 
                 <h3 id="method_debug">
-        <div class="location">at line 349</div>
+        <div class="location">at line 345</div>
         <code>        static    public            string
     <strong>debug</strong>(mixed $objs, null|string $title = null, bool $html = true)</code>
     </h3>

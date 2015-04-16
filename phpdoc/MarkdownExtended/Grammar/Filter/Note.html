@@ -119,6 +119,43 @@
             </table>
 
     
+            <h2>Properties</h2>
+
+            <table>
+                    <tr>
+                <td class="type" id="property_footnote_counter">
+                    static                                        int
+                </td>
+                <td>$footnote_counter</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_notes_counter">
+                    static                                        int
+                </td>
+                <td>$notes_counter</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_notes_ordered">
+                    static                                        array
+                </td>
+                <td>$notes_ordered</td>
+                <td class="last">
+</td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_written_notes">
+                    static                                        array
+                </td>
+                <td>$written_notes</td>
+                <td class="last">
+</td>
+            </tr>
+            </table>
+
     
             <h2>Methods</h2>
 
@@ -179,7 +216,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>Replace footnote references in $text [string][#id] and [^id] with a special text-token  which will be replaced by the actual footnote marker in appendFootnotes.</p>
+                    <p>Must process the filter on a text</p>
                 </td>
                 <td></td>
             </tr>
@@ -449,12 +486,12 @@
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 159</div>
+        <div class="location">at line 157</div>
         <code>            public            string
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Replace footnote references in $text [string][#id] and [^id] with a special text-token  which will be replaced by the actual footnote marker in appendFootnotes.</p>
+        <p>Must process the filter on a text</p>
         <p>
 </p>
         <div class="tags">
@@ -726,7 +763,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_append">
-        <div class="location">at line 174</div>
+        <div class="location">at line 172</div>
         <code>            public            string
     <strong>append</strong>(string $text)</code>
     </h3>
@@ -763,7 +800,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_transformFootnote">
-        <div class="location">at line 225</div>
+        <div class="location">at line 222</div>
         <code>            public            void
     <strong>transformFootnote</strong>(string $note_id)</code>
     </h3>
@@ -800,7 +837,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_transformGlossary">
-        <div class="location">at line 239</div>
+        <div class="location">at line 236</div>
         <code>            public            void
     <strong>transformGlossary</strong>(string $note_id)</code>
     </h3>
@@ -837,7 +874,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_transformBibliography">
-        <div class="location">at line 279</div>
+        <div class="location">at line 276</div>
         <code>            public            void
     <strong>transformBibliography</strong>(string $note_id)</code>
     </h3>
@@ -874,7 +911,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_getTypeInfo">
-        <div class="location">at line 425</div>
+        <div class="location">at line 422</div>
         <code>        static    public            
     <strong>getTypeInfo</strong>($type = self::FOOTNOTE_DEFAULT)</code>
     </h3>

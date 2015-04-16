@@ -313,7 +313,9 @@
     </h3>
     <div class="details">
         <p>Use the content as a string</p>
-        <p>This basically returns <code>$this-&gt;getContent()</code>.</p>
+        <p>This may basically return <code>$this-&gt;getContent()</code>.
+You can customize this method to adapt the usage of
+a content object as a string.</p>
         <div class="tags">
             
                             <h4>Return Value</h4>
@@ -347,8 +349,9 @@
     </h3>
     <div class="details">
         <p>Get the content as an array</p>
-        <p>This returns an array with all content's blocks
-but <code>parsing_options</code> and <code>source</code>.</p>
+        <p>This may return an array with all content's blocks
+interesting for user usage (basically all but <code>parsing_options</code>
+and <code>source</code>).</p>
         <div class="tags">
             
                             <h4>Return Value</h4>
