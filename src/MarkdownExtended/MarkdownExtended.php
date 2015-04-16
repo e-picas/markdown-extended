@@ -221,7 +221,6 @@ class MarkdownExtended
                     'metadata'              => 'META',
                     'charset'               => 'CHARSET',
                     'title'                 => 'TITLE',
-//                  'last_update'           => 'DATE'
                 ),
                 'inline_template'       => "{% META %}\n{% BODY %}\n{% NOTES %}",
             ),

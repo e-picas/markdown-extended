@@ -73,7 +73,9 @@ class MetaData
         }
         if (!empty($this->metadata)) {
             Kernel::setConfig('metadata', $this->metadata);
-            Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($this->metadata);
+            foreach ($this->metadata as $var=>$val) {
+                Kernel::get(Kernel::TYPE_CONTENT)->addMetadata($var, $val);
+            }
         }
         return $text;
     }

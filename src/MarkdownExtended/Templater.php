@@ -146,7 +146,7 @@ class Templater
             foreach ($meta as $name=>$value) {
                 $mask = $this->_buildKeywordMask($keywords['metadata'].':'.$name);
                 $params[$mask] = function () use ($value) {
-                    return $value;
+                    return Helper::getSafeString($value);
                 };
             }
         }
