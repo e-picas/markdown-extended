@@ -2,9 +2,9 @@
 .\" man-name: markdown-extended-api
 .\" section: 7
 .\" author: Pierre Cassat
-.\" date: 2015-04-06
-.\" version: 0.1.0-rc
-.TH  "markdown-extended-api" "7" "2015-04-06" "Version 0.1.0-rc" "PHP-Markdown-Extended Developer Manual"
+.\" date: 2015-04-16
+.\" version: 0.1.1-delta
+.TH  "markdown-extended-api" "7" "2015-04-16" "Version 0.1.1-delta" "PHP-Markdown-Extended Developer Manual"
 .SH NAME
 .PP
 Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
@@ -118,11 +118,12 @@ The public `\fS\\MarkdownExtended\\MarkdownExtended\fP` object follows a simple 
 .EE
 .RE
 .PP
-It also proposes a literal procedural usage API:
+These methods actually distribute the "real" work to the `\fS\\MarkdownExtended\\Parser\fP` 
+object, which can be used as a literal procedural object like:
 .RS
 
 .EX
-$parser = new \\MarkdownExtended\\MarkdownExtended( options );
+$parser = new \\MarkdownExtended\\Parser( options );
 .br
 
 .br

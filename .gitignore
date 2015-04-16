@@ -14,10 +14,10 @@ build/logs/*
 bin/*
 !bin/markdown-extended
 
-# this is for "master" branch only
-#build/*
-#demo/*
-#phpdoc/*
+# this is for all branches but "dev"
+build/*
+demo/*
+phpdoc/*
 
 # this is for all branches but "phar-latest"
 #!bin/mde-dev

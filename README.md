@@ -3,15 +3,32 @@ PHP Markdown Extended
 
 Yet another PHP parser for the markdown (*extended*) syntax.
 
-**PHP Markdown Extended** is a PHP parser to transform Markdown text files or strings in
-HTML or other formats. This new version of a Markdown parser tries to follow the 
+**PHP Markdown Extended** is a PHP parser to transform [Markdown](http://en.wikipedia.org/wiki/Markdown) 
+text files or strings in HTML or other formats. This new version of a Markdown parser tries to follow the 
 [extended syntax specifications](http://manifest.aboutmde.org/) and is PHP-5.3 compliant
 and highly customizable.
 
+[![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=piwi&repo=markdown-extended&title=last+beta)](https://github.com/piwi/markdown-extended/releases)
 [![Build Status](https://travis-ci.org/piwi/markdown-extended.svg?branch=master)](http://travis-ci.org/piwi/markdown-extended)
 [![Dependency Status](https://www.versioneye.com/user/projects/550e3650bc1c12efc3000067/badge.svg?style=flat)](http://www.versioneye.com/user/projects/550e3650bc1c12efc3000067)
 [![Code Climate](https://codeclimate.com/github/piwi/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/piwi/markdown-extended)
 [![Test Coverage](https://codeclimate.com/github/piwi/markdown-extended/badges/coverage.svg)](http://codeclimate.com/github/piwi/markdown-extended)
+
+
+-   [Installation](#installation)
+    -   [Raw PHP package](#raw-php-package)
+    -   [Using Composer](#using-composer)
+    -   [Using a standalone version](#using-a-standalone-version)
+        -   [Locally](#locally)
+        -   [Personally](#personally)
+        -   [Globally](#globally)
+-   [Usage](#usage)
+    -   [Usage for writers](#usage-for-writers)
+    -   [Usage for developers](#usage-for-developers)
+    -   [Command line usage](#command-line-usage)
+    -   [Old parsers compatibility](#old-parsers-compatibility)
+-   [Open-Source & Community](#open-source--community)
+-   [Licenses](#licenses)
 
 
 Installation
@@ -74,6 +91,7 @@ $ cd phar-latest
 
 If you only need the archive for a local project, you can copy it where you
 want:
+<<<<<<< HEAD
 
 ```bash
 $ cp bin/markdown-extended.phar your/project/path/
@@ -85,6 +103,19 @@ $ php your/project/path/markdown-extended.phar ...
 To install the binary in your user's binaries:
 
 ```bash
+=======
+
+```bash
+$ cp bin/markdown-extended.phar your/project/path/
+$ php your/project/path/markdown-extended.phar ...
+```
+
+#### Personally
+
+To install the binary in your user's binaries:
+
+```bash
+>>>>>>> master
 $ ./install.sh ~/bin false
 ```
 
@@ -105,7 +136,8 @@ An HTML demonstration and the code documentation are available on the "dev" bran
 ### Usage for writers
 
 To be compliant with the **extended** Markdown syntax, writers may construct their contents
-following the rules described at <http://cheatsheet.aboutmde.org/>.
+following the rules described at <http://cheatsheet.aboutmde.org/> (all basic markdown rules
+are still available and valid).
 
 For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
 the latest version can be found at <http://github.com/piwi/markdown-extended/blob/dev/demo/MD_syntax.md>.
