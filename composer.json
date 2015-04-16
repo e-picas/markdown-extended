@@ -46,8 +46,11 @@
     "bin-dir": "bin"
   },
   "scripts": {
-    "test": "./bin/phpunit",
-    "code-coverage": "./bin/phpunit --coverage-clover build/logs/clover.xml && CODECLIMATE_REPO_TOKEN=13523c00febc4ee41ddbfcbb4f81331b1810d2a1f40029ddf066cb0d875ff2ef ./bin/test-reporter"
+    "build-doc": "php ./bin/sami.php update sami.config.php",
+    "update-doc": "php ./bin/sami.php update sami.config.php",
+    "test": "php ./bin/phpunit",
+    "cs-fixer": "php ./bin/php-cs-fixer fix -v",
+    "code-coverage": "php ./bin/phpunit --coverage-clover build/logs/clover.xml && CODECLIMATE_REPO_TOKEN=13523c00febc4ee41ddbfcbb4f81331b1810d2a1f40029ddf066cb0d875ff2ef ./bin/test-reporter"
   },
   "bin": [
     "bin/markdown-extended",
