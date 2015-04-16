@@ -120,7 +120,12 @@ class MarkdownExtended
             'no_markup'                 => false,
             'no_entities'               => false,
             // Special metadata used during parsing
-            'special_metadata'          => array('baseheaderlevel', 'quoteslanguage'),
+            'special_metadata'          => array(
+                'baseheaderlevel',
+                'quoteslanguage',
+                'last_update',
+                'file_name'
+            ),
             // Block inclusion tag
             'block_inclusion_mask'      => '<!-- @([^ @]+)@ -->',
             // Define an array of base path for block inclusions ; defaults to cwd.

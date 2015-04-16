@@ -289,15 +289,15 @@ MSG
 
         // extraction of metadata
         $res2 = $this->runCommand($this->getBaseCmd().' -e '.$file);
-        $this->assertEquals(
-            trim($res2['stdout']),
+        $this->assertStringEndsWith(
             trim($meta_str),
+            trim($res2['stdout']),
             'Test of the CLI on a file with metadata extraction without argument (short option "-e")'
         );
         $res3 = $this->runCommand($this->getBaseCmd().' --extract '.$file);
-        $this->assertEquals(
-            trim($res3['stdout']),
+        $this->assertStringEndsWith(
             trim($meta_str),
+            trim($res3['stdout']),
             'Test of the CLI on a file with metadata extraction without argument (long option "--extract")'
         );
 
