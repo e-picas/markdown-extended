@@ -8,10 +8,27 @@ HTML or other formats. This new version of a Markdown parser tries to follow the
 [extended syntax specifications](http://manifest.aboutmde.org/) and is PHP-5.3 compliant
 and highly customizable.
 
+[![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=piwi&repo=markdown-extended&title=last+beta)](https://github.com/piwi/markdown-extended/releases)
 [![Build Status](https://travis-ci.org/piwi/markdown-extended.svg?branch=master)](http://travis-ci.org/piwi/markdown-extended)
 [![Dependency Status](https://www.versioneye.com/user/projects/550e3650bc1c12efc3000067/badge.svg?style=flat)](http://www.versioneye.com/user/projects/550e3650bc1c12efc3000067)
 [![Code Climate](https://codeclimate.com/github/piwi/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/piwi/markdown-extended)
 [![Test Coverage](https://codeclimate.com/github/piwi/markdown-extended/badges/coverage.svg)](http://codeclimate.com/github/piwi/markdown-extended)
+
+
+-   [Installation](#installation)
+    -   [Raw PHP package](#raw-php-package)
+    -   [Using Composer](#using-composer)
+    -   [Using a standalone version](#using-a-standalone-version)
+        -   [Locally](#locally)
+        -   [Personally](#personally)
+        -   [Globally](#globally)
+-   [Usage](#usage)
+    -   [Usage for writers](#usage-for-writers)
+    -   [Usage for developers](#usage-for-developers)
+    -   [Command line usage](#command-line-usage)
+    -   [Old parsers compatibility](#old-parsers-compatibility)
+-   [Open-Source & Community](#open-source--community)
+-   [Licenses](#licenses)
 
 
 Installation
