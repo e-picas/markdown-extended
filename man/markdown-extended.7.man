@@ -2,9 +2,9 @@
 .\" man-name: markdown-extended-api
 .\" section: 7
 .\" author: Pierre Cassat
-.\" date: 2015-04-10
-.\" version: 0.1.0-dev
-.TH  "markdown-extended-api" "7" "2015-04-10" "Version 0.1.0-dev" "PHP-Markdown-Extended Developer Manual"
+.\" date: 2015-04-16
+.\" version: 0.1.1-dev
+.TH  "markdown-extended-api" "7" "2015-04-16" "Version 0.1.1-dev" "PHP-Markdown-Extended Developer Manual"
 .SH NAME
 .PP
 Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
