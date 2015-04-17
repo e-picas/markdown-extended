@@ -143,7 +143,9 @@ class Parser
         // force template if needed
         $tpl = $this->getKernel()->getConfig('template');
         if (!is_null($tpl) && $tpl === 'auto') {
-            $tpl = !(Helper::isSingleLine($content->getBody()));
+//            $tpl = !(Helper::isSingleLine($content->getBody()));
+            $meta = $content->getMetadataFormatted();
+            $tpl = !(empty($meta));
         }
 
         // load it in a template ?
