@@ -177,19 +177,24 @@ interface, which contains one single method:
 
 It acts like a service container:
 
-    \MarkdownExtended\Kernel->get('MarkdownExtended')
-    \MarkdownExtended\Kernel->get('Content')
-    \MarkdownExtended\Kernel->get('ContentCollection')
-    \MarkdownExtended\Kernel->get('Lexer')
-    \MarkdownExtended\Kernel->get('Grammar\GamutLoader')
-    \MarkdownExtended\Kernel->get('OutputFormatBag')
-    \MarkdownExtended\Kernel->get('Template')
-    \MarkdownExtended\Kernel->get('DomId')
+    \MarkdownExtended\Kernel->get('MarkdownExtended')   // the parser singleton
+    \MarkdownExtended\Kernel->get('Content')            // current parsed content
+    \MarkdownExtended\Kernel->get('ContentCollection')  // parsed contents collection
+    \MarkdownExtended\Kernel->get('Lexer')              // grammar lexer
+    \MarkdownExtended\Kernel->get('GamutLoader')        // grammar gamuts loader
+    \MarkdownExtended\Kernel->get('OutputFormatBag')    // wrapper for current output format
+    \MarkdownExtended\Kernel->get('Template')           // templater engine
+    \MarkdownExtended\Kernel->get('DomId')              // DOM registry manager
 
 It also acts like a configuration setter/getter:
 
+    // set a configuration entry
     \MarkdownExtended\Kernel::setConfig( index.subindex , value )
+
+    // merge a configuration entry with any existing string or array value
     \MarkdownExtended\Kernel::addConfig( index.subindex , value )
+
+    // get a configuration entry
     \MarkdownExtended\Kernel::getConfig( index.subindex )
     
 

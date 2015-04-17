@@ -89,7 +89,7 @@ class Lexer
      */
     public static function runGamut($gamut, $text, $forced = false)
     {
-        $loader = Kernel::get('Grammar\GamutLoader');
+        $loader = Kernel::get('GamutLoader');
         return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
     }
 
@@ -122,7 +122,7 @@ class Lexer
                 }
             }
 
-            return Kernel::get('Grammar\GamutLoader')
+            return Kernel::get('GamutLoader')
                 ->runGamuts($gamuts, $text);
         }
         return $text;
@@ -139,7 +139,7 @@ class Lexer
         $this->_clearHashes();
 
         // call all gamuts '_setup'
-        $loader = Kernel::get('Grammar\GamutLoader');
+        $loader = Kernel::get('GamutLoader');
         $loader->runGamutsMethod($loader->getAllGamutsReversed(), '_setup');
     }
     
@@ -154,7 +154,7 @@ class Lexer
         $this->_clearHashes();
 
         // call all gamuts '_teardown'
-        $loader = Kernel::get('Grammar\GamutLoader');
+        $loader = Kernel::get('GamutLoader');
         $loader->runGamutsMethod($loader->getAllGamutsReversed(), '_teardown');
     }
 

@@ -29,7 +29,7 @@ abstract class AbstractGamut
      */
     public function runGamut($gamut, $text, $forced = false)
     {
-        $loader = Kernel::get('Grammar\GamutLoader');
+        $loader = Kernel::get('GamutLoader');
         return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
     }
 

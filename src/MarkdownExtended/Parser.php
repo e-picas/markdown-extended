@@ -44,10 +44,10 @@ class Parser
 
         // init all dependencies
         $this->getKernel()
-            ->set('Parser',                 $this)
-            ->set('OutputFormatBag',        new OutputFormatBag)
-            ->set('Grammar\GamutLoader',    new GamutLoader)
-            ->set('ContentCollection',      new ContentCollection)
+            ->set('Parser',             $this)
+            ->set('OutputFormatBag',    new OutputFormatBag)
+            ->set('GamutLoader',        new GamutLoader)
+            ->set('ContentCollection',  new ContentCollection)
         ;
 
         // load required format

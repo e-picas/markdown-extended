@@ -402,7 +402,7 @@ DESC
         // create the MDE instance
         $mde = $this->getMarkdownExtendedParser();
 
-        $loader = Kernel::get('Grammar\GamutLoader');
+        $loader = Kernel::get('GamutLoader');
 
         $gamuts = array();
         foreach (Kernel::get('config')->getAll() as $var=>$val) {
@@ -425,7 +425,7 @@ DESC
         // create the MDE instance
         $mde = $this->getMarkdownExtendedParser();
 
-        $loader = Kernel::get('Grammar\GamutLoader');
+        $loader = Kernel::get('GamutLoader');
 
         $config = array();
         foreach (Kernel::get('config')->getAll() as $var=>$val) {
