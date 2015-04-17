@@ -230,7 +230,67 @@ MSG
     }
 
     /**
-     * Test a call on a file with a custom template
+     * Test a call on a file with and without metadata and auto template
+     *
+     * @runInSeparateProcess
+     */
+    public function testTemplateAuto()
+    {
+        $file       = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
+        $file_meta  = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
+        $body = $this->stripWhitespaceAndNewLines(
+            <<<MSG
+<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
+voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
+<blockquote>
+  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
+      expedita distinctio.</p>
+</blockquote>
+<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
+tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+perferendis doloribus asperiores repellat.</p>
+MSG
+        );
+        $html = $this->stripWhitespaceAndNewLines(
+            <<<MSG
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>tests/test-meta.md</title>
+    <meta name="meta1" content="a value for meta 1" />
+<meta name="meta2" content="another value for meta 2" />
+</head>
+<body>
+{$body}
+</body>
+</html>
+MSG
+        );
+
+        // full content without metadata
+        $res1 = $this->runCommand($this->getBaseCmd().' '.$file);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res1['stdout'])),
+            $body,
+            'Test of the CLI on a file with no metadata and automatic templating'
+        );
+
+        // full content with metadata
+        $res2 = $this->runCommand($this->getBaseCmd().' '.$file_meta);
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res2['stdout'])),
+            $html,
+            'Test of the CLI on a file with metadata and automatic templating'
+        );
+    }
+
+    /**
+     * Test a call on a file with metadata and a custom template
      *
      * @runInSeparateProcess
      */
@@ -331,7 +391,7 @@ MSG
     }
 
     /**
-     * Test a call on a file with output generation
+     * Test a call on a file with metadata and output generation
      *
      * @runInSeparateProcess
      */
@@ -402,7 +462,7 @@ MSG
     }
 
     /**
-     * Test a call on a file with output generation and backup
+     * Test a call on a file with metadata and output generation and backup
      *
      * @runInSeparateProcess
      */

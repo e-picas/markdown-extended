@@ -24,14 +24,6 @@ of [the `\MarkdownExtended\MarkdownExtended` class](http://docs.ateliers-pierrot
 
 Below is a review of interesting basic options:
 
-template
-:   Type: bool / 'auto' / file path
-:   Default: `false` if the content has no metadata / `true` otherwise
-:   If it is `true`, the default (basic) template is used, otherwise, the template
-    defined at `file path` will be used. The default value is `auto`, which let the
-    parser choose if a template seems required (basically if the parsed content has
-    metadata or not). You can set it on `false` to never use a template.
-
 config_file
 :   Type: file path
 :   Default: `null`
@@ -39,16 +31,65 @@ config_file
     in [INI](http://en.wikipedia.org/wiki/INI_file), [JSON](http://json.org/) or 
     raw [PHP array](http://php.net/array) formats (it must return an array).
 
+template
+:   Type: bool / 'auto' / file path
+:   Default: `false` if the content has no metadata / `true` otherwise
+:   If it is `true`, the default (basic) template is used, otherwise, the template
+    defined at `file path` will be used. The default value is `auto`, which lets the
+    parser choose if a template seems required (basically if the parsed content has
+    metadata or not). You can set it on `false` to never use a template.
+
+template_options
+:   Type: array
+:   Default: *see sources*
+:   The template object options.
+
 output_format
 :   Type: string
 :   Default: `html`
 :   The output format to use to build final rendering.
 
+output_format_options
+:   Type: array
+:   Default: *see sources*
+:   The output formats options, stored by output formats type (`output_format_options.html = array( ... )`).
+
 output
 :   Type: string
 :   Default: `null`
 
+PARSER FILTERS
+--------------
 
+Each filters' list executed while parsing a full content or a peace of a content
+is defined as a `xxx_gamuts` array configuration entry with filter's name as
+item's key and its order as item's value. Each gamut sub-item is constructed like 
+
+    gamut_alias or class name : method or class name : method name
+    
+i.e.
+
+    // call the default method of filter Detab
+    'filter:Detab'              => '5',
+
+    // call the init() method of filter Detab
+    'filter:Detab:init'         => '10',
+
+    // call the RemoveUtf8Marker tool
+    'tools:RemoveUtf8Marker'    => '15',
+
+    // call another gamuts stack
+    'block_gamut'               => '30',
+
+Below is a list of gamuts stacks used by the parser:
+
+-   `initial_gamut`
+-   `transform_gamut`
+-   `document_gamut`
+-   `span_gamut`
+-   `block_gamut`
+-   `html_block_gamut`
+            
 LIFE-CYCLE
 ----------
 
@@ -119,6 +160,9 @@ object, which can be used as a literal procedural object like:
     
     $content = $parser->transformSource( source file path );
 
+You can use both `\MarkdownExtended\Parser` and `\MarkdownExtended\MarkdownExtended`
+objects in this case.
+
 ### The *Content* object 
 
 The transformation process of the parser returns an object implementing interface
@@ -160,7 +204,7 @@ of the configuration.
 ### The *OutputFormat* rendering
 
 An output format renderer must implement the `\MarkdownExtended\API\OutputFormatInterface`
-interface defines some basic methods to build a content:
+interface, which defines some basic methods to build a content:
 
     OutputFormat->buildTag( tag_name, content = null, array attributes = array() )
 

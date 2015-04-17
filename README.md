@@ -3,17 +3,19 @@ PHP Markdown Extended
 
 Yet another PHP parser for the markdown (*extended*) syntax.
 
+[![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=piwi&repo=markdown-extended&title=last+beta)](https://github.com/piwi/markdown-extended/releases)
+[![Build Status](https://travis-ci.org/piwi/markdown-extended.svg?branch=master)](http://travis-ci.org/piwi/markdown-extended)
+[![Dependency Status](https://www.versioneye.com/user/projects/550e3650bc1c12efc3000067/badge.svg?style=flat)](http://www.versioneye.com/user/projects/550e3650bc1c12efc3000067)
+[![Code Climate](https://codeclimate.com/github/piwi/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/piwi/markdown-extended)
+
+----
+
 **PHP Markdown Extended** is a PHP parser to transform [Markdown](http://en.wikipedia.org/wiki/Markdown) 
 text files or strings in HTML or other formats. This new version of a Markdown parser tries to follow the 
 [extended syntax specifications](http://manifest.aboutmde.org/) and is PHP-5.3 compliant
 and highly customizable.
 
-[![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=piwi&repo=markdown-extended&title=last+beta)](https://github.com/piwi/markdown-extended/releases)
-[![Build Status](https://travis-ci.org/piwi/markdown-extended.svg?branch=master)](http://travis-ci.org/piwi/markdown-extended)
-[![Dependency Status](https://www.versioneye.com/user/projects/550e3650bc1c12efc3000067/badge.svg?style=flat)](http://www.versioneye.com/user/projects/550e3650bc1c12efc3000067)
-[![Code Climate](https://codeclimate.com/github/piwi/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/piwi/markdown-extended)
-[![Test Coverage](https://codeclimate.com/github/piwi/markdown-extended/badges/coverage.svg)](http://codeclimate.com/github/piwi/markdown-extended)
-
+README contents:
 
 -   [Installation](#installation)
     -   [Raw PHP package](#raw-php-package)
@@ -28,8 +30,9 @@ and highly customizable.
     -   [Command line usage](#command-line-usage)
     -   [Old parsers compatibility](#old-parsers-compatibility)
 -   [Open-Source & Community](#open-source--community)
--   [Licenses](#licenses)
+-   [License](#license)
 
+----
 
 Installation
 ------------
@@ -203,14 +206,21 @@ The interface allows to parse one or more files, extract some information from s
 write the results in files and some other stuff. A large set of options are available
 to customize the transformation.
 
-A complete *manpage* is available in the package's (`man/`) and its markdown source is
+A complete *manpage* is available in the package's `man/` and its markdown source is
 available in its documents (`doc/MANPAGE.md`). To read it, run:
 
 ```bash
 $ man ./man/markdown-extended.3.man
 ```
 
-#### Examples of cli usage:
+The developer documentation is also available as a *manpage* and its markdown source is
+available in package's documents (`doc/DOCUMENTATION.md`). To read it, run:
+
+```bash
+$ man ./man/markdown-extended.7.man
+```
+
+**Examples of cli usage:**
 
 ```bash
 # transform a simple string
@@ -227,6 +237,7 @@ $ ./bin/markdown-extended --output=my-transformed-markdown.html my-markdown-file
 
 # generate the manpage itslef
 $ ./bin/markdown-extended -f man -o man/markdown-extended.man doc/MANPAGE.md
+...
 ```
 
 ### Old parsers compatibility
@@ -264,8 +275,8 @@ file of the package](https://github.com/piwi/markdown-extended/blob/master/CONTR
 for more info.
 
 
-Licenses
---------
+License
+-------
 
 This software, as the original Markdown, is licensed under the terms of the
 [BSD-3-Clause open source license](http://opensource.org/licenses/BSD-3-Clause).

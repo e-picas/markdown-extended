@@ -10,8 +10,6 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\Kernel;
-
 /**
  * PHP Markdown Extended
  *
