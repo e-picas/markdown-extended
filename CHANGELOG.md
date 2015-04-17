@@ -1,7 +1,14 @@
 # CHANGELOG for remote repository  https://github.com/piwi/markdown-extended.git
 
+
 * (upcoming release)
 
+    * 5afb3da - review of the 'auto' templating logic (piwi)
+    * 1767efa - rename 'Gramar\GamutsLoader' service to 'GamutsLoader' (piwi)
+
+* v0.1.0-delta (2015-04-16 - b2c1a05)
+
+    * b7d515f - prepare version 0.1.0-delta (piwi)
     * 223930a - new 'make-release' dev action (piwi)
     * 19cbc6d - manage the case where no default template is set (inline template instead) (piwi)
     * 164210f - externalization of the work in Parser (piwi)
