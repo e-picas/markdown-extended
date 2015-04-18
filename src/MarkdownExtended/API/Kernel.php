@@ -256,7 +256,7 @@ class Kernel
         if (false === strpos($name, '.')) {
             return self::get('config')->get($name, $default);
         }
-        return self::_configRecursiveIterator('get', $name, null, false, $default);
+        return self::_configRecursiveIterator('get', $name, null, $default);
     }
 
     /**
@@ -283,7 +283,19 @@ class Kernel
      */
     public static function addConfig($name, $value)
     {
-        return self::_configRecursiveIterator('set', $name, $value, true);
+        $item = self::getConfig($name);
+        if (is_array($item)) {
+            if (is_array($value)) {
+                $item = array_merge($item, $value);
+            } else {
+                $item[] = $value;
+            }
+        } elseif (is_string($item)) {
+            $item .= $value;
+        } else {
+            $item = $value;
+        }
+        return self::setConfig($name, $item);
     }
 
     /**
@@ -298,11 +310,11 @@ class Kernel
      * @return null
      */
     protected static function _configRecursiveIterator(
-        $type = 'get', $index, $value = null, $merge = false, $default = null
+        $type = 'get', $index, $value = null, $default = null
     ) {
         $result     = null;
         $indexer    = new \ArrayIterator(explode('.', $index));
-        $iterator   = function (&$item, $key) use (&$iterator, &$accessor, &$result, $indexer, $value, $type, $merge) {
+        $iterator   = function (&$item, $key) use (&$iterator, &$accessor, &$result, $indexer, $value, $type) {
             if ($key === $indexer->current()) {
                 $indexer->next();
                 if ($indexer->valid() && is_array($item)) {
@@ -310,17 +322,7 @@ class Kernel
                     return;
                 }
                 if ($type === 'set') {
-                    if ($merge && is_array($item)) {
-                        if (is_array($value)) {
-                            $item = array_merge($item, $value);
-                        } else {
-                            $item[] = $value;
-                        }
-                    } elseif ($merge && is_string($item)) {
-                        $item .= $value;
-                    } else {
-                        $item = $value;
-                    }
+                    $item = $value;
                     $result = true;
                 } elseif ($type === 'get') {
                     $result = $item;
