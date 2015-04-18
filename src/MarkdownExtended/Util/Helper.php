@@ -10,6 +10,7 @@
 
 namespace MarkdownExtended\Util;
 
+use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Exception\ErrorException;
 
 /**
@@ -62,6 +63,17 @@ class Helper
         $text = str_replace(array("#", " ", "__", "/", "\\"), $separator, $text);
         // strip non-ascii characters
         return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $text);
+    }
+
+    /**
+     * Transform a string to a human readable one
+     *
+     * @param   string $string The string to transform
+     * @return  string The transformed version of `$string`
+     */
+    public static function humanReadable($string = '')
+    {
+        return trim(str_replace(array('_', '.', '/'), ' ', $string));
     }
 
     /**
@@ -120,7 +132,7 @@ class Helper
 
         if (!is_string($source)) {
             if ($source instanceof \DateTime) {
-                $str = $source->format(DATE_W3C);
+                $str = Kernel::applyConfig('date_to_string', array($source));
             } elseif (is_array($source)) {
                 $str = '';
                 foreach ($source as $var=>$val) {

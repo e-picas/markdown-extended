@@ -196,7 +196,8 @@ class Parser
             ->addMetadata('file_name', $path)
         ;
         $this->getKernel()->addConfig('base_path', realpath(dirname($path)));
-        return $this->transform($content, $path, $primary);
+        $filename = $this->getKernel()->applyConfig('filepath_to_title', array($path));
+        return $this->transform($content, $filename, $primary);
     }
 
     /**

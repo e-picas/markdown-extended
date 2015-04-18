@@ -434,6 +434,8 @@ DESC
                     $config[$var] = 'NULL';
                 } elseif (is_bool($val)) {
                     $config[$var] = $val===true ? 'true' : 'false';
+                } elseif (is_callable($val)) {
+                    $config[$var] = 'function()';
                 } elseif (is_array($val)) {
                     foreach ($val as $subvar=>$subval) {
                         $config[$var . '.' . $subvar] = $subval;

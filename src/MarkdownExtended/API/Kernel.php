@@ -299,6 +299,25 @@ class Kernel
     }
 
     /**
+     * Applies a callback option (if it is callable) on parameters
+     *
+     * @param string $name
+     * @param array $params
+     * @param null $default
+     * @return mixed|null
+     */
+    public static function applyConfig($name, array $params, $default = null)
+    {
+        $item = self::getConfig($name);
+        if (is_callable($item)) {
+            $value = call_user_func_array($item, $params);
+        } else {
+            $value = $item ?: $default;
+        }
+        return $value;
+    }
+
+    /**
      * Internal configuration iterator
      *
      * This method is in charge to handle the "index.subindex" notation

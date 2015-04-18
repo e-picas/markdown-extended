@@ -135,6 +135,18 @@ class MarkdownExtended
             // Optional id attribute prefix for citation footnote links and backlinks.
             'bibliographynote_id_prefix'=> '',
 
+            // ------------------
+            // Callback options
+            // ------------------
+
+            // transform a DateTime object to string
+            'date_to_string'            => function(\DateTime $date) {
+                return $date->format(DATE_W3C);
+            },
+            // get a content's title from concerned file path
+            'filepath_to_title'         => function ($path) {
+                return \MarkdownExtended\Util\Helper::humanReadable(pathinfo($path,  PATHINFO_FILENAME));
+            },
 
             // ------------------
             // Output format options
