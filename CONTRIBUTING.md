@@ -170,6 +170,10 @@ The documentation is built in the `phpdoc/` directory in the package, and requir
 directory for its generation that is configured on `../tmp/cache/markdown-extended/`.
 You can modify this setting editing the `sami.config.php` file.
 
+You can also use the Composer's script shortcut:
+
+    php composer.phar update-doc
+
 ### Launch unit-tests
 
 The unit-testing of the app is handled with [PHPUnit](https://phpunit.de/).
@@ -184,6 +188,10 @@ of the package.
 
 Note that the package is integrated in [Travis CI](https://travis-ci.org/piwi/markdown-extended/builds).
 
+You can also use the Composer's script shortcut:
+
+    php composer.phar test
+
 ### Fix coding standards errors
 
 You can check and fix code writing errors using [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
@@ -192,6 +200,10 @@ by running:
     $ php bin/php-cs-fixer fix -v
 
 This tool loads and uses the `.php_cs` configuration file by default.
+
+You can also use the Composer's script shortcut:
+
+    php composer.phar cs-fixer
 
 ### Mess detection & code quality
 
@@ -202,6 +214,53 @@ You can check code mess running:
     $ php bin/phpmd src text codesize
 
 Note that the package is integrated in [Code Climate](https://codeclimate.com/github/piwi/markdown-extended).
+
+### Make a new release
+
+To make a new release of the package, you must follow these steps:
+
+1.  merge the "dev" branch into "master"
+
+        git checkout master
+        git merge --no-ff --no-commit dev
+
+2.  fix code standards errors:
+
+        php composer.phar cs-fixer
+
+3.  validate unit-tests:
+
+        php composer.phar tests
+
+4.  bump new version number and commit:
+
+        php bin/mde-dev make-release --release=X.Y.Z-SATE
+
+5.  update the changelog ; you can use <https://github.com/atelierspierrot/atelierspierrot/blob/master/console/git-changelog.sh>.
+
+6.  commit changes:
+
+        git commit -a -m "preparing release X.Y.Z-STATE"
+
+7.  create the release tag and publish it:
+
+        git tag -a vX.Y.Z-STATE -m "new release ..."
+        git push origin vX.Y.Z-STATE
+
+8.  build new PHAR archive and publish it into the "phar-latest" branch:
+
+        php bin/mde-dev make-phar
+        git checkout phar-latest
+        rm -f bin/markdown-extended.phar && mv markdown-extended.phar bin/
+        git commit -a -m "new X.Y.Z-STATE phar"
+
+9.  merge "master" into "dev":
+
+        git checkout dev
+        git merge --no-ff master
+
+Finally, don't forget to push all changes to `origin` and to make a release page
+on GitHub's repository. The best practice is to attach the PHAR archive to the release.
 
 Coding rules
 ------------

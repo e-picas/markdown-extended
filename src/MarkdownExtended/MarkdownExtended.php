@@ -10,8 +10,6 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\Kernel;
-
 /**
  * PHP Markdown Extended
  *
@@ -66,7 +64,7 @@ class MarkdownExtended
 
     const SHORTNAME = 'markdown-extended-php';
     const NAME      = 'Markdown Extended';
-    const VERSION   = '0.1.1-delta';
+    const VERSION   = '0.1.0-dev';
     const DATE      = '2015-04-16';
     const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
     const LINK      = 'http://github.com/piwi/markdown-extended.git';
@@ -137,6 +135,18 @@ class MarkdownExtended
             // Optional id attribute prefix for citation footnote links and backlinks.
             'bibliographynote_id_prefix'=> '',
 
+            // ------------------
+            // Callback options
+            // ------------------
+
+            // transform a DateTime object to string
+            'date_to_string'            => function (\DateTime $date) {
+                return $date->format(DATE_W3C);
+            },
+            // get a content's title from concerned file path
+            'filepath_to_title'         => function ($path) {
+                return \MarkdownExtended\Util\Helper::humanReadable(pathinfo($path,  PATHINFO_FILENAME));
+            },
 
             // ------------------
             // Output format options

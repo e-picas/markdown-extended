@@ -44,10 +44,10 @@ class Parser
 
         // init all dependencies
         $this->getKernel()
-            ->set('Parser',                 $this)
-            ->set('OutputFormatBag',        new OutputFormatBag)
-            ->set('Grammar\GamutLoader',    new GamutLoader)
-            ->set('ContentCollection',      new ContentCollection)
+            ->set('Parser',             $this)
+            ->set('OutputFormatBag',    new OutputFormatBag)
+            ->set('GamutLoader',        new GamutLoader)
+            ->set('ContentCollection',  new ContentCollection)
         ;
 
         // load required format
@@ -143,7 +143,9 @@ class Parser
         // force template if needed
         $tpl = $this->getKernel()->getConfig('template');
         if (!is_null($tpl) && $tpl === 'auto') {
-            $tpl = !(Helper::isSingleLine($content->getBody()));
+//            $tpl = !(Helper::isSingleLine($content->getBody()));
+            $meta = $content->getMetadataFormatted();
+            $tpl = !(empty($meta));
         }
 
         // load it in a template ?
@@ -194,7 +196,8 @@ class Parser
             ->addMetadata('file_name', $path)
         ;
         $this->getKernel()->addConfig('base_path', realpath(dirname($path)));
-        return $this->transform($content, $path, $primary);
+        $filename = $this->getKernel()->applyConfig('filepath_to_title', array($path));
+        return $this->transform($content, $filename, $primary);
     }
 
     /**
@@ -204,7 +207,7 @@ class Parser
      *
      * @return array|mixed
      *
-     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file can not be found or is not readable
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file can not be found, is not readable or is of an unknown type
      */
     protected function loadConfigFile($path)
     {

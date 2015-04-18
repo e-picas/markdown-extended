@@ -12,7 +12,7 @@ namespace MarkdownExtendedTests\Console;
 
 use \MarkdownExtendedTests\ConsoleTest;
 
-class ConsoleUsageHardTest
+class HardUsageTest
     extends ConsoleTest
 {
 

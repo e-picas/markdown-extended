@@ -3,8 +3,8 @@
 .\" section: 7
 .\" author: Pierre Cassat
 .\" date: 2015-04-16
-.\" version: 0.1.1-delta
-.TH  "markdown-extended-api" "7" "2015-04-16" "Version 0.1.1-delta" "PHP-Markdown-Extended Developer Manual"
+.\" version: 0.1.0-dev
+.TH  "markdown-extended-api" "7" "2015-04-16" "Version 0.1.0-dev" "PHP-Markdown-Extended Developer Manual"
 .SH NAME
 .PP
 Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
@@ -19,14 +19,6 @@ of the `\fS\\MarkdownExtended\\MarkdownExtended\fP` class <http://docs.ateliers-
 .PP
 Below is a review of interesting basic options:
 .TP
-template
-Type: bool / 'auto' / file path
-Default: `\fSfalse\fP` if the content has no metadata / `\fStrue\fP` otherwise
-If it is `\fStrue\fP`, the default (basic) template is used, otherwise, the template
-defined at `\fSfile path\fP` will be used. The default value is `\fSauto\fP`, which let the
-parser choose if a template seems required (basically if the parsed content has
-metadata or not). You can set it on `\fSfalse\fP` to never use a template.
-.TP
 config_file
 Type: file path
 Default: `\fSnull\fP`
@@ -34,14 +26,87 @@ Define a configuration file to overwrite defaults ; configuration files may be
 in INI <http://en.wikipedia.org/wiki/INI_file>, JSON <http://json.org/> or 
 raw PHP array <http://php.net/array> formats (it must return an array).
 .TP
+template
+Type: bool / 'auto' / file path
+Default: `\fSfalse\fP` if the content has no metadata / `\fStrue\fP` otherwise
+If it is `\fStrue\fP`, the default (basic) template is used, otherwise, the template
+defined at `\fSfile path\fP` will be used. The default value is `\fSauto\fP`, which lets the
+parser choose if a template seems required (basically if the parsed content has
+metadata or not). You can set it on `\fSfalse\fP` to never use a template.
+.TP
+template_options
+Type: array
+Default: \fIsee sources\fP
+The template object options.
+.TP
 output_format
 Type: string
 Default: `\fShtml\fP`
 The output format to use to build final rendering.
 .TP
+output_format_options
+Type: array
+Default: \fIsee sources\fP
+The output formats options, stored by output formats type (`\fSoutput_format_options.html = array( ... )\fP`).
+.TP
 output
 Type: string
 Default: `\fSnull\fP`
+.SH PARSER FILTERS
+.PP
+Each filters' list executed while parsing a full content or a peace of a content
+is defined as a `\fSxxx_gamuts\fP` array configuration entry with filter's name as
+item's key and its order as item's value. Each gamut sub-item is constructed like
+.RS
+
+.EX
+gamut_alias or class name : method or class name : method name
+.EE
+.RE
+.PP
+i.e.
+.RS
+
+.EX
+// call the default method of filter Detab
+.br
+\'filter:Detab'              => '5',
+.br
+
+.br
+// call the init() method of filter Detab
+.br
+\'filter:Detab:init'         => '10',
+.br
+
+.br
+// call the RemoveUtf8Marker tool
+.br
+\'tools:RemoveUtf8Marker'    => '15',
+.br
+
+.br
+// call another gamuts stack
+.br
+\'block_gamut'               => '30',
+.EE
+.RE
+.PP
+Below is a list of gamuts stacks used by the parser:
+.RS
+.IP \(bu 
+`\fSinitial_gamut\fP`
+.IP \(bu 
+`\fStransform_gamut\fP`
+.IP \(bu 
+`\fSdocument_gamut\fP`
+.IP \(bu 
+`\fSspan_gamut\fP`
+.IP \(bu 
+`\fSblock_gamut\fP`
+.IP \(bu 
+`\fShtml_block_gamut\fP`
+.RE
 .SH LIFE-CYCLE
 .PP
 The full schema of a Markdown parser usage could be:
@@ -134,6 +199,9 @@ $content = $parser->transform( source string );
 $content = $parser->transformSource( source file path );
 .EE
 .RE
+.PP
+You can use both `\fS\\MarkdownExtended\\Parser\fP` and `\fS\\MarkdownExtended\\MarkdownExtended\fP`
+objects in this case.
 .SS The \fIContent\fP object
 .PP
 The transformation process of the parser returns an object implementing interface
@@ -197,7 +265,7 @@ of the configuration.
 .SS The \fIOutputFormat\fP rendering
 .PP
 An output format renderer must implement the `\fS\\MarkdownExtended\\API\\OutputFormatInterface\fP`
-interface defines some basic methods to build a content:
+interface, which defines some basic methods to build a content:
 .RS
 
 .EX
@@ -224,21 +292,21 @@ It acts like a service container:
 .RS
 
 .EX
-\\MarkdownExtended\\Kernel->get('MarkdownExtended')
+\\MarkdownExtended\\Kernel->get('MarkdownExtended')   // the parser singleton
 .br
-\\MarkdownExtended\\Kernel->get('Content')
+\\MarkdownExtended\\Kernel->get('Content')            // current parsed content
 .br
-\\MarkdownExtended\\Kernel->get('ContentCollection')
+\\MarkdownExtended\\Kernel->get('ContentCollection')  // parsed contents collection
 .br
-\\MarkdownExtended\\Kernel->get('Lexer')
+\\MarkdownExtended\\Kernel->get('Lexer')              // grammar lexer
 .br
-\\MarkdownExtended\\Kernel->get('Grammar\\GamutLoader')
+\\MarkdownExtended\\Kernel->get('GamutLoader')        // grammar gamuts loader
 .br
-\\MarkdownExtended\\Kernel->get('OutputFormatBag')
+\\MarkdownExtended\\Kernel->get('OutputFormatBag')    // wrapper for current output format
 .br
-\\MarkdownExtended\\Kernel->get('Template')
+\\MarkdownExtended\\Kernel->get('Template')           // templater engine
 .br
-\\MarkdownExtended\\Kernel->get('DomId')
+\\MarkdownExtended\\Kernel->get('DomId')              // DOM registry manager
 .EE
 .RE
 .PP
@@ -246,9 +314,19 @@ It also acts like a configuration setter/getter:
 .RS
 
 .EX
+// set a configuration entry
+.br
 \\MarkdownExtended\\Kernel::setConfig( index.subindex , value )
 .br
+
+.br
+// merge a configuration entry with any existing string or array value
+.br
 \\MarkdownExtended\\Kernel::addConfig( index.subindex , value )
+.br
+
+.br
+// get a configuration entry
 .br
 \\MarkdownExtended\\Kernel::getConfig( index.subindex )
 .EE
