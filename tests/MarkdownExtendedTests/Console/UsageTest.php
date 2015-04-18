@@ -12,52 +12,9 @@ namespace MarkdownExtendedTests\Console;
 
 use \MarkdownExtendedTests\ConsoleTest;
 
-class ConsoleUsageTest
+class UsageTest
     extends ConsoleTest
 {
-
-    /**
-     * Test a default call with no argument
-     *
-     * @runInSeparateProcess
-     */
-    public function testNoArgument()
-    {
-        $res = $this->runCommand($this->getBaseCmd());
-        // status
-        $this->assertEquals(
-            $res['status'],
-            '0',
-            'Test of the CLI with no argument (status)'
-        );
-        // output
-        $this->assertNotEmpty(
-            $res['stdout'],
-            'Test of the CLI with no argument has a not empty output on stdout'
-        );
-    }
-
-    /**
-     * Test a call on a simple string with no argument
-     *
-     * @runInSeparateProcess
-     */
-    public function testSimpleString()
-    {
-        $res = $this->runCommand($this->getBaseCmd().' "my **markdown** _extended_ simple string"');
-        // status
-        $this->assertEquals(
-            $res['status'],
-            '0',
-            'Test of the CLI on simple string with no option (status)'
-        );
-        // stdout
-        $this->assertEquals(
-            $res['stdout'],
-            'my <strong>markdown</strong> <em>extended</em> simple string',
-            'Test of the CLI on simple string with no option'
-        );
-    }
 
     /**
      * Test a call on a simple string with template empty argument
@@ -261,7 +218,7 @@ MSG
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>tests/test-meta.md</title>
+    <title>test-meta</title>
     <meta name="meta1" content="a value for meta 1" />
 <meta name="meta2" content="another value for meta 2" />
 </head>
@@ -328,7 +285,7 @@ MSG
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>tests/test-meta.md</title>
+    <title>test-meta</title>
     <meta name="meta1" content="a value for meta 1" />
 <meta name="meta2" content="another value for meta 2" />
 </head>
@@ -407,7 +364,7 @@ MSG
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>tests/test-meta.md</title>
+    <title>test-meta</title>
     <meta name="meta1" content="a value for meta 1" />
 <meta name="meta2" content="another value for meta 2" />
 </head>
