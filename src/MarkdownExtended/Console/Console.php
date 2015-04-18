@@ -429,23 +429,23 @@ DESC
 
         $config = array();
         foreach (Kernel::get('config')->getAll() as $var=>$val) {
-            if (!$loader->isGamutStackName($var)) {
-                if (is_null($val)) {
-                    $config[$var] = 'NULL';
-                } elseif (is_bool($val)) {
-                    $config[$var] = $val===true ? 'true' : 'false';
-                } elseif (is_callable($val)) {
-                    $config[$var] = 'function()';
-                } elseif (is_array($val)) {
-                    foreach ($val as $subvar=>$subval) {
-                        $config[$var . '.' . $subvar] = $subval;
-                    }
-                } else {
-                    $config[$var] = $val;
+            if ($loader->isGamutStackName($var)) {
+                continue;
+            }
+            if (is_null($val)) {
+                $config[$var] = 'NULL';
+            } elseif (is_bool($val)) {
+                $config[$var] = $val===true ? 'true' : 'false';
+            } elseif (is_callable($val)) {
+                $config[$var] = 'function()';
+            } elseif (is_array($val)) {
+                foreach ($val as $subvar=>$subval) {
+                    $config[$var . '.' . $subvar] = $subval;
                 }
+            } else {
+                $config[$var] = $val;
             }
         }
-
 
 //        var_export($config);
         $this->_writeTask($config, 'Configuration settings');
