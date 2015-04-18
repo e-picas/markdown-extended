@@ -207,7 +207,7 @@ class Parser
      *
      * @return array|mixed
      *
-     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file can not be found or is not readable
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file can not be found, is not readable or is of an unknown type
      */
     protected function loadConfigFile($path)
     {

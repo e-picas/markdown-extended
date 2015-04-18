@@ -175,8 +175,8 @@ class Helper
             $delimiter=>'\\'.$delimiter
         );
         return $delimiter
-        .strtr($mask, $replacements)
-        .$delimiter.$options;
+            .strtr($mask, $replacements)
+            .$delimiter.$options;
     }
 
 // --------------

@@ -140,7 +140,7 @@ class MarkdownExtended
             // ------------------
 
             // transform a DateTime object to string
-            'date_to_string'            => function(\DateTime $date) {
+            'date_to_string'            => function (\DateTime $date) {
                 return $date->format(DATE_W3C);
             },
             // get a content's title from concerned file path
