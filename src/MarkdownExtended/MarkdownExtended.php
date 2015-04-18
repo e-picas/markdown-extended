@@ -64,7 +64,7 @@ class MarkdownExtended
 
     const SHORTNAME = 'markdown-extended-php';
     const NAME      = 'Markdown Extended';
-    const VERSION   = '0.1.1-dev';
+    const VERSION   = '0.1.0-dev';
     const DATE      = '2015-04-16';
     const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
     const LINK      = 'http://github.com/piwi/markdown-extended.git';
