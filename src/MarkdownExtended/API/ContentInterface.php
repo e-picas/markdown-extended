@@ -210,4 +210,18 @@ interface ContentInterface
      * @return string
      */
     public function getMetadataFormatted();
+
+    /**
+     * Gets content's table of contents
+     *
+     * @return null|array
+     */
+    public function getTableOfContents();
+
+    /**
+     * Gets content's table of contents formatted in current output format
+     *
+     * @return string
+     */
+    public function getTableOfContentsFormatted();
 }

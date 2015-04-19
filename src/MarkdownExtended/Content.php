@@ -12,6 +12,7 @@ namespace MarkdownExtended;
 
 use \MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Util\Menu\DOMMenu;
 
 /**
  * The default MarkdownExtended Content object
@@ -59,6 +60,11 @@ class Content
      * @var array
      */
     protected $metadata     = array();
+
+    /**
+     * @var array
+     */
+    protected $toc          = array();
 
     /**
      * Construct a new content object with a source and current parsing options
@@ -252,7 +258,7 @@ class Content
     public function getNotesFormatted()
     {
         return Kernel::get('OutputFormatBag')
-            ->getNotesToString($this->notes, $this);
+            ->getNotesToString($this->getNotes(), $this);
     }
 
     /**
@@ -292,6 +298,27 @@ class Content
     public function getMetadataFormatted()
     {
         return Kernel::get('OutputFormatBag')
-            ->getMetadataToString($this->metadata, $this);
+            ->getMetadataToString($this->getMetadata(), $this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTableOfContents()
+    {
+        if (empty($this->toc)) {
+            $toc = new DOMMenu($this->getBody());
+            $this->toc = $toc->getMenu();
+        }
+        return $this->toc;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTableOfContentsFormatted()
+    {
+        return Kernel::get('OutputFormatBag')
+            ->getTableOfContentsToString($this->getTableOfContents(), $this);
     }
 }

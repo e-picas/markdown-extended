@@ -131,4 +131,56 @@ abstract class AbstractOutputFormat
         }
         return implode(PHP_EOL, $data);
     }
+
+    /**
+     * Gets the table of contents list as string
+     *
+     * @param   array $toc
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return string
+     */
+    public function getTableOfContentsToString(array $toc, ContentInterface $content)
+    {
+        if (empty($toc)) {
+            return '';
+        }
+        return $this->_processTableOfContentsToString(
+            array_values($toc),
+            array('class'=>'table-of-contents')
+        );
+    }
+
+    /**
+     * Actually build a menu from an array of items
+     *
+     * @param array $items
+     * @param array $params
+     * @return string
+     */
+    protected function _processTableOfContentsToString(array $items, array $params = array())
+    {
+        $data = array();
+        foreach ($items as $k=>$item) {
+            /* @var $item \MarkdownExtended\Util\Menu\MenuItem */
+            $text = $item->getContent() . (
+                $item->hasChildren() ?
+                    $this->_processTableOfContentsToString($item->getChildren()) : ''
+            );
+            $data[] = $this->buildTag(
+                'list_item',
+                $this->buildTag(
+                    'link',
+                    $text,
+                    array('href'=>'#'.$item->getAttribute('id'))
+                )
+            );
+        }
+        return $this
+            ->buildTag('block',
+                $this->buildTag('unordered_list', implode(PHP_EOL, $data)),
+                $params
+            );
+    }
+
 }

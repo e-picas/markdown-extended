@@ -228,7 +228,8 @@ class MarkdownExtended
             'template'                  => 'auto',
             'template_options'          => array(
                 // Template mask for keywords regexp
-                // i.e. "{% TOC %}" or "{%TOC%}" ("%%" will be a literal "%")
+                // i.e. "{% TOC %}" or "{%TOC%}"
+                // "%%" will be a literal "%"
                 'keywords_mask'         => "{%% ?%s ?%%}",
                 'keywords'              => array(
                     'body'                  => 'BODY',
@@ -236,6 +237,7 @@ class MarkdownExtended
                     'metadata'              => 'META',
                     'charset'               => 'CHARSET',
                     'title'                 => 'TITLE',
+                    'table_of_contents'     => 'TOC',
                 ),
                 'inline_template'       => "{% META %}\n{% BODY %}\n{% NOTES %}",
             ),

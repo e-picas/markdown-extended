@@ -51,4 +51,12 @@ interface OutputFormatInterface
      * @param   \MarkdownExtended\API\ContentInterface $content
      */
     public function getMetadataToString(array $metadata, ContentInterface $content);
+
+    /**
+     * Gets the table of contents list as string
+     *
+     * @param   array $toc
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     */
+    public function getTableOfContentsToString(array $toc, ContentInterface $content);
 }
