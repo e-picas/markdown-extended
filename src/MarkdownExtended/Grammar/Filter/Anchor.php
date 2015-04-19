@@ -129,9 +129,9 @@ class Anchor
         // lower-case and turn embedded newlines into spaces
         $link_id = preg_replace('{[ ]?\n}', ' ', strtolower($link_id));
 
-        $urls   = Kernel::getConfig('urls');
-        $titles = Kernel::getConfig('titles');
-        $predef_attributes = Kernel::getConfig('attributes');
+        $urls   = Kernel::get(Kernel::TYPE_CONTENT)->getData('urls');
+        $titles = Kernel::get(Kernel::TYPE_CONTENT)->getData('titles');
+        $predef_attributes = Kernel::get(Kernel::TYPE_CONTENT)->getData('attributes');
 
         if (isset($urls[$link_id])) {
             $attributes = array();

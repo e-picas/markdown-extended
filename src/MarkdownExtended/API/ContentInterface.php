@@ -69,6 +69,41 @@ interface ContentInterface
     public function getParsingOptions();
 
     /**
+     * Sets content's (internal) data
+     *
+     * @param string $type
+     * @param array $data
+     */
+    public function setData($type, array $data);
+
+    /**
+     * Adds a new content's (internal) data
+     *
+     * @param string $type
+     * @param string $value
+     * @param null|string $index
+     */
+    public function addData($type, $value, $index = null);
+
+    /**
+     * Gets one or all content's (internal) data
+     *
+     * @param string $type
+     * @param null|string $name
+     * @return null|string|array
+     */
+    public function getData($type, $name = null);
+
+    /**
+     * Gets a content's (internal) data stack formatted in current output format
+     *
+     * @param string $type
+     * @param array $options A set of user options
+     * @return mixed
+     */
+    public function getDataFormatted($type, array $options = null);
+
+    /**
      * Sets the content's "final" content
      *
      * This may be a concatenation of some of content's blocks
@@ -173,9 +208,10 @@ interface ContentInterface
     /**
      * Gets the content's notes formatted in current output format
      *
+     * @param array $options A set of user options
      * @return string
      */
-    public function getNotesFormatted();
+    public function getNotesFormatted(array $options = null);
 
     /**
      * Sets content's metadata
@@ -207,21 +243,43 @@ interface ContentInterface
     /**
      * Gets content's metadata formatted in current output format
      *
+     * @param array $options A set of user options
      * @return string
      */
-    public function getMetadataFormatted();
+    public function getMetadataFormatted(array $options = null);
 
     /**
-     * Gets content's table of contents
+     * Sets content's menu items
+     *
+     * @param array $items
+     */
+    public function setMenu(array $items);
+
+    /**
+     * Adds a new content's menu item
+     *
+     * A menu item is a simple array entry like:
+     *
+     *      level   => [ 1 <= int <= 6 ]
+     *      text    => string
+     *      id      => string
+     *
+     * @param array $data
+     */
+    public function addMenuItem(array $data);
+
+    /**
+     * Gets content's menu
      *
      * @return null|array
      */
-    public function getTableOfContents();
+    public function getMenu();
 
     /**
-     * Gets content's table of contents formatted in current output format
+     * Gets content's menu formatted in current output format
      *
+     * @param array $options A set of user options
      * @return string
      */
-    public function getTableOfContentsFormatted();
+    public function getMenuFormatted(array $options = null);
 }

@@ -88,9 +88,9 @@ class LinkDefinition
     {
         $link_id = strtolower($matches[1]);
         $url = $matches[2] == '' ? $matches[3] : $matches[2];
-        Kernel::addConfig('urls', array($link_id=>$url));
-        Kernel::addConfig('titles', array($link_id=>$matches[4]));
-        Kernel::addConfig('attributes', array($link_id=>$matches[5]));
+        Kernel::get(Kernel::TYPE_CONTENT)->addData('urls', $url, $link_id);
+        Kernel::get(Kernel::TYPE_CONTENT)->addData('titles', $matches[4], $link_id);
+        Kernel::get(Kernel::TYPE_CONTENT)->addData('attributes', $matches[5], $link_id);
         return '';
     }
 }

@@ -37,7 +37,7 @@ class Abbreviation
     {
         $abbr_word_re='';
         $abbr_desciptions = array();
-        $predef_abbr = Kernel::getConfig('predefined_abbr');
+        $predef_abbr = Kernel::get(Kernel::TYPE_CONTENT)->getData('abbreviations');
         if (!empty($predef_abbr)) {
             foreach ($predef_abbr as $abbr_word => $abbr_desc) {
                 if ($abbr_word_re) {
@@ -45,6 +45,7 @@ class Abbreviation
                 }
                 $abbr_word_re .= preg_quote($abbr_word);
                 $abbr_desciptions[$abbr_word] = trim($abbr_desc);
+                Kernel::get(Kernel::TYPE_CONTENT)->addData('abbreviations', $abbr_desciptions[$abbr_word], $abbr_word);
             }
         }
         Kernel::setConfig('abbr_word_re', $abbr_word_re);
@@ -131,10 +132,13 @@ class Abbreviation
      */
     protected function _strip_callback($matches)
     {
+        $word           = $matches[1];
+        $description    = trim($matches[2]);
+        Kernel::get(Kernel::TYPE_CONTENT)->addData('abbreviations', $description, $word);
         Kernel::addConfig('abbr_word_re',
-            (Kernel::getConfig('abbr_word_re') ? '|' : '').preg_quote($matches[1])
+            (Kernel::getConfig('abbr_word_re') ? '|' : '').preg_quote($word)
         );
-        Kernel::addConfig('abbr_desciptions', array($matches[1] => trim($matches[2])));
+        Kernel::addConfig('abbr_desciptions', array($word => $description));
         return '';
     }
 }

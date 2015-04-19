@@ -40,7 +40,6 @@ class MetaData
      */
     public function _setup()
     {
-        Kernel::setConfig('metadata', array());
         $this->metadata = array();
         $this->special_metadata = Kernel::getConfig('special_metadata');
         if (empty($this->special_metadata)) {
@@ -72,7 +71,6 @@ class MetaData
             }
         }
         if (!empty($this->metadata)) {
-            Kernel::setConfig('metadata', $this->metadata);
             foreach ($this->metadata as $var=>$val) {
                 Kernel::get(Kernel::TYPE_CONTENT)->addMetadata($var, $val);
             }
@@ -108,7 +106,7 @@ class MetaData
         $meta_key = strtolower(str_replace(' ', '', $matches[1]));
         $this->metadata[$meta_key] = trim($matches[2]);
         if (in_array($meta_key, $this->special_metadata)) {
-            Kernel::setConfig($meta_key, $this->metadata[$meta_key]);
+            Kernel::get(Kernel::TYPE_CONTENT)->addMetadata($meta_key, $this->metadata[$meta_key]);
         }
         return '';
     }
@@ -129,7 +127,7 @@ class MetaData
      */
     public function append($text)
     {
-        $metadata = Kernel::getConfig('metadata');
+        $metadata = Kernel::get(Kernel::TYPE_CONTENT)->getMetadata();
         if (!empty($metadata)) {
             foreach ($metadata as $meta_name=>$meta_value) {
                 if (!empty($meta_name) && is_string($meta_name)) {

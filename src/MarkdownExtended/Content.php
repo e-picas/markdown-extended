@@ -12,12 +12,15 @@ namespace MarkdownExtended;
 
 use \MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Util\Menu\DOMMenu;
+use \MarkdownExtended\Util\AbstractContent;
+use \MarkdownExtended\Util\IndexesAggregator;
+use \MarkdownExtended\Util\Menu\Menu;
 
 /**
  * The default MarkdownExtended Content object
  */
 class Content
+    extends AbstractContent
     implements ContentInterface
 {
 
@@ -52,28 +55,17 @@ class Content
     protected $charset      = 'utf-8';
 
     /**
-     * @var array
-     */
-    protected $notes        = array();
-
-    /**
-     * @var array
-     */
-    protected $metadata     = array();
-
-    /**
-     * @var array
-     */
-    protected $toc          = array();
-
-    /**
      * Construct a new content object with a source and current parsing options
      *
      * @param null|string $source
      * @param null|array $options
+     * @param null|\IteratorAggregate $indexes_aggregator
      */
-    public function __construct($source = null, $options = null)
+    public function __construct($source = null, $options = null, \IteratorAggregate $indexes_aggregator = null)
     {
+        parent::__construct(
+            is_null($indexes_aggregator) ? new IndexesAggregator() : $indexes_aggregator
+        );
         if (!is_null($source)) {
             $this->setSource($source);
         }
@@ -230,7 +222,9 @@ class Content
      */
     public function setNotes(array $notes)
     {
-        $this->notes = $notes;
+        foreach ($notes as $note_id=>$note) {
+            $this->addNote($note, $note_id);
+        }
         return $this;
     }
 
@@ -240,7 +234,7 @@ class Content
      */
     public function addNote(array $note, $note_id)
     {
-        $this->notes[$note_id] = $note;
+        $this->addIndex('notes', $note, $note_id);
         return $this;
     }
 
@@ -249,13 +243,13 @@ class Content
      */
     public function getNotes()
     {
-        return $this->notes;
+        return $this->indexes->getIndexRegistry('notes');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getNotesFormatted()
+    public function getNotesFormatted(array $options = null)
     {
         return Kernel::get('OutputFormatBag')
             ->getNotesToString($this->getNotes(), $this);
@@ -267,7 +261,9 @@ class Content
      */
     public function setMetadata(array $data)
     {
-        $this->metadata = $data;
+        foreach ($data as $var=>$val) {
+            $this->addMetadata($val, $var);
+        }
         return $this;
     }
 
@@ -277,7 +273,7 @@ class Content
      */
     public function addMetadata($var, $val)
     {
-        $this->metadata[$var] = $val;
+        $this->addIndex('metadata', $val, $var);
         return $this;
     }
 
@@ -286,39 +282,53 @@ class Content
      */
     public function getMetadata($name = null)
     {
+        $metadata = $this->indexes->getIndexRegistry('metadata');
         if (!is_null($name)) {
-            return isset($this->metadata[$name]) ? $this->metadata[$name] : null;
+            return isset($metadata[$name]) ? $metadata[$name] : null;
         }
-        return $this->metadata;
+        return $metadata;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getMetadataFormatted()
+    public function getMetadataFormatted(array $options = null)
     {
         return Kernel::get('OutputFormatBag')
             ->getMetadataToString($this->getMetadata(), $this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getTableOfContents()
+    public function setMenu(array $items)
     {
-        if (empty($this->toc)) {
-            $toc = new DOMMenu($this->getBody());
-            $this->toc = $toc->getMenu();
+        foreach ($items as $item) {
+            $this->addMenuItem($item);
         }
-        return $this->toc;
+        return $this;
+    }
+
+    public function addMenuItem(array $data)
+    {
+        $this->addIndex('menu', $data);
+        return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getTableOfContentsFormatted()
+    public function getMenu()
+    {
+        $menu = Menu::create(
+            $this->indexes->getIndexRegistry('menu')
+        );
+        return $menu->getItems();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMenuFormatted(array $options = null)
     {
         return Kernel::get('OutputFormatBag')
-            ->getTableOfContentsToString($this->getTableOfContents(), $this);
+            ->getMenuToString($this->getMenu(), $this);
     }
 }

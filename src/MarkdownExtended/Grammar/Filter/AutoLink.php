@@ -61,7 +61,7 @@ class AutoLink
     protected function _url_callback($matches)
     {
         $url = Lexer::runGamut('tools:EncodeAttribute', $matches[1]);
-        Kernel::addConfig('urls', $url);
+        Kernel::get(Kernel::TYPE_CONTENT)->addData('urls', $url);
 
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('link', $url, array(
@@ -78,7 +78,7 @@ class AutoLink
     protected function _email_callback($matches)
     {
         $address = $matches[1];
-        Kernel::addConfig('urls', $address);
+        Kernel::get(Kernel::TYPE_CONTENT)->addData('urls', $address);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('link', $address, array(
                 'email' => $address

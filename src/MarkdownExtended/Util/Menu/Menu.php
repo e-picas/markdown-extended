@@ -23,6 +23,22 @@ class Menu
 
     private $_indexes = array();
 
+    public static function create(array $items)
+    {
+        $menu = new Menu;
+        foreach ($items as $item) {
+            if (empty($item)) {
+                continue;
+            }
+            $menu->addItem(new MenuItem(
+                $item['text'],
+                $item['level'],
+                array('id' => $item['id'])
+            ));
+        }
+        return $menu;
+    }
+
     /**
      * Initializes object
      */

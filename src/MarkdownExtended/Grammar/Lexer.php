@@ -59,7 +59,7 @@ class Lexer
      */
     public function parse(Content $content)
     {
-        $this->_setup();
+        $this->_setup($content);
         $text = $content->getSource();
 
         // first run transform gamut methods
@@ -69,7 +69,7 @@ class Lexer
         $text = $this->runGamuts('document_gamut', $text);
 
         $content->setBody($text . "\n");
-        $this->_teardown();
+        $this->_teardown($content);
         
         return $content;
     }
@@ -132,11 +132,16 @@ class Lexer
      * Setting up extra-specific variables
      *
      * This will call any `_setup()` method of all enabled filters.
+     *
+     * @param   \MarkdownExtended\Content   $content
      */
-    protected function _setup()
+    protected function _setup(Content $content)
     {
         // clear global hashes
         $this->_clearHashes();
+
+        // init content
+        $this->_initContent($content);
 
         // call all gamuts '_setup'
         $loader = Kernel::get('GamutLoader');
@@ -147,8 +152,10 @@ class Lexer
      * Clearing extra-specific variables
      *
      * This will call any `_teardown()` method of all enabled filters.
+     *
+     * @param   \MarkdownExtended\Content   $content
      */
-    protected function _teardown()
+    protected function _teardown(Content $content)
     {
         // clear global hashes
         $this->_clearHashes();
@@ -163,9 +170,14 @@ class Lexer
     {
         Kernel::setConfig('html_hashes',        array());
         Kernel::setConfig('cross_references',   array());
-        Kernel::setConfig('urls',               Kernel::getConfig('predefined_urls', array()));
-        Kernel::setConfig('titles',             Kernel::getConfig('predefined_titles', array()));
-        Kernel::setConfig('attributes',         Kernel::getConfig('predefined_attributes', array()));
-        Kernel::setConfig('predefined_abbr',    Kernel::getConfig('predefined_abbr', array()));
+    }
+
+    // clear global hashes
+    private function _initContent(Content $content)
+    {
+        $content->setData('urls',               Kernel::getConfig('predefined_urls', array()));
+        $content->setData('titles',             Kernel::getConfig('predefined_titles', array()));
+        $content->setData('attributes',         Kernel::getConfig('predefined_attributes', array()));
+        $content->setData('abbreviations',      Kernel::getConfig('predefined_abbr', array()));
     }
 }

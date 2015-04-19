@@ -237,7 +237,7 @@ class MarkdownExtended
                     'metadata'              => 'META',
                     'charset'               => 'CHARSET',
                     'title'                 => 'TITLE',
-                    'table_of_contents'     => 'TOC',
+                    'menu'                  => 'TOC',
                 ),
                 'inline_template'       => "{% META %}\n{% BODY %}\n{% NOTES %}",
             ),

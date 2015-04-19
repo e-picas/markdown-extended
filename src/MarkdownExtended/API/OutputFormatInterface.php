@@ -37,6 +37,15 @@ interface OutputFormatInterface
     public function getTagString($content, $tag_name, array $attributes = array());
 
     /**
+     * Formats a data stack list as string
+     *
+     * @param   string $type
+     * @param   array $data
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     */
+    public function getDataToString($type, array $data, ContentInterface $content);
+
+    /**
      * Gets the notes list as string
      *
      * @param   array $notes
@@ -53,10 +62,10 @@ interface OutputFormatInterface
     public function getMetadataToString(array $metadata, ContentInterface $content);
 
     /**
-     * Gets the table of contents list as string
+     * Gets the menu list as string
      *
      * @param   array $toc
      * @param   \MarkdownExtended\API\ContentInterface $content
      */
-    public function getTableOfContentsToString(array $toc, ContentInterface $content);
+    public function getMenuToString(array $toc, ContentInterface $content);
 }

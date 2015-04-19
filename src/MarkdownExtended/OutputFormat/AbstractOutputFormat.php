@@ -43,7 +43,7 @@ abstract class AbstractOutputFormat
      */
     public function buildTag($tag_name, $content = null, array $attributes = array())
     {
-        $_method = 'build'.Helper::toCamelCase($tag_name);
+        $_method = Helper::toCamelCase('build_'.$tag_name);
 
         if (isset($this->tags_map[$tag_name]) && isset($this->tags_map[$tag_name]['prefix'])) {
             $attributes['mde-prefix'] = $this->tags_map[$tag_name]['prefix'];
@@ -79,6 +79,51 @@ abstract class AbstractOutputFormat
     abstract public function getTagString($content, $tag_name, array $attributes = array());
 
     /**
+     * Formats a data stack list as string
+     *
+     * @param   string $type
+     * @param   array $data
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return string
+     */
+    public function getDataToString($type, array $data, ContentInterface $content)
+    {
+        if (empty($data)) {
+            return '';
+        }
+        $method = Helper::toCamelCase('get_'.$type.'_to_string');
+        if (!method_exists($this, $method)) {
+            $method = 'getDataListToString';
+        }
+        return call_user_func(array($this, $method), $data, $content);
+    }
+
+    /**
+     * Gets a data list as string
+     *
+     * @param   array $list
+     * @param   \MarkdownExtended\API\ContentInterface $content
+     *
+     * @return string
+     */
+    public function getDataListToString(array $list, ContentInterface $content)
+    {
+        if (empty($list)) {
+            return '';
+        }
+
+        $data = array();
+        foreach ($list as $var=>$val) {
+            $data[] = $this->buildTag('list_item', $val);
+        }
+        return $this
+            ->buildTag('block',
+                $this->buildTag('unordered_list', implode(PHP_EOL, $data))
+            );
+    }
+
+    /**
      * Gets the notes list as string
      *
      * @param   array $notes
@@ -99,7 +144,6 @@ abstract class AbstractOutputFormat
                 $val['text'],
                 array('id' => $val['note-id'])
             );
-//            ) . "\n\n";
         }
 
         return $this
@@ -140,12 +184,12 @@ abstract class AbstractOutputFormat
      *
      * @return string
      */
-    public function getTableOfContentsToString(array $toc, ContentInterface $content)
+    public function getMenuToString(array $toc, ContentInterface $content)
     {
         if (empty($toc)) {
             return '';
         }
-        return $this->_processTableOfContentsToString(
+        return $this->_processMenuToString(
             array_values($toc),
             array('class'=>'table-of-contents')
         );
@@ -158,14 +202,14 @@ abstract class AbstractOutputFormat
      * @param array $params
      * @return string
      */
-    protected function _processTableOfContentsToString(array $items, array $params = array())
+    protected function _processMenuToString(array $items, array $params = array())
     {
         $data = array();
         foreach ($items as $k=>$item) {
             /* @var $item \MarkdownExtended\Util\Menu\MenuItem */
             $text = $item->getContent() . (
                 $item->hasChildren() ?
-                    $this->_processTableOfContentsToString($item->getChildren()) : ''
+                    $this->_processMenuToString($item->getChildren()) : ''
             );
             $data[] = $this->buildTag(
                 'list_item',

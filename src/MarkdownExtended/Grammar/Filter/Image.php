@@ -92,9 +92,9 @@ class Image
             $link_id = strtolower($alt_text); // for shortcut links like ![this][].
         }
 
-        $urls   = Kernel::getConfig('urls');
-        $titles = Kernel::getConfig('titles');
-        $predef_attributes = Kernel::getConfig('attributes');
+        $urls   = Kernel::get(Kernel::TYPE_CONTENT)->getData('urls');
+        $titles = Kernel::get(Kernel::TYPE_CONTENT)->getData('titles');
+        $predef_attributes = Kernel::get(Kernel::TYPE_CONTENT)->getData('attributes');
         $alt_text = Lexer::runGamut('tools:EncodeAttribute', $alt_text);
         if (isset($urls[$link_id])) {
             $attributes = array();

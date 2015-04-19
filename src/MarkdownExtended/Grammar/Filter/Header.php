@@ -103,7 +103,7 @@ class Header
             Helper::header2Label($matches[2]);
         $id  = Kernel::get('DomId')->set($id);
         $title = Lexer::runGamut('span_gamut', $matches[2]);
-        Kernel::addConfig('menu', array('level'=>$level, 'text'=>parent::unhash($title)), $id);
+        $this->_addMenuItem($level, parent::unhash($title), $id);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('title', $title, array(
                 'level'=>$level,
@@ -126,6 +126,8 @@ class Header
 
     /**
      * Set the page content if it is not set yet
+     *
+     * @param string $string
      */
     protected function _setContentTitle($string)
     {
@@ -135,5 +137,22 @@ class Header
             $meta['title'] = $string;
             Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($meta);
         }
+    }
+
+    /**
+     * Add new menu entry
+     *
+     * @param int $level
+     * @param string $text
+     * @param string $id
+     */
+    protected function _addMenuItem($level, $text, $id)
+    {
+        Kernel::get(Kernel::TYPE_CONTENT)
+            ->addMenuItem(array(
+                'level' => $level,
+                'text'  => $text,
+                'id'    => $id
+            ));
     }
 }

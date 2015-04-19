@@ -60,9 +60,10 @@ class Note
      */
     public function _setup()
     {
-        Kernel::setConfig('footnotes',      array());
-        Kernel::setConfig('glossaries',     array());
-        Kernel::setConfig('bibliographies', array());
+        $content = Kernel::get(Kernel::TYPE_CONTENT);
+        $content->setData('footnotes',      array());
+        $content->setData('glossaries',     array());
+        $content->setData('bibliographies', array());
         self::$notes_ordered    = array();
         self::$written_notes    = array();
         self::$footnote_counter = 1;
@@ -129,20 +130,23 @@ class Note
     protected function _strip_callback($matches)
     {
         if (0 !== preg_match('/^(<p>)?glossary:/i', $matches[2])) {
-            Kernel::addConfig('glossaries', array(
-                (Kernel::getConfig('glossarynote_id_prefix') . $matches[1]) =>
-                    Lexer::runGamut('tools:Outdent', $matches[2])
-            ));
+            Kernel::get(Kernel::TYPE_CONTENT)->addData(
+                'glossaries',
+                Lexer::runGamut('tools:Outdent', $matches[2]),
+                Kernel::getConfig('glossarynote_id_prefix') . $matches[1]
+            );
         } elseif (0 !== preg_match('/^\#(.*)?/i', $matches[1])) {
-            Kernel::addConfig('bibliographies', array(
-                (Kernel::getConfig('bibliographynote_id_prefix') . substr($matches[1], 1)) =>
-                    Lexer::runGamut('tools:Outdent', $matches[2])
-            ));
+            Kernel::get(Kernel::TYPE_CONTENT)->addData(
+                'bibliographies',
+                Lexer::runGamut('tools:Outdent', $matches[2]),
+                Kernel::getConfig('bibliographynote_id_prefix') . substr($matches[1], 1)
+            );
         } else {
-            Kernel::addConfig('footnotes', array(
-                (Kernel::getConfig('footnote_id_prefix') . $matches[1]) =>
-                    Lexer::runGamut('tools:Outdent', $matches[2])
-            ));
+            Kernel::get(Kernel::TYPE_CONTENT)->addData(
+                'footnotes',
+                Lexer::runGamut('tools:Outdent', $matches[2]),
+                Kernel::getConfig('footnote_id_prefix') . $matches[1]
+            );
         }
         return '';
     }
@@ -171,9 +175,9 @@ class Note
      */
     public function append($text)
     {
-        $footnotes      = Kernel::getConfig('footnotes');
-        $glossaries     = Kernel::getConfig('glossaries');
-        $bibliographies = Kernel::getConfig('bibliographies');
+        $footnotes      = Kernel::get(Kernel::TYPE_CONTENT)->getData('footnotes');
+        $glossaries     = Kernel::get(Kernel::TYPE_CONTENT)->getData('glossaries');
+        $bibliographies = Kernel::get(Kernel::TYPE_CONTENT)->getData('bibliographies');
 
         // First loop for references
         if (!empty(self::$notes_ordered)) {
@@ -221,7 +225,7 @@ class Note
      */
     public function transformFootnote($note_id)
     {
-        $footnotes = Kernel::getConfig('footnotes');
+        $footnotes = Kernel::get(Kernel::TYPE_CONTENT)->getData('footnotes');
         if (!empty($footnotes[$note_id])) {
             $this->_doTransformNote($note_id, $footnotes[$note_id], self::FOOTNOTE_DEFAULT);
         }
@@ -235,7 +239,7 @@ class Note
      */
     public function transformGlossary($note_id)
     {
-        $glossaries = Kernel::getConfig('glossaries');
+        $glossaries = Kernel::get(Kernel::TYPE_CONTENT)->getData('glossaries');
         if (!empty($glossaries[$note_id])) {
             $glossary = substr($glossaries[$note_id], strlen('glossary:'));
             $glossary = preg_replace_callback('{
@@ -275,7 +279,7 @@ class Note
      */
     public function transformBibliography($note_id)
     {
-        $bibliographies = Kernel::getConfig('bibliographies');
+        $bibliographies = Kernel::get(Kernel::TYPE_CONTENT)->getData('bibliographies');
         if (!empty($bibliographies[$note_id])) {
             $bibliography = $bibliographies[$note_id];
             $bibliography = preg_replace_callback('{
@@ -315,7 +319,7 @@ class Note
     {
         if (!empty($note_content)) {
             ++self::$notes_counter;
-            $type_info              = $this->getTypeInfo($type);
+            $type_info      = $this->getTypeInfo($type);
 
             $note_content   .= "\n"; // Need to append newline before parsing.
             $note_content   = Lexer::runGamut('html_block_gamut', $note_content . "\n");
@@ -363,7 +367,7 @@ class Note
         // Create footnote marker only if it has a corresponding footnote *and*
         // the footnote hasn't been used by another marker.
         $node_id    = Kernel::getConfig('footnote_id_prefix') . $note_id;
-        $footnotes  = Kernel::getConfig('footnotes');
+        $footnotes  = Kernel::get(Kernel::TYPE_CONTENT)->getData('footnotes');
         if (isset($footnotes[$node_id])) {
             $type_info      = $this->getTypeInfo(self::FOOTNOTE_DEFAULT);
             // Transfer footnote content to the ordered list.
@@ -376,7 +380,7 @@ class Note
         // Create glossary marker only if it has a corresponding note *and*
         // the glossary hasn't been used by another marker.
         $glossary_node_id = Kernel::getConfig('glossarynote_id_prefix') . $note_id;
-        $glossaries = Kernel::getConfig('glossaries');
+        $glossaries = Kernel::get(Kernel::TYPE_CONTENT)->getData('glossaries');
         if (isset($glossaries[$glossary_node_id])) {
             $type_info      = $this->getTypeInfo(self::FOOTNOTE_GLOSSARY);
             // Transfer footnote content to the ordered list.
@@ -389,7 +393,7 @@ class Note
         // Create bibliography marker only if it has a corresponding note *and*
         // the glossary hasn't been used by another marker.
         $bibliography_node_id = Kernel::getConfig('bibliographynote_id_prefix') . $note_id;
-        $bibliographies = Kernel::getConfig('bibliographies');
+        $bibliographies = Kernel::get(Kernel::TYPE_CONTENT)->getData('bibliographies');
         if (isset($bibliographies[$bibliography_node_id])) {
             $type_info      = $this->getTypeInfo(self::FOOTNOTE_BIBLIOGRAPHY);
             // Transfer footnote content to the ordered list.
