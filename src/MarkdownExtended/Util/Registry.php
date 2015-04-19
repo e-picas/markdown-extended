@@ -122,6 +122,16 @@ class Registry
         return $this->data;
     }
 
+    /**
+     * Counts the registry entries
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
+    }
+
 // --------------
 // Variables manipulation
 // --------------

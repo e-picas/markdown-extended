@@ -30,15 +30,27 @@ class DomIdRegistry
     }
 
     /**
-     * Verifies if a reference is already defined in the DOM IDs register
+     * Verifies if a reference is already defined in registry
      *
      * @param   string  $reference  The reference to search
      *
-     * @return  bool    True if the reference exists in the register, false otherwise
+     * @return  bool
      */
     public function has($reference)
     {
         return $this->dom_ids->has($reference);
+    }
+
+    /**
+     * Verifies if an ID is already defined in the registry
+     *
+     * @param   string  $id  The ID to search
+     *
+     * @return  bool
+     */
+    public function exists($id)
+    {
+        return in_array($id, $this->dom_ids->getAll());
     }
 
     /**
@@ -62,35 +74,32 @@ class DomIdRegistry
      *
      * @param   string      $id         A string that will be used to construct the ID
      * @param   string      $reference  A reference used to store the ID (and retrieve it - by default `$id`)
-     * @param   bool        $return_array   Allow to return an array in case of existing reference
      *
-     * @return  array|string    The unique ID created if the reference was empty
-     *                          An array like (id=>XXX, reference=>YYY) if it was not
+     * @return  string      The unique ID created
      */
-    public function set($id, $reference = null, $return_array = true)
+    public function set($id, &$reference = null)
     {
+        $new_id     = $id;
+        $counter    = 0;
+        while ($this->exists($new_id)) {
+            $counter++;
+            $new_id = $id.'-'.$counter;
+        }
+
         $_reference = $reference;
         if (empty($_reference)) {
             $_reference = $id;
         }
-
-        $new_id = $id;
-        while ($this->has($new_id)) {
-            $new_id = $id.'_'.uniqid();
-        }
-
         if ($this->has($_reference)) {
+            $counter = 0;
             while ($this->has($_reference)) {
-                $_reference = $reference.'_'.uniqid();
+                $counter++;
+                $_reference = $reference.'-'.$counter;
             }
-            $return = true===$return_array ? array(
-                'id'=>$new_id, 'reference'=>$_reference
-            ) : $new_id;
-        } else {
-            $return = $new_id;
         }
 
-        $this->dom_ids->set($_reference, $new_id);
-        return $return;
+        $reference = $_reference;
+        $this->dom_ids->set($reference, $new_id);
+        return $new_id;
     }
 }
