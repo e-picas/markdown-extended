@@ -21,8 +21,16 @@ class Menu
      */
     protected $items;
 
+    // stores last index of each level
     private $_indexes = array();
 
+    /**
+     * Static creation of a Menu from an array
+     *
+     * @param array $items
+     *
+     * @return \MarkdownExtended\Util\Menu\Menu
+     */
     public static function create(array $items)
     {
         $menu = new Menu;
@@ -81,7 +89,7 @@ class Menu
     }
 
     /**
-     * Add a menu entry
+     * Adds a menu entry
      *
      * @param \MarkdownExtended\Util\Menu\MenuItem $val
      * @return $this

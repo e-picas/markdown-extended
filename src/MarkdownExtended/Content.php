@@ -298,6 +298,10 @@ class Content
             ->getMetadataToString($this->getMetadata(), $this);
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function setMenu(array $items)
     {
         foreach ($items as $item) {
@@ -306,6 +310,10 @@ class Content
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return self
+     */
     public function addMenuItem(array $data)
     {
         $this->addIndex('menu', $data);
