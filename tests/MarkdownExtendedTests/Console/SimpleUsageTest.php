@@ -11,6 +11,7 @@
 namespace MarkdownExtendedTests\Console;
 
 use \MarkdownExtendedTests\ConsoleTest;
+use MarkdownExtendedTests\ParserTest;
 
 class SimpleUsageTest
     extends ConsoleTest
@@ -44,7 +45,7 @@ class SimpleUsageTest
      */
     public function testSimpleString()
     {
-        $res = $this->runCommand($this->getBaseCmd().' "my **markdown** _extended_ simple string"');
+        $res = $this->runCommand($this->getBaseCmd().' "'.ParserTest::MD_STRING.'"');
         // status
         $this->assertEquals(
             $res['status'],
@@ -54,7 +55,7 @@ class SimpleUsageTest
         // stdout
         $this->assertEquals(
             $res['stdout'],
-            'my <strong>markdown</strong> <em>extended</em> simple string',
+            ParserTest::PARSED_STRING,
             'Test of the CLI on simple string with no option'
         );
     }
@@ -66,7 +67,7 @@ class SimpleUsageTest
      */
     public function testPipedSimpleString()
     {
-        $res = $this->runCommand('echo "my **markdown** _extended_ simple string" | '.$this->getBaseCmd());
+        $res = $this->runCommand('echo "'.ParserTest::MD_STRING.'" | '.$this->getBaseCmd());
         // status
         $this->assertEquals(
             $res['status'],
@@ -76,7 +77,7 @@ class SimpleUsageTest
         // stdout
         $this->assertEquals(
             $res['stdout'],
-            'my <strong>markdown</strong> <em>extended</em> simple string',
+            ParserTest::PARSED_STRING,
             'Test of the CLI on a piped simple string'
         );
     }
@@ -88,12 +89,13 @@ class SimpleUsageTest
      */
     public function testMultipleStrings()
     {
-        $res = $this->runCommand($this->getBaseCmd().' "my **markdown** _extended_ simple string" "my **markdown** _extended_ simple string"');
+        $res    = $this->runCommand($this->getBaseCmd().' "'.ParserTest::MD_STRING.'" "'.ParserTest::MD_STRING.'"');
+        $line   = ParserTest::PARSED_STRING;
         $output = <<<MSG
 ==> STDIN#1 <==
-my <strong>markdown</strong> <em>extended</em> simple string
+{$line}
 ==> STDIN#2 <==
-my <strong>markdown</strong> <em>extended</em> simple string
+{$line}
 MSG;
         // status
         $this->assertEquals(
@@ -116,25 +118,9 @@ MSG;
      */
     public function testSimpleFile()
     {
-        $file       = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
-        $body = $this->stripWhitespaceAndNewLines(
-            <<<MSG
-            <p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
-voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
-<blockquote>
-  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-      expedita distinctio.</p>
-</blockquote>
-<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
-tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.</p>
-MSG
-        );
-        $res = $this->runCommand($this->getBaseCmd().' '.$file);
+        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
+        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
+        $res    = $this->runCommand($this->getBaseCmd().' '.$file);
         // status
         $this->assertEquals(
             $res['status'],
@@ -156,23 +142,9 @@ MSG
      */
     public function testMultipleFiles()
     {
-        $file = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
-        $file2 = $this->getPath(array($this->getBasePath(), 'tests', 'test-2.md'));
-        $body = <<<MSG
-<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
-voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
-<blockquote>
-  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-      expedita distinctio.</p>
-</blockquote>
-<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
-tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.</p>
-MSG;
+        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
+        $file2  = $this->getPath(array($this->getBasePath(), 'tests', 'test-2.md'));
+        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
         $output = $this->stripWhitespaceAndNewLines(
 <<<MSG
 ==> tests/test.md <==
