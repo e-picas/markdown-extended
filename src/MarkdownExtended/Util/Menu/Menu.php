@@ -51,7 +51,7 @@ class Menu
             $data[$parent][$key] = $item;
         }
 
-        $append_children = function($arr, $children) use (&$append_children) {
+        $append_children = function ($arr, $children) use (&$append_children) {
             foreach ($arr as $key => $page) {
                 if (isset($children[$key])) {
                     $arr[$key]->setChildren($append_children($children[$key], $children));
@@ -85,5 +85,4 @@ class Menu
         $this->items[$this->_indexes[0]] = $val;
         return $this;
     }
-
 }

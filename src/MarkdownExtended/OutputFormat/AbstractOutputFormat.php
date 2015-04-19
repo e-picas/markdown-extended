@@ -182,5 +182,4 @@ abstract class AbstractOutputFormat
                 $params
             );
     }
-
 }

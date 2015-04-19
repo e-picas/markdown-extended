@@ -62,5 +62,4 @@ class DOMMenu
             $this->toc->addItem($item);
         }
     }
-
 }
