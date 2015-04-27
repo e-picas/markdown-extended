@@ -35,8 +35,7 @@
     "atelierspierrot/extended-markdown": "dev-master"
   },
   "autoload": {
-    "psr-0": { "MarkdownExtended": "src" },
-    "files": [ "src/markdown.php" ]
+    "psr-0": { "MarkdownExtended": "src" }
   },
   "autoload-dev": { "psr-0": {
     "MarkdownExtendedDev": "src",
