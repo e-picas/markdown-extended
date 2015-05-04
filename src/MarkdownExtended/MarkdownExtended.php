@@ -224,7 +224,7 @@ class MarkdownExtended
             // - bool to force default template or note
             // - 'auto' to let the parser choose the best option
             // - 'file path' to a specific template file
-            // - 'class name' to a custom `` object
+            // - 'class name' to a custom `TemplateInterface` object
             'template'                  => 'auto',
             'template_options'          => array(
                 // Template mask for keywords regexp

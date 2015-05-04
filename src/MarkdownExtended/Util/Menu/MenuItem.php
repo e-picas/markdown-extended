@@ -62,6 +62,27 @@ class MenuItem
     }
 
     /**
+     * Exports a menu item to an array of data
+     *
+     * @return array
+     */
+    public function __toArray()
+    {
+        $data = array(
+            'content'       => $this->getContent(),
+            'attributes'    => $this->getAttributes(),
+        );
+        if ($this->hasChildren()) {
+            $children = array();
+            foreach ($this->getChildren() as $i=>$child) {
+                $children[$i] = $child->__toArray();
+            }
+            $data['children'] = $children;
+        }
+        return $data;
+    }
+
+    /**
      * Sets item's level
      *
      * @param int $level

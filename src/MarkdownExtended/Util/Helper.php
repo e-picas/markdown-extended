@@ -121,7 +121,7 @@ class Helper
     }
 
     /**
-     * Gets a "safe string" from a `\DateTime` or an array
+     * Gets a "safe string" from a `\MarkdownExtended\Util\Menu`, a `\DateTime` or an array
      *
      * @param mixed $source
      * @return string
@@ -131,8 +131,10 @@ class Helper
         $str = $source;
 
         if (!is_string($source)) {
-            if ($source instanceof \DateTime) {
+            if (is_object($source) && ($source instanceof \DateTime)) {
                 $str = Kernel::applyConfig('date_to_string', array($source));
+            } elseif (is_object($source) && ($source instanceof \MarkdownExtended\Util\Menu\MenuItem)) {
+                $str = self::getSafeString($source->__toArray());
             } elseif (is_array($source)) {
                 $str = '';
                 foreach ($source as $var=>$val) {
@@ -142,6 +144,31 @@ class Helper
         }
 
         return $str;
+    }
+
+    /**
+     * Gets a "safe array" values from a `\MarkdownExtended\Util\Menu`, a `\DateTime` or an array
+     *
+     * @param mixed $source
+     * @return string
+     */
+    public static function getSafeArray(array $source)
+    {
+        $data = array();
+        foreach ($source as $var=>$val) {
+            if (is_object($val) && ($val instanceof \DateTime)) {
+                $data[$var] = Kernel::applyConfig('date_to_string', array($val));
+            } elseif (is_object($val) && ($val instanceof \MarkdownExtended\Content)) {
+                $data[$var] = self::getSafeArray($val->__toArray());
+            } elseif (is_object($val) && ($val instanceof \MarkdownExtended\Util\Menu\MenuItem)) {
+                $data[$var] = self::getSafeArray($val->__toArray());
+            } elseif (is_array($val)) {
+                $data[$var] = self::getSafeArray($val);
+            } else {
+                $data[$var] = $val;
+            }
+        }
+        return $data;
     }
 
     /**

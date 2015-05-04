@@ -136,13 +136,12 @@ exit('yo');
 }
 
 $output_bag = !empty($mde_content) ? \MarkdownExtended\API\Kernel::get('OutputFormatBag') : null;
-/*
-$menu = !empty($mde_content) ? $output_bag->getHelper()
-    ->getToc($mde_content, $output_bag->getFormatter(), array(
-        'title_level'=>'2', 'class'=>'menu'
-    )) : null;
-*/
-    $menu = null;
+$menu = !empty($mde_content) ? $mde_content->getMenuFormatted() : null;
+/*/
+header('Content-Type: text/plain');
+var_export($mde_content);
+exit();
+//*/
 ?><!DOCTYPE html>
 <html lang="en">
 <head>

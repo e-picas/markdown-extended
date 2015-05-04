@@ -104,6 +104,7 @@ class Content
             'title'     => $this->getTitle(),
             'body'      => $this->getBody(),
             'notes'     => $this->getNotes(),
+            'menu'      => $this->getMenu(),
             'metadata'  => $this->getMetadata()
         );
     }

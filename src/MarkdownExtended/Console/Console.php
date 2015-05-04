@@ -119,7 +119,7 @@ DESC
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING | UserInput::TYPE_LISTITEM,
                 'default'       => 'plain',
-                'list'          => array( 'plain', 'json', 'php' ),
+                'list'          => array( 'plain', 'json', 'php', 'dump' ),
                 'description'   => 'Define the response format in "plain" (default), "json" or "php".'
             ))
             ->addCliOption('force', array(
@@ -291,6 +291,10 @@ DESC
             case 'php':
                 $this->renderOutputPhp();
                 break;
+            case 'dump':
+                if ($this->stream->getVerbosity() === Stream::VERBOSITY_DEBUG) {
+                    $this->renderOutputDump();
+                }
             default:
             case 'plain':
                 $this->renderOutputPlain();
@@ -317,7 +321,7 @@ DESC
      */
     protected function renderOutputJson()
     {
-        $results = $this->getResults(true);
+        $results = Helper::getSafeArray($this->getResults(true));
         if (count($results)===1) {
             $result = array_shift($results);
             $this->stream->write(
@@ -346,6 +350,25 @@ DESC
         }
         $this->stream->write(
             serialize($results)
+        );
+        $this->stream->_exit();
+    }
+
+    /**
+     * Dumps results (dev only)
+     */
+    protected function renderOutputDump()
+    {
+        $results = Helper::getSafeArray($this->getResults(true));
+        if (count($results)===1) {
+            $result = array_shift($results);
+            $this->stream->write(
+                var_export($result,true)
+            );
+            $this->stream->_exit();
+        }
+        $this->stream->write(
+            var_export($results,true)
         );
         $this->stream->_exit();
     }
