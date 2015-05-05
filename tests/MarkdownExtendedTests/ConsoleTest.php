@@ -11,7 +11,7 @@
 namespace MarkdownExtendedTests;
 
 class ConsoleTest
-    extends BaseUnitTest
+    extends ParserTest
 {
 
     /**

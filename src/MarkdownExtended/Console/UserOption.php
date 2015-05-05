@@ -209,7 +209,11 @@ class UserOption
         if ($this->has('shortcut')) {
             $str .= '|-' . $this->get('shortcut');
         }
-        $str .= $this->getArgumentString() . ']';
+        $str .= $this->getArgumentString();
+        if ($this->get('negate') === true) {
+            $str .= ' / --' . UserInput::NEGATE_SUFFIX . '-' . $this->get('name');
+        }
+        $str .= ']';
         return $str;
     }
 

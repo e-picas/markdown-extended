@@ -11,6 +11,7 @@
 namespace MarkdownExtendedTests\Console;
 
 use \MarkdownExtendedTests\ConsoleTest;
+use MarkdownExtendedTests\ParserTest;
 
 class UsageTest
     extends ConsoleTest
@@ -23,8 +24,9 @@ class UsageTest
      */
     public function testSimpleStringTemplate()
     {
-        $res1 = $this->runCommand($this->getBaseCmd().' --template "my **markdown** _extended_ simple string"');
-        $res2 = $this->runCommand($this->getBaseCmd().' -t "my **markdown** _extended_ simple string"');
+        $res1 = $this->runCommand($this->getBaseCmd().' --template "'.ParserTest::MD_STRING.'"');
+        $res2 = $this->runCommand($this->getBaseCmd().' -t "'.ParserTest::MD_STRING.'"');
+        $line = ParserTest::PARSED_STRING;
         $html = $this->stripWhitespaceAndNewLines(
 <<<MSG
 <!DOCTYPE html>
@@ -32,14 +34,11 @@ class UsageTest
 <head>
     <meta charset="utf-8" />
     <title>1</title>
-
 </head>
 <body>
-<p>my <strong>markdown</strong> <em>extended</em> simple string</p>
-
+<p>{$line}</p>
 </body>
 </html>
-
 MSG
 );
 
@@ -77,12 +76,13 @@ MSG
      */
     public function testSimpleStringCustomTemplate()
     {
-        $tpl = $this->getPath(array($this->getBasePath(), 'tests', 'test-template.tpl'));
-        $res = $this->runCommand($this->getBaseCmd().' --template=' .$tpl. ' "my **markdown** _extended_ simple string"');
-        $html = $this->stripWhitespaceAndNewLines(
+        $tpl    = $this->getPath(array($this->getBasePath(), 'tests', 'test-template.tpl'));
+        $res    = $this->runCommand($this->getBaseCmd().' --template=' .$tpl. ' "'.ParserTest::MD_STRING.'"');
+        $line   = ParserTest::PARSED_STRING;
+        $html   = $this->stripWhitespaceAndNewLines(
             <<<MSG
 <custom>
-<p>my <strong>markdown</strong> <em>extended</em> simple string</p>
+<p>{$line}</p>
 </custom>
 MSG
         );
@@ -100,7 +100,7 @@ MSG
      */
     public function testSimpleStringCustomTemplateError()
     {
-        $res = $this->runCommand($this->getBaseCmd().' --template=notexisting "my **markdown** _extended_ simple string"');
+        $res = $this->runCommand($this->getBaseCmd().' --template=notexisting "'.ParserTest::MD_STRING.'"');
         // status NOT 0
         $this->assertNotEquals(
             $res['status'],
@@ -127,10 +127,10 @@ MSG
      */
     public function testSimpleStringAsJson()
     {
-        $res1 = $this->runCommand($this->getBaseCmd().' --response json "my **markdown** _extended_ simple string"');
-        $res2 = $this->runCommand($this->getBaseCmd().' --response=json "my **markdown** _extended_ simple string"');
-        $res3 = $this->runCommand($this->getBaseCmd().' -r json "my **markdown** _extended_ simple string"');
-        $res4 = $this->runCommand($this->getBaseCmd().' -r=json "my **markdown** _extended_ simple string"');
+        $res1 = $this->runCommand($this->getBaseCmd().' --response json "'.ParserTest::MD_STRING.'"');
+        $res2 = $this->runCommand($this->getBaseCmd().' --response=json "'.ParserTest::MD_STRING.'"');
+        $res3 = $this->runCommand($this->getBaseCmd().' -r json "'.ParserTest::MD_STRING.'"');
+        $res4 = $this->runCommand($this->getBaseCmd().' -r=json "'.ParserTest::MD_STRING.'"');
         $json = '{"content":"my <strong>markdown<\/strong> <em>extended<\/em> simple string","charset":"utf-8","title":"1","body":"<p>my <strong>markdown<\/strong> <em>extended<\/em> simple string<\/p>"}';
 
         // status with long option and no equal sign
@@ -195,39 +195,8 @@ MSG
     {
         $file       = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
         $file_meta  = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
-        $body = $this->stripWhitespaceAndNewLines(
-            <<<MSG
-<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
-voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
-<blockquote>
-  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-      expedita distinctio.</p>
-</blockquote>
-<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
-tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.</p>
-MSG
-        );
-        $html = $this->stripWhitespaceAndNewLines(
-            <<<MSG
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>test-meta</title>
-    <meta name="meta1" content="a value for meta 1" />
-<meta name="meta2" content="another value for meta 2" />
-</head>
-<body>
-{$body}
-</body>
-</html>
-MSG
-        );
+        $body       = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
+        $html       = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
 
         // full content without metadata
         $res1 = $this->runCommand($this->getBaseCmd().' '.$file);
@@ -262,39 +231,8 @@ MSG
         foreach ($meta as $var=>$val) {
             $meta_str .= $var.': '.$val.PHP_EOL;
         }
-        $body = $this->stripWhitespaceAndNewLines(
-            <<<MSG
-<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
-voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
-<blockquote>
-  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-      expedita distinctio.</p>
-</blockquote>
-<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
-tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.</p>
-MSG
-        );
-        $html = $this->stripWhitespaceAndNewLines(
-            <<<MSG
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>test-meta</title>
-    <meta name="meta1" content="a value for meta 1" />
-<meta name="meta2" content="another value for meta 2" />
-</head>
-<body>
-{$body}
-</body>
-</html>
-MSG
-        );
+        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
+        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
 
         // full content
         $res1 = $this->runCommand($this->getBaseCmd().' '.$file);
@@ -358,34 +296,7 @@ MSG
 
         $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
         $output = $this->getPath(array($this->getBasePath(), 'tmp', 'test-output-%s.html'));
-        $html = $this->stripWhitespaceAndNewLines(
-            <<<MSG
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>test-meta</title>
-    <meta name="meta1" content="a value for meta 1" />
-<meta name="meta2" content="another value for meta 2" />
-</head>
-<body>
-<p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium
-voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
-<blockquote>
-  <p>Sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-      mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-      expedita distinctio.</p>
-</blockquote>
-<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
-tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-perferendis doloribus asperiores repellat.</p>
-</body>
-</html>
-MSG
-        );
+        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
 
         // short option
         $output1 = sprintf($output, '1');

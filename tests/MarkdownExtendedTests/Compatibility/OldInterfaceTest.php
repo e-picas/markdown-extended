@@ -42,14 +42,14 @@ class OldInterfaceTest
 
         // Markdown
         $this->assertEquals(
-            $this->stripWhitespaceAndNewLines($this->getTestExpectedBody()),
+            $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test()),
             $this->stripWhitespaceAndNewLines(Markdown(file_get_contents($this->getTestFilepath()))->getBody()),
             'Test of the Markdown() function'
         );
 
         // MarkdownFromSource
         $this->assertEquals(
-            $this->stripWhitespaceAndNewLines($this->getTestExpectedBody()),
+            $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test()),
             $this->stripWhitespaceAndNewLines(MarkdownFromSource($this->getTestFilepath())->getBody()),
             'Test of the MarkdownFromSource() function'
         );

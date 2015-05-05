@@ -7,7 +7,7 @@
 .TH  "markdown-extended-api" "7" "2015-04-16" "Version 0.1.0-dev" "PHP-Markdown-Extended Developer Manual"
 .SH NAME
 .PP
-Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
+PHP-Markdown-Extended API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
 .PP
 The whole API is stored in the `\fS\\MarkdownExtended\\API\fP` namespace and is a set of interfaces
 you must implement to use or override the parser or some of its objects.
@@ -52,6 +52,17 @@ The output formats options, stored by output formats type (`\fSoutput_format_opt
 output
 Type: string
 Default: `\fSnull\fP`
+When it is defined, this option will be used to build a file name to write parsing result in ;
+it can be defined as a mask like `\fSoutput-filename-%%.html\fP` where `\fS%%\fP` will be filled with current
+content file path or title ; when parsing multiple inputs,
+.PP
+Some options can be defined as \fIcallbacks\fP to process a custom logic when necessary:
+.RS
+
+.EX
+my_option = function(arg) { ...; return $arg; }
+.EE
+.RE
 .SH PARSER FILTERS
 .PP
 Each filters' list executed while parsing a full content or a peace of a content
@@ -107,43 +118,46 @@ Below is a list of gamuts stacks used by the parser:
 .IP \(bu 
 `\fShtml_block_gamut\fP`
 .RE
+.PP
+You can define and use a custom filter by defining a PHP object that is compliant with
+the API (see below) and inserting it in a gamuts stack.
 .SH LIFE-CYCLE
 .PP
 The full schema of a Markdown parser usage could be:
 .RS
 
 .EX
-[source file content]   [options]    
+[source file content]   [options]                                  [template]
 .br
-       ||                  ||
+       ||                  ||                                         /\\
 .br
-       \\/                  \\/
+       \\/                  \\/                                         ||
 .br
----------------        ----------                            -------------------
+---------------        ----------                            --------------------
 .br
 |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATTED RESULT |
 .br
----------------        ----------                            -------------------
+---------------        ----------                            --------------------
 .br
        /\\                  /\\                                         ||
 .br
        ||                  ||                                         \\/
 .br
-    [string]        [ configuration ]                           [special info]
+    [string]         [configuration]                            [special info]
 .EE
 .RE
 .PP
 The original Markdown source can be either a buffered string (a form field for example)
-or the content of a Markdown file
+or the content of a Markdown file.
 .PP
 We want to parse the source content with a hand on options used during this parsing
-(no need to parse metadata in a content that will never have some for example)
+(no need to parse metadata in a content that will never have some for example).
 .PP
 Finally, we want to get a formatted content and to be able to retrieve certain information
-from it, such as its metadata, its menu or the footnotes of the whole parsed result
+from it, such as its metadata, its footnotes or the whole parsed result.
 .PP
 Additionally, it would be best that we can obtain a full formatted result simply but
-can also pass this result through a template builder to construct a complex final string
+can also pass this result through a template builder to construct a complex final string.
 .SH PARSER API
 .PP
 The public direct parser's access is the `\fS\\MarkdownExtended\\MarkdownExtended\fP`
@@ -247,6 +261,11 @@ string  Content::getSource()
 array   Content::getParsingOptions()
 .EE
 .RE
+.PP
+The special `\fSget...Formatted()\fP` methods are designed to render a string from an array
+of information (basically footnotes and metadata). Metadata follows a special logic
+as the data with a name in the `\fSspecial_metadata\fP` option will be stripped from the
+output (you can customize this option to use a metadata but not actually render it).
 .SS The \fIFilters\fP objects
 .PP
 A filter must implement the `\fS\\MarkdownExtended\\API\\GamutInterface\fP` interface 
@@ -274,6 +293,19 @@ OutputFormat->buildTag( tag_name, content = null, array attributes = array() )
 
 .br
 OutputFormat->getTagString( content, tag_name, array attributes = array() )
+.EE
+.RE
+.PP
+The interface also defines two methods called to process the `\fSget...Formatted()\fP` logic
+of the content:
+.RS
+
+.EX
+OutputFormat->getNotesToString( array notes , content )
+.br
+
+.br
+OutputFormat->getMetadataToString( array metadata , content )
 .EE
 .RE
 .SS The \fITemplate\fP renderer
@@ -304,7 +336,7 @@ It acts like a service container:
 .br
 \\MarkdownExtended\\Kernel->get('OutputFormatBag')    // wrapper for current output format
 .br
-\\MarkdownExtended\\Kernel->get('Template')           // templater engine
+\\MarkdownExtended\\Kernel->get('Template')           // template engine
 .br
 \\MarkdownExtended\\Kernel->get('DomId')              // DOM registry manager
 .EE
@@ -329,6 +361,12 @@ It also acts like a configuration setter/getter:
 // get a configuration entry
 .br
 \\MarkdownExtended\\Kernel::getConfig( index.subindex )
+.br
+
+.br
+// apply a callback configuration entry on a list of parameters
+.br
+\\MarkdownExtended\\Kernel::applyConfig( index.subindex , parameters )
 .EE
 .RE
 .SH SEE ALSO

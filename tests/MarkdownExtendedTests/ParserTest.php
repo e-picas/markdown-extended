@@ -16,6 +16,9 @@ class ParserTest
     extends BaseUnitTest
 {
 
+    const MD_STRING     = "my **markdown** _extended_ simple string";
+    const PARSED_STRING = 'my <strong>markdown</strong> <em>extended</em> simple string';
+
     /**
      * Get the tests test file path
      *
@@ -27,67 +30,10 @@ class ParserTest
     }
 
     /**
-     * Create a markdown parser
-     *
-     * @param   array   $configuration  Optional configuration
-     * @return  \MarkdownExtended\Parser
-    public function createParser($configuration = null)
-    {
-    return \MarkdownExtended\MarkdownExtended::getInstance()
-    ->get('Parser', $configuration);
-    }
-     */
-
-    /**
-     * Create a markdown content
-     *
-     * @param   string  $content
-     * @return  \MarkdownExtended\Content
-    public function createContent($content = null)
-    {
-    return new \MarkdownExtended\Content($content);
-    }
-     */
-
-    /**
-     * Create a markdown content from file
-     *
-     * @param   string $filepath
-     * @return  \MarkdownExtended\Content
-    public function createSourceContent($filepath = null)
-    {
-    return new \MarkdownExtended\Content(null, $filepath);
-    }
-     */
-
-    /**
-     * Get a trimed content body
-     *
-     * @param   object  $content
-     * @param   bool    $strip_whitespaces
-     * @return  string
-    public function getBody($content = null, $strip_whitespaces = false)
-    {
-    $ctt = trim($content->getBody());
-    if (true===$strip_whitespaces) $ctt = $this->stripWhitespaces($ctt);
-    return $ctt;
-    }
-     */
-
-    /**
      * Validate class methods
      */
     public function testCreate()
     {
-        /*
-        $this->assertInstanceOf('\MarkdownExtended\Parser', $this->createParser(), 'baseTest->createParser failure!');
-
-        $this->assertInstanceOf('\MarkdownExtended\Content', $this->createContent('test'), 'baseTest->createContent failure!');
-
-        $this->assertFileExists($this->getTestFilepath(), 'baseTest->getTestFilepath failure!');
-
-        $this->assertInstanceOf('\MarkdownExtended\Content', $this->createSourceContent($this->getTestFilepath()), 'baseTest->createSourceContent failure!');
-*/
     }
 
     /**
@@ -95,31 +41,31 @@ class ParserTest
      *
      * @return  string
      */
-    public function getTestExpectedFullContent()
+    public function getFileExpectedContent_test()
     {
-        $body = $this->getTestExpectedBody();
+        $body = $this->getFileExpectedBody_test();
         return <<<EOF
 <!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8" />
-</head><body>
-
+    <meta charset="utf-8" />
+    <title>test-meta</title>
+    <meta name="meta1" content="a value for meta 1" />
+<meta name="meta2" content="another value for meta 2" />
+</head>
+<body>
 {$body}
-
-
-<p>Last updated at Sun, 09 Jun 2013 11:34:50 +0000</p>
-
 </body>
 </html>
 EOF;
     }
 
     /**
-     * Get the tests test file parsed body
+     * Get the tests test.md file parsed body
      *
      * @return  string
      */
-    public function getTestExpectedBody()
+    public function getFileExpectedBody_test()
     {
         return <<<EOF
 <p>At vero eos et accusamus et <strong>iusto odio dignissimos ducimus qui blanditiis</strong> praesentium

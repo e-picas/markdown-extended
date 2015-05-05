@@ -50,10 +50,11 @@ This program converts markdown-extended syntax text(s) source(s) from specified 
 By default, result is written through STDOUT in HTML format.
 
 To transform a file content, write its path as script argument. To process a list of input
-files, just write file paths as arguments, separated by space.
+files, just write the concerned paths as arguments, separated by a space.
 
 To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
-You can also use the output of a previous command using the pipe notation.
+To process a list of input strings, just write them as arguments, separated by a space.
+You can also use the output of a previous command with the pipe notation.
 
 Examples:
     {$script} [options ...] input_filename [input_filename] [...]
@@ -124,7 +125,7 @@ DESC
             ))
             ->addCliOption('force', array(
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Force some actions (no created files backup).'
+                'description'   => 'Force some actions (i.e. does not create file backup).'
             ))
         ;
 
@@ -320,14 +321,26 @@ DESC
         $results = $this->getResults(true);
         if (count($results)===1) {
             $result = array_shift($results);
-            $this->stream->write(
-                json_encode($result)
-            );
+            if ($this->stream->getVerbosity() === Stream::VERBOSITY_DEBUG && version_compare(PHP_VERSION, '5.4.0') >= 0) {
+                $this->stream->write(
+                    json_encode($result, JSON_PRETTY_PRINT)
+                );
+            } else {
+                $this->stream->write(
+                    json_encode($result)
+                );
+            }
             $this->stream->_exit();
         }
-        $this->stream->write(
-            json_encode($results)
-        );
+        if ($this->stream->getVerbosity() === Stream::VERBOSITY_DEBUG && version_compare(PHP_VERSION, '5.4.0') >= 0) {
+            $this->stream->write(
+                json_encode($results, JSON_PRETTY_PRINT)
+            );
+        } else {
+            $this->stream->write(
+                json_encode($results)
+            );
+        }
         $this->stream->_exit();
     }
 
