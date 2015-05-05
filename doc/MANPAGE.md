@@ -16,30 +16,33 @@ PHP-Markdown-Extended - Yet another PHP parser for the markdown (*extended*) syn
 
 **markdown-extended**  [**-V**|**--version**]  [**-h**|**--help**]
     [**-x**|**-v**|**-q**] [**--debug**|**--verbose**|**--quiet**|**--force**]
-    [**-o**|**--output** *filename*]
+    [**-o**|**--output** *filename*] [**--no-output**]
     [**-c**|**--config** *filename*]
     [**-f**|**--format** *format*]
     [**-r**|**--response** *type*]
     [**-e**|**--extract** [=*block*]]
-    [**-t**|**--template** [=*filename*]]
+    [**-t**|**--template** [=*filename*]] [**--no-template**]
         *input_filename*  [*input_filename*]  [...]
         "*markdown string read from STDIN*"
 
 
 ## DESCRIPTION
 
-**Markdown Extended** converts markdown-extended syntax text(s) source(s) from specified file(s)
+**PHP-Markdown-Extended** converts markdown-extended syntax text(s) source(s) from specified file(s)
 (or STDIN). The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
 
 To transform a file content, write its path as script argument. To process a list of input
-files, just write file paths as arguments, separated by space.
+files, just write the concerned paths as arguments, separated by a space.
 
-To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
-To process a list of input strings, just write them as arguments, separated by space.
-You can also use the output of a previous command using the pipe notation.
+To transform a string read from STDIN, write it as last argument between quotes or EOF.
+To process a list of input strings, just write them as arguments, separated by a space.
+You can also use the output of a previous command with the pipe notation.
 
-For more information about the **Markdown-Extended syntax**, see <http://aboutmde.org/>.
+For more information about the **markdown extended syntax**, see <http://aboutmde.org/>.
+
+Developers (or curious people) can refer to <markdown-extended(7)> for an internal
+**PHP-Markdown-Extended** documentation.
 
 ## OPTIONS
 
@@ -101,9 +104,15 @@ increase script's verbosity.
     default, files are generated in current working directory ; masks may use the *%%* string
     which will be fill in with content's identifier.
 
+**--no-output**
+:   Prohibits to write the result in a file.
+
 **-t** , **--template** [=*filename*]
 :   Return the content inserted in a parsed template file ; if no **filename** argument is 
     passed, this will use the configuration template file.
+
+**--no-template**
+:   Prohibits use of a template.
 
 **--force**
 :   Use this to not backup generated files (the default behavior is to backup all existing files
@@ -130,6 +139,22 @@ result will write the rendering content (a raw string) on the terminal. If you s
 
 If you use a *--output* option, the content described above will be written in a file and the result
 rendered on terminal will be the name of this file.
+
+When you use the *PHP* response output, you will mostly have a serialized object as output.
+To rebuild the original object, you will need to include its definition:
+
+    markdown-extended -r=php demo/MD_syntax.md > test-php.txt
+    php -r 'require "src/bootstrap.php"; $obj = file_get_contents("test-php.txt"); var_export(unserialize($obj));'
+
+### Templating
+
+The templating system of PHP-Markdown-Extended is a simple processor that will replace
+a tag like `{% BODY %}` by its value for concerned content. Such notation can be used for
+all content's items listed above: *body*, *title*, *charset*, *meta* (*metadata* as string) and
+*notes* (as string).
+
+The metadata follows a specific rule as you can access each data value by its name with a
+tag like `{% META:data_name %}`.
 
 
 ## MESSAGES

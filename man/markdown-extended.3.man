@@ -2,8 +2,8 @@
 .\" man-name: markdown-extended
 .\" author: Pierre Cassat
 .\" date: 2015-04-16
-.\" version: 0.1.1-dev
-.TH  "markdown-extended" "3" "2015-04-16" "Version 0.1.1-dev" "PHP-Markdown-Extended Manual"
+.\" version: 0.1.0-dev
+.TH  "markdown-extended" "3" "2015-04-16" "Version 0.1.0-dev" "PHP-Markdown-Extended Manual"
 .SH NAME
 .PP
 PHP-Markdown-Extended - Yet another PHP parser for the markdown (\fIextended\fP) syntax.
@@ -13,28 +13,31 @@ PHP-Markdown-Extended - Yet another PHP parser for the markdown (\fIextended\fP)
 .PP
 \fBmarkdown-extended\fP  [\fB-V\fP|\fB--version\fP]  [\fB-h\fP|\fB--help\fP]
     [\fB-x\fP|\fB-v\fP|\fB-q\fP] [\fB--debug\fP|\fB--verbose\fP|\fB--quiet\fP|\fB--force\fP]
-    [\fB-o\fP|\fB--output\fP \fIfilename\fP]
+    [\fB-o\fP|\fB--output\fP \fIfilename\fP] [\fB--no-output\fP]
     [\fB-c\fP|\fB--config\fP \fIfilename\fP]
     [\fB-f\fP|\fB--format\fP \fIformat\fP]
     [\fB-r\fP|\fB--response\fP \fItype\fP]
     [\fB-e\fP|\fB--extract\fP [=\fIblock\fP]]
-    [\fB-t\fP|\fB--template\fP [=\fIfilename\fP]]
+    [\fB-t\fP|\fB--template\fP [=\fIfilename\fP]] [\fB--no-template\fP]
         \fIinput_filename\fP  [\fIinput_filename\fP]  [...]
         "\fImarkdown string read from STDIN\fP"
 .SH DESCRIPTION
 .PP
-\fBMarkdown Extended\fP converts markdown-extended syntax text(s) source(s) from specified file(s)
+\fBPHP-Markdown-Extended\fP converts markdown-extended syntax text(s) source(s) from specified file(s)
 (or STDIN). The rendering can be the full parsed content or just a part of this content.
 By default, result is written through STDOUT in HTML format.
 .PP
 To transform a file content, write its path as script argument. To process a list of input
-files, just write file paths as arguments, separated by space.
+files, just write the concerned paths as arguments, separated by a space.
 .PP
-To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
-To process a list of input strings, just write them as arguments, separated by space.
-You can also use the output of a previous command using the pipe notation.
+To transform a string read from STDIN, write it as last argument between quotes or EOF.
+To process a list of input strings, just write them as arguments, separated by a space.
+You can also use the output of a previous command with the pipe notation.
 .PP
-For more information about the \fBMarkdown-Extended syntax\fP, see <http://aboutmde.org/>.
+For more information about the \fBmarkdown extended syntax\fP, see <http://aboutmde.org/>.
+.PP
+Developers (or curious people) can refer to <markdown-extended(7)> for an internal
+\fBPHP-Markdown-Extended\fP documentation.
 .SH OPTIONS
 .SS Usage of script's options
 .PP
@@ -92,9 +95,15 @@ Specify a single file name or a file names mask to write generated content(s) in
 default, files are generated in current working directory ; masks may use the \fI%%\fP string
 which will be fill in with content's identifier.
 .TP
+\fB--no-output\fP
+Prohibits to write the result in a file.
+.TP
 \fB-t\fP , \fB--template\fP [=\fIfilename\fP]
 Return the content inserted in a parsed template file ; if no \fBfilename\fP argument is 
 passed, this will use the configuration template file.
+.TP
+\fB--no-template\fP
+Prohibits use of a template.
 .TP
 \fB--force\fP
 Use this to not backup generated files (the default behavior is to backup all existing files
@@ -127,6 +136,26 @@ and the rendering of the parsed template if a \fI--template\fP option was used ;
 .PP
 If you use a \fI--output\fP option, the content described above will be written in a file and the result
 rendered on terminal will be the name of this file.
+.PP
+When you use the \fIPHP\fP response output, you will mostly have a serialized object as output.
+To rebuild the original object, you will need to include its definition:
+.RS
+
+.EX
+markdown-extended -r=php demo/MD_syntax.md > test-php.txt
+.br
+php -r 'require "src/bootstrap.php"; $obj = file_get_contents("test-php.txt"); var_export(unserialize($obj));'
+.EE
+.RE
+.SS Templating
+.PP
+The templating system of PHP-Markdown-Extended is a simple processor that will replace
+a tag like `\fS{% BODY %}\fP` by its value for concerned content. Such notation can be used for
+all content's items listed above: \fIbody\fP, \fItitle\fP, \fIcharset\fP, \fImeta\fP (\fImetadata\fP as string) and
+\fInotes\fP (as string).
+.PP
+The metadata follows a specific rule as you can access each data value by its name with a
+tag like `\fS{% META:data_name %}\fP`.
 .SH MESSAGES
 .PP
 The script output is designed to use options \fB-v\fP or \fB--verbose\fP to increase
