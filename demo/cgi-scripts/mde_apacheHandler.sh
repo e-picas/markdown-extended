@@ -19,10 +19,10 @@
 # <http://daringfireball.net/projects/markdown/>
 
 ## Config
-CONSOLE="`pwd`/../../bin/markdown-extended"
+CONSOLE="$(pwd)/../../bin/markdown-extended"
 CHARSET='utf-8'
 OPTIONS=''
-PHP_BIN="`which php`"
+PHP_BIN="$(which php)"
 REQ="$PATH_TRANSLATED"
 PLAIN="$QUERY_STRING"
 if [ ! -z "$MDE_CHARSET" ]; then CHARSET="$MDE_CHARSET"; fi
@@ -49,7 +49,7 @@ if [ ! -z "$MDE_CONSOLE_OPTIONS" ]; then OPTIONS="$MDE_CONSOLE_OPTIONS"; fi
 # exit 0
 
 ## Process 
-MARKDOWN_RESULT=$("$PHP_BIN" "$CONSOLE" "$OPTIONS" "$PATH_TRANSLATED")
+MARKDOWN_RESULT=$($PHP_BIN $CONSOLE $OPTIONS $PATH_TRANSLATED)
 
 ## Start with outputting the HTTP headers
 ## And then the content
