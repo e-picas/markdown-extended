@@ -1,4 +1,4 @@
-Title:   A Sample MultiMarkdown Document  
+Title:   A Sample MarkdownExtended Document  
 Author:  Pierre Cassat  
 Date:    February 20, 2012  
 Comment: This is a comment intended to demonstrate
