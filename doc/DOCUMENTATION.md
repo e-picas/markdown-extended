@@ -9,7 +9,7 @@ Version:    0.1.0-dev
 NAME
 ----
 
-Markdown-Extended-PHP API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
+PHP-Markdown-Extended API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
 
 The whole API is stored in the `\MarkdownExtended\API` namespace and is a set of interfaces
 you must implement to use or override the parser or some of its objects.
@@ -57,6 +57,13 @@ output_format_options
 output
 :   Type: string
 :   Default: `null`
+:   When it is defined, this option will be used to build a file name to write parsing result in ;
+    it can be defined as a mask like `output-filename-%%.html` where `%%` will be filled with current
+    content file path or title ; when parsing multiple inputs, 
+
+Some options can be defined as *callbacks* to process a custom logic when necessary:
+
+    my_option = function(arg) { ...; return $arg; }
 
 PARSER FILTERS
 --------------
@@ -89,33 +96,37 @@ Below is a list of gamuts stacks used by the parser:
 -   `span_gamut`
 -   `block_gamut`
 -   `html_block_gamut`
-            
+
+You can define and use a custom filter by defining a PHP object that is compliant with
+the API (see below) and inserting it in a gamuts stack.
+
+
 LIFE-CYCLE
 ----------
 
 The full schema of a Markdown parser usage could be:
 
-    [source file content]   [options]    
-           ||                  ||
-           \/                  \/
-    ---------------        ----------                            -------------------
+    [source file content]   [options]                                  [template]
+           ||                  ||                                         /\
+           \/                  \/                                         ||
+    ---------------        ----------                            --------------------
     |  MD SOURCE  |   =>   | PARSER |   =>  [output format]  =>  | FORMATTED RESULT |
-    ---------------        ----------                            -------------------
+    ---------------        ----------                            --------------------
            /\                  /\                                         ||
            ||                  ||                                         \/
-        [string]        [ configuration ]                           [special info]
+        [string]         [configuration]                            [special info]
 
 The original Markdown source can be either a buffered string (a form field for example)
-or the content of a Markdown file
+or the content of a Markdown file.
 
 We want to parse the source content with a hand on options used during this parsing
-(no need to parse metadata in a content that will never have some for example)
+(no need to parse metadata in a content that will never have some for example).
 
 Finally, we want to get a formatted content and to be able to retrieve certain information
-from it, such as its metadata, its menu or the footnotes of the whole parsed result
+from it, such as its metadata, its footnotes or the whole parsed result.
 
 Additionally, it would be best that we can obtain a full formatted result simply but
-can also pass this result through a template builder to construct a complex final string
+can also pass this result through a template builder to construct a complex final string.
 
 
 PARSER API
@@ -190,6 +201,11 @@ to write the object directly:
     string  Content::getSource()
     array   Content::getParsingOptions()
 
+The special `get...Formatted()` methods are designed to render a string from an array
+of information (basically footnotes and metadata). Metadata follows a special logic
+as the data with a name in the `special_metadata` option will be stripped from the
+output (you can customize this option to use a metadata but not actually render it).
+
 ### The *Filters* objects
 
 A filter must implement the `\MarkdownExtended\API\GamutInterface` interface 
@@ -210,6 +226,13 @@ interface, which defines some basic methods to build a content:
 
     OutputFormat->getTagString( content, tag_name, array attributes = array() )
 
+The interface also defines two methods called to process the `get...Formatted()` logic
+of the content:
+
+    OutputFormat->getNotesToString( array notes , content )
+
+    OutputFormat->getMetadataToString( array metadata , content )
+
 ### The *Template* renderer
 
 A template object must implement the `\MarkdownExtended\API\TemplateInterface`
@@ -227,7 +250,7 @@ It acts like a service container:
     \MarkdownExtended\Kernel->get('Lexer')              // grammar lexer
     \MarkdownExtended\Kernel->get('GamutLoader')        // grammar gamuts loader
     \MarkdownExtended\Kernel->get('OutputFormatBag')    // wrapper for current output format
-    \MarkdownExtended\Kernel->get('Template')           // templater engine
+    \MarkdownExtended\Kernel->get('Template')           // template engine
     \MarkdownExtended\Kernel->get('DomId')              // DOM registry manager
 
 It also acts like a configuration setter/getter:
@@ -240,6 +263,9 @@ It also acts like a configuration setter/getter:
 
     // get a configuration entry
     \MarkdownExtended\Kernel::getConfig( index.subindex )
+    
+    // apply a callback configuration entry on a list of parameters
+    \MarkdownExtended\Kernel::applyConfig( index.subindex , parameters )
     
 
 SEE ALSO

@@ -18,7 +18,7 @@
 #
 
 # any environment variable beginning with `MDE_` will be fetched to the app
-#SetEnv MDE_TPL /GitHub_projects/markdown-extended/demo/user/template.html
+#SetEnv MDE_TPL /projects/piwi/markdown-extended/demo/user/template.html
 #SetEnv MDE_CHARSET iso-8859-11
 #SetEnv MDE_CONSOLE_OPTIONS --extract
 
@@ -35,6 +35,6 @@ AddType text/html .md
 # Treat '.md' files by the Markdown handler
 # CAUTION - this requires to know exactly where the CGI is ...
 AddHandler MarkDown .md
-Action MarkDown /GitHub_projects/markdown-extended/demo/cgi-scripts/mde_apacheHandler.sh virtual
+Action MarkDown /projects/piwi/markdown-extended/demo/cgi-scripts/mde_apacheHandler.sh virtual
 
 # Endfile

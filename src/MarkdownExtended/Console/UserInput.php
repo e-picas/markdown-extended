@@ -74,6 +74,9 @@ class UserInput
     protected $options_indexed;
     protected $user_options;
 
+    /**
+     * @param array $definitions
+     */
     public function __construct(array $definitions)
     {
         $this->options          = new Registry;
