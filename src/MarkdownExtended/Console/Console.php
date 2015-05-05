@@ -321,14 +321,26 @@ DESC
         $results = $this->getResults(true);
         if (count($results)===1) {
             $result = array_shift($results);
-            $this->stream->write(
-                json_encode($result)
-            );
+            if ($this->stream->getVerbosity() === Stream::VERBOSITY_DEBUG && version_compare(PHP_VERSION, '5.4.0') >= 0) {
+                $this->stream->write(
+                    json_encode($result, JSON_PRETTY_PRINT)
+                );
+            } else {
+                $this->stream->write(
+                    json_encode($result)
+                );
+            }
             $this->stream->_exit();
         }
-        $this->stream->write(
-            json_encode($results)
-        );
+        if ($this->stream->getVerbosity() === Stream::VERBOSITY_DEBUG && version_compare(PHP_VERSION, '5.4.0') >= 0) {
+            $this->stream->write(
+                json_encode($results, JSON_PRETTY_PRINT)
+            );
+        } else {
+            $this->stream->write(
+                json_encode($results)
+            );
+        }
         $this->stream->_exit();
     }
 
