@@ -33,7 +33,7 @@ class Tools
         throw new RuntimeException(
             sprintf(
                 'You are required to use notation "%s:method" to call a tool as a gamut (no method defined)',
-                GamutLoader::TOOLS_ALIAS
+                GamutLoader::TOOL_ALIAS
             )
         );
     }
@@ -117,7 +117,7 @@ class Tools
      */
     public function EncodeAttribute($text)
     {
-        $text = Lexer::runGamut('tools:EncodeAmpAndAngle', $text);
+        $text = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAmpAndAngle', $text);
         $text = str_replace('"', '&quot;', $text);
         return $text;
     }

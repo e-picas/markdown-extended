@@ -13,6 +13,7 @@ namespace MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown notes: footnotes, glossary and bibliography notes
@@ -26,7 +27,7 @@ class Note
     const FOOTNOTE_DEFAULT      = 0;
     const FOOTNOTE_GLOSSARY     = 1;
     const FOOTNOTE_BIBLIOGRAPHY = 2;
-    
+
     const FOOTNOTE_PREFIX       = 'fn';
     const GLOSSARY_PREFIX       = 'fng';
     const BIBLIOGRAPHY_PREFIX   = 'fnb';
@@ -39,12 +40,12 @@ class Note
      * @var int  Give the current footnote, glossary or bibliography number.
      */
     public static $footnote_counter;
-        
+
     /**
      * @var int  Give the total parsed notes number.
      */
     public static $notes_counter;
-        
+
     /**
      * @var array  Ordered notes
      */
@@ -131,17 +132,17 @@ class Note
         if (0 !== preg_match('/^(<p>)?glossary:/i', $matches[2])) {
             Kernel::addConfig('glossaries', array(
                 (Kernel::getConfig('glossarynote_id_prefix') . $matches[1]) =>
-                    Lexer::runGamut('tools:Outdent', $matches[2])
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2])
             ));
         } elseif (0 !== preg_match('/^\#(.*)?/i', $matches[1])) {
             Kernel::addConfig('bibliographies', array(
                 (Kernel::getConfig('bibliographynote_id_prefix') . substr($matches[1], 1)) =>
-                    Lexer::runGamut('tools:Outdent', $matches[2])
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2])
             ));
         } else {
             Kernel::addConfig('footnotes', array(
                 (Kernel::getConfig('footnote_id_prefix') . $matches[1]) =>
-                    Lexer::runGamut('tools:Outdent', $matches[2])
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2])
             ));
         }
         return '';
@@ -187,10 +188,10 @@ class Note
                 }
             }
         }
-    
+
         $text = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
             array($this, '_append_callback'), $text);
-    
+
         while (!empty(self::$notes_ordered)) {
             reset(self::$notes_ordered);
             $note_id = key(self::$notes_ordered);
@@ -322,7 +323,7 @@ class Note
             $note_content   = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
                                 array($this, '_append_callback'), $note_content);
 
-            $note_id        = Lexer::runGamut('tools:EncodeAttribute', $note_id);
+            $note_id        = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $note_id);
             $backlink_id    = Kernel::get('DomId')
                                 ->get($type_info['prefix'] . 'ref:' . $note_id);
             $footlink_id    = Kernel::get('DomId')
@@ -372,7 +373,7 @@ class Note
                                 self::$written_notes[$node_id] : self::$footnote_counter++;
             $note_ref       = $node_id;
         }
-        
+
         // Create glossary marker only if it has a corresponding note *and*
         // the glossary hasn't been used by another marker.
         $glossary_node_id = Kernel::getConfig('glossarynote_id_prefix') . $note_id;

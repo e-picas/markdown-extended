@@ -13,6 +13,7 @@ namespace MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\Grammar\Lexer;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown links
@@ -135,13 +136,13 @@ class Anchor
 
         if (isset($urls[$link_id])) {
             $attributes = array();
-            $attributes['href'] = Lexer::runGamut('tools:EncodeAttribute', $urls[$link_id]);
+            $attributes['href'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $urls[$link_id]);
             if (!empty($titles[$link_id])) {
-                $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $titles[$link_id]);
+                $attributes['title'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $titles[$link_id]);
             }
             if (!empty($predef_attributes[$link_id])) {
                 $attributes = array_merge(
-                    Lexer::runGamut('tools:ExtractAttributes', $predef_attributes[$link_id]),
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':ExtractAttributes', $predef_attributes[$link_id]),
                     $attributes
                 );
             }
@@ -166,9 +167,9 @@ class Anchor
         $title          =& $matches[7];
 
         $attributes = array();
-        $attributes['href'] = Lexer::runGamut('tools:EncodeAttribute', $url);
+        $attributes['href'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $url);
         if (!empty($title)) {
-            $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $title);
+            $attributes['title'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $title);
         }
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('link', Lexer::runGamut('span_gamut', $link_text), $attributes);
