@@ -15,7 +15,10 @@ text files or strings in HTML or other formats. This new version of a Markdown p
 [extended syntax specifications](http://manifest.aboutmde.org/) and is PHP-5.3 compliant
 and highly customizable.
 
-README contents:
+You can use this package in PHP scripts just as usual (for PHP apps) and also like a standalone command
+line utility. The CLI interface is interactive with a large set of options and fully documented.
+
+**README contents:**
 
 -   [Installation](#installation)
     -   [Raw PHP package](#raw-php-package)
@@ -75,12 +78,13 @@ is to add it to your requirements in your `composer.json` file:
 
 The namespace will be automatically added to the project's Composer's *autoloader*.
 
+
 ### Using a standalone version
 
 Finally, if you plan to use the parser as a single binary, you can use a 
 [PHAR archive](http://php.net/manual/en/book.phar.php) directly, which embeds 
 the whole source as a standalone binary (~220Kb). Its usage is the same as the 
-`bin/markdown-extended` script described below.
+`bin/markdown-extended` script [described below](#command-line-usage).
 
 The archive is stored in a specific `phar-latest` branch on the repository:
 
@@ -132,6 +136,9 @@ For a full example and a test file, you can refer to the `demo/MD_syntax.md` fil
 the latest version can be found at <http://github.com/piwi/markdown-extended/blob/dev/demo/MD_syntax.md>.
 
 ### Usage for developers
+
+The source code documentation of the last stable release can also be found online at
+<http://docs.ateliers-pierrot.fr/markdown-extended/>.
 
 The `MarkdownExtended` package can be simply call writing:
 
@@ -191,12 +198,16 @@ $content = $parser->transformSource( 'my-markdown-file.md' );
 A more complete usage documentation is available in the package's documents
 (`doc/DOCUMENTATION.md`). You can read it online at 
 <https://github.com/piwi/markdown-extended/blob/master/doc/DOCUMENTATION.md>.
-The source code documentation of the last stable release can also be found online at
-<http://docs.ateliers-pierrot.fr/markdown-extended/>.
+Its *manpage* version is embedded in the package running:
+
+```bash
+$ man ./man/markdown-extended.7.man
+```
+
 
 ### Command line usage
 
-A command line interface is proposed in the package running:
+A command line interface is proposed with the package running:
 
 ```bash
 $ ./bin/markdown-extended --help
@@ -206,15 +217,14 @@ The interface allows to parse one or more files, extract some information from s
 write the results in files and some other stuff. A large set of options are available
 to customize the transformation.
 
-A complete *manpage* is available in the package's `man/` and its markdown source is
+A complete *manpage* is available in the package's `man/` directory and its markdown source is
 available in its documents (`doc/MANPAGE.md`). To read it, run:
 
 ```bash
 $ man ./man/markdown-extended.3.man
 ```
 
-The developer documentation is also available as a *manpage* and its markdown source is
-available in package's documents (`doc/DOCUMENTATION.md`). To read it, run:
+The developer documentation is also available as a *manpage* running:
 
 ```bash
 $ man ./man/markdown-extended.7.man
