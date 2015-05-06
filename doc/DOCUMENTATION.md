@@ -83,7 +83,7 @@ i.e.
     'filter:Detab:init'         => '10',
 
     // call the RemoveUtf8Marker tool
-    'tools:RemoveUtf8Marker'    => '15',
+    'tool:RemoveUtf8Marker'    => '15',
 
     // call another gamuts stack
     'block_gamut'               => '30',

@@ -26,9 +26,9 @@ class GamutLoader
 {
 
     const FILTER_ALIAS      = 'filter';
-    const TOOLS_ALIAS       = 'tools';
+    const TOOL_ALIAS        = 'tool';
     const FILTER_NAMESPACE  = 'MarkdownExtended\Grammar\Filter';
-    const TOOLS_CLASS       = 'MarkdownExtended\Grammar\Tools';
+    const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
 
     /**
      * @var array
@@ -101,8 +101,8 @@ class GamutLoader
                 @list($base, $class, $method) = explode(':', $gamut);
                 return self::FILTER_ALIAS . ':' . $class;
                 break;
-            case self::TOOLS_ALIAS:
-                return self::TOOLS_ALIAS;
+            case self::TOOL_ALIAS:
+                return self::TOOL_ALIAS;
                 break;
             default:
                 @list($class, $method) = explode(':', $gamut);
@@ -163,7 +163,7 @@ class GamutLoader
     {
         return (bool) (
             $this->isGamutStackName($gamut) ||
-            $this->getGamutBaseName($gamut) === self::TOOLS_ALIAS ||
+            $this->getGamutBaseName($gamut) === self::TOOL_ALIAS ||
             array_key_exists($this->getGamutBaseName($gamut), $this->getAllGamuts())
         );
     }
@@ -251,7 +251,7 @@ class GamutLoader
                 @list($base, $class, $method) = explode(':', $gamut);
                 return $this->_runGamutFilterMethod($class, $_method ?: $method, $text);
                 break;
-            case self::TOOLS_ALIAS:
+            case self::TOOL_ALIAS:
                 @list($base, $method) = explode(':', $gamut);
                 return $this->_runToolsMethod($method, $text);
                 break;
@@ -303,7 +303,7 @@ class GamutLoader
      */
     protected function _runToolsMethod($method, $text)
     {
-        return $this->_runClassMethod(self::TOOLS_CLASS, $method, $text);
+        return $this->_runClassMethod(self::TOOL_CLASS, $method, $text);
     }
 
     /**

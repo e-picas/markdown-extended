@@ -14,6 +14,7 @@ use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\Grammar\Lexer;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown code blocks
@@ -51,7 +52,7 @@ class CodeBlock
      */
     protected function _callback($matches)
     {
-        $codeblock = Lexer::runGamut('tools:Outdent', $matches[1]);
+        $codeblock = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[1]);
         $codeblock = Helper::escapeCodeContent($codeblock);
         # trim leading newlines and trailing newlines
         $codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
