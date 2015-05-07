@@ -12,7 +12,9 @@ namespace MarkdownExtendedDev;
 
 use \MarkdownExtended\Console\AbstractConsole;
 use \MarkdownExtended\Console\UserInput;
-use MarkdownExtended\MarkdownExtended;
+use \MarkdownExtended\Exception\FileSystemException;
+use \MarkdownExtended\Exception\InvalidArgumentException;
+use \MarkdownExtended\MarkdownExtended;
 use \MarkdownExtended\Parser;
 use \MarkdownExtended\Util\Helper;
 
@@ -98,14 +100,14 @@ MSG
         $base_path = $this->getOption('base-path');
         if (!empty($base_path)) {
             if (!file_exists($base_path) || !is_dir($base_path)) {
-                throw new \InvalidArgumentException(
+                throw new FileSystemException(
                     sprintf('Invalid base path "%s" (no existing or not a directory)', $base_path)
                 );
             }
             chdir($base_path);
         }
         if (!file_exists('src/MarkdownExtended/MarkdownExtended.php')) {
-            throw new \RuntimeException(
+            throw new InvalidArgumentException(
                 'You MUST run this script from the repository base path (file "src/MarkdownExtended/MarkdownExtended.php" not found)'
             );
         }
@@ -133,7 +135,7 @@ MSG
                     $this->makeRelease();
                     break;
                 default:
-                    throw new \InvalidArgumentException(
+                    throw new InvalidArgumentException(
                         sprintf('Unknown task "%s"', $task)
                     );
             }
@@ -177,7 +179,7 @@ MSG
             $input = Compiler::PHAR_FILE;
         }
         if (!file_exists($input)) {
-            throw new \InvalidArgumentException(
+            throw new FileSystemException(
                 sprintf('PHAR "%s" not found', $input)
             );
         }
@@ -348,7 +350,7 @@ MSG
             $input = $default_input;
         }
         if (!file_exists($input)) {
-            throw new \InvalidArgumentException(
+            throw new FileSystemException(
                 sprintf('Manpage source "%s" not found', $input)
             );
         }

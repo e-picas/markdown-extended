@@ -14,7 +14,7 @@ use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\API\OutputFormatInterface;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Exception\BadMethodCallException;
+use \MarkdownExtended\Exception\UnexpectedValueException;
 
 class OutputFormatBag
 {
@@ -98,7 +98,7 @@ class OutputFormatBag
     /**
      * Magic method to pass any called method from the bag to its formatter
      *
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if the method doesn't
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if the method doesn't
      *          exist in the formatter class
      */
     public function __call($name, array $arguments = null)
@@ -114,7 +114,7 @@ class OutputFormatBag
                 return call_user_func(array($this->getFormatter(), $name));
             }
         } else {
-            throw new BadMethodCallException(
+            throw new UnexpectedValueException(
                 sprintf('Call to undefined method "%s" on formatter "%s"',
                     $name, get_class($this->getFormatter()))
             );

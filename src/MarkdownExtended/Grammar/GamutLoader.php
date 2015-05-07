@@ -12,9 +12,7 @@ namespace MarkdownExtended\Grammar;
 
 use \MarkdownExtended\Util\CacheRegistry;
 use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\InvalidArgumentException;
 use \MarkdownExtended\Exception\UnexpectedValueException;
-use \MarkdownExtended\Exception\BadMethodCallException;
 
 /**
  * Central class to execute filters and tools methods on a content
@@ -42,20 +40,19 @@ class GamutLoader
      *
      * @return null|array
      *
-     * @throws \MarkdownExtended\Exception\BadMethodCallException if `$name` seems malformed
-     * @throws \MarkdownExtended\Exception\InvalidArgumentException if `$name` can not be found
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if `$name` seems malformed or can not be found
      */
     public function getGamutStack($name)
     {
         if (!$this->isGamutStackName($name)) {
-            throw new BadMethodCallException(
+            throw new UnexpectedValueException(
                 sprintf('A gamut stack name must follow a form like "%%_gamut", "%s" given', $name)
             );
         }
 
         $stack = Kernel::getConfig($name);
         if (empty($stack)) {
-            throw new InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Unknown gamut stack "%s"', $name)
             );
         }
@@ -196,12 +193,12 @@ class GamutLoader
      *
      * @return  string
      *
-     * @throws  \MarkdownExtended\Exception\BadMethodCallException if `$method` is not a string
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$method` is not a string
      */
     public function runGamutsMethod(array $gamuts, $method, $text = null)
     {
         if (!is_string($method)) {
-            throw new BadMethodCallException(
+            throw new UnexpectedValueException(
                 sprintf('Gamuts method must be a string, <%s> given', gettype($method))
             );
         }
@@ -231,12 +228,12 @@ class GamutLoader
      *
      * @return  string
      *
-     * @throws  \MarkdownExtended\Exception\BadMethodCallException if `$gamut` is not a string
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` is not a string
      */
     public function runGamut($gamut, $text = null, $_method = null)
     {
         if (!is_string($gamut)) {
-            throw new BadMethodCallException(
+            throw new UnexpectedValueException(
                 sprintf('Gamut name must be a string, <%s> given', gettype($gamut))
             );
         }
@@ -270,7 +267,7 @@ class GamutLoader
      *
      * @return  string
      *
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$gamut` can not be found
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` can not be found
      */
     protected function _runGamutFilterMethod($gamut, $method, $text)
     {
@@ -316,7 +313,7 @@ class GamutLoader
      * @return string
      *
      * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` doesn't implement the required method
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` class can not be found
+     *              or class can not be found
      */
     protected function _runClassMethod($class, $method, $text)
     {

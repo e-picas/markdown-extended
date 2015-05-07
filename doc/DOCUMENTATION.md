@@ -267,6 +267,25 @@ It also acts like a configuration setter/getter:
     // apply a callback configuration entry on a list of parameters
     \MarkdownExtended\Kernel::applyConfig( index.subindex , parameters )
     
+### Exceptions & errors
+
+A full set of specific exceptions is defined in the app to differentiate external
+and internal errors. Internal errors only defines a specific error code you can retrieve
+with `$exception->getCode()` between 90 and 95:
+
+-   *90* is the default exception thrown when invalid arguments are met
+    (basic usage error - `\MarkdownExtended\Exception\InvalidArgumentException`)
+-   *91* is the default exception thrown when a file or directory could not be found, read or write
+    (`\MarkdownExtended\Exception\FileSystemException`)
+-   *92* is the default exception thrown when an invalid value is met
+    (deeper usage error - `\MarkdownExtended\Exception\UnexpectedValueException`)
+-   *93* is the default exception thrown when an error occurred at runtime
+    (`\MarkdownExtended\Exception\RuntimeException`)
+-   *94* is the default exception status
+    (`\MarkdownExtended\Exception\Exception`)
+-   *95* is the default error-exception status
+    (development error - `\MarkdownExtended\Exception\ErrorException`)
+
 
 SEE ALSO
 --------

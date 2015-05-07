@@ -10,6 +10,9 @@
 
 namespace MarkdownExtended\Console;
 
+use \MarkdownExtended\Exception\RuntimeException;
+use \MarkdownExtended\Exception\UnexpectedValueException;
+
 class Stream
 {
 
@@ -97,11 +100,13 @@ class Stream
      * @param   resource    $stream
      *
      * @return  $this
+     *
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the stream is not a valid resource or has a wrong type
      */
     public function setStream($type, $stream)
     {
         if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('A "%s" console stream must be a resource (got "%s")', $type, gettype($stream))
             );
         }
@@ -116,7 +121,7 @@ class Stream
                 $this->stderr = $stream;
                 break;
             default:
-                throw new \InvalidArgumentException(
+                throw new UnexpectedValueException(
                     sprintf('Unknown stream type "%s"', $type)
                 );
         }
@@ -129,6 +134,8 @@ class Stream
      * @param   string $type
      *
      * @return  resource
+     *
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the type is not known
      */
     public function getStream($type)
     {
@@ -143,7 +150,7 @@ class Stream
                 return $this->stderr;
                 break;
             default:
-                throw new \InvalidArgumentException(
+                throw new UnexpectedValueException(
                     sprintf('Unknown stream type "%s"', $type)
                 );
         }
@@ -157,11 +164,13 @@ class Stream
      * @param   callable $callback
      *
      * @return  $this
+     *
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the argument is not a valid callback
      */
     public function setExceptionHandlerCallback($callback)
     {
         if (!is_callable($callback)) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('A handler callback must be callable (got "%s")', gettype($callback))
             );
         }
@@ -240,18 +249,22 @@ class Stream
      * @param   string  $str        The information to write
      * @param   bool    $new_line   May we pass a line after writing the info
      * @param   string  $stream     The stream to write to (stdin, sdtout or stderr)
+     *
      * @return  void
+     *
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the stream type can not be found
+     * @throws \MarkdownExtended\Exception\RuntimeException if can not write in stream
      */
     public function write($str, $new_line = true, $stream = self::IO_STDOUT)
     {
         if (!property_exists($this, $stream)) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Unknown IO stream type "%s"', $stream)
             );
         }
         $stream_io = $this->getStream($stream);
         if (false === fwrite($stream_io, $str . ($new_line===true ? PHP_EOL : ''))) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf('Can not write output to stream "%s"', $stream)
             );
         }

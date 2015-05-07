@@ -13,7 +13,7 @@ namespace MarkdownExtended;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\API\TemplateInterface;
 use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\Exception\RuntimeException;
+use \MarkdownExtended\Exception\FileSystemException;
 use \MarkdownExtended\Exception\UnexpectedValueException;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Util\Registry;
@@ -70,8 +70,7 @@ class Templater
      *
      * @return mixed|string
      *
-     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the template can not be found
-     * @throws \MarkdownExtended\Exception\RuntimeException if the template file is not readable
+     * @throws \MarkdownExtended\Exception\FileSystemException if the template can not be found or is not readable
      */
     public function getTemplate($template_path)
     {
@@ -87,7 +86,7 @@ class Templater
         if (!file_exists($template_path)) {
             $local_path = Kernel::getResourcePath($template_path, Kernel::RESOURCE_TEMPLATE);
             if (empty($local_path) || !file_exists($local_path)) {
-                throw new UnexpectedValueException(
+                throw new FileSystemException(
                     sprintf('Template "%s" not found', $template_path)
                 );
             }
@@ -96,7 +95,7 @@ class Templater
 
         if (!$this->cache->isCached($template_path)) {
             if (!is_readable($template_path)) {
-                throw new RuntimeException(
+                throw new FileSystemException(
                     sprintf('Template "%s" is not readable', $template_path)
                 );
             }
@@ -116,7 +115,7 @@ class Templater
      *
      * @return array
      *
-     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the keyword can not be found in content
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if a keyword can not be found in the content object
      */
     public function getParams(ContentInterface $content)
     {
