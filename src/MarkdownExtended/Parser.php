@@ -169,6 +169,14 @@ class Parser
     }
 
     /**
+     * Alias of `self::transform()`
+     */
+    public function transformString($content, $name = null, $primary = true)
+    {
+        return $this->transform($content, $name, $primary);
+    }
+
+    /**
      * Transforms a source file
      *
      * @param   string $path
