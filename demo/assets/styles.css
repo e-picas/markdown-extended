@@ -20,6 +20,25 @@ body {
 header {
     text-align: center;
 }
+aside, nav {
+    border-radius: 6px;
+    margin: 12px;
+    max-width: 30%;
+    padding: 12px 20px;
+}
+aside, nav ul {
+    padding-left: 22px;
+}
+@media (max-width:992px) {
+    body {
+        margin-bottom: 120px;
+    }
+    aside, nav {
+        display: block;
+        max-width: 100%;
+    }
+}
+
 #footer {
     position: absolute;
     bottom: 0;
@@ -42,37 +61,14 @@ header {
     padding-bottom: 12px;
     padding-top: 12px;
 }
-.main-nav.jumbotron.pull-right {
-    max-width: 30%;
+.bg-info {
+    background-color: #d9edf7;
 }
-.main-nav.jumbotron p {
-    font-size: 14px;
-    font-weight: normal;
-}
-
-a.handler   {color: #737373; }
-a.handler.strong {font-weight: bold;}
 
 .footnotes  {font-size: .92em; margin: 2em 10em 0 1em; border-top: 1px solid #ddd;}
 .footnotes .credits  {text-align: left;font-size: .96em;text-indent:0;}
 a.footnote_link {color: #2380A0; font-weight: bold;}
 .footnotes li {margin-left: 1em;}
-
-.jsconsole  {margin-top: 0; margin-bottom: 22px; height: auto; min-height: 40px;}
-.jsconsole h3 { margin-top: 1em; }
-
-aside, nav {
-    border-radius: 6px;
-    margin: 12px;
-    max-width: 30%;
-    padding: 12px 20px;
-}
-.bg-info {
-    background-color: #d9edf7;
-}
-aside, nav ul {
-    padding-left: 22px;
-}
 
 /* highlight */
 div.highlight {background:#FFFFFF; border:1px solid #D0D0D0; font-family:"Courier New","Andale Mono", Courrier, monospace; overflow: hidden;}
