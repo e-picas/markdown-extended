@@ -93,7 +93,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>Must process the filter on a text</p>
+                    <p>Form HTML tables.</p>
                 </td>
                 <td></td>
             </tr>
@@ -297,9 +297,20 @@
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Must process the filter on a text</p>
-        <p>
-</p>
+        <p>Form HTML tables.</p>
+        <p>Find tables with leading pipe:</p>
+
+<p>| Header 1 | Header 2
+   | -------- | --------
+   | Cell 1   | Cell 2
+   | Cell 3   | Cell 4</p>
+
+<p>Or without:</p>
+
+<p>Header 1 | Header 2
+   -------- | --------
+   Cell 1   | Cell 2
+   Cell 3   | Cell 4</p>
         <div class="tags">
                             <h4>Parameters</h4>
 

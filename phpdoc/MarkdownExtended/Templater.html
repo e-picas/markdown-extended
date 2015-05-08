@@ -143,7 +143,7 @@
     </div>
 
                 <h3 id="method_getTemplate">
-        <div class="location">at line 76</div>
+        <div class="location">at line 75</div>
         <code>            public            mixed|string
     <strong>getTemplate</strong>(string $template_path)</code>
     </h3>
@@ -179,12 +179,8 @@
 
                     <table>
                     <tr>
-                <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
-                <td>if the template can not be found</td>
-            </tr>
-                    <tr>
-                <td><a href="../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
-                <td>if the template file is not readable</td>
+                <td><a href="../MarkdownExtended/Exception/FileSystemException.html"><abbr title="MarkdownExtended\Exception\FileSystemException">FileSystemException</abbr></a></td>
+                <td>if the template can not be found or is not readable</td>
             </tr>
             </table>
 
@@ -193,7 +189,7 @@
     </div>
 
                 <h3 id="method_getParams">
-        <div class="location">at line 121</div>
+        <div class="location">at line 120</div>
         <code>            public            array
     <strong>getParams</strong>(<a href="../MarkdownExtended/API/ContentInterface.html"><abbr title="MarkdownExtended\API\ContentInterface">ContentInterface</abbr></a> $content)</code>
     </h3>
@@ -230,7 +226,7 @@
                     <table>
                     <tr>
                 <td><a href="../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
-                <td>if the keyword can not be found in content</td>
+                <td>if a keyword can not be found in the content object</td>
             </tr>
             </table>
 

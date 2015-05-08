@@ -315,7 +315,7 @@
         <h2>Details</h2>
 
                         <h3 id="method___construct">
-        <div class="location">at line 83</div>
+        <div class="location">at line 86</div>
         <code>            public            
     <strong>__construct</strong>()</code>
     </h3>
@@ -331,7 +331,7 @@
     </div>
 
                 <h3 id="method_setStream">
-        <div class="location">at line 101</div>
+        <div class="location">at line 106</div>
         <code>            public            <abbr title="MarkdownExtended\Console\$this">$this</abbr>
     <strong>setStream</strong>(string $type, resource $stream)</code>
     </h3>
@@ -369,12 +369,21 @@
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td>if the stream is not a valid resource or has a wrong type</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_getStream">
-        <div class="location">at line 133</div>
+        <div class="location">at line 140</div>
         <code>            public            resource
     <strong>getStream</strong>(string $type)</code>
     </h3>
@@ -406,12 +415,21 @@
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td>if the type is not known</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_setExceptionHandlerCallback">
-        <div class="location">at line 161</div>
+        <div class="location">at line 170</div>
         <code>            public            <abbr title="MarkdownExtended\Console\$this">$this</abbr>
     <strong>setExceptionHandlerCallback</strong>(callable $callback)</code>
     </h3>
@@ -442,12 +460,21 @@
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td>if the argument is not a valid callback</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_setVerbosity">
-        <div class="location">at line 179</div>
+        <div class="location">at line 188</div>
         <code>            public            <abbr title="MarkdownExtended\Console\$this">$this</abbr>
     <strong>setVerbosity</strong>(int $int)</code>
     </h3>
@@ -484,7 +511,7 @@
     </div>
 
                 <h3 id="method_getVerbosity">
-        <div class="location">at line 190</div>
+        <div class="location">at line 199</div>
         <code>            public            int
     <strong>getVerbosity</strong>()</code>
     </h3>
@@ -510,7 +537,7 @@
     </div>
 
                 <h3 id="method__exit">
-        <div class="location">at line 200</div>
+        <div class="location">at line 209</div>
         <code>            public            
     <strong>_exit</strong>(int $code)</code>
     </h3>
@@ -537,7 +564,7 @@
     </div>
 
                 <h3 id="method_handleException">
-        <div class="location">at line 211</div>
+        <div class="location">at line 220</div>
         <code>            public            void
     <strong>handleException</strong>(<abbr title="MarkdownExtended\Console\Exception">Exception</abbr> $e)</code>
     </h3>
@@ -574,7 +601,7 @@
     </div>
 
                 <h3 id="method_write">
-        <div class="location">at line 245</div>
+        <div class="location">at line 258</div>
         <code>            public            void
     <strong>write</strong>(string $str, bool $new_line = true, string $stream = self::IO_STDOUT)</code>
     </h3>
@@ -615,12 +642,25 @@
     </table>
 
             
+                            <h4>Exceptions</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
+                <td>if the stream type can not be found</td>
+            </tr>
+                    <tr>
+                <td><a href="../../MarkdownExtended/Exception/RuntimeException.html"><abbr title="MarkdownExtended\Exception\RuntimeException">RuntimeException</abbr></a></td>
+                <td>if can not write in stream</td>
+            </tr>
+            </table>
+
             
                     </div>
     </div>
 
                 <h3 id="method_writeln">
-        <div class="location">at line 268</div>
+        <div class="location">at line 281</div>
         <code>            public            void
     <strong>writeln</strong>(string $str, string $stream = self::IO_STDOUT)</code>
     </h3>
@@ -661,7 +701,7 @@
     </div>
 
                 <h3 id="method_writetable">
-        <div class="location">at line 280</div>
+        <div class="location">at line 293</div>
         <code>            public            void
     <strong>writetable</strong>(array $table, string $stream = self::IO_STDOUT)</code>
     </h3>
@@ -702,7 +742,7 @@
     </div>
 
                 <h3 id="method_verbose">
-        <div class="location">at line 316</div>
+        <div class="location">at line 329</div>
         <code>            public            void
     <strong>verbose</strong>(string $str, bool $new_line = true, string $stream = self::IO_STDOUT)</code>
     </h3>
@@ -748,7 +788,7 @@
     </div>
 
                 <h3 id="method_verboseln">
-        <div class="location">at line 330</div>
+        <div class="location">at line 343</div>
         <code>            public            void
     <strong>verboseln</strong>(string $str, string $stream = self::IO_STDOUT)</code>
     </h3>
@@ -789,7 +829,7 @@
     </div>
 
                 <h3 id="method_debug">
-        <div class="location">at line 343</div>
+        <div class="location">at line 356</div>
         <code>            public            void
     <strong>debug</strong>(string|array $stack, bool $new_line = true, string $stream = self::IO_STDOUT)</code>
     </h3>
@@ -835,7 +875,7 @@
     </div>
 
                 <h3 id="method_debugln">
-        <div class="location">at line 366</div>
+        <div class="location">at line 379</div>
         <code>            public            void
     <strong>debugln</strong>(string|array $stack, string $stream = self::IO_STDOUT)</code>
     </h3>
@@ -876,7 +916,7 @@
     </div>
 
                 <h3 id="method_getPipedInput">
-        <div class="location">at line 377</div>
+        <div class="location">at line 390</div>
         <code>            public            string|null
     <strong>getPipedInput</strong>()</code>
     </h3>
