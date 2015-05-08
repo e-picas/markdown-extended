@@ -69,7 +69,14 @@ if (file_exists($d = __DIR__.'/../src/SplClassLoader.php')) {
 // -----------------------------------
 
 // MDE options
-$parse_options = array();
+$parse_options = array(
+    'output_format_options'     => array(
+        'html'                  => array(
+            'codeblock_language_attribute' => 'data-language',
+            'codeblock_attribute_mask'  => '%%',
+        ),
+    ),
+);
 
 // arguments settings
 $doc    = isset($_GET['doc'])   ? $_GET['doc']  : null;
