@@ -10,6 +10,8 @@
 
 if (!isset($contents))
     $contents = array();
+if (!isset($contents['content']))
+    $contents['content'] = '';
 if (!isset($contents['meta_title']))
     $contents['meta_title'] = '';
 if (!isset($contents['meta_description']))
@@ -96,9 +98,6 @@ if (isset($contents['file_path']))
                     <li><a href="http://github.com/piwi/markdown-extended">Sources</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" role="navigation">
-<?php if (!empty($contents['menu'])) : ?>
-                    <li><a href="#" title="See table of contents" id="short_tableofcontents_handler"><span class="text">TOC</span></a></li>
-<?php endif; ?>
                     <li><a href="#bottom" title="Go to the bottom of the page">&darr;</a></li>
                     <li><a href="#top" title="Back to the top of the page">&uarr;</a></li>
                 </ul>
@@ -128,32 +127,14 @@ if (isset($contents['file_path']))
 <?php endif; ?>
 
 <?php if (!empty($messages)) : ?>
-            <nav class="alert alert-success">
+            <div class="alert alert-success">
                 <?php echo implode($messages, '<br>'); ?>
-            </nav>
+            </div>
 <?php endif; ?>
 
             <article>
-
-<?php if (!empty($contents['menu'])) : ?>
-                <aside id="page_menu" class="pull-right">
-                    <?php echo $contents['menu']; ?>
-                </aside>
-<?php endif; ?>
-
-<?php if (!empty($contents['content'])) : ?>
                 <?php echo $contents['content']; ?>
-<?php endif; ?>
 
-<?php if (!empty($contents['notes'])) : ?>
-                <div class="footnotes">
-                    <ol>
-    <?php foreach ($contents['notes'] as $id=>$note_content) : ?>
-                        <li id="<?php echo $note_content['note-id']; ?>"><?php echo $note_content['text']; ?></li>
-    <?php endforeach; ?>
-                    </ol>
-                </div>
-<?php endif; ?>
     <?php /*if ($mde_content->getLastUpdate()) : ?>
                 <p class="credits small text-right">Last update of this page <time datetime="<?php
                     echo $mde_content->getLastUpdate()->format('c')
@@ -181,9 +162,6 @@ if (isset($contents['file_path']))
 
 <!-- Bootstrap from CDN -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
-<!-- jQuery.highlight plugin -->
-<script src="assets/js/highlight.js"></script>
 
 <!-- scripts for demo -->
 <script src="assets/scripts.js"></script>

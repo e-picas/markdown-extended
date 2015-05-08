@@ -17,10 +17,6 @@ $data = array(
     'meta_title'        => $mde_content->getTitle(),
     'meta_description'  => $mde_content->getMetadata('description'),
     'metadata'          => $mde_content->getMetadataFormatted(),
-//    'menu'              => $mde_content->getMe(),
-//    'notes'             => $mde_content->getNotes(),
-//    'content'           => $mde_content->getBody(),
-    'javascript'        => '',
     'mde_info'          => true,
 );
 
@@ -70,7 +66,7 @@ CTT;
 function updateTabs() {
     var _hash = window.location.hash.substring(1);
     if (_hash != ''){
-        var _tab = $('.tab-content #'+_hash);
+        var _tab = $('.tab-content div#'+_hash+'.tab-pane');
         if (_tab.length > 0) {
             $('.fade.in.active').removeClass('in active');
             _tab.addClass('in active');
