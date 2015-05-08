@@ -13,7 +13,7 @@ $mde_content = \MarkdownExtended\MarkdownExtended::parseSource($doc, $parse_opti
 
 // prepare returned data
 $data = array(
-    'file_path'         => $doc,
+    'file_path'         => str_replace(dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR, '', $doc),
     'meta_title'        => $mde_content->getTitle(),
     'meta_description'  => $mde_content->getMetadata('description'),
     'metadata'          => $mde_content->getMetadataFormatted(),
@@ -60,14 +60,17 @@ if ($notab !== true) {
   </ul>
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="mde-parsed">
+        <div class="well text-success">Below is the rendering of parsed content.</div>
         {$menu_str}
         {$mde_content->getBody()}
         {$mde_content->getNotesFormatted()}
     </div>
     <div role="tabpanel" class="tab-pane fade" id="plain-text">
+        <div class="well text-success">Below is the raw markdown original content.</div>
         <pre>{$mde_content->getSource()}</pre>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="php-dump">
+        <div class="well text-success">Below is a dump of the PHP \MarkdownExtended\Content object issued from parsing.</div>
         <pre>{$dump}</pre>
     </div>
   </div>

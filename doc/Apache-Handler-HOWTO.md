@@ -2,8 +2,8 @@ Name:       MarkdownExtended
 Author:     Piero Wbmstr
 baseheaderlevel: 2
 
-Markdown Extended Apache module - HOW TO
-========================================
+Markdown Extended Apache module
+===============================
 
 This document explains the usage of the `demo/cgi-scripts/mde_apacheHandler.sh` shell
 script to use with [Apache](http://www.apache.org/). This script is designed to handle
