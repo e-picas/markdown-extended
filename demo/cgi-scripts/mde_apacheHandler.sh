@@ -1,22 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# This file is part of the PHP-Markdown-Extended package.
+#
+# (c) Pierre Cassat <me@e-piwi.fr> and contributors
+#
+# For the full copyright and license information, please view the
+# LICENSE file that was distributed with this source code.
 #
 # CGI-script to parse Markdown files with the PHP Markdown Extended class
 # with APACHE direct handling
 #
-# PHP Markdown Extended
-# Copyright (c) 2004-2013 Pierre Cassat
-#
-# original MultiMarkdown
-# Copyright (c) 2005-2009 Fletcher T. Penney
-# <http://fletcherpenney.net/>
-#
-# original PHP Markdown & Extra
-# Copyright (c) 2004-2012 Michel Fortin  
-# <http://michelf.com/projects/php-markdown/>
-#
-# original Markdown
-# Copyright (c) 2004-2006 John Gruber  
-# <http://daringfireball.net/projects/markdown/>
 
 ## Config
 CONSOLE="$(pwd)/../../bin/markdown-extended"

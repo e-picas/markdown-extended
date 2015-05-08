@@ -10,18 +10,18 @@
 
 namespace MarkdownExtended\Exception;
 
-use \UnexpectedValueException as BaseException;
+use \Exception as BaseException;
 
 /**
- * Specific UnexpectedValueException with a default status code of 92
+ * Specific Exception to use for file-system errors, with a default status code of 91
  */
-class UnexpectedValueException
-    extends BaseException
+class FileSystemException
+    extends RuntimeException
 {
 
     public function __construct($message = '', $code = 0, BaseException $previous = null)
     {
-        parent::__construct($message, ($code===0 ? 92 : $code), $previous);
+        parent::__construct($message, ($code===0 ? 91 : $code), $previous);
     }
 
 }

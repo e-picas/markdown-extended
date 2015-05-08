@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -63,14 +63,14 @@ class MarkdownExtended
 {
 
     const SHORTNAME = 'markdown-extended-php';
-    const NAME      = 'Markdown Extended';
+    const NAME      = 'PHP Markdown Extended';
     const VERSION   = '0.1.0-dev';
     const DATE      = '2015-04-16';
     const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
     const LINK      = 'http://github.com/piwi/markdown-extended.git';
     const LICENSE   = 'BSD-3-Clause open source license <http://opensource.org/licenses/BSD-3-Clause>';
     const SOURCES   = 'Sources & updates: <http://github.com/piwi/markdown-extended.git>';
-    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2013 Pierre Cassat & contributors.';
+    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
 
     /**
      * Gets app's information
@@ -253,15 +253,15 @@ class MarkdownExtended
                 'filter:Emphasis:prepare'    => '10',
             ),
             'transform_gamut' => array(
-                'tools:RemoveUtf8Marker'     => '5',
-                'tools:StandardizeLineEnding'=> '10',
-                'tools:AppendEndingNewLines' => '15',
+                'tool:RemoveUtf8Marker'     => '5',
+                'tool:StandardizeLineEnding'=> '10',
+                'tool:AppendEndingNewLines' => '15',
                 'filter:Detab'               => '20',
                 'filter:HTML'                => '25',
-                'tools:StripSpacedLines'     => '30',
+                'tool:StripSpacedLines'     => '30',
             ),
             'document_gamut' => array(
-                'tools:prepareOutputFormat' => '0',
+                'tool:prepareOutputFormat' => '0',
                 'filter:MetaData:strip'     => '1',
                 'filter:FencedCodeBlock'    => '5',
                 'filter:Note:strip'         => '10',
@@ -271,7 +271,7 @@ class MarkdownExtended
                 'filter:MetaData:append'    => '35',
                 'filter:Note:append'        => '40',
                 'filter:BlockInclusion'     => '50',
-                'tools:teardownOutputFormat' => '70',
+                'tool:teardownOutputFormat' => '70',
             ),
             'span_gamut' => array(
                 'filter:Span'               => '-30',
@@ -279,7 +279,7 @@ class MarkdownExtended
                 'filter:Image'              => '10',
                 'filter:Anchor'             => '20',
                 'filter:AutoLink'           => '30',
-                'tools:EncodeAmpAndAngle'   => '40',
+                'tool:EncodeAmpAndAngle'   => '40',
                 'filter:Emphasis'           => '50',
                 'filter:HardBreak'          => '60',
                 'filter:Abbreviation'       => '70',
@@ -294,7 +294,7 @@ class MarkdownExtended
                 'filter:CodeBlock'          => '50',
                 'filter:BlockQuote'         => '60',
                 'filter:Maths'              => '70',
-                'tools:RebuildParagraph'    => '100',
+                'tool:RebuildParagraph'    => '100',
             ),
             'html_block_gamut' => array(
                 'filter:HTML'               => '10',

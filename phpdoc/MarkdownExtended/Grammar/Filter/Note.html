@@ -216,7 +216,7 @@
                 </td>
                 <td class="last">
                     <a href="#method_transform">transform</a>(string $text)
-                    <p>Must process the filter on a text</p>
+                    <p>Replace footnote references in $text [string][#id] and [^id] with a special text-token which will be replaced by the actual footnote marker in appendFootnotes.</p>
                 </td>
                 <td></td>
             </tr>
@@ -486,12 +486,12 @@
     </div>
 
                 <h3 id="method_transform">
-        <div class="location">at line 157</div>
+        <div class="location">at line 158</div>
         <code>            public            string
     <strong>transform</strong>(string $text)</code>
     </h3>
     <div class="details">
-        <p>Must process the filter on a text</p>
+        <p>Replace footnote references in $text [string][#id] and [^id] with a special text-token which will be replaced by the actual footnote marker in appendFootnotes.</p>
         <p>
 </p>
         <div class="tags">
@@ -710,7 +710,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method__setup">
-        <div class="location">at line 61</div>
+        <div class="location">at line 62</div>
         <code>            public            
     <strong>_setup</strong>()</code>
     </h3>
@@ -726,7 +726,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_strip">
-        <div class="location">at line 78</div>
+        <div class="location">at line 79</div>
         <code>            public            string
     <strong>strip</strong>(string $text)</code>
     </h3>
@@ -763,7 +763,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_append">
-        <div class="location">at line 172</div>
+        <div class="location">at line 173</div>
         <code>            public            string
     <strong>append</strong>(string $text)</code>
     </h3>
@@ -800,7 +800,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_transformFootnote">
-        <div class="location">at line 222</div>
+        <div class="location">at line 223</div>
         <code>            public            void
     <strong>transformFootnote</strong>(string $note_id)</code>
     </h3>
@@ -837,7 +837,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_transformGlossary">
-        <div class="location">at line 236</div>
+        <div class="location">at line 237</div>
         <code>            public            void
     <strong>transformGlossary</strong>(string $note_id)</code>
     </h3>
@@ -874,7 +874,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_transformBibliography">
-        <div class="location">at line 276</div>
+        <div class="location">at line 277</div>
         <code>            public            void
     <strong>transformBibliography</strong>(string $note_id)</code>
     </h3>
@@ -911,7 +911,7 @@ that are word separators and "X" is used in the general case.</p>
     </div>
 
                 <h3 id="method_getTypeInfo">
-        <div class="location">at line 422</div>
+        <div class="location">at line 423</div>
         <code>        static    public            
     <strong>getTypeInfo</strong>($type = self::FOOTNOTE_DEFAULT)</code>
     </h3>

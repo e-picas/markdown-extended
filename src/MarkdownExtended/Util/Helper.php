@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -11,7 +11,7 @@
 namespace MarkdownExtended\Util;
 
 use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\ErrorException;
+use \MarkdownExtended\Exception\FileSystemException;
 
 /**
  * Helper class with static methods only
@@ -287,19 +287,19 @@ class Helper
      *
      * @return string
      *
-     * @throws \MarkdownExtended\Exception\ErrorException if the file can not be read
+     * @throws \MarkdownExtended\Exception\FileSystemException if the file can not be found or read
      */
     public static function readFile($path, $flag = FILE_USE_INCLUDE_PATH)
     {
         if (!file_exists($path)) {
-            throw new ErrorException(
+            throw new FileSystemException(
                 sprintf('File "%s" not found', $path)
             );
         }
         $source = file_get_contents($path, $flag);
         if (false === $source) {
             global $php_errormsg;
-            throw new ErrorException(
+            throw new FileSystemException(
                 !empty($php_errormsg) ? $php_errormsg :
                     sprintf('An error occurred while trying to read file "%s"', $path)
             );
@@ -317,8 +317,7 @@ class Helper
      *
      * @return int
      *
-     * @throws \MarkdownExtended\Exception\ErrorException if the file path can not be created
-     * @throws \MarkdownExtended\Exception\ErrorException if the file can not be written
+     * @throws \MarkdownExtended\Exception\FileSystemException if the file path can not be created or the file can not be written
      */
     public static function writeFile($path, $content, $backup = true, $flag = null)
     {
@@ -332,7 +331,7 @@ class Helper
         if (!file_exists(dirname($path))) {
             $dir = mkdir(dirname($path));
             if (false === $dir) {
-                throw new ErrorException(
+                throw new FileSystemException(
                     !empty($php_errormsg) ? $php_errormsg :
                         sprintf('An error occurred while trying to create directory "%s"', dirname($path))
                 );
@@ -340,7 +339,7 @@ class Helper
         }
         $written = file_put_contents($path, $content, $flag);
         if (false === $written) {
-            throw new ErrorException(
+            throw new FileSystemException(
                 !empty($php_errormsg) ? $php_errormsg :
                     sprintf('An error occurred while trying to write data in file "%s"', $path)
             );

@@ -173,12 +173,12 @@ script verbosity and **-q** or **--quiet** to decrease it. The idea is quiet sim
 
 For all of these cases, PHP errors caught during Markdown Extended classes execution are
 rendered depending on your environment *error_reporting* setting and script execution may
-exit with a status code of *90*.
+exit with an error status code between *90* and *95*.
 
 
 ## ENVIRONMENT
 
-This script requires [PHP version 5.3.0](http://php.net/) minimum with the 
+This script requires [PHP version 5.3.3](http://php.net/) minimum with the
 [PCRE extension](http://php.net/manual/en/book.pcre.php) (this is the case
 by default).
 

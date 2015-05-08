@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -13,6 +13,7 @@ namespace MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown list items
@@ -77,7 +78,7 @@ class ListItem
                   )
                 )
             '; // mx
-            
+
             // We use a different prefix before nested lists than top-level lists.
             // See extended comment in `self::transformItems()`.
             if (self::$list_level) {
@@ -181,10 +182,10 @@ class ListItem
         if ($leading_line || $trailing_blank_line || preg_match('/\n{2,}/', $item)) {
             // Replace marker with the appropriate whitespace indentation
             $item = $leading_space . str_repeat(' ', strlen($marker_space)) . $item;
-            $item = Lexer::runGamut('html_block_gamut', Lexer::runGamut('tools:Outdent', $item)."\n");
+            $item = Lexer::runGamut('html_block_gamut', Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $item)."\n");
         } else {
             // Recursion for sub-lists:
-            $item = self::transform(Lexer::runGamut('tools:Outdent', $item));
+            $item = self::transform(Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $item));
             $item = preg_replace('/\n+$/', '', $item);
             $item = Lexer::runGamut('span_gamut', $item);
         }

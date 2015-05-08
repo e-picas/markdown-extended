@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -12,9 +12,7 @@ namespace MarkdownExtended\Grammar;
 
 use \MarkdownExtended\Util\CacheRegistry;
 use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\InvalidArgumentException;
 use \MarkdownExtended\Exception\UnexpectedValueException;
-use \MarkdownExtended\Exception\BadMethodCallException;
 
 /**
  * Central class to execute filters and tools methods on a content
@@ -26,9 +24,9 @@ class GamutLoader
 {
 
     const FILTER_ALIAS      = 'filter';
-    const TOOLS_ALIAS       = 'tools';
+    const TOOL_ALIAS        = 'tool';
     const FILTER_NAMESPACE  = 'MarkdownExtended\Grammar\Filter';
-    const TOOLS_CLASS       = 'MarkdownExtended\Grammar\Tools';
+    const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
 
     /**
      * @var array
@@ -42,20 +40,19 @@ class GamutLoader
      *
      * @return null|array
      *
-     * @throws \MarkdownExtended\Exception\BadMethodCallException if `$name` seems malformed
-     * @throws \MarkdownExtended\Exception\InvalidArgumentException if `$name` can not be found
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if `$name` seems malformed or can not be found
      */
     public function getGamutStack($name)
     {
         if (!$this->isGamutStackName($name)) {
-            throw new BadMethodCallException(
+            throw new UnexpectedValueException(
                 sprintf('A gamut stack name must follow a form like "%%_gamut", "%s" given', $name)
             );
         }
 
         $stack = Kernel::getConfig($name);
         if (empty($stack)) {
-            throw new InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Unknown gamut stack "%s"', $name)
             );
         }
@@ -101,8 +98,8 @@ class GamutLoader
                 @list($base, $class, $method) = explode(':', $gamut);
                 return self::FILTER_ALIAS . ':' . $class;
                 break;
-            case self::TOOLS_ALIAS:
-                return self::TOOLS_ALIAS;
+            case self::TOOL_ALIAS:
+                return self::TOOL_ALIAS;
                 break;
             default:
                 @list($class, $method) = explode(':', $gamut);
@@ -163,7 +160,7 @@ class GamutLoader
     {
         return (bool) (
             $this->isGamutStackName($gamut) ||
-            $this->getGamutBaseName($gamut) === self::TOOLS_ALIAS ||
+            $this->getGamutBaseName($gamut) === self::TOOL_ALIAS ||
             array_key_exists($this->getGamutBaseName($gamut), $this->getAllGamuts())
         );
     }
@@ -196,12 +193,12 @@ class GamutLoader
      *
      * @return  string
      *
-     * @throws  \MarkdownExtended\Exception\BadMethodCallException if `$method` is not a string
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$method` is not a string
      */
     public function runGamutsMethod(array $gamuts, $method, $text = null)
     {
         if (!is_string($method)) {
-            throw new BadMethodCallException(
+            throw new UnexpectedValueException(
                 sprintf('Gamuts method must be a string, <%s> given', gettype($method))
             );
         }
@@ -231,12 +228,12 @@ class GamutLoader
      *
      * @return  string
      *
-     * @throws  \MarkdownExtended\Exception\BadMethodCallException if `$gamut` is not a string
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` is not a string
      */
     public function runGamut($gamut, $text = null, $_method = null)
     {
         if (!is_string($gamut)) {
-            throw new BadMethodCallException(
+            throw new UnexpectedValueException(
                 sprintf('Gamut name must be a string, <%s> given', gettype($gamut))
             );
         }
@@ -251,7 +248,7 @@ class GamutLoader
                 @list($base, $class, $method) = explode(':', $gamut);
                 return $this->_runGamutFilterMethod($class, $_method ?: $method, $text);
                 break;
-            case self::TOOLS_ALIAS:
+            case self::TOOL_ALIAS:
                 @list($base, $method) = explode(':', $gamut);
                 return $this->_runToolsMethod($method, $text);
                 break;
@@ -270,7 +267,7 @@ class GamutLoader
      *
      * @return  string
      *
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if `$gamut` can not be found
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` can not be found
      */
     protected function _runGamutFilterMethod($gamut, $method, $text)
     {
@@ -303,7 +300,7 @@ class GamutLoader
      */
     protected function _runToolsMethod($method, $text)
     {
-        return $this->_runClassMethod(self::TOOLS_CLASS, $method, $text);
+        return $this->_runClassMethod(self::TOOL_CLASS, $method, $text);
     }
 
     /**
@@ -316,7 +313,7 @@ class GamutLoader
      * @return string
      *
      * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` doesn't implement the required method
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamut` class can not be found
+     *              or class can not be found
      */
     protected function _runClassMethod($class, $method, $text)
     {

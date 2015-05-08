@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -12,7 +12,7 @@ namespace MarkdownExtended\Grammar;
 
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\API\GamutInterface;
-use \MarkdownExtended\Exception\RuntimeException;
+use \MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * The base class for tools
@@ -25,15 +25,15 @@ class Tools
     /**
      * {@inheritDoc}
      *
-     * @throws  \MarkdownExtended\Exception\RuntimeException if this method is called, which means
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if this method is called, which means
      *          that the gamut was badly defined
      */
     public static function getDefaultMethod()
     {
-        throw new RuntimeException(
+        throw new UnexpectedValueException(
             sprintf(
                 'You are required to use notation "%s:method" to call a tool as a gamut (no method defined)',
-                GamutLoader::TOOLS_ALIAS
+                GamutLoader::TOOL_ALIAS
             )
         );
     }
@@ -117,7 +117,7 @@ class Tools
      */
     public function EncodeAttribute($text)
     {
-        $text = Lexer::runGamut('tools:EncodeAmpAndAngle', $text);
+        $text = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAmpAndAngle', $text);
         $text = str_replace('"', '&quot;', $text);
         return $text;
     }

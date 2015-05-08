@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -11,6 +11,7 @@
 namespace MarkdownExtended\Util;
 
 use \MarkdownExtended\API\Kernel;
+use \MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * A simple Content objects collection
@@ -37,12 +38,12 @@ class ContentCollection
      *
      * @param \MarkdownExtended\API\ContentInterface $content
      *
-     * @throws \InvalidArgumentException it the argument does not implement `\MarkdownExtended\API\ContentInterface`
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException it the argument does not implement `\MarkdownExtended\API\ContentInterface`
      */
     public function append($content)
     {
         if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Method "%s" expects a "%s" parameter object, got "%s"',
                     __METHOD__, Kernel::CONTENT_INTERFACE,
                     is_object($content) ? get_class($content) : gettype($content)
@@ -58,12 +59,12 @@ class ContentCollection
      * @param string $index
      * @param string $content
      *
-     * @throws \InvalidArgumentException it the argument does not implement `\MarkdownExtended\API\ContentInterface`
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException it the argument does not implement `\MarkdownExtended\API\ContentInterface`
      */
     public function offsetSet($index, $content)
     {
         if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Method "%s" expects the second parameter to implement "%s", got "%s"',
                     __METHOD__, Kernel::CONTENT_INTERFACE,
                     is_object($content) ? get_class($content) : gettype($content)

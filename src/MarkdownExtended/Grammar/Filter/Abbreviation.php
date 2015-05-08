@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -13,6 +13,7 @@ namespace MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown abbreviations
@@ -96,7 +97,7 @@ class Abbreviation
             $attributes = array();
             $desc = trim($abbr_desciptions[$abbr]);
             if (!empty($desc)) {
-                $attributes['title'] = Lexer::runGamut('tools:EncodeAttribute', $desc);
+                $attributes['title'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $desc);
             }
             $abbr = Kernel::get('OutputFormatBag')
                 ->buildTag('abbreviation', $abbr, $attributes);

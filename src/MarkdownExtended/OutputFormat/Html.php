@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -13,6 +13,7 @@ namespace MarkdownExtended\OutputFormat;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\API\OutputFormatInterface;
 use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Grammar\GamutLoader;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Grammar\Filter\Note;
 
@@ -183,7 +184,7 @@ class Html
         }
         return $this->getTagString($text, $tag, $attributes);
     }
-    
+
     public function buildMetaData($text = null, array $attributes = array())
     {
         if (empty($attributes['content']) && !empty($text)) {
@@ -258,14 +259,14 @@ class Html
         if ($this->getConfig($type_info['prefix'] . '_backlink_class')) {
             $attributes['class'] =
                 Helper::fillPlaceholders(
-                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_class')),
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_class')),
                     $attributes['counter']
                 );
         }
         if ($this->getConfig($type_info['prefix'] . '_backlink_title_mask')) {
             $attributes['title'] =
                 Helper::fillPlaceholders(
-                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_title_mask')),
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $this->getConfig($type_info['prefix'] . '_backlink_title_mask')),
                     $attributes['counter']
                 );
         }
@@ -301,13 +302,13 @@ class Html
         if ($this->getConfig($type_info['prefix'] . '_link_class')) {
             $attributes['class'] =
                 Helper::fillPlaceholders(
-                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_class')),
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_class')),
                     $text);
         }
         if ($this->getConfig($type_info['prefix'] . '_link_title_mask')) {
             $attributes['title'] =
                 Helper::fillPlaceholders(
-                    Lexer::runGamut('tools:EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_title_mask')),
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_title_mask')),
                     $text);
         }
 

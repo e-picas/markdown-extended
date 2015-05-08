@@ -72,6 +72,16 @@
                     static&nbsp;string
                 </td>
                 <td class="last">
+                    <a href="#method_humanReadable">humanReadable</a>(string $string = &#039;&#039;)
+                    <p>Transform a string to a human readable one</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;string
+                </td>
+                <td class="last">
                     <a href="#method_encodeEmailAddress">encodeEmailAddress</a>(string $addr)
                     <p>Input: an email address, e.g.</p>
                 </td>
@@ -183,7 +193,7 @@
         <h2>Details</h2>
 
                         <h3 id="method_escapeCodeContent">
-        <div class="location">at line 31</div>
+        <div class="location">at line 32</div>
         <code>        static    public            string
     <strong>escapeCodeContent</strong>(string $code)</code>
     </h3>
@@ -220,7 +230,7 @@
     </div>
 
                 <h3 id="method_fillPlaceholders">
-        <div class="location">at line 43</div>
+        <div class="location">at line 44</div>
         <code>        static    public            string
     <strong>fillPlaceholders</strong>(string $text, string $replacement)</code>
     </h3>
@@ -263,7 +273,7 @@
     </div>
 
                 <h3 id="method_header2Label">
-        <div class="location">at line 55</div>
+        <div class="location">at line 56</div>
         <code>        static    public            string
     <strong>header2Label</strong>(string $text, string $separator = &#039;-&#039;)</code>
     </h3>
@@ -305,8 +315,43 @@
                     </div>
     </div>
 
+                <h3 id="method_humanReadable">
+        <div class="location">at line 74</div>
+        <code>        static    public            string
+    <strong>humanReadable</strong>(string $string = &#039;&#039;)</code>
+    </h3>
+    <div class="details">
+        <p>Transform a string to a human readable one</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$string</td>
+                <td>The string to transform</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>string</td>
+            <td>The transformed version of <code>$string</code></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_encodeEmailAddress">
-        <div class="location">at line 85</div>
+        <div class="location">at line 97</div>
         <code>        static    public            string
     <strong>encodeEmailAddress</strong>(string $addr)</code>
     </h3>
@@ -352,7 +397,7 @@
     </div>
 
                 <h3 id="method_getSafeString">
-        <div class="location">at line 117</div>
+        <div class="location">at line 129</div>
         <code>        static    public            string
     <strong>getSafeString</strong>(mixed $source)</code>
     </h3>
@@ -389,7 +434,7 @@
     </div>
 
                 <h3 id="method_isSingleLine">
-        <div class="location">at line 141</div>
+        <div class="location">at line 153</div>
         <code>        static    public            bool
     <strong>isSingleLine</strong>(string $str = &#039;&#039;)</code>
     </h3>
@@ -426,7 +471,7 @@
     </div>
 
                 <h3 id="method_buildRegex">
-        <div class="location">at line 158</div>
+        <div class="location">at line 170</div>
         <code>        static    public            string
     <strong>buildRegex</strong>(string $mask, string $delimiter = &#039;#&#039;, string $options = &#039;i&#039;)</code>
     </h3>
@@ -472,7 +517,7 @@
     </div>
 
                 <h3 id="method_toCamelCase">
-        <div class="location">at line 182</div>
+        <div class="location">at line 194</div>
         <code>        static    public            string
     <strong>toCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $capitalize_first_char = true)</code>
     </h3>
@@ -517,7 +562,7 @@
     </div>
 
                 <h3 id="method_fromCamelCase">
-        <div class="location">at line 200</div>
+        <div class="location">at line 212</div>
         <code>        static    public            string
     <strong>fromCamelCase</strong>(string $name, string $replace = &#039;_&#039;, bool $lowerize_first_char = true)</code>
     </h3>
@@ -562,7 +607,7 @@
     </div>
 
                 <h3 id="method_getPath">
-        <div class="location">at line 235</div>
+        <div class="location">at line 247</div>
         <code>        static    public            string
     <strong>getPath</strong>(array|string $parts)</code>
     </h3>
@@ -599,7 +644,7 @@
     </div>
 
                 <h3 id="method_readFile">
-        <div class="location">at line 253</div>
+        <div class="location">at line 265</div>
         <code>        static    public            string
     <strong>readFile</strong>(string $path, int $flag = FILE_USE_INCLUDE_PATH)</code>
     </h3>
@@ -651,7 +696,7 @@
     </div>
 
                 <h3 id="method_writeFile">
-        <div class="location">at line 284</div>
+        <div class="location">at line 296</div>
         <code>        static    public            int
     <strong>writeFile</strong>(string $path, string|array $content, bool $backup = true, null $flag = null)</code>
     </h3>
@@ -719,7 +764,7 @@
     </div>
 
                 <h3 id="method_backupFile">
-        <div class="location">at line 318</div>
+        <div class="location">at line 330</div>
         <code>        static    public            bool
     <strong>backupFile</strong>(string $path)</code>
     </h3>
@@ -756,7 +801,7 @@
     </div>
 
                 <h3 id="method_debug">
-        <div class="location">at line 345</div>
+        <div class="location">at line 357</div>
         <code>        static    public            string
     <strong>debug</strong>(mixed $objs, null|string $title = null, bool $html = true)</code>
     </h3>

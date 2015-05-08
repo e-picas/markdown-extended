@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -13,9 +13,15 @@ namespace MarkdownExtended\Exception;
 use \RuntimeException as BaseException;
 
 /**
- * Specific RuntimeException
+ * Specific RuntimeException with a default status code of 93
  */
 class RuntimeException
     extends BaseException
 {
+
+    public function __construct($message = '', $code = 0, BaseException $previous = null)
+    {
+        parent::__construct($message, ($code===0 ? 93 : $code), $previous);
+    }
+
 }

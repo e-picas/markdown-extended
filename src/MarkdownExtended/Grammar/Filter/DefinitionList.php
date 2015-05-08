@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -13,6 +13,7 @@ namespace MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\Grammar\Filter;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Grammar\Lexer;
+use \MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown definitions lists
@@ -178,11 +179,11 @@ class DefinitionList
         if ($leading_line || preg_match('/\n{2,}/', $def)) {
             // Replace marker with the appropriate whitespace indentation
             $def = str_repeat(' ', strlen($marker_space)) . $def;
-            $def = Lexer::runGamut('html_block_gamut', Lexer::runGamut('tools:Outdent', $def . "\n\n"));
+            $def = Lexer::runGamut('html_block_gamut', Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $def . "\n\n"));
 //            $def = "\n$def\n";
         } else {
             $def = rtrim($def);
-            $def = Lexer::runGamut('span_gamut', Lexer::runGamut('tools:Outdent', $def));
+            $def = Lexer::runGamut('span_gamut', Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $def));
         }
         return /*"\n" .*/ Kernel::get('OutputFormatBag')
             ->buildTag('definition_list_item_definition', $def)/* . "\n"*/;
