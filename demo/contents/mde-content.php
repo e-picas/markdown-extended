@@ -44,7 +44,7 @@ if ($notab !== true) {
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#mde-parsed" aria-controls="mde-parsed" role="tab" data-toggle="tab">Parsed content</a></li>
     <li role="presentation"><a href="#plain-text" aria-controls="plain-text" role="tab" data-toggle="tab">Plain text version</a></li>
-    <li role="presentation"><a href="#php-dump" aria-controls="php-dump" role="tab" data-toggle="tab">Content object dump</a></li>
+    <li role="presentation"><a href="#php-dump" aria-controls="php-dump" role="tab" data-toggle="tab">Object dump</a></li>
   </ul>
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="mde-parsed">

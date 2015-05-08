@@ -97,7 +97,7 @@ if (isset($contents['file_path']))
                     <li><a href="http://docs.ateliers-pierrot.fr/markdown-extended/">API</a></li>
                     <li><a href="http://github.com/piwi/markdown-extended">Sources</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" role="navigation">
+                <ul class="nav navbar-nav navbar-right hidden-xs" role="navigation">
                     <li><a href="#bottom" title="Go to the bottom of the page">&darr;</a></li>
                     <li><a href="#top" title="Back to the top of the page">&uarr;</a></li>
                 </ul>
@@ -154,7 +154,6 @@ if (isset($contents['file_path']))
         </div>
     </footer>
 
-    <div id="message_box" class="msg_box"></div>
     <a id="bottom"></a>
 
 <!-- jQuery lib from CDN -->
