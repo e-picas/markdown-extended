@@ -16,10 +16,11 @@ $mde_content = \MarkdownExtended\MarkdownExtended::parseSource($readme_path, $pa
 $data = array();
 
 $data['content'] = <<<CTT
-<nav class="main-nav jumbotron">
+<div class="jumbotron">
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <h3>Version & Manifest</h3>
+        <p class="">You will find below some information extracted from current package's "composer.json" manifest file and from a direct request to the package sources repository on GitHub.com.</p>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="heading-1">
@@ -32,7 +33,6 @@ $data['content'] = <<<CTT
                 <div id="collapse-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-1">
                     <div class="panel-body" id="manifest">
                         <ul class="list_infos"></ul>
-                        <p class="credits">Info extracted from your current package's "composer.json" manifest file.</p>
                     </div>
                 </div>
             </div>
@@ -50,32 +50,18 @@ $data['content'] = <<<CTT
                         <ul id="commits_list"></ul>
                         <strong>Last bugs</strong>
                         <ul id="bugs_list"></ul>
-                        <p class="credits">Info requested to the package sources repository on GitHub.com.</p>
                     </div>
                 </div>
             </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
-        <div class="small">
-            <h3>Sources & Updates</h3>
-            <p><a href="http://github.com/piwi/markdown-extended" title="http://github.com/piwi/markdown-extended" class="btn btn-primary"><i class="fa fa-github-alt"></i>&nbsp;See online on GitHub</a></p>
-            <p class="">The sources of this application are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub website above.</p>
-        </div>
-        <div class="small" id="menu_socials">
-            <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
-                <a href="http://github.com/piwi/markdown-extended" target="_blank" title="GitHub">
-                    <span class="at16nc at300bs at15nc atGitHub"></span>
-                </a>
-                <a class="addthis_button_email"></a>
-                <a class="addthis_button_print"></a>
-                <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
-            </div>
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
-        </div>
+        <h3>Sources & Updates</h3>
+        <p class="">The sources of this application are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub repository at <em>{$package['homepage']}</em>.</p>
+        <p><a href="http://github.com/piwi/markdown-extended" title="http://github.com/piwi/markdown-extended" class="btn btn-primary btn-lg btn-block"><i class="fa fa-github-alt"></i>&nbsp;See online on GitHub</a></p>
       </div>
     </div>
-</nav>
+</div>
 <hr>
 {$mde_content->getBody()}
 CTT;
