@@ -61,6 +61,19 @@ a.footnote_link {color: #2380A0; font-weight: bold;}
 .jsconsole  {margin-top: 0; margin-bottom: 22px; height: auto; min-height: 40px;}
 .jsconsole h3 { margin-top: 1em; }
 
+aside, nav {
+    border-radius: 6px;
+    margin: 12px;
+    max-width: 30%;
+    padding: 12px 20px;
+}
+.bg-info {
+    background-color: #d9edf7;
+}
+aside, nav ul {
+    padding-left: 22px;
+}
+
 /* highlight */
 div.highlight {background:#FFFFFF; border:1px solid #D0D0D0; font-family:"Courier New","Andale Mono", Courrier, monospace; overflow: hidden;}
 div.highlight pre{width: 100%; overflow: auto; padding:0; margin:0; font-size:.9em; clear: both;}

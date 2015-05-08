@@ -37,6 +37,18 @@ Server handler tests: <a href="$doc" role="tab">handled content</a>&nbsp;|&nbsp;
 CTT;
 }
 
+// menu ?
+$menu_str = '';
+$menu = $mde_content->getMenuFormatted();
+if (!empty($menu)) {
+    $menu_str = <<<CTT
+<nav id="page_menu" class="bg-info pull-right">
+    {$menu}
+</nav>
+CTT;
+}
+
+
 // data content
 if ($notab !== true) {
     $data['content'] = <<<CTT
@@ -48,6 +60,7 @@ if ($notab !== true) {
   </ul>
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="mde-parsed">
+        {$menu_str}
         {$mde_content->getBody()}
         {$mde_content->getNotesFormatted()}
     </div>
@@ -83,6 +96,7 @@ CTT;
 
 } else {
     $data['content'] = <<<CTT
+        {$menu_str}
         {$mde_content->getBody()}
         {$mde_content->getNotesFormatted()}
 CTT;
