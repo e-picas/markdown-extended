@@ -59,12 +59,26 @@ class Menu
     }
 
     /**
+     * Tests if a menu as items
+     *
+     * @return bool
+     */
+    public function hasItems()
+    {
+        return (bool) count($this->items) > 0;
+    }
+
+    /**
      * Gets the menu items array
      *
      * @return array
      */
     public function getItems()
     {
+        if (!$this->hasItems()) {
+            return array();
+        }
+
         $data = array();
         foreach ($this->items as $key=>$item) {
             /* @var $item \MarkdownExtended\Util\Menu\MenuItem */
