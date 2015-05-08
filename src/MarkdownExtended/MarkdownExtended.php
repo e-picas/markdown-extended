@@ -63,14 +63,14 @@ class MarkdownExtended
 {
 
     const SHORTNAME = 'markdown-extended-php';
-    const NAME      = 'Markdown Extended';
+    const NAME      = 'PHP Markdown Extended';
     const VERSION   = '0.1.0-dev';
     const DATE      = '2015-04-16';
     const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
     const LINK      = 'http://github.com/piwi/markdown-extended.git';
     const LICENSE   = 'BSD-3-Clause open source license <http://opensource.org/licenses/BSD-3-Clause>';
     const SOURCES   = 'Sources & updates: <http://github.com/piwi/markdown-extended.git>';
-    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2013 Pierre Cassat & contributors.';
+    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
 
     /**
      * Gets app's information
