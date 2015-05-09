@@ -43,7 +43,7 @@ class Emphasis
         '___' => '(?<=\S|^)(?<!_)___(?![a-zA-Z0-9_])',
     );
 
-    public static $em_strong_prepared_relist;
+    public static $em_strong_prepared;
     /**#@-*/
 
     /**
@@ -63,7 +63,7 @@ class Emphasis
 
                 // Construct master expression from list.
                 $token_re = '{('. implode('|', $token_relist) .')}';
-                self::$em_strong_prepared_relist["$em$strong"] = $token_re;
+                self::$em_strong_prepared["$em$strong"] = $token_re;
             }
         }
     }
@@ -76,14 +76,14 @@ class Emphasis
     {
         $token_stack = array('');
         $text_stack = array('');
-        $em = '';
+        $italic = '';
         $strong = '';
         $tree_char_em = false;
 
         while (1) {
 
             // Get prepared regular expression for seraching emphasis tokens in current context.
-            $token_re = self::$em_strong_prepared_relist["$em$strong"];
+            $token_re = self::$em_strong_prepared["$italic$strong"];
 
             // Each loop iteration search for the next emphasis token.
             // Each token is then passed to handleSpanToken.
@@ -113,7 +113,7 @@ class Emphasis
                     $span = Kernel::get('OutputFormatBag')
                         ->buildTag('bold', $span);
                     $text_stack[0] .= parent::hashPart($span);
-                    $em = '';
+                    $italic = '';
                     $strong = '';
                 } else {
                     // Other closing marker: close one em or strong and
@@ -124,11 +124,11 @@ class Emphasis
                     $span = Kernel::get('OutputFormatBag')
                         ->buildTag($tag, $span);
                     $text_stack[0] = parent::hashPart($span);
-                    $$tag = ''; // $$tag stands for $em or $strong
+                    $$tag = ''; // $$tag stands for $italic or $strong
                 }
                 $tree_char_em = false;
             } elseif ($token_len == 3) {
-                if ($em) {
+                if ($italic) {
                     // Reached closing marker for both em and strong.
                     // Closing strong marker:
                     for ($i = 0; $i < 2; ++$i) {
@@ -138,13 +138,13 @@ class Emphasis
                         $span = Kernel::get('OutputFormatBag')
                             ->buildTag($tag, $span);
                         $text_stack[0] .= parent::hashPart($span);
-                        $$tag = ''; // $$tag stands for $em or $strong
+                        $$tag = ''; // $$tag stands for $italic or $strong
                     }
                 } else {
                     // Reached opening three-char emphasis marker. Push on token
                     // stack; will be handled by the special condition above.
-                    $em = $token{0};
-                    $strong = "$em$em";
+                    $italic = $token{0};
+                    $strong = "$italic$italic";
                     array_unshift($token_stack, $token);
                     array_unshift($text_stack, '');
                     $tree_char_em = true;
@@ -170,7 +170,7 @@ class Emphasis
                 }
             } else {
                 // Here $token_len == 1
-                if ($em) {
+                if ($italic) {
                     if (strlen($token_stack[0]) == 1) {
                         // Closing emphasis marker:
                         array_shift($token_stack);
@@ -178,14 +178,14 @@ class Emphasis
                         $span = Kernel::get('OutputFormatBag')
                             ->buildTag('italic', $span);
                         $text_stack[0] .= parent::hashPart($span);
-                        $em = '';
+                        $italic = '';
                     } else {
                         $text_stack[0] .= $token;
                     }
                 } else {
                     array_unshift($token_stack, $token);
                     array_unshift($text_stack, '');
-                    $em = $token;
+                    $italic = $token;
                 }
             }
         }

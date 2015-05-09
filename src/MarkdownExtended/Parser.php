@@ -371,7 +371,7 @@ class Parser
             )
         );
 
-        // make a backup `option[force]!==true`
+        // make a backup if `option[force]!==true`
         $backup = (bool) $this->getKernel()->getConfig('force') !== true;
 
         // write output
@@ -384,12 +384,12 @@ class Parser
     // register a new content in collection
     private function _registerContent(ContentInterface $content)
     {
-        $content_collection = $this->getKernel()->get('ContentCollection');
-        $content_collection->append($content);
-        $index = $content_collection->key();
-        $content_collection->next();
-        if (!$content_collection->valid()) {
-            $content_collection->seek($index);
+        $collection = $this->getKernel()->get('ContentCollection');
+        $collection->append($content);
+        $index      = $collection->key();
+        $collection->next();
+        if (!$collection->valid()) {
+            $collection->seek($index);
         }
     }
 
