@@ -23,5 +23,4 @@ class RuntimeException
     {
         parent::__construct($message, ($code===0 ? 93 : $code), $previous);
     }
-
 }

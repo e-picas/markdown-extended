@@ -23,5 +23,4 @@ class FileSystemException
     {
         parent::__construct($message, ($code===0 ? 91 : $code), $previous);
     }
-
 }

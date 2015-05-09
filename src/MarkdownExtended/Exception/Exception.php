@@ -23,5 +23,4 @@ class Exception
     {
         parent::__construct($message, ($code===0 ? 94 : $code), $previous);
     }
-
 }

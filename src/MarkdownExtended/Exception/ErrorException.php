@@ -23,5 +23,4 @@ class ErrorException
     {
         parent::__construct($message, ($code===0 ? 95 : $code), $severity, $filename, $lineno, $previous);
     }
-
 }
