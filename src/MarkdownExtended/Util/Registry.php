@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -10,7 +10,7 @@
 
 namespace MarkdownExtended\Util;
 
-use \MarkdownExtended\Exception\InvalidArgumentException;
+use \MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * Basic registry object
@@ -144,9 +144,9 @@ class Registry
      *
      * @return  mixed
      *
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if trying to extend an array with not an array
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if trying to extend an object
-     * @throws  \MarkdownExtended\Exception\InvalidArgumentException if type unknown
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if trying to extend an array with not an array
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if trying to extend an object
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if type unknown
      */
     public static function extend($what, $add)
     {
@@ -161,16 +161,16 @@ class Registry
                     $what += $add;
                     return $what;
                 } else {
-                    throw new InvalidArgumentException(
+                    throw new UnexpectedValueException(
                         "Trying to extend an array with not an array"
                     );
                 }
                 break;
             case 'object':
-                throw new InvalidArgumentException("Trying to extend an object");
+                throw new UnexpectedValueException("Trying to extend an object");
                 break;
             default:
-                throw new InvalidArgumentException(sprintf(
+                throw new UnexpectedValueException(sprintf(
                     "No extending definition found for type <%s>", gettype($what)
                 ));
                 break;

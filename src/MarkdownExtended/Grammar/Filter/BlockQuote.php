@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -57,23 +57,23 @@ class BlockQuote
      */
     protected function _callback($matches)
     {
-        $bq = $matches[1];
+        $blockq = $matches[1];
         $cite = isset($matches[2]) ? $matches[2] : null;
         // trim one level of quoting - trim whitespace-only lines
-        $bq = preg_replace('/^[ ]*>[ ]?(\((.+?)\))?|^[ ]+$/m', '', $bq);
-        $bq = Lexer::runGamut('html_block_gamut', $bq); # recurse
-        $bq = preg_replace('/^/m', "  ", $bq);
+        $blockq = preg_replace('/^[ ]*>[ ]?(\((.+?)\))?|^[ ]+$/m', '', $blockq);
+        $blockq = Lexer::runGamut('html_block_gamut', $blockq); # recurse
+        $blockq = preg_replace('/^/m', "  ", $blockq);
         // These leading spaces cause problem with <pre> content,
         // so we need to fix that:
-        $bq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', array($this, '_callback_spaces'), $bq);
+        $blockq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', array($this, '_callback_spaces'), $blockq);
 
         $attributes = array();
         if (!empty($cite)) {
             $attributes['cite'] = $cite;
         }
         $block = Kernel::get('OutputFormatBag')
-    //            ->buildTag('blockquote', "\n$bq\n", $attributes);
-            ->buildTag('blockquote', $bq, $attributes);
+    //            ->buildTag('blockquote', "\$blockq\n", $attributes);
+            ->buildTag('blockquote', $blockq, $attributes);
         return "\n" . parent::hashBlock($block) . "\n\n";
     }
 

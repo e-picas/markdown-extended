@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -10,13 +10,12 @@
 
 namespace MarkdownExtended;
 
-use MarkdownExtended\API\ContentInterface;
+use \MarkdownExtended\API\ContentInterface;
 use \MarkdownExtended\API\Kernel;
 use \MarkdownExtended\Grammar\Lexer;
 use \MarkdownExtended\Grammar\GamutLoader;
-use \MarkdownExtended\Exception\DomainException;
 use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use \MarkdownExtended\Exception\FileSystemException;
 use \MarkdownExtended\Util\ContentCollection;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Util\DomIdRegistry;
@@ -85,6 +84,8 @@ class Parser
      * @param string|array $options A set of options or a configuration file path to override defaults
      *
      * @return $this
+     *
+     * @throws \MarkdownExtended\Exception\FileSystemException if a configuration file can not be found
      */
     public function setOptions($options)
     {
@@ -99,7 +100,7 @@ class Parser
             if (!file_exists($path)) {
                 $local_path = Kernel::getResourcePath($path, Kernel::RESOURCE_CONFIG);
                 if (empty($local_path) || !file_exists($local_path)) {
-                    throw new UnexpectedValueException(
+                    throw new FileSystemException(
                         sprintf('Configuration file "%s" not found', $path)
                     );
                 }
@@ -168,23 +169,31 @@ class Parser
     }
 
     /**
+     * Alias of `self::transform()`
+     */
+    public function transformString($content, $name = null, $primary = true)
+    {
+        return $this->transform($content, $name, $primary);
+    }
+
+    /**
      * Transforms a source file
      *
      * @param   string $path
      * @param   bool $primary
      * @return  \MarkdownExtended\API\ContentInterface|string
      *
-     * @throws \MarkdownExtended\Exception\DomainException if the file can not be found or read
+     * @throws \MarkdownExtended\Exception\FileSystemException if the file can not be found or read
      */
     public function transformSource($path, $primary = true)
     {
         if (!file_exists($path)) {
-            throw new DomainException(
+            throw new FileSystemException(
                 sprintf('Source file "%s" not found', $path)
             );
         }
         if (!is_readable($path)) {
-            throw new DomainException(
+            throw new FileSystemException(
                 sprintf('Source file "%s" is not readable', $path)
             );
         }
@@ -207,17 +216,18 @@ class Parser
      *
      * @return array|mixed
      *
-     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file can not be found, is not readable or is of an unknown type
+     * @throws \MarkdownExtended\Exception\FileSystemException if the file can not be found or is not readable
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file is of an unknown type
      */
     protected function loadConfigFile($path)
     {
         if (!file_exists($path)) {
-            throw new InvalidArgumentException(
+            throw new FileSystemException(
                 sprintf('Configuration file "%s" not found', $path)
             );
         }
         if (!is_readable($path)) {
-            throw new InvalidArgumentException(
+            throw new FileSystemException(
                 sprintf('Configuration file "%s" is not readable', $path)
             );
         }
@@ -361,7 +371,7 @@ class Parser
             )
         );
 
-        // make a backup `option[force]!==true`
+        // make a backup if `option[force]!==true`
         $backup = (bool) $this->getKernel()->getConfig('force') !== true;
 
         // write output
@@ -374,12 +384,12 @@ class Parser
     // register a new content in collection
     private function _registerContent(ContentInterface $content)
     {
-        $content_collection = $this->getKernel()->get('ContentCollection');
-        $content_collection->append($content);
-        $index = $content_collection->key();
-        $content_collection->next();
-        if (!$content_collection->valid()) {
-            $content_collection->seek($index);
+        $collection = $this->getKernel()->get('ContentCollection');
+        $collection->append($content);
+        $index      = $collection->key();
+        $collection->next();
+        if (!$collection->valid()) {
+            $collection->seek($index);
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -48,7 +48,7 @@ class Lexer
 // ----------------------------------
 // PARSER
 // ----------------------------------
-    
+
     /**
      * Performs some pre-processing on the input text
      * and pass it through the document gamut.
@@ -70,7 +70,7 @@ class Lexer
 
         $content->setBody($text . "\n");
         $this->_teardown();
-        
+
         return $content;
     }
 
@@ -101,8 +101,7 @@ class Lexer
      *
      * @return  string
      *
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamuts` seems malformed
-     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamuts` table can not be found
+     * @throws  \MarkdownExtended\Exception\UnexpectedValueException if `$gamuts` seems malformed or can not be found
      */
     public function runGamuts($gamuts, $text = null)
     {
@@ -142,7 +141,7 @@ class Lexer
         $loader = Kernel::get('GamutLoader');
         $loader->runGamutsMethod($loader->getAllGamutsReversed(), '_setup');
     }
-    
+
     /**
      * Clearing extra-specific variables
      *

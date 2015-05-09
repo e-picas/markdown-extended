@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -10,8 +10,10 @@
 
 namespace MarkdownExtended\Console;
 
+use \MarkdownExtended\Exception\InvalidArgumentException;
 use \MarkdownExtended\Util\Registry;
 use \MarkdownExtended\Util\Helper;
+
 
 /**
  * A class to manage command line options based on a set of definitions
@@ -172,7 +174,7 @@ class UserInput
      *
      * @return  object
      *
-     * @throws \InvalidArgumentException if an option is unknown
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if an option is unknown
      */
     public function parseOptions()
     {
@@ -210,7 +212,7 @@ class UserInput
         // last run for unknown options
         foreach ($argv as $i=>$arg) {
             if (substr($arg, 0, 1) === '-') {
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     sprintf('Unknown option "%s"', trim($arg, '-'))
                 );
             }

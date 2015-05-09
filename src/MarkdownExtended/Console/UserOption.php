@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -10,7 +10,8 @@
 
 namespace MarkdownExtended\Console;
 
-use \MarkdownExtended\Util\Registry;
+use MarkdownExtended\Exception\InvalidArgumentException;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * A class to manage one command line option based on a definition
@@ -41,30 +42,28 @@ class UserOption
      * @var \MarkdownExtended\Util\Registry
      */
     protected $data;
-    
+
     /**
      * Organize and cleanup an option definition
      *
      * @param array $item
      * @param string $name
      *
-     * @throws \InvalidArgumentException if the option does not define a description
-     * @throws \InvalidArgumentException if the option does not define an argument type
-     * @throws \InvalidArgumentException if the option does not define a type and its argument is required
-     * @throws \InvalidArgumentException if the option's argument is a list item but no list is defined
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if the option does not define a description,
+     *              an argument type, a type and its argument is required or the option's argument is a list item but no list is defined
      */
     public function __construct(array $item, $name)
     {
         $this->data = $item;
         $this->set('name', $name);
-        
+
         if (!$this->has('description')) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Option "%s" must define a description.', $this->get('name'))
             );
         }
         if (!$this->has('argument')) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Option "%s" must define if its argument is required, optional or null.', $this->get('name'))
             );
         }
@@ -72,13 +71,13 @@ class UserOption
             if ($this->get('argument') === UserInput::ARG_NULL) {
                 $this->set('type', UserInput::TYPE_BOOL);
             } else {
-                throw new \InvalidArgumentException(
+                throw new UnexpectedValueException(
                     sprintf('Option "%s" must define its type', $this->get('name'))
                 );
             }
         }
         if (($this->get('type') & UserInput::TYPE_LISTITEM) && !$this->has('list')) {
-            throw new \InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Option "%s" must define the list of available values', $this->get('name'))
             );
         }
@@ -125,8 +124,8 @@ class UserOption
      *
      * @return  bool
      *
-     * @throws \InvalidArgumentException if the option requires an argument and do not received one
-     * @throws \InvalidArgumentException if the option's type validation fails
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the option requires an argument and does not received one
+     *              and if the option's type validation fails
      */
     public function validateUserValue($value)
     {
@@ -137,7 +136,7 @@ class UserOption
 
         // be sure to have a value when required
         if ($this->get('argument') === UserInput::ARG_REQUIRED && empty($value)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('Option "%s" requires a value', $this->get('name'))
             );
         }
@@ -154,7 +153,7 @@ class UserOption
 
         // validate a file path if needed
         if (($this->get('type') & UserInput::TYPE_PATH) && !file_exists($value)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('Option "%s" must be a valid file path', $this->get('name'))
             );
         }
@@ -164,7 +163,7 @@ class UserOption
             ($this->get('type') & UserInput::TYPE_LISTITEM) &&
             !in_array($value, $this->get('list'), true)
         ) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('Option "%s" must be a value in "%s" (got "%s")',
                     $this->get('name'), implode('", "', $this->get('list')), $value)
             );

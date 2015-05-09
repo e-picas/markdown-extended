@@ -10,17 +10,17 @@
 
 namespace MarkdownExtended\Exception;
 
-use \InvalidArgumentException as BaseException;
+use \Exception as BaseException;
 
 /**
- * Specific InvalidArgumentException with a default status code of 90
+ * Specific Exception to use for file-system errors, with a default status code of 91
  */
-class InvalidArgumentException
-    extends BaseException
+class FileSystemException
+    extends RuntimeException
 {
 
     public function __construct($message = '', $code = 0, BaseException $previous = null)
     {
-        parent::__construct($message, ($code===0 ? 90 : $code), $previous);
+        parent::__construct($message, ($code===0 ? 91 : $code), $previous);
     }
 }

@@ -83,7 +83,7 @@ i.e.
     'filter:Detab:init'         => '10',
 
     // call the RemoveUtf8Marker tool
-    'tool:RemoveUtf8Marker'    => '15',
+    'tool:RemoveUtf8Marker'     => '15',
 
     // call another gamuts stack
     'block_gamut'               => '30',
@@ -244,14 +244,14 @@ interface, which contains one single method:
 
 It acts like a service container:
 
-    \MarkdownExtended\Kernel->get('MarkdownExtended')   // the parser singleton
-    \MarkdownExtended\Kernel->get('Content')            // current parsed content
-    \MarkdownExtended\Kernel->get('ContentCollection')  // parsed contents collection
-    \MarkdownExtended\Kernel->get('Lexer')              // grammar lexer
-    \MarkdownExtended\Kernel->get('GamutLoader')        // grammar gamuts loader
-    \MarkdownExtended\Kernel->get('OutputFormatBag')    // wrapper for current output format
-    \MarkdownExtended\Kernel->get('Template')           // template engine
-    \MarkdownExtended\Kernel->get('DomId')              // DOM registry manager
+    \MarkdownExtended\Kernel::get('MarkdownExtended')   // the parser singleton
+    \MarkdownExtended\Kernel::get('Content')            // current parsed content
+    \MarkdownExtended\Kernel::get('ContentCollection')  // parsed contents collection
+    \MarkdownExtended\Kernel::get('Lexer')              // grammar lexer
+    \MarkdownExtended\Kernel::get('GamutLoader')        // grammar gamuts loader
+    \MarkdownExtended\Kernel::get('OutputFormatBag')    // wrapper for current output format
+    \MarkdownExtended\Kernel::get('Template')           // template engine
+    \MarkdownExtended\Kernel::get('DomId')              // DOM registry manager
 
 It also acts like a configuration setter/getter:
 
@@ -267,6 +267,25 @@ It also acts like a configuration setter/getter:
     // apply a callback configuration entry on a list of parameters
     \MarkdownExtended\Kernel::applyConfig( index.subindex , parameters )
     
+### Exceptions & errors
+
+A full set of specific exceptions is defined in the app to differentiate external
+and internal errors. Internal errors only defines a specific error code you can retrieve
+with `$exception->getCode()` between 90 and 95:
+
+-   *90* is the default exception thrown when invalid arguments are met
+    (basic usage error - `\MarkdownExtended\Exception\InvalidArgumentException`)
+-   *91* is the default exception thrown when a file or directory could not be found, read or written
+    (`\MarkdownExtended\Exception\FileSystemException`)
+-   *92* is the default exception thrown when an invalid value is met
+    (deeper usage error - `\MarkdownExtended\Exception\UnexpectedValueException`)
+-   *93* is the default exception thrown when an error occurred at runtime
+    (`\MarkdownExtended\Exception\RuntimeException`)
+-   *94* is the default exception status
+    (`\MarkdownExtended\Exception\Exception`)
+-   *95* is the default error-exception status
+    (development error - `\MarkdownExtended\Exception\ErrorException`)
+
 
 SEE ALSO
 --------

@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP-MarkdownExtended package.
+ * This file is part of the PHP-Markdown-Extended package.
  *
  * (c) Pierre Cassat <me@e-piwi.fr> and contributors
  *
@@ -10,8 +10,7 @@
 
 namespace MarkdownExtended\API;
 
-use MarkdownExtended\Exception\DomainException;
-use \MarkdownExtended\Exception\InvalidArgumentException;
+use \MarkdownExtended\Exception\UnexpectedValueException;
 use \MarkdownExtended\Util\Helper;
 use \MarkdownExtended\Util\Registry;
 
@@ -118,6 +117,10 @@ class Kernel
         self::set('config', new Registry);
     }
 
+// -----------------
+// Services management
+// -----------------
+
     /**
      * Get the API's interface by object's type
      *
@@ -152,6 +155,7 @@ class Kernel
      */
     public static function get($name)
     {
+        $name   = self::_getValidName($name);
         $return = self::getInstance()->_registry->get($name);
         if (is_callable($return)) {
             $return = call_user_func($return);
@@ -167,6 +171,7 @@ class Kernel
      */
     public static function has($name)
     {
+        $name = self::_getValidName($name);
         return self::getInstance()->_registry->has($name);
     }
 
@@ -179,6 +184,7 @@ class Kernel
      */
     public static function set($name, $value)
     {
+        $name = self::_getValidName($name);
         self::getInstance()->_registry->set($name, $value);
         return self::getInstance();
     }
@@ -191,8 +197,15 @@ class Kernel
      */
     public static function remove($name)
     {
+        $name = self::_getValidName($name);
         self::getInstance()->_registry->remove($name);
         return self::getInstance();
+    }
+
+    // get a valid service name
+    private static function _getValidName($name)
+    {
+        return strtolower(Helper::fromCamelCase($name));
     }
 
     /**
@@ -203,13 +216,13 @@ class Kernel
      *
      * @return bool
      *
-     * @throws \MarkdownExtended\Exception\InvalidArgumentException if `$type` is not a valid API's type
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if `$type` is not a valid API's type
      */
     public static function valid($class_name, $type)
     {
         $api = self::getApiFromType($type);
         if (empty($api)) {
-            throw new InvalidArgumentException(
+            throw new UnexpectedValueException(
                 sprintf('Unknown API type "%s"', $type)
             );
         }
@@ -225,12 +238,12 @@ class Kernel
      *
      * @return bool
      *
-     * @throws \MarkdownExtended\Exception\DomainException if validation of the object fails
+     * @throws \MarkdownExtended\Exception\UnexpectedValueException if validation of the object fails
      */
     public static function validate($class_name, $type, $real_name = null)
     {
         if (!self::valid($class_name, $type)) {
-            throw new DomainException(
+            throw new UnexpectedValueException(
                 sprintf(
                     'Object "%s" of type "%s" must implement API interface "%s"',
                     ($real_name ?: $class_name), $type, self::getApiFromType($type)
@@ -372,7 +385,7 @@ class Kernel
     {
         if ($type === self::RESOURCE_CONFIG || $type === self::RESOURCE_TEMPLATE) {
             $local_path = realpath(Helper::getPath(array(
-                __DIR__, '..', 'Resources', strtolower($type)
+                dirname(__DIR__), 'Resources', strtolower($type)
             )));
 
             if (file_exists($local = $local_path . DIRECTORY_SEPARATOR . $name)) {
