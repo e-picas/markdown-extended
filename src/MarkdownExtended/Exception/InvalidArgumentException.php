@@ -23,5 +23,4 @@ class InvalidArgumentException
     {
         parent::__construct($message, ($code===0 ? 90 : $code), $previous);
     }
-
 }

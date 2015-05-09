@@ -97,17 +97,17 @@ class Header
     protected function _atx_callback($matches)
     {
         $level = strlen($matches[1]) + $this->_getRebasedHeaderLevel();
-        $id  = !empty($matches[3]) ?
+        $domid  = !empty($matches[3]) ?
             $matches[3]
             :
             Helper::header2Label($matches[2]);
-        $id  = Kernel::get('DomId')->set($id);
+        $domid  = Kernel::get('DomId')->set($domid);
         $title = Lexer::runGamut('span_gamut', $matches[2]);
-        $this->_addMenuItem($level, parent::unhash($title), $id);
+        $this->_addMenuItem($level, parent::unhash($title), $domid);
         $block = Kernel::get('OutputFormatBag')
             ->buildTag('title', $title, array(
                 'level'=>$level,
-                'id'=>$id
+                'id'=>$domid
             ));
 
         $this->_setContentTitle($title);

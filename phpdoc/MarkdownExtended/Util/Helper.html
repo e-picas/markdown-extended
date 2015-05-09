@@ -686,8 +686,8 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/Exception/ErrorException.html"><abbr title="MarkdownExtended\Exception\ErrorException">ErrorException</abbr></a></td>
-                <td>if the file can not be read</td>
+                <td><a href="../../MarkdownExtended/Exception/FileSystemException.html"><abbr title="MarkdownExtended\Exception\FileSystemException">FileSystemException</abbr></a></td>
+                <td>if the file can not be found or read</td>
             </tr>
             </table>
 
@@ -696,7 +696,7 @@
     </div>
 
                 <h3 id="method_writeFile">
-        <div class="location">at line 296</div>
+        <div class="location">at line 295</div>
         <code>        static    public            int
     <strong>writeFile</strong>(string $path, string|array $content, bool $backup = true, null $flag = null)</code>
     </h3>
@@ -750,12 +750,8 @@
 
                     <table>
                     <tr>
-                <td><a href="../../MarkdownExtended/Exception/ErrorException.html"><abbr title="MarkdownExtended\Exception\ErrorException">ErrorException</abbr></a></td>
-                <td>if the file path can not be created</td>
-            </tr>
-                    <tr>
-                <td><a href="../../MarkdownExtended/Exception/ErrorException.html"><abbr title="MarkdownExtended\Exception\ErrorException">ErrorException</abbr></a></td>
-                <td>if the file can not be written</td>
+                <td><a href="../../MarkdownExtended/Exception/FileSystemException.html"><abbr title="MarkdownExtended\Exception\FileSystemException">FileSystemException</abbr></a></td>
+                <td>if the file path can not be created or the file can not be written</td>
             </tr>
             </table>
 
@@ -764,7 +760,7 @@
     </div>
 
                 <h3 id="method_backupFile">
-        <div class="location">at line 330</div>
+        <div class="location">at line 329</div>
         <code>        static    public            bool
     <strong>backupFile</strong>(string $path)</code>
     </h3>
@@ -801,7 +797,7 @@
     </div>
 
                 <h3 id="method_debug">
-        <div class="location">at line 357</div>
+        <div class="location">at line 356</div>
         <code>        static    public            string
     <strong>debug</strong>(mixed $objs, null|string $title = null, bool $html = true)</code>
     </h3>

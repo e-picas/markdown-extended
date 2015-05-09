@@ -1,0 +1,12 @@
+languages:
+  PHP: true
+  exclude_paths:
+  - build/*
+  - demo/*
+  - doc/*
+  - man/*
+  - phpdoc/*
+  - src/MarkdownExtendedDev/*
+  - tests/*
+  - sami.config.php
+

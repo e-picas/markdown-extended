@@ -28,7 +28,7 @@ class HTML
     /**
      * @var string  Tags treated as block tags only if the opening tag is alone on it's line:
      */
-    public $context_block_tags_re = 'script|noscript|math|ins|del';
+    public $blocks_tags_re = 'script|noscript|math|ins|del';
 
     /**
      * @var string  Tags where markdown="1" default to span mode:
@@ -124,7 +124,7 @@ class HTML
                     </?                         # Any opening or closing tag.
                         (?>                     # Tag name.
                             '.$this->block_tags_re.'            |
-                            '.$this->context_block_tags_re.'    |
+                            '.$this->blocks_tags_re.'    |
                             '.$this->clean_tags_re.'            |
                             (?!\s)'.$enclosing_tag_re.'
                         )
@@ -236,7 +236,7 @@ class HTML
             //            Opening Context Block tag (like ins and del)
             //               used as a block tag (tag is alone on it's line).
             elseif (preg_match('{^<(?:'.$this->block_tags_re.')\b}', $tag) ||
-                (preg_match('{^<(?:'.$this->context_block_tags_re.')\b}', $tag) &&
+                (preg_match('{^<(?:'.$this->blocks_tags_re.')\b}', $tag) &&
                     preg_match($newline_before_re, $parsed) &&
                     preg_match($newline_after_re, $text))
                 ) {

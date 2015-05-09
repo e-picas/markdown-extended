@@ -179,7 +179,7 @@ class Man
             );
         }
     }
-    
+
     /**
      * @param string $content
      * @param string $tag_name
@@ -291,10 +291,10 @@ class Man
             $this->_current_title_level = 0;
             return $indent . '.SS ' . $text . $this->new_line;
         } else {
-            $id = isset($attributes['id']) ? $attributes['id'] : $text;
+            $domid = isset($attributes['id']) ? $attributes['id'] : $text;
             $this->_current_title_level = $level;
             return $indent . '.TP '
-                . $id . $this->new_line
+                . $domid . $this->new_line
                 . $this->buildBold($text) . $this->new_line
                 . $this->indent();
         }
@@ -304,13 +304,13 @@ class Man
     {
         return !$this->no_paragraphing ? '.RS' . $this->new_line : '';
     }
-    
+
     public function unindent()
     {
         return !$this->no_paragraphing ?
             /*$this->new_line .*/ '.RE' . $this->new_line : '';
     }
-    
+
     public function buildMetaData($text = null, array $attributes = array())
     {
         $text = $this->escapeString($text);

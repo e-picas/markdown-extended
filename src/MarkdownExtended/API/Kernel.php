@@ -117,6 +117,10 @@ class Kernel
         self::set('config', new Registry);
     }
 
+// -----------------
+// Services management
+// -----------------
+
     /**
      * Get the API's interface by object's type
      *
@@ -151,6 +155,7 @@ class Kernel
      */
     public static function get($name)
     {
+        $name   = self::_getValidName($name);
         $return = self::getInstance()->_registry->get($name);
         if (is_callable($return)) {
             $return = call_user_func($return);
@@ -166,6 +171,7 @@ class Kernel
      */
     public static function has($name)
     {
+        $name = self::_getValidName($name);
         return self::getInstance()->_registry->has($name);
     }
 
@@ -178,6 +184,7 @@ class Kernel
      */
     public static function set($name, $value)
     {
+        $name = self::_getValidName($name);
         self::getInstance()->_registry->set($name, $value);
         return self::getInstance();
     }
@@ -190,8 +197,15 @@ class Kernel
      */
     public static function remove($name)
     {
+        $name = self::_getValidName($name);
         self::getInstance()->_registry->remove($name);
         return self::getInstance();
+    }
+
+    // get a valid service name
+    private static function _getValidName($name)
+    {
+        return strtolower(Helper::fromCamelCase($name));
     }
 
     /**
@@ -371,7 +385,7 @@ class Kernel
     {
         if ($type === self::RESOURCE_CONFIG || $type === self::RESOURCE_TEMPLATE) {
             $local_path = realpath(Helper::getPath(array(
-                __DIR__, '..', 'Resources', strtolower($type)
+                dirname(__DIR__), 'Resources', strtolower($type)
             )));
 
             if (file_exists($local = $local_path . DIRECTORY_SEPARATOR . $name)) {

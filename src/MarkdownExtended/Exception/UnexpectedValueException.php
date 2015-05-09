@@ -23,5 +23,4 @@ class UnexpectedValueException
     {
         parent::__construct($message, ($code===0 ? 92 : $code), $previous);
     }
-
 }
