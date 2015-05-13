@@ -31,7 +31,7 @@ phpdoc/*
 #.editorconfig
 #.gitattributes
 #phpunit.xml.dist
-#sami.config.php
+#.sami.php
 #composer.json
 #CONTRIBUTING.md
 #!bin/markdown-extended.phar

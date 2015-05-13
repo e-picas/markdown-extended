@@ -8,5 +8,5 @@ languages:
   - phpdoc/*
   - src/MarkdownExtendedDev/*
   - tests/*
-  - sami.config.php
+  - .sami.php
 
