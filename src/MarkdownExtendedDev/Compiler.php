@@ -47,7 +47,7 @@ class Compiler
             ->exclude('vendor')
             ->exclude('src/MarkdownExtendedDev')
             ->notName('CONTRIBUTING.md')
-            ->notName('sami.config.php')
+            ->notName('.sami.php')
             ->in($this->root_dir)
         ;
         return $finder;
