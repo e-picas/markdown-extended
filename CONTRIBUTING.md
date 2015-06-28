@@ -164,11 +164,11 @@ The app's API documentation is generated with [Sami](https://github.com/FriendsO
 
 You can (re-)generate a full PHP documentation, at any time, running:
 
-    $ php bin/sami.php update sami.config.php
+    $ php bin/sami.php update .sami.php
 
 The documentation is built in the `phpdoc/` directory in the package, and requires a temporary
 directory for its generation that is configured on `../tmp/cache/markdown-extended/`.
-You can modify this setting editing the `sami.config.php` file.
+You can modify this setting editing the `.sami.php` file.
 
 You can also use the Composer's script shortcut:
 
