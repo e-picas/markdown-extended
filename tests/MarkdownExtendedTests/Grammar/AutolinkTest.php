@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * (c) Pierre Cassat <me@e-piwi.fr> and contributors
+ * Copyright (c) 2008-2015, Pierre Cassat <me@e-piwi.fr> and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,7 +15,6 @@ use \MarkdownExtended\MarkdownExtended;
 
 class AutolinkTest extends ParserTest
 {
-
     public function testCreate()
     {
         // autolink

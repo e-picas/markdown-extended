@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * (c) Pierre Cassat <me@e-piwi.fr> and contributors
+ * Copyright (c) 2008-2015, Pierre Cassat <me@e-piwi.fr> and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,13 +14,11 @@ use \MarkdownExtended\Exception\InvalidArgumentException;
 use \MarkdownExtended\Util\Registry;
 use \MarkdownExtended\Util\Helper;
 
-
 /**
  * A class to manage command line options based on a set of definitions
  */
 class UserInput
 {
-
     const NEGATE_SUFFIX             = 'no-';
     public static $NEGATE_VAL       = '_negate';
     public static $NEGATE_INFO      = 'This option can be negated by "--no-%s".';

@@ -214,7 +214,7 @@ To transform a string read from another command output, run:
 
 ## LICENSE
 
-This software is released under the BSD-3-Clause open source license. Please
+This software is released under the BSD-3-Clause license. Please
 read the LICENSE file for more information, or see
 <http://opensource.org/licenses/BSD-3-Clause>. 
 
