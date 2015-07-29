@@ -374,12 +374,12 @@ DESC
         if (count($results)===1) {
             $result = array_shift($results);
             $this->stream->write(
-                var_export($result,true)
+                var_export($result, true)
             );
             $this->stream->_exit();
         }
         $this->stream->write(
-            var_export($results,true)
+            var_export($results, true)
         );
         $this->stream->_exit();
     }
