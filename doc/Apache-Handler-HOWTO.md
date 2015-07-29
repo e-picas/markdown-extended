@@ -17,7 +17,7 @@ If you encountered errors when browsing to your installation, see the [FAQ](#faq
 
 To allow this script to work on your webserver, you need the following environment:
 
--   a webserver running a Linux/UNIX operating system,
+-   a webserver running a GNU/Linux or UNIX operating system,
 -   your requests must be handled by [Apache 2](http://httpd.apache.org/) or higher
     (or at least, `.htaccess` files must be activated)[^1]
 -   [PHP 5.3](http://php.net/) or higher.

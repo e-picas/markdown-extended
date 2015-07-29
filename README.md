@@ -289,7 +289,7 @@ License
 -------
 
 This software, as the original Markdown, is licensed under the terms of the
-[BSD-3-Clause open source license](http://opensource.org/licenses/BSD-3-Clause).
+[BSD-3-Clause license](http://opensource.org/licenses/BSD-3-Clause).
 Please see the `LICENSE` file for a full text.
 
 You can use, transform and distribute this software and its dependencies as you wish, as
