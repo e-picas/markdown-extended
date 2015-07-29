@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * (c) Pierre Cassat <me@e-piwi.fr> and contributors
+ * Copyright (c) 2008-2015, Pierre Cassat <me@e-piwi.fr> and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -107,13 +107,12 @@ $demonstrations = array(
 
 // process
 if (!is_null($doc)) {
-    $doc = realpath( __DIR__ . DIRECTORY_SEPARATOR . $doc );
+    $doc = realpath(__DIR__ . DIRECTORY_SEPARATOR . $doc);
     if (file_exists($doc)) {
         $contents = include $contents_dir . 'mde-content.php';
     } else {
         $errors[] = printf('Document "%s" not found', $doc);
     }
-
 } else {
     if (!empty($page)) {
         if (file_exists($page . '.php')) {
