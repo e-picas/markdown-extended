@@ -2,33 +2,43 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * (c) Pierre Cassat <me@e-piwi.fr> and contributors
+ * Copyright (c) 2008-2015, Pierre Cassat <me@e-piwi.fr> and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-if (!isset($contents))
+if (!isset($contents)) {
     $contents = array();
-if (!isset($contents['content']))
+}
+if (!isset($contents['content'])) {
     $contents['content'] = '';
-if (!isset($contents['meta_title']))
+}
+if (!isset($contents['meta_title'])) {
     $contents['meta_title'] = '';
-if (!isset($contents['meta_description']))
+}
+if (!isset($contents['meta_description'])) {
     $contents['meta_description'] = \MarkdownExtended\MarkdownExtended::DESC;
-if (!isset($contents['metadata']))
+}
+if (!isset($contents['metadata'])) {
     $contents['metadata'] = '';
-if (!isset($contents['menu']))
+}
+if (!isset($contents['menu'])) {
     $contents['menu'] = '';
-if (!isset($contents['javascript']))
+}
+if (!isset($contents['javascript'])) {
     $contents['javascript'] = '';
+}
 
-if (!isset($messages))
+if (!isset($messages)) {
     $messages = array();
-if (isset($contents['mde_info']) && $contents['mde_info']===true)
+}
+if (isset($contents['mde_info']) && $contents['mde_info']===true) {
     $messages[] = 'Current class: <strong>'.\MarkdownExtended\MarkdownExtended::getAppInfo(true).'</strong>';
-if (isset($contents['file_path']))
+}
+if (isset($contents['file_path'])) {
     $messages[] = 'Current document: <strong>'.$contents['file_path'].'</strong>';
+}
 
 ?><!DOCTYPE html>
 <html lang="en">
