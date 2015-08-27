@@ -225,16 +225,16 @@ class UserOption
         $str = '';
         if (UserInput::ARG_NULL !== $this->get('argument')) {
             $str .= UserInput::ARG_OPTIONAL == $this->get('argument') ?
-                ' (=' : ' =';
+                '[=' : '=';
             if ($this->get('type') & UserInput::TYPE_PATH) {
-                $str .= 'PATH';
+                $str .= '<path>';
             } elseif ($this->get('type') & UserInput::TYPE_STRING) {
-                $str .= 'STRING';
+                $str .= '<string>';
             } else {
                 $str .= 'true/false';
             }
             $str .= UserInput::ARG_OPTIONAL == $this->get('argument') ?
-                ')' : '';
+                ']' : '';
         }
         return $str;
     }

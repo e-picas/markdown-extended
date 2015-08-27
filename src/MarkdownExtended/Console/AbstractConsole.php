@@ -100,7 +100,7 @@ abstract class AbstractConsole
         if (!empty($argv) && is_array($argv) && isset($argv[0])) {
             $this->script_path = realpath($argv[0]);
         } else {
-            $this->script_path = getcwd();
+            $this->script_path = basename($_SERVER['SCRIPT_FILENAME']);
         }
 
         // default required info
@@ -112,7 +112,7 @@ abstract class AbstractConsole
             ->setVersion('?')
             ->setDescription('?')
             ->setSynopsis(
-                $this->script_path . ' [OPTIONS] <arguments>'
+                $this->script_path . ' [options] <arguments>'
             )
         ;
     }
