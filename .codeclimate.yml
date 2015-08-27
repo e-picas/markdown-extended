@@ -1,12 +1,18 @@
-languages:
-  PHP: true
-  exclude_paths:
+engines:
+  phpcodesniffer:
+    enabled: true
+ratings:
+  paths:
+  - bin/*
+  - src/*
+exclude_paths:
   - build/*
   - demo/*
   - doc/*
   - man/*
   - phpdoc/*
+  - vendor/*
   - src/MarkdownExtendedDev/*
+  - bin/mde-dev
   - tests/*
   - .sami.php
-
