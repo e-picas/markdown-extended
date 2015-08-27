@@ -70,7 +70,7 @@ More information at <{$link}>.
 DESC
             )
             ->setSynopsis(
-                $script . ' [OPTIONS] "**markdown** _string_" [... string / file path]'
+                $script . ' [options] "**markdown** _string_" [... string / file path]'
             )
             ->setShortVersionString(MarkdownExtended::getAppInfo(true))
             ->setLongVersionString(
@@ -366,7 +366,7 @@ DESC
      */
     protected function runTaskLicense()
     {
-        if (file_exists($license = getcwd() . DIRECTORY_SEPARATOR . self::LICENSE_FILE)) {
+        if (file_exists($license = MDE_BASE_PATH . self::LICENSE_FILE)) {
             $this->_writeTask(Helper::readFile($license), 'License');
         } else {
             $this->stream->writeln('LICENSE file not found', Stream::IO_STDERR);
@@ -378,7 +378,7 @@ DESC
      */
     protected function runTaskManifest()
     {
-        if (file_exists($manifest = getcwd() . DIRECTORY_SEPARATOR . self::MANIFEST_FILE)) {
+        if (file_exists($manifest = MDE_BASE_PATH . self::MANIFEST_FILE)) {
             $content = json_decode(Helper::readFile($manifest), true);
 
             foreach (array('extra', 'autoload', 'autoload-dev', 'config', 'scripts', 'archive') as $entry) {
