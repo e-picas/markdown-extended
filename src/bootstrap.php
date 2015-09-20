@@ -42,16 +42,15 @@ if (!function_exists('mde_autoloader')) {
         $extension              = '.php';
         $namespace_separator    = '\\';
         $className              = trim($className, $namespace_separator);
-        $base_path              = is_null($base_path) ?
-            MDE_BASE_PATH . 'src' : rtrim($base_path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $base_path              = is_null($base_path) ? MDE_BASE_PATH . 'src' : rtrim($base_path, DIRECTORY_SEPARATOR);
         if (substr($className, 0, strlen($namespace)) === $namespace) {
             $class_file = str_replace(array($namespace_separator, '_'), DIRECTORY_SEPARATOR, $className) . $extension;
             if (file_exists($try1 = $base_path . DIRECTORY_SEPARATOR . $class_file)) {
-                require_once $try1;
+                require $try1;
             }
             foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
-                if (file_exists($path) && file_exists($try2 = $path . DIRECTORY_SEPARATOR . $class_file)) {
-                    require_once $try2;
+                if (file_exists($try2 = $path . DIRECTORY_SEPARATOR . $class_file)) {
+                    require $try2;
                 }
             }
         }
