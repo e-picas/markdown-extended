@@ -187,6 +187,7 @@ class Content
      */
     public function setTitle($title)
     {
+        $title = is_array($title) ? $title[0] : $title;
         $this->title = trim($title);
         return $this;
     }
