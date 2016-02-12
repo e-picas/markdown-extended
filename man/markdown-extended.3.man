@@ -261,7 +261,7 @@ Copyright (c) 2004-2006 John Gruber -
 To transmit bugs, see <http://github.com/e-picas/markdown-extended/issues>.
 .SH AUTHOR
 .PP
-Created and maintained by Pierre Cassat (piwi - <http://picas.fr/>) & contributors.
+Created and maintained by Pierre Cassat (picas - <http://picas.fr/>) & contributors.
 .SH SEE ALSO
 .PP
 php(1), pcre(3), markdown-extended(7)
