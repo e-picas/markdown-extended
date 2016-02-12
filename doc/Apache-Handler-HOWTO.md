@@ -168,7 +168,7 @@ virtual host's domain name, try the following:
     like `/etc/apache/sites-available/your.domain`)
 
 -   if you still have an error, come to ask us explaining your system & configuration at
-    <http://github.com/piwi/markdown-extended/issues>.
+    <http://github.com/e-picas/markdown-extended/issues>.
 
 ### I see the plain text version of my content
 
@@ -194,8 +194,8 @@ your case, just remove the flag (your redirection will be visible in the address
 ----
 "**MDE Apache Handler how-to**" - last updated at 05 may 2014
 
-Creator & maintainer: [@pierowbmstr](http://e-piwi.fr/).
+Creator & maintainer: [@pierowbmstr](http://picas.fr/).
 
-Original source of this file, see <http://github.com/piwi/markdown-extended/Apache-Handler-HOWTO.md>.
+Original source of this file, see <http://github.com/e-picas/markdown-extended/Apache-Handler-HOWTO.md>.
 
-For comments & bugs, see <http://github.com/piwi/markdown-extended/issues>.
+For comments & bugs, see <http://github.com/e-picas/markdown-extended/issues>.

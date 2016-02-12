@@ -220,7 +220,7 @@ read the LICENSE file for more information, or see
 
 PHP Markdown Extended - 
 Copyright (c) 2008-2015 Pierre Cassat - 
-<http://e-piwi.fr/>
+<http://picas.fr/>
 
 Based on MultiMarkdown - 
 Copyright (c) 2005-2009 Fletcher T. Penney - 
@@ -236,11 +236,11 @@ Copyright (c) 2004-2006 John Gruber -
 
 ## BUGS
 
-To transmit bugs, see <http://github.com/piwi/markdown-extended/issues>.
+To transmit bugs, see <http://github.com/e-picas/markdown-extended/issues>.
 
 ## AUTHOR
 
-Created and maintained by Pierre Cassat (piwi - <http://e-piwi.fr/>) & contributors.
+Created and maintained by Pierre Cassat (picas - <http://picas.fr/>) & contributors.
 
 ## SEE ALSO
 

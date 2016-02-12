@@ -70,7 +70,7 @@ Note that the "merge" of a pull-request keeps your name and profile as the "comm
 (the one who made the stuff).
 
 **BEFORE** you start a work on the code, please check that this has NOT been done yet, or part
-of it, by giving a look at <http://github.com/piwi/markdown-extended/pulls>. If you 
+of it, by giving a look at <http://github.com/e-picas/markdown-extended/pulls>. If you 
 find a pull-request that seems to be like the modification you were going to do, you can 
 comment the request with your vision of the thing or your experience.
 
@@ -103,7 +103,7 @@ You can *synchronize* your fork with current original repository by defining a r
 and pulling new commits:
 
     // create an "upstream" remote to the original repo
-    git remote add upstream http://github.com/piwi/markdown-extended.git
+    git remote add upstream http://github.com/e-picas/markdown-extended.git
 
     // get last original remote commits
     git checkout dev
@@ -186,7 +186,7 @@ All tests are stored in the `tests/` directory of the package and
 the configuration file used by PHPUnit is `phpunit.xml.dist` at the root
 of the package.
 
-Note that the package is integrated in [Travis CI](https://travis-ci.org/piwi/markdown-extended/builds).
+Note that the package is integrated in [Travis CI](https://travis-ci.org/e-picas/markdown-extended/builds).
 
 You can also use the Composer's script shortcut:
 
@@ -213,7 +213,7 @@ You can check code mess running:
 
     $ php bin/phpmd src text codesize
 
-Note that the package is integrated in [Code Climate](https://codeclimate.com/github/piwi/markdown-extended).
+Note that the package is integrated in [Code Climate](https://codeclimate.com/github/e-picas/markdown-extended).
 
 ### Make a new release
 
@@ -276,4 +276,4 @@ Always keep in mind the followings:
 
 ----
 
-If you have questions, you can (eventually) contact me at *me [at] e [dash] piwi [dot] fr*.
+If you have questions, you can (eventually) contact me at *me [at] picas [dot] fr*.
