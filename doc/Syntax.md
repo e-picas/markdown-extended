@@ -542,9 +542,9 @@ Putting this into Castigliano's equation, we get
 ----
 "**Markdown Extended Syntax**" - last updated at 27 july 2014
 
-Creator & maintainer: [@pierowbmstr](http://e-piwi.fr/).
+Creator & maintainer: [@pierowbmstr](http://picas.fr/).
 
-Original source of this file, see <http://github.com/piwi/markdown-extended/Syntax.md>.
+Original source of this file, see <http://github.com/e-picas/markdown-extended/Syntax.md>.
 
-For comments & bugs, see <http://github.com/piwi/markdown-extended/issues>.
+For comments & bugs, see <http://github.com/e-picas/markdown-extended/issues>.
 

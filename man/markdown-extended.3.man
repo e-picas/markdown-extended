@@ -243,7 +243,7 @@ read the LICENSE file for more information, or see
 .PP
 PHP Markdown Extended - 
 Copyright (c) 2008-2015 Pierre Cassat - 
-<http://e-piwi.fr/>
+<http://picas.fr/>
 .PP
 Based on MultiMarkdown - 
 Copyright (c) 2005-2009 Fletcher T. Penney - 
@@ -258,10 +258,10 @@ Copyright (c) 2004-2006 John Gruber -
 <http://daringfireball.net/>
 .SH BUGS
 .PP
-To transmit bugs, see <http://github.com/piwi/markdown-extended/issues>.
+To transmit bugs, see <http://github.com/e-picas/markdown-extended/issues>.
 .SH AUTHOR
 .PP
-Created and maintained by Pierre Cassat (piwi - <http://e-piwi.fr/>) & contributors.
+Created and maintained by Pierre Cassat (piwi - <http://picas.fr/>) & contributors.
 .SH SEE ALSO
 .PP
 php(1), pcre(3), markdown-extended(7)

@@ -3,10 +3,10 @@ PHP Markdown Extended
 
 Yet another PHP parser for the markdown (*extended*) syntax.
 
-[![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=piwi&repo=markdown-extended&title=last+beta)](https://github.com/piwi/markdown-extended/releases)
-[![Build Status](https://travis-ci.org/piwi/markdown-extended.svg?branch=master)](http://travis-ci.org/piwi/markdown-extended)
+[![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=piwi&repo=markdown-extended&title=last+beta)](https://github.com/e-picas/markdown-extended/releases)
+[![Build Status](https://travis-ci.org/picas/markdown-extended.svg?branch=master)](http://travis-ci.org/picas/markdown-extended)
 [![Dependency Status](https://www.versioneye.com/user/projects/550e3650bc1c12efc3000067/badge.svg?style=flat)](http://www.versioneye.com/user/projects/550e3650bc1c12efc3000067)
-[![Code Climate](https://codeclimate.com/github/piwi/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/piwi/markdown-extended)
+[![Code Climate](https://codeclimate.com/github/picas/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/picas/markdown-extended)
 
 ----
 
@@ -45,18 +45,18 @@ a running [PHP](http://php.net/) version of 5.3.3 minimum.
 
 ### Raw PHP package
 
-First, you can clone the [GitHub](http://github.com/piwi/markdown-extended)
+First, you can clone the [GitHub](http://github.com/e-picas/markdown-extended)
 repository and include it "as is" in your project:
 
 ```bash
-$ git clone https://github.com/piwi/markdown-extended.git
+$ git clone https://github.com/e-picas/markdown-extended.git
 ```
 
-You can also download an [archive](http://github.com/piwi/markdown-extended/downloads)
+You can also download an [archive](http://github.com/e-picas/markdown-extended/downloads)
 from GitHub:
 
 ```bash
-$ wget --no-check-certificate https://github.com/piwi/markdown-extended/archive/master.tar.gz
+$ wget --no-check-certificate https://github.com/e-picas/markdown-extended/archive/master.tar.gz
 $ tar -xvf master.tar.gz
 ```
 
@@ -73,7 +73,7 @@ Another way to use the package, if you are a [Composer](http://getcomposer.org/)
 is to add it to your requirements in your `composer.json` file:
 
 ```json
-"piwi/markdown-extended": "dev-master"
+"picas/markdown-extended": "dev-master"
 ```
 
 The namespace will be automatically added to the project's Composer's *autoloader*.
@@ -89,7 +89,7 @@ the whole source as a standalone binary (~220Kb). Its usage is the same as the
 The archive is stored in a specific `phar-latest` branch on the repository:
 
 ```bash
-$ wget --no-check-certificate https://github.com/piwi/markdown-extended/archive/phar-latest.tar.gz
+$ wget --no-check-certificate https://github.com/e-picas/markdown-extended/archive/phar-latest.tar.gz
 $ tar -xvf phar-latest.tar.gz
 $ cd phar-latest
 ```
@@ -133,7 +133,7 @@ following the rules described at <http://cheatsheet.aboutmde.org/> (all basic ma
 are still available and valid).
 
 For a full example and a test file, you can refer to the `demo/MD_syntax.md` file of the package ;
-the latest version can be found at <http://github.com/piwi/markdown-extended/blob/dev/demo/MD_syntax.md>.
+the latest version can be found at <http://github.com/e-picas/markdown-extended/blob/dev/demo/MD_syntax.md>.
 
 ### Usage for developers
 
@@ -197,7 +197,7 @@ $content = $parser->transformSource( 'my-markdown-file.md' );
 
 A more complete usage documentation is available in the package's documents
 (`doc/DOCUMENTATION.md`). You can read it online at 
-<https://github.com/piwi/markdown-extended/blob/master/doc/DOCUMENTATION.md>.
+<https://github.com/e-picas/markdown-extended/blob/master/doc/DOCUMENTATION.md>.
 Its *manpage* version is embedded in the package running:
 
 ```bash
@@ -279,9 +279,9 @@ to your needs, freely distribute your work and propose it to the community, as l
 let an information about its first authors.
 
 As the sources are hosted on a [GIT](http://git-scm.com/) repository on
-[GitHub](http://github.com/piwi/markdown-extended), you can modify it, to
+[GitHub](http://github.com/e-picas/markdown-extended), you can modify it, to
 ameliorate a feature or correct an error. Please read the [`CONTRIBUTING.md`
-file of the package](https://github.com/piwi/markdown-extended/blob/master/CONTRIBUTING.md) 
+file of the package](https://github.com/e-picas/markdown-extended/blob/master/CONTRIBUTING.md) 
 for more info.
 
 
@@ -312,5 +312,5 @@ long as you mention the copyrights below:
 
     PHP Markdown Extended
     Copyright (c) 2008-2015 Pierre Cassat & contributors
-    <http://e-piwi.fr/>  
+    <http://picas.fr/>  
     All rights reserved.
