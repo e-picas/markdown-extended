@@ -9,7 +9,7 @@ Version:    0.1.0-dev
 NAME
 ----
 
-PHP-Markdown-Extended API - Developer documentation of the internal API of the "piwi/markdown-extended" package.
+PHP-Markdown-Extended API - Developer documentation of the internal API of the "picas/markdown-extended" package.
 
 The whole API is stored in the `\MarkdownExtended\API` namespace and is a set of interfaces
 you must implement to use or override the parser or some of its objects.

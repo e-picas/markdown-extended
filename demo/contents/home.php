@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat <me@e-piwi.fr> and contributors
+ * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -58,7 +58,7 @@ $data['content'] = <<<CTT
       <div class="col-sm-12 col-md-6">
         <h3>Sources & Updates</h3>
         <p class="">The sources of this application are hosted on <a href="http://github.com">GitHub</a>. To follow sources updates, report a bug or read opened bug tickets and any other information, please see the GitHub repository at <em>{$package['homepage']}</em>.</p>
-        <p><a href="http://github.com/piwi/markdown-extended" title="http://github.com/piwi/markdown-extended" class="btn btn-primary btn-lg btn-block"><i class="fa fa-github-alt"></i>&nbsp;See online on GitHub</a></p>
+        <p><a href="http://github.com/e-picas/markdown-extended" title="http://github.com/e-picas/markdown-extended" class="btn btn-primary btn-lg btn-block"><i class="fa fa-github-alt"></i>&nbsp;See online on GitHub</a></p>
       </div>
     </div>
 </div>

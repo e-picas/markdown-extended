@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat <me@e-piwi.fr> and contributors
+ * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,7 +15,7 @@ namespace MarkdownExtended;
  *
  * LICENSE
  *
- * Mardown
+ * Markdown
  * Copyright © 2004-2006, John Gruber
  * http://daringfireball.net/
  * All rights reserved.
@@ -32,7 +32,7 @@ namespace MarkdownExtended;
  *
  * Markdown Extended
  * Copyright © 2008-2013 Pierre Cassat & contributors
- * http://e-piwi.fr/
+ * http://picas.fr/markdown-extended/
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -66,9 +66,9 @@ class MarkdownExtended
     const VERSION   = '0.1.0-dev';
     const DATE      = '2015-04-16';
     const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
-    const LINK      = 'http://github.com/piwi/markdown-extended.git';
+    const LINK      = 'http://github.com/e-picas/markdown-extended.git';
     const LICENSE   = 'BSD-3-Clause license <http://opensource.org/licenses/BSD-3-Clause>';
-    const SOURCES   = 'Sources & updates: <http://github.com/piwi/markdown-extended.git>';
+    const SOURCES   = 'Sources & updates: <http://github.com/e-picas/markdown-extended.git>';
     const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
 
     /**

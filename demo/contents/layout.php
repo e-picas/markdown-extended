@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat <me@e-piwi.fr> and contributors
+ * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -105,7 +105,7 @@ if (isset($contents['file_path'])) {
                         </ul>
                     </li>
                     <li><a href="http://docs.ateliers-pierrot.fr/markdown-extended/">API</a></li>
-                    <li><a href="http://github.com/piwi/markdown-extended">Sources</a></li>
+                    <li><a href="http://github.com/e-picas/markdown-extended">Sources</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-xs" role="navigation">
                     <li><a href="#bottom" title="Go to the bottom of the page">&darr;</a></li>
@@ -158,7 +158,7 @@ if (isset($contents['file_path'])) {
     <footer id="footer">
         <div class="container">
             <div class="text-muted pull-right">
-                <a href="<?php echo $package['homepage']; ?>"><?php echo $package['name']; ?></a> package by <a href="https://github.com/piwi">@piwi</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
+                <a href="<?php echo $package['homepage']; ?>"><?php echo $package['name']; ?></a> package by <a href="https://github.com/e-picas">@picas</a> under <a href="http://spdx.org/licenses/BSD-3-Clause">BSD 3 Clause</a> license.
                 <p class="text-muted small" id="user_agent"></p>
             </div>
         </div>
