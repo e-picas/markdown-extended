@@ -1,63 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Console\UserInput | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
-                            </head>
-        <body id="class">
-            <div class="header">
-        <ul>
-            <li><a href="../../classes.html">Classes</a></li>
-                            <li><a href="../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../interfaces.html">Interfaces</a></li>
-            <li><a href="../../traits.html">Traits</a></li>
-            <li><a href="../../doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>MarkdownExtended\Console\UserInput | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
 
-            <div class="type">Class</div>
-    <h1><a href="../../MarkdownExtended/Console.html">MarkdownExtended\Console</a>\UserInput</h1>
+    <body id="class" data-name="class:MarkdownExtended_Console_UserInput" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <p>    class
-    <strong>UserInput</strong></p>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                                                            <li><a href="../../MarkdownExtended.html">MarkdownExtended</a></li>
+                                        <li><a href="../../MarkdownExtended/Console.html">Console</a></li>
+    
+                <li>UserInput</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            UserInput
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>UserInput</strong>
+</p>
+
+        
+    
 
             <div class="description">
-            <p>A class to manage command line options based on a set of definitions</p>
-            <p>
-</p>
-        </div>
+            <p>A class to manage command line options based on a set of definitions</p>                    </div>
+    
     
             <h2>Constants</h2>
 
-            <table>
+            <table class="table table-condensed">
                     <tr>
                 <td>NEGATE_SUFFIX</td>
                 <td class="last">
-                    <p><em>
-</em></p>
-                    <p>
-</p>
+                    <p><em></em></p>
+                    <p></p>
                 </td>
             </tr>
                     <tr>
                 <td>ARG_NULL</td>
                 <td class="last">
-                    <p><em>Use this when concerned option does NOT have any argument (i.e.</em></p>
-                    <p>for flags)</p>
+                    <p><em>Use this when concerned option does NOT have any argument (i.e. for flags)</em></p>
+                    <p></p>
                 </td>
             </tr>
                     <tr>
                 <td>ARG_OPTIONAL</td>
                 <td class="last">
-                    <p><em>Use this when concerned option can accept an argument but this is not required (i.e.</em></p>
-                    <p>a default value is defined)</p>
-
-<p>The optional argument MUST be written separated to the option by an equal sign.</p>
+                    <p><em>Use this when concerned option can accept an argument but this is not required (i.e. a default value is defined)</em></p>
+                    <p>The optional argument MUST be written separated to the option by an equal sign.</p>
                 </td>
             </tr>
                     <tr>
@@ -70,18 +123,15 @@
                     <tr>
                 <td>TYPE_BOOL</td>
                 <td class="last">
-                    <p><em>Use this to define a boolean option (i.e.</em></p>
-                    <p>1 or 0)</p>
-
-<p>This is the default for option with no argument (i.e. <code>self::ARG_NULL</code>)</p>
+                    <p><em>Use this to define a boolean option (i.e. 1 or 0)</em></p>
+                    <p>This is the default for option with no argument (i.e. <code>self::ARG_NULL</code>)</p>
                 </td>
             </tr>
                     <tr>
                 <td>TYPE_STRING</td>
                 <td class="last">
                     <p><em>Use this to define an option as a string</em></p>
-                    <p>
-</p>
+                    <p></p>
                 </td>
             </tr>
                     <tr>
@@ -105,134 +155,135 @@ the option's definition.</p>
     
             <h2>Properties</h2>
 
-            <table>
+            <table class="table table-condensed">
                     <tr>
                 <td class="type" id="property_NEGATE_VAL">
-                    static                                        
+                    static                                                            
                 </td>
                 <td>$NEGATE_VAL</td>
-                <td class="last">
-</td>
+                <td class="last"></td>
+                <td></td>
             </tr>
                     <tr>
                 <td class="type" id="property_NEGATE_INFO">
-                    static                                        
+                    static                                                            
                 </td>
                 <td>$NEGATE_INFO</td>
-                <td class="last">
-</td>
+                <td class="last"></td>
+                <td></td>
             </tr>
             </table>
 
     
             <h2>Methods</h2>
 
-            <table>
-                    <tr>
-                <td class="type">
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>(array $definitions)
-                    <p>
-</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     <a href="../../MarkdownExtended/Console/UserOption.html"><abbr title="MarkdownExtended\Console\UserOption">UserOption</abbr></a>
-                </td>
-                <td class="last">
-                    <a href="#method_getOption">getOption</a>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)
-                    <p>Gets an option object by name or shortcut</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getOption">getOption</a>($name)
+        
+                                            <p>Gets an option object by name or shortcut</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getIndexedOptions">getIndexedOptions</a>()
-                    <p>Gets the array of options indexed by their names</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets the array of options indexed by their names</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getFilteredOptions">getFilteredOptions</a>(string $name)
-                    <p>Gets an array of a value of each option, indexed by their names</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets an array of a value of each option, indexed by their names</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getOptionsInfo">getOptionsInfo</a>()
-                    <p>Gets an automatic information of a set of options</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets an automatic information of a set of options</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getOptionsSynopsis">getOptionsSynopsis</a>()
-                    <p>Gets an automatic synopsis of a set of options</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets an automatic synopsis of a set of options</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     object
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_parseOptions">parseOptions</a>()
-                    <p>Parse the command line user options based on CLI options definitions</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Parse the command line user options based on CLI options definitions</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getSanitizedUserInput">getSanitizedUserInput</a>()
-                    <p>Gets the input array of options and arguments</p>
-                </td>
-                <td></td>
-            </tr>
-            </table>
+        
+                                            <p>Gets the input array of options and arguments</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
 
 
         <h2>Details</h2>
 
-                        <h3 id="method___construct">
-        <div class="location">at line 80</div>
-        <code>            public            
-    <strong>__construct</strong>(array $definitions)</code>
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at line         line 80</div>
+        <code>                    
+    <strong>__construct</strong>(array $definitions)
+        </code>
     </h3>
     <div class="details">
-        <p>
-</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>array</td>
                 <td>$definitions</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
@@ -242,35 +293,38 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_getOption">
-        <div class="location">at line 104</div>
-        <code>            public            <a href="../../MarkdownExtended/Console/UserOption.html"><abbr title="MarkdownExtended\Console\UserOption">UserOption</abbr></a>
-    <strong>getOption</strong>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getOption">
+        <div class="location">at line         line 104</div>
+        <code>                    <a href="../../MarkdownExtended/Console/UserOption.html"><abbr title="MarkdownExtended\Console\UserOption">UserOption</abbr></a>
+    <strong>getOption</strong>($name)
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an option object by name or shortcut</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an option object by name or shortcut</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><abbr title="MarkdownExtended\Console\$name">$name</abbr></td>
+                <td></td>
                 <td>$name</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td><a href="../../MarkdownExtended/Console/UserOption.html"><abbr title="MarkdownExtended\Console\UserOption">UserOption</abbr></a></td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -279,24 +333,28 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_getIndexedOptions">
-        <div class="location">at line 116</div>
-        <code>            public            array
-    <strong>getIndexedOptions</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getIndexedOptions">
+        <div class="location">at line         line 116</div>
+        <code>                    array
+    <strong>getIndexedOptions</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets the array of options indexed by their names</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets the array of options indexed by their names</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -305,35 +363,38 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_getFilteredOptions">
-        <div class="location">at line 132</div>
-        <code>            public            array
-    <strong>getFilteredOptions</strong>(string $name)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getFilteredOptions">
+        <div class="location">at line         line 132</div>
+        <code>                    array
+    <strong>getFilteredOptions</strong>(string $name)
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an array of a value of each option, indexed by their names</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an array of a value of each option, indexed by their names</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$name</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -342,24 +403,28 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_getOptionsInfo">
-        <div class="location">at line 146</div>
-        <code>            public            array
-    <strong>getOptionsInfo</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getOptionsInfo">
+        <div class="location">at line         line 146</div>
+        <code>                    array
+    <strong>getOptionsInfo</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an automatic information of a set of options</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an automatic information of a set of options</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -368,24 +433,28 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_getOptionsSynopsis">
-        <div class="location">at line 161</div>
-        <code>            public            array
-    <strong>getOptionsSynopsis</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getOptionsSynopsis">
+        <div class="location">at line         line 161</div>
+        <code>                    array
+    <strong>getOptionsSynopsis</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an automatic synopsis of a set of options</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an automatic synopsis of a set of options</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -394,31 +463,35 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_parseOptions">
-        <div class="location">at line 177</div>
-        <code>            public            object
-    <strong>parseOptions</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_parseOptions">
+        <div class="location">at line         line 177</div>
+        <code>                    object
+    <strong>parseOptions</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Parse the command line user options based on CLI options definitions</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Parse the command line user options based on CLI options definitions</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>object</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td><a href="../../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
                 <td>if an option is unknown</td>
@@ -429,24 +502,28 @@ the option's definition.</p>
                     </div>
     </div>
 
-                <h3 id="method_getSanitizedUserInput">
-        <div class="location">at line 233</div>
-        <code>        static    public            array
-    <strong>getSanitizedUserInput</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSanitizedUserInput">
+        <div class="location">at line         line 233</div>
+        <code>        static            array
+    <strong>getSanitizedUserInput</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets the input array of options and arguments</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets the input array of options and arguments</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -455,10 +532,17 @@ the option's definition.</p>
                     </div>
     </div>
 
+            </div>
+            </div>
+
     
             </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>

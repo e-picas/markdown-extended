@@ -1,155 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Util\Registry | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
-                            </head>
-        <body id="class">
-            <div class="header">
-        <ul>
-            <li><a href="../../classes.html">Classes</a></li>
-                            <li><a href="../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../interfaces.html">Interfaces</a></li>
-            <li><a href="../../traits.html">Traits</a></li>
-            <li><a href="../../doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>MarkdownExtended\Util\Registry | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
 
-            <div class="type">Class</div>
-    <h1><a href="../../MarkdownExtended/Util.html">MarkdownExtended\Util</a>\Registry</h1>
+    <body id="class" data-name="class:MarkdownExtended_Util_Registry" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <p>    class
-    <strong>Registry</strong></p>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                                                            <li><a href="../../MarkdownExtended.html">MarkdownExtended</a></li>
+                                        <li><a href="../../MarkdownExtended/Util.html">Util</a></li>
+    
+                <li>Registry</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Registry
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>Registry</strong>
+</p>
+
+        
+    
 
             <div class="description">
-            <p>Basic registry object</p>
-            <p>
-</p>
-        </div>
+            <p>Basic registry object</p>                    </div>
+    
     
     
     
             <h2>Methods</h2>
 
-            <table>
-                    <tr>
-                <td class="type">
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>(array $data = array())
-                    <p>Initialize the registry</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Initialize the registry</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_set">set</a>(string $var, mixed $val)
-                    <p>Sets or resets a new instance in global registry</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Sets or resets a new instance in global registry</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_add">add</a>(string $var, mixed $val)
-                    <p>Adds something to an existing entry of the global registry, the entry is created if it not exist</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Adds something to an existing entry of the global registry, the entry is created if it not exist</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     bool
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_has">has</a>(string $var)
-                    <p>Tests if an index exists in the registry</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Tests if an index exists in the registry</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_remove">remove</a>(string $var, null|string $index = null)
-                    <p>Removes something to an existing entry of the global registry, the entry is created if it not exist</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Removes something to an existing entry of the global registry, the entry is created if it not exist</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     mixed
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_get">get</a>(string $var, mixed $default = null)
-                    <p>Gets an entry from the global registry</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets an entry from the global registry</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getAll">getAll</a>()
-                    <p>Gets the global registry</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets the global registry</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     int
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_count">count</a>()
-                    <p>Counts the registry entries</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Counts the registry entries</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;mixed
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_extend">extend</a>(mixed $what, mixed $add)
-                    <p>Extends a value with another, if types match</p>
-                </td>
-                <td></td>
-            </tr>
-            </table>
+        
+                                            <p>Extends a value with another, if types match</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
 
 
         <h2>Details</h2>
 
-                        <h3 id="method___construct">
-        <div class="location">at line 30</div>
-        <code>            public            
-    <strong>__construct</strong>(array $data = array())</code>
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at line         line 30</div>
+        <code>                    
+    <strong>__construct</strong>(array $data = array())
+        </code>
     </h3>
     <div class="details">
-        <p>Initialize the registry</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Initialize the registry</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>array</td>
                 <td>$data</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
@@ -159,41 +220,43 @@
                     </div>
     </div>
 
-                <h3 id="method_set">
-        <div class="location">at line 47</div>
-        <code>            public            void
-    <strong>set</strong>(string $var, mixed $val)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_set">
+        <div class="location">at line         line 47</div>
+        <code>                    void
+    <strong>set</strong>(string $var, mixed $val)
+        </code>
     </h3>
     <div class="details">
-        <p>Sets or resets a new instance in global registry</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets or resets a new instance in global registry</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
-                <td>
-</td>
+                <td></td>
             </tr>
                     <tr>
                 <td>mixed</td>
                 <td>$val</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -202,41 +265,43 @@
                     </div>
     </div>
 
-                <h3 id="method_add">
-        <div class="location">at line 60</div>
-        <code>            public            void
-    <strong>add</strong>(string $var, mixed $val)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_add">
+        <div class="location">at line         line 60</div>
+        <code>                    void
+    <strong>add</strong>(string $var, mixed $val)
+        </code>
     </h3>
     <div class="details">
-        <p>Adds something to an existing entry of the global registry, the entry is created if it not exist</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Adds something to an existing entry of the global registry, the entry is created if it not exist</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
-                <td>
-</td>
+                <td></td>
             </tr>
                     <tr>
                 <td>mixed</td>
                 <td>$val</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -245,35 +310,38 @@
                     </div>
     </div>
 
-                <h3 id="method_has">
-        <div class="location">at line 75</div>
-        <code>            public            bool
-    <strong>has</strong>(string $var)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_has">
+        <div class="location">at line         line 75</div>
+        <code>                    bool
+    <strong>has</strong>(string $var)
+        </code>
     </h3>
     <div class="details">
-        <p>Tests if an index exists in the registry</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Tests if an index exists in the registry</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>bool</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -282,41 +350,43 @@
                     </div>
     </div>
 
-                <h3 id="method_remove">
-        <div class="location">at line 88</div>
-        <code>            public            void
-    <strong>remove</strong>(string $var, null|string $index = null)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_remove">
+        <div class="location">at line         line 88</div>
+        <code>                    void
+    <strong>remove</strong>(string $var, null|string $index = null)
+        </code>
     </h3>
     <div class="details">
-        <p>Removes something to an existing entry of the global registry, the entry is created if it not exist</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Removes something to an existing entry of the global registry, the entry is created if it not exist</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
-                <td>
-</td>
+                <td></td>
             </tr>
                     <tr>
                 <td>null|string</td>
                 <td>$index</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>void</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -325,41 +395,43 @@
                     </div>
     </div>
 
-                <h3 id="method_get">
-        <div class="location">at line 109</div>
-        <code>            public            mixed
-    <strong>get</strong>(string $var, mixed $default = null)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_get">
+        <div class="location">at line         line 109</div>
+        <code>                    mixed
+    <strong>get</strong>(string $var, mixed $default = null)
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an entry from the global registry</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an entry from the global registry</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$var</td>
-                <td>
-</td>
+                <td></td>
             </tr>
                     <tr>
                 <td>mixed</td>
                 <td>$default</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>mixed</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -368,24 +440,28 @@
                     </div>
     </div>
 
-                <h3 id="method_getAll">
-        <div class="location">at line 119</div>
-        <code>            public            array
-    <strong>getAll</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAll">
+        <div class="location">at line         line 119</div>
+        <code>                    array
+    <strong>getAll</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets the global registry</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets the global registry</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -394,24 +470,28 @@
                     </div>
     </div>
 
-                <h3 id="method_count">
-        <div class="location">at line 129</div>
-        <code>            public            int
-    <strong>count</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_count">
+        <div class="location">at line         line 129</div>
+        <code>                    int
+    <strong>count</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Counts the registry entries</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Counts the registry entries</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>int</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -420,48 +500,50 @@
                     </div>
     </div>
 
-                <h3 id="method_extend">
-        <div class="location">at line 150</div>
-        <code>        static    public            mixed
-    <strong>extend</strong>(mixed $what, mixed $add)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_extend">
+        <div class="location">at line         line 150</div>
+        <code>        static            mixed
+    <strong>extend</strong>(mixed $what, mixed $add)
+        </code>
     </h3>
     <div class="details">
-        <p>Extends a value with another, if types match</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Extends a value with another, if types match</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>mixed</td>
                 <td>$what</td>
-                <td>
-</td>
+                <td></td>
             </tr>
                     <tr>
                 <td>mixed</td>
                 <td>$add</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>mixed</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td><a href="../../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
                 <td>if trying to extend an array with not an array</td>
@@ -480,10 +562,17 @@
                     </div>
     </div>
 
+            </div>
+            </div>
+
     
             </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>

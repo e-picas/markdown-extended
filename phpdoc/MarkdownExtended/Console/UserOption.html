@@ -1,34 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="robots" content="index, follow, all" />
-        <title>MarkdownExtended\Console\UserOption | Markdown Extended</title>
-                    <link rel="stylesheet" type="text/css" href="../../stylesheet.css">
-                            </head>
-        <body id="class">
-            <div class="header">
-        <ul>
-            <li><a href="../../classes.html">Classes</a></li>
-                            <li><a href="../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../interfaces.html">Interfaces</a></li>
-            <li><a href="../../traits.html">Traits</a></li>
-            <li><a href="../../doc-index.html">Index</a></li>
-            
-        </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>MarkdownExtended\Console\UserOption | Markdown Extended</title>
 
-        <div id="title">Markdown Extended</div>
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
 
-            <div class="type">Class</div>
-    <h1><a href="../../MarkdownExtended/Console.html">MarkdownExtended\Console</a>\UserOption</h1>
+    <body id="class" data-name="class:MarkdownExtended_Console_UserOption" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-        <div class="content">
-                <p>    class
-    <strong>UserOption</strong></p>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">Markdown Extended</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                                                            <li><a href="../../MarkdownExtended.html">MarkdownExtended</a></li>
+                                        <li><a href="../../MarkdownExtended/Console.html">Console</a></li>
+    
+                <li>UserOption</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            UserOption
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>UserOption</strong>
+</p>
+
+        
+    
 
             <div class="description">
-            <p>A class to manage one command line option based on a definition</p>
-            <p>The <code>$item</code> definition array may follow these rules:</p>
+            <p>A class to manage one command line option based on a definition</p>            <p>The <code>$item</code> definition array may follow these rules:</p>
 
 <ul>
 <li>'description' (required) is the option description used in help string</li>
@@ -47,123 +105,126 @@
  is used</li>
 <li>'list' (required for the LISTITEM type) defines the allowed list of option values</li>
 </ul>
-</p>
-        </div>
+</p>        </div>
+    
     
     
     
             <h2>Methods</h2>
 
-            <table>
-                    <tr>
-                <td class="type">
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>(array $item, string $name)
-                    <p>Organize and cleanup an option definition</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Organize and cleanup an option definition</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     bool
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_validateUserValue">validateUserValue</a>(string $value)
-                    <p>Validate a user CLI option value</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Validate a user CLI option value</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getInfo">getInfo</a>()
-                    <p>Gets an automatic information about the option</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets an automatic information about the option</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getSynopsis">getSynopsis</a>()
-                    <p>Gets an automatic synopsis of the option</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets an automatic synopsis of the option</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
-                </td>
-                <td class="last">
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getArgumentString">getArgumentString</a>()
-                    <p>Gets an option value type as string</p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+        
+                                            <p>Gets an option value type as string</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     mixed
-                </td>
-                <td class="last">
-                    <a href="#method_has">has</a>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)
-                    <p>Alias of <code>$this-&gt;data-&gt;...</code></p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_has">has</a>($name)
+        
+                                            <p>Alias of `$this->data->.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     mixed
-                </td>
-                <td class="last">
-                    <a href="#method_get">get</a>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)
-                    <p>Alias of <code>$this-&gt;data-&gt;...</code></p>
-                </td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type">
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_get">get</a>($name)
+        
+                                            <p>Alias of `$this->data->.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
-                </td>
-                <td class="last">
-                    <a href="#method_set">set</a>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name, <abbr title="MarkdownExtended\Console\$value">$value</abbr> $value)
-                    <p>Alias of <code>$this-&gt;data-&gt;...</code></p>
-                </td>
-                <td></td>
-            </tr>
-            </table>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_set">set</a>($name, $value)
+        
+                                            <p>Alias of `$this->data->.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
 
 
         <h2>Details</h2>
 
-                        <h3 id="method___construct">
-        <div class="location">at line 54</div>
-        <code>            public            
-    <strong>__construct</strong>(array $item, string $name)</code>
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at line         line 54</div>
+        <code>                    
+    <strong>__construct</strong>(array $item, string $name)
+        </code>
     </h3>
     <div class="details">
-        <p>Organize and cleanup an option definition</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Organize and cleanup an option definition</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>array</td>
                 <td>$item</td>
-                <td>
-</td>
+                <td></td>
             </tr>
                     <tr>
                 <td>string</td>
                 <td>$name</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
@@ -171,10 +232,11 @@
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td><a href="../../MarkdownExtended/Exception/UnexpectedValueException.html"><abbr title="MarkdownExtended\Exception\UnexpectedValueException">UnexpectedValueException</abbr></a></td>
-                <td>if the option does not define a description, an argument type, a type and its argument is required or the option's argument is a list item but no list is defined</td>
+                <td>if the option does not define a description,
+             an argument type, a type and its argument is required or the option's argument is a list item but no list is defined</td>
             </tr>
             </table>
 
@@ -182,45 +244,49 @@
                     </div>
     </div>
 
-                <h3 id="method_validateUserValue">
-        <div class="location">at line 129</div>
-        <code>            public            bool
-    <strong>validateUserValue</strong>(string $value)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_validateUserValue">
+        <div class="location">at line         line 129</div>
+        <code>                    bool
+    <strong>validateUserValue</strong>(string $value)
+        </code>
     </h3>
     <div class="details">
-        <p>Validate a user CLI option value</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Validate a user CLI option value</p>                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
                 <td>$value</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>bool</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
             
                             <h4>Exceptions</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
                 <td><a href="../../MarkdownExtended/Exception/InvalidArgumentException.html"><abbr title="MarkdownExtended\Exception\InvalidArgumentException">InvalidArgumentException</abbr></a></td>
-                <td>if the option requires an argument and does not received one and if the option's type validation fails</td>
+                <td>if the option requires an argument and does not received one
+             and if the option's type validation fails</td>
             </tr>
             </table>
 
@@ -228,24 +294,28 @@
                     </div>
     </div>
 
-                <h3 id="method_getInfo">
-        <div class="location">at line 179</div>
-        <code>            public            array
-    <strong>getInfo</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getInfo">
+        <div class="location">at line         line 179</div>
+        <code>                    array
+    <strong>getInfo</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an automatic information about the option</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an automatic information about the option</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -254,24 +324,28 @@
                     </div>
     </div>
 
-                <h3 id="method_getSynopsis">
-        <div class="location">at line 204</div>
-        <code>            public            array
-    <strong>getSynopsis</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSynopsis">
+        <div class="location">at line         line 204</div>
+        <code>                    array
+    <strong>getSynopsis</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an automatic synopsis of the option</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an automatic synopsis of the option</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -280,24 +354,28 @@
                     </div>
     </div>
 
-                <h3 id="method_getArgumentString">
-        <div class="location">at line 223</div>
-        <code>            public            string
-    <strong>getArgumentString</strong>()</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getArgumentString">
+        <div class="location">at line         line 223</div>
+        <code>                    string
+    <strong>getArgumentString</strong>()
+        </code>
     </h3>
     <div class="details">
-        <p>Gets an option value type as string</p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets an option value type as string</p>                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>string</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -306,35 +384,38 @@
                     </div>
     </div>
 
-                <h3 id="method_has">
-        <div class="location">at line 248</div>
-        <code>            public            mixed
-    <strong>has</strong>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_has">
+        <div class="location">at line         line 248</div>
+        <code>                    mixed
+    <strong>has</strong>($name)
+        </code>
     </h3>
     <div class="details">
-        <p>Alias of <code>$this-&gt;data-&gt;...</code></p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Alias of `$this->data->.</p>                    <p>..`</p>            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><abbr title="MarkdownExtended\Console\$name">$name</abbr></td>
+                <td></td>
                 <td>$name</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>mixed</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -343,35 +424,38 @@
                     </div>
     </div>
 
-                <h3 id="method_get">
-        <div class="location">at line 259</div>
-        <code>            public            mixed
-    <strong>get</strong>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_get">
+        <div class="location">at line         line 259</div>
+        <code>                    mixed
+    <strong>get</strong>($name)
+        </code>
     </h3>
     <div class="details">
-        <p>Alias of <code>$this-&gt;data-&gt;...</code></p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Alias of `$this->data->.</p>                    <p>..`</p>            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><abbr title="MarkdownExtended\Console\$name">$name</abbr></td>
+                <td></td>
                 <td>$name</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
             
                             <h4>Return Value</h4>
 
-                    <table>
+                    <table class="table table-condensed">
         <tr>
             <td>mixed</td>
-            <td>
-</td>
+            <td></td>
         </tr>
     </table>
 
@@ -380,30 +464,33 @@
                     </div>
     </div>
 
-                <h3 id="method_set">
-        <div class="location">at line 270</div>
-        <code>            public            
-    <strong>set</strong>(<abbr title="MarkdownExtended\Console\$name">$name</abbr> $name, <abbr title="MarkdownExtended\Console\$value">$value</abbr> $value)</code>
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_set">
+        <div class="location">at line         line 270</div>
+        <code>                    
+    <strong>set</strong>($name, $value)
+        </code>
     </h3>
     <div class="details">
-        <p>Alias of <code>$this-&gt;data-&gt;...</code></p>
-        <p>
-</p>
-        <div class="tags">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Alias of `$this->data->.</p>                    <p>..`</p>            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table>
+                    <table class="table table-condensed">
                     <tr>
-                <td><abbr title="MarkdownExtended\Console\$name">$name</abbr></td>
+                <td></td>
                 <td>$name</td>
-                <td>
-</td>
+                <td></td>
             </tr>
                     <tr>
-                <td><abbr title="MarkdownExtended\Console\$value">$value</abbr></td>
+                <td></td>
                 <td>$value</td>
-                <td>
-</td>
+                <td></td>
             </tr>
             </table>
 
@@ -412,11 +499,18 @@
             
                     </div>
     </div>
+
+            </div>
+            </div>
 
     
             </div>
-            <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
     </div>
     </body>
+
 </html>
