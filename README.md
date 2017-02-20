@@ -5,7 +5,7 @@ Yet another PHP parser for the markdown (*extended*) syntax.
 
 [![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=piwi&repo=markdown-extended&title=last+beta)](https://github.com/e-picas/markdown-extended/releases)
 [![Build Status](https://travis-ci.org/e-picas/markdown-extended.svg?branch=master)](http://travis-ci.org/e-picas/markdown-extended)
-[![Dependency Status](https://www.versioneye.com/user/projects/550e3650bc1c12efc3000067/badge.svg?style=flat)](http://www.versioneye.com/user/projects/550e3650bc1c12efc3000067)
+[![Dependency Status](https://www.versioneye.com/user/projects/570e45aafcd19a00415b1287/badge.svg?style=flat)](http://www.versioneye.com/user/projects/570e45aafcd19a00415b1287)
 [![Code Climate](https://codeclimate.com/github/e-picas/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/e-picas/markdown-extended)
 
 ----
