@@ -24,7 +24,7 @@
   },
   "require": { "php": ">=5.3.3" },
   "require-dev": {
-    "sami/sami": "2.*",
+    "sami/sami": "3.*",
     "phpunit/phpunit": "@stable",
     "phpmd/phpmd" : "@stable",
     "fabpot/php-cs-fixer": "@stable",
