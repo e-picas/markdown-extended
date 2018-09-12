@@ -42,6 +42,9 @@ abstract class AbstractOutputFormat
      */
     public function buildTag($tag_name, $content = null, array $attributes = array())
     {
+        if (!is_array($attributes)) {
+            $attributes = array();
+        }
         $_method = 'build'.Helper::toCamelCase($tag_name);
 
         if (isset($this->tags_map[$tag_name]) && isset($this->tags_map[$tag_name]['prefix'])) {

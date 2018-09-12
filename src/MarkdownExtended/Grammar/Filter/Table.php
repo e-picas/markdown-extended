@@ -197,7 +197,9 @@ class Table
             }
             foreach ($_headers as $n => $__header) {
                 if ($__header!='') {
-                    $cell_attributes = $attributes[$n];
+                    if (isset($attributes[$n])) {
+                        $cell_attributes = $attributes[$n];
+                    }
                     if (isset($headspans[$n])) {
                         $cell_attributes['colspan'] = $headspans[$n];
                     }
@@ -242,7 +244,9 @@ class Table
             }
             foreach ($row_cells as $n => $cell) {
                 if ($cell!='') {
-                    $cell_attributes = $attributes[$n];
+                    if (isset($attributes[$n])) {
+                        $cell_attributes = $attributes[$n];
+                    }
                     if (isset($colspans[$n])) {
                         $cell_attributes['colspan'] = $colspans[$n];
                     }
