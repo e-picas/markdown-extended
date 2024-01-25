@@ -1,0 +1,39 @@
+
+name: "Run tests"
+run-name: "Run Unit tests & cs-fixer for validation"
+
+on:
+  push:
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+
+  bump_release:
+    name: "PHP unit tests & code standards"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Install composer dependencies
+        uses: php-actions/composer@v6
+
+      - name: Run CS-Fixer
+        uses: php-actions/composer@v6
+        with:
+          command: run cs-fixer-ci
+
+      - name: Run unit tests
+        uses: php-actions/composer@v6
+        with:
+          command: run test
