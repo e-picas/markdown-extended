@@ -10,14 +10,13 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\ContentInterface;
+use MarkdownExtended\API\Kernel;
 
 /**
  * The default MarkdownExtended Content object
  */
-class Content
-    implements ContentInterface
+class Content implements ContentInterface
 {
     /**
      * @var string
@@ -52,12 +51,12 @@ class Content
     /**
      * @var array
      */
-    protected $notes        = array();
+    protected $notes        = [];
 
     /**
      * @var array
      */
-    protected $metadata     = array();
+    protected $metadata     = [];
 
     /**
      * Construct a new content object with a source and current parsing options
@@ -99,14 +98,14 @@ class Content
      */
     public function __toArray()
     {
-        return array(
+        return [
             'content'   => $this->getContent(),
             'charset'   => $this->getCharset(),
             'title'     => $this->getTitle(),
             'body'      => $this->getBody(),
             'notes'     => $this->getNotes(),
-            'metadata'  => $this->getMetadata()
-        );
+            'metadata'  => $this->getMetadata(),
+        ];
     }
 
     /**
@@ -281,7 +280,7 @@ class Content
     public function getMetadata($name = null)
     {
         if (!is_null($name)) {
-            return isset($this->metadata[$name]) ? $this->metadata[$name] : null;
+            return $this->metadata[$name] ?? null;
         }
         return $this->metadata;
     }

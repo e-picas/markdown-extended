@@ -10,11 +10,10 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use \MarkdownExtendedTests\ConsoleTest;
+use MarkdownExtendedTests\ConsoleTest;
 use MarkdownExtendedTests\ParserTest;
 
-class UsageTest
-    extends ConsoleTest
+class UsageTest extends ConsoleTest
 {
     /**
      * Test a call on a simple string with template empty argument
@@ -27,19 +26,19 @@ class UsageTest
         $res2 = $this->runCommand($this->getBaseCmd().' -t "'.ParserTest::MD_STRING.'"');
         $line = ParserTest::PARSED_STRING;
         $html = $this->stripWhitespaceAndNewLines(
-<<<MSG
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>1</title>
-</head>
-<body>
-<p>{$line}</p>
-</body>
-</html>
-MSG
-);
+            <<<MSG
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8" />
+                    <title>1</title>
+                </head>
+                <body>
+                <p>{$line}</p>
+                </body>
+                </html>
+                MSG
+        );
 
         // status with long option
         $this->assertEquals(
@@ -75,15 +74,15 @@ MSG
      */
     public function testSimpleStringCustomTemplate()
     {
-        $tpl    = $this->getPath(array($this->getBasePath(), 'tests', 'test-template.tpl'));
+        $tpl    = $this->getPath([$this->getBasePath(), 'tests', 'test-template.tpl']);
         $res    = $this->runCommand($this->getBaseCmd().' --template=' .$tpl. ' "'.ParserTest::MD_STRING.'"');
         $line   = ParserTest::PARSED_STRING;
         $html   = $this->stripWhitespaceAndNewLines(
             <<<MSG
-<custom>
-<p>{$line}</p>
-</custom>
-MSG
+                <custom>
+                <p>{$line}</p>
+                </custom>
+                MSG
         );
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($res['stdout']),
@@ -192,8 +191,8 @@ MSG
      */
     public function testTemplateAuto()
     {
-        $file       = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
-        $file_meta  = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
+        $file       = $this->getPath([$this->getBasePath(), 'tests', 'test.md']);
+        $file_meta  = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
         $body       = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
         $html       = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
 
@@ -221,13 +220,13 @@ MSG
      */
     public function testExtract()
     {
-        $file = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
-        $meta = array(
+        $file = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
+        $meta = [
             'meta1' => 'a value for meta 1',
-            'meta2' => 'another value for meta 2'
-        );
+            'meta2' => 'another value for meta 2',
+        ];
         $meta_str = '';
-        foreach ($meta as $var=>$val) {
+        foreach ($meta as $var => $val) {
             $meta_str .= $var.': '.$val.PHP_EOL;
         }
         $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
@@ -293,8 +292,8 @@ MSG
     {
         $this->flushTempDir();
 
-        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
-        $output = $this->getPath(array($this->getBasePath(), 'tmp', 'test-output-%s.html'));
+        $file   = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
+        $output = $this->getPath([$this->getBasePath(), 'tmp', 'test-output-%s.html']);
         $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
 
         // short option
@@ -337,8 +336,8 @@ MSG
     {
         $this->flushTempDir();
 
-        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test-meta.md'));
-        $output = $this->getPath(array($this->getBasePath(), 'tmp', 'test-output.html'));
+        $file   = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
+        $output = $this->getPath([$this->getBasePath(), 'tmp', 'test-output.html']);
         $regex  = basename($output).'~([0-9]{2}-?){6}';
 
         // first generation

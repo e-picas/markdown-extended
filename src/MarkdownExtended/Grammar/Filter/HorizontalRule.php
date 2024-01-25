@@ -10,14 +10,13 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown horizontal rules
  */
-class HorizontalRule
-    extends Filter
+class HorizontalRule extends Filter
 {
     /**
      * @param   string  $text
@@ -37,6 +36,7 @@ class HorizontalRule
                 $               # End of line.
             }mx',
             "\n" . parent::hashBlock(Kernel::get('OutputFormatBag')->buildTag('horizontal_rule')) . "\n",
-            $text);
+            $text
+        );
     }
 }

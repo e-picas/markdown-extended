@@ -11,15 +11,17 @@
 // get a well-formatted path
 $bootstrapGetPath = function ($parts) {
     return implode(DIRECTORY_SEPARATOR, array_map(
-        function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
-        is_array($parts) ? $parts : array($parts)
+        function ($p) {
+            return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $p);
+        },
+        is_array($parts) ? $parts : [$parts]
     ));
 };
 
 // the global bootstrapper
-if (file_exists($bootstrapper = $bootstrapGetPath(array(
-    dirname(__DIR__), 'src', 'bootstrap.php'
-)))) {
+if (file_exists($bootstrapper = $bootstrapGetPath([
+    dirname(__DIR__), 'src', 'bootstrap.php',
+]))) {
     require_once $bootstrapper;
 } else {
     trigger_error(

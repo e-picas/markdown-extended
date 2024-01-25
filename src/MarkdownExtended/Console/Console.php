@@ -10,10 +10,10 @@
 
 namespace MarkdownExtended\Console;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\Parser;
-use \MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Parser;
+use MarkdownExtended\Util\Helper;
 
 /**
  * This is the markdown-extended shell script definition
@@ -21,11 +21,11 @@ use \MarkdownExtended\Util\Helper;
  * It is called by the `bin/markdown-extended` script and
  * defines it whole process.
  */
-class Console
-    extends AbstractConsole
+class Console extends AbstractConsole
 {
-    protected $mde = array();
-    protected $results = array();
+    protected $mde = [];
+
+    protected $results = [];
 
     /**
      * Initialized the command
@@ -42,32 +42,33 @@ class Console
             ->setShortname(MarkdownExtended::SHORTNAME)
             ->setVersion(MarkdownExtended::VERSION)
             ->setDescription(MarkdownExtended::DESC)
-            ->setUsage(<<<DESC
-This program converts markdown-extended syntax text(s) source(s) from specified file(s)
-(or STDIN). The rendering can be the full parsed content or just a part of this content.
-By default, result is written through STDOUT in HTML format.
+            ->setUsage(
+                <<<DESC
+                    This program converts markdown-extended syntax text(s) source(s) from specified file(s)
+                    (or STDIN). The rendering can be the full parsed content or just a part of this content.
+                    By default, result is written through STDOUT in HTML format.
 
-To transform a file content, write its path as script argument. To process a list of input
-files, just write the concerned paths as arguments, separated by a space.
+                    To transform a file content, write its path as script argument. To process a list of input
+                    files, just write the concerned paths as arguments, separated by a space.
 
-To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
-To process a list of input strings, just write them as arguments, separated by a space.
-You can also use the output of a previous command with the pipe notation.
+                    To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
+                    To process a list of input strings, just write them as arguments, separated by a space.
+                    You can also use the output of a previous command with the pipe notation.
 
-Examples:
-    {$script} [options ...] input_filename [input_filename] [...]
-    {$script} [options ...] "markdown string read from STDIN"
-    echo "*Markdown* __content__" | {$script} [options ...]
+                    Examples:
+                        {$script} [options ...] input_filename [input_filename] [...]
+                        {$script} [options ...] "markdown string read from STDIN"
+                        echo "*Markdown* __content__" | {$script} [options ...]
 
-Additionally, you can call a special task running: `{$script} <task_name>`
-Available tasks are:
-    license         : read the full LICENSE of the application
-    manifest        : read the full application manifest
-    config-list     : dump current configuration settings list
-    filters-list    : list runtime filters for current configuration
+                    Additionally, you can call a special task running: `{$script} <task_name>`
+                    Available tasks are:
+                        license         : read the full LICENSE of the application
+                        manifest        : read the full application manifest
+                        config-list     : dump current configuration settings list
+                        filters-list    : list runtime filters for current configuration
 
-More information at <{$link}>.
-DESC
+                    More information at <{$link}>.
+                    DESC
             )
             ->setSynopsis(
                 $script . ' [options] "**markdown** _string_" [... string / file path]'
@@ -76,55 +77,55 @@ DESC
             ->setLongVersionString(
                 implode(PHP_EOL, MarkdownExtended::getAppInfo())
             )
-            ->addCliOption('output', array(
+            ->addCliOption('output', [
                 'shortcut'      => 'o',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING,
                 'negate'        => true,
-                'description'   => 'Write the result in concerned path(s).'
-            ))
-            ->addCliOption('config', array(
+                'description'   => 'Write the result in concerned path(s).',
+            ])
+            ->addCliOption('config', [
                 'shortcut'      => 'c',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING,
-                'description'   => 'Define a configuration file to over-write defaults.'
-            ))
-            ->addCliOption('format', array(
+                'description'   => 'Define a configuration file to over-write defaults.',
+            ])
+            ->addCliOption('format', [
                 'shortcut'      => 'f',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING,
                 'default'       => 'html',
-                'description'   => 'Define the final format to use ("HTML" by default).'
-            ))
-            ->addCliOption('extract', array(
+                'description'   => 'Define the final format to use ("HTML" by default).',
+            ])
+            ->addCliOption('extract', [
                 'shortcut'      => 'e',
                 'argument'      => UserInput::ARG_OPTIONAL,
                 'type'          => UserInput::TYPE_STRING,
                 'default'       => false,
                 'default_arg'   => 'metadata',
-                'description'   => 'Extract only a part of parsed content ("metadata" by default).'
-            ))
-            ->addCliOption('template', array(
+                'description'   => 'Extract only a part of parsed content ("metadata" by default).',
+            ])
+            ->addCliOption('template', [
                 'shortcut'      => 't',
                 'argument'      => UserInput::ARG_OPTIONAL,
                 'type'          => UserInput::TYPE_BOOL | UserInput::TYPE_PATH,
                 'negate'        => true,
                 'default'       => 'auto',
                 'default_arg'   => true,
-                'description'   => 'Define a template to load parsed content in (without argument, the default template will be used).'
-            ))
-            ->addCliOption('response', array(
+                'description'   => 'Define a template to load parsed content in (without argument, the default template will be used).',
+            ])
+            ->addCliOption('response', [
                 'shortcut'      => 'r',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING | UserInput::TYPE_LISTITEM,
                 'default'       => 'plain',
-                'list'          => array( 'plain', 'json', 'php' ),
-                'description'   => 'Define the response format in "plain" (default), "json" or "php".'
-            ))
-            ->addCliOption('force', array(
+                'list'          => [ 'plain', 'json', 'php' ],
+                'description'   => 'Define the response format in "plain" (default), "json" or "php".',
+            ])
+            ->addCliOption('force', [
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Force some actions (i.e. does not create file backup).'
-            ))
+                'description'   => 'Force some actions (i.e. does not create file backup).',
+            ])
         ;
 
         $this
@@ -177,7 +178,7 @@ DESC
         $mde_data = $this->options;
 
         // strip unused options
-        foreach (array('help', 'version', 'debug', 'quiet', 'verbose', 'extract', 'response') as $n) {
+        foreach (['help', 'version', 'debug', 'quiet', 'verbose', 'extract', 'response'] as $n) {
             unset($mde_data[$n]);
         }
 
@@ -190,7 +191,7 @@ DESC
         unset($mde_data['config']);
 
         // be sure to have a batch output name for multi-arguments
-        if (count($this->arguments)>1 && $mde_data['output']) {
+        if (count($this->arguments) > 1 && $mde_data['output']) {
             $output = $mde_data['output'];
             if (false === strpos($output, '%%')) {
                 $ext = pathinfo($output, PATHINFO_EXTENSION);
@@ -219,16 +220,16 @@ DESC
         }
 
         // hard debug info
-        $this->stream->debug(array('CLI available options:', Helper::debug($this->cli_options, null, false)));
-        $this->stream->debug(array('User options:', Helper::debug($this->options, null, false)));
-        $this->stream->debug(array('User arguments:', Helper::debug($this->arguments, null, false)));
+        $this->stream->debug(['CLI available options:', Helper::debug($this->cli_options, null, false)]);
+        $this->stream->debug(['User options:', Helper::debug($this->options, null, false)]);
+        $this->stream->debug(['User arguments:', Helper::debug($this->arguments, null, false)]);
 
         // a special task?
         if (count($this->arguments) === 1) {
             $args = $this->arguments;
             $task_method = 'runTask' . Helper::toCamelCase(str_replace('-', '_', array_shift($args)));
             if (method_exists($this, $task_method)) {
-                call_user_func(array($this, $task_method));
+                call_user_func([$this, $task_method]);
                 $this->stream->_exit();
             }
         }
@@ -248,7 +249,7 @@ DESC
     {
         // treat arguments one by one
         $counter = 1;
-        foreach ($this->arguments as $i=>$input) {
+        foreach ($this->arguments as $i => $input) {
             if (false === strpos($input, PHP_EOL) && file_exists($input)) {
                 $this->results[$input] =
                     $this->getMarkdownExtendedParser()->transformSource($input);
@@ -265,12 +266,12 @@ DESC
             if (!is_string($extract)) {
                 $extract = 'metadata';
             }
-            foreach ($this->results as $i=>$item) {
+            foreach ($this->results as $i => $item) {
                 $method = 'get' . Helper::toCamelCase($extract);
                 if (method_exists($item, $method)) {
-                    $this->results[$i] = call_user_func(array($item, $method));
+                    $this->results[$i] = call_user_func([$item, $method]);
                 } else {
-                    $this->results[$i] = call_user_func(array($item, 'getMetadata'), $extract);
+                    $this->results[$i] = call_user_func([$item, 'getMetadata'], $extract);
                 }
             }
         }
@@ -302,8 +303,8 @@ DESC
     protected function renderOutputPlain()
     {
         $results = $this->getResults();
-        foreach ($results as $i=>$result) {
-            if (count($results)>1) {
+        foreach ($results as $i => $result) {
+            if (count($results) > 1) {
                 $this->stream->writeln("==> $i <==");
             }
             $this->stream->write(Helper::getSafeString($result));
@@ -317,7 +318,7 @@ DESC
     protected function renderOutputJson()
     {
         $results = $this->getResults(true);
-        if (count($results)===1) {
+        if (count($results) === 1) {
             $result = array_shift($results);
             if ($this->stream->getVerbosity() === Stream::VERBOSITY_DEBUG && version_compare(PHP_VERSION, '5.4.0') >= 0) {
                 $this->stream->write(
@@ -348,7 +349,7 @@ DESC
     protected function renderOutputPhp()
     {
         $results = $this->getResults(true);
-        if (count($results)===1) {
+        if (count($results) === 1) {
             $result = array_shift($results);
             $this->stream->write(
                 serialize($result)
@@ -381,7 +382,7 @@ DESC
         if (file_exists($manifest = MDE_BASE_PATH . self::MANIFEST_FILE)) {
             $content = json_decode(Helper::readFile($manifest), true);
 
-            foreach (array('extra', 'autoload', 'autoload-dev', 'config', 'scripts', 'archive') as $entry) {
+            foreach (['extra', 'autoload', 'autoload-dev', 'config', 'scripts', 'archive'] as $entry) {
                 if (isset($content[$entry])) {
                     unset($content[$entry]);
                 }
@@ -415,8 +416,8 @@ DESC
 
         $loader = Kernel::get('GamutLoader');
 
-        $gamuts = array();
-        foreach (Kernel::get('config')->getAll() as $var=>$val) {
+        $gamuts = [];
+        foreach (Kernel::get('config')->getAll() as $var => $val) {
             if ($loader->isGamutStackName($var)) {
                 $gamuts[$var] = $val;
             }
@@ -438,19 +439,19 @@ DESC
 
         $loader = Kernel::get('GamutLoader');
 
-        $config = array();
-        foreach (Kernel::get('config')->getAll() as $var=>$val) {
+        $config = [];
+        foreach (Kernel::get('config')->getAll() as $var => $val) {
             if ($loader->isGamutStackName($var)) {
                 continue;
             }
             if (is_null($val)) {
                 $config[$var] = 'NULL';
             } elseif (is_bool($val)) {
-                $config[$var] = $val===true ? 'true' : 'false';
+                $config[$var] = $val === true ? 'true' : 'false';
             } elseif (is_callable($val)) {
                 $config[$var] = 'function()';
             } elseif (is_array($val)) {
-                foreach ($val as $subvar=>$subval) {
+                foreach ($val as $subvar => $subval) {
                     $config[$var . '.' . $subvar] = $subval;
                 }
             } else {
@@ -458,7 +459,7 @@ DESC
             }
         }
 
-//        var_export($config);
+        //        var_export($config);
         $this->_writeTask($config, 'Configuration settings');
     }
 

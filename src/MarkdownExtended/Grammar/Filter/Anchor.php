@@ -10,10 +10,10 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown links
@@ -28,8 +28,7 @@ use \MarkdownExtended\Grammar\GamutLoader;
  * the `link_mask_title` config entry, filled with the link URL.
  *
  */
-class Anchor
-    extends Filter
+class Anchor extends Filter
 {
     /**
      * Set up the `in_anchor` config flag on `false`
@@ -54,7 +53,8 @@ class Anchor
         Kernel::setConfig('in_anchor', true);
 
         // First, handle reference-style links: [link text] [id]
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             (                                       # wrap whole match in $1
               \[
                 ('.Kernel::getConfig('nested_brackets_re').') # link text = $2
@@ -68,10 +68,13 @@ class Anchor
               \]
             )
             }xs',
-            array($this, '_reference_callback'), $text);
+            [$this, '_reference_callback'],
+            $text
+        );
 
         // Next, inline-style links: [link text](url "optional title")
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             (                                               # wrap whole match in $1
               \[
                 ('.Kernel::getConfig('nested_brackets_re').') # link text = $2
@@ -93,19 +96,24 @@ class Anchor
               \)
             )
             }xs',
-            array($this, '_inline_callback'), $text);
+            [$this, '_inline_callback'],
+            $text
+        );
 
         // Last, handle reference-style shortcuts: [link text]
         // These must come last in case you've also got [link text][1]
         // or [link text](/foo)
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             (                   # wrap whole match in $1
               \[
                 ([^\[\]]+)      # link text = $2; can\'t contain [ or ]
               \]
             )
             }xs',
-            array($this, '_reference_callback'), $text);
+            [$this, '_reference_callback'],
+            $text
+        );
 
         Kernel::setConfig('in_anchor', false);
         return $text;
@@ -119,7 +127,7 @@ class Anchor
     {
         $whole_match =  $matches[1];
         $link_text   =  $matches[2];
-        $link_id     =& $matches[3];
+        $link_id     = & $matches[3];
 
         // for shortcut links like [this][] or [this]
         if (empty($link_id)) {
@@ -134,7 +142,7 @@ class Anchor
         $predef_attributes = Kernel::getConfig('attributes');
 
         if (isset($urls[$link_id])) {
-            $attributes = array();
+            $attributes = [];
             $attributes['href'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $urls[$link_id]);
             if (!empty($titles[$link_id])) {
                 $attributes['title'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $titles[$link_id]);
@@ -163,9 +171,9 @@ class Anchor
     {
         $link_text      =  $matches[2];
         $url            =  $matches[3] === '' ? $matches[4] : $matches[3];
-        $title          =& $matches[7];
+        $title          = & $matches[7];
 
-        $attributes = array();
+        $attributes = [];
         $attributes['href'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $url);
         if (!empty($title)) {
             $attributes['title'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $title);

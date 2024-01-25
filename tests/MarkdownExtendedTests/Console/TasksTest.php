@@ -10,10 +10,9 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use \MarkdownExtendedTests\ConsoleTest;
+use MarkdownExtendedTests\ConsoleTest;
 
-class TasksTest
-    extends ConsoleTest
+class TasksTest extends ConsoleTest
 {
     /**
      * Test task LICENSE

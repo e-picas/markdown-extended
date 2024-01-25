@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedDev;
 
-use \Symfony\Component\Finder\Finder;
-use \MarkdownExtended\Util\Helper;
+use Symfony\Component\Finder\Finder;
+use MarkdownExtended\Util\Helper;
 
 /**
  * The Compiler class compiles the whole markdown into a phar
@@ -25,10 +25,11 @@ class Compiler
 {
     public $root_dir;
 
-    protected $_logs = array();
+    protected $_logs = [];
 
-    const PHAR_FILE = 'markdown-extended.phar';
-    const PHAR_NAME = 'mde.phar';
+    public const PHAR_FILE = 'markdown-extended.phar';
+
+    public const PHAR_NAME = 'mde.phar';
 
     public function getDefaultFinder()
     {
@@ -140,7 +141,7 @@ class Compiler
         foreach (token_get_all($source) as $token) {
             if (is_string($token)) {
                 $output .= $token;
-            } elseif (in_array($token[0], array(T_COMMENT, T_DOC_COMMENT))) {
+            } elseif (in_array($token[0], [T_COMMENT, T_DOC_COMMENT])) {
                 $output .= str_repeat("\n", substr_count($token[1], "\n"));
             } elseif (T_WHITESPACE === $token[0]) {
                 // reduce wide spaces
@@ -162,22 +163,22 @@ class Compiler
     {
         $name = self::PHAR_NAME;
         return <<<EOF
-#!/usr/bin/env php
-<?php
-/*
- * This file is part of the PHP-Markdown-Extended package.
- *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+            #!/usr/bin/env php
+            <?php
+            /*
+             * This file is part of the PHP-Markdown-Extended package.
+             *
+             * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+             *
+             * For the full copyright and license information, please view the LICENSE
+             * file that was distributed with this source code.
+             */
 
-Phar::mapPhar('{$name}');
-define('MDE_PHAR', true);
-require 'phar://{$name}/bin/markdown-extended';
+            Phar::mapPhar('{$name}');
+            define('MDE_PHAR', true);
+            require 'phar://{$name}/bin/markdown-extended';
 
-__HALT_COMPILER();
-EOF;
+            __HALT_COMPILER();
+            EOF;
     }
 }

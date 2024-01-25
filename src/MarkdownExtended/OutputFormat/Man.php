@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\OutputFormatInterface;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Util\Helper;
 
 /**
  * Format a content in UNIX Manpage format
@@ -32,101 +32,99 @@ use \MarkdownExtended\Util\Helper;
  * @link https://www.gnu.org/software/groff/
  * @link http://manpages.ubuntu.com/manpages/oneiric/man7/groff_man.7.html
  */
-class Man
-    extends AbstractOutputFormat
-    implements OutputFormatInterface
+class Man extends AbstractOutputFormat implements OutputFormatInterface
 {
     /**
      * @var array
      */
-    protected $tags_map = array(
-        'indent' => array(
+    protected $tags_map = [
+        'indent' => [
             'tag' => '.RS',
-        ),
-        'unindent' => array(
+        ],
+        'unindent' => [
             'tag' => '.RE',
-        ),
-        'title' => array(
-            'levels' => array(
-                1 => array(
-                    'tag' => '.SH'
-                ),
-                2 => array(
-                    'tag' => '.SS'
-                ),
-                3 => array(
-                    'tag' => '.TP'
-                )
-            )
-        ),
-        'paragraph' => array(
-            'tag'=>'.PP',
-        ),
-        'bold' => array(
-            'tag'=>'\fB',
-            'closable'=>true,
-        ),
-        'italic' => array(
-            'tag'=>'\fI',
-            'closable'=>true,
-        ),
-        'preformatted' => array(
-            'tag'=>'.EX',
-            'end_tag'=>'.EE',
-            'indentable'=>true,
-        ),
-        'code' => array(
-            'tag'=>'`\fS',
+        ],
+        'title' => [
+            'levels' => [
+                1 => [
+                    'tag' => '.SH',
+                ],
+                2 => [
+                    'tag' => '.SS',
+                ],
+                3 => [
+                    'tag' => '.TP',
+                ],
+            ],
+        ],
+        'paragraph' => [
+            'tag' => '.PP',
+        ],
+        'bold' => [
+            'tag' => '\fB',
+            'closable' => true,
+        ],
+        'italic' => [
+            'tag' => '\fI',
+            'closable' => true,
+        ],
+        'preformatted' => [
+            'tag' => '.EX',
+            'end_tag' => '.EE',
+            'indentable' => true,
+        ],
+        'code' => [
+            'tag' => '`\fS',
             'end_tag' => '`',
-            'closable'=>true,
-        ),
-        'abbreviation' => array(
-            'tag'=>'.SM',
-        ),
-        'definition_list_item_term' => array(
-            'tag'=>'.TP',
+            'closable' => true,
+        ],
+        'abbreviation' => [
+            'tag' => '.SM',
+        ],
+        'definition_list_item_term' => [
+            'tag' => '.TP',
             'prefix' => '<!--dt-->',
-        ),
-        'list' => array(
-            'tag'=>'ul',
-            'indentable'=>true,
-        ),
-        'unordered_list_item' => array(
-            'tag'=>'.IP ',
-        ),
-        'ordered_list_item' => array(
-            'tag'=>'.IP \(bu ',
-        ),
-        'new_line' => array(
-            'tag'=>'.br',
-        ),
-        'link' => array(
-            'tag'=>'.UR',
-            'end_tag'=>'.UE',
-        ),
-        'mailto_link' => array(
-            'tag'=>'.MT',
-            'end_tag'=>'.ME',
-        ),
-    );
+        ],
+        'list' => [
+            'tag' => 'ul',
+            'indentable' => true,
+        ],
+        'unordered_list_item' => [
+            'tag' => '.IP ',
+        ],
+        'ordered_list_item' => [
+            'tag' => '.IP \(bu ',
+        ],
+        'new_line' => [
+            'tag' => '.br',
+        ],
+        'link' => [
+            'tag' => '.UR',
+            'end_tag' => '.UE',
+        ],
+        'mailto_link' => [
+            'tag' => '.MT',
+            'end_tag' => '.ME',
+        ],
+    ];
 
     /**
      * List of classic manpages sections
      * @var array
      * @deprecated Titles are not filtered now
      */
-    public static $sections = array(
+    public static $sections = [
         'name', 'synopsis', 'syntax', 'availability', 'description', 'options', 'files', 'resources', 'environment', 'diagnosis', 'bugs', 'author', 'see also',
-        'examples', 'standards', 'license', 'history', 'exit status', 'messages', 'copyright', 'reporting bugs', 'notes'
-    );
+        'examples', 'standards', 'license', 'history', 'exit status', 'messages', 'copyright', 'reporting bugs', 'notes',
+    ];
 
     /**
      * List of special metadata to build manpage headers
      * @var array
      */
-    public static $headers_meta_data = array(
-        'man-name', 'name', 'version', 'date', 'section', 'man'
-    );
+    public static $headers_meta_data = [
+        'man-name', 'name', 'version', 'date', 'section', 'man',
+    ];
 
     /**
      * @var string
@@ -163,18 +161,18 @@ class Man
      *
      * @return string
      */
-    public function buildTag($tag_name, $content = null, array $attributes = array())
+    public function buildTag($tag_name, $content = null, array $attributes = [])
     {
         $_method = 'build'.Helper::toCamelCase($tag_name);
         if (method_exists($this, $_method)) {
             return call_user_func_array(
-                array($this, $_method),
-                array($content, $attributes)
+                [$this, $_method],
+                [$content, $attributes]
             );
         } else {
             return call_user_func_array(
-                array($this, 'getTagString'),
-                array($content, $tag_name, $attributes)
+                [$this, 'getTagString'],
+                [$content, $tag_name, $attributes]
             );
         }
     }
@@ -186,7 +184,7 @@ class Man
      *
      * @return string
      */
-    public function getTagString($content, $tag_name, array $attributes = array())
+    public function getTagString($content, $tag_name, array $attributes = [])
     {
         return $this->escapeString($content);
     }
@@ -204,17 +202,17 @@ class Man
         $text = html_entity_decode($text);
         if ($escape_slashes) {
             $slash  = preg_quote(chr(92));
-//            $mask   = $slash.'(?![fB|fI|fS|fP])';
+            //            $mask   = $slash.'(?![fB|fI|fS|fP])';
             $text   = preg_replace('/' . $slash . '/', $slash . $slash, $text);
         }
         if ($strip_blank_lines) {
             $text   = preg_replace("/^[\n]+/", "\n", $text);
         }
-        if (!empty($text) && $text{0} == "'") {
+        if (!empty($text) && $text[0] == "'") {
             $text = '\\' . $text;
         }
         return $text;
-//        return $this->trimString($text);
+        //        return $this->trimString($text);
     }
 
     /**
@@ -230,16 +228,16 @@ class Man
         return $text;
     }
 
-// -------------------
-// Content's blocks builder
-// -------------------
+    // -------------------
+    // Content's blocks builder
+    // -------------------
 
     public function teardown($text)
     {
-        $headers    = array();
+        $headers    = [];
         $content    = Kernel::get(Kernel::TYPE_CONTENT);
 
-        foreach ($content->getMetadata() as $name=>$value) {
+        foreach ($content->getMetadata() as $name => $value) {
             if ($name === 'title') {
                 $headers['name'] = $value;
             } elseif (in_array($name, self::$headers_meta_data)) {
@@ -256,33 +254,34 @@ class Man
         return $text;
     }
 
-// -------------------
-// Tag specific builder
-// -------------------
+    // -------------------
+    // Tag specific builder
+    // -------------------
 
     protected $_current_title_level = 0;
+
     protected $subtitle_max_level = 3;
 
-    public function buildTitle($text, array $attributes = array())
+    public function buildTitle($text, array $attributes = [])
     {
         $text = $this->escapeString($text);
-        $level = isset($attributes['level']) ? $attributes['level'] : '1';
+        $level = $attributes['level'] ?? '1';
         $indent = '';
-        if ($this->_current_title_level!==0) {
+        if ($this->_current_title_level !== 0) {
             $lvl = $level;
-            if ($lvl>=$this->_current_title_level) {
-                while ($lvl>=$this->_current_title_level) {
+            if ($lvl >= $this->_current_title_level) {
+                while ($lvl >= $this->_current_title_level) {
                     $indent .= $this->unindent();
                     $lvl--;
                 }
-            } elseif ($lvl<=$this->_current_title_level) {
-                while ($lvl<=$this->_current_title_level) {
+            } elseif ($lvl <= $this->_current_title_level) {
+                while ($lvl <= $this->_current_title_level) {
                     $indent .= $this->indent();
                     $lvl++;
                 }
             }
         }
-//        if ((int) $level <= $this->subtitle_max_level && in_array(strtolower($text), self::$sections)) {
+        //        if ((int) $level <= $this->subtitle_max_level && in_array(strtolower($text), self::$sections)) {
         if ($level <= 2) {
             $this->_current_title_level = 0;
             return $indent . '.SH ' . strtoupper($text) . $this->new_line;
@@ -290,7 +289,7 @@ class Man
             $this->_current_title_level = 0;
             return $indent . '.SS ' . $text . $this->new_line;
         } else {
-            $domid = isset($attributes['id']) ? $attributes['id'] : $text;
+            $domid = $attributes['id'] ?? $text;
             $this->_current_title_level = $level;
             return $indent . '.TP '
                 . $domid . $this->new_line
@@ -310,7 +309,7 @@ class Man
             /*$this->new_line .*/ '.RE' . $this->new_line : '';
     }
 
-    public function buildMetaData($text = null, array $attributes = array())
+    public function buildMetaData($text = null, array $attributes = [])
     {
         $text = $this->escapeString($text);
         if (!empty($attributes['name'])) {
@@ -322,18 +321,18 @@ class Man
         return '.\" ' . $text /*. $this->new_line*/;
     }
 
-    public function buildMetaTitle($text = null, array $attributes = array())
+    public function buildMetaTitle($text = null, array $attributes = [])
     {
         return '.TH '
             . ' "' . (!empty($attributes['man-name']) ? $attributes['man-name'] : '') . '"'
             . ' "' . (!empty($attributes['section']) ? $attributes['section'] : '3') . '"'
             . ' "' . (!empty($attributes['date']) ? $attributes['date'] : '') . '"'
-            . ' "' . (!empty($attributes['version']) ? 'Version '.str_replace(array('version', 'Version'), '', $attributes['version']) : '') . '"'
+            . ' "' . (!empty($attributes['version']) ? 'Version '.str_replace(['version', 'Version'], '', $attributes['version']) : '') . '"'
             . ' "' . (!empty($attributes['man']) ? $attributes['man'] : '') . '"'
             . $this->new_line;
     }
 
-    public function buildParagraph($text = null, array $attributes = array())
+    public function buildParagraph($text = null, array $attributes = [])
     {
         if ($this->no_paragraphing) {
             return $this->new_line
@@ -346,27 +345,27 @@ class Man
         }
     }
 
-    public function buildBold($text = null, array $attributes = array())
+    public function buildBold($text = null, array $attributes = [])
     {
         return '\fB'
             . $this->trimString($this->escapeString($text))
             . $this->ending_tag;
     }
 
-    public function buildItalic($text = null, array $attributes = array())
+    public function buildItalic($text = null, array $attributes = [])
     {
         return '\fI'
             . $this->trimString($this->escapeString($text))
             . $this->ending_tag;
     }
 
-    public function buildPreformatted($text = null, array $attributes = array())
+    public function buildPreformatted($text = null, array $attributes = [])
     {
         $lines = explode("\n", $text);
         $text = '';
-        foreach ($lines as $i=>$line) {
+        foreach ($lines as $i => $line) {
             $text .= $this->escapeString($line, true);
-            if ($i < count($lines)-1) {
+            if ($i < count($lines) - 1) {
                 $text .= $this->new_line . $this->buildTag('new_line');
             }
         }
@@ -377,7 +376,7 @@ class Man
                 . $text
                 . $this->new_line . $this->buildTag('new_line')
                 . $this->unindent()
-                ;
+            ;
         } else {
             return
                 $this->indent()
@@ -385,18 +384,18 @@ class Man
                 . $text
                 . $this->new_line . '.EE' . $this->new_line
                 . $this->unindent()
-                ;
+            ;
         }
     }
 
-    public function buildCode($text = null, array $attributes = array())
+    public function buildCode($text = null, array $attributes = [])
     {
         return '`\fS'
             . $this->escapeString($text, true)
             . $this->ending_tag . '`';
     }
 
-    public function buildAbbreviation($text = null, array $attributes = array())
+    public function buildAbbreviation($text = null, array $attributes = [])
     {
         return $this->escapeString($text)
             . (!empty($attributes['title']) ?
@@ -406,13 +405,13 @@ class Man
             : '');
     }
 
-    public function buildDefinitionList($text = null, array $attributes = array())
+    public function buildDefinitionList($text = null, array $attributes = [])
     {
         $this->no_paragraphing = false;
         return $this->trimString($text) . $this->new_line;
     }
 
-    public function buildDefinitionListItemTerm($text = null, array $attributes = array())
+    public function buildDefinitionListItemTerm($text = null, array $attributes = [])
     {
         $this->no_paragraphing = true;
         $text = html_entity_decode($text);
@@ -420,29 +419,29 @@ class Man
             . $this->trimString($text) . $this->new_line;
     }
 
-    public function buildDefinitionListItemDefinition($text = null, array $attributes = array())
+    public function buildDefinitionListItemDefinition($text = null, array $attributes = [])
     {
         $this->no_paragraphing = true;
         $text = $this->escapeString($text);
         return $this->new_line . $this->trimString($text);
     }
 
-    public function buildNewLine($text = null, array $attributes = array())
+    public function buildNewLine($text = null, array $attributes = [])
     {
         return '.br' . $this->new_line;
     }
 
-    public function buildHorizontalRule($text = null, array $attributes = array())
+    public function buildHorizontalRule($text = null, array $attributes = [])
     {
         return $this->new_line . '--------------------' . $this->new_line;
     }
 
-    public function buildComment($text = null, array $attributes = array())
+    public function buildComment($text = null, array $attributes = [])
     {
         return '.\"' . $this->escapeString($text);
     }
 
-    public function buildListItem($text = null, array $attributes = array())
+    public function buildListItem($text = null, array $attributes = [])
     {
         $this->no_paragraphing = true;
         return '.IP \(bu ' . $this->new_line
@@ -450,14 +449,14 @@ class Man
             . $this->new_line;
     }
 
-    public function buildUnorderedListItem($text = null, array $attributes = array())
+    public function buildUnorderedListItem($text = null, array $attributes = [])
     {
         return $this->buildListItem($text, $attributes);
     }
 
     protected $ordered_list_counter = 1;
 
-    public function buildOrderedListItem($text = null, array $attributes = array())
+    public function buildOrderedListItem($text = null, array $attributes = [])
     {
         $this->no_paragraphing = true;
         $str = '.IP ' . $this->ordered_list_counter . '.'
@@ -468,7 +467,7 @@ class Man
         return $str;
     }
 
-    public function buildList($text = null, array $attributes = array())
+    public function buildList($text = null, array $attributes = [])
     {
         $this->no_paragraphing = false;
         return $this->indent()
@@ -476,18 +475,18 @@ class Man
             . $this->unindent();
     }
 
-    public function buildUnorderedList($text = null, array $attributes = array())
+    public function buildUnorderedList($text = null, array $attributes = [])
     {
         return $this->buildList($text, $attributes);
     }
 
-    public function buildOrderedList($text = null, array $attributes = array())
+    public function buildOrderedList($text = null, array $attributes = [])
     {
         $this->ordered_list_counter = 1;
         return $this->buildList($text, $attributes);
     }
 
-    public function buildLink($text = null, array $attributes = array())
+    public function buildLink($text = null, array $attributes = [])
     {
         if (isset($attributes['email'])) {
             $open_tag   = '.MT';
@@ -496,18 +495,18 @@ class Man
         } else {
             $open_tag   = '.UR';
             $close_tag  = '.UE';
-            $href       = isset($attributes['href']) ? $attributes['href'] : $text;
+            $href       = $attributes['href'] ?? $text;
         }
-        return ($text!==$href ? $text . ' <' : '<')
+        return ($text !== $href ? $text . ' <' : '<')
 //            . $this->new_line . $open_tag . ' ' . $href . $this->new_line
             . $href
 //            . $this->new_line . $close_tag
-            . ($text!==$href ? '>' : '>')
+            . ($text !== $href ? '>' : '>')
 //            . $this->new_line
         ;
     }
 
-    public function buildBlockquote($text = null, array $attributes = array())
+    public function buildBlockquote($text = null, array $attributes = [])
     {
         return
             $this->indent()
@@ -515,34 +514,40 @@ class Man
             . $this->escapeString($this->trimString($text))
             . $this->new_line . '"' . $this->new_line
             . $this->unindent()
-            ;
+        ;
     }
 
-    public function buildTableCaption($text = null, array $attributes = array())
+    public function buildTableCaption($text = null, array $attributes = [])
     {
         return $this->new_line . $this->buildBold($text) . $this->new_line;
     }
-    public function buildTableBody($text = null, array $attributes = array())
+
+    public function buildTableBody($text = null, array $attributes = [])
     {
         return $this->escapeString($text);
     }
-    public function buildTableHeader($text = null, array $attributes = array())
+
+    public function buildTableHeader($text = null, array $attributes = [])
     {
         return $this->buildTableBody($text, $attributes);
     }
-    public function buildTableFooter($text = null, array $attributes = array())
+
+    public function buildTableFooter($text = null, array $attributes = [])
     {
         return $this->buildTableBody($text, $attributes);
     }
-    public function buildTableLine($text = null, array $attributes = array())
+
+    public function buildTableLine($text = null, array $attributes = [])
     {
         return '| ' . $this->escapeString($text);
     }
-    public function buildTableCell($text = null, array $attributes = array())
+
+    public function buildTableCell($text = null, array $attributes = [])
     {
         return $text . ' | ';
     }
-    public function buildTableCellHead($text = null, array $attributes = array())
+
+    public function buildTableCellHead($text = null, array $attributes = [])
     {
         return $this->buildBold($text) . ' | ';
     }

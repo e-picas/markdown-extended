@@ -10,16 +10,14 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\API\GamutInterface;
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\GamutInterface;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * The base class for tools
  */
-class Tools
-    extends AbstractGamut
-    implements GamutInterface
+class Tools extends AbstractGamut implements GamutInterface
 {
     /**
      * {@inheritDoc}
@@ -130,7 +128,7 @@ class Tools
      */
     public function ExtractAttributes($attributes)
     {
-        $attrs = array();
+        $attrs = [];
         $callback = function ($matches) use ($attrs) {
             $attrs[$matches[1]] = $matches[3];
         };
@@ -187,7 +185,7 @@ class Tools
         }
 
         // Join grafs in one text, then unhash HTML tags.
-//      $text = implode("\n\n", $grafs);
+        //      $text = implode("\n\n", $grafs);
         $text = implode('', $grafs);
 
         // Finish by removing any tag hashes still present in $text.

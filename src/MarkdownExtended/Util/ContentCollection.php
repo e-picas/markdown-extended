@@ -10,21 +10,20 @@
 
 namespace MarkdownExtended\Util;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * A simple Content objects collection
  */
-class ContentCollection
-    extends \ArrayIterator
+class ContentCollection extends \ArrayIterator
 {
     /**
      * Constructs a new collection being sure that data are all `\MarkdownExtended\API\ContentInterface`
      *
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         parent::__construct();
         foreach ($data as $item) {
@@ -43,8 +42,10 @@ class ContentCollection
     {
         if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
             throw new UnexpectedValueException(
-                sprintf('Method "%s" expects a "%s" parameter object, got "%s"',
-                    __METHOD__, Kernel::CONTENT_INTERFACE,
+                sprintf(
+                    'Method "%s" expects a "%s" parameter object, got "%s"',
+                    __METHOD__,
+                    Kernel::CONTENT_INTERFACE,
                     is_object($content) ? get_class($content) : gettype($content)
                 )
             );
@@ -64,8 +65,10 @@ class ContentCollection
     {
         if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
             throw new UnexpectedValueException(
-                sprintf('Method "%s" expects the second parameter to implement "%s", got "%s"',
-                    __METHOD__, Kernel::CONTENT_INTERFACE,
+                sprintf(
+                    'Method "%s" expects the second parameter to implement "%s", got "%s"',
+                    __METHOD__,
+                    Kernel::CONTENT_INTERFACE,
                     is_object($content) ? get_class($content) : gettype($content)
                 )
             );

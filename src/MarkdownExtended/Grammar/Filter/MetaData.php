@@ -10,14 +10,13 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown meta data
  */
-class MetaData
-    extends Filter
+class MetaData extends Filter
 {
     /**
      * @var     array
@@ -27,7 +26,7 @@ class MetaData
     /**
      * @var     array
      */
-    protected $special_metadata = array();
+    protected $special_metadata = [];
 
     /**
      * @var     int
@@ -39,11 +38,11 @@ class MetaData
      */
     public function _setup()
     {
-        Kernel::setConfig('metadata', array());
-        $this->metadata = array();
+        Kernel::setConfig('metadata', []);
+        $this->metadata = [];
         $this->special_metadata = Kernel::getConfig('special_metadata');
         if (empty($this->special_metadata)) {
-            $this->special_metadata = array();
+            $this->special_metadata = [];
         }
         self::$inMetaData = -1;
     }
@@ -57,7 +56,7 @@ class MetaData
         $lines = preg_split('/\n/', $text);
         $first_line = $lines[0];
         if (preg_match('/^([a-zA-Z0-9][0-9a-zA-Z _-]*?):\s*(.*)$/', $first_line)) {
-            $text='';
+            $text = '';
             self::$inMetaData = 1;
             foreach ($lines as $line) {
                 if (self::$inMetaData === 0) {
@@ -72,7 +71,7 @@ class MetaData
         }
         if (!empty($this->metadata)) {
             Kernel::setConfig('metadata', $this->metadata);
-            foreach ($this->metadata as $var=>$val) {
+            foreach ($this->metadata as $var => $val) {
                 Kernel::get(Kernel::TYPE_CONTENT)->addMetadata($var, $val);
             }
         }
@@ -87,10 +86,15 @@ class MetaData
     {
         $line = preg_replace_callback(
             '{^([a-zA-Z0-9][0-9a-zA-Z _-]*?):\s*(.*)$}i',
-            array($this, '_callback'), $line);
+            [$this, '_callback'],
+            $line
+        );
         if (strlen($line)) {
             $line = preg_replace_callback(
-                '/^\s*(.+)$/', array($this, '_callback_nextline'), $line);
+                '/^\s*(.+)$/',
+                [$this, '_callback_nextline'],
+                $line
+            );
         }
         if (strlen($line)) {
             $line .= "\n";
@@ -130,11 +134,11 @@ class MetaData
     {
         $metadata = Kernel::getConfig('metadata');
         if (!empty($metadata)) {
-            foreach ($metadata as $meta_name=>$meta_value) {
+            foreach ($metadata as $meta_name => $meta_value) {
                 if (!empty($meta_name) && is_string($meta_name)) {
                     if (in_array($meta_name, $this->special_metadata)) {
                         Kernel::setConfig($meta_name, $meta_value);
-                    } elseif ($meta_name=='title') {
+                    } elseif ($meta_name == 'title') {
                         Kernel::get(Kernel::TYPE_CONTENT)
                             ->setTitle($meta_value);
                     }

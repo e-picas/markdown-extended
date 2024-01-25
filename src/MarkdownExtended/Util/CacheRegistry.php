@@ -25,7 +25,7 @@ class CacheRegistry
      */
     public function __construct()
     {
-        $this->_cache = new Registry;
+        $this->_cache = new Registry();
     }
 
     /**

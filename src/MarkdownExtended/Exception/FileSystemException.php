@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Exception;
 
-use \Exception as BaseException;
+use Exception as BaseException;
 
 /**
  * Specific Exception to use for file-system errors, with a default status code of 91
  */
-class FileSystemException
-    extends RuntimeException
+class FileSystemException extends RuntimeException
 {
     public function __construct($message = '', $code = 0, BaseException $previous = null)
     {
-        parent::__construct($message, ($code===0 ? 91 : $code), $previous);
+        parent::__construct($message, ($code === 0 ? 91 : $code), $previous);
     }
 }

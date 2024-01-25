@@ -58,18 +58,25 @@ namespace MarkdownExtended;
  * this software, even if advised of the possibility of such damage.
  *
  */
-class MarkdownExtended
-    extends Parser
+class MarkdownExtended extends Parser
 {
-    const SHORTNAME = 'markdown-extended-php';
-    const NAME      = 'PHP Markdown Extended';
-    const VERSION   = '0.1.0-dev';
-    const DATE      = '2015-04-16';
-    const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
-    const LINK      = 'http://github.com/e-picas/markdown-extended.git';
-    const LICENSE   = 'BSD-3-Clause license <http://opensource.org/licenses/BSD-3-Clause>';
-    const SOURCES   = 'Sources & updates: <http://github.com/e-picas/markdown-extended.git>';
-    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
+    public const SHORTNAME = 'markdown-extended-php';
+
+    public const NAME      = 'PHP Markdown Extended';
+
+    public const VERSION   = '0.1.0-dev';
+
+    public const DATE      = '2015-04-16';
+
+    public const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
+
+    public const LINK      = 'http://github.com/e-picas/markdown-extended.git';
+
+    public const LICENSE   = 'BSD-3-Clause license <http://opensource.org/licenses/BSD-3-Clause>';
+
+    public const SOURCES   = 'Sources & updates: <http://github.com/e-picas/markdown-extended.git>';
+
+    public const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
 
     /**
      * Gets app's information
@@ -82,13 +89,13 @@ class MarkdownExtended
         if ($shorten) {
             return self::SHORTNAME . '@' . self::VERSION;
         }
-        return array(
+        return [
             self::NAME . ' - ' . self::SHORTNAME . '@' . self::VERSION,
             self::DESC,
             self::COPYRIGHT,
             self::LICENSE,
-            self::SOURCES
-        );
+            self::SOURCES,
+        ];
     }
 
     /**
@@ -98,7 +105,7 @@ class MarkdownExtended
      */
     public static function getDefaults()
     {
-        return array(
+        return [
             // ------------------
             // Global parsing options
             // ------------------
@@ -117,22 +124,22 @@ class MarkdownExtended
             'no_markup'                 => false,
             'no_entities'               => false,
             // Special metadata used during parsing
-            'special_metadata'          => array(
+            'special_metadata'          => [
                 'baseheaderlevel',
                 'quoteslanguage',
                 'last_update',
-                'file_name'
-            ),
+                'file_name',
+            ],
             // Block inclusion tag
             'block_inclusion_mask'      => '<!-- @([^ @]+)@ -->',
             // Define an array of base path for block inclusions ; defaults to cwd.
-            'base_path'                 => array(getcwd()),
+            'base_path'                 => [getcwd()],
             // Optional id attribute prefix for footnote links and backlinks.
             'footnote_id_prefix'        => '',
             // Optional id attribute prefix for glossary footnote links and backlinks.
             'glossarynote_id_prefix'    => '',
             // Optional id attribute prefix for citation footnote links and backlinks.
-            'bibliographynote_id_prefix'=> '',
+            'bibliographynote_id_prefix' => '',
 
             // ------------------
             // Callback options
@@ -144,7 +151,7 @@ class MarkdownExtended
             },
             // get a content's title from concerned file path
             'filepath_to_title'         => function ($path) {
-                return \MarkdownExtended\Util\Helper::humanReadable(pathinfo($path,  PATHINFO_FILENAME));
+                return \MarkdownExtended\Util\Helper::humanReadable(pathinfo($path, PATHINFO_FILENAME));
             },
 
             // ------------------
@@ -154,9 +161,9 @@ class MarkdownExtended
             // the default output format
             'output_format'             => 'html',
 
-            'output_format_options'     => array(
+            'output_format_options'     => [
 
-                'html'                  => array(
+                'html'                  => [
                     // Change to ">" for HTML output
                     'html_empty_element_suffix' => ' />',
 
@@ -201,19 +208,19 @@ class MarkdownExtended
 
                     // the default template to use if needed
                     'default_template'          => 'html5',
-                ),
+                ],
 
-            ),
+            ],
 
             // ------------------
             // Initial entries options
             // ------------------
 
             // Predefined urls, titles and abbreviations for reference links and images.
-            'predefined_urls'               => array(),
-            'predefined_titles'             => array(),
-            'predefined_attributes'         => array(),
-            'predefined_abbr'               => array(),
+            'predefined_urls'               => [],
+            'predefined_titles'             => [],
+            'predefined_attributes'         => [],
+            'predefined_abbr'               => [],
 
             // ------------------
             // Templating options
@@ -225,19 +232,19 @@ class MarkdownExtended
             // - 'file path' to a specific template file
             // - 'class name' to a custom `` object
             'template'                  => 'auto',
-            'template_options'          => array(
+            'template_options'          => [
                 // Template mask for keywords regexp
                 // i.e. "{% TOC %}" or "{%TOC%}" ("%%" will be a literal "%")
                 'keywords_mask'         => "{%% ?%s ?%%}",
-                'keywords'              => array(
+                'keywords'              => [
                     'body'                  => 'BODY',
                     'notes'                 => 'NOTES',
                     'metadata'              => 'META',
                     'charset'               => 'CHARSET',
                     'title'                 => 'TITLE',
-                ),
+                ],
                 'inline_template'       => "{% META %}\n{% BODY %}\n{% NOTES %}",
-            ),
+            ],
 
             // ------------------
             // Filters gamuts options
@@ -245,19 +252,19 @@ class MarkdownExtended
 
             // full gamuts stacks
             // each sub-item is constructed like "gamut_alias or class name : method or class name : method name"
-            'initial_gamut' => array(
+            'initial_gamut' => [
                 'filter:Detab:init'          => '5',
                 'filter:Emphasis:prepare'    => '10',
-            ),
-            'transform_gamut' => array(
+            ],
+            'transform_gamut' => [
                 'tool:RemoveUtf8Marker'     => '5',
-                'tool:StandardizeLineEnding'=> '10',
+                'tool:StandardizeLineEnding' => '10',
                 'tool:AppendEndingNewLines' => '15',
                 'filter:Detab'               => '20',
                 'filter:HTML'                => '25',
                 'tool:StripSpacedLines'     => '30',
-            ),
-            'document_gamut' => array(
+            ],
+            'document_gamut' => [
                 'tool:prepareOutputFormat' => '0',
                 'filter:MetaData:strip'     => '1',
                 'filter:FencedCodeBlock'    => '5',
@@ -269,8 +276,8 @@ class MarkdownExtended
                 'filter:Note:append'        => '40',
                 'filter:BlockInclusion'     => '50',
                 'tool:teardownOutputFormat' => '70',
-            ),
-            'span_gamut' => array(
+            ],
+            'span_gamut' => [
                 'filter:Span'               => '-30',
                 'filter:Note'               => '5',
                 'filter:Image'              => '10',
@@ -280,8 +287,8 @@ class MarkdownExtended
                 'filter:Emphasis'           => '50',
                 'filter:HardBreak'          => '60',
                 'filter:Abbreviation'       => '70',
-            ),
-            'block_gamut' => array(
+            ],
+            'block_gamut' => [
                 'filter:FencedCodeBlock'    => '5',
                 'filter:Header'             => '10',
                 'filter:Table'              => '15',
@@ -292,12 +299,12 @@ class MarkdownExtended
                 'filter:BlockQuote'         => '60',
                 'filter:Maths'              => '70',
                 'tool:RebuildParagraph'    => '100',
-            ),
-            'html_block_gamut' => array(
+            ],
+            'html_block_gamut' => [
                 'filter:HTML'               => '10',
                 'block_gamut'               => '20',
-            ),
-        );
+            ],
+        ];
     }
 
     /**

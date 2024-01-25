@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown blockquotes
@@ -23,8 +23,7 @@ use \MarkdownExtended\Grammar\Lexer;
  *          multi-line if required and **tagged**
  *
  */
-class BlockQuote
-    extends Filter
+class BlockQuote extends Filter
 {
     /**
      * Create blockquotes blocks
@@ -34,7 +33,8 @@ class BlockQuote
      */
     public function transform($text)
     {
-        return preg_replace_callback('/
+        return preg_replace_callback(
+            '/
               (                         # Wrap whole match in $1
                 (?>
                   ^[ ]*>[ ]?            # ">" at the start of a line
@@ -45,7 +45,9 @@ class BlockQuote
                 )+
               )
             /xm',
-            array($this, '_callback'), $text);
+            [$this, '_callback'],
+            $text
+        );
     }
 
     /**
@@ -57,16 +59,16 @@ class BlockQuote
     protected function _callback($matches)
     {
         $blockq = $matches[1];
-        $cite = isset($matches[2]) ? $matches[2] : null;
+        $cite = $matches[2] ?? null;
         // trim one level of quoting - trim whitespace-only lines
         $blockq = preg_replace('/^[ ]*>[ ]?(\((.+?)\))?|^[ ]+$/m', '', $blockq);
         $blockq = Lexer::runGamut('html_block_gamut', $blockq); # recurse
         $blockq = preg_replace('/^/m', "  ", $blockq);
         // These leading spaces cause problem with <pre> content,
         // so we need to fix that:
-        $blockq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', array($this, '_callback_spaces'), $blockq);
+        $blockq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', [$this, '_callback_spaces'], $blockq);
 
-        $attributes = array();
+        $attributes = [];
         if (!empty($cite)) {
             $attributes['cite'] = $cite;
         }

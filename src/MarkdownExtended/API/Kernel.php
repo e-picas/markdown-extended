@@ -10,71 +10,71 @@
 
 namespace MarkdownExtended\API;
 
-use \MarkdownExtended\Exception\UnexpectedValueException;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\Util\Registry;
+use MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\Util\Registry;
 
 class Kernel
 {
     /**
      * Identify an OutputFormat object
      */
-    const TYPE_OUTPUTFORMAT         = 'output_format';
+    public const TYPE_OUTPUTFORMAT         = 'output_format';
 
     /**
      * Identify a Gamut object
      */
-    const TYPE_GAMUT                = 'gamut';
+    public const TYPE_GAMUT                = 'gamut';
 
     /**
      * Identify a Content object
      */
-    const TYPE_CONTENT              = 'content';
+    public const TYPE_CONTENT              = 'content';
 
     /**
      * Identify a Template object
      */
-    const TYPE_TEMPLATE             = 'template';
+    public const TYPE_TEMPLATE             = 'template';
 
     /**
      * Interface all OutputFormat objects must implement
      */
-    const OUTPUTFORMAT_INTERFACE    = 'MarkdownExtended\API\OutputFormatInterface';
+    public const OUTPUTFORMAT_INTERFACE    = 'MarkdownExtended\API\OutputFormatInterface';
 
     /**
      * Interface all Gamut (filter) objects must implement
      */
-    const GAMUT_INTERFACE           = 'MarkdownExtended\API\GamutInterface';
+    public const GAMUT_INTERFACE           = 'MarkdownExtended\API\GamutInterface';
 
     /**
      * Interface all Content objects must implement
      */
-    const CONTENT_INTERFACE         = 'MarkdownExtended\API\ContentInterface';
+    public const CONTENT_INTERFACE         = 'MarkdownExtended\API\ContentInterface';
 
     /**
      * Interface all Template objects must implement
      */
-    const TEMPLATE_INTERFACE        = 'MarkdownExtended\API\TemplateInterface';
+    public const TEMPLATE_INTERFACE        = 'MarkdownExtended\API\TemplateInterface';
 
     /**
      * Dirname of internal resources
      */
-    const RESOURCE_TEMPLATE         = 'template';
+    public const RESOURCE_TEMPLATE         = 'template';
 
     /**
      * Dirname of internal configuration files
      */
-    const RESOURCE_CONFIG           = 'config';
+    public const RESOURCE_CONFIG           = 'config';
 
     /**
      * Internal templates mask
      */
-    const RESOURCE_TEMPLATE_MASK    = 'default-%s.tpl';
+    public const RESOURCE_TEMPLATE_MASK    = 'default-%s.tpl';
 
     /**
      * Internal configuration mask
      */
-    const RESOURCE_CONFIG_MASK      = 'config-%s.ini';
+    public const RESOURCE_CONFIG_MASK      = 'config-%s.ini';
 
     /**
      * @var \MarkdownExtended\Util\Registry
@@ -91,7 +91,7 @@ class Kernel
      */
     private function __construct()
     {
-        $this->_registry = new Registry;
+        $this->_registry = new Registry();
     }
 
     /**
@@ -112,13 +112,13 @@ class Kernel
      */
     public static function createInstance()
     {
-        self::$_instance = new self;
-        self::set('config', new Registry);
+        self::$_instance = new self();
+        self::set('config', new Registry());
     }
 
-// -----------------
-// Services management
-// -----------------
+    // -----------------
+    // Services management
+    // -----------------
 
     /**
      * Get the API's interface by object's type
@@ -245,16 +245,18 @@ class Kernel
             throw new UnexpectedValueException(
                 sprintf(
                     'Object "%s" of type "%s" must implement API interface "%s"',
-                    ($real_name ?: $class_name), $type, self::getApiFromType($type)
+                    ($real_name ?: $class_name),
+                    $type,
+                    self::getApiFromType($type)
                 )
             );
         }
         return true;
     }
 
-// -----------------
-// Configuration aliases
-// -----------------
+    // -----------------
+    // Configuration aliases
+    // -----------------
 
     /**
      * Gets a configuration entry
@@ -341,7 +343,10 @@ class Kernel
      * @return null
      */
     protected static function _configRecursiveIterator(
-        $type = 'get', $index, $value = null, $default = null
+        $type = 'get',
+        $index,
+        $value = null,
+        $default = null
     ) {
         $result     = null;
         $indexer    = new \ArrayIterator(explode('.', $index));
@@ -369,9 +374,9 @@ class Kernel
         return $result ?: $default;
     }
 
-// -----------------
-// App resources finder
-// -----------------
+    // -----------------
+    // App resources finder
+    // -----------------
 
     /**
      * Finds an internal resource file by type
@@ -383,9 +388,9 @@ class Kernel
     public static function getResourcePath($name, $type)
     {
         if ($type === self::RESOURCE_CONFIG || $type === self::RESOURCE_TEMPLATE) {
-            $local_path = realpath(Helper::getPath(array(
-                dirname(__DIR__), 'Resources', strtolower($type)
-            )));
+            $local_path = realpath(Helper::getPath([
+                dirname(__DIR__), 'Resources', strtolower($type),
+            ]));
 
             if (file_exists($local = $local_path . DIRECTORY_SEPARATOR . $name)) {
                 return $local;

@@ -10,14 +10,13 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown in-text HTML
  */
-class HTML
-    extends Filter
+class HTML extends Filter
 {
     /**
      * @var string  Tags that are always treated as block tags:
@@ -44,7 +43,6 @@ class HTML
      */
     public $auto_close_tags_re = 'hr|img';
 
-
     /**
      * Hashify HTML Blocks and "clean tags".
      *
@@ -66,7 +64,7 @@ class HTML
     public function transform($text)
     {
         // Call the HTML-in-Markdown hasher.
-        list($text, ) = self::_hashBlocks_inMarkdown($text);
+        [$text, ] = self::_hashBlocks_inMarkdown($text);
         return $text;
     }
 
@@ -104,7 +102,7 @@ class HTML
     protected function _hashBlocks_inMarkdown($text, $indent = 0, $enclosing_tag_re = '', $span = false)
     {
         if ($text === '') {
-            return array('', '');
+            return ['', ''];
         }
 
         // Regex to check for the presense of newlines around a block tag.
@@ -149,9 +147,9 @@ class HTML
                 |
                                                 # Indented code block
                     (?: ^[ ]*\n | ^ | \n[ ]*\n )
-                    [ ]{'.($indent+4).'}[^\n]* \n
+                    [ ]{'.($indent + 4).'}[^\n]* \n
                     (?>
-                        (?: [ ]{'.($indent+4).'}[^\n]* | [ ]* ) \n
+                        (?: [ ]{'.($indent + 4).'}[^\n]* | [ ]* ) \n
                     )*
                 |
                                                 # Fenced code block marker
@@ -160,7 +158,6 @@ class HTML
                 ' : ''). '                     # End (if not is span).
                 )
             }xs';
-
 
         $depth = 0;     // Current depth inside the tag tree.
         $parsed = "";   // Parsed text that will be returned.
@@ -196,7 +193,7 @@ class HTML
             $tag_re = preg_quote($tag); // For use in a regular expression.
 
             // Check for: Code span marker
-            if ($tag{0} == "`") {
+            if ($tag[0] == "`") {
                 // Find corresponding end marker.
                 $tag_re = preg_quote($tag);
                 // End marker found: pass text unchanged until marker.
@@ -211,7 +208,7 @@ class HTML
             }
 
             // Check for: Fenced code block marker.
-            elseif (preg_match('{^\n?[ ]{0,'.($indent+3).'}~}', $tag)) {
+            elseif (preg_match('{^\n?[ ]{0,'.($indent + 3).'}~}', $tag)) {
                 // Fenced code block marker: find matching end marker.
                 $tag_re = preg_quote(trim($tag));
                 // End marker found: pass text unchanged until marker.
@@ -226,7 +223,7 @@ class HTML
             }
 
             // Check for: Indented code block.
-            elseif ($tag{0} == "\n" || $tag{0} == " ") {
+            elseif ($tag[0] == "\n" || $tag[0] == " ") {
                 // Indented code block: pass it unchanged, will be handled later.
                 $parsed .= $tag;
             }
@@ -238,9 +235,9 @@ class HTML
                 (preg_match('{^<(?:'.$this->blocks_tags_re.')\b}', $tag) &&
                     preg_match($newline_before_re, $parsed) &&
                     preg_match($newline_after_re, $text))
-                ) {
+            ) {
                 // Need to parse tag and following text using the HTML parser.
-                list($block_text, $text) =
+                [$block_text, $text] =
                     self::_hashBlocks_inHTML($tag . $text, "hashBlock", true);
 
                 // Make sure it stays outside of any paragraph by adding newlines.
@@ -250,10 +247,10 @@ class HTML
             // Check for: Clean tag (like script, math)
             //            HTML Comments, processing instructions.
             elseif (preg_match('{^<(?:'.$this->clean_tags_re.')\b}', $tag) ||
-                $tag{1} == '!' || $tag{1} == '?') {
+                $tag[1] == '!' || $tag[1] == '?') {
                 // Need to parse tag and following text using the HTML parser.
                 // (don't check for markdown attribute)
-                list($block_text, $text) =
+                [$block_text, $text] =
                     $this->_hashBlocks_inHTML($tag . $text, "hashClean", false);
                 $parsed .= $block_text;
             }
@@ -263,9 +260,9 @@ class HTML
                 # Same name as enclosing tag.
                 preg_match('{^</?(?:'.$enclosing_tag_re.')\b}', $tag)) {
                 // Increase/decrease nested tag count.
-                if ($tag{1} == '/') {
+                if ($tag[1] == '/') {
                     $depth--;
-                } elseif ($tag{strlen($tag)-2} != '/') {
+                } elseif ($tag[strlen($tag) - 2] != '/') {
                     $depth++;
                 }
                 if ($depth < 0) {
@@ -280,7 +277,7 @@ class HTML
             }
         } while ($depth >= 0);
 
-        return array($parsed, $text);
+        return [$parsed, $text];
     }
 
     /**
@@ -301,7 +298,7 @@ class HTML
     protected function _hashBlocks_inHTML($text, $hash_method, $md_attr)
     {
         if ($text === '') {
-            return array('', '');
+            return ['', ''];
         }
 
         // Regex to match `markdown` attribute inside of a tag.
@@ -370,7 +367,7 @@ class HTML
                 // In that case, we return original text unchanged and pass the
                 // first character as filtered to prevent an infinite loop in the
                 // parent function.
-                return array($original_text{0}, substr($original_text, 1));
+                return [$original_text[0], substr($original_text, 1)];
             }
 
             $block_text .= $parts[0]; // Text before current tag.
@@ -379,7 +376,7 @@ class HTML
 
             // Check for: Auto-close tag (like <hr/>) Comments and Processing Instructions.
             if (preg_match('{^</?(?:'.$this->auto_close_tags_re.')\b}', $tag) ||
-                $tag{1} == '!' || $tag{1} == '?') {
+                $tag[1] == '!' || $tag[1] == '?') {
                 // Just add the tag to the block as if it was text.
                 $block_text .= $tag;
             } else {
@@ -387,9 +384,9 @@ class HTML
                 // Increase/decrease nested tag count. Only do so if
                 // the tag's name match base tag's.
                 if (preg_match('{^</?'.$base_tag_name_re.'\b}', $tag)) {
-                    if ($tag{1} == '/') {
+                    if ($tag[1] == '/') {
                         $depth--;
-                    } elseif ($tag{strlen($tag)-2} != '/') {
+                    } elseif ($tag[strlen($tag) - 2] != '/') {
                         $depth++;
                     }
                 }
@@ -425,7 +422,7 @@ class HTML
                     $tag_name_re = $matches[1];
 
                     // Parse the content using the HTML-in-Markdown parser.
-                    list($block_text, $text) =
+                    [$block_text, $text] =
                         self::_hashBlocks_inMarkdown($text, $indent, $tag_name_re, $span_mode);
 
                     // Outdent markdown text.
@@ -451,6 +448,6 @@ class HTML
         // Hash last block text that wasn't processed inside the loop.
         $parsed .= $this->$hash_method($block_text);
 
-        return array($parsed, $text);
+        return [$parsed, $text];
     }
 }

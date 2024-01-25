@@ -10,22 +10,24 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\Util\CacheRegistry;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Util\CacheRegistry;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * Central class to execute filters and tools methods on a content
  *
  * It can handle a list of gamuts, execute a specific method and run a single gamut.
  */
-class GamutLoader
-    extends CacheRegistry
+class GamutLoader extends CacheRegistry
 {
-    const FILTER_ALIAS      = 'filter';
-    const TOOL_ALIAS        = 'tool';
-    const FILTER_NAMESPACE  = 'MarkdownExtended\Grammar\Filter';
-    const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
+    public const FILTER_ALIAS      = 'filter';
+
+    public const TOOL_ALIAS        = 'tool';
+
+    public const FILTER_NAMESPACE  = 'MarkdownExtended\Grammar\Filter';
+
+    public const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
 
     /**
      * @var array
@@ -94,14 +96,14 @@ class GamutLoader
     {
         switch ($this->getGamutType($gamut)) {
             case self::FILTER_ALIAS:
-                @list($base, $class, $method) = explode(':', $gamut);
+                @[$base, $class, $method] = explode(':', $gamut);
                 return self::FILTER_ALIAS . ':' . $class;
                 break;
             case self::TOOL_ALIAS:
                 return self::TOOL_ALIAS;
                 break;
             default:
-                @list($class, $method) = explode(':', $gamut);
+                @[$class, $method] = explode(':', $gamut);
                 return $class;
         }
     }
@@ -114,11 +116,11 @@ class GamutLoader
     public function getAllGamuts()
     {
         if (empty($this->all_gamuts)) {
-            $this->all_gamuts = array();
+            $this->all_gamuts = [];
 
-            foreach (Kernel::get('config')->getAll() as $var=>$val) {
+            foreach (Kernel::get('config')->getAll() as $var => $val) {
                 if ($this->isGamutStackName($var)) {
-                    foreach ($val as $item=>$priority) {
+                    foreach ($val as $item => $priority) {
                         if (!$this->isGamutStackName($item)) {
                             $name = $this->getGamutBaseName($item);
                             if (!in_array($name, $this->all_gamuts, true)) {
@@ -244,15 +246,15 @@ class GamutLoader
 
         switch ($this->getGamutType($gamut)) {
             case self::FILTER_ALIAS:
-                @list($base, $class, $method) = explode(':', $gamut);
+                @[$base, $class, $method] = explode(':', $gamut);
                 return $this->_runGamutFilterMethod($class, $_method ?: $method, $text);
                 break;
             case self::TOOL_ALIAS:
-                @list($base, $method) = explode(':', $gamut);
+                @[$base, $method] = explode(':', $gamut);
                 return $this->_runToolsMethod($method, $text);
                 break;
             default:
-                @list($class, $method) = explode(':', $gamut);
+                @[$class, $method] = explode(':', $gamut);
                 return $this->_runClassMethod($class, $_method ?: $method, $text);
         }
     }
@@ -279,7 +281,7 @@ class GamutLoader
                 );
             }
 
-            $_obj = new $obj_name;
+            $_obj = new $obj_name();
             Kernel::validate($_obj, Kernel::TYPE_GAMUT, $obj_name);
             $this->setCache($obj_name, $_obj);
         }
@@ -325,7 +327,7 @@ class GamutLoader
                 );
             }
 
-            $_obj = new $class;
+            $_obj = new $class();
             Kernel::validate($_obj, Kernel::TYPE_GAMUT, $class);
             $this->setCache($class, $_obj);
         }
@@ -338,7 +340,7 @@ class GamutLoader
             );
         }
 
-        $text = call_user_func(array($_obj, $method), $text);
+        $text = call_user_func([$_obj, $method], $text);
         return $text;
     }
 }

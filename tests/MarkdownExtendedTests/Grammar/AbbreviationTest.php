@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTest;
+use MarkdownExtended\MarkdownExtended;
 
 class AbbreviationTest extends ParserTest
 {
@@ -23,7 +23,7 @@ A text whit HTML expression.
 *[HTML]: Hyper Text Markup Language
         ";
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, array('template'=>false)),
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             'A text whit <abbr title="Hyper Text Markup Language">HTML</abbr> expression.',
             '[parsing] Test of abbreviation'
         );

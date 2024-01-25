@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTest;
+use MarkdownExtended\MarkdownExtended;
 
 class BlockquoteTest extends ParserTest
 {
@@ -26,7 +26,7 @@ class BlockquoteTest extends ParserTest
         ";
         $this->assertEquals(
             $this->stripWhitespaces(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<blockquote><p>My citation</p><p>With a paragraph and some <code>code</code></p><pre>and even a preformatted string</pre></blockquote>',
             '[parsing] test of blockquote'

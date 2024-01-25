@@ -18,14 +18,14 @@ class DomIdRegistry
     /**
      * @var     \MarkdownExtended\Util\Registry
      */
-    protected $dom_ids = array();
+    protected $dom_ids = [];
 
     /**
      * Initializes the registry
      */
     public function __construct()
     {
-        $this->dom_ids = new Registry;
+        $this->dom_ids = new Registry();
     }
 
     /**
@@ -64,7 +64,8 @@ class DomIdRegistry
     {
         return $this->has($reference) ?
             $this->dom_ids->get($reference) : $this->set(
-                $id ?: $reference, $reference
+                $id ?: $reference,
+                $reference
             );
     }
 

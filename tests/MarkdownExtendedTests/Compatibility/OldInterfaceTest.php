@@ -10,10 +10,9 @@
 
 namespace MarkdownExtendedTests\Compatibility;
 
-use \MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTest;
 
-class OldInterfaceTest
-    extends ParserTest
+class OldInterfaceTest extends ParserTest
 {
     /**
      * Get the `markdown.php` file path
@@ -22,9 +21,9 @@ class OldInterfaceTest
      */
     public function getOldInterfaceFilepath()
     {
-        return $this->getPath(array(
-             $this->getBasePath(), 'src', 'markdown.php'
-        ));
+        return $this->getPath([
+             $this->getBasePath(), 'src', 'markdown.php',
+        ]);
     }
 
     /**

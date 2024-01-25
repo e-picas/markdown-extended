@@ -10,20 +10,19 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\API\TemplateInterface;
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\Exception\FileSystemException;
-use \MarkdownExtended\Exception\UnexpectedValueException;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\Util\Registry;
-use \MarkdownExtended\Util\CacheRegistry;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\TemplateInterface;
+use MarkdownExtended\API\ContentInterface;
+use MarkdownExtended\Exception\FileSystemException;
+use MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\Util\Registry;
+use MarkdownExtended\Util\CacheRegistry;
 
 /**
  * The default template object of MarkdownExtended
  */
-class Templater
-    implements TemplateInterface
+class Templater implements TemplateInterface
 {
     /**
      * @var \MarkdownExtended\Util\Registry
@@ -41,7 +40,7 @@ class Templater
     public function __construct()
     {
         $this->config   = new Registry(Kernel::getConfig('template_options'));
-        $this->cache    = new CacheRegistry;
+        $this->cache    = new CacheRegistry();
     }
 
     /**
@@ -53,9 +52,11 @@ class Templater
         $tpl_content    = $this->getTemplate($template_path);
         $params         = $this->getParams($content);
 
-        foreach ($params as $name=>$callback) {
+        foreach ($params as $name => $callback) {
             $tpl_content = preg_replace_callback(
-                Helper::buildRegex($name), $callback, $tpl_content
+                Helper::buildRegex($name),
+                $callback,
+                $tpl_content
             );
         }
 
@@ -118,11 +119,11 @@ class Templater
      */
     public function getParams(ContentInterface $content)
     {
-        $params     = array();
+        $params     = [];
         $keywords   = $this->config->get('keywords');
 
         // all options keywords
-        foreach ($keywords as $var=>$word) {
+        foreach ($keywords as $var => $word) {
             $mask   = $this->_buildKeywordMask($word);
             $method = 'get' . Helper::toCamelCase($var);
             if (!method_exists($content, $method)) {
@@ -133,7 +134,7 @@ class Templater
             $method_tostring = $method . 'Formatted';
             $params[$mask] = function () use ($content, $method, $method_tostring) {
                 return call_user_func(
-                    array($content, method_exists($content, $method_tostring) ? $method_tostring : $method)
+                    [$content, method_exists($content, $method_tostring) ? $method_tostring : $method]
                 );
             };
         }
@@ -141,7 +142,7 @@ class Templater
         // all metadata: META:name
         $meta = $content->getMetadata();
         if (!empty($meta) && isset($keywords['metadata'])) {
-            foreach ($meta as $name=>$value) {
+            foreach ($meta as $name => $value) {
                 $mask = $this->_buildKeywordMask($keywords['metadata'].':'.$name);
                 $params[$mask] = function () use ($value) {
                     return Helper::getSafeString($value);

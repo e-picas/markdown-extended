@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\UnexpectedValueException;
-use \MarkdownExtended\Content;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Content;
 
 /**
  * The lexer dispatches the content to the gamuts loader
@@ -25,18 +25,22 @@ class Lexer
     public function __construct()
     {
         // init config
-        Kernel::setConfig('nested_brackets_re',
+        Kernel::setConfig(
+            'nested_brackets_re',
             str_repeat('(?>[^\[\]]+|\[', Kernel::getConfig('nested_brackets_depth')).
             str_repeat('\])*', Kernel::getConfig('nested_brackets_depth'))
         );
-        Kernel::setConfig('nested_parenthesis_re',
+        Kernel::setConfig(
+            'nested_parenthesis_re',
             str_repeat('(?>[^()\s]+|\(', Kernel::getConfig('nested_parenthesis_depth')).
             str_repeat('(?>\)))*', Kernel::getConfig('nested_parenthesis_depth'))
         );
-        Kernel::setConfig('escaped_characters_re',
+        Kernel::setConfig(
+            'escaped_characters_re',
             '['.preg_quote(Kernel::getConfig('escaped_characters')).']'
         );
-        Kernel::setConfig('less_than_tab',
+        Kernel::setConfig(
+            'less_than_tab',
             (Kernel::getConfig('tab_width') - 1)
         );
 
@@ -44,9 +48,9 @@ class Lexer
         $this->runGamuts('initial_gamut');
     }
 
-// ----------------------------------
-// PARSER
-// ----------------------------------
+    // ----------------------------------
+    // PARSER
+    // ----------------------------------
 
     /**
      * Performs some pre-processing on the input text
@@ -73,9 +77,9 @@ class Lexer
         return $content;
     }
 
-// ----------------------------------
-// GAMUTS
-// ----------------------------------
+    // ----------------------------------
+    // GAMUTS
+    // ----------------------------------
 
     /**
      * Run a gamut stack from a filter or tool
@@ -159,11 +163,11 @@ class Lexer
     // clear global hashes
     private function _clearHashes()
     {
-        Kernel::setConfig('html_hashes',        array());
-        Kernel::setConfig('cross_references',   array());
-        Kernel::setConfig('urls',               Kernel::getConfig('predefined_urls', array()));
-        Kernel::setConfig('titles',             Kernel::getConfig('predefined_titles', array()));
-        Kernel::setConfig('attributes',         Kernel::getConfig('predefined_attributes', array()));
-        Kernel::setConfig('predefined_abbr',    Kernel::getConfig('predefined_abbr', array()));
+        Kernel::setConfig('html_hashes', []);
+        Kernel::setConfig('cross_references', []);
+        Kernel::setConfig('urls', Kernel::getConfig('predefined_urls', []));
+        Kernel::setConfig('titles', Kernel::getConfig('predefined_titles', []));
+        Kernel::setConfig('attributes', Kernel::getConfig('predefined_attributes', []));
+        Kernel::setConfig('predefined_abbr', Kernel::getConfig('predefined_abbr', []));
     }
 }

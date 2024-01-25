@@ -12,8 +12,9 @@ namespace MarkdownExtended\Console;
 
 abstract class AbstractConsole
 {
-    const LICENSE_FILE              = 'LICENSE';
-    const MANIFEST_FILE             = 'composer.json';
+    public const LICENSE_FILE              = 'LICENSE';
+
+    public const MANIFEST_FILE             = 'composer.json';
 
     /**
      * @var null|string
@@ -63,17 +64,17 @@ abstract class AbstractConsole
     /**
      * @var array
      */
-    protected $cli_options          = array();
+    protected $cli_options          = [];
 
     /**
      * @var array
      */
-    protected $options              = array();
+    protected $options              = [];
 
     /**
      * @var array
      */
-    protected $arguments            = array();
+    protected $arguments            = [];
 
     /**
      * @var \MarkdownExtended\Console\Stream
@@ -127,7 +128,7 @@ abstract class AbstractConsole
     public function setStream(Stream $stream)
     {
         $this->stream = $stream;
-        $this->stream->setExceptionHandlerCallback(array($this, 'runUsage'));
+        $this->stream->setExceptionHandlerCallback([$this, 'runUsage']);
         return $this;
     }
 
@@ -300,7 +301,7 @@ abstract class AbstractConsole
      */
     public function getOption($name, $default = null)
     {
-        return isset($this->options[$name]) ? $this->options[$name] : $default;
+        return $this->options[$name] ?? $default;
     }
 
     /**
@@ -355,7 +356,7 @@ abstract class AbstractConsole
      */
     public function runHelp()
     {
-        $help_info = array(
+        $help_info = [
             $this->name . ' - ' . $this->short_name . '@' . $this->version,
             '',
             'Usage:',
@@ -365,7 +366,7 @@ abstract class AbstractConsole
             $this->user_input->getOptionsInfo(),
             '',
             $this->usage,
-        );
+        ];
 
         foreach ($help_info as $line) {
             if (is_string($line)) {
@@ -381,9 +382,9 @@ abstract class AbstractConsole
      */
     public function runUsage()
     {
-        $help_info = array(
-            str_pad('usage:', strlen(str_repeat(Stream::PADDER, 2)), ' ')  . $this->synopsis
-        );
+        $help_info = [
+            str_pad('usage:', strlen(str_repeat(Stream::PADDER, 2)), ' ')  . $this->synopsis,
+        ];
 
         $usage_options  = $this->user_input->getOptionsSynopsis();
         $counter        = 0;
@@ -411,31 +412,31 @@ abstract class AbstractConsole
     protected function initCommonOptions()
     {
         $this
-            ->addCliOption('verbose', array(
+            ->addCliOption('verbose', [
                 'shortcut'      => 'v',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Increase script\'s verbosity.'
-            ))
-            ->addCliOption('quiet', array(
+                'description'   => 'Increase script\'s verbosity.',
+            ])
+            ->addCliOption('quiet', [
                 'shortcut'      => 'q',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Decrease script\'s verbosity.'
-            ))
-            ->addCliOption('debug', array(
+                'description'   => 'Decrease script\'s verbosity.',
+            ])
+            ->addCliOption('debug', [
                 'shortcut'      => 'x',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Drastically increase script\'s verbosity (for development).'
-            ))
-            ->addCliOption('version', array(
+                'description'   => 'Drastically increase script\'s verbosity (for development).',
+            ])
+            ->addCliOption('version', [
                 'shortcut'      => 'V',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Get script\'s current version.'
-            ))
-            ->addCliOption('help', array(
+                'description'   => 'Get script\'s current version.',
+            ])
+            ->addCliOption('help', [
                 'shortcut'      => 'h',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Get script\'s help information.'
-            ))
+                'description'   => 'Get script\'s help information.',
+            ])
         ;
         return $this;
     }
@@ -465,7 +466,7 @@ abstract class AbstractConsole
             $this->stream->_exit();
         }
         // no argument = usage
-        if ($this->arg_required===true && empty($this->arguments)) {
+        if ($this->arg_required === true && empty($this->arguments)) {
             $this->runUsage();
             $this->stream->_exit();
         }

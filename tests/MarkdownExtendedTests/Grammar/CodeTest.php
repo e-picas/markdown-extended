@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTest;
+use MarkdownExtended\MarkdownExtended;
 
 class CodeTest extends ParserTest
 {
@@ -21,22 +21,22 @@ class CodeTest extends ParserTest
         // simple code
         $md = 'my text with `some code` for test ...';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, array('template'=>false)),
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             'my text with <code>some code</code> for test ...',
             '[parsing] test of code span'
         );
 
         // code blocks
         $md = <<<MSG
-para1
+            para1
 
-    My code here
+                My code here
 
-para2
-MSG;
+            para2
+            MSG;
         $this->assertEquals(
             $this->stripWhitespaces(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<p>para1</p><pre>My code here</pre><p>para2</p>',
             '[parsing] test of code block'
@@ -44,13 +44,13 @@ MSG;
 
         // fenced code blocks
         $md = <<<MSG
-~~~~
-My code here
-~~~~
-MSG;
+            ~~~~
+            My code here
+            ~~~~
+            MSG;
         $this->assertEquals(
             $this->stripWhitespaces(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<pre>My code here
 </pre>',
@@ -60,14 +60,14 @@ MSG;
         // fenced code blocks with language
         $md = <<<MSG
 
-~~~~html
-My code here
-~~~~
+            ~~~~html
+            My code here
+            ~~~~
 
-MSG;
+            MSG;
         $this->assertEquals(
             $this->stripWhitespaces(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<pre class="language-html">My code here
 </pre>',

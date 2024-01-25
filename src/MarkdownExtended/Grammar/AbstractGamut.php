@@ -10,7 +10,7 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\Kernel;
 
 /**
  * A basic class for filters and tools with management of parsing "hashes"
@@ -32,21 +32,21 @@ abstract class AbstractGamut
         return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
     }
 
-// ----------------------------------
-// Hashes management
-// ----------------------------------
+    // ----------------------------------
+    // Hashes management
+    // ----------------------------------
 
     /**
      * @var array
      */
-    protected static $html_hashes = array();
+    protected static $html_hashes = [];
 
     /**
      * Reset the hash table
      */
     public function resetHash()
     {
-        self::$html_hashes = array();
+        self::$html_hashes = [];
     }
 
     /**
