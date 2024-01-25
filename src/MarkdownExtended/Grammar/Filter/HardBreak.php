@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown hard breaks
  *
  * Hard breaks are written as one or more blank line(s).
  */
-class HardBreak
-    extends Filter
+class HardBreak extends Filter
 {
     /**
      * @param   string  $text
@@ -27,7 +26,7 @@ class HardBreak
      */
     public function transform($text)
     {
-        return preg_replace_callback('/ {2,}\n/', array($this, '_callback'), $text);
+        return preg_replace_callback('/ {2,}\n/', [$this, '_callback'], $text);
     }
 
     /**

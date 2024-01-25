@@ -10,110 +10,108 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\Grammar\Filter\Note;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\OutputFormatInterface;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\Grammar\Filter\Note;
 
 /**
  * Format a content in full HTML
  */
-class Html
-    extends AbstractOutputFormat
-    implements OutputFormatInterface
+class Html extends AbstractOutputFormat implements OutputFormatInterface
 {
     /**
      * @var array
      */
-    protected $tags_map = array(
-        'block' => array(
-            'tag'=>'div',
-        ),
-        'paragraph' => array(
-            'tag'=>'p',
-        ),
-        'bold' => array(
-            'tag'=>'strong',
-        ),
-        'italic' => array(
-            'tag'=>'em',
-        ),
-        'preformatted' => array(
-            'tag'=>'pre',
-        ),
-        'link' => array(
-            'tag'=>'a',
-        ),
-        'abbreviation' => array(
-            'tag'=>'abbr',
-        ),
-        'definition_list' => array(
-            'tag'=>'dl',
-        ),
-        'definition_list_item_term' => array(
-            'tag'=>'dt',
+    protected $tags_map = [
+        'block' => [
+            'tag' => 'div',
+        ],
+        'paragraph' => [
+            'tag' => 'p',
+        ],
+        'bold' => [
+            'tag' => 'strong',
+        ],
+        'italic' => [
+            'tag' => 'em',
+        ],
+        'preformatted' => [
+            'tag' => 'pre',
+        ],
+        'link' => [
+            'tag' => 'a',
+        ],
+        'abbreviation' => [
+            'tag' => 'abbr',
+        ],
+        'definition_list' => [
+            'tag' => 'dl',
+        ],
+        'definition_list_item_term' => [
+            'tag' => 'dt',
             'prefix' => '<!--dt-->',
-        ),
-        'definition_list_item_definition' => array(
-            'tag'=>'dd',
-        ),
-        'list' => array(
-            'tag'=>'ul',
-        ),
-        'list_item' => array(
-            'tag'=>'li',
-        ),
-        'unordered_list' => array(
-            'tag'=>'ul',
-        ),
-        'unordered_list_item' => array(
-            'tag'=>'li',
-        ),
-        'ordered_list' => array(
-            'tag'=>'ol',
-        ),
-        'ordered_list_item' => array(
-            'tag'=>'li',
-        ),
-        'table_caption' => array(
-            'tag'=>'caption',
-        ),
-        'table_header' => array(
-            'tag'=>'thead',
-        ),
-        'table_body' => array(
-            'tag'=>'tbody',
-        ),
-        'table_footer' => array(
-            'tag'=>'tfoot',
-        ),
-        'table_line' => array(
-            'tag'=>'tr',
-        ),
-        'table_cell' => array(
-            'tag'=>'td',
-        ),
-        'table_cell_head' => array(
-            'tag'=>'th',
-        ),
-        'meta_title' => array(
-            'tag'=>'title',
-        ),
-        'image' => array(
-            'tag'=>'img',
-            'closable'=>true,
-        ),
-        'new_line' => array(
-            'tag'=>'br',
-            'closable'=>true,
-        ),
-        'horizontal_rule' => array(
-            'tag'=>'hr',
-            'closable'=>true,
-        ),
-    );
+        ],
+        'definition_list_item_definition' => [
+            'tag' => 'dd',
+        ],
+        'list' => [
+            'tag' => 'ul',
+        ],
+        'list_item' => [
+            'tag' => 'li',
+        ],
+        'unordered_list' => [
+            'tag' => 'ul',
+        ],
+        'unordered_list_item' => [
+            'tag' => 'li',
+        ],
+        'ordered_list' => [
+            'tag' => 'ol',
+        ],
+        'ordered_list_item' => [
+            'tag' => 'li',
+        ],
+        'table_caption' => [
+            'tag' => 'caption',
+        ],
+        'table_header' => [
+            'tag' => 'thead',
+        ],
+        'table_body' => [
+            'tag' => 'tbody',
+        ],
+        'table_footer' => [
+            'tag' => 'tfoot',
+        ],
+        'table_line' => [
+            'tag' => 'tr',
+        ],
+        'table_cell' => [
+            'tag' => 'td',
+        ],
+        'table_cell_head' => [
+            'tag' => 'th',
+        ],
+        'meta_title' => [
+            'tag' => 'title',
+        ],
+        'image' => [
+            'tag' => 'img',
+            'closable' => true,
+        ],
+        'new_line' => [
+            'tag' => 'br',
+            'closable' => true,
+        ],
+        'horizontal_rule' => [
+            'tag' => 'hr',
+            'closable' => true,
+        ],
+    ];
 
     /**
      * @var string
@@ -142,16 +140,16 @@ class Html
      *
      * @return string The built tag string
      */
-    public function getTagString($text, $tag, array $attributes = array(), $close = false)
+    public function getTagString($text, $tag, array $attributes = [], $close = false)
     {
-        $attr='';
+        $attr = '';
         $prefix = '';
         if (!empty($attributes)) {
             if (isset($attributes['mde-prefix'])) {
                 $prefix = $attributes['mde-prefix'];
                 unset($attributes['mde-prefix']);
             }
-            foreach ($attributes as $variable=>$value) {
+            foreach ($attributes as $variable => $value) {
                 $value = Helper::getSafeString($value);
                 if (!empty($value)) {
                     if (is_string($variable)) {
@@ -162,18 +160,18 @@ class Html
                 }
             }
         }
-        if (true===$close) {
+        if (true === $close) {
             return $prefix."<{$tag}{$attr}" . $this->empty_element_suffix;
         } else {
             return $prefix."<{$tag}{$attr}>{$text}</{$tag}>";
         }
     }
 
-// -------------------
-// Tag specific builder
-// -------------------
+    // -------------------
+    // Tag specific builder
+    // -------------------
 
-    public function buildTitle($text, array $attributes = array())
+    public function buildTitle($text, array $attributes = [])
     {
         if (isset($attributes['level'])) {
             $tag = 'h' . $attributes['level'];
@@ -184,7 +182,7 @@ class Html
         return $this->getTagString($text, $tag, $attributes);
     }
 
-    public function buildMetaData($text = null, array $attributes = array())
+    public function buildMetaData($text = null, array $attributes = [])
     {
         if (empty($attributes['content']) && !empty($text)) {
             $attributes['content'] = $text;
@@ -195,63 +193,64 @@ class Html
         return $text;
     }
 
-    public function buildComment($text = null, array $attributes = array())
+    public function buildComment($text = null, array $attributes = [])
     {
         return sprintf('<!-- %s -->', $text);
     }
 
-    public function buildParagraph($text = null, array $attributes = array())
+    public function buildParagraph($text = null, array $attributes = [])
     {
         return "\n" . $this->getTagString($text, 'p', $attributes) . "\n";
     }
 
-    public function buildLink($text = null, array $attributes = array())
+    public function buildLink($text = null, array $attributes = [])
     {
         $this->_validateLinkAttributes($attributes, $text);
         return $this->getTagString($text, 'a', $attributes);
     }
 
-    public function buildPreformatted($text = null, array $attributes = array())
+    public function buildPreformatted($text = null, array $attributes = [])
     {
         if (isset($attributes['language'])) {
             $attribute = $this->getConfig('codeblock_language_attribute');
             $attributes[$attribute] = Helper::fillPlaceholders(
-                $this->getConfig('codeblock_attribute_mask'), $attributes['language']
+                $this->getConfig('codeblock_attribute_mask'),
+                $attributes['language']
             );
             unset($attributes['language']);
         }
         return "\n" . $this->getTagString($text, 'pre', $attributes) . "\n";
     }
 
-    public function buildMaths($text = null, array $attributes = array(), $type = 'div')
+    public function buildMaths($text = null, array $attributes = [], $type = 'div')
     {
         $math_type  = $this->getConfig('math_type');
         if ($math_type == "mathjax") {
-            $text = $this->getTagString('['.$text.']', 'span', array(
-                    'class'=>"MathJax_Preview",
-                ))
-                .$this->getTagString($text, 'script', array(
-                    'type'=>"math/tex".($type=='div' ? "; mode=display" : ''),
-                ));
+            $text = $this->getTagString('['.$text.']', 'span', [
+                    'class' => "MathJax_Preview",
+                ])
+                .$this->getTagString($text, 'script', [
+                    'type' => "math/tex".($type == 'div' ? "; mode=display" : ''),
+                ]);
         } else {
-            $text = $this->getTagString($text, $type, array(
-                    'class'=>"math",
-                ));
+            $text = $this->getTagString($text, $type, [
+                    'class' => "math",
+                ]);
         }
         return $text;
     }
 
-    public function buildMathsBlock($text = null, array $attributes = array())
+    public function buildMathsBlock($text = null, array $attributes = [])
     {
         return $this->buildMaths($text, $attributes, 'div');
     }
 
-    public function buildMathsSpan($text = null, array $attributes = array())
+    public function buildMathsSpan($text = null, array $attributes = [])
     {
         return $this->buildMaths($text, $attributes, 'span');
     }
 
-    public function buildFootnoteStandardItem($text = null, array $attributes = array(), $note_type = Note::FOOTNOTE_DEFAULT)
+    public function buildFootnoteStandardItem($text = null, array $attributes = [], $note_type = Note::FOOTNOTE_DEFAULT)
     {
         $type_info = Note::getTypeInfo($note_type);
 
@@ -284,17 +283,17 @@ class Html
         return $text;
     }
 
-    public function buildFootnoteGlossaryItem($text = null, array $attributes = array())
+    public function buildFootnoteGlossaryItem($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardItem($text, $attributes, Note::FOOTNOTE_GLOSSARY);
     }
 
-    public function buildFootnoteBibliographyItem($text = null, array $attributes = array())
+    public function buildFootnoteBibliographyItem($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardItem($text, $attributes, Note::FOOTNOTE_BIBLIOGRAPHY);
     }
 
-    public function buildFootnoteStandardLink($text = null, array $attributes = array(), $note_type = Note::FOOTNOTE_DEFAULT)
+    public function buildFootnoteStandardLink($text = null, array $attributes = [], $note_type = Note::FOOTNOTE_DEFAULT)
     {
         $type_info = Note::getTypeInfo($note_type);
 
@@ -302,13 +301,15 @@ class Html
             $attributes['class'] =
                 Helper::fillPlaceholders(
                     Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_class')),
-                    $text);
+                    $text
+                );
         }
         if ($this->getConfig($type_info['prefix'] . '_link_title_mask')) {
             $attributes['title'] =
                 Helper::fillPlaceholders(
                     Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $this->getConfig($type_info['prefix'] . '_link_title_mask')),
-                    $text);
+                    $text
+                );
         }
 
         $backlink_id = $attributes['backlink_id'];
@@ -318,22 +319,22 @@ class Html
             ->buildTag('link', $text, $attributes);
 
         return Kernel::get('OutputFormatBag')
-            ->buildTag('sup', $link, array('id' => $backlink_id));
+            ->buildTag('sup', $link, ['id' => $backlink_id]);
     }
 
-    public function buildFootnoteGlossaryLink($text = null, array $attributes = array())
+    public function buildFootnoteGlossaryLink($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardLink($text, $attributes, Note::FOOTNOTE_GLOSSARY);
     }
 
-    public function buildFootnoteBibliographyLink($text = null, array $attributes = array())
+    public function buildFootnoteBibliographyLink($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardLink($text, $attributes, Note::FOOTNOTE_BIBLIOGRAPHY);
     }
 
     protected function getConfig($name, $default = null)
     {
-        return isset($this->config[$name]) ? $this->config[$name] : $default;
+        return $this->config[$name] ?? $default;
     }
 
     /**
@@ -344,7 +345,7 @@ class Html
     protected function _validateLinkAttributes(array &$attributes, &$text)
     {
         if (isset($attributes['email'])) {
-            list($address_link, $address_text) = Helper::encodeEmailAddress($attributes['email']);
+            [$address_link, $address_text] = Helper::encodeEmailAddress($attributes['email']);
             if (!isset($attributes['href']) || empty($attributes['href'])) {
                 $attributes['href'] = $address_link;
             }
@@ -361,9 +362,11 @@ class Html
         if (empty($attributes['title']) && isset($attributes['href'])) {
             $first_char = substr($attributes['href'], 0, 1);
 
-            if ($first_char==='#' && $this->getConfig('anchor_title_mask')) {
+            if ($first_char === '#' && $this->getConfig('anchor_title_mask')) {
                 $attributes['title'] = Helper::fillPlaceholders(
-                    $this->getConfig('anchor_title_mask'), $attributes['href']);
+                    $this->getConfig('anchor_title_mask'),
+                    $attributes['href']
+                );
             } elseif ($this->getConfig('link_title_mask')) {
                 $attributes['title'] = Helper::fillPlaceholders(
                     $this->getConfig('link_title_mask'),

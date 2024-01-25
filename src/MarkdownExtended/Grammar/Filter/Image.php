@@ -10,17 +10,16 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown images
  */
-class Image
-    extends Filter
+class Image extends Filter
 {
     /**
      * Turn Markdown image shortcuts into <img> tags.
@@ -31,7 +30,8 @@ class Image
     public function transform($text)
     {
         // First, handle reference-style labeled images: ![alt text][id]
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             (                                       # wrap whole match in $1
               !\[
                 ('.Kernel::getConfig('nested_brackets_re').') # alt text = $2
@@ -46,11 +46,14 @@ class Image
 
             )
             }xs',
-            array($this, '_reference_callback'), $text);
+            [$this, '_reference_callback'],
+            $text
+        );
 
         // Next, handle inline images:  ![alt text](url "optional title")
         // Don't forget: encode * and _
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             (                                         # wrap whole match in $1
               !\[
                 ('.Kernel::getConfig('nested_brackets_re').') # alt text = $2
@@ -73,7 +76,9 @@ class Image
               \)
             )
             }xs',
-            array($this, '_inline_callback'), $text);
+            [$this, '_inline_callback'],
+            $text
+        );
 
         return $text;
     }
@@ -97,7 +102,7 @@ class Image
         $predef_attributes = Kernel::getConfig('attributes');
         $alt_text = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $alt_text);
         if (isset($urls[$link_id])) {
-            $attributes = array();
+            $attributes = [];
             $attributes['alt']  = $alt_text;
             $attributes['id']   = Helper::header2Label($link_id);
             $attributes['src']  = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $urls[$link_id]);
@@ -107,7 +112,8 @@ class Image
             if (!empty($predef_attributes[$link_id])) {
                 $attributes = array_merge(
                     Lexer::runGamut(GamutLoader::TOOL_ALIAS.':ExtractAttributes', $predef_attributes[$link_id]),
-                    $attributes);
+                    $attributes
+                );
             }
             $block = Kernel::get('OutputFormatBag')
                 ->buildTag('image', null, $attributes);
@@ -128,9 +134,9 @@ class Image
     {
         $alt_text       = $matches[2];
         $url            = $matches[3] == '' ? $matches[4] : $matches[3];
-        $title          =& $matches[7];
+        $title          = & $matches[7];
 
-        $attributes = array();
+        $attributes = [];
         $attributes['alt'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $alt_text);
         $attributes['src'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $url);
         if (!empty($title)) {

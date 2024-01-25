@@ -10,8 +10,7 @@
 
 namespace MarkdownExtendedTests;
 
-class ConsoleTest
-    extends ParserTest
+class ConsoleTest extends ParserTest
 {
     /**
      * Validates the command runner of this class
@@ -36,7 +35,7 @@ class ConsoleTest
      */
     public function getBaseCmd()
     {
-        return 'php -d date.timezone=UTC ' . $this->getPath(array('.', 'bin', 'markdown-extended'));
+        return 'php -d date.timezone=UTC ' . $this->getPath(['.', 'bin', 'markdown-extended']);
     }
 
     /**
@@ -47,18 +46,18 @@ class ConsoleTest
      *
      * @return array An array like ( stdout , status , stderr )
      */
-    public function runCommand($command, $path = null, $env = array())
+    public function runCommand($command, $path = null, $env = [])
     {
         if (is_null($path)) {
             $path = $this->getBasePath();
         }
 
-        $descriptors = array(
-            0 => array('pipe', 'r'),
-            1 => array('pipe', 'w'),
-            2 => array('pipe', 'w'),
-        );
-        $pipes = array();
+        $descriptors = [
+            0 => ['pipe', 'r'],
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
+        $pipes = [];
 
         $resource = proc_open($command, $descriptors, $pipes, $path, $env);
         if (!is_resource($resource)) {
@@ -72,18 +71,18 @@ class ConsoleTest
         }
         $status = proc_close($resource);
 
-/*/
-echo PHP_EOL . "running cmd: " . var_export($command,true);
-echo PHP_EOL . "result: " . var_export(array(
-        'stdout' => trim($stdout, PHP_EOL),
-        'status' => $status,
-        'stderr' => trim($stderr, PHP_EOL)
-    ),true);
-//*/
-        return array(
+        /*/
+        echo PHP_EOL . "running cmd: " . var_export($command,true);
+        echo PHP_EOL . "result: " . var_export(array(
+                'stdout' => trim($stdout, PHP_EOL),
+                'status' => $status,
+                'stderr' => trim($stderr, PHP_EOL)
+            ),true);
+        //*/
+        return [
             'stdout' => trim($stdout, PHP_EOL),
             'status' => $status,
-            'stderr' => trim($stderr, PHP_EOL)
-        );
+            'stderr' => trim($stderr, PHP_EOL),
+        ];
     }
 }

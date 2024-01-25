@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown list items
  */
-class ListItem
-    extends Filter
+class ListItem extends Filter
 {
     /**
      * @var     int Retain current list level
@@ -44,10 +43,10 @@ class ListItem
      */
     public function transform($text)
     {
-        $markers_relist = array(
+        $markers_relist = [
             self::$marker_ul_re => self::$marker_ol_re,
             self::$marker_ol_re => self::$marker_ul_re,
-        );
+        ];
 
         foreach ($markers_relist as $marker_re => $other_marker_re) {
             // Re-usable pattern to match any entirel ul or ol list:
@@ -81,17 +80,23 @@ class ListItem
             // We use a different prefix before nested lists than top-level lists.
             // See extended comment in `self::transformItems()`.
             if (self::$list_level) {
-                $text = preg_replace_callback('{
+                $text = preg_replace_callback(
+                    '{
                         ^
                         '.$whole_list_re.'
                     }mx',
-                    array($this, '_callback'), $text);
+                    [$this, '_callback'],
+                    $text
+                );
             } else {
-                $text = preg_replace_callback('{
+                $text = preg_replace_callback(
+                    '{
                         (?:(?<=\n)\n|\A\n?) # Must eat the newline
                         '.$whole_list_re.'
                     }mx',
-                    array($this, '_callback'), $text);
+                    [$this, '_callback'],
+                    $text
+                );
             }
         }
 
@@ -150,7 +155,8 @@ class ListItem
         // trim trailing blank lines:
         $list_str = preg_replace("/\n{2,}\\z/", "\n", $list_str);
 
-        $list_str = preg_replace_callback('{
+        $list_str = preg_replace_callback(
+            '{
             (\n)?                           # leading line = $1
             (^[ ]*)                         # leading whitespace = $2
             ('.$marker_any_re.'             # list marker and space = $3
@@ -160,7 +166,9 @@ class ListItem
             (?:(\n+(?=\n))|\n)              # trailing blank line = $5
             (?= \n* (\z | \2 ('.$marker_any_re.') (?:[ ]+|(?=\n))))
             }xm',
-            array($this, '_items_callback'), $list_str);
+            [$this, '_items_callback'],
+            $list_str
+        );
 
         self::$list_level--;
         return $list_str;
@@ -173,10 +181,10 @@ class ListItem
     protected function _items_callback($matches)
     {
         $item                   =   $matches[4];
-        $leading_line           =&  $matches[1];
-        $leading_space          =&  $matches[2];
+        $leading_line           = &  $matches[1];
+        $leading_space          = &  $matches[2];
         $marker_space           =   $matches[3];
-        $trailing_blank_line    =&  $matches[5];
+        $trailing_blank_line    = &  $matches[5];
 
         if ($leading_line || $trailing_blank_line || preg_match('/\n{2,}/', $item)) {
             // Replace marker with the appropriate whitespace indentation

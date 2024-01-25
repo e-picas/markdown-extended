@@ -11,14 +11,16 @@
 // get a well-formatted path
 $bootstrapGetPath = function ($parts) {
     return implode(DIRECTORY_SEPARATOR, array_map(
-        function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
-        is_array($parts) ? $parts : array($parts)
+        function ($p) {
+            return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $p);
+        },
+        is_array($parts) ? $parts : [$parts]
     ));
 };
 
 // namespaces loader if needed
 if (!defined('MDE_BASE_PATH')) {
-    if (file_exists($bootstrapper = $bootstrapGetPath(array(__DIR__, 'bootstrap.php')))) {
+    if (file_exists($bootstrapper = $bootstrapGetPath([__DIR__, 'bootstrap.php']))) {
         require_once $bootstrapper;
     } else {
         trigger_error(

@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Exception;
 
-use \Exception as BaseException;
+use Exception as BaseException;
 
 /**
  * Specific Exception with a default status code 94
  */
-class Exception
-    extends BaseException
+class Exception extends BaseException
 {
     public function __construct($message = '', $code = 0, BaseException $previous = null)
     {
-        parent::__construct($message, ($code===0 ? 94 : $code), $previous);
+        parent::__construct($message, ($code === 0 ? 94 : $code), $previous);
     }
 }

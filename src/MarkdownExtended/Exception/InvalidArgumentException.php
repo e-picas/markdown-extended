@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Exception;
 
-use \InvalidArgumentException as BaseException;
+use InvalidArgumentException as BaseException;
 
 /**
  * Specific InvalidArgumentException with a default status code of 90
  */
-class InvalidArgumentException
-    extends BaseException
+class InvalidArgumentException extends BaseException
 {
     public function __construct($message = '', $code = 0, BaseException $previous = null)
     {
-        parent::__construct($message, ($code===0 ? 90 : $code), $previous);
+        parent::__construct($message, ($code === 0 ? 90 : $code), $previous);
     }
 }

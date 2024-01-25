@@ -10,14 +10,13 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Class Detab
  */
-class Detab
-    extends Filter
+class Detab extends Filter
 {
     /**
      * String length function for detab. `_initDetab` will create a function to
@@ -54,7 +53,7 @@ class Detab
      */
     public function transform($text)
     {
-        $text = preg_replace_callback('/^.*\t.*$/m', array($this, '_callback'), $text);
+        $text = preg_replace_callback('/^.*\t.*$/m', [$this, '_callback'], $text);
         return $text;
     }
 

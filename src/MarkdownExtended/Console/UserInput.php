@@ -10,49 +10,51 @@
 
 namespace MarkdownExtended\Console;
 
-use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Util\Registry;
-use \MarkdownExtended\Util\Helper;
+use MarkdownExtended\Exception\InvalidArgumentException;
+use MarkdownExtended\Util\Registry;
+use MarkdownExtended\Util\Helper;
 
 /**
  * A class to manage command line options based on a set of definitions
  */
 class UserInput
 {
-    const NEGATE_SUFFIX             = 'no-';
+    public const NEGATE_SUFFIX             = 'no-';
+
     public static $NEGATE_VAL       = '_negate';
+
     public static $NEGATE_INFO      = 'This option can be negated by "--no-%s".';
 
     /**
      * Use this when concerned option does NOT have any argument (i.e. for flags)
      */
-    const ARG_NULL      = 1;
+    public const ARG_NULL      = 1;
 
     /**
      * Use this when concerned option can accept an argument but this is not required (i.e. a default value is defined)
      *
      * The optional argument MUST be written separated to the option by an equal sign.
      */
-    const ARG_OPTIONAL  = 2;
+    public const ARG_OPTIONAL  = 2;
 
     /**
      * Use this when concerned option REQUIRES an argument
      *
      * The equal sign between the option and its argument is not required.
      */
-    const ARG_REQUIRED  = 4;
+    public const ARG_REQUIRED  = 4;
 
     /**
      * Use this to define a boolean option (i.e. 1 or 0)
      *
      * This is the default for option with no argument (i.e. `self::ARG_NULL`)
      */
-    const TYPE_BOOL     = 1;
+    public const TYPE_BOOL     = 1;
 
     /**
      * Use this to define an option as a string
      */
-    const TYPE_STRING   = 2;
+    public const TYPE_STRING   = 2;
 
     /**
      * Use this do define an option as a file path
@@ -60,7 +62,7 @@ class UserInput
      * An error will be thrown if the option only have this type and its value
      * can not be found in file system.
      */
-    const TYPE_PATH     = 4;
+    public const TYPE_PATH     = 4;
 
     /**
      * Use this to define an option as a list item
@@ -68,10 +70,12 @@ class UserInput
      * Using this type, you are REQUIRED to define a `list` argument in
      * the option's definition.
      */
-    const TYPE_LISTITEM = 8;
+    public const TYPE_LISTITEM = 8;
 
     protected $options;
+
     protected $options_indexed;
+
     protected $user_options;
 
     /**
@@ -79,11 +83,11 @@ class UserInput
      */
     public function __construct(array $definitions)
     {
-        $this->options          = new Registry;
-        $this->options_indexed  = array();
+        $this->options          = new Registry();
+        $this->options_indexed  = [];
 
         $counter = 0;
-        foreach ($definitions as $name=>$item) {
+        foreach ($definitions as $name => $item) {
             $option = new UserOption($item, $name);
             $this->options->set($counter, $option);
             $this->options_indexed[$name] = $counter;
@@ -115,7 +119,7 @@ class UserInput
      */
     public function getIndexedOptions()
     {
-        $options = array();
+        $options = [];
         foreach ($this->options->getAll() as $item) {
             $options[$item->get('name')] = $item;
         }
@@ -131,8 +135,8 @@ class UserInput
      */
     public function getFilteredOptions($name)
     {
-        $data = array();
-        foreach ($this->getIndexedOptions() as $i=>$item) {
+        $data = [];
+        foreach ($this->getIndexedOptions() as $i => $item) {
             $data[$i] = $item->get($name);
         }
         return $data;
@@ -145,9 +149,9 @@ class UserInput
      */
     public function getOptionsInfo()
     {
-        $info = array();
-        foreach ($this->options->getAll() as $name=>$item) {
-            list($_index, $_data) = $item->getInfo();
+        $info = [];
+        foreach ($this->options->getAll() as $name => $item) {
+            [$_index, $_data] = $item->getInfo();
             $info[$_index] = $_data;
         }
         return $info;
@@ -160,8 +164,8 @@ class UserInput
      */
     public function getOptionsSynopsis()
     {
-        $info = array();
-        foreach ($this->options->getAll() as $name=>$item) {
+        $info = [];
+        foreach ($this->options->getAll() as $name => $item) {
             $info[] = $item->getSynopsis();
         }
         return $info;
@@ -182,7 +186,7 @@ class UserInput
         // extract remaining options
         $argv = self::getSanitizedUserInput();
         array_shift($argv);
-        foreach ($argv as $i=>$arg) {
+        foreach ($argv as $i => $arg) {
             if (array_key_exists(trim($arg, '-'), $options) || in_array($arg, $options, true)) {
                 unset($argv[$i]);
             } elseif (
@@ -194,7 +198,7 @@ class UserInput
                         $arg = str_replace($letter, '', $arg);
                     }
                 }
-                if (strlen($arg)===1 || count($matches)>1) {
+                if (strlen($arg) === 1 || count($matches) > 1) {
                     unset($argv[$i]);
                 } else {
                     $argv[$i] = $arg;
@@ -208,7 +212,7 @@ class UserInput
             }
         }
         // last run for unknown options
-        foreach ($argv as $i=>$arg) {
+        foreach ($argv as $i => $arg) {
             if (substr($arg, 0, 1) === '-') {
                 throw new InvalidArgumentException(
                     sprintf('Unknown option "%s"', trim($arg, '-'))
@@ -216,7 +220,7 @@ class UserInput
             }
         }
 
-//        $this->_hardDebug();
+        //        $this->_hardDebug();
         // standard object to return
         $this->user_options            = new \StdClass();
         $this->user_options->options   = array_merge($this->getFilteredOptions('_default'), $options);

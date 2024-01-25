@@ -10,11 +10,10 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use \MarkdownExtendedTests\ConsoleTest;
+use MarkdownExtendedTests\ConsoleTest;
 use MarkdownExtendedTests\ParserTest;
 
-class SimpleUsageTest
-    extends ConsoleTest
+class SimpleUsageTest extends ConsoleTest
 {
     /**
      * Test a default call with no argument
@@ -91,11 +90,11 @@ class SimpleUsageTest
         $res    = $this->runCommand($this->getBaseCmd().' "'.ParserTest::MD_STRING.'" "'.ParserTest::MD_STRING.'"');
         $line   = ParserTest::PARSED_STRING;
         $output = <<<MSG
-==> STDIN#1 <==
-{$line}
-==> STDIN#2 <==
-{$line}
-MSG;
+            ==> STDIN#1 <==
+            {$line}
+            ==> STDIN#2 <==
+            {$line}
+            MSG;
         // status
         $this->assertEquals(
             $res['status'],
@@ -117,7 +116,7 @@ MSG;
      */
     public function testSimpleFile()
     {
-        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
+        $file   = $this->getPath([$this->getBasePath(), 'tests', 'test.md']);
         $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
         $res    = $this->runCommand($this->getBaseCmd().' '.$file);
         // status
@@ -141,16 +140,16 @@ MSG;
      */
     public function testMultipleFiles()
     {
-        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
-        $file2  = $this->getPath(array($this->getBasePath(), 'tests', 'test-2.md'));
+        $file   = $this->getPath([$this->getBasePath(), 'tests', 'test.md']);
+        $file2  = $this->getPath([$this->getBasePath(), 'tests', 'test-2.md']);
         $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
         $output = $this->stripWhitespaceAndNewLines(
-<<<MSG
-==> tests/test.md <==
-{$body}
-==> tests/test-2.md <==
-{$body}
-MSG
+            <<<MSG
+                ==> tests/test.md <==
+                {$body}
+                ==> tests/test-2.md <==
+                {$body}
+                MSG
         );
         $res = $this->runCommand($this->getBaseCmd().' '.$file.' '.$file2);
         // status

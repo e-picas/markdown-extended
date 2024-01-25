@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTest;
+use MarkdownExtended\MarkdownExtended;
 
 class EmphasisTest extends ParserTest
 {
@@ -19,7 +19,7 @@ class EmphasisTest extends ParserTest
     {
         $md = '**Hello** _World_';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, array('template'=>false)),
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello</strong> <em>World</em>',
             '[parsing] test of emphasis'
         );

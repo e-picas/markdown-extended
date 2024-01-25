@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Util\Helper;
 
 /**
  * Process Markdown tables
  */
-class Table
-    extends Filter
+class Table extends Filter
 {
     protected $table_id;
 
@@ -48,7 +47,8 @@ class Table
         $less_than_tab = Kernel::getConfig('less_than_tab');
 
         // Find tables with leading pipe.
-        $text = preg_replace_callback('
+        $text = preg_replace_callback(
+            '
             {
                 ^                                   # Start of a line
                 (                                   # A caption between brackets (optional)
@@ -75,10 +75,13 @@ class Table
                 )
                 (?=\n|\Z)                           # Stop at final double newline.
             }xm',
-            array($this, '_callback'), $text);
+            [$this, '_callback'],
+            $text
+        );
 
         // Find tables without leading pipe.
-        $text = preg_replace_callback('
+        $text = preg_replace_callback(
+            '
             {
                 ^                                   # Start of a line
                 (                                   # A caption between brackets (optional)
@@ -104,7 +107,9 @@ class Table
                 )
                 (?=\n|\Z)                           # Stop at final double newline.
             }xm',
-            array($this, '_callback'), $text);
+            [$this, '_callback'],
+            $text
+        );
 
         return $text;
     }
@@ -117,9 +122,9 @@ class Table
      */
     protected function _leadingPipe_callback($matches)
     {
-        return self::_callback(array(
-            $matches[0], $matches[1], $matches[2], preg_replace('/^ *[|]/m', '', $matches[3])
-        ));
+        return self::_callback([
+            $matches[0], $matches[1], $matches[2], preg_replace('/^ *[|]/m', '', $matches[3]),
+        ]);
     }
 
     /**
@@ -130,15 +135,15 @@ class Table
      */
     protected function _callback($matches)
     {
-        $attributes = array();
+        $attributes = [];
 
-//self::doDebug($matches);
+        //self::doDebug($matches);
         // The head string may have a begin slash
-        $caption    = count($matches)>3 ? $matches[1] : null;
-        $head       = count($matches)>3 ?
+        $caption    = count($matches) > 3 ? $matches[1] : null;
+        $head       = count($matches) > 3 ?
             preg_replace('/^ *[|]/m', '', $matches[2]) : preg_replace('/^ *[|]/m', '', $matches[1]);
-        $underline  = count($matches)>3 ? $matches[3] : $matches[2];
-        $content    = count($matches)>3 ?
+        $underline  = count($matches) > 3 ? $matches[3] : $matches[2];
+        $content    = count($matches) > 3 ?
             preg_replace('/^ *[|]/m', '', $matches[4]) : preg_replace('/^ *[|]/m', '', $matches[3]);
 
         // Remove any tailing pipes for each line.
@@ -148,7 +153,7 @@ class Table
         // Reading alignement from header underline.
         $separators = preg_split('/ *[|] */', $underline);
         foreach ($separators as $n => $s) {
-            $attributes[$n] = array();
+            $attributes[$n] = [];
             if (preg_match('/^ *-+: *$/', $s)) {
                 $attributes[$n]['style'] = 'text-align:right;';
             } elseif (preg_match('/^ *:-+: *$/', $s)) {
@@ -164,7 +169,7 @@ class Table
         $text = '';
         if (!empty($caption)) {
             $this->table_id = Helper::header2Label($caption);
-            $text .= preg_replace_callback('/\[(.*)\]/', array($this, '_doCaption'), Lexer::runGamut('span_gamut', $caption));
+            $text .= preg_replace_callback('/\[(.*)\]/', [$this, '_doCaption'], Lexer::runGamut('span_gamut', $caption));
         }
 
         $lines = '';
@@ -181,22 +186,22 @@ class Table
 
             // Write column headers.
             // we first loop for colspans
-            $headspans = array();
+            $headspans = [];
             foreach ($_headers as $_i => $_cell) {
-                if ($_cell=='') {
-                    if ($_i==0) {
-                        $headspans[1]=2;
+                if ($_cell == '') {
+                    if ($_i == 0) {
+                        $headspans[1] = 2;
                     } else {
-                        if (isset($headspans[$_i-1])) {
-                            $headspans[$_i-1]++;
+                        if (isset($headspans[$_i - 1])) {
+                            $headspans[$_i - 1]++;
                         } else {
-                            $headspans[$_i-1]=2;
+                            $headspans[$_i - 1] = 2;
                         }
                     }
                 }
             }
             foreach ($_headers as $n => $__header) {
-                if ($__header!='') {
+                if ($__header != '') {
                     $cell_attributes = $attributes[$n];
                     if (isset($headspans[$n])) {
                         $cell_attributes['colspan'] = $headspans[$n];
@@ -226,22 +231,22 @@ class Table
             $row_cells = array_pad($row_cells, $col_count, '');
 
             // we first loop for colspans
-            $colspans = array();
+            $colspans = [];
             foreach ($row_cells as $_i => $_cell) {
-                if ($_cell=='') {
-                    if ($_i==0) {
-                        $colspans[1]=2;
+                if ($_cell == '') {
+                    if ($_i == 0) {
+                        $colspans[1] = 2;
                     } else {
-                        if (isset($colspans[$_i-1])) {
-                            $colspans[$_i-1]++;
+                        if (isset($colspans[$_i - 1])) {
+                            $colspans[$_i - 1]++;
                         } else {
-                            $colspans[$_i-1]=2;
+                            $colspans[$_i - 1] = 2;
                         }
                     }
                 }
             }
             foreach ($row_cells as $n => $cell) {
-                if ($cell!='') {
+                if ($cell != '') {
                     $cell_attributes = $attributes[$n];
                     if (isset($colspans[$n])) {
                         $cell_attributes['colspan'] = $colspans[$n];
@@ -267,8 +272,8 @@ class Table
     protected function _doCaption($matches)
     {
         return Kernel::get('OutputFormatBag')
-            ->buildTag('table_caption', $matches[0], array(
-                'id'=>$this->table_id
-            ));
+            ->buildTag('table_caption', $matches[0], [
+                'id' => $this->table_id,
+            ]);
     }
 }

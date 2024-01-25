@@ -91,10 +91,12 @@ class UserOption
     {
         $arg_suffix = '';
         switch ($this->get('argument')) {
-            case UserInput::ARG_OPTIONAL: $arg_suffix = '::'; break;
-            case UserInput::ARG_REQUIRED: $arg_suffix = ':'; break;
+            case UserInput::ARG_OPTIONAL: $arg_suffix = '::';
+                break;
+            case UserInput::ARG_REQUIRED: $arg_suffix = ':';
+                break;
         }
-        $this->set('long_option',  $this->get('name') . $arg_suffix);
+        $this->set('long_option', $this->get('name') . $arg_suffix);
         $this->set('short_option', $this->has('shortcut') ? $this->get('shortcut') . $arg_suffix : null);
 
         if (!$this->has('default')) {
@@ -107,7 +109,9 @@ class UserOption
             $this->get('argument') === UserInput::ARG_OPTIONAL ? false : null
         ));
 
-        $this->set('_default_arg', $this->has('default_arg') ?
+        $this->set(
+            '_default_arg',
+            $this->has('default_arg') ?
             $this->get('default_arg') : $this->get('_default')
         );
 
@@ -163,8 +167,12 @@ class UserOption
             !in_array($value, $this->get('list'), true)
         ) {
             throw new InvalidArgumentException(
-                sprintf('Option "%s" must be a value in "%s" (got "%s")',
-                    $this->get('name'), implode('", "', $this->get('list')), $value)
+                sprintf(
+                    'Option "%s" must be a value in "%s" (got "%s")',
+                    $this->get('name'),
+                    implode('", "', $this->get('list')),
+                    $value
+                )
             );
         }
 
@@ -185,15 +193,15 @@ class UserOption
         $index .= '--' . $this->get('name') . $this->getArgumentString();
 
         if ($this->get('negate') === true) {
-            $data = array(
+            $data = [
                 $this->get('description'),
-                sprintf(UserInput::$NEGATE_INFO, $this->get('name'))
-            );
+                sprintf(UserInput::$NEGATE_INFO, $this->get('name')),
+            ];
         } else {
             $data = $this->get('description');
         }
 
-        return array($index, $data);
+        return [$index, $data];
     }
 
     /**

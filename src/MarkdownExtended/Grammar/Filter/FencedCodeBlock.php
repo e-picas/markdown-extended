@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown fenced code blocks
@@ -24,8 +24,7 @@ use \MarkdownExtended\API\Kernel;
  *      ~~~~
  *
  */
-class FencedCodeBlock
-    extends Filter
+class FencedCodeBlock extends Filter
 {
     /**
      * @param   string  $text
@@ -33,7 +32,8 @@ class FencedCodeBlock
      */
     public function transform($text)
     {
-        return preg_replace_callback('{
+        return preg_replace_callback(
+            '{
                 (?:\n|\A)               # 1: Opening marker
                 (
                     ~{3,}|`{3,}         # Marker: three tildes or backticks or more.
@@ -48,7 +48,9 @@ class FencedCodeBlock
                 )
                 \1 [ ]* \n              # Closing marker
             }xm',
-            array($this, '_callback'), $text);
+            [$this, '_callback'],
+            $text
+        );
     }
 
     /**
@@ -61,9 +63,9 @@ class FencedCodeBlock
     {
         $language  = $matches[2];
         $codeblock = Helper::escapeCodeContent($matches[3]);
-        $codeblock = preg_replace_callback('/^\n+/', array($this, '_newlines'), $codeblock);
+        $codeblock = preg_replace_callback('/^\n+/', [$this, '_newlines'], $codeblock);
 
-        $attributes = array();
+        $attributes = [];
         if (!empty($language)) {
             $attributes['language'] = $language;
         }

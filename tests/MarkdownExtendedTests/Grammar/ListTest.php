@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTest;
+use MarkdownExtended\MarkdownExtended;
 
 class ListTest extends ParserTest
 {
@@ -20,15 +20,15 @@ class ListTest extends ParserTest
 
         // unordered list
         $md = <<<MSG
--   first item
-*   second item
-    - first sub-item
-    * second sub-item
--   third item
-MSG;
+            -   first item
+            *   second item
+                - first sub-item
+                * second sub-item
+            -   third item
+            MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<ul><li>first item</li><li>second item  <ul><li>first sub-item</li><li>second sub-item</li></ul></li><li>third item</li></ul>',
             '[parsing] test of unordered list'
@@ -36,15 +36,15 @@ MSG;
 
         // ordered list
         $md = <<<MSG
-1.   first item
-1.   second item
-    1. first sub-item
-    2. second sub-item
-5.   third item
-MSG;
+            1.   first item
+            1.   second item
+                1. first sub-item
+                2. second sub-item
+            5.   third item
+            MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<ol><li>first item</li><li>second item  <ol><li>first sub-item</li><li>second sub-item</li></ol></li><li>third item</li></ol>',
             '[parsing] test of ordered list'

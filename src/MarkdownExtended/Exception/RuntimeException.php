@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Exception;
 
-use \RuntimeException as BaseException;
+use RuntimeException as BaseException;
 
 /**
  * Specific RuntimeException with a default status code of 93
  */
-class RuntimeException
-    extends BaseException
+class RuntimeException extends BaseException
 {
     public function __construct($message = '', $code = 0, BaseException $previous = null)
     {
-        parent::__construct($message, ($code===0 ? 93 : $code), $previous);
+        parent::__construct($message, ($code === 0 ? 93 : $code), $previous);
     }
 }

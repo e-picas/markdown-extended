@@ -10,15 +10,14 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
 
 /**
  * Process Markdown spans
  */
-class Span
-    extends Filter
+class Span extends Filter
 {
     /**
      * Take the string $str and parse it into tokens, hashing embedded HTML,
@@ -38,7 +37,7 @@ class Span
                     `+                        # code span marker
                 |
                     \\ \(                     # inline math
-            '.(Kernel::getConfig('no_markup')===true ? '' : '
+            '.(Kernel::getConfig('no_markup') === true ? '' : '
                 |
                     <!--    .*?     -->       # comment
                 |
@@ -88,25 +87,29 @@ class Span
      */
     public function handleSpanToken($token, &$str)
     {
-        switch ($token{0}) {
+        switch ($token[0]) {
             case "\\":
-                if ($token{1} == "(") {
+                if ($token[1] == "(") {
                     $texend = strpos($str, '\\)');
                     if ($texend) {
                         $eqn = substr($str, 0, $texend);
-                        $str = substr($str, $texend+2);
+                        $str = substr($str, $texend + 2);
                         $texspan = Lexer::runGamut('filter:Maths:span', $eqn);
                         return parent::hashPart($texspan);
                     } else {
                         return $str;
                     }
                 } else {
-                    return parent::hashPart("&#". ord($token{1}). ";");
+                    return parent::hashPart("&#". ord($token[1]). ";");
                 }
+                // no break
             case "`":
                 // Search for end marker in remaining text.
-                if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm',
-                    $str, $matches)
+                if (preg_match(
+                    '/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm',
+                    $str,
+                    $matches
+                )
                 ) {
                     $str = $matches[2];
                     $codespan = Lexer::runGamut('filter:CodeBlock:span', $matches[1], true);

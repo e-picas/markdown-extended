@@ -10,16 +10,15 @@
 
 namespace MarkdownExtendedDev;
 
-use \MarkdownExtended\Console\AbstractConsole;
-use \MarkdownExtended\Console\UserInput;
-use \MarkdownExtended\Exception\FileSystemException;
-use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\MarkdownExtended;
-use \MarkdownExtended\Parser;
-use \MarkdownExtended\Util\Helper;
+use MarkdownExtended\Console\AbstractConsole;
+use MarkdownExtended\Console\UserInput;
+use MarkdownExtended\Exception\FileSystemException;
+use MarkdownExtended\Exception\InvalidArgumentException;
+use MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\Parser;
+use MarkdownExtended\Util\Helper;
 
-class Console
-    extends AbstractConsole
+class Console extends AbstractConsole
 {
     public function __construct()
     {
@@ -30,53 +29,54 @@ class Console
             ->setSynopsis(
                 $script . ' [OPTIONS] make-phar / check-phar / make-release / make-manpage-(3/7) / make-manpages'
             )
-            ->setUsage(<<<MSG
-Dev tasks:
-    make-phar       : build or rebuild the PHAR of the app
-                      ("markdown-extended.phar" in the current directory by default)
-    check-phar      : extract current PHAR contents in a directory
-                      (in a "tmp/phar-extract" directory by default)
-    make-manpage-3  : rebuild the "man/markdown-extended.3.man" manpage
-                      (default source is "doc/MANPAGE.md")
-    make-manpage-7  : rebuild the "man/markdown-extended.7.man" manpage
-                      (default source is "doc/DOCUMENTATION.md")
-    make-manpages   : rebuild both manpages
-    make-release    : increase version-number and prepare a release
-                      (use the "--release" option to set the release number)
+            ->setUsage(
+                <<<MSG
+                    Dev tasks:
+                        make-phar       : build or rebuild the PHAR of the app
+                                          ("markdown-extended.phar" in the current directory by default)
+                        check-phar      : extract current PHAR contents in a directory
+                                          (in a "tmp/phar-extract" directory by default)
+                        make-manpage-3  : rebuild the "man/markdown-extended.3.man" manpage
+                                          (default source is "doc/MANPAGE.md")
+                        make-manpage-7  : rebuild the "man/markdown-extended.7.man" manpage
+                                          (default source is "doc/DOCUMENTATION.md")
+                        make-manpages   : rebuild both manpages
+                        make-release    : increase version-number and prepare a release
+                                          (use the "--release" option to set the release number)
 
-You can also call Composer's scripts:
-    composer test               : run PHPUnit test suite
-    composer code-coverage      : play the code coverage analysis
+                    You can also call Composer's scripts:
+                        composer test               : run PHPUnit test suite
+                        composer code-coverage      : play the code coverage analysis
 
-MSG
+                    MSG
             )
-            ->addCliOption('output', array(
+            ->addCliOption('output', [
                 'shortcut'      => 'o',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING,
-                'description'   => 'Write the result of current task in concerned path.'
-            ))
-            ->addCliOption('input', array(
+                'description'   => 'Write the result of current task in concerned path.',
+            ])
+            ->addCliOption('input', [
                 'shortcut'      => 'i',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_PATH,
-                'description'   => 'Set concerned path as input for current task.'
-            ))
-            ->addCliOption('base-path', array(
+                'description'   => 'Set concerned path as input for current task.',
+            ])
+            ->addCliOption('base-path', [
                 'shortcut'      => 'b',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_PATH,
-                'description'   => 'Set the base path for the CLI work.'
-            ))
-            ->addCliOption('release', array(
+                'description'   => 'Set the base path for the CLI work.',
+            ])
+            ->addCliOption('release', [
                 'shortcut'      => 'r',
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING,
-                'description'   => array(
+                'description'   => [
                     'Set a version number for the "make-release" action.',
-                    '(you can use "major", "minor" and "patch" for automation ; default is "patch")'
-                )
-            ))
+                    '(you can use "major", "minor" and "patch" for automation ; default is "patch")',
+                ],
+            ])
         ;
 
         $this
@@ -163,7 +163,7 @@ MSG
         $this->stream->writeln(
             sprintf('> ok, phar generated in file "%s"', $output)
         );
-        $this->stream->debug(array('Generation logs:', var_export($logs, true)));
+        $this->stream->debug(['Generation logs:', var_export($logs, true)]);
     }
 
     protected function checkPhar()
@@ -215,7 +215,7 @@ MSG
         );
         $actual_parts = explode('-', $actual);
 
-        list($major, $minor, $patch) = explode('.', $actual_parts[0]);
+        [$major, $minor, $patch] = explode('.', $actual_parts[0]);
         $final = null;
         switch ($target) {
             case 'major':
@@ -233,7 +233,7 @@ MSG
                 $final = $target_parts[0];
         }
         if (is_null($final)) {
-            $final = implode('.', array($major, $minor, $patch));
+            $final = implode('.', [$major, $minor, $patch]);
         }
         if (count($target_parts) > 1) {
             $final .= '-' . $target_parts[1];
@@ -248,11 +248,11 @@ MSG
         sleep(2);
 
         // the MDE class file
-        $md_class = realpath(Helper::getPath(array(
+        $md_class = realpath(Helper::getPath([
             dirname(__DIR__),
             'MarkdownExtended',
-            'MarkdownExtended.php'
-        )));
+            'MarkdownExtended.php',
+        ]));
         $this->stream->verboseln(
             sprintf('Updating "%s" ...', $md_class)
         );
@@ -272,11 +272,11 @@ MSG
         }
 
         // the section 3 manpage
-        $man3 = realpath(Helper::getPath(array(
+        $man3 = realpath(Helper::getPath([
             dirname(dirname(__DIR__)),
             'doc',
-            'MANPAGE.md'
-        )));
+            'MANPAGE.md',
+        ]));
         $this->stream->verboseln(
             sprintf('Updating "%s" ...', $man3)
         );
@@ -296,11 +296,11 @@ MSG
         }
 
         // the section 7 manpage
-        $man7 = realpath(Helper::getPath(array(
+        $man7 = realpath(Helper::getPath([
             dirname(dirname(__DIR__)),
             'doc',
-            'DOCUMENTATION.md'
-        )));
+            'DOCUMENTATION.md',
+        ]));
         $this->stream->verboseln(
             sprintf('Updating "%s" ...', $man7)
         );
@@ -364,11 +364,11 @@ MSG
         $this->stream->verboseln(
             sprintf('Generating "%s" from "%s" ...', $output, $input)
         );
-        $mde = new Parser(array(
+        $mde = new Parser([
             'force'         => false,
             'output_format' => 'man',
-            'output'        => $output
-        ));
+            'output'        => $output,
+        ]);
         $this->stream->writeln(
             $mde->transformSource($input)
         );

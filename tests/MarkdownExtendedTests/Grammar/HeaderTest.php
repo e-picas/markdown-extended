@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTest;
+use MarkdownExtended\MarkdownExtended;
 
 class HeaderTest extends ParserTest
 {
@@ -19,7 +19,7 @@ class HeaderTest extends ParserTest
     {
         $md = '#Hello World';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, array('template'=>false)),
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<h1 id="hello-world">Hello World</h1>',
             '[parsing] test of header'
         );

@@ -10,8 +10,8 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown definitions links
@@ -21,8 +21,7 @@ use \MarkdownExtended\API\Kernel;
  *      ^[id]: url "optional title"
  *
  */
-class LinkDefinition
-    extends Filter
+class LinkDefinition extends Filter
 {
     /**
      * Mandatory method
@@ -41,7 +40,8 @@ class LinkDefinition
      */
     public function strip($text)
     {
-        return preg_replace_callback('{
+        return preg_replace_callback(
+            '{
                 ^[ ]{0,'.Kernel::getConfig('less_than_tab').'}\[(.+)\][ ]?:   # id = $1
                   [ ]*
                   \n?                   # maybe *one* newline
@@ -74,7 +74,9 @@ class LinkDefinition
                 )?                      # attributes are optional
                 (\n+|\Z)
             }xm',
-            array($this, '_strip_callback'), $text);
+            [$this, '_strip_callback'],
+            $text
+        );
     }
 
     /**
@@ -87,9 +89,9 @@ class LinkDefinition
     {
         $link_id = strtolower($matches[1]);
         $url = $matches[2] == '' ? $matches[3] : $matches[2];
-        Kernel::addConfig('urls', array($link_id=>$url));
-        Kernel::addConfig('titles', array($link_id=>$matches[4]));
-        Kernel::addConfig('attributes', array($link_id=>$matches[5]));
+        Kernel::addConfig('urls', [$link_id => $url]);
+        Kernel::addConfig('titles', [$link_id => $matches[4]]);
+        Kernel::addConfig('attributes', [$link_id => $matches[5]]);
         return '';
     }
 }

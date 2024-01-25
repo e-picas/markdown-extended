@@ -10,16 +10,15 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown mathematics
  *
  * taken from <http://github.com/drdrang/php-markdown-extra-math>
  */
-class Maths
-    extends Filter
+class Maths extends Filter
 {
     /**
      * Wrap text between \[ and \] in display math tags.
@@ -29,7 +28,8 @@ class Maths
      */
     public function transform($text)
     {
-        return preg_replace_callback('{
+        return preg_replace_callback(
+            '{
               ^\\\\                         # line starts with a single backslash (double escaping)
               \[                            # followed by a square bracket
               (.+)                          # then the actual LaTeX code
@@ -37,7 +37,9 @@ class Maths
               \]                            # and closing bracket
               \s*$                          # and maybe some whitespace before the end of the line
             }mx',
-            array($this, '_callback'), $text);
+            [$this, '_callback'],
+            $text
+        );
     }
 
     /**
@@ -51,7 +53,7 @@ class Maths
         $texblock   = $matches[1];
         $texblock   = trim($texblock);
         $block      = Kernel::get('OutputFormatBag')
-            ->buildTag('maths_block', $texblock, array());
+            ->buildTag('maths_block', $texblock, []);
         return "\n\n".parent::hashBlock($block)."\n\n";
     }
 
@@ -65,7 +67,7 @@ class Maths
     {
         $texblock   = trim($texblock);
         $block      = Kernel::get('OutputFormatBag')
-            ->buildTag('maths_span', $texblock, array());
+            ->buildTag('maths_span', $texblock, []);
         return parent::hashPart($block);
     }
 }

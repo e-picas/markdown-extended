@@ -10,8 +10,7 @@
 
 namespace MarkdownExtendedTests;
 
-class BaseUnitTest
-    extends \PHPUnit_Framework_TestCase
+class BaseUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Validates the paths getters of this class
@@ -19,11 +18,11 @@ class BaseUnitTest
     public function testPaths()
     {
         $this->assertFileExists(
-            $this->getPath(array(dirname(__DIR__), 'bootstrap.php')),
+            $this->getPath([dirname(__DIR__), 'bootstrap.php']),
             '[internal test] getPath() to "tests/bootstrap.php"'
         );
         $this->assertFileExists(
-            $this->getPath(array($this->getBasePath(), 'composer.json')),
+            $this->getPath([$this->getBasePath(), 'composer.json']),
             '[internal test] getBasePath() to "composer.json"'
         );
         $this->assertFileExists(
@@ -31,7 +30,7 @@ class BaseUnitTest
             '[internal test] getResourcePath() to "tests/test.md" as a string'
         );
         $this->assertFileExists(
-            $this->getResourcePath(array('test.md')),
+            $this->getResourcePath(['test.md']),
             '[internal test] getResourcePath() to "tests/test.md" as an array'
         );
     }
@@ -47,7 +46,7 @@ class BaseUnitTest
         return implode(
             DIRECTORY_SEPARATOR,
             array_map(function ($p) {
-                return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p);
+                return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $p);
             }, $parts)
         );
     }
@@ -69,7 +68,7 @@ class BaseUnitTest
      */
     public function getResourcePath($path)
     {
-        $_paths = array($this->getBasePath(), 'tests');
+        $_paths = [$this->getBasePath(), 'tests'];
         if (is_array($path)) {
             $_paths = array_merge($_paths, $path);
         } else {
@@ -120,7 +119,7 @@ class BaseUnitTest
      */
     public function getTempDir()
     {
-        return $this->getPath(array($this->getBasePath(), 'tmp'));
+        return $this->getPath([$this->getBasePath(), 'tmp']);
     }
 
     /**
