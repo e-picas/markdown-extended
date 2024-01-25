@@ -1,23 +1,33 @@
+#
+# This file is part of the PHP-Markdown-Extended package.
+#
+# Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
 # the composer stuff
 composer.lock
-vendor/*
+vendor/
 
 # any "tmp*" file or dir anywhere
 *tmp*
 
 # dev
 TODOS*
-dev/*
-build/logs/*
+cache/
+build/logs/
+.phpunit.result.cache
 
 # specific MDE files
 bin/*
 !bin/markdown-extended
 
 # this is for all branches but "dev"
-build/*
-demo/*
-phpdoc/*
+build/
+demo/
+dev/phpdoc/
 
 # this is for all branches but "phar-latest"
 !bin/mde-dev
@@ -35,9 +45,6 @@ phpdoc/*
 #composer.json
 #CONTRIBUTING.md
 #!bin/markdown-extended.phar
-
-vendor/
-.phpunit.result.cache
 
 # hack to allow keeping an empty directory
 !.gitkeep
