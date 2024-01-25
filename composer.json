@@ -24,10 +24,10 @@
   },
   "require": { "php": ">=5.3.3" },
   "require-dev": {
-    "sami/sami": "3.*",
+    "sami/sami": "4.*",
     "phpunit/phpunit": "@stable",
     "phpmd/phpmd" : "@stable",
-    "fabpot/php-cs-fixer": "@stable",
+    "friendsofphp/php-cs-fixer": "@stable",
     "codeclimate/php-test-reporter": "dev-master"
   },
   "replace": {
@@ -46,10 +46,11 @@
     "bin-dir": "bin"
   },
   "scripts": {
-    "build-doc": "php ./bin/sami.php update .sami.php",
+    "build-doc": "php ./bin/sami.php render .sami.php",
     "update-doc": "php ./bin/sami.php update .sami.php",
     "test": "php ./bin/phpunit",
     "cs-fixer": "php ./bin/php-cs-fixer fix -v",
+    "cs-fixer-ci": "php ./bin/php-cs-fixer fix -v --dry-run",
     "code-coverage": "php ./bin/phpunit --coverage-clover build/logs/clover.xml && CODECLIMATE_REPO_TOKEN=13523c00febc4ee41ddbfcbb4f81331b1810d2a1f40029ddf066cb0d875ff2ef ./bin/test-reporter"
   },
   "bin": [
