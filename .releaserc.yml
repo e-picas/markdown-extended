@@ -1,0 +1,29 @@
+
+branches:
+  - "+([0-9])?(.{+([0-9]),x}).x"
+  - name: "master"
+  - name: "dev"
+  - name: "release-*"
+    prerelease: "alpha"
+
+plugins:
+  - path: "@semantic-release/commit-analyzer"
+  - path: "@semantic-release/release-notes-generator"
+    commit: "/commit"
+  - path: "@semantic-release/github"
+  - path: "@semantic-release/changelog"
+    changelogFile: "CHANGELOG.md"
+    changelogTitle: "# Markdown Extended changelog"
+  - path: "@semantic-release/git"
+    assets:
+      - "CHANGELOG.md"
+    message: |
+      chore(release): ${nextRelease.version}
+
+      ${nextRelease.notes}
+  - path: "@semantic-release/exec"
+    verifyReleaseCmd: "echo \"${nextRelease.version}\" > /tmp/next_release"
+  - path: "@saithodev/semantic-release-backmerge"
+    backmergeBranches:
+      - from: "master"
+        to: "dev"
