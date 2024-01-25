@@ -9,14 +9,22 @@
  *
  */
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
+$finder = Symfony\CS\Finder\DefaultFinder::create();
+$finder
     ->in(__DIR__)
     ->name('*.php')
     ->name('markdown-extended')
     ->name('mde-dev')
 ;
 
-return Symfony\CS\Config\Config::create()
-    ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
+$config = Symfony\CS\Config\Config::create();
+$config
+    ->setUsingCache(false)
+    ->fixers([
+        '@PHP74Migration' => true,
+        '@PSR12' => true,
+    ])
     ->finder($finder)
-    ;
+;
+
+return $config;

@@ -1,13 +1,15 @@
 * text=auto
 
 *.php   text diff=php trailing-space space-before-tab -indent-with-non-tab
-*.phar  binary export-ignore
+*.phar  binary
 *.md    text
 
 .git*           text export-ignore
-dev/            export-ignore
-build/          export-ignore
-tmp*            export-ignore
-vendor/         export-ignore
+demo/           export-ignore
+doc/            export-ignore
+docker/         export-ignore
+phpdoc/         export-ignore
+tests/          export-ignore
 composer.lock   export-ignore
+Makefile        export-ignore
 TODOS*          export-ignore

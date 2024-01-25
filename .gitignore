@@ -36,5 +36,8 @@ phpdoc/*
 #CONTRIBUTING.md
 #!bin/markdown-extended.phar
 
+vendor/
+.phpunit.result.cache
+
 # hack to allow keeping an empty directory
 !.gitkeep

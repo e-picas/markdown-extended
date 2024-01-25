@@ -13,6 +13,7 @@
  */
 
 use Sami\Sami;
+use Sami\Version\SingleVersionCollection;
 use Symfony\Component\Finder\Finder;
 
 $iterator = Finder::create()
@@ -24,9 +25,10 @@ $iterator = Finder::create()
 ;
 
 $options = array(
+//    'versions'             => new SingleVersionCollection('1.0.0-rc'),
     'title'                => 'Markdown Extended',
     'build_dir'            => __DIR__.'/phpdoc',
-    'cache_dir'            => __DIR__.'/../tmp/cache/markdown-extended',
+    'cache_dir'            => __DIR__.'/tmp/cache/markdown-extended',
     'default_opened_level' => 1,
 );
 
