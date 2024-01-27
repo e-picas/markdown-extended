@@ -201,7 +201,7 @@ class HTML extends Filter
                     $parsed .= $tag . $matches[0];
                     $text = substr($text, strlen($matches[0]));
 
-                // Unmatched marker: just skip it.
+                    // Unmatched marker: just skip it.
                 } else {
                     $parsed .= $tag;
                 }
@@ -216,7 +216,7 @@ class HTML extends Filter
                     $parsed .= $tag . $matches[0];
                     $text = substr($text, strlen($matches[0]));
 
-                // No end marker: just skip it.
+                    // No end marker: just skip it.
                 } else {
                     $parsed .= $tag;
                 }

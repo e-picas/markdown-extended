@@ -186,7 +186,7 @@ class DefinitionList extends Filter
             // Replace marker with the appropriate whitespace indentation
             $def = str_repeat(' ', strlen($marker_space)) . $def;
             $def = Lexer::runGamut('html_block_gamut', Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $def . "\n\n"));
-        //            $def = "\n$def\n";
+            //            $def = "\n$def\n";
         } else {
             $def = rtrim($def);
             $def = Lexer::runGamut('span_gamut', Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $def));

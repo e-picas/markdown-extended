@@ -69,7 +69,7 @@ if (file_exists($a = $bootstrapGetPath([
 ]))) {
     require_once $a;
 
-// else try local Composer autoloader
+    // else try local Composer autoloader
 } elseif (file_exists($b = $bootstrapGetPath([
     dirname(__DIR__), 'vendor', 'autoload.php',
 ]))) {
