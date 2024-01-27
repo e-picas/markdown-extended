@@ -212,11 +212,11 @@ class Note extends Filter
             if (isset($footnotes[$note_id])) {
                 self::transformFootnote($note_id);
 
-            // glossary
+                // glossary
             } elseif (isset($glossaries[$note_id])) {
                 self::transformGlossary($note_id);
 
-            // bibliographies
+                // bibliographies
             } elseif (isset($bibliographies[$note_id])) {
                 self::transformBibliography($note_id);
             }
