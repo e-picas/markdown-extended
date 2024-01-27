@@ -10,7 +10,7 @@
  */
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
+    ->in(__DIR__.'/src/')
     ->name('*.php')
     ->name('markdown-extended')
     ->name('mde-dev')

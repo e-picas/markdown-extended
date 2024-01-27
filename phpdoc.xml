@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title>Markdown Extended doc</title>
+  <parser>
+    <target>/tmp/phpdoc-cache/</target>
+    <encoding>utf8</encoding>
+    <markers>
+      <item>TODO</item>
+      <item>FIXME</item>
+    </markers>
+    <extensions>
+      <extension>php</extension>
+    </extensions>
+    <default-package-name>MarkdownExtended</default-package-name>
+  </parser>
+  <files>
+    <directory>src/</directory>
+    <ignore>src/MarkdownExtendedDev/*</ignore>
+    <ignore>src/bootstrap.php</ignore>
+  </files>
+  <transformer>
+    <target>dev/mde-documentation/</target>
+  </transformer>
+  <transformations>
+    <template name="clean" />
+  </transformations>
+</phpdoc>
