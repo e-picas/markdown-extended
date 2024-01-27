@@ -17,6 +17,7 @@ CWD := $(shell pwd)
 export
 
 APACHE_PORT_80 ?= 8080
+MDE_DEV_DOCKER_CMD ?= bash
 
 default: help
 .PHONY: default
@@ -24,37 +25,97 @@ default: help
 ## Build the docker image for cli development
 docker-build-mde:
 	docker build \
-		-f $$(pwd)/dev/docker/php/Dockerfile \
+		-f $$(pwd)/docker/php/Dockerfile \
 		-t mde_dev \
 		$$(pwd)/
 .PHONY: docker-build-mde
 
 ## Run the cli docker container
-docker-run-mde:
+docker-run-mde: docker-build-mde
 	docker run -ti --rm \
 		--name mde_dev_app \
 		-v $$(pwd):/mde-src \
 		-w /mde-src/ \
-		mde_dev bash
+		mde_dev bash -c "${MDE_DEV_DOCKER_CMD}"
 .PHONY: docker-run-mde
 
 ## Build the docker image for apache/demo
 docker-build-apache:
 	docker build \
-		-f $$(pwd)/dev/docker/php-apache/Dockerfile \
+		-f $$(pwd)/docker/php-apache/Dockerfile \
 		-t mde_server \
 		$$(pwd)/
 .PHONY: docker-build-apache
 
 ## Run the apache/demo docker container
-docker-run-apache:
+docker-run-apache: docker-build-apache
 	docker run -ti -d --rm \
 		--name mde_server_app \
 		-v $$(pwd):/var/www/ \
 		-p ${APACHE_PORT_80}:80 \
-		-w /mde-src/ \
+		-w /var/www/ \
 		mde_server
 .PHONY: docker-run-apache
+
+## Stop the apache/demo docker container
+docker-stop-apache:
+	docker stop mde_server_app
+.PHONY: docker-stop-apache
+
+## Run the PHPUnit tests in the 'mde_dev' container
+run-tests: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer test" make docker-run-mde
+.PHONY: run-tests
+
+## Generate the PHPUnit tests reports in the 'mde_dev' container
+generate-tests-report: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer test-report" make docker-run-mde
+.PHONY: generate-tests-report
+
+## Run the Code Standards Fixer in the 'mde_dev' container
+run-code-fixer: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer cs-fixer" make docker-run-mde
+.PHONY: run-code-fixer
+
+## Generate the documentation running `phpdoc` in the 'mde_dev' container
+generate-documentation: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer doc" make docker-run-mde
+.PHONY: generate-documentation
+
+## Run the PHP Metrics tool in the 'mde_dev' container
+generate-code-metrics: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer metrics" make docker-run-mde
+.PHONY: generate-code-metrics
+
+## Run the PHP Dedup tool in the 'mde_dev' container
+run-code-deduplicator: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer dedup" make docker-run-mde
+.PHONY: run-code-deduplicator
+
+## Run the PHP Loc tool in the 'mde_dev' container
+run-code-sizer: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer sizer" make docker-run-mde
+.PHONY: run-code-sizer
+
+## Run the PHP Mess Detector tool on the sources in the 'mde_dev' container
+run-mess-detector: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector" make docker-run-mde
+.PHONY: run-mess-detector
+
+## Generate a PHP Mess Detector tool report in `dev/code-analyzer-report.html` analyzing the sources in the 'mde_dev' container
+generate-mess-detector-report: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-report" make docker-run-mde
+.PHONY: generate-mess-detector-report
+
+## Run the PHP Mess Detector tool comparing to the `.phpmd.baseline.xml` baseline on the sources in the 'mde_dev' container
+run-mess-detector-with-baseline: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-with-baseline" make docker-run-mde
+.PHONY: run-mess-detector-with-baseline
+
+## Generate the PHP Mess Detector tool `.phpmd.baseline.xml` baseline on the sources in the 'mde_dev' container
+generate-mess-detector-baseline: docker-build-mde
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-generate-baseline" make docker-run-mde
+.PHONY: generate-mess-detector-baseline
 
 # largely inspired by <https://docs.cloudposse.com/reference/best-practices/make-best-practices/>
 help:
