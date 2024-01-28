@@ -39,5 +39,6 @@ jobs:
           command: run cs-fixer-ci
 
       - name: Run unit tests
-        shell: php {0}
-        run: ./bin/phpunit --no-coverage --no-logging --testdox
+        uses: php-actions/composer@v6
+        with:
+          command: run test
