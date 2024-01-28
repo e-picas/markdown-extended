@@ -49,6 +49,7 @@
   "scripts": {
     "doc": "phpdoc project:run --sourcecode --cache-folder=/tmp/phpdoc-cache/ --force -v",
     "test": "php ./bin/phpunit --no-coverage --no-logging --debug",
+    "test-ci": "php ./bin/phpunit --no-coverage --no-logging",
     "test-report": "php ./bin/phpunit --debug",
     "metrics": "php ./bin/phpmetrics --config=.phpmetrics.yml src/",
     "dedup": "php ./bin/phpcpd --exclude=src/MarkdownExtendedDev/ src/",

@@ -36,4 +36,4 @@ jobs:
       - name: Run unit tests
         uses: php-actions/composer@v6
         with:
-          command: run test
+          command: run test-ci
