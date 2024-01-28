@@ -39,7 +39,7 @@ jobs:
           command: run cs-fixer-ci
 
       - name: Test the console
-        shell: php ./bin/markdown-extended
+        run: php ./bin/markdown-extended
 
       - name: Run unit tests
         uses: php-actions/composer@v6
