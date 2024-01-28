@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class LinkTest extends ParserTest
+class LinkTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testLink()
     {
 
         // classic link
@@ -25,7 +25,10 @@ class LinkTest extends ParserTest
             '<a href="http://getcomposer.org/" title="See online http://getcomposer.org/">Composer</a>',
             '[parsing] test of simple links'
         );
+    }
 
+    public function testLinkWithTitle()
+    {
         // link with a title
         $md = '[Composer](http://getcomposer.org/ "My title")';
         $this->assertEquals(

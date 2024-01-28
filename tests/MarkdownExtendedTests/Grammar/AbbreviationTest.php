@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class AbbreviationTest extends ParserTest
+class AbbreviationTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testAbbreviation()
     {
         $md = "
 A text whit HTML expression.

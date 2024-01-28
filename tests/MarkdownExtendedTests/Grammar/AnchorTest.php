@@ -13,15 +13,17 @@ namespace MarkdownExtendedTests\Grammar;
 use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class HeaderTest extends ParserTestCase
+class AnchorTest extends ParserTestCase
 {
-    public function testHeader()
+    public function testAnchorOnHeader()
     {
-        $md = '#Hello World';
+        // header with anchor
+        $md = '## My title {#my-anchor}';
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, ['template' => false]),
-            '<h1 id="hello-world">Hello World</h1>',
-            '[parsing] test of header'
+            '<h2 id="my-anchor">My title</h2>',
+            '[parsing] test of a header with a user defined anchor'
         );
+
     }
 }

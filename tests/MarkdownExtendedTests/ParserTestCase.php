@@ -12,7 +12,7 @@ namespace MarkdownExtendedTests;
 
 use MarkdownExtended\MarkdownExtended;
 
-class ParserTest extends BaseUnitTest
+class ParserTestCase extends BaseUnitTestCase
 {
     public const MD_STRING     = "my **markdown** _extended_ simple string";
 

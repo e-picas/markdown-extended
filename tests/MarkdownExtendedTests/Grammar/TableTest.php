@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class TableTest extends ParserTest
+class TableTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testTableWithHeaders()
     {
 
         // simple table
@@ -32,7 +32,10 @@ class TableTest extends ParserTest
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr></tbody></table>',
             '[parsing] test of simple table'
         );
+    }
 
+    public function testTableWithNoLeadingPipes()
+    {
         // simple table with no leading pipe
         $md = <<<MSG
             First Header  | Second Header |
@@ -47,7 +50,10 @@ class TableTest extends ParserTest
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr><tr><td>Content Cell</td><td style="text-align:right;">Content Cell</td></tr></tbody></table>',
             '[parsing] test of simple table with no leading pipe'
         );
+    }
 
+    public function testTableWithAnarchicSpaces()
+    {
         // simple table with not constant spacing
         $md = <<<MSG
             | First Header | Second Header |
@@ -62,7 +68,10 @@ class TableTest extends ParserTest
             '<table><thead><tr><th>First Header</th><th style="text-align:right;">Second Header</th></tr></thead><tbody><tr><td>Cell</td><td style="text-align:right;">Cell</td></tr><tr><td>Cell</td><td style="text-align:right;">Cell</td></tr></tbody></table>',
             '[parsing] test of simple table with not constant spaced cells'
         );
+    }
 
+    public function testTableWithCaption()
+    {
         // table with multiple headers and label before
         $md = <<<MSG
             [prototype *table*]

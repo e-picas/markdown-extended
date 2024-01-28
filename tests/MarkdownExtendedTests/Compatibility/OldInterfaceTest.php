@@ -10,9 +10,9 @@
 
 namespace MarkdownExtendedTests\Compatibility;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 
-class OldInterfaceTest extends ParserTest
+class OldInterfaceTest extends ParserTestCase
 {
     /**
      * Get the `markdown.php` file path
@@ -29,13 +29,20 @@ class OldInterfaceTest extends ParserTest
     /**
      * Test the `Markdown()` and `MarkdownFromSource()` aliases
      */
-    public function testCreate()
+    public function testCompatibilityFileExists()
     {
         // file exists
         $this->assertFileExists(
             $this->getOldInterfaceFilepath(),
             'markdown.php file existence for compatibility'
         );
+    }
+
+    /**
+     * Test the `Markdown()` and `MarkdownFromSource()` aliases
+     */
+    public function testOldMarkdownFunction()
+    {
         require_once $this->getOldInterfaceFilepath();
 
         // Markdown
@@ -44,6 +51,14 @@ class OldInterfaceTest extends ParserTest
             $this->stripWhitespaceAndNewLines(Markdown(file_get_contents($this->getTestFilepath()))->getBody()),
             'Test of the Markdown() function'
         );
+    }
+
+    /**
+     * Test the `Markdown()` and `MarkdownFromSource()` aliases
+     */
+    public function testOldMarkdownFromSourceFunction()
+    {
+        require_once $this->getOldInterfaceFilepath();
 
         // MarkdownFromSource
         $this->assertEquals(
