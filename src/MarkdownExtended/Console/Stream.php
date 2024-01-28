@@ -403,7 +403,10 @@ class Stream
                     $data .= fgets($this->stdin);
                 }
             }
-            @file_put_contents($this->stdin, '');
+            /*            if (is_file($this->stdin)) {
+                            file_put_contents($this->stdin, '');
+                        }
+            */
         } catch (\Exception $e) {
             $data = null;
         }

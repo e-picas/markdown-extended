@@ -344,7 +344,7 @@ class Kernel
      */
     protected static function _configRecursiveIterator(
         $type = 'get',
-        $index,
+        $index = 0,
         $value = null,
         $default = null
     ) {
