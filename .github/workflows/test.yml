@@ -10,7 +10,7 @@ permissions:
 
 jobs:
 
-  bump_release:
+  run_tests:
     name: "PHP unit tests & code standards"
     runs-on: ubuntu-latest
     permissions:
@@ -24,6 +24,11 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
 
       - name: Install composer dependencies
         uses: php-actions/composer@v6
