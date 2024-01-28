@@ -229,7 +229,7 @@ class Console extends AbstractConsole
             case 'patch':
                 $patch++;
                 break;
-            // if user sets a complete release string, take it as-is
+                // if user sets a complete release string, take it as-is
             default:
                 $final = $target_parts[0];
                 $target_parts = $actual_parts = [];
