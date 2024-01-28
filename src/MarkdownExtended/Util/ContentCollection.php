@@ -38,7 +38,7 @@ class ContentCollection extends \ArrayIterator
      *
      * @throws \MarkdownExtended\Exception\UnexpectedValueException it the argument does not implement `\MarkdownExtended\API\ContentInterface`
      */
-    public function append(mixed $content): void
+    public function append($content)
     {
         if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
             throw new UnexpectedValueException(
@@ -61,7 +61,7 @@ class ContentCollection extends \ArrayIterator
      *
      * @throws \MarkdownExtended\Exception\UnexpectedValueException it the argument does not implement `\MarkdownExtended\API\ContentInterface`
      */
-    public function offsetSet(mixed $index, mixed $content): void
+    public function offsetSet($index, $content)
     {
         if (!is_object($content) || !Kernel::valid($content, Kernel::TYPE_CONTENT)) {
             throw new UnexpectedValueException(
