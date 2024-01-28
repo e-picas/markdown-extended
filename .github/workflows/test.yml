@@ -40,4 +40,4 @@ jobs:
 
       - name: Run unit tests
         shell: php {0}
-        run: ./bin/phpunit --no-coverage --no-logging
+        run: ./bin/phpunit --no-coverage --no-logging --testdox
