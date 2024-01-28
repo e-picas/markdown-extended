@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class DefinitionsTest extends ParserTest
+class DefinitionsTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testDefinitionsList()
     {
         $md = <<<MSG
             Term 1

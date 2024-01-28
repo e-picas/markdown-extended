@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class HardbreakTest extends ParserTest
+class HardbreakTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testHardBreak()
     {
         $md = <<<MSG
             This is a definition with two paragraphs. Lorem ipsum

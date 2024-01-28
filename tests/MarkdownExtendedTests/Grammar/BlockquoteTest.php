@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class BlockquoteTest extends ParserTest
+class BlockquoteTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testBlockquote()
     {
         $md = "
 > My citation

@@ -10,20 +10,8 @@
 
 namespace MarkdownExtendedTests;
 
-class ConsoleTest extends ParserTest
+class ConsoleTestCase extends ParserTestCase
 {
-    /**
-     * Validates the command runner of this class
-     */
-    public function testCommandRunner()
-    {
-        $res = $this->runCommand('php -r "echo \'TEST\';"');
-        $this->assertEquals(
-            $res['stdout'],
-            'TEST',
-            '[internal test] command runner'
-        );
-    }
 
     /**
      * Gets the basic 'php bin/markdown-extended' string

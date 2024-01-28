@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class ListTest extends ParserTest
+class ListTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testListUnordered()
     {
 
         // unordered list
@@ -33,7 +33,10 @@ class ListTest extends ParserTest
             '<ul><li>first item</li><li>second item  <ul><li>first sub-item</li><li>second sub-item</li></ul></li><li>third item</li></ul>',
             '[parsing] test of unordered list'
         );
+    }
 
+    public function testListOrdered()
+    {
         // ordered list
         $md = <<<MSG
             1.   first item

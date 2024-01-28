@@ -10,10 +10,10 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use MarkdownExtendedTests\ConsoleTest;
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ConsoleTestCase;
+use MarkdownExtendedTests\ParserTestCase;
 
-class SimpleUsageTest extends ConsoleTest
+class SimpleUsageTest extends ConsoleTestCase
 {
     /**
      * Test a default call with no argument
@@ -43,7 +43,7 @@ class SimpleUsageTest extends ConsoleTest
      */
     public function testSimpleString()
     {
-        $res = $this->runCommand($this->getBaseCmd().' "'.ParserTest::MD_STRING.'"');
+        $res = $this->runCommand($this->getBaseCmd().' "'.ParserTestCase::MD_STRING.'"');
         // status
         $this->assertEquals(
             $res['status'],
@@ -53,7 +53,7 @@ class SimpleUsageTest extends ConsoleTest
         // stdout
         $this->assertEquals(
             $res['stdout'],
-            ParserTest::PARSED_STRING,
+            ParserTestCase::PARSED_STRING,
             'Test of the CLI on simple string with no option'
         );
     }
@@ -65,7 +65,7 @@ class SimpleUsageTest extends ConsoleTest
      */
     public function testPipedSimpleString()
     {
-        $res = $this->runCommand('echo "'.ParserTest::MD_STRING.'" | '.$this->getBaseCmd());
+        $res = $this->runCommand('echo "'.ParserTestCase::MD_STRING.'" | '.$this->getBaseCmd());
         // status
         $this->assertEquals(
             $res['status'],
@@ -75,7 +75,7 @@ class SimpleUsageTest extends ConsoleTest
         // stdout
         $this->assertEquals(
             $res['stdout'],
-            ParserTest::PARSED_STRING,
+            ParserTestCase::PARSED_STRING,
             'Test of the CLI on a piped simple string'
         );
     }
@@ -87,8 +87,8 @@ class SimpleUsageTest extends ConsoleTest
      */
     public function testMultipleStrings()
     {
-        $res    = $this->runCommand($this->getBaseCmd().' "'.ParserTest::MD_STRING.'" "'.ParserTest::MD_STRING.'"');
-        $line   = ParserTest::PARSED_STRING;
+        $res    = $this->runCommand($this->getBaseCmd().' "'.ParserTestCase::MD_STRING.'" "'.ParserTestCase::MD_STRING.'"');
+        $line   = ParserTestCase::PARSED_STRING;
         $output = <<<MSG
             ==> STDIN#1 <==
             {$line}

@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class EmphasisTest extends ParserTest
+class EmphasisTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testInlineEmphasis()
     {
         $md = '**Hello** _World_';
         $this->assertEquals(

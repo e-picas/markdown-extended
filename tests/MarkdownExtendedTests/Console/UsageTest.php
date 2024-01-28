@@ -10,10 +10,10 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use MarkdownExtendedTests\ConsoleTest;
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ConsoleTestCase;
+use MarkdownExtendedTests\ParserTestCase;
 
-class UsageTest extends ConsoleTest
+class UsageTest extends ConsoleTestCase
 {
     /**
      * Test a call on a simple string with template empty argument
@@ -22,9 +22,9 @@ class UsageTest extends ConsoleTest
      */
     public function testSimpleStringTemplate()
     {
-        $res1 = $this->runCommand($this->getBaseCmd().' --template "'.ParserTest::MD_STRING.'"');
-        $res2 = $this->runCommand($this->getBaseCmd().' -t "'.ParserTest::MD_STRING.'"');
-        $line = ParserTest::PARSED_STRING;
+        $res1 = $this->runCommand($this->getBaseCmd().' --template "'.ParserTestCase::MD_STRING.'"');
+        $res2 = $this->runCommand($this->getBaseCmd().' -t "'.ParserTestCase::MD_STRING.'"');
+        $line = ParserTestCase::PARSED_STRING;
         $html = $this->stripWhitespaceAndNewLines(
             <<<MSG
                 <!DOCTYPE html>
@@ -75,8 +75,8 @@ class UsageTest extends ConsoleTest
     public function testSimpleStringCustomTemplate()
     {
         $tpl    = $this->getPath([$this->getBasePath(), 'tests', 'test-template.tpl']);
-        $res    = $this->runCommand($this->getBaseCmd().' --template=' .$tpl. ' "'.ParserTest::MD_STRING.'"');
-        $line   = ParserTest::PARSED_STRING;
+        $res    = $this->runCommand($this->getBaseCmd().' --template=' .$tpl. ' "'.ParserTestCase::MD_STRING.'"');
+        $line   = ParserTestCase::PARSED_STRING;
         $html   = $this->stripWhitespaceAndNewLines(
             <<<MSG
                 <custom>
@@ -98,7 +98,7 @@ class UsageTest extends ConsoleTest
      */
     public function testSimpleStringCustomTemplateError()
     {
-        $res = $this->runCommand($this->getBaseCmd().' --template=notexisting "'.ParserTest::MD_STRING.'"');
+        $res = $this->runCommand($this->getBaseCmd().' --template=notexisting "'.ParserTestCase::MD_STRING.'"');
         // status NOT 0
         $this->assertNotEquals(
             $res['status'],
@@ -125,10 +125,10 @@ class UsageTest extends ConsoleTest
      */
     public function testSimpleStringAsJson()
     {
-        $res1 = $this->runCommand($this->getBaseCmd().' --response json "'.ParserTest::MD_STRING.'"');
-        $res2 = $this->runCommand($this->getBaseCmd().' --response=json "'.ParserTest::MD_STRING.'"');
-        $res3 = $this->runCommand($this->getBaseCmd().' -r json "'.ParserTest::MD_STRING.'"');
-        $res4 = $this->runCommand($this->getBaseCmd().' -r=json "'.ParserTest::MD_STRING.'"');
+        $res1 = $this->runCommand($this->getBaseCmd().' --response json "'.ParserTestCase::MD_STRING.'"');
+        $res2 = $this->runCommand($this->getBaseCmd().' --response=json "'.ParserTestCase::MD_STRING.'"');
+        $res3 = $this->runCommand($this->getBaseCmd().' -r json "'.ParserTestCase::MD_STRING.'"');
+        $res4 = $this->runCommand($this->getBaseCmd().' -r=json "'.ParserTestCase::MD_STRING.'"');
         $json = '{"content":"my <strong>markdown<\/strong> <em>extended<\/em> simple string","charset":"utf-8","title":"1","body":"<p>my <strong>markdown<\/strong> <em>extended<\/em> simple string<\/p>"}';
 
         // status with long option and no equal sign

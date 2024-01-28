@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class CodeTest extends ParserTest
+class CodeTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testInlineCodeBlock()
     {
 
         // simple code
@@ -26,6 +26,10 @@ class CodeTest extends ParserTest
             '[parsing] test of code span'
         );
 
+    }
+
+    public function testIndentedCodeBlock()
+    {
         // code blocks
         $md = <<<MSG
             para1
@@ -41,7 +45,10 @@ class CodeTest extends ParserTest
             '<p>para1</p><pre>My code here</pre><p>para2</p>',
             '[parsing] test of code block'
         );
+    }
 
+    public function testFencedCodeBlock()
+    {
         // fenced code blocks
         $md = <<<MSG
             ~~~~
@@ -56,7 +63,10 @@ class CodeTest extends ParserTest
 </pre>',
             '[parsing] test of fenced code block'
         );
-
+    }
+    
+    public function testFencedCodeBlockWithLanguage()
+    {
         // fenced code blocks with language
         $md = <<<MSG
 

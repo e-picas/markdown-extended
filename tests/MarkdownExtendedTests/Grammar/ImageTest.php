@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class ImageTest extends ParserTest
+class ImageTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testImage()
     {
         $md = <<<MSG
             This is a definition with two paragraphs. Lorem ipsum

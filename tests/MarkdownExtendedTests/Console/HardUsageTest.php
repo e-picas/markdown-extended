@@ -10,9 +10,9 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use MarkdownExtendedTests\ConsoleTest;
+use MarkdownExtendedTests\ConsoleTestCase;
 
-class HardUsageTest extends ConsoleTest
+class HardUsageTest extends ConsoleTestCase
 {
     /**
      * Test with no argument

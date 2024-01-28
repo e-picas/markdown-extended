@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
-class AutolinkTest extends ParserTest
+class AutolinkTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testAutolinkUrl()
     {
         // autolink
         $md = '<http://getcomposer.org/>';
@@ -24,7 +24,9 @@ class AutolinkTest extends ParserTest
             '<a href="http://getcomposer.org/" title="See online http://getcomposer.org/">http://getcomposer.org/</a>',
             '[parsing] test of autolink'
         );
-
+    }
+    public function testAutolinkEmail()
+    {
         // autolink email
         $md = '<piero.wbmstr@gmail.com>';
         $this->assertEquals(

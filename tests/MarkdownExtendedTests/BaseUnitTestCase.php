@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests;
 
-class BaseUnitTest extends \PHPUnit\Framework\TestCase
+class BaseUnitTestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * Validates the paths getters of this class
      */
-    public function testPaths()
+    public function pathsExist()
     {
         $this->assertFileExists(
             $this->getPath([dirname(__DIR__), 'bootstrap.php']),
