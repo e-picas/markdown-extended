@@ -10,7 +10,7 @@
 branches:
   - "+([0-9])?(.{+([0-9]),x}).x"
   - name: "master"
-  - name: "dev"
+  - name: "develop"
   - name: "release-*"
     prerelease: "alpha"
 
@@ -25,12 +25,18 @@ plugins:
   - path: "@semantic-release/git"
     assets:
       - "CHANGELOG.md"
+      - "src/MarkdownExtended/MarkdownExtended.php"
+      - "doc/MANPAGE.md"
+      - "doc/DOCUMENTATION.md"
+      - "man/markdown-extended.3.man"
+      - "man/markdown-extended.7.man"
     message: |
       chore(release): ${nextRelease.version}
 
       ${nextRelease.notes}
   - path: "@semantic-release/exec"
     verifyReleaseCmd: "echo \"${nextRelease.version}\" > /tmp/next_release"
+    publishCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
   - path: "@saithodev/semantic-release-backmerge"
     backmergeBranches:
       - from: "master"
