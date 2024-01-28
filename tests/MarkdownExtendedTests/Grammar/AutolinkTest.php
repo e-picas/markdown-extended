@@ -13,6 +13,10 @@ namespace MarkdownExtendedTests\Grammar;
 use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
+/**
+ * @group mde-manifest
+ * @see mde-manifest:C.4.a
+ */
 class AutolinkTest extends ParserTestCase
 {
     public function testAutolinkUrl()
@@ -25,6 +29,7 @@ class AutolinkTest extends ParserTestCase
             '[parsing] test of autolink'
         );
     }
+
     public function testAutolinkEmail()
     {
         // autolink email
@@ -35,4 +40,19 @@ class AutolinkTest extends ParserTestCase
             '[parsing] test of email autolink'
         );
     }
+
+    /**
+     * @group not-implemented-yet
+     */
+    public function testSimpleUrlInTextShouldNotCreateLink()
+    {
+        // autolink
+        $md = 'You can use http://getcomposer.org/ for instance';
+        $this->assertEquals(
+            (string) MarkdownExtended::parse($md, ['template' => false]),
+            'You can use http://getcomposer.org/ for instance',
+            '[parsing] test of autolink'
+        );
+    }
+
 }

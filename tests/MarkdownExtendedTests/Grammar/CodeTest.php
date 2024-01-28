@@ -13,21 +13,33 @@ namespace MarkdownExtendedTests\Grammar;
 use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
+/**
+ * @group mde-manifest
+ * @see mde-manifest:C.3
+ * @see mde-manifest:D.6
+ */
 class CodeTest extends ParserTestCase
 {
+
+    /**
+     * @see mde-manifest:C.3
+     */
     public function testInlineCodeBlock()
     {
 
         // simple code
-        $md = 'my text with `some code` for test ...';
+        $md = 'This variable `$var` can be accessed using the `->get(...)` method';
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, ['template' => false]),
-            'my text with <code>some code</code> for test ...',
+            'This variable <code>$var</code> can be accessed using the <code>-&gt;get(...)</code> method',
             '[parsing] test of code span'
         );
 
     }
 
+    /**
+     * @see mde-manifest:D.6.a
+     */
     public function testIndentedCodeBlock()
     {
         // code blocks
@@ -47,6 +59,9 @@ class CodeTest extends ParserTestCase
         );
     }
 
+    /**
+     * @see mde-manifest:D.6.b
+     */
     public function testFencedCodeBlock()
     {
         // fenced code blocks
@@ -64,7 +79,10 @@ class CodeTest extends ParserTestCase
             '[parsing] test of fenced code block'
         );
     }
-    
+
+    /**
+     * @see mde-manifest:D.6.b.2
+     */
     public function testFencedCodeBlockWithLanguage()
     {
         // fenced code blocks with language

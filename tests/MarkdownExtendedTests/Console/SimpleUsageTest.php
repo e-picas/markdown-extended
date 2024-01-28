@@ -13,6 +13,9 @@ namespace MarkdownExtendedTests\Console;
 use MarkdownExtendedTests\ConsoleTestCase;
 use MarkdownExtendedTests\ParserTestCase;
 
+/**
+ * @group console
+ */
 class SimpleUsageTest extends ConsoleTestCase
 {
     /**
@@ -27,12 +30,12 @@ class SimpleUsageTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI with no argument (status)'
+            '[console] test of the CLI with no argument (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI with no argument has a not empty output on stdout'
+            '[console] test of the CLI with no argument has a not empty output on stdout'
         );
     }
 
@@ -48,13 +51,13 @@ class SimpleUsageTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on simple string with no option (status)'
+            '[console] test of the CLI on simple string with no option (status)'
         );
         // stdout
         $this->assertEquals(
             $res['stdout'],
             ParserTestCase::PARSED_STRING,
-            'Test of the CLI on simple string with no option'
+            '[console] test of the CLI on simple string with no option'
         );
     }
 
@@ -70,13 +73,13 @@ class SimpleUsageTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on a piped simple string (status)'
+            '[console] test of the CLI on a piped simple string (status)'
         );
         // stdout
         $this->assertEquals(
             $res['stdout'],
             ParserTestCase::PARSED_STRING,
-            'Test of the CLI on a piped simple string'
+            '[console] test of the CLI on a piped simple string'
         );
     }
 
@@ -99,13 +102,13 @@ class SimpleUsageTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on multiple strings with no option (status)'
+            '[console] test of the CLI on multiple strings with no option (status)'
         );
         // stdout
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($res['stdout']),
             $this->stripWhitespaceAndNewLines($output),
-            'Test of the CLI on multiple strings with no option'
+            '[console] test of the CLI on multiple strings with no option'
         );
     }
 
@@ -123,13 +126,13 @@ class SimpleUsageTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on an input file (status)'
+            '[console] test of the CLI on an input file (status)'
         );
         // stdout
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($res['stdout']),
             $body,
-            'Test of the CLI on an input file'
+            '[console] test of the CLI on an input file'
         );
     }
 
@@ -156,13 +159,13 @@ class SimpleUsageTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on multiple input files (status)'
+            '[console] test of the CLI on multiple input files (status)'
         );
         // stdout
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res['stdout'])),
             $output,
-            'Test of the CLI on multiple input files'
+            '[console] test of the CLI on multiple input files'
         );
     }
 }
