@@ -19,4 +19,9 @@
   <logging>
     <junit outputFile="dev/mde-tests.junit.xml" />
   </logging>
+  <groups>
+    <exclude>
+      <group>not-implemented-yet</group>
+    </exclude>
+  </groups>
 </phpunit>

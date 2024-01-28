@@ -12,6 +12,9 @@ namespace MarkdownExtendedTests\Console;
 
 use MarkdownExtendedTests\ConsoleTestCase;
 
+/**
+ * @group console
+ */
 class TasksTest extends ConsoleTestCase
 {
     /**
@@ -26,12 +29,12 @@ class TasksTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI license task (status)'
+            '[console] test of the CLI license task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI license task (output not empty)'
+            '[console] test of the CLI license task (output not empty)'
         );
     }
 
@@ -47,12 +50,12 @@ class TasksTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI manifest task (status)'
+            '[console] test of the CLI manifest task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI manifest task (output not empty)'
+            '[console] test of the CLI manifest task (output not empty)'
         );
     }
 
@@ -68,12 +71,12 @@ class TasksTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI config-list task (status)'
+            '[console] test of the CLI config-list task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI config-list task (output not empty)'
+            '[console] test of the CLI config-list task (output not empty)'
         );
     }
 
@@ -89,12 +92,12 @@ class TasksTest extends ConsoleTestCase
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI filters-list task (status)'
+            '[console] test of the CLI filters-list task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI filters-list task (output not empty)'
+            '[console] test of the CLI filters-list task (output not empty)'
         );
     }
 }

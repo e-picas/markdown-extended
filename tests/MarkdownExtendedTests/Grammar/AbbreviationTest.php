@@ -13,6 +13,10 @@ namespace MarkdownExtendedTests\Grammar;
 use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
+/**
+ * @group mde-manifest
+ * @see mde-manifest:E.5
+ */
 class AbbreviationTest extends ParserTestCase
 {
     public function testAbbreviation()

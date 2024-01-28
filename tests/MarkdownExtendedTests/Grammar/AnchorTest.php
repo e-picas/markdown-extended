@@ -13,6 +13,10 @@ namespace MarkdownExtendedTests\Grammar;
 use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
+/**
+ * @group mde-manifest
+ * @see mde-manifest:F.7
+ */
 class AnchorTest extends ParserTestCase
 {
     public function testAnchorOnHeader()

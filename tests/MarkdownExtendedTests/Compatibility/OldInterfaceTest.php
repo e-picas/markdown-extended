@@ -12,6 +12,9 @@ namespace MarkdownExtendedTests\Compatibility;
 
 use MarkdownExtendedTests\ParserTestCase;
 
+/**
+ * @group compatibilty
+ */
 class OldInterfaceTest extends ParserTestCase
 {
     /**

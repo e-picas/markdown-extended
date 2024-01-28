@@ -37,4 +37,17 @@ class LinkTest extends ParserTestCase
             '[parsing] test of links with title'
         );
     }
+
+    /**
+     * @group not-implemented-yet
+     */
+    public function testLinkWithTitleAndAttribute()
+    {
+        // link with a title
+        $md = '[Composer](http://getcomposer.org/ "My title" class=myclass)';
+        $this->assertEquals(
+            (string) MarkdownExtended::parse($md, ['template' => false]),
+            '<a href="http://getcomposer.org/" title="My title" class="myclass">Composer</a>',
+        );
+    }
 }

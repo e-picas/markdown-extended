@@ -13,6 +13,10 @@ namespace MarkdownExtendedTests\Grammar;
 use MarkdownExtendedTests\ParserTestCase;
 use MarkdownExtended\MarkdownExtended;
 
+/**
+ * @group mde-manifest
+ * @see mde-manifest:D.7
+ */
 class BlockquoteTest extends ParserTestCase
 {
     public function testBlockquote()
