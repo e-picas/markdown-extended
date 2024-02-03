@@ -15,6 +15,7 @@ RUN set -ex; \
         libxml2-dev \
         libyaml-dev \
         libzip-dev \
+        man \
         wget \
     ; 
 

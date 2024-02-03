@@ -311,6 +311,6 @@ long as you mention the copyrights below:
     All rights reserved.
 
     PHP Markdown Extended
-    Copyright (c) 2008-2015 Pierre Cassat & contributors
+    Copyright (c) 2008-2024 Pierre Cassat & contributors
     <http://picas.fr/>  
     All rights reserved.
