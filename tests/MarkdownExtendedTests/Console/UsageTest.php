@@ -30,17 +30,17 @@ class UsageTest extends ConsoleTestCase
         $line = ParserTestCase::PARSED_STRING;
         $html = $this->stripWhitespaceAndNewLines(
             <<<MSG
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="utf-8" />
-                    <title>1</title>
-                </head>
-                <body>
-                <p>{$line}</p>
-                </body>
-                </html>
-                MSG
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>1</title>
+</head>
+<body>
+<p>{$line}</p>
+</body>
+</html>
+MSG
         );
 
         // status with long option
@@ -82,10 +82,10 @@ class UsageTest extends ConsoleTestCase
         $line   = ParserTestCase::PARSED_STRING;
         $html   = $this->stripWhitespaceAndNewLines(
             <<<MSG
-                <custom>
-                <p>{$line}</p>
-                </custom>
-                MSG
+<custom>
+<p>{$line}</p>
+</custom>
+MSG
         );
 
         $this->assertEquals(

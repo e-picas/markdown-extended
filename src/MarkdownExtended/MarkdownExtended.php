@@ -60,23 +60,23 @@ namespace MarkdownExtended;
  */
 class MarkdownExtended extends Parser
 {
-    public const SHORTNAME = 'markdown-extended-php';
+    const SHORTNAME = 'markdown-extended-php';
 
-    public const NAME      = 'PHP Markdown Extended';
+    const NAME      = 'PHP Markdown Extended';
 
-    public const VERSION   = '0.1.0-dev';
+    const VERSION   = '0.1.0-dev';
 
-    public const DATE      = '2015-04-16';
+    const DATE      = '2015-04-16';
 
-    public const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
+    const DESC      = 'Yet another PHP parser for the markdown (*extended*) syntax.';
 
-    public const LINK      = 'http://github.com/e-picas/markdown-extended.git';
+    const LINK      = 'http://github.com/e-picas/markdown-extended.git';
 
-    public const LICENSE   = 'BSD-3-Clause license <http://opensource.org/licenses/BSD-3-Clause>';
+    const LICENSE   = 'BSD-3-Clause license <http://opensource.org/licenses/BSD-3-Clause>';
 
-    public const SOURCES   = 'Sources & updates: <http://github.com/e-picas/markdown-extended.git>';
+    const SOURCES   = 'Sources & updates: <http://github.com/e-picas/markdown-extended.git>';
 
-    public const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
+    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
 
     /**
      * Gets app's information

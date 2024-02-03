@@ -20,11 +20,11 @@ class TableTest extends ParserTestCase
 
         // simple table
         $md = <<<MSG
-            | First Header  | Second Header |
-            | ------------- | ------------: |
-            | Content Cell  | Content Cell  |
-            | Content Cell  | Content Cell  |
-            MSG;
+| First Header  | Second Header |
+| ------------- | ------------: |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
@@ -38,11 +38,11 @@ class TableTest extends ParserTestCase
     {
         // simple table with no leading pipe
         $md = <<<MSG
-            First Header  | Second Header |
-            ------------- | ------------: |
-            Content Cell  | Content Cell  |
-            Content Cell  | Content Cell  |
-            MSG;
+First Header  | Second Header |
+------------- | ------------: |
+Content Cell  | Content Cell  |
+Content Cell  | Content Cell  |
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
@@ -56,11 +56,11 @@ class TableTest extends ParserTestCase
     {
         // simple table with not constant spacing
         $md = <<<MSG
-            | First Header | Second Header |
-            | ------------ | ------------: |
-            | Cell | Cell |
-            | Cell | Cell |
-            MSG;
+| First Header | Second Header |
+| ------------ | ------------: |
+| Cell | Cell |
+| Cell | Cell |
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
@@ -74,17 +74,17 @@ class TableTest extends ParserTestCase
     {
         // table with multiple headers and label before
         $md = <<<MSG
-            [prototype *table*]
-            |             | Grouping                    ||
-            First Header  | Second Header | Third header |
-            First comment  | Second comment | Third comment |
-            ------------- | ------------: | :----------: |
-            Content Cell  |  *Long Cell*                ||
-            Content Cell  | **Cell**      | **Cell**     |
-            New section   |   More        |         Data |
-            And more      |           And more          ||
-            And more                     || And more     |
-            MSG;
+[prototype *table*]
+|             | Grouping                    ||
+First Header  | Second Header | Third header |
+First comment  | Second comment | Third comment |
+------------- | ------------: | :----------: |
+Content Cell  |  *Long Cell*                ||
+Content Cell  | **Cell**      | **Cell**     |
+New section   |   More        |         Data |
+And more      |           And more          ||
+And more                     || And more     |
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])

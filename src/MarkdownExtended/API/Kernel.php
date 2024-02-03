@@ -19,62 +19,62 @@ class Kernel
     /**
      * Identify an OutputFormat object
      */
-    public const TYPE_OUTPUTFORMAT         = 'output_format';
+    const TYPE_OUTPUTFORMAT         = 'output_format';
 
     /**
      * Identify a Gamut object
      */
-    public const TYPE_GAMUT                = 'gamut';
+    const TYPE_GAMUT                = 'gamut';
 
     /**
      * Identify a Content object
      */
-    public const TYPE_CONTENT              = 'content';
+    const TYPE_CONTENT              = 'content';
 
     /**
      * Identify a Template object
      */
-    public const TYPE_TEMPLATE             = 'template';
+    const TYPE_TEMPLATE             = 'template';
 
     /**
      * Interface all OutputFormat objects must implement
      */
-    public const OUTPUTFORMAT_INTERFACE    = 'MarkdownExtended\API\OutputFormatInterface';
+    const OUTPUTFORMAT_INTERFACE    = 'MarkdownExtended\API\OutputFormatInterface';
 
     /**
      * Interface all Gamut (filter) objects must implement
      */
-    public const GAMUT_INTERFACE           = 'MarkdownExtended\API\GamutInterface';
+    const GAMUT_INTERFACE           = 'MarkdownExtended\API\GamutInterface';
 
     /**
      * Interface all Content objects must implement
      */
-    public const CONTENT_INTERFACE         = 'MarkdownExtended\API\ContentInterface';
+    const CONTENT_INTERFACE         = 'MarkdownExtended\API\ContentInterface';
 
     /**
      * Interface all Template objects must implement
      */
-    public const TEMPLATE_INTERFACE        = 'MarkdownExtended\API\TemplateInterface';
+    const TEMPLATE_INTERFACE        = 'MarkdownExtended\API\TemplateInterface';
 
     /**
      * Dirname of internal resources
      */
-    public const RESOURCE_TEMPLATE         = 'template';
+    const RESOURCE_TEMPLATE         = 'template';
 
     /**
      * Dirname of internal configuration files
      */
-    public const RESOURCE_CONFIG           = 'config';
+    const RESOURCE_CONFIG           = 'config';
 
     /**
      * Internal templates mask
      */
-    public const RESOURCE_TEMPLATE_MASK    = 'default-%s.tpl';
+    const RESOURCE_TEMPLATE_MASK    = 'default-%s.tpl';
 
     /**
      * Internal configuration mask
      */
-    public const RESOURCE_CONFIG_MASK      = 'config-%s.ini';
+    const RESOURCE_CONFIG_MASK      = 'config-%s.ini';
 
     /**
      * @var \MarkdownExtended\Util\Registry

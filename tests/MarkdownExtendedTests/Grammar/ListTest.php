@@ -20,12 +20,12 @@ class ListTest extends ParserTestCase
 
         // unordered list
         $md = <<<MSG
-            -   first item
-            *   second item
-                - first sub-item
-                * second sub-item
-            -   third item
-            MSG;
+-   first item
+*   second item
+    - first sub-item
+    * second sub-item
+-   third item
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
@@ -39,12 +39,12 @@ class ListTest extends ParserTestCase
     {
         // ordered list
         $md = <<<MSG
-            1.   first item
-            1.   second item
-                1. first sub-item
-                2. second sub-item
-            5.   third item
-            MSG;
+1.   first item
+1.   second item
+    1. first sub-item
+    2. second sub-item
+5.   third item
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])

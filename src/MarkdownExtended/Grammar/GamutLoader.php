@@ -21,13 +21,13 @@ use MarkdownExtended\Exception\UnexpectedValueException;
  */
 class GamutLoader extends CacheRegistry
 {
-    public const FILTER_ALIAS      = 'filter';
+    const FILTER_ALIAS      = 'filter';
 
-    public const TOOL_ALIAS        = 'tool';
+    const TOOL_ALIAS        = 'tool';
 
-    public const FILTER_NAMESPACE  = 'MarkdownExtended\Grammar\Filter';
+    const FILTER_NAMESPACE  = 'MarkdownExtended\Grammar\Filter';
 
-    public const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
+    const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
 
     /**
      * @var array
@@ -96,14 +96,14 @@ class GamutLoader extends CacheRegistry
     {
         switch ($this->getGamutType($gamut)) {
             case self::FILTER_ALIAS:
-                @[$base, $class, $method] = explode(':', $gamut);
+                @list($base, $class, $method) = explode(':', $gamut);
                 return self::FILTER_ALIAS . ':' . $class;
                 break;
             case self::TOOL_ALIAS:
                 return self::TOOL_ALIAS;
                 break;
             default:
-                @[$class, $method] = explode(':', $gamut);
+                @list($class, $method) = explode(':', $gamut);
                 return $class;
         }
     }
@@ -246,15 +246,15 @@ class GamutLoader extends CacheRegistry
 
         switch ($this->getGamutType($gamut)) {
             case self::FILTER_ALIAS:
-                @[$base, $class, $method] = explode(':', $gamut);
+                @list($base, $class, $method) = explode(':', $gamut);
                 return $this->_runGamutFilterMethod($class, $_method ?: $method, $text);
                 break;
             case self::TOOL_ALIAS:
-                @[$base, $method] = explode(':', $gamut);
+                @list($base, $method) = explode(':', $gamut);
                 return $this->_runToolsMethod($method, $text);
                 break;
             default:
-                @[$class, $method] = explode(':', $gamut);
+                @list($class, $method) = explode(':', $gamut);
                 return $this->_runClassMethod($class, $_method ?: $method, $text);
         }
     }

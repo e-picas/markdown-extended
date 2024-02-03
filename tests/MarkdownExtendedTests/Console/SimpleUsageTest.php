@@ -93,11 +93,11 @@ class SimpleUsageTest extends ConsoleTestCase
         $res    = $this->runCommand($this->getBaseCmd().' "'.ParserTestCase::MD_STRING.'" "'.ParserTestCase::MD_STRING.'"');
         $line   = ParserTestCase::PARSED_STRING;
         $output = <<<MSG
-            ==> STDIN#1 <==
-            {$line}
-            ==> STDIN#2 <==
-            {$line}
-            MSG;
+==> STDIN#1 <==
+{$line}
+==> STDIN#2 <==
+{$line}
+MSG;
         // status
         $this->assertEquals(
             $res['status'],
@@ -148,11 +148,11 @@ class SimpleUsageTest extends ConsoleTestCase
         $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
         $output = $this->stripWhitespaceAndNewLines(
             <<<MSG
-                ==> tests/test.md <==
-                {$body}
-                ==> tests/test-2.md <==
-                {$body}
-                MSG
+==> tests/test.md <==
+{$body}
+==> tests/test-2.md <==
+{$body}
+MSG
         );
         $res = $this->runCommand($this->getBaseCmd().' '.$file.' '.$file2);
         // status

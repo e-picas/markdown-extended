@@ -265,7 +265,7 @@ class Man extends AbstractOutputFormat implements OutputFormatInterface
     public function buildTitle($text, array $attributes = [])
     {
         $text = $this->escapeString($text);
-        $level = $attributes['level'] ?? '1';
+        $level = isset($attributes['level']) ? $attributes['level'] : '1';
         $indent = '';
         if ($this->_current_title_level !== 0) {
             $lvl = $level;
@@ -289,7 +289,7 @@ class Man extends AbstractOutputFormat implements OutputFormatInterface
             $this->_current_title_level = 0;
             return $indent . '.SS ' . $text . $this->new_line;
         } else {
-            $domid = $attributes['id'] ?? $text;
+            $domid = isset($attributes['id']) ? $attributes['id'] : $text;
             $this->_current_title_level = $level;
             return $indent . '.TP '
                 . $domid . $this->new_line
@@ -495,7 +495,7 @@ class Man extends AbstractOutputFormat implements OutputFormatInterface
         } else {
             $open_tag   = '.UR';
             $close_tag  = '.UE';
-            $href       = $attributes['href'] ?? $text;
+            $href       = isset($attributes['href']) ? $attributes['href'] : $text;
         }
         return ($text !== $href ? $text . ' <' : '<')
 //            . $this->new_line . $open_tag . ' ' . $href . $this->new_line

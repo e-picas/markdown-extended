@@ -334,7 +334,7 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
 
     protected function getConfig($name, $default = null)
     {
-        return $this->config[$name] ?? $default;
+        return isset($this->config[$name]) ? $this->config[$name] : $default;
     }
 
     /**
@@ -345,7 +345,7 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
     protected function _validateLinkAttributes(array &$attributes, &$text)
     {
         if (isset($attributes['email'])) {
-            [$address_link, $address_text] = Helper::encodeEmailAddress($attributes['email']);
+            list($address_link, $address_text) = Helper::encodeEmailAddress($attributes['email']);
             if (!isset($attributes['href']) || empty($attributes['href'])) {
                 $attributes['href'] = $address_link;
             }

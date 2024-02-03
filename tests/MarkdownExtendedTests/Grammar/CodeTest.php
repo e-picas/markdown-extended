@@ -44,12 +44,12 @@ class CodeTest extends ParserTestCase
     {
         // code blocks
         $md = <<<MSG
-            para1
+para1
 
-                My code here
+    My code here
 
-            para2
-            MSG;
+para2
+MSG;
         $this->assertEquals(
             $this->stripWhitespaces(
                 (string) MarkdownExtended::parse($md, ['template' => false])
@@ -66,10 +66,10 @@ class CodeTest extends ParserTestCase
     {
         // fenced code blocks
         $md = <<<MSG
-            ~~~~
-            My code here
-            ~~~~
-            MSG;
+~~~~
+My code here
+~~~~
+MSG;
         $this->assertEquals(
             $this->stripWhitespaces(
                 (string) MarkdownExtended::parse($md, ['template' => false])
@@ -88,11 +88,11 @@ class CodeTest extends ParserTestCase
         // fenced code blocks with language
         $md = <<<MSG
 
-            ~~~~html
-            My code here
-            ~~~~
+~~~~html
+My code here
+~~~~
 
-            MSG;
+MSG;
         $this->assertEquals(
             $this->stripWhitespaces(
                 (string) MarkdownExtended::parse($md, ['template' => false])

@@ -64,7 +64,7 @@ class HTML extends Filter
     public function transform($text)
     {
         // Call the HTML-in-Markdown hasher.
-        [$text, ] = self::_hashBlocks_inMarkdown($text);
+        list($text, ) = self::_hashBlocks_inMarkdown($text);
         return $text;
     }
 
@@ -237,7 +237,7 @@ class HTML extends Filter
                     preg_match($newline_after_re, $text))
             ) {
                 // Need to parse tag and following text using the HTML parser.
-                [$block_text, $text] =
+                list($block_text, $text) =
                     self::_hashBlocks_inHTML($tag . $text, "hashBlock", true);
 
                 // Make sure it stays outside of any paragraph by adding newlines.
@@ -250,7 +250,7 @@ class HTML extends Filter
                 $tag[1] == '!' || $tag[1] == '?') {
                 // Need to parse tag and following text using the HTML parser.
                 // (don't check for markdown attribute)
-                [$block_text, $text] =
+                list($block_text, $text) =
                     $this->_hashBlocks_inHTML($tag . $text, "hashClean", false);
                 $parsed .= $block_text;
             }
@@ -422,7 +422,7 @@ class HTML extends Filter
                     $tag_name_re = $matches[1];
 
                     // Parse the content using the HTML-in-Markdown parser.
-                    [$block_text, $text] =
+                    list($block_text, $text) =
                         self::_hashBlocks_inMarkdown($text, $indent, $tag_name_re, $span_mode);
 
                     // Outdent markdown text.

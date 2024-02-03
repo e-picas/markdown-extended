@@ -18,22 +18,22 @@ class Stream
     /**
      * Quiet verbosity flag
      */
-    public const VERBOSITY_QUIET   = 1;
+    const VERBOSITY_QUIET   = 1;
 
     /**
      * Normal verbosity flag
      */
-    public const VERBOSITY_NORMAL  = 2;
+    const VERBOSITY_NORMAL  = 2;
 
     /**
      * Verbose verbosity flag
      */
-    public const VERBOSITY_VERBOSE = 4;
+    const VERBOSITY_VERBOSE = 4;
 
     /**
      * Debug verbosity flag
      */
-    public const VERBOSITY_DEBUG   = 8;
+    const VERBOSITY_DEBUG   = 8;
 
     /**
      * @var int
@@ -43,17 +43,17 @@ class Stream
     /**
      * Use this instead of written raw 'stdin'
      */
-    public const IO_STDIN          = 'stdin';
+    const IO_STDIN          = 'stdin';
 
     /**
      * Use this instead of written raw 'stdout'
      */
-    public const IO_STDOUT         = 'stdout';
+    const IO_STDOUT         = 'stdout';
 
     /**
      * Use this instead of written raw 'stderr'
      */
-    public const IO_STDERR         = 'stderr';
+    const IO_STDERR         = 'stderr';
 
     /**
      * @var resource
@@ -75,11 +75,11 @@ class Stream
      */
     protected $exception_callback;
 
-    public const PADDER            = '    ';
+    const PADDER            = '    ';
 
-    public const VERBOSE_PREFIX    = '[V] ';
+    const VERBOSE_PREFIX    = '[V] ';
 
-    public const DEBUG_PREFIX      = '[D] ';
+    const DEBUG_PREFIX      = '[D] ';
 
     /**
      * Initializes all streams

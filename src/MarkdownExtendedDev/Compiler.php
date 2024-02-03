@@ -163,22 +163,22 @@ class Compiler
     {
         $name = self::PHAR_NAME;
         return <<<EOF
-            #!/usr/bin/env php
-            <?php
-            /*
-             * This file is part of the PHP-Markdown-Extended package.
-             *
-             * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
-             *
-             * For the full copyright and license information, please view the LICENSE
-             * file that was distributed with this source code.
-             */
+#!/usr/bin/env php
+<?php
+/*
+ * This file is part of the PHP-Markdown-Extended package.
+ *
+ * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-            Phar::mapPhar('{$name}');
-            define('MDE_PHAR', true);
-            require 'phar://{$name}/bin/markdown-extended';
+Phar::mapPhar('{$name}');
+define('MDE_PHAR', true);
+require 'phar://{$name}/bin/markdown-extended';
 
-            __HALT_COMPILER();
-            EOF;
+__HALT_COMPILER();
+EOF;
     }
 }

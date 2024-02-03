@@ -57,8 +57,8 @@ abstract class AbstractOutputFormat
 
         $closable = false;
         if (isset($this->tags_map[$tag_name])) {
-            $closable = $this->tags_map[$tag_name]['closable'] ?? false;
-            $tag_name = $this->tags_map[$tag_name]['tag'] ?? $tag_name;
+            $closable = isset($this->tags_map[$tag_name]['closable']) ? $this->tags_map[$tag_name]['closable'] : false;
+            $tag_name = isset($this->tags_map[$tag_name]['tag']) ? $this->tags_map[$tag_name]['tag'] : $tag_name;
         }
 
         return call_user_func_array(
