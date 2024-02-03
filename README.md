@@ -3,8 +3,8 @@ PHP Markdown Extended
 
 Yet another PHP parser for the markdown (*extended*) syntax.
 
-[![Last Release](https://ghrb.herokuapp.com/github-release-btn?user=e-picas&repo=markdown-extended&title=last+beta)](https://github.com/e-picas/markdown-extended/releases)
-[![Build Status](https://travis-ci.org/e-picas/markdown-extended.svg?branch=master)](http://travis-ci.org/e-picas/markdown-extended)
+[![Last Release](https://img.shields.io/github/v/tag/e-picas/markdown-extended?sort=semver&label=last%20release)](https://github.com/e-picas/markdown-extended/releases)
+[![Tests status](https://github.com/e-picas/markdown-extended/actions/workflows/test.yml/badge.svg?branch=develop-php7)](https://github.com/e-picas/markdown-extended/actions/workflows/test.yml)
 [![Dependency Status](https://www.versioneye.com/user/projects/570e45aafcd19a00415b1287/badge.svg?style=flat)](http://www.versioneye.com/user/projects/570e45aafcd19a00415b1287)
 [![Code Climate](https://codeclimate.com/github/e-picas/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/e-picas/markdown-extended)
 
