@@ -22,23 +22,23 @@ use MarkdownExtended\Grammar\GamutLoader;
  */
 class Note extends Filter
 {
-    public const FOOTNOTE_DEFAULT      = 0;
+    const FOOTNOTE_DEFAULT      = 0;
 
-    public const FOOTNOTE_GLOSSARY     = 1;
+    const FOOTNOTE_GLOSSARY     = 1;
 
-    public const FOOTNOTE_BIBLIOGRAPHY = 2;
+    const FOOTNOTE_BIBLIOGRAPHY = 2;
 
-    public const FOOTNOTE_PREFIX       = 'fn';
+    const FOOTNOTE_PREFIX       = 'fn';
 
-    public const GLOSSARY_PREFIX       = 'fng';
+    const GLOSSARY_PREFIX       = 'fng';
 
-    public const BIBLIOGRAPHY_PREFIX   = 'fnb';
+    const BIBLIOGRAPHY_PREFIX   = 'fnb';
 
-    public const FOOTNOTE_NAME_DEFAULT         = 'footnote';
+    const FOOTNOTE_NAME_DEFAULT         = 'footnote';
 
-    public const FOOTNOTE_NAME_GLOSSARY        = 'glossary';
+    const FOOTNOTE_NAME_GLOSSARY        = 'glossary';
 
-    public const FOOTNOTE_NAME_BIBLIOGRAPHY    = 'bibliography';
+    const FOOTNOTE_NAME_BIBLIOGRAPHY    = 'bibliography';
 
     /**
      * @var int  Give the current footnote, glossary or bibliography number.
@@ -279,7 +279,7 @@ class Note extends Filter
             $text .= Kernel::get('OutputFormatBag')
                 ->buildTag('span', $matches[2], ['class' => 'glossary sort', 'style' => 'display:none']);
         }
-        return $text . "\n\n" . ($matches[3] ?? $matches[2]);
+        return $text . "\n\n" . (isset($matches[3]) ? $matches[3] : $matches[2]);
     }
 
     /**

@@ -31,24 +31,24 @@ class Console extends AbstractConsole
             )
             ->setUsage(
                 <<<MSG
-                    Dev tasks:
-                        make-phar       : build or rebuild the PHAR of the app
-                                          ("markdown-extended.phar" in the current directory by default)
-                        check-phar      : extract current PHAR contents in a directory
-                                          (in a "tmp/phar-extract" directory by default)
-                        make-manpage-3  : rebuild the "man/markdown-extended.3.man" manpage
-                                          (default source is "doc/MANPAGE.md")
-                        make-manpage-7  : rebuild the "man/markdown-extended.7.man" manpage
-                                          (default source is "doc/DOCUMENTATION.md")
-                        make-manpages   : rebuild both manpages
-                        make-release    : increase version-number and prepare a release
-                                          (use the "--release" option to set the release number)
+Dev tasks:
+    make-phar       : build or rebuild the PHAR of the app
+                      ("markdown-extended.phar" in the current directory by default)
+    check-phar      : extract current PHAR contents in a directory
+                      (in a "tmp/phar-extract" directory by default)
+    make-manpage-3  : rebuild the "man/markdown-extended.3.man" manpage
+                      (default source is "doc/MANPAGE.md")
+    make-manpage-7  : rebuild the "man/markdown-extended.7.man" manpage
+                      (default source is "doc/DOCUMENTATION.md")
+    make-manpages   : rebuild both manpages
+    make-release    : increase version-number and prepare a release
+                      (use the "--release" option to set the release number)
 
-                    You can also call Composer's scripts:
-                        composer test               : run PHPUnit test suite
-                        composer code-coverage      : play the code coverage analysis
+You can also call Composer's scripts:
+    composer test               : run PHPUnit test suite
+    composer code-coverage      : play the code coverage analysis
 
-                    MSG
+MSG
             )
             ->addCliOption('output', [
                 'shortcut'      => 'o',

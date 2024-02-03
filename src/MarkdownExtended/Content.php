@@ -280,7 +280,7 @@ class Content implements ContentInterface
     public function getMetadata($name = null)
     {
         if (!is_null($name)) {
-            return $this->metadata[$name] ?? null;
+            return isset($this->metadata[$name]) ? $this->metadata[$name] : null;
         }
         return $this->metadata;
     }

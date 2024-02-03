@@ -12,9 +12,9 @@ namespace MarkdownExtended\Console;
 
 abstract class AbstractConsole
 {
-    public const LICENSE_FILE              = 'LICENSE';
+    const LICENSE_FILE              = 'LICENSE';
 
-    public const MANIFEST_FILE             = 'composer.json';
+    const MANIFEST_FILE             = 'composer.json';
 
     /**
      * @var null|string
@@ -301,7 +301,7 @@ abstract class AbstractConsole
      */
     public function getOption($name, $default = null)
     {
-        return $this->options[$name] ?? $default;
+        return isset($this->options[$name]) ? $this->options[$name] : $default;
     }
 
     /**

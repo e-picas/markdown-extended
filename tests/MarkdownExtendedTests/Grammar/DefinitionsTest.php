@@ -18,17 +18,17 @@ class DefinitionsTest extends ParserTestCase
     public function testDefinitionsList()
     {
         $md = <<<MSG
-            Term 1
-            :   This is a definition with two paragraphs. Lorem ipsum
-                dolor sit amet, consectetuer adipiscing elit. Aliquam
-                hendrerit mi posuere lectus.
+Term 1
+:   This is a definition with two paragraphs. Lorem ipsum
+    dolor sit amet, consectetuer adipiscing elit. Aliquam
+    hendrerit mi posuere lectus.
 
-                Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-                vitae, risus.
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+    vitae, risus.
 
-            :   Second definition for term 1, also wrapped in a paragraph
-                because of the blank line preceding it.
-            MSG;
+:   Second definition for term 1, also wrapped in a paragraph
+    because of the blank line preceding it.
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])

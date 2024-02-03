@@ -18,15 +18,15 @@ class HorizontalRuleTest extends ParserTestCase
     public function testHorizontalRule()
     {
         $md = <<<MSG
-            This is a definition with two paragraphs. Lorem ipsum
-            dolor sit amet, consectetuer adipiscing elit. Aliquam
-            hendrerit mi posuere lectus.
+This is a definition with two paragraphs. Lorem ipsum
+dolor sit amet, consectetuer adipiscing elit. Aliquam
+hendrerit mi posuere lectus.
 
-            ----
+----
 
-            Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-            vitae, risus.
-            MSG;
+Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+vitae, risus.
+MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])

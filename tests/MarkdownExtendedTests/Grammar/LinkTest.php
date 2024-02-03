@@ -47,7 +47,7 @@ class LinkTest extends ParserTestCase
         $md = '[Composer](http://getcomposer.org/ "My title" class=myclass)';
         $this->assertEquals(
             (string) MarkdownExtended::parse($md, ['template' => false]),
-            '<a href="http://getcomposer.org/" title="My title" class="myclass">Composer</a>',
+            '<a href="http://getcomposer.org/" title="My title" class="myclass">Composer</a>'
         );
     }
 }

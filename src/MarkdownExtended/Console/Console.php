@@ -44,31 +44,31 @@ class Console extends AbstractConsole
             ->setDescription(MarkdownExtended::DESC)
             ->setUsage(
                 <<<DESC
-                    This program converts markdown-extended syntax text(s) source(s) from specified file(s)
-                    (or STDIN). The rendering can be the full parsed content or just a part of this content.
-                    By default, result is written through STDOUT in HTML format.
+This program converts markdown-extended syntax text(s) source(s) from specified file(s)
+(or STDIN). The rendering can be the full parsed content or just a part of this content.
+By default, result is written through STDOUT in HTML format.
 
-                    To transform a file content, write its path as script argument. To process a list of input
-                    files, just write the concerned paths as arguments, separated by a space.
+To transform a file content, write its path as script argument. To process a list of input
+files, just write the concerned paths as arguments, separated by a space.
 
-                    To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
-                    To process a list of input strings, just write them as arguments, separated by a space.
-                    You can also use the output of a previous command with the pipe notation.
+To transform a string read from STDIN, write it as last argument between double-quotes or EOF.
+To process a list of input strings, just write them as arguments, separated by a space.
+You can also use the output of a previous command with the pipe notation.
 
-                    Examples:
-                        {$script} [options ...] input_filename [input_filename] [...]
-                        {$script} [options ...] "markdown string read from STDIN"
-                        echo "*Markdown* __content__" | {$script} [options ...]
+Examples:
+    {$script} [options ...] input_filename [input_filename] [...]
+    {$script} [options ...] "markdown string read from STDIN"
+    echo "*Markdown* __content__" | {$script} [options ...]
 
-                    Additionally, you can call a special task running: `{$script} <task_name>`
-                    Available tasks are:
-                        license         : read the full LICENSE of the application
-                        manifest        : read the full application manifest
-                        config-list     : dump current configuration settings list
-                        filters-list    : list runtime filters for current configuration
+Additionally, you can call a special task running: `{$script} <task_name>`
+Available tasks are:
+    license         : read the full LICENSE of the application
+    manifest        : read the full application manifest
+    config-list     : dump current configuration settings list
+    filters-list    : list runtime filters for current configuration
 
-                    More information at <{$link}>.
-                    DESC
+More information at <{$link}>.
+DESC
             )
             ->setSynopsis(
                 $script . ' [options] "**markdown** _string_" [... string / file path]'
