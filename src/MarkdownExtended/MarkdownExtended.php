@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -31,7 +31,7 @@ namespace MarkdownExtended;
  * All rights reserved.
  *
  * Markdown Extended
- * Copyright © 2008-2013 Pierre Cassat & contributors
+ * Copyright © 2008-2024 Pierre Cassat & contributors
  * http://picas.fr/markdown-extended/
  * All rights reserved.
  *
@@ -76,7 +76,7 @@ class MarkdownExtended extends Parser
 
     const SOURCES   = 'Sources & updates: <http://github.com/e-picas/markdown-extended.git>';
 
-    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2015 Pierre Cassat & contributors.';
+    const COPYRIGHT = 'Copyright (c) 2004-2006 John Gruber, 2005-2009 Fletcher T. Penney, 2004-2012 Michel Fortin, 2008-2024 Pierre Cassat & contributors.';
 
     /**
      * Gets app's information

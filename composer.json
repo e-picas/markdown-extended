@@ -22,7 +22,9 @@
     "issues": "http://github.com/e-picas/markdown-extended/issues",
     "source": "http://github.com/e-picas/markdown-extended/tree/master"
   },
-  "require": { "php": ">=5.6" },
+  "require": {
+    "php": ">=5.6"
+  },
   "require-dev": {
     "phpunit/phpunit": "<10",
     "phpmd/phpmd": "@stable",
@@ -37,20 +39,23 @@
     "piwi/markdown-extended": "self.version"
   },
   "autoload": {
-    "psr-0": { "MarkdownExtended": "src" }
+    "psr-0": {
+      "MarkdownExtended": "src"
+    }
   },
-  "autoload-dev": { "psr-0": {
-    "MarkdownExtendedDev": "src",
-    "MarkdownExtendedTests": "tests"
-  } },
+  "autoload-dev": {
+    "psr-0": {
+      "MarkdownExtendedDev": "src",
+      "MarkdownExtendedTests": "tests"
+    }
+  },
   "config": {
     "bin-dir": "bin"
   },
   "scripts": {
     "doc": "phpdoc project:run --sourcecode --cache-folder=/tmp/phpdoc-cache/ --force -v",
     "test": "php ./bin/phpunit --no-coverage --no-logging --testdox",
-    "test-ci": "php ./bin/phpunit --no-coverage --no-logging",
-    "test-report": "php ./bin/phpunit --debug",
+    "test-coverage": "php ./bin/phpunit --debug",
     "metrics": "php ./bin/phpmetrics --config=.phpmetrics.yml src/",
     "dedup": "php ./bin/phpcpd --exclude=src/MarkdownExtendedDev/ src/",
     "sizer": "php ./bin/phploc --exclude=src/MarkdownExtendedDev/ src/",
@@ -71,7 +76,7 @@
       ".DS_Store", ".AppleDouble", ".LSOverride", ".Spotlight-V100", ".Trashes", "Icon", "._*", "*~", "*~lock*", "*.rej",
       "Thumbs.db", "ehthumbs.db", "Desktop.ini", "*.swp", "*.swo", "*.vi", "nbproject", ".cache", ".settings", "*.bak",
       ".project", ".buildpath", ".idea", ".tmproj", "*.esproj", "*.sublime-*", "*.diff", "*.err", "*.orig", "*.log", "*.tmp",
-      "build", "dev", "demo", "*.phar"
+      "build", "demo", "dev", "docker", "*.phar"
     ]
   },
   "extra": {

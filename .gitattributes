@@ -6,10 +6,9 @@
 
 .git*           text export-ignore
 demo/           export-ignore
+dev/            export-ignore
 doc/            export-ignore
 docker/         export-ignore
-phpdoc/         export-ignore
-tests/          export-ignore
 composer.lock   export-ignore
 Makefile        export-ignore
 TODOS*          export-ignore

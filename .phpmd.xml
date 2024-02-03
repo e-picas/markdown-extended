@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
-    <description>PHPMD Ruleset for MDE sources</description>
+    <description>PHP Mess Detector ruleset for MDE sources</description>
 
     <rule ref="rulesets/cleancode.xml/BooleanArgumentFlag" />
     <rule ref="rulesets/cleancode.xml/ElseExpression" />

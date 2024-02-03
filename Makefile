@@ -1,7 +1,7 @@
 #
 # This file is part of the PHP-Markdown-Extended package.
 #
-# Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+# Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
@@ -87,9 +87,9 @@ run-tests: docker-mde-build
 .PHONY: run-tests
 
 ## Generate the PHPUnit tests reports in the 'mde_dev' container
-generate-tests-report: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer test-report" make docker-mde-run
-.PHONY: generate-tests-report
+generate-tests-coverage: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer test-coverage" make docker-mde-run
+.PHONY: generate-tests-coverage
 
 ## Run the Code Standards Fixer in the 'mde_dev' container
 run-code-fixer: docker-mde-build

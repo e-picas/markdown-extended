@@ -1,7 +1,7 @@
 #
 # This file is part of the PHP-Markdown-Extended package.
 #
-# Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+# Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
@@ -30,16 +30,25 @@ bin/*
 *.phar
 
 # this is for "phar-latest" branch only
+#demo/*
+#dev/*
 #doc/*
+#docker/*
 #src/*
 #tests/*
-#.travis.yml
+#.codeclimate.yml
 #.editorconfig
 #.gitattributes
-#phpunit.xml.dist
-#.sami.php
+#.php-cs-fixer.php
+#.phpmd.baseline.xml
+#.phpmd.xml
+#.phpmetrics.yml
+#.releaserc.yml
 #composer.json
 #CONTRIBUTING.md
+#Makefile
+#phpdoc.xml
+#phpunit.xml
 #!bin/markdown-extended.phar
 
 # hack to allow keeping an empty directory
