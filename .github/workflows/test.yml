@@ -10,6 +10,43 @@ permissions:
 
 jobs:
 
+  run_tests_php83:
+    name: "PHP unit tests & code standards with PHP 7.4"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Install composer dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: "8.3"
+
+      - name: Run CS-Fixer
+        uses: php-actions/composer@v6
+        with:
+          php_version: "8.3"
+          command: run cs-fixer-ci
+
+      - name: Test the console
+        run: php ./bin/markdown-extended
+
+      - name: Run unit tests
+        run: composer run test
+
   run_tests_php74:
     name: "PHP unit tests & code standards with PHP 7.4"
     runs-on: ubuntu-latest
