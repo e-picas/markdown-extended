@@ -1,6 +1,6 @@
 
 name: "Run tests"
-run-name: "Run Unit tests & cs-fixer for validation"
+run-name: "Run PHPUnit tests + Mess-Detector & CS-Fixer for validation"
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
 jobs:
 
   run_tests_php83:
-    name: "PHP unit tests & code standards with PHP 7.4"
+    name: "[php 8.3] tests & validation"
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -35,20 +35,25 @@ jobs:
         with:
           php_version: "8.3"
 
+      - name: Test the console
+        run: php ./bin/markdown-extended
+
       - name: Run CS-Fixer
         uses: php-actions/composer@v6
         with:
           php_version: "8.3"
           command: run cs-fixer-ci
 
-      - name: Test the console
-        run: php ./bin/markdown-extended
+      - name: Run Mess-Detector
+        uses: php-actions/composer@v6
+        with:
+          command: run messdetector-with-baseline
 
       - name: Run unit tests
         run: composer run test
 
   run_tests_php74:
-    name: "PHP unit tests & code standards with PHP 7.4"
+    name: "[php 7.4] tests & validation"
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -70,19 +75,24 @@ jobs:
       - name: Install composer dependencies
         uses: php-actions/composer@v6
 
+      - name: Test the console
+        run: php ./bin/markdown-extended
+
       - name: Run CS-Fixer
         uses: php-actions/composer@v6
         with:
           command: run cs-fixer-ci
 
-      - name: Test the console
-        run: php ./bin/markdown-extended
+      - name: Run Mess-Detector
+        uses: php-actions/composer@v6
+        with:
+          command: run messdetector-with-baseline
 
       - name: Run unit tests
         run: composer run test
 
-  run_tests_php53:
-    name: "PHP unit tests & code standards with PHP 5.6"
+  run_tests_php56:
+    name: "[php 5.6] tests & validation"
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -109,6 +119,13 @@ jobs:
 
       - name: Test the console
         run: php ./bin/markdown-extended
+
+      - name: Run Mess-Detector
+        uses: php-actions/composer@v6
+        with:
+          version: "2.2"
+          php_version: "5.6"
+          command: run messdetector-with-baseline
 
       - name: Run unit tests
         run: php ./bin/phpunit --no-coverage --testdox

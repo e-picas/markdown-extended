@@ -1,11 +1,15 @@
+# arguments to adapt the build
+ARG IMAGE_VERSION=5
+
 # base image with PHP & Apache
-FROM php:7.4.27-apache
+FROM php:${IMAGE_VERSION} AS mde_dev
 
 # install dependencies
 RUN set -ex; \
     export DEBIAN_FRONTEND=noninteractive; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
+    echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list; \
+    apt update; \
+    apt install -y --no-install-recommends \
         git \
         graphviz \
         libxslt1-dev \
@@ -13,6 +17,7 @@ RUN set -ex; \
         libyaml-dev \
         libzip-dev \
         wget \
+        zip \
     ; 
 
 RUN set -ex; \
@@ -21,9 +26,23 @@ RUN set -ex; \
         xsl \
         zip \
     ;
-RUN set -ex; pecl install yaml && docker-php-ext-enable yaml;
+#RUN set -ex; pecl install yaml && docker-php-ext-enable yaml;
+# RUN pear install --alldeps \
+#         pear.symfony.com/YAML \
+#     ;
 RUN set -ex; pecl install xdebug-3.1.4 && docker-php-ext-enable xdebug; \
     echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/xdebug.ini;
+
+# install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && chmod +x /usr/local/bin/composer
+
+# install phpdoc
+RUN wget -O /usr/local/bin/phpdoc https://github.com/phpDocumentor/phpDocumentor/releases/download/v2.9.1/phpDocumentor.phar \
+    && chmod +x /usr/local/bin/phpdoc
+
+# now build with a webserver
+FROM mde_dev AS mde_server
 
 RUN { \
 # https://www.php.net/manual/en/errorfunc.constants.php
@@ -35,13 +54,5 @@ RUN { \
 
 RUN a2enmod rewrite headers mime actions mime cgi include autoindex
 
-# install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && chmod +x /usr/local/bin/composer
-
-# install phpdoc
-RUN wget -O /usr/local/bin/phpdoc https://github.com/phpDocumentor/phpDocumentor/releases/download/v2.9.1/phpDocumentor.phar \
-    && chmod +x /usr/local/bin/phpdoc
-
 # copy the virtual host config
-COPY ./dev/docker/php-apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY ./docker/vhost.conf /etc/apache2/sites-available/000-default.conf
