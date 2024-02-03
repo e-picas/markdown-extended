@@ -8,12 +8,17 @@
  * file that was distributed with this source code.
  */
 
-// PHP 5.3.3+
-if (version_compare(PHP_VERSION, '5.3.3', '<')) {
+// PHP 5.6+
+if (version_compare(PHP_VERSION, '5.6', '<')) {
     trigger_error(
-        sprintf('The "MarkdownExtended" application requires PHP version 5.3.3 minimum (current running version is %s)', PHP_VERSION),
+        sprintf('The "MarkdownExtended" application requires PHP version 5.6 minimum (current running version is %s)', PHP_VERSION),
         E_USER_ERROR
     );
+}
+
+// PHP 8: suppress deprecated warnings
+if (version_compare(PHP_VERSION, '8', '>=')) {
+    error_reporting(error_reporting() & ~E_DEPRECATED);
 }
 
 // set a default timezone to avoid PHP5 warnings
