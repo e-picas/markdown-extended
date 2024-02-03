@@ -20,8 +20,17 @@ $config = new PhpCsFixer\Config();
 $config
     ->setUsingCache(false)
     ->setRules([
-        '@PHP74Migration' => true,
+        '@PSR2' => true,
         '@PSR12' => true,
+        '@PHP80Migration' => true,
+        '@PHP70Migration' => true,
+        '@PHP54Migration' => true,
+        'visibility_required' => [
+            'elements' => ['method', 'property']
+        ],
+        'list_syntax' => false,
+        'ternary_to_null_coalescing' => false,
+        'heredoc_indentation' => false,
     ])
     ->setFinder($finder)
 ;
