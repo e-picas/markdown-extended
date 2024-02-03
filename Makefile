@@ -16,110 +16,129 @@ CWD := $(shell pwd)
 -include .env
 export
 
+PHP_VERS ?=
+DOCKER_IMAGE_PHP ?= 7
+DOCKER_IMAGE_APACHE ?= 7.4.27-apache
+DOCKERFILE ?= docker/Dockerfile
 APACHE_PORT_80 ?= 8080
 MDE_DEV_DOCKER_CMD ?= bash
 
 default: help
 .PHONY: default
 
-## Build the docker image for cli development
-docker-build-mde:
-	docker build \
-		-f $$(pwd)/docker/php/Dockerfile \
-		-t mde_dev \
-		$$(pwd)/
-.PHONY: docker-build-mde
+# setup versions based on the PHP_VERS variable
+ifeq (${PHP_VERS}, 5)
+DOCKERFILE:=docker/php-5/Dockerfile
+DOCKER_IMAGE_PHP:=5
+DOCKER_IMAGE_APACHE:=5.6-apache
+endif
+ifeq (${PHP_VERS}, 8)
+DOCKER_IMAGE_PHP:=8
+DOCKER_IMAGE_APACHE:=8.3.2-apache
+endif
 
-## Run the cli docker container
-docker-run-mde: docker-build-mde
+## Build the docker image for cli development (use the `PHP_VERS` variable to select the PHP version)
+docker-build:
+	docker build \
+		-f $$(pwd)/${DOCKERFILE} \
+		--target mde_dev \
+		-t mde_dev:${DOCKER_IMAGE_PHP} \
+		--build-arg IMAGE_VERSION=${DOCKER_IMAGE_PHP} \
+		$$(pwd)/
+.PHONY: docker-build
+
+## Run the cli docker container (use the `PHP_VERS` variable to select the PHP version)
+docker-run: docker-build
 	docker run -ti --rm \
-		--name mde_dev_app \
 		-v $$(pwd):/mde-src \
 		-w /mde-src/ \
-		mde_dev bash -c "${MDE_DEV_DOCKER_CMD}"
-.PHONY: docker-run-mde
+		--name mde_dev_app_${DOCKER_IMAGE_PHP} \
+		mde_dev:${DOCKER_IMAGE_PHP} \
+		bash -c "${MDE_DEV_DOCKER_CMD}"
+.PHONY: docker-run
 
-## Build the docker image for apache/demo
-docker-build-apache:
+## Build the docker image for apache/demo (use the `PHP_VERS` variable to select the PHP version)
+docker-apache-build:
 	docker build \
-		-f $$(pwd)/docker/php-apache/Dockerfile \
-		-t mde_server \
+		-f $$(pwd)/${DOCKERFILE} \
+		-t mde_server:${DOCKER_IMAGE_APACHE} \
+		--build-arg IMAGE_VERSION=${DOCKER_IMAGE_APACHE} \
 		$$(pwd)/
-.PHONY: docker-build-apache
+.PHONY: docker-apache-build
 
-## Run the apache/demo docker container
-docker-run-apache: docker-build-apache
+## Start the apache docker container for demo (use the `PHP_VERS` variable to select the PHP version)
+docker-apache-start: docker-apache-build
 	docker run -ti -d --rm \
-		--name mde_server_app \
 		-v $$(pwd):/var/www/ \
 		-p ${APACHE_PORT_80}:80 \
 		-w /var/www/ \
-		mde_server
-.PHONY: docker-run-apache
+		--name mde_server_app_${DOCKER_IMAGE_APACHE} \
+		mde_server:${DOCKER_IMAGE_APACHE}
+.PHONY: docker-apache-start
 
-## Stop the apache/demo docker container
-docker-stop-apache:
-	docker stop mde_server_app
-.PHONY: docker-stop-apache
+## Stop the apache/demo docker container (use the `PHP_VERS` variable to select the PHP version)
+docker-apache-stop:
+	docker stop mde_server_app_${DOCKER_IMAGE_APACHE}
+.PHONY: docker-apache-stop
 
 ## Run the PHPUnit tests in the 'mde_dev' container
-run-tests: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer test" make docker-run-mde
+run-tests: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer test" make docker-mde-run
 .PHONY: run-tests
 
 ## Generate the PHPUnit tests reports in the 'mde_dev' container
-generate-tests-report: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer test-report" make docker-run-mde
+generate-tests-report: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer test-report" make docker-mde-run
 .PHONY: generate-tests-report
 
 ## Run the Code Standards Fixer in the 'mde_dev' container
-run-code-fixer: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer cs-fixer" make docker-run-mde
+run-code-fixer: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer cs-fixer" make docker-mde-run
 .PHONY: run-code-fixer
 
 ## Generate the documentation running `phpdoc` in the 'mde_dev' container
-generate-documentation: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer doc" make docker-run-mde
+generate-documentation: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer doc" make docker-mde-run
 .PHONY: generate-documentation
 
 ## Run the PHP Metrics tool in the 'mde_dev' container
-generate-code-metrics: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer metrics" make docker-run-mde
+generate-code-metrics: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer metrics" make docker-mde-run
 .PHONY: generate-code-metrics
 
 ## Run the PHP Dedup tool in the 'mde_dev' container
-run-code-deduplicator: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer dedup" make docker-run-mde
+run-code-deduplicator: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer dedup" make docker-mde-run
 .PHONY: run-code-deduplicator
 
 ## Run the PHP Loc tool in the 'mde_dev' container
-run-code-sizer: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer sizer" make docker-run-mde
+run-code-sizer: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer sizer" make docker-mde-run
 .PHONY: run-code-sizer
 
 ## Run the PHP Mess Detector tool on the sources in the 'mde_dev' container
-run-mess-detector: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector" make docker-run-mde
+run-mess-detector: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector" make docker-mde-run
 .PHONY: run-mess-detector
 
 ## Generate a PHP Mess Detector tool report in `dev/code-analyzer-report.html` analyzing the sources in the 'mde_dev' container
-generate-mess-detector-report: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-report" make docker-run-mde
+generate-mess-detector-report: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-report" make docker-mde-run
 .PHONY: generate-mess-detector-report
 
 ## Run the PHP Mess Detector tool comparing to the `.phpmd.baseline.xml` baseline on the sources in the 'mde_dev' container
-run-mess-detector-with-baseline: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-with-baseline" make docker-run-mde
+run-mess-detector-with-baseline: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-with-baseline" make docker-mde-run
 .PHONY: run-mess-detector-with-baseline
 
 ## Generate the PHP Mess Detector tool `.phpmd.baseline.xml` baseline on the sources in the 'mde_dev' container
-generate-mess-detector-baseline: docker-build-mde
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-generate-baseline" make docker-run-mde
+generate-mess-detector-baseline: docker-mde-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-generate-baseline" make docker-mde-run
 .PHONY: generate-mess-detector-baseline
 
 # largely inspired by <https://docs.cloudposse.com/reference/best-practices/make-best-practices/>
 help:
-	@printf "!! THIS FILE IS FOR DEVELOPMENT USAGE ONLY !!\n"
+	@printf "#############################################\n!! THIS FILE IS FOR DEVELOPMENT USAGE ONLY !!\n#############################################\n"
 	@printf "\n"
 	@printf "To use this file, run: make <target>\n"
 	@printf "\n"
