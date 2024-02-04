@@ -1,5 +1,12 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.11](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.10...v1.0.0-rc.11) (2024-02-04)
+
+
+### Features
+
+* send tests coverage to codeclimate ([324d226](https://github.com/e-picas/markdown-extended//commit/324d2269fdd7131d57435d5e0466aaee042cec00))
+
 # [1.0.0-rc.10](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.9...v1.0.0-rc.10) (2024-02-04)
 
 
