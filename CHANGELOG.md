@@ -1,5 +1,13 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.4](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2024-02-04)
+
+
+### Bug Fixes
+
+* rollback the composer plugin of semantic-release as it seems abandoned ([288742c](https://github.com/e-picas/markdown-extended//commit/288742c7a53e008f04977402b63c5fc165893c72))
+* use the raw version parameter for the 'make-release' internal action (step 2) ([bc8b562](https://github.com/e-picas/markdown-extended//commit/bc8b562cec7cbc95b4662c56a77c311474fce368))
+
 # [1.0.0-rc.2](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2024-02-04)
 
 
