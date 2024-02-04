@@ -1,5 +1,12 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.2](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2024-02-04)
+
+
+### Features
+
+* force a new release ([c6e6d73](https://github.com/e-picas/markdown-extended//commit/c6e6d73ea1c2ef9b6dfa47d41a914f9eb83889c2))
+
 # 1.0.0-rc.1 (2024-02-04)
 
 
