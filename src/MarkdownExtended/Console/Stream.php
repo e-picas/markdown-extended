@@ -231,7 +231,7 @@ class Stream
      * @param   \Exception  $e
      * @return  void
      */
-    public function handleException(\Exception $e)
+    public function handleException($e)
     {
         if (self::VERBOSITY_DEBUG <= $this->getVerbosity()) {
             $str = sprintf(
