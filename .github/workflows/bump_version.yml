@@ -1,13 +1,11 @@
 
 name: "Bump version"
-run-name: "Bump a new version tag"
+run-name: "Bump a new version tags"
 
 on:
   push:
     branches:
       - master
-      - master-bootstrap-4
-      - master-bootstrap-5
 
 permissions:
   contents: read # for checkout
@@ -15,7 +13,7 @@ permissions:
 jobs:
 
   bump_release:
-    name: "Bump version"
+    name: "Create a tag from master"
     if: "!contains(github.event.head_commit.message, 'chore(release)')"
     runs-on: ubuntu-latest
     permissions:

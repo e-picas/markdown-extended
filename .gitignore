@@ -7,22 +7,25 @@
 # file that was distributed with this source code.
 #
 
-# the composer stuff
-composer.lock
-vendor/
+.env
+TODOS*
 
-# any "tmp*" file or dir anywhere
-*tmp*
+# the composer & npm stuff
+composer.lock
+vendor
+package.json
+package-lock.json
+node_modules
 
 # dev
-TODOS*
-cache/
-build/logs/
+build
+cache
+dev
+tmp
 .phpunit.result.cache
-dev/*
 
 # specific MDE files
-bin/*
+bin
 !bin/markdown-extended
 
 # this is for all branches but "phar-latest"

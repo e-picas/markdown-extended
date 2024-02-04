@@ -140,6 +140,47 @@ generate-mess-detector-baseline: docker-build
 generate-all-reports: generate-tests-coverage generate-mess-detector-report generate-code-metrics generate-documentation
 .PHONY: generate-all-reports
 
+## RELEASE - Install the Semantic Release dependencies locally
+gitflow-env-install:
+	npm install --local \
+		semantic-release \
+		@semantic-release/github \
+		@semantic-release/git \
+		@semantic-release/changelog \
+		@semantic-release/exec \
+		@saithodev/semantic-release-backmerge
+.PHONY: gitflow-env-install
+
+CURRENT_BRANCH_NAME := $(shell git rev-parse --abbrev-ref HEAD)
+
+## RELEASE - Create a 'release-X.Y.Z' branch from 'develop'
+gitflow-make-release: gitflow-env-install
+	@[[ ${CURRENT_BRANCH_NAME} =~ ^develop ]] || { echo "!! > you MUST be an a 'develop' branch to create a release"; exit 1; }
+	git pull
+	semantic-release --dry-run --no-ci
+	git checkout -b release-$$(cat /tmp/mde-next_release)
+	git push origin release-$$(cat /tmp/mde-next_release)
+.PHONY: gitflow-make-release
+
+## RELEASE - Merge a 'release-X.Y.Z' branch into 'master'
+gitflow-publish-release:
+	@[[ ${CURRENT_BRANCH_NAME} =~ ^release ]] || { echo "!! > you MUST be an a 'release' branch to publish it"; exit 1; }
+	git fetch
+	@[[ $$(git rev-parse HEAD) == $$(git rev-parse origin/${CURRENT_BRANCH_NAME}) ]] || { echo "!! > your local branch is not up to date with the remote"; exit 1; }
+	git checkout master
+	git reset --hard origin/master
+	git merge --no-ff --no-edit --no-commit origin/${CURRENT_BRANCH_NAME}
+	if [[ $$(git diff --name-status --cached --exit-code 1>/dev/null; echo $?;) == 1 ]]; then
+		git commit -m "ci(${CURRENT_BRANCH_NAME}): merging prepared release"
+		git push origin master
+	else
+		echo "> no changes to be commited on master"
+		echo "> no new release to bump"
+	fi
+	git branch -D ${CURRENT_BRANCH_NAME}
+	git push --delete origin ${CURRENT_BRANCH_NAME}
+.PHONY: gitflow-publish-release
+
 # largely inspired by <https://docs.cloudposse.com/reference/best-practices/make-best-practices/>
 help:
 	@printf "#############################################\n!! THIS FILE IS FOR DEVELOPMENT USAGE ONLY !!\n#############################################\n"
