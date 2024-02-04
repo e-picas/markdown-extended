@@ -1,5 +1,16 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.9](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.8...v1.0.0-rc.9) (2024-02-04)
+
+
+### Bug Fixes
+
+* try to build the phar when publishing ([05e66bc](https://github.com/e-picas/markdown-extended//commit/05e66bcd6ec7d9e8c93785e167df2474a9ff438b))
+* try to build the phar when publishing (step 2) ([a01ab19](https://github.com/e-picas/markdown-extended//commit/a01ab1924ea8cc300960c119f0c0290058d925fe))
+* try to build the phar when publishing (step 3) ([67ebc2e](https://github.com/e-picas/markdown-extended//commit/67ebc2e3b8aa38b01b671042c260d502cc578f6a))
+* try to build the phar when publishing (step 4) ([ef89d78](https://github.com/e-picas/markdown-extended//commit/ef89d78906910ab962ed24521ad2ef0e5170dbb0))
+* try to build the phar when publishing (step 5) ([5d98371](https://github.com/e-picas/markdown-extended//commit/5d983711c7dbed99ef34e4b4d85cef638aa905f6))
+
 # [1.0.0-rc.8](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.7...v1.0.0-rc.8) (2024-02-04)
 
 
