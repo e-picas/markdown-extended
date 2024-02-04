@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false" bootstrap="tests/bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory>./src/MarkdownExtended/</directory>
+    </include>
+    <exclude>
+      <directory>./src/MarkdownExtended/*/Resources</directory>
+    </exclude>
+    <report>
+      <html outputDirectory="dev/mde-code-coverage/" />
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="MarkdownExtended Test Suite">
+      <directory>./tests/MarkdownExtendedTests/</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="dev/mde-tests.junit.xml" />
+  </logging>
+  <groups>
+    <exclude>
+      <group>not-implemented-yet</group>
+    </exclude>
+  </groups>
+</phpunit>

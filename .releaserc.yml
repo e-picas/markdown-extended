@@ -1,0 +1,44 @@
+#
+# This file is part of the PHP-Markdown-Extended package.
+#
+# Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+branches:
+  - "+([0-9])?(.{+([0-9]),x}).x"
+  - name: "master"
+    prerelease: "rc"
+  - name: "develop"
+  - name: "release-*"
+    prerelease: "alpha"
+
+plugins:
+  - path: "@semantic-release/commit-analyzer"
+  - path: "@semantic-release/release-notes-generator"
+    commit: "/commit"
+  - path: "@semantic-release/github"
+  - path: "@semantic-release/changelog"
+    changelogFile: "CHANGELOG.md"
+    changelogTitle: "# PHP Markdown Extended changelog"
+  - path: "@semantic-release/git"
+    assets:
+      - "CHANGELOG.md"
+      - "src/MarkdownExtended/MarkdownExtended.php"
+      - "doc/MANPAGE.md"
+      - "doc/DOCUMENTATION.md"
+      - "man/markdown-extended.3.man"
+      - "man/markdown-extended.7.man"
+    message: |
+      chore(release): ${nextRelease.version}
+
+      ${nextRelease.notes}
+  - path: "@semantic-release/exec"
+    verifyReleaseCmd: "echo \"${nextRelease.version}\" > /tmp/mde-next_release"
+    publishCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
+  - path: "@saithodev/semantic-release-backmerge"
+    backmergeBranches:
+      - from: "master"
+        to: "develop"

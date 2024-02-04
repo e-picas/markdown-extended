@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\OutputFormat;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\ContentInterface;
+use MarkdownExtended\Util\Helper;
 
 /**
  * A basic output format class
@@ -27,7 +27,7 @@ abstract class AbstractOutputFormat
      *          'closable' => bool, // is the tag closed without content (i.e. "<br />")
      *      )
      */
-    protected $tags_map = array();
+    protected $tags_map = [];
 
     /**
      * This will try to call a method `build{TagName}()` if it exists, then will try to use
@@ -40,7 +40,7 @@ abstract class AbstractOutputFormat
      *
      * @return  string
      */
-    public function buildTag($tag_name, $content = null, array $attributes = array())
+    public function buildTag($tag_name, $content = null, array $attributes = [])
     {
         $_method = 'build'.Helper::toCamelCase($tag_name);
 
@@ -50,22 +50,20 @@ abstract class AbstractOutputFormat
 
         if (method_exists($this, $_method)) {
             return call_user_func_array(
-                array($this, $_method),
-                array($content, $attributes)
+                [$this, $_method],
+                [$content, $attributes]
             );
         }
 
         $closable = false;
         if (isset($this->tags_map[$tag_name])) {
-            $closable = isset($this->tags_map[$tag_name]['closable']) ?
-                $this->tags_map[$tag_name]['closable'] : false;
-            $tag_name = isset($this->tags_map[$tag_name]['tag']) ?
-                $this->tags_map[$tag_name]['tag'] : $tag_name;
+            $closable = isset($this->tags_map[$tag_name]['closable']) ? $this->tags_map[$tag_name]['closable'] : false;
+            $tag_name = isset($this->tags_map[$tag_name]['tag']) ? $this->tags_map[$tag_name]['tag'] : $tag_name;
         }
 
         return call_user_func_array(
-            array($this, 'getTagString'),
-            array($content, $tag_name, $attributes, $closable)
+            [$this, 'getTagString'],
+            [$content, $tag_name, $attributes, $closable]
         );
     }
 
@@ -75,7 +73,7 @@ abstract class AbstractOutputFormat
      * @param   array   $attributes     An array of attributes constructed like "variable=>value" pairs
      * @return  string
      */
-    abstract public function getTagString($content, $tag_name, array $attributes = array());
+    abstract public function getTagString($content, $tag_name, array $attributes = []);
 
     /**
      * Gets the notes list as string
@@ -91,20 +89,21 @@ abstract class AbstractOutputFormat
             return '';
         }
 
-        $data = array();
-        foreach ($notes as $var=>$val) {
+        $data = [];
+        foreach ($notes as $var => $val) {
             $data[] = $this->buildTag(
                 'list_item',
                 $val['text'],
-                array('id' => $val['note-id'])
+                ['id' => $val['note-id']]
             );
-//            ) . "\n\n";
+            //            ) . "\n\n";
         }
 
         return $this
-            ->buildTag('block',
+            ->buildTag(
+                'block',
                 $this->buildTag('ordered_list', implode(PHP_EOL, $data)),
-                array('class'=>'footnotes')
+                ['class' => 'footnotes']
             );
     }
 
@@ -119,13 +118,13 @@ abstract class AbstractOutputFormat
     public function getMetadataToString(array $metadata, ContentInterface $content)
     {
         $specials   = Kernel::getConfig('special_metadata');
-        $data       = array();
-        foreach ($metadata as $var=>$val) {
+        $data       = [];
+        foreach ($metadata as $var => $val) {
             if (!in_array($var, $specials)) {
-                $data[] = $this->buildTag('meta_data', null, array(
+                $data[] = $this->buildTag('meta_data', null, [
                     'name'      => $var,
-                    'content'   => $val
-                ));
+                    'content'   => $val,
+                ]);
             }
         }
         return implode(PHP_EOL, $data);

@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,6 +16,8 @@ namespace MarkdownExtended\Util;
 class CacheRegistry
 {
     /**
+     * The cache object of the registry
+     *
      * @var \MarkdownExtended\Util\Registry
      */
     protected $_cache;
@@ -25,7 +27,7 @@ class CacheRegistry
      */
     public function __construct()
     {
-        $this->_cache = new Registry;
+        $this->_cache = new Registry();
     }
 
     /**

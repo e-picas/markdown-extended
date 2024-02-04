@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,14 +10,13 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Class Detab
  */
-class Detab
-    extends Filter
+class Detab extends Filter
 {
     /**
      * String length function for detab. `_initDetab` will create a function to
@@ -48,13 +47,12 @@ class Detab
      * tab characters. Then we reconstruct every line by adding the
      * appropriate number of space between each blocks.
      *
-     * @param   string  $text   The text to be parsed
-     * @return  string          The text parsed
+     * {@inheritDoc}
      * @see     self::_detab_callback()
      */
     public function transform($text)
     {
-        $text = preg_replace_callback('/^.*\t.*$/m', array($this, '_callback'), $text);
+        $text = preg_replace_callback('/^.*\t.*$/m', [$this, '_callback'], $text);
         return $text;
     }
 

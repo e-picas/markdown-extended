@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,10 +10,12 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use \MarkdownExtendedTests\ConsoleTest;
+use MarkdownExtendedTests\ConsoleTestCase;
 
-class TasksTest
-    extends ConsoleTest
+/**
+ * @group console
+ */
+class TasksTest extends ConsoleTestCase
 {
     /**
      * Test task LICENSE
@@ -27,12 +29,12 @@ class TasksTest
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI license task (status)'
+            '[console] test of the CLI license task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI license task (output not empty)'
+            '[console] test of the CLI license task (output not empty)'
         );
     }
 
@@ -48,12 +50,12 @@ class TasksTest
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI manifest task (status)'
+            '[console] test of the CLI manifest task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI manifest task (output not empty)'
+            '[console] test of the CLI manifest task (output not empty)'
         );
     }
 
@@ -69,12 +71,12 @@ class TasksTest
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI config-list task (status)'
+            '[console] test of the CLI config-list task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI config-list task (output not empty)'
+            '[console] test of the CLI config-list task (output not empty)'
         );
     }
 
@@ -90,12 +92,12 @@ class TasksTest
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI filters-list task (status)'
+            '[console] test of the CLI filters-list task (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI filters-list task (output not empty)'
+            '[console] test of the CLI filters-list task (output not empty)'
         );
     }
 }

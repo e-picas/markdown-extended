@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,18 +10,21 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\API\OutputFormatInterface;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\OutputFormatInterface;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\Exception\InvalidArgumentException;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
+/**
+ * This is the base object of output formatters
+ */
 class OutputFormatBag
 {
     /**
      * @var  array   Table of grammar output tags called by filters (must be defined in the output formatter)
      */
-    public static $tag_names = array(
+    public static $tag_names = [
         'abbreviation',
         'block',
         'blockquote',
@@ -64,9 +67,11 @@ class OutputFormatBag
         'footnote_glossary_link',
         'footnote_bibliography_item',
         'footnote_bibliography_link',
-    );
+    ];
 
     /**
+     * Current Formatter object
+     *
      * @var     \MarkdownExtended\API\OutputFormatInterface
      */
     protected $formatter;
@@ -88,7 +93,7 @@ class OutputFormatBag
                 sprintf('Output format "%s" not found', $format)
             );
         }
-        $cls = new $cls_name;
+        $cls = new $cls_name();
         if (Kernel::validate($cls, Kernel::TYPE_OUTPUTFORMAT, $format)) {
             $this->setFormatter($cls);
         }
@@ -108,14 +113,17 @@ class OutputFormatBag
 
         if (method_exists($this->getFormatter(), $name)) {
             if (!empty($arguments)) {
-                return call_user_func_array(array($this->getFormatter(), $name), $arguments);
+                return call_user_func_array([$this->getFormatter(), $name], $arguments);
             } else {
-                return call_user_func(array($this->getFormatter(), $name));
+                return call_user_func([$this->getFormatter(), $name]);
             }
         } else {
             throw new UnexpectedValueException(
-                sprintf('Call to undefined method "%s" on formatter "%s"',
-                    $name, get_class($this->getFormatter()))
+                sprintf(
+                    'Call to undefined method "%s" on formatter "%s"',
+                    $name,
+                    get_class($this->getFormatter())
+                )
             );
         }
     }

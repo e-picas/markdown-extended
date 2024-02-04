@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,10 +10,10 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown definitions lists
@@ -35,14 +35,12 @@ use \MarkdownExtended\Grammar\GamutLoader;
  *        :   This definition has a code block, a blockquote and a list.
  *
  */
-class DefinitionList
-    extends Filter
+class DefinitionList extends Filter
 {
     /**
      * Form HTML definition lists.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -74,11 +72,14 @@ class DefinitionList
               )
             )
         )'; // mx
-        return preg_replace_callback('{
+        return preg_replace_callback(
+            '{
                 (?>\A\n?|(?<=\n\n))
                 '.$whole_list_re.'
             }mx',
-            array($this, '_callback'), $text);
+            [$this, '_callback'],
+            $text
+        );
     }
 
     /**
@@ -99,7 +100,6 @@ class DefinitionList
         return parent::hashBlock($result) . "\n\n";
     }
 
-
     /**
      * Process the contents of a single definition list, splitting it
      * into individual term and definition list items.
@@ -114,7 +114,8 @@ class DefinitionList
         $list_str = preg_replace("/\n{2,}\\z/", "\n", $list_str);
 
         // Process definition terms.
-        $list_str = preg_replace_callback('{
+        $list_str = preg_replace_callback(
+            '{
             (?>\A\n?|\n\n+)                     # leading line
             (                                   # definition term = $1
                 [ ]{0,'.$less_than_tab.'}       # leading whitespace
@@ -123,10 +124,13 @@ class DefinitionList
             )
             (?=\n?[ ]{0,3}:[ ])                 # lookahead for following line feed with a definition mark.
             }xm',
-            array($this, '_item_callback_dt'), $list_str);
+            [$this, '_item_callback_dt'],
+            $list_str
+        );
 
         // Process actual definitions.
-        $list_str = preg_replace_callback('{
+        $list_str = preg_replace_callback(
+            '{
             \n(\n+)?                            # leading line = $1
             (                                   # marker space = $2
                 [ ]{0,'.$less_than_tab.'}       # whitespace before colon
@@ -140,7 +144,9 @@ class DefinitionList
                 )
             )
             }xm',
-            array($this, '_item_callback_dd'), $list_str);
+            [$this, '_item_callback_dd'],
+            $list_str
+        );
 
         return $list_str;
     }
@@ -179,7 +185,7 @@ class DefinitionList
             // Replace marker with the appropriate whitespace indentation
             $def = str_repeat(' ', strlen($marker_space)) . $def;
             $def = Lexer::runGamut('html_block_gamut', Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $def . "\n\n"));
-//            $def = "\n$def\n";
+            //            $def = "\n$def\n";
         } else {
             $def = rtrim($def);
             $def = Lexer::runGamut('span_gamut', Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $def));

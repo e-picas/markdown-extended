@@ -1,0 +1,47 @@
+
+name: "Bump version"
+run-name: "Bump a new version tags"
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+
+  bump_release:
+    name: "Create a tag from master"
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+
+      - name: Install dependencies
+        run: npm install -g semantic-release @semantic-release/github @semantic-release/git @semantic-release/changelog @semantic-release/exec @saithodev/semantic-release-backmerge
+
+      - name: Setup git
+        run: |
+          git config user.email "${{ env.GITHUB_TRIGGERING_ACTOR }}"
+          git config user.name "github-ci-bot"
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+        run: npx semantic-release

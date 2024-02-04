@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,25 +10,24 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown automatic links
  */
-class AutoLink
-    extends Filter
+class AutoLink extends Filter
 {
     /**
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
         // Email addresses: <address@domain.foo>
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             <
             (?:mailto:)?
             (
@@ -46,15 +45,22 @@ class AutoLink
             )
             >
             }xi',
-            array($this, '_email_callback'), $text);
+            [$this, '_email_callback'],
+            $text
+        );
 
-        $text = preg_replace_callback('{<([^\'">\s]+)>}i',
-            array($this, '_url_callback'), $text);
+        $text = preg_replace_callback(
+            '{<([^\'">\s]+)>}i',
+            [$this, '_url_callback'],
+            $text
+        );
 
         return $text;
     }
 
     /**
+     * The callback applied for URL matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -64,14 +70,16 @@ class AutoLink
         Kernel::addConfig('urls', $url);
 
         $block = Kernel::get('OutputFormatBag')
-            ->buildTag('link', $url, array(
-                'href'  => $url
-            ));
+            ->buildTag('link', $url, [
+                'href'  => $url,
+            ]);
 
         return parent::hashPart($block);
     }
 
     /**
+     * The callback applied for email addresses matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -80,9 +88,9 @@ class AutoLink
         $address = $matches[1];
         Kernel::addConfig('urls', $address);
         $block = Kernel::get('OutputFormatBag')
-            ->buildTag('link', $address, array(
-                'email' => $address
-            ));
+            ->buildTag('link', $address, [
+                'email' => $address,
+            ]);
         return parent::hashPart($block);
     }
 }

@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<phpmd-baseline>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/API/Kernel.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/API/Kernel.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Console/AbstractConsole.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Console/AbstractConsole.php"/>
+  <violation rule="PHPMD\Rule\Design\WeightedMethodCount" file="src/MarkdownExtended/Console/Console.php"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/MarkdownExtended/Console/Console.php" method="__construct"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Console/Console.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Console/Console.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Console/Console.php"/>
+  <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/Console/Console.php"/>
+  <violation rule="PHPMD\Rule\Design\ExitExpression" file="src/MarkdownExtended/Console/Stream.php"/>
+  <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/MarkdownExtended/Console/Stream.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Console/Stream.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Console/Stream.php"/>
+  <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/Console/UserInput.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Console/UserInput.php" method="parseOptions"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Console/UserInput.php"/>
+  <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="src/MarkdownExtended/Console/UserInput.php" method="_hardDebug"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Console/UserInput.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Console/UserOption.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Console/UserOption.php" method="rebuildDefinition"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Console/UserOption.php" method="validateUserValue"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/MarkdownExtended/Console/UserOption.php" method="validateUserValue"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Grammar/AbstractGamut.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/AbstractGamut.php"/>
+  <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/MarkdownExtended/Grammar/Filter.php"/>
+  <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/MarkdownExtended/Grammar/Filter.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Abbreviation.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/Abbreviation.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Anchor.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/Anchor.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/AutoLink.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/BlockInclusion.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/BlockQuote.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/CodeBlock.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/DefinitionList.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/DefinitionList.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Detab.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Grammar/Filter/Emphasis.php" method="transform"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/MarkdownExtended/Grammar/Filter/Emphasis.php" method="transform"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Emphasis.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/Emphasis.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/FencedCodeBlock.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Grammar/Filter/HTML.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Grammar/Filter/HTML.php" method="_hashBlocks_inMarkdown"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/MarkdownExtended/Grammar/Filter/HTML.php" method="_hashBlocks_inMarkdown"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/MarkdownExtended/Grammar/Filter/HTML.php" method="_hashBlocks_inMarkdown"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/HTML.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Grammar/Filter/HTML.php" method="_hashBlocks_inHTML"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/MarkdownExtended/Grammar/Filter/HTML.php" method="_hashBlocks_inHTML"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/MarkdownExtended/Grammar/Filter/HTML.php" method="_hashBlocks_inHTML"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/HTML.php"/>
+  <violation rule="PHPMD\Rule\UnusedFormalParameter" file="src/MarkdownExtended/Grammar/Filter/HardBreak.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Header.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Image.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/Image.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/LinkDefinition.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/ListItem.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/ListItem.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/MetaData.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/MetaData.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Note.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/Note.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Grammar/Filter/Note.php" method="_append_callback"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Span.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/Span.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Filter/Table.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Grammar/Filter/Table.php" method="_callback"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/MarkdownExtended/Grammar/Filter/Table.php" method="_callback"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/MarkdownExtended/Grammar/Filter/Table.php" method="_callback"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Filter/Table.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/GamutLoader.php"/>
+  <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/Grammar/GamutLoader.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/GamutLoader.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Lexer.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Grammar/Lexer.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Grammar/Tools.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Grammar/Tools.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/MarkdownExtended.php"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/MarkdownExtended/MarkdownExtended.php" method="getDefaults"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/MarkdownExtended.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/OutputFormat/AbstractOutputFormat.php"/>
+  <violation rule="PHPMD\Rule\UnusedFormalParameter" file="src/MarkdownExtended/OutputFormat/AbstractOutputFormat.php"/>
+  <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/OutputFormat/AbstractOutputFormat.php"/>
+  <violation rule="PHPMD\Rule\Design\WeightedMethodCount" file="src/MarkdownExtended/OutputFormat/Html.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/OutputFormat/Html.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/OutputFormat/Html.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/OutputFormat/Html.php"/>
+  <violation rule="PHPMD\Rule\UnusedFormalParameter" file="src/MarkdownExtended/OutputFormat/Html.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/OutputFormat/Html.php" method="_validateLinkAttributes"/>
+  <violation rule="PHPMD\Rule\Design\TooManyMethods" file="src/MarkdownExtended/OutputFormat/Man.php"/>
+  <violation rule="PHPMD\Rule\Design\WeightedMethodCount" file="src/MarkdownExtended/OutputFormat/Man.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/OutputFormat/Man.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/OutputFormat/Man.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/OutputFormat/Man.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/OutputFormat/Man.php" method="buildTitle"/>
+  <violation rule="PHPMD\Rule\UnusedFormalParameter" file="src/MarkdownExtended/OutputFormat/Man.php"/>
+  <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/OutputFormat/Man.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/OutputFormatBag.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/OutputFormatBag.php"/>
+  <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="src/MarkdownExtended/Parser.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Parser.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Parser.php" method="setOptions"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Parser.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Parser.php"/>
+  <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/Parser.php"/>
+  <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="src/MarkdownExtended/Parser.php" method="_hardDebugContent"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Templater.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Templater.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Util/ContentCollection.php"/>
+  <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/MarkdownExtended/Util/DomIdRegistry.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Util/Helper.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Util/Helper.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Util/Helper.php"/>
+  <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/MarkdownExtended/Util/Helper.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Util/Registry.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/markdown.php"/>
+</phpmd-baseline>

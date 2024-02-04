@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,10 +10,10 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown abbreviations
@@ -27,16 +27,15 @@ use \MarkdownExtended\Grammar\GamutLoader;
  *
  * @link http://aboutmde.org/#E5
  */
-class Abbreviation
-    extends Filter
+class Abbreviation extends Filter
 {
     /**
      * Prepare masks for predefined abbreviations and descriptions
      */
     public function _setup()
     {
-        $abbr_word_re='';
-        $abbr_desciptions = array();
+        $abbr_word_re = '';
+        $abbr_desciptions = [];
         $predef_abbr = Kernel::getConfig('predefined_abbr');
         if (!empty($predef_abbr)) {
             foreach ($predef_abbr as $abbr_word => $abbr_desc) {
@@ -56,27 +55,29 @@ class Abbreviation
      */
     public function _teardown()
     {
-        Kernel::setConfig('abbr_desciptions', array());
+        Kernel::setConfig('abbr_desciptions', []);
         Kernel::setConfig('abbr_word_re', '');
     }
 
     /**
      * Find defined abbreviations in text and wrap them in <abbr> elements
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
         if (Kernel::getConfig('abbr_word_re')) {
             // cannot use the /x modifier because abbr_word_re may
             // contain significant spaces:
-            $text = preg_replace_callback('{'.
+            $text = preg_replace_callback(
+                '{'.
                 '(?<![\w\x1A])'.
                 '(?:'.Kernel::getConfig('abbr_word_re').')'.
                 '(?![\w\x1A])'.
                 '}',
-                array($this, '_callback'), $text);
+                [$this, '_callback'],
+                $text
+            );
         }
         return $text;
     }
@@ -92,7 +93,7 @@ class Abbreviation
         $abbr = $matches[0];
         $abbr_desciptions = Kernel::getConfig('abbr_desciptions');
         if (isset($abbr_desciptions[$abbr])) {
-            $attributes = array();
+            $attributes = [];
             $desc = trim($abbr_desciptions[$abbr]);
             if (!empty($desc)) {
                 $attributes['title'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $desc);
@@ -113,14 +114,16 @@ class Abbreviation
      */
     public function strip($text)
     {
-        return preg_replace_callback('{
+        return preg_replace_callback(
+            '{
                 ^[ ]{0,'.
                 Kernel::getConfig('less_than_tab')
                 .'}\*\[(.+?)\][ ]?: # abbr_id = $1
                 (.*)                # text = $2 (no blank lines allowed)
             }xm',
-            array($this, '_strip_callback'),
-            $text);
+            [$this, '_strip_callback'],
+            $text
+        );
     }
 
     /**
@@ -131,10 +134,11 @@ class Abbreviation
      */
     protected function _strip_callback($matches)
     {
-        Kernel::addConfig('abbr_word_re',
+        Kernel::addConfig(
+            'abbr_word_re',
             (Kernel::getConfig('abbr_word_re') ? '|' : '').preg_quote($matches[1])
         );
-        Kernel::addConfig('abbr_desciptions', array($matches[1] => trim($matches[2])));
+        Kernel::addConfig('abbr_desciptions', [$matches[1] => trim($matches[2])]);
         return '';
     }
 }

@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,24 +10,28 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\Util\CacheRegistry;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Util\CacheRegistry;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * Central class to execute filters and tools methods on a content
  *
  * It can handle a list of gamuts, execute a specific method and run a single gamut.
  */
-class GamutLoader
-    extends CacheRegistry
+class GamutLoader extends CacheRegistry
 {
     const FILTER_ALIAS      = 'filter';
+
     const TOOL_ALIAS        = 'tool';
+
     const FILTER_NAMESPACE  = 'MarkdownExtended\Grammar\Filter';
+
     const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
 
     /**
+     * Table of all gamuts
+     *
      * @var array
      */
     protected $all_gamuts;
@@ -114,11 +118,11 @@ class GamutLoader
     public function getAllGamuts()
     {
         if (empty($this->all_gamuts)) {
-            $this->all_gamuts = array();
+            $this->all_gamuts = [];
 
-            foreach (Kernel::get('config')->getAll() as $var=>$val) {
+            foreach (Kernel::get('config')->getAll() as $var => $val) {
                 if ($this->isGamutStackName($var)) {
-                    foreach ($val as $item=>$priority) {
+                    foreach ($val as $item => $priority) {
                         if (!$this->isGamutStackName($item)) {
                             $name = $this->getGamutBaseName($item);
                             if (!in_array($name, $this->all_gamuts, true)) {
@@ -261,8 +265,8 @@ class GamutLoader
      * Actually runs a gamut's method on a content
      *
      * @param   string  $gamut      The gamut name to execute
-     * @param   string  $text       The text for gamuts execution
      * @param   string  $method     The method name to execute in each gamut
+     * @param   string  $text       The text for gamuts execution
      *
      * @return  string
      *
@@ -279,7 +283,7 @@ class GamutLoader
                 );
             }
 
-            $_obj = new $obj_name;
+            $_obj = new $obj_name();
             Kernel::validate($_obj, Kernel::TYPE_GAMUT, $obj_name);
             $this->setCache($obj_name, $_obj);
         }
@@ -325,7 +329,7 @@ class GamutLoader
                 );
             }
 
-            $_obj = new $class;
+            $_obj = new $class();
             Kernel::validate($_obj, Kernel::TYPE_GAMUT, $class);
             $this->setCache($class, $_obj);
         }
@@ -338,7 +342,7 @@ class GamutLoader
             );
         }
 
-        $text = call_user_func(array($_obj, $method), $text);
+        $text = call_user_func([$_obj, $method], $text);
         return $text;
     }
 }

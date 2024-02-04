@@ -1,0 +1,12 @@
+---
+includes:
+    - "src/"
+excludes:
+    - MarkdownExtendedDev/
+report:
+    html: "dev/mde-metrics/"
+    json: "dev/mde-metrics.report.json"
+    violations: "dev/mde-metrics.violations.xml"
+plugins:
+    junit:
+        file: "dev/mde-tests.junit.xml"

@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,16 +16,18 @@ namespace MarkdownExtended\Util;
 class DomIdRegistry
 {
     /**
+     * The IDs registry
+     *
      * @var     \MarkdownExtended\Util\Registry
      */
-    protected $dom_ids = array();
+    protected $dom_ids = [];
 
     /**
      * Initializes the registry
      */
     public function __construct()
     {
-        $this->dom_ids = new Registry;
+        $this->dom_ids = new Registry();
     }
 
     /**
@@ -64,7 +66,8 @@ class DomIdRegistry
     {
         return $this->has($reference) ?
             $this->dom_ids->get($reference) : $this->set(
-                $id ?: $reference, $reference
+                $id ?: $reference,
+                $reference
             );
     }
 

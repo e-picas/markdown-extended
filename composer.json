@@ -22,13 +22,16 @@
     "issues": "http://github.com/e-picas/markdown-extended/issues",
     "source": "http://github.com/e-picas/markdown-extended/tree/master"
   },
-  "require": { "php": ">=5.3.3" },
+  "require": {
+    "php": ">=5.6"
+  },
   "require-dev": {
-    "sami/sami": "3.*",
-    "phpunit/phpunit": "@stable",
-    "phpmd/phpmd" : "@stable",
-    "fabpot/php-cs-fixer": "@stable",
-    "codeclimate/php-test-reporter": "dev-master"
+    "phpunit/phpunit": "<10",
+    "phpmd/phpmd": "@stable",
+    "friendsofphp/php-cs-fixer": "@stable",
+    "phpmetrics/phpmetrics": "@stable",
+    "phploc/phploc": "@stable",
+    "sebastian/phpcpd":"@stable"
   },
   "replace": {
     "atelierspierrot/markdown-extended": "dev-master",
@@ -36,21 +39,32 @@
     "piwi/markdown-extended": "self.version"
   },
   "autoload": {
-    "psr-0": { "MarkdownExtended": "src" }
+    "psr-0": {
+      "MarkdownExtended": "src"
+    }
   },
-  "autoload-dev": { "psr-0": {
-    "MarkdownExtendedDev": "src",
-    "MarkdownExtendedTests": "tests"
-  } },
+  "autoload-dev": {
+    "psr-0": {
+      "MarkdownExtendedDev": "src",
+      "MarkdownExtendedTests": "tests"
+    }
+  },
   "config": {
     "bin-dir": "bin"
   },
   "scripts": {
-    "build-doc": "php ./bin/sami.php update .sami.php",
-    "update-doc": "php ./bin/sami.php update .sami.php",
-    "test": "php ./bin/phpunit",
+    "doc": "phpdoc project:run --sourcecode --cache-folder=/tmp/phpdoc-cache/ --force -v",
+    "test": "php ./bin/phpunit --no-coverage --no-logging --testdox",
+    "test-coverage": "php ./bin/phpunit --debug",
+    "metrics": "php ./bin/phpmetrics --config=.phpmetrics.yml src/",
+    "dedup": "php ./bin/phpcpd --exclude=src/MarkdownExtendedDev/ src/",
+    "sizer": "php ./bin/phploc --exclude=src/MarkdownExtendedDev/ src/",
     "cs-fixer": "php ./bin/php-cs-fixer fix -v",
-    "code-coverage": "php ./bin/phpunit --coverage-clover build/logs/clover.xml && CODECLIMATE_REPO_TOKEN=13523c00febc4ee41ddbfcbb4f81331b1810d2a1f40029ddf066cb0d875ff2ef ./bin/test-reporter"
+    "cs-fixer-ci": "php ./bin/php-cs-fixer fix -v --dry-run",
+    "messdetector": "php ./bin/phpmd --exclude MarkdownExtendedDev ./src/ text .phpmd.xml",
+    "messdetector-report": "php ./bin/phpmd --exclude MarkdownExtendedDev --reportfile=dev/mde-messdetector.report.html ./src/ html .phpmd.xml || true",
+    "messdetector-generate-baseline": "php ./bin/phpmd --exclude MarkdownExtendedDev --baseline-file=.phpmd.baseline.xml --generate-baseline ./src/ text .phpmd.xml",
+    "messdetector-with-baseline": "php ./bin/phpmd --exclude MarkdownExtendedDev --baseline-file=.phpmd.baseline.xml ./src/ text .phpmd.xml"
   },
   "bin": [
     "bin/markdown-extended",
@@ -59,15 +73,15 @@
   ],
   "archive": {
     "exclude": [
-      ".DS_Store", ".AppleDouble", ".LSOverride", ".Spotlight-V100", ".Trashes", "Icon", "._*", "*~", "*~lock*",
-      "Thumbs.db", "ehthumbs.db", "Desktop.ini", "*.swp", "*.swo", "*.vi", "nbproject", ".cache", ".settings",
-      ".project", ".buildpath", ".idea", ".tmproj", "*.esproj", "*.sublime-*", "*.diff", "*.err", "*.orig", "*.log",
-      "*.rej", "*.bak", "*.tmp", "build", "dev", "phpdoc", "*.phar"
+      ".DS_Store", ".AppleDouble", ".LSOverride", ".Spotlight-V100", ".Trashes", "Icon", "._*", "*~", "*~lock*", "*.rej",
+      "Thumbs.db", "ehthumbs.db", "Desktop.ini", "*.swp", "*.swo", "*.vi", "nbproject", ".cache", ".settings", "*.bak",
+      ".project", ".buildpath", ".idea", ".tmproj", "*.esproj", "*.sublime-*", "*.diff", "*.err", "*.orig", "*.log", "*.tmp",
+      "build", "demo", "dev", "docker", "*.phar"
     ]
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.0.*-dev"
+      "dev-master": "1.0.*-dev"
     }
   }
 }

@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,28 +10,27 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown images
  */
-class Image
-    extends Filter
+class Image extends Filter
 {
     /**
      * Turn Markdown image shortcuts into <img> tags.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
         // First, handle reference-style labeled images: ![alt text][id]
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             (                                       # wrap whole match in $1
               !\[
                 ('.Kernel::getConfig('nested_brackets_re').') # alt text = $2
@@ -46,11 +45,14 @@ class Image
 
             )
             }xs',
-            array($this, '_reference_callback'), $text);
+            [$this, '_reference_callback'],
+            $text
+        );
 
         // Next, handle inline images:  ![alt text](url "optional title")
         // Don't forget: encode * and _
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             (                                         # wrap whole match in $1
               !\[
                 ('.Kernel::getConfig('nested_brackets_re').') # alt text = $2
@@ -73,12 +75,16 @@ class Image
               \)
             )
             }xs',
-            array($this, '_inline_callback'), $text);
+            [$this, '_inline_callback'],
+            $text
+        );
 
         return $text;
     }
 
     /**
+     * Callback applied to referenced matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -97,7 +103,7 @@ class Image
         $predef_attributes = Kernel::getConfig('attributes');
         $alt_text = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $alt_text);
         if (isset($urls[$link_id])) {
-            $attributes = array();
+            $attributes = [];
             $attributes['alt']  = $alt_text;
             $attributes['id']   = Helper::header2Label($link_id);
             $attributes['src']  = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $urls[$link_id]);
@@ -107,7 +113,8 @@ class Image
             if (!empty($predef_attributes[$link_id])) {
                 $attributes = array_merge(
                     Lexer::runGamut(GamutLoader::TOOL_ALIAS.':ExtractAttributes', $predef_attributes[$link_id]),
-                    $attributes);
+                    $attributes
+                );
             }
             $block = Kernel::get('OutputFormatBag')
                 ->buildTag('image', null, $attributes);
@@ -121,6 +128,8 @@ class Image
     }
 
     /**
+     * Callback applied to inline matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -128,9 +137,9 @@ class Image
     {
         $alt_text       = $matches[2];
         $url            = $matches[3] == '' ? $matches[4] : $matches[3];
-        $title          =& $matches[7];
+        $title          = & $matches[7];
 
-        $attributes = array();
+        $attributes = [];
         $attributes['alt'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $alt_text);
         $attributes['src'] = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $url);
         if (!empty($title)) {

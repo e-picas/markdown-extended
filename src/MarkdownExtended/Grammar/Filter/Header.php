@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,10 +10,10 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown headers
@@ -35,14 +35,12 @@ use \MarkdownExtended\API\Kernel;
  *  ###### Header 6   {#header2}
  *
  */
-class Header
-    extends Filter
+class Header extends Filter
 {
     /**
      * Redefined to add id attribute support.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -53,10 +51,13 @@ class Header
                 (?:[ ]+\{\#([-_:a-zA-Z0-9]+)\})?        # $2: Id attribute
                 [ ]*\n(=+|-+)[ ]*\n+                    # $3: Header footer
             }mx',
-            array($this, '_setext_callback'), $text);
+            [$this, '_setext_callback'],
+            $text
+        );
 
         // atx-style headers:
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
                 ^(\#{1,6})                              # $1 = string of #\'s
                 [ ]*
                 (.+?)                                   # $2 = Header text
@@ -66,7 +67,9 @@ class Header
                 [ ]*
                 \n+
             }xm',
-            array($this, '_atx_callback'), $text);
+            [$this, '_atx_callback'],
+            $text
+        );
 
         return $text;
     }
@@ -82,7 +85,7 @@ class Header
         if ($matches[3] == '-' && preg_match('{^- }', $matches[1])) {
             return $matches[0];
         }
-        $level = ($matches[3]{0} == '=' ? 1 : 2)  + $this->_getRebasedHeaderLevel();
+        $level = ($matches[3][0] == '=' ? 1 : 2)  + $this->_getRebasedHeaderLevel();
         return "\n".str_pad('#', $level, '#').' '.$matches[1].' '
             .(!empty($matches[2]) ? '{#'.$matches[2].'}' : '')."\n";
     }
@@ -102,12 +105,12 @@ class Header
             Helper::header2Label($matches[2]);
         $domid  = Kernel::get('DomId')->set($domid);
         $title = Lexer::runGamut('span_gamut', $matches[2]);
-        Kernel::addConfig('menu', array('level'=>$level, 'text'=>parent::unhash($title)), $domid);
+        Kernel::addConfig('menu', ['level' => $level, 'text' => parent::unhash($title)], $domid);
         $block = Kernel::get('OutputFormatBag')
-            ->buildTag('title', $title, array(
-                'level'=>$level,
-                'id'=>$domid
-            ));
+            ->buildTag('title', $title, [
+                'level' => $level,
+                'id' => $domid,
+            ]);
 
         $this->_setContentTitle($title);
 
@@ -120,18 +123,22 @@ class Header
     protected function _getRebasedHeaderLevel()
     {
         $base_level = Kernel::getConfig('baseheaderlevel');
-        return !empty($base_level) ? $base_level-1 : 0;
+        return !empty($base_level) ? $base_level - 1 : 0;
     }
 
     /**
      * Set the page content if it is not set yet
+     *
+     * @param string $title
+     *
+     * @return void
      */
-    protected function _setContentTitle($string)
+    protected function _setContentTitle($title)
     {
         $old = Kernel::get(Kernel::TYPE_CONTENT)->getTitle();
         if (empty($old)) {
             $meta = Kernel::get(Kernel::TYPE_CONTENT)->getMetadata();
-            $meta['title'] = $string;
+            $meta['title'] = $title;
             Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($meta);
         }
     }

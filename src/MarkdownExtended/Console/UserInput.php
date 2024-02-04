@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Console;
 
-use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Util\Registry;
-use \MarkdownExtended\Util\Helper;
+use MarkdownExtended\Exception\InvalidArgumentException;
+use MarkdownExtended\Util\Registry;
+use MarkdownExtended\Util\Helper;
 
 /**
  * A class to manage command line options based on a set of definitions
@@ -20,7 +20,9 @@ use \MarkdownExtended\Util\Helper;
 class UserInput
 {
     const NEGATE_SUFFIX             = 'no-';
+
     public static $NEGATE_VAL       = '_negate';
+
     public static $NEGATE_INFO      = 'This option can be negated by "--no-%s".';
 
     /**
@@ -70,8 +72,25 @@ class UserInput
      */
     const TYPE_LISTITEM = 8;
 
+    /**
+     * The raw array of options
+     *
+     * @var array
+     */
     protected $options;
+
+    /**
+     * The indexed array of options
+     *
+     * @var array
+     */
     protected $options_indexed;
+
+    /**
+     * The raw array of user options
+     *
+     * @var array
+     */
     protected $user_options;
 
     /**
@@ -79,11 +98,11 @@ class UserInput
      */
     public function __construct(array $definitions)
     {
-        $this->options          = new Registry;
-        $this->options_indexed  = array();
+        $this->options          = new Registry();
+        $this->options_indexed  = [];
 
         $counter = 0;
-        foreach ($definitions as $name=>$item) {
+        foreach ($definitions as $name => $item) {
             $option = new UserOption($item, $name);
             $this->options->set($counter, $option);
             $this->options_indexed[$name] = $counter;
@@ -115,7 +134,7 @@ class UserInput
      */
     public function getIndexedOptions()
     {
-        $options = array();
+        $options = [];
         foreach ($this->options->getAll() as $item) {
             $options[$item->get('name')] = $item;
         }
@@ -131,8 +150,8 @@ class UserInput
      */
     public function getFilteredOptions($name)
     {
-        $data = array();
-        foreach ($this->getIndexedOptions() as $i=>$item) {
+        $data = [];
+        foreach ($this->getIndexedOptions() as $i => $item) {
             $data[$i] = $item->get($name);
         }
         return $data;
@@ -145,8 +164,8 @@ class UserInput
      */
     public function getOptionsInfo()
     {
-        $info = array();
-        foreach ($this->options->getAll() as $name=>$item) {
+        $info = [];
+        foreach ($this->options->getAll() as $name => $item) {
             list($_index, $_data) = $item->getInfo();
             $info[$_index] = $_data;
         }
@@ -160,8 +179,8 @@ class UserInput
      */
     public function getOptionsSynopsis()
     {
-        $info = array();
-        foreach ($this->options->getAll() as $name=>$item) {
+        $info = [];
+        foreach ($this->options->getAll() as $name => $item) {
             $info[] = $item->getSynopsis();
         }
         return $info;
@@ -182,7 +201,7 @@ class UserInput
         // extract remaining options
         $argv = self::getSanitizedUserInput();
         array_shift($argv);
-        foreach ($argv as $i=>$arg) {
+        foreach ($argv as $i => $arg) {
             if (array_key_exists(trim($arg, '-'), $options) || in_array($arg, $options, true)) {
                 unset($argv[$i]);
             } elseif (
@@ -194,7 +213,7 @@ class UserInput
                         $arg = str_replace($letter, '', $arg);
                     }
                 }
-                if (strlen($arg)===1 || count($matches)>1) {
+                if (strlen($arg) === 1 || count($matches) > 1) {
                     unset($argv[$i]);
                 } else {
                     $argv[$i] = $arg;
@@ -208,7 +227,7 @@ class UserInput
             }
         }
         // last run for unknown options
-        foreach ($argv as $i=>$arg) {
+        foreach ($argv as $i => $arg) {
             if (substr($arg, 0, 1) === '-') {
                 throw new InvalidArgumentException(
                     sprintf('Unknown option "%s"', trim($arg, '-'))
@@ -216,7 +235,7 @@ class UserInput
             }
         }
 
-//        $this->_hardDebug();
+        //        $this->_hardDebug();
         // standard object to return
         $this->user_options            = new \StdClass();
         $this->user_options->options   = array_merge($this->getFilteredOptions('_default'), $options);

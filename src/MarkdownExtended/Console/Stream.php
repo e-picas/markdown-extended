@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,9 +10,12 @@
 
 namespace MarkdownExtended\Console;
 
-use \MarkdownExtended\Exception\RuntimeException;
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Exception\RuntimeException;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
+/**
+ * This class is a handler for terminal IO
+ */
 class Stream
 {
     /**
@@ -36,6 +39,8 @@ class Stream
     const VERBOSITY_DEBUG   = 8;
 
     /**
+     * Verbosity level: one of the `VERBOSITY_` constants of the class
+     *
      * @var int
      */
     protected $verbosity    = self::VERBOSITY_NORMAL;
@@ -56,27 +61,37 @@ class Stream
     const IO_STDERR         = 'stderr';
 
     /**
+     * Current STDIN
+     *
      * @var resource
      */
     public $stdin;
 
     /**
+     * Current STDOUT
+     *
      * @var resource
      */
     public $stdout;
 
     /**
+     * Current STDERR
+     *
      * @var resource
      */
     public $stderr;
 
     /**
+     * The exception handler callback
+     *
      * @var callable
      */
     protected $exception_callback;
 
     const PADDER            = '    ';
+
     const VERBOSE_PREFIX    = '[V] ';
+
     const DEBUG_PREFIX      = '[D] ';
 
     /**
@@ -84,9 +99,9 @@ class Stream
      */
     public function __construct()
     {
-        set_exception_handler(array($this, 'handleException'));
+        set_exception_handler([$this, 'handleException']);
         $this
-            ->setStream(self::IO_STDIN,  fopen('php://stdin',  'w'))
+            ->setStream(self::IO_STDIN, fopen('php://stdin', 'w'))
             ->setStream(self::IO_STDOUT, fopen('php://stdout', 'w'))
             ->setStream(self::IO_STDERR, fopen('php://stderr', 'w'))
         ;
@@ -225,7 +240,9 @@ class Stream
                 get_class($e),
                 $e->getMessage(),
                 str_replace(
-                    dirname(dirname(dirname(__DIR__))), '', $e->getFile()
+                    dirname(dirname(dirname(__DIR__))),
+                    '',
+                    $e->getFile()
                 ),
                 $e->getLine(),
                 $e->getTraceAsString()
@@ -262,7 +279,7 @@ class Stream
             );
         }
         $stream_io = $this->getStream($stream);
-        if (false === fwrite($stream_io, $str . ($new_line===true ? PHP_EOL : ''))) {
+        if (false === fwrite($stream_io, $str . ($new_line === true ? PHP_EOL : ''))) {
             throw new RuntimeException(
                 sprintf('Can not write output to stream "%s"', $stream)
             );
@@ -295,12 +312,12 @@ class Stream
         foreach (array_keys($table) as $index) {
             $maxlen = max($maxlen, strlen($index));
         }
-        foreach ($table as $var=>$val) {
+        foreach ($table as $var => $val) {
             if (is_array($val)) {
                 $counter        = 0;
                 $lineBuilder    = function ($item, $key) use ($maxlen, $stream, $var, &$counter) {
                     $str = ' '
-                        . str_pad(($counter===0 ? $var : ''), $maxlen, ' ', STR_PAD_LEFT)
+                        . str_pad(($counter === 0 ? $var : ''), $maxlen, ' ', STR_PAD_LEFT)
                         . self::PADDER
                         . (is_string($key) ? $key . ': ' : '')
                         . (string) $item;
@@ -356,7 +373,7 @@ class Stream
     {
         if (self::VERBOSITY_DEBUG <= $this->getVerbosity()) {
             if (!is_array($stack)) {
-                $stack = array($stack);
+                $stack = [$stack];
             }
             foreach ($stack as $item) {
                 if (is_string($item)) {
@@ -389,9 +406,9 @@ class Stream
     public function getPipedInput()
     {
         $data   = '';
-        $read   = array($this->stdin);
-        $write  = array();
-        $except = array();
+        $read   = [$this->stdin];
+        $write  = [];
+        $except = [];
         try {
             $result = stream_select($read, $write, $except, 0);
             if ($result !== false && $result > 0) {
@@ -399,7 +416,10 @@ class Stream
                     $data .= fgets($this->stdin);
                 }
             }
-            @file_put_contents($this->stdin, '');
+            /*            if (is_file($this->stdin)) {
+                            file_put_contents($this->stdin, '');
+                        }
+            */
         } catch (\Exception $e) {
             $data = null;
         }

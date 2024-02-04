@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,9 +10,9 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process the inclusion of third-party Markdown files
@@ -23,21 +23,19 @@ use \MarkdownExtended\API\Kernel;
  * The default inclusion mask is "<!-- @file_name.md@ -->"
  *
  */
-class BlockInclusion
-    extends Filter
+class BlockInclusion extends Filter
 {
     /**
      * Find defined inclusion blocks
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
         $mask = Kernel::getConfig('block_inclusion_mask');
         if (!empty($mask)) {
             $regex = Helper::buildRegex($mask);
-            $text = preg_replace_callback($regex, array($this, '_callback'), $text);
+            $text = preg_replace_callback($regex, [$this, '_callback'], $text);
         }
         return $text;
     }
@@ -54,7 +52,7 @@ class BlockInclusion
         if (!file_exists($filename)) {
             $base_path = Kernel::getConfig('base_path');
             if (!is_array($base_path)) {
-                $base_path = array($base_path);
+                $base_path = [$base_path];
             }
             foreach ($base_path as $path) {
                 $file = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
