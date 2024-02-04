@@ -148,8 +148,7 @@ gitflow-env-install:
 		@semantic-release/git \
 		@semantic-release/changelog \
 		@semantic-release/exec \
-		@saithodev/semantic-release-backmerge \
-		@ambimax/semantic-release-composer
+		@saithodev/semantic-release-backmerge
 .PHONY: gitflow-env-install
 
 CURRENT_BRANCH_NAME := $(shell git rev-parse --abbrev-ref HEAD)
