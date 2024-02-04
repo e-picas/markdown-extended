@@ -47,6 +47,9 @@ jobs:
           php-version: '7.4'
           ini-values: phar.readonly=Off
 
+      - name: Install composer dependencies
+        uses: php-actions/composer@v6
+
       - name: Test make-phar
         run: php bin/mde-dev make-phar
 
