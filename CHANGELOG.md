@@ -35,6 +35,41 @@
 * **test:** review of tests with groups and information about the manifest part treated ([d9fed44](https://github.com/e-picas/markdown-extended//commit/d9fed44685f388107d5d79631795017b38d0d785))
 * **tests:** review of unit tests for a better display ([6b06456](https://github.com/e-picas/markdown-extended//commit/6b064566c8fad033823fe86f99cdc847e8ceb49c))
 
+# 1.0.0-rc.1 (2024-02-04)
+
+
+### Bug Fixes
+
+* **ci:** add a CI script for running tests silently ([1486a61](https://github.com/e-picas/markdown-extended//commit/1486a6125bfd9e30e1284fd6b53a39b7ab775287))
+* **ci:** force to use PHP 7 in CI ([1f2bf0b](https://github.com/e-picas/markdown-extended//commit/1f2bf0b9e20f1ce8f406244463927aa8de04184f))
+* **ci:** try to not write anything for simple testing ([3253061](https://github.com/e-picas/markdown-extended//commit/325306181ac8fd6eac48edf5f10433eab6b39adc))
+* **code-fixer:** new run of PHPCS ([30462ee](https://github.com/e-picas/markdown-extended//commit/30462eebab99b78011647e1119e79f3e8176f448))
+* **code:** try to be PHP8 compliant ([eec71af](https://github.com/e-picas/markdown-extended//commit/eec71af45bf81edba785b8b4feb435a7947d21c0))
+* fi/then/else in Makefile ([c9d601c](https://github.com/e-picas/markdown-extended//commit/c9d601c44a2d7fe454efcc0123ef27db76effaaa))
+* full renaming the author info ([0bde62d](https://github.com/e-picas/markdown-extended//commit/0bde62d8422fb632e23f267ce3ed1085a4b1b562))
+* full renaming the author info ([2cc4f51](https://github.com/e-picas/markdown-extended//commit/2cc4f5177f7d76630269396cd41f654620ff6568))
+* migrate configuration from 'git' to 'semantic-release/github' plugin ([ed6de37](https://github.com/e-picas/markdown-extended//commit/ed6de3780e228888ef2831778cdd734a2950cc59))
+* **php7:** strip typing throwing errors (maybe PHP8 only?) ([4bee740](https://github.com/e-picas/markdown-extended//commit/4bee7407678310877201aee1f7e39f4ce2dc300a))
+* rollback the composer plugin of semantic-release as it seems abandoned ([288742c](https://github.com/e-picas/markdown-extended//commit/288742c7a53e008f04977402b63c5fc165893c72))
+* **type:** rollback to Exception type for the 'handleException' method ([8f35eac](https://github.com/e-picas/markdown-extended//commit/8f35eacde6fc95eed05277b7758500480fc55f7e))
+* use the raw version parameter for the 'make-release' internal action ([a1e0c0f](https://github.com/e-picas/markdown-extended//commit/a1e0c0fded745ef3740a82065d76fb57898d2100))
+* use the raw version parameter for the 'make-release' internal action (step 2) ([bc8b562](https://github.com/e-picas/markdown-extended//commit/bc8b562cec7cbc95b4662c56a77c311474fce368))
+
+
+### Features
+
+* add a test runner for PHP5 ([2bbf2ae](https://github.com/e-picas/markdown-extended//commit/2bbf2ae93669d0b8433c5c402bd5ccbd291b78ff))
+* add a test runner for PHP8 ([81005c9](https://github.com/e-picas/markdown-extended//commit/81005c9f18989d37b40f83e149d3167e40d0bb33))
+* be php 5 compilant ([e043e82](https://github.com/e-picas/markdown-extended//commit/e043e8219a3e6ef48e0582eb698e5ee072a2ee1d))
+* **chore:** review the dev tools: phpcs, phpdoc, phpmd, phpunit ([7ba2e57](https://github.com/e-picas/markdown-extended//commit/7ba2e5744cba3d1da92566bbf32a5af3daf0b323))
+* **ci:** create release from 'develop' ([f8f0117](https://github.com/e-picas/markdown-extended//commit/f8f01174ac5ed50dd0fd4d90e0ad335068bc65ec))
+* **ci:** no more Travis, replaced by GitHub Actions with Semantic Release ([c7f5365](https://github.com/e-picas/markdown-extended//commit/c7f5365f9cdfcfb99fa7c8c6ba60214644329f61))
+* force a new release ([c6e6d73](https://github.com/e-picas/markdown-extended//commit/c6e6d73ea1c2ef9b6dfa47d41a914f9eb83889c2))
+* **php7-migration:** push the project back to life ([6607973](https://github.com/e-picas/markdown-extended//commit/6607973d9f326ee0d94a5dc38908c9c27c16de4d))
+* **php7:** run the code standard fixer with PHP7 standards ([052b79d](https://github.com/e-picas/markdown-extended//commit/052b79d975cc3d99cbdff16de2b31659032aa713))
+* **test:** review of tests with groups and information about the manifest part treated ([d9fed44](https://github.com/e-picas/markdown-extended//commit/d9fed44685f388107d5d79631795017b38d0d785))
+* **tests:** review of unit tests for a better display ([6b06456](https://github.com/e-picas/markdown-extended//commit/6b064566c8fad033823fe86f99cdc847e8ceb49c))
+
 # [1.0.0-rc.4](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2024-02-04)
 
 
