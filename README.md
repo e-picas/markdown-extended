@@ -8,8 +8,8 @@ Yet another PHP parser for the markdown (*extended*) syntax.
 [![PHP Version Require](http://poser.pugx.org/picas/markdown-extended/require/php)](https://packagist.org/packages/picas/markdown-extended)
 [![Version](http://poser.pugx.org/picas/markdown-extended/version)](https://packagist.org/packages/picas/markdown-extended)
 [![Last Release](https://img.shields.io/github/v/tag/e-picas/markdown-extended?sort=semver&label=last%20release)](https://github.com/e-picas/markdown-extended/releases)
-[![Dependency Status](https://www.versioneye.com/user/projects/570e45aafcd19a00415b1287/badge.svg?style=flat)](http://www.versioneye.com/user/projects/570e45aafcd19a00415b1287)
 [![Code Climate](https://codeclimate.com/github/e-picas/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/e-picas/markdown-extended)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/303745e661db5ad371ef/test_coverage)](https://codeclimate.com/github/e-picas/markdown-extended/test_coverage)
 
 [![Tests status PHP7](https://github.com/e-picas/markdown-extended/actions/workflows/test_php7.yml/badge.svg?branch=develop-php7)](https://github.com/e-picas/markdown-extended/actions/workflows/test_php7.yml)
 [![Tests status PHP8](https://github.com/e-picas/markdown-extended/actions/workflows/test_php8.yml/badge.svg?branch=develop-php7)](https://github.com/e-picas/markdown-extended/actions/workflows/test_php8.yml)
