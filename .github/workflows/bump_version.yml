@@ -3,15 +3,6 @@ name: "Bump version"
 run-name: "Bump a new version tags"
 
 on:
-  workflow_run:
-    workflows:
-      - "Test & lint PHP 5.6"
-      - "Test & lint PHP 7.4"
-      - "Test & lint PHP 8.3"
-    branches:
-      - master
-    types:
-      - completed
   push:
     branches:
       - master
