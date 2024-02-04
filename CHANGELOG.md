@@ -30,7 +30,7 @@
 * **test:** review of tests with groups and information about the manifest part treated ([d9fed44](https://github.com/e-picas/markdown-extended//commit/d9fed44685f388107d5d79631795017b38d0d785))
 * **tests:** review of unit tests for a better display ([6b06456](https://github.com/e-picas/markdown-extended//commit/6b064566c8fad033823fe86f99cdc847e8ceb49c))
 
-# CHANGELOG for remote repository  https://github.com/e-picas/markdown-extended.git
+# CHANGELOG for old history (before version 1.0.0)
 
 
 * (upcoming release)
