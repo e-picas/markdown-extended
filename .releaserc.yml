@@ -24,7 +24,7 @@ plugins:
     changelogTitle: "# PHP Markdown Extended changelog"
   - path: "@semantic-release/exec"
     verifyReleaseCmd: "echo \"${nextRelease.version}\" > /tmp/mde-next_release"
-    prepareCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
+    prepareCmd: "php bin/mde-dev --release=${nextRelease.version} make-release; php bin/mde-dev make-phar"
   - path: "@semantic-release/git"
     assets:
       - "CHANGELOG.md"
@@ -35,6 +35,8 @@ plugins:
       - "man/markdown-extended.7.man"
       - "composer.json"
   - path: "@semantic-release/github"
+    assets:
+      - "markdown-extended.phar"
   - path: "@saithodev/semantic-release-backmerge"
     backmergeBranches:
       - from: "master"
