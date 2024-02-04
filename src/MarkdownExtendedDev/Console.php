@@ -231,7 +231,7 @@ MSG
                 break;
                 // if user sets a complete release string, take it as-is
             default:
-                $final = $target_parts[0];
+                $final = $target;
                 $target_parts = $actual_parts = [];
         }
 
