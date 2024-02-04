@@ -31,10 +31,6 @@ plugins:
       - "man/markdown-extended.3.man"
       - "man/markdown-extended.7.man"
       - "composer.json"
-    message: |
-      chore(release): ${nextRelease.version}
-
-      ${nextRelease.notes}
   - path: "@semantic-release/exec"
     verifyReleaseCmd: "echo \"${nextRelease.version}\" > /tmp/mde-next_release"
     prepareCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
