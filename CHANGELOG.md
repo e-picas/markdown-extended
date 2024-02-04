@@ -1,5 +1,12 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.6](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.5...v1.0.0-rc.6) (2024-02-04)
+
+
+### Bug Fixes
+
+* break the inifinite loop of bump versions on master ([811dac3](https://github.com/e-picas/markdown-extended//commit/811dac382a31a888dd2e74a18fb4cdfeaefbe2a6))
+
 # [1.0.0-rc.5](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2024-02-04)
 
 
