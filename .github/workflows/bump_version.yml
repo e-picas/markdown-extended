@@ -50,8 +50,11 @@ jobs:
       - name: Install composer dependencies
         uses: php-actions/composer@v6
 
+      - name: Cat Finder file
+        run: cat vendor/symfony/finder/Finder.php
+
       - name: Test make-phar
-        run: php bin/mde-dev make-phar
+        run: php bin/mde-dev --verbose --debug make-phar
 
       - name: Release
         env:

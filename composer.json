@@ -31,7 +31,8 @@
     "friendsofphp/php-cs-fixer": "@stable",
     "phpmetrics/phpmetrics": "@stable",
     "phploc/phploc": "@stable",
-    "sebastian/phpcpd":"@stable"
+    "sebastian/phpcpd":"@stable",
+    "symfony/finder": "<6"
   },
   "replace": {
     "atelierspierrot/markdown-extended": "dev-master",
