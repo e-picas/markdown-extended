@@ -47,6 +47,9 @@ jobs:
           php-version: '7.4'
           ini-values: phar.readonly=Off
 
+      - name: Test make-phar
+        run: php bin/mde-dev make-phar
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
