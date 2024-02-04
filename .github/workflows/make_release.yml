@@ -12,7 +12,7 @@ jobs:
 
   begin_release:
     name: "Begin next release"
-    if: ${{ (github.ref_name == 'dev' || contains(github.ref_name, 'dev-')) && github.event_name == 'workflow_dispatch' }}
+    if: ${{ (github.ref_name == 'develop' || contains(github.ref_name, 'develop-')) && github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
