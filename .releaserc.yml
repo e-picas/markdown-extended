@@ -37,7 +37,7 @@ plugins:
       ${nextRelease.notes}
   - path: "@semantic-release/exec"
     verifyReleaseCmd: "echo \"${nextRelease.version}\" > /tmp/mde-next_release"
-    publishCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
+    prepareCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
   - path: "@saithodev/semantic-release-backmerge"
     backmergeBranches:
       - from: "master"
