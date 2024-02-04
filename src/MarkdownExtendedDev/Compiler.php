@@ -33,11 +33,6 @@ class Compiler
 
     public function getDefaultFinder()
     {
-        $stream = new \MarkdownExtended\Console\Stream();
-        $stream->writeln(
-            sprintf('> creating a Compiler object in base path "%s"', $this->root_dir)
-        );
-
         $finder = new Finder();
         $finder->files()
             ->ignoreVCS(true)

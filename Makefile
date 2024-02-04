@@ -176,7 +176,7 @@ gitflow-publish-release:
 	git push --delete origin ${CURRENT_BRANCH_NAME}
 .PHONY: gitflow-publish-release
 
-# This one is for hard dev and not documented ...
+# The followings are for hard dev and not documented ...
 docker-dev-build:
 	docker build \
 		-f $$(pwd)/docker/dev-full/Dockerfile \
