@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,17 +10,17 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
-use \MarkdownExtended\Exception\InvalidArgumentException;
-use \MarkdownExtended\Exception\FileSystemException;
-use \MarkdownExtended\Util\ContentCollection;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\Util\DomIdRegistry;
-use \MarkdownExtended\Util\Registry;
-use \DateTime;
+use MarkdownExtended\API\ContentInterface;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Exception\InvalidArgumentException;
+use MarkdownExtended\Exception\FileSystemException;
+use MarkdownExtended\Util\ContentCollection;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\Util\DomIdRegistry;
+use MarkdownExtended\Util\Registry;
+use DateTime;
 
 /**
  * Global MarkdownExtended parser
@@ -42,10 +42,10 @@ class Parser
 
         // init all dependencies
         $this->getKernel()
-            ->set('Parser',             $this)
-            ->set('OutputFormatBag',    new OutputFormatBag)
-            ->set('GamutLoader',        new GamutLoader)
-            ->set('ContentCollection',  new ContentCollection)
+            ->set('Parser', $this)
+            ->set('OutputFormatBag', new OutputFormatBag())
+            ->set('GamutLoader', new GamutLoader())
+            ->set('ContentCollection', new ContentCollection())
         ;
 
         // load required format
@@ -89,7 +89,7 @@ class Parser
     public function setOptions($options)
     {
         if (is_string($options)) {
-            return $this->setOptions(array('config_file'=>$options));
+            return $this->setOptions(['config_file' => $options]);
         }
 
         if (isset($options['config_file']) && !empty($options['config_file'])) {
@@ -113,7 +113,7 @@ class Parser
         }
 
         if (is_array($options) && !empty($options)) {
-            foreach ($options as $var=>$val) {
+            foreach ($options as $var => $val) {
                 $this->getKernel()->setConfig($var, $val);
             }
         }
@@ -155,7 +155,7 @@ class Parser
             $this->constructContent($content);
         }
 
-//        $this->_hardDebugContent($content);
+        //        $this->_hardDebugContent($content);
         // write the output in a file?
         $output = $this->getKernel()->getConfig('output');
         if (!empty($output) && $primary) {
@@ -169,6 +169,12 @@ class Parser
 
     /**
      * Alias of `self::transform()`
+     *
+     * @param   string|\MarkdownExtended\API\ContentInterface $content
+     * @param   null $name
+     * @param   bool $primary
+     *
+     * @return \MarkdownExtended\API\ContentInterface|string
      */
     public function transformString($content, $name = null, $primary = true)
     {
@@ -204,7 +210,7 @@ class Parser
             ->addMetadata('file_name', $path)
         ;
         $this->getKernel()->addConfig('base_path', realpath(dirname($path)));
-        $filename = $this->getKernel()->applyConfig('filepath_to_title', array($path));
+        $filename = $this->getKernel()->applyConfig('filepath_to_title', [$path]);
         return $this->transform($content, $filename, $primary);
     }
 
@@ -277,9 +283,11 @@ class Parser
     {
         $this->_registerContent($content);
         $this->getKernel()
-            ->set(Kernel::TYPE_CONTENT, function () { return Kernel::get('ContentCollection')->current(); })
-            ->set('Lexer',              new Lexer)
-            ->set('DomId',              new DomIdRegistry)
+            ->set(Kernel::TYPE_CONTENT, function () {
+                return Kernel::get('ContentCollection')->current();
+            })
+            ->set('Lexer', new Lexer())
+            ->set('DomId', new DomIdRegistry())
         ;
 
         // actually parse content
@@ -335,9 +343,9 @@ class Parser
             ) &&
             $this->getKernel()->validate($template, Kernel::TYPE_TEMPLATE)
         ) {
-            $templater = new $template;
+            $templater = new $template();
         } else {
-            $templater = new Templater;
+            $templater = new Templater();
         }
 
         // register the templater
@@ -365,7 +373,8 @@ class Parser
         $name = $content->getMetadata('file_name');
         $path = Helper::fillPlaceholders(
             $path,
-            (!empty($name) ?
+            (
+                !empty($name) ?
                 pathinfo($name, PATHINFO_FILENAME) : Helper::header2Label($content->getTitle())
             )
         );
@@ -380,7 +389,11 @@ class Parser
         return $path;
     }
 
-    // register a new content in collection
+    /**
+     * Register a new content in collection
+     *
+     * @access private
+     */
     private function _registerContent(ContentInterface $content)
     {
         $collection = $this->getKernel()->get('ContentCollection');
@@ -392,7 +405,11 @@ class Parser
         }
     }
 
-    // hard debug of a content object
+    /**
+     * Hard debug of a content object
+     *
+     * @access private
+     */
     private function _hardDebugContent(ContentInterface $content)
     {
         echo Helper::debug($content->getBody(), 'content body');

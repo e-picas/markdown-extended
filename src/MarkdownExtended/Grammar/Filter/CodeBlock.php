@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,27 +10,26 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown code blocks
  */
-class CodeBlock
-    extends Filter
+class CodeBlock extends Filter
 {
     /**
      *  Process Markdown `<pre><code>` blocks.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
-        return preg_replace_callback('{
+        return preg_replace_callback(
+            '{
                 (?:\n\n|\A\n?)
                 (                                                     # $1 = the code block -- one or more lines, starting with a space/tab
                   (?>
@@ -40,7 +39,9 @@ class CodeBlock
                 )
                 ((?=^[ ]{0,'.Kernel::getConfig('tab_width').'}\S)|\Z) # Lookahead for non-space at line-start, or end of doc
             }xm',
-            array($this, '_callback'), $text);
+            [$this, '_callback'],
+            $text
+        );
     }
 
     /**

@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,8 +10,8 @@
 
 namespace MarkdownExtended\Util;
 
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Exception\FileSystemException;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Exception\FileSystemException;
 
 /**
  * Helper class with static methods only
@@ -19,8 +19,8 @@ use \MarkdownExtended\Exception\FileSystemException;
 class Helper
 {
     // --------------
-// Strings
-// --------------
+    // Strings
+    // --------------
 
     /**
      * Escape the code blocks contents to get HTML entities
@@ -56,10 +56,12 @@ class Helper
     {
         // strip all Markdown characters
         $text = str_replace(
-            array("'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"),
-            "", strtolower($text));
+            ["'", '"', "?", "*", "`", "[", "]", "(", ")", "{", "}", "+", "-", ".", "!", "\n", "\r", "\t"],
+            "",
+            strtolower($text)
+        );
         // strip the rest for visual signification
-        $text = str_replace(array("#", " ", "__", "/", "\\"), $separator, $text);
+        $text = str_replace(["#", " ", "__", "/", "\\"], $separator, $text);
         // strip non-ascii characters
         return preg_replace("/[^\x9\xA\xD\x20-\x7F]/", "", $text);
     }
@@ -72,7 +74,7 @@ class Helper
      */
     public static function humanReadable($string = '')
     {
-        return trim(str_replace(array('_', '.', '/'), ' ', $string));
+        return trim(str_replace(['_', '.', '/'], ' ', $string));
     }
 
     /**
@@ -116,7 +118,7 @@ class Helper
         }
         $addr = implode('', $chars);
         $text = implode('', array_slice($chars, 7)); // text without `mailto:`
-        return array($addr, $text);
+        return [$addr, $text];
     }
 
     /**
@@ -131,10 +133,10 @@ class Helper
 
         if (!is_string($source)) {
             if ($source instanceof \DateTime) {
-                $str = Kernel::applyConfig('date_to_string', array($source));
+                $str = Kernel::applyConfig('date_to_string', [$source]);
             } elseif (is_array($source)) {
                 $str = '';
-                foreach ($source as $var=>$val) {
+                foreach ($source as $var => $val) {
                     $str .= $var . ': ' . self::getSafeString($val) . PHP_EOL;
                 }
             }
@@ -154,9 +156,9 @@ class Helper
         return (bool) (false === strpos($str, PHP_EOL));
     }
 
-// --------------
-// Regular expressions
-// --------------
+    // --------------
+    // Regular expressions
+    // --------------
 
     /**
      * Get a ready-to-use regular expression from a string pattern
@@ -168,19 +170,19 @@ class Helper
      */
     public static function buildRegex($mask, $delimiter = '#', $options = 'i')
     {
-        $replacements = array(
-            '.'=>'\\.',
-            '*'=>'.*',
-            $delimiter=>'\\'.$delimiter
-        );
+        $replacements = [
+            '.' => '\\.',
+            '*' => '.*',
+            $delimiter => '\\'.$delimiter,
+        ];
         return $delimiter
             .strtr($mask, $replacements)
             .$delimiter.$options;
     }
 
-// --------------
-// Classes & Vars name builders
-// --------------
+    // --------------
+    // Classes & Vars name builders
+    // --------------
 
     /**
      * Transform a name in CamelCase
@@ -196,7 +198,9 @@ class Helper
             $capitalize_first_char ? ucfirst($name) : $name,
             $replace,
             $replace.'([a-z])',
-            function ($matches) { return ucfirst($matches[1]); }
+            function ($matches) {
+                return ucfirst($matches[1]);
+            }
         );
     }
 
@@ -214,11 +218,22 @@ class Helper
             $lowerize_first_char ? strtolower(substr($name, 0, 1)) . substr($name, 1) : $name,
             $replace,
             '([A-Z])',
-            function ($matches) use ($replace) { return $replace . strtolower($matches[1]); }
+            function ($matches) use ($replace) {
+                return $replace . strtolower($matches[1]);
+            }
         );
     }
 
-    // actually camel-casize
+    /**
+     * Actually camel-casize
+     *
+     * @param string $text The source text to transform
+     * @param string $replace The replacement string to put in the mask
+     * @param string $mask The mask to match substrings to transform
+     * @param callable $callback The callback function
+     *
+     * @return string
+     */
     protected static function _camelcasize($text, $replace, $mask, $callback)
     {
         if (empty($text)) {
@@ -230,12 +245,13 @@ class Helper
                 $callback,
                 $text
             ),
-            $replace);
+            $replace
+        );
     }
 
-// --------------
-// Files
-// --------------
+    // --------------
+    // Files
+    // --------------
 
     /**
      * Gets a wel-formatted path with environment-compliant directory separator
@@ -245,9 +261,14 @@ class Helper
      */
     public static function getPath($parts)
     {
-        return implode(DIRECTORY_SEPARATOR, array_map(
-            function ($p) { return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $p); },
-            is_array($parts) ? $parts : array($parts))
+        return implode(
+            DIRECTORY_SEPARATOR,
+            array_map(
+                function ($p) {
+                    return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $p);
+                },
+                is_array($parts) ? $parts : [$parts]
+            )
         );
     }
 
@@ -339,9 +360,9 @@ class Helper
         return copy($path, $new_path);
     }
 
-// --------------
-// Dev utilities
-// --------------
+    // --------------
+    // Dev utilities
+    // --------------
 
     /**
      * Dump quite anything with an optional title
@@ -360,7 +381,7 @@ class Helper
             $str .= $newl . '### ' . $title . ':' . $newl;
         }
         $dump = var_export($objs, true);
-        $replacements = array(
+        $replacements = [
             PHP_EOL     => ' ',
             '  '        => ' ',
             ',  \''     => ', \'',
@@ -370,7 +391,7 @@ class Helper
             ' )'        => ')',
             ') '        => ')',
             ',) '       => ')',
-        );
+        ];
         $str .= str_replace(array_keys($replacements), array_values($replacements), $dump);
         return $str;
     }

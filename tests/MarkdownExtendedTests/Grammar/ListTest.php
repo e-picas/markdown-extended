@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTestCase;
+use MarkdownExtended\MarkdownExtended;
 
-class ListTest extends ParserTest
+class ListTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testListUnordered()
     {
 
         // unordered list
@@ -28,12 +28,15 @@ class ListTest extends ParserTest
 MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<ul><li>first item</li><li>second item  <ul><li>first sub-item</li><li>second sub-item</li></ul></li><li>third item</li></ul>',
             '[parsing] test of unordered list'
         );
+    }
 
+    public function testListOrdered()
+    {
         // ordered list
         $md = <<<MSG
 1.   first item
@@ -44,7 +47,7 @@ MSG;
 MSG;
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<ol><li>first item</li><li>second item  <ol><li>first sub-item</li><li>second sub-item</li></ol></li><li>third item</li></ol>',
             '[parsing] test of ordered list'

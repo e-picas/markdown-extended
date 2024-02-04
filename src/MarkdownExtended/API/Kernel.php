@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,10 +10,13 @@
 
 namespace MarkdownExtended\API;
 
-use \MarkdownExtended\Exception\UnexpectedValueException;
-use \MarkdownExtended\Util\Helper;
-use \MarkdownExtended\Util\Registry;
+use MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Util\Helper;
+use MarkdownExtended\Util\Registry;
 
+/**
+ * This is the chore of the application
+ */
 class Kernel
 {
     /**
@@ -91,7 +94,7 @@ class Kernel
      */
     private function __construct()
     {
-        $this->_registry = new Registry;
+        $this->_registry = new Registry();
     }
 
     /**
@@ -112,13 +115,13 @@ class Kernel
      */
     public static function createInstance()
     {
-        self::$_instance = new self;
-        self::set('config', new Registry);
+        self::$_instance = new self();
+        self::set('config', new Registry());
     }
 
-// -----------------
-// Services management
-// -----------------
+    // -----------------
+    // Services management
+    // -----------------
 
     /**
      * Get the API's interface by object's type
@@ -245,16 +248,18 @@ class Kernel
             throw new UnexpectedValueException(
                 sprintf(
                     'Object "%s" of type "%s" must implement API interface "%s"',
-                    ($real_name ?: $class_name), $type, self::getApiFromType($type)
+                    ($real_name ?: $class_name),
+                    $type,
+                    self::getApiFromType($type)
                 )
             );
         }
         return true;
     }
 
-// -----------------
-// Configuration aliases
-// -----------------
+    // -----------------
+    // Configuration aliases
+    // -----------------
 
     /**
      * Gets a configuration entry
@@ -341,7 +346,10 @@ class Kernel
      * @return null
      */
     protected static function _configRecursiveIterator(
-        $type = 'get', $index, $value = null, $default = null
+        $type = 'get',
+        $index = 0,
+        $value = null,
+        $default = null
     ) {
         $result     = null;
         $indexer    = new \ArrayIterator(explode('.', $index));
@@ -369,9 +377,9 @@ class Kernel
         return $result ?: $default;
     }
 
-// -----------------
-// App resources finder
-// -----------------
+    // -----------------
+    // App resources finder
+    // -----------------
 
     /**
      * Finds an internal resource file by type
@@ -383,9 +391,9 @@ class Kernel
     public static function getResourcePath($name, $type)
     {
         if ($type === self::RESOURCE_CONFIG || $type === self::RESOURCE_TEMPLATE) {
-            $local_path = realpath(Helper::getPath(array(
-                dirname(__DIR__), 'Resources', strtolower($type)
-            )));
+            $local_path = realpath(Helper::getPath([
+                dirname(__DIR__), 'Resources', strtolower($type),
+            ]));
 
             if (file_exists($local = $local_path . DIRECTORY_SEPARATOR . $name)) {
                 return $local;

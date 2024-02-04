@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,12 +10,16 @@
 
 namespace MarkdownExtendedTests\Grammar;
 
-use \MarkdownExtendedTests\ParserTest;
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtendedTests\ParserTestCase;
+use MarkdownExtended\MarkdownExtended;
 
-class BlockquoteTest extends ParserTest
+/**
+ * @group mde-manifest
+ * @see mde-manifest:D.7
+ */
+class BlockquoteTest extends ParserTestCase
 {
-    public function testCreate()
+    public function testBlockquote()
     {
         $md = "
 > My citation
@@ -26,7 +30,7 @@ class BlockquoteTest extends ParserTest
         ";
         $this->assertEquals(
             $this->stripWhitespaces(
-                (string) MarkdownExtended::parse($md, array('template'=>false))
+                (string) MarkdownExtended::parse($md, ['template' => false])
             ),
             '<blockquote><p>My citation</p><p>With a paragraph and some <code>code</code></p><pre>and even a preformatted string</pre></blockquote>',
             '[parsing] test of blockquote'

@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,14 +10,12 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\API\GamutInterface;
+use MarkdownExtended\API\GamutInterface;
 
 /**
  * Base class for all filters
  */
-abstract class Filter
-    extends AbstractGamut
-    implements GamutInterface
+abstract class Filter extends AbstractGamut implements GamutInterface
 {
     /**
      * {@inheritDoc}
@@ -36,9 +34,9 @@ abstract class Filter
      */
     abstract public function transform($text);
 
-// ----------------------------------
-// Hashes management
-// ----------------------------------
+    // ----------------------------------
+    // Hashes management
+    // ----------------------------------
 
     /**
      * Creates a hash for any sub-content
@@ -112,10 +110,12 @@ abstract class Filter
      */
     public function unhash($text)
     {
-        return preg_replace_callback('/(.)\x1A[0-9]+\1/', array($this, '_unhash_callback'), $text);
+        return preg_replace_callback('/(.)\x1A[0-9]+\1/', [$this, '_unhash_callback'], $text);
     }
 
     /**
+     * Callback applied to unhash (reinsert original) hashed parts
+     *
      * @param   array   $matches    A set of results of the `self::unhash()` function
      *
      * @return  string

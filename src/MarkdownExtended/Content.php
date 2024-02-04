@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,54 +10,69 @@
 
 namespace MarkdownExtended;
 
-use \MarkdownExtended\API\ContentInterface;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\ContentInterface;
+use MarkdownExtended\API\Kernel;
 
 /**
  * The default MarkdownExtended Content object
  */
-class Content
-    implements ContentInterface
+class Content implements ContentInterface
 {
     /**
+     * The original source content
+     *
      * @var string
      */
     protected $source;
 
     /**
+     * The final parsed content: the original `$this->source` transformed by MDE
+     *
      * @var string
      */
     protected $content;
 
     /**
+     * The parser options
+     *
      * @var array
      */
     protected $parsing_options;
 
     /**
+     * This is the "body" part of the rendered content
+     *
      * @var string
      */
     protected $body;
 
     /**
+     * The "title" guessed from the original content
+     *
      * @var string
      */
     protected $title;
 
     /**
+     * The "charset" guessed from the original content
+     *
      * @var string
      */
     protected $charset      = 'utf-8';
 
     /**
+     * The "notes" table of the rendered content
+     *
      * @var array
      */
-    protected $notes        = array();
+    protected $notes        = [];
 
     /**
+     * The "metadata" table of the rendered content
+     *
      * @var array
      */
-    protected $metadata     = array();
+    protected $metadata     = [];
 
     /**
      * Construct a new content object with a source and current parsing options
@@ -99,14 +114,14 @@ class Content
      */
     public function __toArray()
     {
-        return array(
+        return [
             'content'   => $this->getContent(),
             'charset'   => $this->getCharset(),
             'title'     => $this->getTitle(),
             'body'      => $this->getBody(),
             'notes'     => $this->getNotes(),
-            'metadata'  => $this->getMetadata()
-        );
+            'metadata'  => $this->getMetadata(),
+        ];
     }
 
     /**

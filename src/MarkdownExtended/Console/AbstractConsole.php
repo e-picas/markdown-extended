@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,82 +10,116 @@
 
 namespace MarkdownExtended\Console;
 
+/**
+ * Base object of a console script
+ */
 abstract class AbstractConsole
 {
     const LICENSE_FILE              = 'LICENSE';
+
     const MANIFEST_FILE             = 'composer.json';
 
     /**
+     * The name of current script
+     *
      * @var null|string
      */
     protected $name                 = null;
 
     /**
+     * The shortname (slug) of current script
+     *
      * @var null|string
      */
     protected $short_name           = null;
 
     /**
+     * The vesion string of current script
+     *
      * @var null|string
      */
     protected $version              = null;
 
     /**
+     * The description string of current script
+     *
      * @var null|string
      */
     protected $description          = null;
 
     /**
+     * The raw version string of current script
+     *
      * @var null|string
      */
     protected $short_version_str    = null;
 
     /**
+     * The "long" version string of current script
+     *
      * @var null|string
      */
     protected $long_version_str     = null;
 
     /**
+     * The usage string of current script
+     *
      * @var null|string
      */
     protected $usage                = null;
 
     /**
+     * The synopsis string of current script
+     *
      * @var null|string
      */
     protected $synopsis             = null;
 
     /**
+     * Current script path
+     *
      * @var null|string
      */
     protected $script_path          = null;
 
     /**
+     * The CLI options table
+     *
      * @var array
      */
-    protected $cli_options          = array();
+    protected $cli_options          = [];
 
     /**
+     * The global options table
+     *
      * @var array
      */
-    protected $options              = array();
+    protected $options              = [];
 
     /**
+     * The table of user inputs
+     *
      * @var array
      */
-    protected $arguments            = array();
+    protected $arguments            = [];
 
     /**
+     * The stream object
+     *
      * @var \MarkdownExtended\Console\Stream
      */
     protected $stream;
 
     /**
+     * The user input object
+     *
      * @var \MarkdownExtended\Console\UserInput
      */
     protected $user_input;
 
     /**
+     * Flag to retain if argument is required
+     *
      * @var bool
      */
     protected $arg_required;
@@ -127,7 +161,7 @@ abstract class AbstractConsole
     public function setStream(Stream $stream)
     {
         $this->stream = $stream;
-        $this->stream->setExceptionHandlerCallback(array($this, 'runUsage'));
+        $this->stream->setExceptionHandlerCallback([$this, 'runUsage']);
         return $this;
     }
 
@@ -355,7 +389,7 @@ abstract class AbstractConsole
      */
     public function runHelp()
     {
-        $help_info = array(
+        $help_info = [
             $this->name . ' - ' . $this->short_name . '@' . $this->version,
             '',
             'Usage:',
@@ -365,7 +399,7 @@ abstract class AbstractConsole
             $this->user_input->getOptionsInfo(),
             '',
             $this->usage,
-        );
+        ];
 
         foreach ($help_info as $line) {
             if (is_string($line)) {
@@ -381,9 +415,9 @@ abstract class AbstractConsole
      */
     public function runUsage()
     {
-        $help_info = array(
-            str_pad('usage:', strlen(str_repeat(Stream::PADDER, 2)), ' ')  . $this->synopsis
-        );
+        $help_info = [
+            str_pad('usage:', strlen(str_repeat(Stream::PADDER, 2)), ' ')  . $this->synopsis,
+        ];
 
         $usage_options  = $this->user_input->getOptionsSynopsis();
         $counter        = 0;
@@ -411,31 +445,31 @@ abstract class AbstractConsole
     protected function initCommonOptions()
     {
         $this
-            ->addCliOption('verbose', array(
+            ->addCliOption('verbose', [
                 'shortcut'      => 'v',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Increase script\'s verbosity.'
-            ))
-            ->addCliOption('quiet', array(
+                'description'   => 'Increase script\'s verbosity.',
+            ])
+            ->addCliOption('quiet', [
                 'shortcut'      => 'q',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Decrease script\'s verbosity.'
-            ))
-            ->addCliOption('debug', array(
+                'description'   => 'Decrease script\'s verbosity.',
+            ])
+            ->addCliOption('debug', [
                 'shortcut'      => 'x',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Drastically increase script\'s verbosity (for development).'
-            ))
-            ->addCliOption('version', array(
+                'description'   => 'Drastically increase script\'s verbosity (for development).',
+            ])
+            ->addCliOption('version', [
                 'shortcut'      => 'V',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Get script\'s current version.'
-            ))
-            ->addCliOption('help', array(
+                'description'   => 'Get script\'s current version.',
+            ])
+            ->addCliOption('help', [
                 'shortcut'      => 'h',
                 'argument'      => UserInput::ARG_NULL,
-                'description'   => 'Get script\'s help information.'
-            ))
+                'description'   => 'Get script\'s help information.',
+            ])
         ;
         return $this;
     }
@@ -465,7 +499,7 @@ abstract class AbstractConsole
             $this->stream->_exit();
         }
         // no argument = usage
-        if ($this->arg_required===true && empty($this->arguments)) {
+        if ($this->arg_required === true && empty($this->arguments)) {
             $this->runUsage();
             $this->stream->_exit();
         }

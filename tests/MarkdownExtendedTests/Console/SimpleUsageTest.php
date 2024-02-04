@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,11 +10,13 @@
 
 namespace MarkdownExtendedTests\Console;
 
-use \MarkdownExtendedTests\ConsoleTest;
-use MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ConsoleTestCase;
+use MarkdownExtendedTests\ParserTestCase;
 
-class SimpleUsageTest
-    extends ConsoleTest
+/**
+ * @group console
+ */
+class SimpleUsageTest extends ConsoleTestCase
 {
     /**
      * Test a default call with no argument
@@ -28,12 +30,12 @@ class SimpleUsageTest
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI with no argument (status)'
+            '[console] test of the CLI with no argument (status)'
         );
         // output
         $this->assertNotEmpty(
             $res['stdout'],
-            'Test of the CLI with no argument has a not empty output on stdout'
+            '[console] test of the CLI with no argument has a not empty output on stdout'
         );
     }
 
@@ -44,18 +46,18 @@ class SimpleUsageTest
      */
     public function testSimpleString()
     {
-        $res = $this->runCommand($this->getBaseCmd().' "'.ParserTest::MD_STRING.'"');
+        $res = $this->runCommand($this->getBaseCmd().' "'.ParserTestCase::MD_STRING.'"');
         // status
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on simple string with no option (status)'
+            '[console] test of the CLI on simple string with no option (status)'
         );
         // stdout
         $this->assertEquals(
             $res['stdout'],
-            ParserTest::PARSED_STRING,
-            'Test of the CLI on simple string with no option'
+            ParserTestCase::PARSED_STRING,
+            '[console] test of the CLI on simple string with no option'
         );
     }
 
@@ -66,18 +68,18 @@ class SimpleUsageTest
      */
     public function testPipedSimpleString()
     {
-        $res = $this->runCommand('echo "'.ParserTest::MD_STRING.'" | '.$this->getBaseCmd());
+        $res = $this->runCommand('echo "'.ParserTestCase::MD_STRING.'" | '.$this->getBaseCmd());
         // status
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on a piped simple string (status)'
+            '[console] test of the CLI on a piped simple string (status)'
         );
         // stdout
         $this->assertEquals(
             $res['stdout'],
-            ParserTest::PARSED_STRING,
-            'Test of the CLI on a piped simple string'
+            ParserTestCase::PARSED_STRING,
+            '[console] test of the CLI on a piped simple string'
         );
     }
 
@@ -88,8 +90,8 @@ class SimpleUsageTest
      */
     public function testMultipleStrings()
     {
-        $res    = $this->runCommand($this->getBaseCmd().' "'.ParserTest::MD_STRING.'" "'.ParserTest::MD_STRING.'"');
-        $line   = ParserTest::PARSED_STRING;
+        $res    = $this->runCommand($this->getBaseCmd().' "'.ParserTestCase::MD_STRING.'" "'.ParserTestCase::MD_STRING.'"');
+        $line   = ParserTestCase::PARSED_STRING;
         $output = <<<MSG
 ==> STDIN#1 <==
 {$line}
@@ -100,13 +102,13 @@ MSG;
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on multiple strings with no option (status)'
+            '[console] test of the CLI on multiple strings with no option (status)'
         );
         // stdout
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($res['stdout']),
             $this->stripWhitespaceAndNewLines($output),
-            'Test of the CLI on multiple strings with no option'
+            '[console] test of the CLI on multiple strings with no option'
         );
     }
 
@@ -117,20 +119,20 @@ MSG;
      */
     public function testSimpleFile()
     {
-        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
+        $file   = $this->getPath([$this->getBasePath(), 'tests', 'test.md']);
         $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
         $res    = $this->runCommand($this->getBaseCmd().' '.$file);
         // status
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on an input file (status)'
+            '[console] test of the CLI on an input file (status)'
         );
         // stdout
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($res['stdout']),
             $body,
-            'Test of the CLI on an input file'
+            '[console] test of the CLI on an input file'
         );
     }
 
@@ -141,11 +143,11 @@ MSG;
      */
     public function testMultipleFiles()
     {
-        $file   = $this->getPath(array($this->getBasePath(), 'tests', 'test.md'));
-        $file2  = $this->getPath(array($this->getBasePath(), 'tests', 'test-2.md'));
+        $file   = $this->getPath([$this->getBasePath(), 'tests', 'test.md']);
+        $file2  = $this->getPath([$this->getBasePath(), 'tests', 'test-2.md']);
         $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
         $output = $this->stripWhitespaceAndNewLines(
-<<<MSG
+            <<<MSG
 ==> tests/test.md <==
 {$body}
 ==> tests/test-2.md <==
@@ -157,13 +159,13 @@ MSG
         $this->assertEquals(
             $res['status'],
             '0',
-            'Test of the CLI on multiple input files (status)'
+            '[console] test of the CLI on multiple input files (status)'
         );
         // stdout
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($this->cleanupBasePath($res['stdout'])),
             $output,
-            'Test of the CLI on multiple input files'
+            '[console] test of the CLI on multiple input files'
         );
     }
 }

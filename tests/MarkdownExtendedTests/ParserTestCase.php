@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,12 +10,12 @@
 
 namespace MarkdownExtendedTests;
 
-use \MarkdownExtended\MarkdownExtended;
+use MarkdownExtended\MarkdownExtended;
 
-class ParserTest
-    extends BaseUnitTest
+class ParserTestCase extends BaseUnitTestCase
 {
     const MD_STRING     = "my **markdown** _extended_ simple string";
+
     const PARSED_STRING = 'my <strong>markdown</strong> <em>extended</em> simple string';
 
     /**
@@ -30,10 +30,11 @@ class ParserTest
 
     /**
      * Validate class methods
-     */
     public function testCreate()
     {
     }
+     */
+
 
     /**
      * Get the tests test file parsed full content

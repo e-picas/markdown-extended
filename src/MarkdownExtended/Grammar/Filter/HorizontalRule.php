@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,18 +10,16 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
 
 /**
  * Process Markdown horizontal rules
  */
-class HorizontalRule
-    extends Filter
+class HorizontalRule extends Filter
 {
     /**
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -37,6 +35,7 @@ class HorizontalRule
                 $               # End of line.
             }mx',
             "\n" . parent::hashBlock(Kernel::get('OutputFormatBag')->buildTag('horizontal_rule')) . "\n",
-            $text);
+            $text
+        );
     }
 }

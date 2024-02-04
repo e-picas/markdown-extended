@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,29 +10,34 @@
 
 namespace MarkdownExtended\Grammar\Filter;
 
-use \MarkdownExtended\Grammar\Filter;
-use \MarkdownExtended\API\Kernel;
-use \MarkdownExtended\Grammar\Lexer;
-use \MarkdownExtended\Grammar\GamutLoader;
+use MarkdownExtended\Grammar\Filter;
+use MarkdownExtended\API\Kernel;
+use MarkdownExtended\Grammar\Lexer;
+use MarkdownExtended\Grammar\GamutLoader;
 
 /**
  * Process Markdown notes: footnotes, glossary and bibliography notes
  *
  * @TODO: write the right reference for second call of the same note
  */
-class Note
-    extends Filter
+class Note extends Filter
 {
     const FOOTNOTE_DEFAULT      = 0;
+
     const FOOTNOTE_GLOSSARY     = 1;
+
     const FOOTNOTE_BIBLIOGRAPHY = 2;
 
     const FOOTNOTE_PREFIX       = 'fn';
+
     const GLOSSARY_PREFIX       = 'fng';
+
     const BIBLIOGRAPHY_PREFIX   = 'fnb';
 
     const FOOTNOTE_NAME_DEFAULT         = 'footnote';
+
     const FOOTNOTE_NAME_GLOSSARY        = 'glossary';
+
     const FOOTNOTE_NAME_BIBLIOGRAPHY    = 'bibliography';
 
     /**
@@ -53,18 +58,18 @@ class Note
     /**
      * @var array  Written notes
      */
-    public static $written_notes = array();
+    public static $written_notes = [];
 
     /**
      * Prepare all required arrays
      */
     public function _setup()
     {
-        Kernel::setConfig('footnotes',      array());
-        Kernel::setConfig('glossaries',     array());
-        Kernel::setConfig('bibliographies', array());
-        self::$notes_ordered    = array();
-        self::$written_notes    = array();
+        Kernel::setConfig('footnotes', []);
+        Kernel::setConfig('glossaries', []);
+        Kernel::setConfig('bibliographies', []);
+        self::$notes_ordered    = [];
+        self::$written_notes    = [];
         self::$footnote_counter = 1;
         self::$notes_counter    = 0;
     }
@@ -80,7 +85,8 @@ class Note
         $less_than_tab = Kernel::getConfig('less_than_tab');
 
         // Link defs are in the form: [^id]: url "optional title"
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             ^[ ]{0,'.$less_than_tab.'}\[\^(.+?)\][ ]?:  # note_id = $1
               [ ]*
               \n?                           # maybe *one* newline
@@ -95,11 +101,13 @@ class Note
                 )*
             )
             }xm',
-            array($this, '_strip_callback'),
-            $text);
+            [$this, '_strip_callback'],
+            $text
+        );
 
         // Link defs are in the form: [#id]: url "optional title"
-        $text = preg_replace_callback('{
+        $text = preg_replace_callback(
+            '{
             ^[ ]{0,'.$less_than_tab.'}\[(\#.+?)\][ ]?:  # note_id = $1
               [ ]*
               \n?                           # maybe *one* newline
@@ -114,8 +122,9 @@ class Note
                 )*
             )
             }xm',
-            array($this, '_strip_callback'),
-            $text);
+            [$this, '_strip_callback'],
+            $text
+        );
 
         return $text;
     }
@@ -129,20 +138,20 @@ class Note
     protected function _strip_callback($matches)
     {
         if (0 !== preg_match('/^(<p>)?glossary:/i', $matches[2])) {
-            Kernel::addConfig('glossaries', array(
+            Kernel::addConfig('glossaries', [
                 (Kernel::getConfig('glossarynote_id_prefix') . $matches[1]) =>
-                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2])
-            ));
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2]),
+            ]);
         } elseif (0 !== preg_match('/^\#(.*)?/i', $matches[1])) {
-            Kernel::addConfig('bibliographies', array(
+            Kernel::addConfig('bibliographies', [
                 (Kernel::getConfig('bibliographynote_id_prefix') . substr($matches[1], 1)) =>
-                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2])
-            ));
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2]),
+            ]);
         } else {
-            Kernel::addConfig('footnotes', array(
+            Kernel::addConfig('footnotes', [
                 (Kernel::getConfig('footnote_id_prefix') . $matches[1]) =>
-                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2])
-            ));
+                    Lexer::runGamut(GamutLoader::TOOL_ALIAS.':Outdent', $matches[2]),
+            ]);
         }
         return '';
     }
@@ -151,8 +160,7 @@ class Note
      * Replace footnote references in $text [string][#id] and [^id] with a special text-token
      * which will be replaced by the actual footnote marker in appendFootnotes.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -178,7 +186,7 @@ class Note
         // First loop for references
         if (!empty(self::$notes_ordered)) {
             $tmp_notes_ordered = self::$notes_ordered;
-            $_counter=0;
+            $_counter = 0;
             while (!empty($tmp_notes_ordered)) {
                 $note_id = key($tmp_notes_ordered);
                 unset($tmp_notes_ordered[$note_id]);
@@ -188,8 +196,11 @@ class Note
             }
         }
 
-        $text = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
-            array($this, '_append_callback'), $text);
+        $text = preg_replace_callback(
+            '{F\x1Afn:(.*?)\x1A:}',
+            [$this, '_append_callback'],
+            $text
+        );
 
         while (!empty(self::$notes_ordered)) {
             reset(self::$notes_ordered);
@@ -200,11 +211,11 @@ class Note
             if (isset($footnotes[$note_id])) {
                 self::transformFootnote($note_id);
 
-            // glossary
+                // glossary
             } elseif (isset($glossaries[$note_id])) {
                 self::transformGlossary($note_id);
 
-            // bibliographies
+                // bibliographies
             } elseif (isset($bibliographies[$note_id])) {
                 self::transformBibliography($note_id);
             }
@@ -238,14 +249,17 @@ class Note
         $glossaries = Kernel::getConfig('glossaries');
         if (!empty($glossaries[$note_id])) {
             $glossary = substr($glossaries[$note_id], strlen('glossary:'));
-            $glossary = preg_replace_callback('{
+            $glossary = preg_replace_callback(
+                '{
                     ^(.*?)                          # $1 = term
                     \s*
                     (?:\(([^\(\)]*)\)[^\n]*)?       # $2 = optional sort key
                     \n{1,}
                     (.*?)
                     }x',
-                    array($this, '_glossary_callback'), $glossary);
+                [$this, '_glossary_callback'],
+                $glossary
+            );
             $this->_doTransformNote($note_id, $glossary, self::FOOTNOTE_GLOSSARY);
         }
     }
@@ -259,10 +273,10 @@ class Note
     protected function _glossary_callback($matches)
     {
         $text = Kernel::get('OutputFormatBag')
-            ->buildTag('span', trim($matches[1]), array('class' => 'glossary name'));
+            ->buildTag('span', trim($matches[1]), ['class' => 'glossary name']);
         if (isset($matches[3])) {
             $text .= Kernel::get('OutputFormatBag')
-                ->buildTag('span', $matches[2], array('class' => 'glossary sort', 'style'=>'display:none'));
+                ->buildTag('span', $matches[2], ['class' => 'glossary sort', 'style' => 'display:none']);
         }
         return $text . "\n\n" . (isset($matches[3]) ? $matches[3] : $matches[2]);
     }
@@ -278,14 +292,17 @@ class Note
         $bibliographies = Kernel::getConfig('bibliographies');
         if (!empty($bibliographies[$note_id])) {
             $bibliography = $bibliographies[$note_id];
-            $bibliography = preg_replace_callback('{
+            $bibliography = preg_replace_callback(
+                '{
                     ^\#(.*?)                        # $1 = term
                     \s*
                     (?:\(([^\(\)]*)\)[^\n]*)?       # $2 = optional sort key
                     \n{1,}
                     (.*?)
                     }x',
-                    array($this, '_bibliography_callback'), $bibliography);
+                [$this, '_bibliography_callback'],
+                $bibliography
+            );
             $this->_doTransformNote($note_id, $bibliography, self::FOOTNOTE_BIBLIOGRAPHY);
         }
     }
@@ -299,7 +316,7 @@ class Note
     protected function _bibliography_callback($matches)
     {
         $text = Kernel::get('OutputFormatBag')
-            ->buildTag('span', trim($matches[1]), array('class' => 'bibliography name'));
+            ->buildTag('span', trim($matches[1]), ['class' => 'bibliography name']);
         return $text . "\n\n" . $matches[2];
     }
 
@@ -319,8 +336,11 @@ class Note
 
             $note_content   .= "\n"; // Need to append newline before parsing.
             $note_content   = Lexer::runGamut('html_block_gamut', $note_content . "\n");
-            $note_content   = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
-                                array($this, '_append_callback'), $note_content);
+            $note_content   = preg_replace_callback(
+                '{F\x1Afn:(.*?)\x1A:}',
+                [$this, '_append_callback'],
+                $note_content
+            );
 
             $note_id        = Lexer::runGamut(GamutLoader::TOOL_ALIAS.':EncodeAttribute', $note_id);
             $backlink_id    = Kernel::get('DomId')
@@ -328,22 +348,23 @@ class Note
             $footlink_id    = Kernel::get('DomId')
                                 ->get($type_info['prefix'] . ':' . $note_id);
 
-            $attributes             = array();
+            $attributes             = [];
             $attributes['rev']      = $type_info['name'];
             $attributes['counter']  = self::$notes_counter;
             $attributes['href']     = '#' . $backlink_id;
 
-            $note = array(
+            $note = [
                 'count'     => self::$notes_counter,
                 'type'      => $type_info['name'],
-                'in-text-id'=> $backlink_id,
+                'in-text-id' => $backlink_id,
                 'note-id'   => $footlink_id,
                 'text'      => Kernel::get('OutputFormatBag')
                                 ->buildTag(
                                     $type_info['outputformat_methods']['item'],
-                                    $note_content, $attributes
-                                )
-            );
+                                    $note_content,
+                                    $attributes
+                                ),
+            ];
             Kernel::get(Kernel::TYPE_CONTENT)
                 ->addNote($note, $note_id);
         }
@@ -403,7 +424,7 @@ class Note
             $backlink_id        = Kernel::get('DomId')->get($type_info['prefix'] . 'ref:' . $note_ref);
             $footlink_id        = Kernel::get('DomId')->get($type_info['prefix'] . ':' . $note_ref);
 
-            $attributes             = array();
+            $attributes             = [];
             $attributes['rel']      = $type_info['name'];
             $attributes['href']     = '#' . $footlink_id;
             $attributes['counter']  = $note_num;
@@ -412,7 +433,8 @@ class Note
             return Kernel::get('OutputFormatBag')
                 ->buildTag(
                     $type_info['outputformat_methods']['link'],
-                    $note_num, $attributes
+                    $note_num,
+                    $attributes
                 );
         }
 
@@ -421,37 +443,37 @@ class Note
 
     public static function getTypeInfo($type = self::FOOTNOTE_DEFAULT)
     {
-        $data = array();
+        $data = [];
         switch ($type) {
             case self::FOOTNOTE_DEFAULT:
-                $data = array(
+                $data = [
                     'name'                  => self::FOOTNOTE_NAME_DEFAULT,
                     'prefix'                => self::FOOTNOTE_PREFIX,
-                    'outputformat_methods'  => array(
+                    'outputformat_methods'  => [
                         'item'              => 'footnote_standard_item',
                         'link'              => 'footnote_standard_link',
-                    )
-                );
+                    ],
+                ];
                 break;
             case self::FOOTNOTE_GLOSSARY:
-                $data = array(
+                $data = [
                     'name'                  => self::FOOTNOTE_NAME_GLOSSARY,
                     'prefix'                => self::GLOSSARY_PREFIX,
-                    'outputformat_methods'  => array(
+                    'outputformat_methods'  => [
                         'item'              => 'footnote_glossary_item',
                         'link'              => 'footnote_glossary_link',
-                    )
-                );
+                    ],
+                ];
                 break;
             case self::FOOTNOTE_BIBLIOGRAPHY:
-                $data = array(
+                $data = [
                     'name'                  => self::FOOTNOTE_NAME_BIBLIOGRAPHY,
                     'prefix'                => self::BIBLIOGRAPHY_PREFIX,
-                    'outputformat_methods'  => array(
+                    'outputformat_methods'  => [
                         'item'              => 'footnote_bibliography_item',
                         'link'              => 'footnote_bibliography_link',
-                    )
-                );
+                    ],
+                ];
                 break;
         }
         return $data;

@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,7 +10,7 @@
 
 namespace MarkdownExtended\Grammar;
 
-use \MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\Kernel;
 
 /**
  * A basic class for filters and tools with management of parsing "hashes"
@@ -32,21 +32,23 @@ abstract class AbstractGamut
         return ($loader->isGamutEnabled($gamut) || $forced ? $loader->runGamut($gamut, $text) : $text);
     }
 
-// ----------------------------------
-// Hashes management
-// ----------------------------------
+    // ----------------------------------
+    // Hashes management
+    // ----------------------------------
 
     /**
+     * Table of HTML hashes used during transformation
+     *
      * @var array
      */
-    protected static $html_hashes = array();
+    protected static $html_hashes = [];
 
     /**
      * Reset the hash table
      */
     public function resetHash()
     {
-        self::$html_hashes = array();
+        self::$html_hashes = [];
     }
 
     /**

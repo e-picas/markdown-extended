@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,10 +10,12 @@
 
 namespace MarkdownExtendedTests\Compatibility;
 
-use \MarkdownExtendedTests\ParserTest;
+use MarkdownExtendedTests\ParserTestCase;
 
-class OldInterfaceTest
-    extends ParserTest
+/**
+ * @group compatibilty
+ */
+class OldInterfaceTest extends ParserTestCase
 {
     /**
      * Get the `markdown.php` file path
@@ -22,21 +24,28 @@ class OldInterfaceTest
      */
     public function getOldInterfaceFilepath()
     {
-        return $this->getPath(array(
-             $this->getBasePath(), 'src', 'markdown.php'
-        ));
+        return $this->getPath([
+             $this->getBasePath(), 'src', 'markdown.php',
+        ]);
     }
 
     /**
      * Test the `Markdown()` and `MarkdownFromSource()` aliases
      */
-    public function testCreate()
+    public function testCompatibilityFileExists()
     {
         // file exists
         $this->assertFileExists(
             $this->getOldInterfaceFilepath(),
             'markdown.php file existence for compatibility'
         );
+    }
+
+    /**
+     * Test the `Markdown()` and `MarkdownFromSource()` aliases
+     */
+    public function testOldMarkdownFunction()
+    {
         require_once $this->getOldInterfaceFilepath();
 
         // Markdown
@@ -45,6 +54,14 @@ class OldInterfaceTest
             $this->stripWhitespaceAndNewLines(Markdown(file_get_contents($this->getTestFilepath()))->getBody()),
             'Test of the Markdown() function'
         );
+    }
+
+    /**
+     * Test the `Markdown()` and `MarkdownFromSource()` aliases
+     */
+    public function testOldMarkdownFromSourceFunction()
+    {
+        require_once $this->getOldInterfaceFilepath();
 
         // MarkdownFromSource
         $this->assertEquals(

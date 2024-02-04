@@ -2,7 +2,7 @@
 /*
  * This file is part of the PHP-Markdown-Extended package.
  *
- * Copyright (c) 2008-2015, Pierre Cassat (me at picas dot fr) and contributors
+ * Copyright (c) 2008-2024, Pierre Cassat (me at picas dot fr) and contributors
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,7 +10,7 @@
 
 namespace MarkdownExtended\Util;
 
-use \MarkdownExtended\Exception\UnexpectedValueException;
+use MarkdownExtended\Exception\UnexpectedValueException;
 
 /**
  * Basic registry object
@@ -18,6 +18,8 @@ use \MarkdownExtended\Exception\UnexpectedValueException;
 class Registry
 {
     /**
+     * The registry data as array
+     *
      * @var     array
      */
     protected $data;
@@ -27,14 +29,14 @@ class Registry
      *
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->data = $data;
     }
 
-// ------------------
-// Setters / Getters
-// ------------------
+    // ------------------
+    // Setters / Getters
+    // ------------------
 
     /**
      * Sets or resets a new instance in global registry
@@ -131,9 +133,9 @@ class Registry
         return count($this->data);
     }
 
-// --------------
-// Variables manipulation
-// --------------
+    // --------------
+    // Variables manipulation
+    // --------------
 
     /**
      * Extends a value with another, if types match
@@ -153,8 +155,10 @@ class Registry
             return $add;
         }
         switch (gettype($what)) {
-            case 'string': return $what.$add; break;
-            case 'numeric': return ($what+$add); break;
+            case 'string': return $what.$add;
+                break;
+            case 'numeric': return ($what + $add);
+                break;
             case 'array':
                 if (is_array($add)) {
                     $what += $add;
@@ -170,7 +174,8 @@ class Registry
                 break;
             default:
                 throw new UnexpectedValueException(sprintf(
-                    "No extending definition found for type <%s>", gettype($what)
+                    "No extending definition found for type <%s>",
+                    gettype($what)
                 ));
                 break;
         }
