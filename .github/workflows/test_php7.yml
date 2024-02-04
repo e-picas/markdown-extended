@@ -18,6 +18,8 @@ jobs:
       issues: write # to be able to comment on released issues
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
+    env:
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -46,5 +48,13 @@ jobs:
         with:
           command: run messdetector-with-baseline
 
+      - name: Code Climate Setup
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+
       - name: Run unit tests
-        run: composer run test
+        run: |
+          php bin/phpunit --coverage-clover clover.xml --testdox
+          ./cc-test-reporter after-build -t clover --exit-code $?
