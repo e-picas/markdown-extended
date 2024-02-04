@@ -3,6 +3,15 @@ name: "Bump version"
 run-name: "Bump a new version tags"
 
 on:
+  workflow_run:
+    workflows:
+      - "Test & lint PHP 5.6"
+      - "Test & lint PHP 7.4"
+      - "Test & lint PHP 8.3"
+    branches:
+      - master
+    types:
+      - completed
   push:
     branches:
       - master
@@ -34,12 +43,17 @@ jobs:
           node-version: "lts/*"
 
       - name: Install dependencies
-        run: npm install -g semantic-release @semantic-release/github @semantic-release/git @semantic-release/changelog @semantic-release/exec @saithodev/semantic-release-backmerge
+        run: npm install -g semantic-release @semantic-release/github @semantic-release/git @semantic-release/changelog @semantic-release/exec @saithodev/semantic-release-backmerge @ambimax/semantic-release-composer
 
       - name: Setup git
         run: |
           git config user.email "${{ env.GITHUB_TRIGGERING_ACTOR }}"
           git config user.name "github-ci-bot"
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
 
       - name: Release
         env:
