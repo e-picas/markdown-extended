@@ -170,13 +170,8 @@ gitflow-publish-release:
 	git checkout master
 	git reset --hard origin/master
 	git merge --no-ff --no-edit --no-commit origin/${CURRENT_BRANCH_NAME}
-	if [[ $$(git diff --name-status --cached --exit-code 1>/dev/null; echo $?;) == 1 ]]; then
-		git commit -m "ci(${CURRENT_BRANCH_NAME}): merging prepared release"
-		git push origin master
-	else
-		echo "> no changes to be commited on master"
-		echo "> no new release to bump"
-	fi
+	git commit -m "ci(${CURRENT_BRANCH_NAME}): merging prepared release";
+	git push origin master;
 	git branch -D ${CURRENT_BRANCH_NAME}
 	git push --delete origin ${CURRENT_BRANCH_NAME}
 .PHONY: gitflow-publish-release
