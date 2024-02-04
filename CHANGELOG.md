@@ -1,5 +1,12 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.5](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2024-02-04)
+
+
+### Features
+
+* add a new dockerfile for a complete dev image ([7874683](https://github.com/e-picas/markdown-extended//commit/78746830342c7fb00847f0807a810152917cf460))
+
 # 1.0.0-rc.1 (2024-02-04)
 
 
