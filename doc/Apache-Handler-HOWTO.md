@@ -1,5 +1,5 @@
 Name:       MarkdownExtended
-Author:     Piero Wbmstr
+Author:     Picas
 baseheaderlevel: 2
 
 Markdown Extended Apache module
@@ -20,7 +20,7 @@ To allow this script to work on your webserver, you need the following environme
 -   a webserver running a GNU/Linux or UNIX operating system,
 -   your requests must be handled by [Apache 2](http://httpd.apache.org/) or higher
     (or at least, `.htaccess` files must be activated)[^1]
--   [PHP 5.3](http://php.net/) or higher.
+-   [PHP 5.6](http://php.net/) or higher.
 
 As the package uses some internal Apache's features, you will need to enable the following
 Apache modules (*see the [FAQ](#faq) section below for an "how-to"*):
@@ -194,7 +194,7 @@ your case, just remove the flag (your redirection will be visible in the address
 ----
 "**MDE Apache Handler how-to**" - last updated at 05 may 2014
 
-Creator & maintainer: [@pierowbmstr](http://picas.fr/).
+Creator & maintainer: [@e-picas](http://picas.fr/).
 
 Original source of this file, see <http://github.com/e-picas/markdown-extended/Apache-Handler-HOWTO.md>.
 

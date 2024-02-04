@@ -1,5 +1,5 @@
 Name:       MarkdownExtended
-Author:     Piero Wbmstr
+Author:     Picas
 
 Markdown Extended syntax
 ========================
@@ -12,7 +12,7 @@ Bold text is written surrounded between 2 asterisks or underscores:
 
     **bolded content** or __bolded content__
 
-Example: Some **bold text** in a sentence.
+Example: Some **bold text** with asterisks in a sentence, and __some more__ with underscores...
 
 ### Italic
 
@@ -20,7 +20,7 @@ Italic text is written surrounded between 1 asterisk or underscore:
 
     *italic content* or _italic content_
 
-Example: Some *italic text* in a sentence.
+Example: Some *italic text* with asterisks in a sentence, and _some more_ with underscores...
 
 ### Auto-escaping of internal underscores
 
@@ -542,7 +542,7 @@ Putting this into Castigliano's equation, we get
 ----
 "**Markdown Extended Syntax**" - last updated at 27 july 2014
 
-Creator & maintainer: [@pierowbmstr](http://picas.fr/).
+Creator & maintainer: [@e-picas](http://picas.fr/).
 
 Original source of this file, see <http://github.com/e-picas/markdown-extended/Syntax.md>.
 
