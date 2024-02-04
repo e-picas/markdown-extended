@@ -18,6 +18,8 @@ use MarkdownExtended\Exception\UnexpectedValueException;
 class Registry
 {
     /**
+     * The registry data as array
+     *
      * @var     array
      */
     protected $data;

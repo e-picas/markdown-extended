@@ -14,6 +14,9 @@ use MarkdownExtended\Exception\UnexpectedValueException;
 use MarkdownExtended\Util\Helper;
 use MarkdownExtended\Util\Registry;
 
+/**
+ * This is the chore of the application
+ */
 class Kernel
 {
     /**

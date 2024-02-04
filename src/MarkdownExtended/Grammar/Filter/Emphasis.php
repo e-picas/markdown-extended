@@ -67,8 +67,7 @@ class Emphasis extends Filter
     }
 
     /**
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

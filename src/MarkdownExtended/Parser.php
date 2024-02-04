@@ -169,6 +169,12 @@ class Parser
 
     /**
      * Alias of `self::transform()`
+     *
+     * @param   string|\MarkdownExtended\API\ContentInterface $content
+     * @param   null $name
+     * @param   bool $primary
+     *
+     * @return \MarkdownExtended\API\ContentInterface|string
      */
     public function transformString($content, $name = null, $primary = true)
     {
@@ -383,7 +389,11 @@ class Parser
         return $path;
     }
 
-    // register a new content in collection
+    /**
+     * Register a new content in collection
+     *
+     * @access private
+     */
     private function _registerContent(ContentInterface $content)
     {
         $collection = $this->getKernel()->get('ContentCollection');
@@ -395,7 +405,11 @@ class Parser
         }
     }
 
-    // hard debug of a content object
+    /**
+     * Hard debug of a content object
+     *
+     * @access private
+     */
     private function _hardDebugContent(ContentInterface $content)
     {
         echo Helper::debug($content->getBody(), 'content body');

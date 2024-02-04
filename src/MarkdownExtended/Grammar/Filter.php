@@ -114,6 +114,8 @@ abstract class Filter extends AbstractGamut implements GamutInterface
     }
 
     /**
+     * Callback applied to unhash (reinsert original) hashed parts
+     *
      * @param   array   $matches    A set of results of the `self::unhash()` function
      *
      * @return  string

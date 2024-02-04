@@ -58,8 +58,7 @@ class HTML extends Filter
      *  _HashHTMLBlocks_InMarkdown to handle the Markdown syntax within the tag.
      * These two functions are calling each other. It's recursive!
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

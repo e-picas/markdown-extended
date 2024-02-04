@@ -10,6 +10,9 @@
 
 namespace MarkdownExtended\Console;
 
+/**
+ * Base object of a console script
+ */
 abstract class AbstractConsole
 {
     const LICENSE_FILE              = 'LICENSE';
@@ -17,76 +20,106 @@ abstract class AbstractConsole
     const MANIFEST_FILE             = 'composer.json';
 
     /**
+     * The name of current script
+     *
      * @var null|string
      */
     protected $name                 = null;
 
     /**
+     * The shortname (slug) of current script
+     *
      * @var null|string
      */
     protected $short_name           = null;
 
     /**
+     * The vesion string of current script
+     *
      * @var null|string
      */
     protected $version              = null;
 
     /**
+     * The description string of current script
+     *
      * @var null|string
      */
     protected $description          = null;
 
     /**
+     * The raw version string of current script
+     *
      * @var null|string
      */
     protected $short_version_str    = null;
 
     /**
+     * The "long" version string of current script
+     *
      * @var null|string
      */
     protected $long_version_str     = null;
 
     /**
+     * The usage string of current script
+     *
      * @var null|string
      */
     protected $usage                = null;
 
     /**
+     * The synopsis string of current script
+     *
      * @var null|string
      */
     protected $synopsis             = null;
 
     /**
+     * Current script path
+     *
      * @var null|string
      */
     protected $script_path          = null;
 
     /**
+     * The CLI options table
+     *
      * @var array
      */
     protected $cli_options          = [];
 
     /**
+     * The global options table
+     *
      * @var array
      */
     protected $options              = [];
 
     /**
+     * The table of user inputs
+     *
      * @var array
      */
     protected $arguments            = [];
 
     /**
+     * The stream object
+     *
      * @var \MarkdownExtended\Console\Stream
      */
     protected $stream;
 
     /**
+     * The user input object
+     *
      * @var \MarkdownExtended\Console\UserInput
      */
     protected $user_input;
 
     /**
+     * Flag to retain if argument is required
+     *
      * @var bool
      */
     protected $arg_required;

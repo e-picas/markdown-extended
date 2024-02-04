@@ -24,7 +24,7 @@ use MarkdownExtended\API\Kernel;
 class LinkDefinition extends Filter
 {
     /**
-     * Mandatory method
+     * {@inheritDoc}
      */
     public function transform($text)
     {

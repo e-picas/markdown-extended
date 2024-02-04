@@ -16,6 +16,8 @@ namespace MarkdownExtended\Util;
 class DomIdRegistry
 {
     /**
+     * The IDs registry
+     *
      * @var     \MarkdownExtended\Util\Registry
      */
     protected $dom_ids = [];

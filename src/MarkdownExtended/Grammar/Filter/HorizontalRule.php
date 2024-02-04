@@ -19,8 +19,7 @@ use MarkdownExtended\API\Kernel;
 class HorizontalRule extends Filter
 {
     /**
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

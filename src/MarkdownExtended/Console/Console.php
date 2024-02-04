@@ -23,8 +23,18 @@ use MarkdownExtended\Util\Helper;
  */
 class Console extends AbstractConsole
 {
+    /**
+     * The current MDE Parser object
+     *
+     * @var \MarkdownExtended\Parser
+     */
     protected $mde = [];
 
+    /**
+     * The table of parsing results
+     *
+     * @var array
+     */
     protected $results = [];
 
     /**

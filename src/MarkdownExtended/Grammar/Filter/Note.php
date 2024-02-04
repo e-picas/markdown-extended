@@ -160,8 +160,7 @@ class Note extends Filter
      * Replace footnote references in $text [string][#id] and [^id] with a special text-token
      * which will be replaced by the actual footnote marker in appendFootnotes.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

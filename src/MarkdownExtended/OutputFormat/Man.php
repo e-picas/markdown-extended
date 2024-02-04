@@ -35,6 +35,8 @@ use MarkdownExtended\Util\Helper;
 class Man extends AbstractOutputFormat implements OutputFormatInterface
 {
     /**
+     * The table of tags to use
+     *
      * @var array
      */
     protected $tags_map = [
@@ -127,17 +129,20 @@ class Man extends AbstractOutputFormat implements OutputFormatInterface
     ];
 
     /**
+     * The tag closing string
      * @var string
      */
     protected $ending_tag;
 
     /**
+     * The new line string
      * @var string
      */
     protected $new_line;
 
     /**
-     * @var bool flag to turn on when paragraphing is not allowed (will be replace by new line)
+     * Flag to turn on when paragraphing is not allowed (will be replace by new line)
+     * @var bool
      */
     protected $no_paragraphing = false;
 
@@ -258,8 +263,16 @@ class Man extends AbstractOutputFormat implements OutputFormatInterface
     // Tag specific builder
     // -------------------
 
+    /**
+     * The current level flag
+     * @var int
+     */
     protected $_current_title_level = 0;
 
+    /**
+     * The max level flag
+     * @var int
+     */
     protected $subtitle_max_level = 3;
 
     public function buildTitle($text, array $attributes = [])
@@ -454,6 +467,10 @@ class Man extends AbstractOutputFormat implements OutputFormatInterface
         return $this->buildListItem($text, $attributes);
     }
 
+    /**
+     * Internal counter for list items
+     * @var int
+     */
     protected $ordered_list_counter = 1;
 
     public function buildOrderedListItem($text = null, array $attributes = [])

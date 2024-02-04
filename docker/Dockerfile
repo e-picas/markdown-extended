@@ -28,6 +28,7 @@ RUN set -ex; \
 RUN set -ex; pecl install yaml && docker-php-ext-enable yaml;
 RUN set -ex; pecl install xdebug-3.1.4 && docker-php-ext-enable xdebug; \
     echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/xdebug.ini;
+RUN echo "phar.readonly = Off" > /usr/local/etc/php/php.ini;
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \

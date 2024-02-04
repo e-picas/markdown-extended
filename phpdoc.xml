@@ -12,6 +12,7 @@
       <extension>php</extension>
     </extensions>
     <default-package-name>MarkdownExtended</default-package-name>
+    <visibility>protected</visibility>
   </parser>
   <files>
     <directory>src/</directory>

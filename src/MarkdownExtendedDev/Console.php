@@ -73,8 +73,8 @@ MSG
                 'argument'      => UserInput::ARG_REQUIRED,
                 'type'          => UserInput::TYPE_STRING,
                 'description'   => [
-                    'Set a version number for the "make-release" action.',
-                    '(you can use "major", "minor" and "patch" for automation ; default is "patch")',
+                    'Set a version number or a strategy for the "make-release" action.',
+                    '(you can set a raw version number or use "major", "minor" and "patch" for automation ; default is "patch")',
                 ],
             ])
         ;

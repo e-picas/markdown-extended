@@ -23,8 +23,7 @@ class Span extends Filter
      * Take the string $str and parse it into tokens, hashing embedded HTML,
      * escaped characters and handling code and maths spans.
      *
-     * @param   string  $str
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($str)
     {

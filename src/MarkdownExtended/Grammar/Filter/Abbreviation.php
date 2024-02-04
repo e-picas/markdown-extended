@@ -62,8 +62,7 @@ class Abbreviation extends Filter
     /**
      * Find defined abbreviations in text and wrap them in <abbr> elements
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

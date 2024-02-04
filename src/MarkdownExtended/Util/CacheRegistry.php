@@ -16,6 +16,8 @@ namespace MarkdownExtended\Util;
 class CacheRegistry
 {
     /**
+     * The cache object of the registry
+     *
      * @var \MarkdownExtended\Util\Registry
      */
     protected $_cache;

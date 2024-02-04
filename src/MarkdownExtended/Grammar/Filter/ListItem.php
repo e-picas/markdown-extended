@@ -38,8 +38,7 @@ class ListItem extends Filter
     /**
      * Form HTML ordered (numbered) and unordered (bulleted) lists.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -104,6 +103,8 @@ class ListItem extends Filter
     }
 
     /**
+     * Callback applied to matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -175,6 +176,8 @@ class ListItem extends Filter
     }
 
     /**
+     * Callback applied to list items matches
+     *
      * @param   array   $matches    A set of results of the `transform()` function
      * @return  string
      */

@@ -25,11 +25,15 @@ use MarkdownExtended\Util\CacheRegistry;
 class Templater implements TemplateInterface
 {
     /**
+     * This is the configuration registry
+     *
      * @var \MarkdownExtended\Util\Registry
      */
     protected $config;
 
     /**
+     * This is the cache registry
+     *
      * @var \MarkdownExtended\Util\CacheRegistry
      */
     protected $cache;

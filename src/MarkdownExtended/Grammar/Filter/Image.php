@@ -24,8 +24,7 @@ class Image extends Filter
     /**
      * Turn Markdown image shortcuts into <img> tags.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -84,6 +83,8 @@ class Image extends Filter
     }
 
     /**
+     * Callback applied to referenced matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -127,6 +128,8 @@ class Image extends Filter
     }
 
     /**
+     * Callback applied to inline matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */

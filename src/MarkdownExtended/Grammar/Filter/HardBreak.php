@@ -21,8 +21,7 @@ use MarkdownExtended\API\Kernel;
 class HardBreak extends Filter
 {
     /**
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -30,6 +29,8 @@ class HardBreak extends Filter
     }
 
     /**
+     * The callback applied to matched parts
+     *
      * @param   array   $matches    A set of results of the `transform()` function
      * @return  string
      */

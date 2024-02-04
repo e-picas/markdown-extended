@@ -19,16 +19,22 @@ use MarkdownExtended\API\Kernel;
 class MetaData extends Filter
 {
     /**
+     * The table of metadata
+     *
      * @var     array
      */
     protected $metadata;
 
     /**
+     * The table of special metadata
+     *
      * @var     array
      */
     protected $special_metadata = [];
 
     /**
+     * Flag to test if we are currently in a metadata match
+     *
      * @var     int
      */
     protected static $inMetaData = -1;
@@ -79,8 +85,7 @@ class MetaData extends Filter
     }
 
     /**
-     * @param   string  $line
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($line)
     {
@@ -103,6 +108,8 @@ class MetaData extends Filter
     }
 
     /**
+     * Callback applied to matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -117,6 +124,8 @@ class MetaData extends Filter
     }
 
     /**
+     * Callback applied for next line matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -129,6 +138,10 @@ class MetaData extends Filter
 
     /**
      * Build meta data strings
+     *
+     * @param string $text
+     *
+     * @return string
      */
     public function append($text)
     {

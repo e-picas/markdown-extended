@@ -28,8 +28,7 @@ class BlockInclusion extends Filter
     /**
      * Find defined inclusion blocks
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
