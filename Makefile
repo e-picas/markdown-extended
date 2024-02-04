@@ -176,6 +176,24 @@ gitflow-publish-release:
 	git push --delete origin ${CURRENT_BRANCH_NAME}
 .PHONY: gitflow-publish-release
 
+# This one is for hard dev and not documented ...
+docker-dev-build:
+	docker build \
+		-f $$(pwd)/docker/dev-full/Dockerfile \
+		-t mde_dev_full \
+		--build-arg IMAGE_VERSION=${DOCKER_IMAGE_PHP} \
+		$$(pwd)/
+.PHONY: docker-dev-build
+docker-dev-run: docker-dev-build
+	docker run -ti --rm \
+		-v $${HOME}/.ssh:/home/app_user/.ssh \
+		-v $$(pwd):/mde-src \
+		-w /mde-src/ \
+		--name mde_dev_full_run \
+		mde_dev_full \
+		bash
+.PHONY: docker-dev-run
+
 # largely inspired by <https://docs.cloudposse.com/reference/best-practices/make-best-practices/>
 help:
 	@printf "#############################################\n!! THIS FILE IS FOR DEVELOPMENT USAGE ONLY !!\n#############################################\n"
