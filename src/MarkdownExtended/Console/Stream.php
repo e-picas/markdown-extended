@@ -13,6 +13,9 @@ namespace MarkdownExtended\Console;
 use MarkdownExtended\Exception\RuntimeException;
 use MarkdownExtended\Exception\UnexpectedValueException;
 
+/**
+ * This class is a handler for terminal IO
+ */
 class Stream
 {
     /**
@@ -36,6 +39,8 @@ class Stream
     const VERBOSITY_DEBUG   = 8;
 
     /**
+     * Verbosity level: one of the `VERBOSITY_` constants of the class
+     *
      * @var int
      */
     protected $verbosity    = self::VERBOSITY_NORMAL;
@@ -56,21 +61,29 @@ class Stream
     const IO_STDERR         = 'stderr';
 
     /**
+     * Current STDIN
+     *
      * @var resource
      */
     public $stdin;
 
     /**
+     * Current STDOUT
+     *
      * @var resource
      */
     public $stdout;
 
     /**
+     * Current STDERR
+     *
      * @var resource
      */
     public $stderr;
 
     /**
+     * The exception handler callback
+     *
      * @var callable
      */
     protected $exception_callback;

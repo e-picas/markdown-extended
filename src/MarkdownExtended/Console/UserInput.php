@@ -72,10 +72,25 @@ class UserInput
      */
     const TYPE_LISTITEM = 8;
 
+    /**
+     * The raw array of options
+     *
+     * @var array
+     */
     protected $options;
 
+    /**
+     * The indexed array of options
+     *
+     * @var array
+     */
     protected $options_indexed;
 
+    /**
+     * The raw array of user options
+     *
+     * @var array
+     */
     protected $user_options;
 
     /**

@@ -16,6 +16,9 @@ use MarkdownExtended\Util\Helper;
 use MarkdownExtended\Exception\InvalidArgumentException;
 use MarkdownExtended\Exception\UnexpectedValueException;
 
+/**
+ * This is the base object of output formatters
+ */
 class OutputFormatBag
 {
     /**
@@ -67,6 +70,8 @@ class OutputFormatBag
     ];
 
     /**
+     * Current Formatter object
+     *
      * @var     \MarkdownExtended\API\OutputFormatInterface
      */
     protected $formatter;

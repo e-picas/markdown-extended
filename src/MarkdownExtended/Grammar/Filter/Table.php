@@ -20,6 +20,11 @@ use MarkdownExtended\Util\Helper;
  */
 class Table extends Filter
 {
+    /**
+     * The current table ID
+     *
+     * @var string
+     */
     protected $table_id;
 
     /**
@@ -39,8 +44,7 @@ class Table extends Filter
      *    Cell 1   | Cell 2
      *    Cell 3   | Cell 4
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -268,6 +272,10 @@ class Table extends Filter
 
     /**
      * Build a table caption
+     *
+     * @param array $matches The matching table
+     *
+     * @return string
      */
     protected function _doCaption($matches)
     {

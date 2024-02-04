@@ -23,6 +23,8 @@ use MarkdownExtended\Grammar\Filter\Note;
 class Html extends AbstractOutputFormat implements OutputFormatInterface
 {
     /**
+     * Configuration table of HTML tags per blocks/inline parts
+     *
      * @var array
      */
     protected $tags_map = [
@@ -114,10 +116,17 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
     ];
 
     /**
+     * A suffix for empty elements
+     *
      * @var string
      */
     protected $empty_element_suffix;
 
+    /**
+     * The table of configuration for the formatter
+     *
+     * @var array
+     */
     protected $config;
 
     /**
@@ -171,6 +180,14 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
     // Tag specific builder
     // -------------------
 
+    /**
+     * Build the header tag
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildTitle($text, array $attributes = [])
     {
         if (isset($attributes['level'])) {
@@ -182,6 +199,14 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
         return $this->getTagString($text, $tag, $attributes);
     }
 
+    /**
+     * Build the metadata tags
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildMetaData($text = null, array $attributes = [])
     {
         if (empty($attributes['content']) && !empty($text)) {
@@ -193,22 +218,54 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
         return $text;
     }
 
+    /**
+     * Build a comment tag
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildComment($text = null, array $attributes = [])
     {
         return sprintf('<!-- %s -->', $text);
     }
 
+    /**
+     * Build the paragraph tags
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildParagraph($text = null, array $attributes = [])
     {
         return "\n" . $this->getTagString($text, 'p', $attributes) . "\n";
     }
 
+    /**
+     * Build the link tags
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildLink($text = null, array $attributes = [])
     {
         $this->_validateLinkAttributes($attributes, $text);
         return $this->getTagString($text, 'a', $attributes);
     }
 
+    /**
+     * Build the pre-formatted tags
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildPreformatted($text = null, array $attributes = [])
     {
         if (isset($attributes['language'])) {
@@ -222,6 +279,14 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
         return "\n" . $this->getTagString($text, 'pre', $attributes) . "\n";
     }
 
+    /**
+     * Build the maths tags
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildMaths($text = null, array $attributes = [], $type = 'div')
     {
         $math_type  = $this->getConfig('math_type');
@@ -240,16 +305,41 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
         return $text;
     }
 
+    /**
+     * Build the maths blocks
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildMathsBlock($text = null, array $attributes = [])
     {
         return $this->buildMaths($text, $attributes, 'div');
     }
 
+    /**
+     * Build the maths spans
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildMathsSpan($text = null, array $attributes = [])
     {
         return $this->buildMaths($text, $attributes, 'span');
     }
 
+    /**
+     * Build a footnote item
+     *
+     * @param string $text
+     * @param array $attributes
+     * @param string $note_type
+     *
+     * @return string
+     */
     public function buildFootnoteStandardItem($text = null, array $attributes = [], $note_type = Note::FOOTNOTE_DEFAULT)
     {
         $type_info = Note::getTypeInfo($note_type);
@@ -283,16 +373,41 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
         return $text;
     }
 
+    /**
+     * Build a footnote glossary item
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildFootnoteGlossaryItem($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardItem($text, $attributes, Note::FOOTNOTE_GLOSSARY);
     }
 
+    /**
+     * Build a footnote bibliographic item
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildFootnoteBibliographyItem($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardItem($text, $attributes, Note::FOOTNOTE_BIBLIOGRAPHY);
     }
 
+    /**
+     * Build a standard footnote link
+     *
+     * @param string $text
+     * @param array $attributes
+     * @param string $note_type
+     *
+     * @return string
+     */
     public function buildFootnoteStandardLink($text = null, array $attributes = [], $note_type = Note::FOOTNOTE_DEFAULT)
     {
         $type_info = Note::getTypeInfo($note_type);
@@ -322,16 +437,40 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
             ->buildTag('sup', $link, ['id' => $backlink_id]);
     }
 
+    /**
+     * Build a footnote glossary link
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildFootnoteGlossaryLink($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardLink($text, $attributes, Note::FOOTNOTE_GLOSSARY);
     }
 
+    /**
+     * Build a footnote bibliographic link
+     *
+     * @param string $text
+     * @param array $attributes
+     *
+     * @return string
+     */
     public function buildFootnoteBibliographyLink($text = null, array $attributes = [])
     {
         return $this->buildFootnoteStandardLink($text, $attributes, Note::FOOTNOTE_BIBLIOGRAPHY);
     }
 
+    /**
+     * Get a configuration entry by name
+     *
+     * @param string $name
+     * @param mix $default
+     *
+     * @return mix
+     */
     protected function getConfig($name, $default = null)
     {
         return isset($this->config[$name]) ? $this->config[$name] : $default;
@@ -341,6 +480,7 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
      * Be sure to have a full attributes set (add a title if needed)
      *
      * @param   array   $attributes     Passed by reference
+     * @param string $text Passed by reference
      */
     protected function _validateLinkAttributes(array &$attributes, &$text)
     {

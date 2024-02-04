@@ -30,6 +30,8 @@ class GamutLoader extends CacheRegistry
     const TOOL_CLASS        = 'MarkdownExtended\Grammar\Tools';
 
     /**
+     * Table of all gamuts
+     *
      * @var array
      */
     protected $all_gamuts;
@@ -263,8 +265,8 @@ class GamutLoader extends CacheRegistry
      * Actually runs a gamut's method on a content
      *
      * @param   string  $gamut      The gamut name to execute
-     * @param   string  $text       The text for gamuts execution
      * @param   string  $method     The method name to execute in each gamut
+     * @param   string  $text       The text for gamuts execution
      *
      * @return  string
      *

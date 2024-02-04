@@ -82,59 +82,63 @@ docker-apache-stop:
 .PHONY: docker-apache-stop
 
 ## Run the PHPUnit tests in the 'mde_dev' container
-run-tests: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer test" make docker-mde-run
+run-tests: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer test" make docker-run
 .PHONY: run-tests
 
 ## Generate the PHPUnit tests reports in the 'mde_dev' container
-generate-tests-coverage: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer test-coverage" make docker-mde-run
+generate-tests-coverage: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer test-coverage" make docker-run
 .PHONY: generate-tests-coverage
 
 ## Run the Code Standards Fixer in the 'mde_dev' container
-run-code-fixer: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer cs-fixer" make docker-mde-run
+run-code-fixer: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer cs-fixer" make docker-run
 .PHONY: run-code-fixer
 
 ## Generate the documentation running `phpdoc` in the 'mde_dev' container
-generate-documentation: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer doc" make docker-mde-run
+generate-documentation: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer doc" make docker-run
 .PHONY: generate-documentation
 
 ## Run the PHP Metrics tool in the 'mde_dev' container
-generate-code-metrics: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer metrics" make docker-mde-run
+generate-code-metrics: generate-tests-coverage
+	MDE_DEV_DOCKER_CMD="composer install && composer metrics" make docker-run
 .PHONY: generate-code-metrics
 
 ## Run the PHP Dedup tool in the 'mde_dev' container
-run-code-deduplicator: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer dedup" make docker-mde-run
+run-code-deduplicator: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer dedup" make docker-run
 .PHONY: run-code-deduplicator
 
 ## Run the PHP Loc tool in the 'mde_dev' container
-run-code-sizer: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer sizer" make docker-mde-run
+run-code-sizer: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer sizer" make docker-run
 .PHONY: run-code-sizer
 
 ## Run the PHP Mess Detector tool on the sources in the 'mde_dev' container
-run-mess-detector: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector" make docker-mde-run
+run-mess-detector: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector" make docker-run
 .PHONY: run-mess-detector
 
 ## Generate a PHP Mess Detector tool report in `dev/code-analyzer-report.html` analyzing the sources in the 'mde_dev' container
-generate-mess-detector-report: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-report" make docker-mde-run
+generate-mess-detector-report: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-report" make docker-run
 .PHONY: generate-mess-detector-report
 
 ## Run the PHP Mess Detector tool comparing to the `.phpmd.baseline.xml` baseline on the sources in the 'mde_dev' container
-run-mess-detector-with-baseline: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-with-baseline" make docker-mde-run
+run-mess-detector-with-baseline: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-with-baseline" make docker-run
 .PHONY: run-mess-detector-with-baseline
 
 ## Generate the PHP Mess Detector tool `.phpmd.baseline.xml` baseline on the sources in the 'mde_dev' container
-generate-mess-detector-baseline: docker-mde-build
-	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-generate-baseline" make docker-mde-run
+generate-mess-detector-baseline: docker-build
+	MDE_DEV_DOCKER_CMD="composer install && composer messdetector-generate-baseline" make docker-run
 .PHONY: generate-mess-detector-baseline
+
+## Generate all reports
+generate-all-reports: generate-tests-coverage generate-mess-detector-report generate-code-metrics generate-documentation
+.PHONY: generate-all-reports
 
 # largely inspired by <https://docs.cloudposse.com/reference/best-practices/make-best-practices/>
 help:

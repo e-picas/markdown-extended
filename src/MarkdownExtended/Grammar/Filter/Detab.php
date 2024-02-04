@@ -47,8 +47,7 @@ class Detab extends Filter
      * tab characters. Then we reconstruct every line by adding the
      * appropriate number of space between each blocks.
      *
-     * @param   string  $text   The text to be parsed
-     * @return  string          The text parsed
+     * {@inheritDoc}
      * @see     self::_detab_callback()
      */
     public function transform($text)

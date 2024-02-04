@@ -23,8 +23,7 @@ class Maths extends Filter
     /**
      * Wrap text between \[ and \] in display math tags.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

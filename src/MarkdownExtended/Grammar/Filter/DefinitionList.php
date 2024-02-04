@@ -40,8 +40,7 @@ class DefinitionList extends Filter
     /**
      * Form HTML definition lists.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

@@ -27,8 +27,7 @@ use MarkdownExtended\API\Kernel;
 class FencedCodeBlock extends Filter
 {
     /**
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

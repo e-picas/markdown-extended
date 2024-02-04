@@ -40,8 +40,7 @@ class Header extends Filter
     /**
      * Redefined to add id attribute support.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -129,13 +128,17 @@ class Header extends Filter
 
     /**
      * Set the page content if it is not set yet
+     *
+     * @param string $title
+     *
+     * @return void
      */
-    protected function _setContentTitle($string)
+    protected function _setContentTitle($title)
     {
         $old = Kernel::get(Kernel::TYPE_CONTENT)->getTitle();
         if (empty($old)) {
             $meta = Kernel::get(Kernel::TYPE_CONTENT)->getMetadata();
-            $meta['title'] = $string;
+            $meta['title'] = $title;
             Kernel::get(Kernel::TYPE_CONTENT)->setMetadata($meta);
         }
     }

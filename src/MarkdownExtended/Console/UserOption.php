@@ -38,6 +38,8 @@ use MarkdownExtended\Exception\UnexpectedValueException;
 class UserOption
 {
     /**
+     * The user data registry
+     *
      * @var \MarkdownExtended\Util\Registry
      */
     protected $data;

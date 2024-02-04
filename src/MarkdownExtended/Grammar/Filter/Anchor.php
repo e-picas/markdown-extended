@@ -41,8 +41,7 @@ class Anchor extends Filter
     /**
      * Turn Markdown link shortcuts into XHTML <a> tags.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -120,6 +119,8 @@ class Anchor extends Filter
     }
 
     /**
+     * Callback applied to referenced matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -164,6 +165,8 @@ class Anchor extends Filter
     }
 
     /**
+     * Callback applied to inline matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */

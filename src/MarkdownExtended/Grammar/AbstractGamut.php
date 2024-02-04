@@ -37,6 +37,8 @@ abstract class AbstractGamut
     // ----------------------------------
 
     /**
+     * Table of HTML hashes used during transformation
+     *
      * @var array
      */
     protected static $html_hashes = [];

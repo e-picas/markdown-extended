@@ -28,8 +28,7 @@ class BlockQuote extends Filter
     /**
      * Create blockquotes blocks
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {

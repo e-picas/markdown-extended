@@ -224,7 +224,16 @@ class Helper
         );
     }
 
-    // actually camel-casize
+    /**
+     * Actually camel-casize
+     *
+     * @param string $text The source text to transform
+     * @param string $replace The replacement string to put in the mask
+     * @param string $mask The mask to match substrings to transform
+     * @param callable $callback The callback function
+     *
+     * @return string
+     */
     protected static function _camelcasize($text, $replace, $mask, $callback)
     {
         if (empty($text)) {

@@ -62,7 +62,7 @@
     "cs-fixer": "php ./bin/php-cs-fixer fix -v",
     "cs-fixer-ci": "php ./bin/php-cs-fixer fix -v --dry-run",
     "messdetector": "php ./bin/phpmd --exclude MarkdownExtendedDev ./src/ text .phpmd.xml",
-    "messdetector-report": "php ./bin/phpmd --exclude MarkdownExtendedDev --reportfile=dev/mde-messdetector.report.html ./src/ html .phpmd.xml",
+    "messdetector-report": "php ./bin/phpmd --exclude MarkdownExtendedDev --reportfile=dev/mde-messdetector.report.html ./src/ html .phpmd.xml || true",
     "messdetector-generate-baseline": "php ./bin/phpmd --exclude MarkdownExtendedDev --baseline-file=.phpmd.baseline.xml --generate-baseline ./src/ text .phpmd.xml",
     "messdetector-with-baseline": "php ./bin/phpmd --exclude MarkdownExtendedDev --baseline-file=.phpmd.baseline.xml ./src/ text .phpmd.xml"
   },

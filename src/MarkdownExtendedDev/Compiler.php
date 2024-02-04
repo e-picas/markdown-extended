@@ -36,18 +36,15 @@ class Compiler
         $finder = new Finder();
         $finder->files()
             ->ignoreVCS(true)
-            ->exclude('bin')
             ->exclude('build')
             ->exclude('dev')
             ->exclude('doc')
             ->exclude('demo')
-            ->exclude('phpdoc')
             ->exclude('tests')
             ->exclude('tmp')
             ->exclude('vendor')
             ->exclude('src/MarkdownExtendedDev')
             ->notName('CONTRIBUTING.md')
-            ->notName('.sami.php')
             ->in($this->root_dir)
         ;
         return $finder;

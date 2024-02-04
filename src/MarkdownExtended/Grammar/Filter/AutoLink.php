@@ -21,8 +21,7 @@ use MarkdownExtended\Grammar\GamutLoader;
 class AutoLink extends Filter
 {
     /**
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
@@ -60,6 +59,8 @@ class AutoLink extends Filter
     }
 
     /**
+     * The callback applied for URL matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */
@@ -77,6 +78,8 @@ class AutoLink extends Filter
     }
 
     /**
+     * The callback applied for email addresses matches
+     *
      * @param   array   $matches    A set of results of the `transform` function
      * @return  string
      */

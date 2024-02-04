@@ -24,8 +24,7 @@ class CodeBlock extends Filter
     /**
      *  Process Markdown `<pre><code>` blocks.
      *
-     * @param   string  $text
-     * @return  string
+     * {@inheritDoc}
      */
     public function transform($text)
     {
