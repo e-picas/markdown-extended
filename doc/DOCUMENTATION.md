@@ -3,7 +3,7 @@ Man-name:   markdown-extended-api
 Section:    7
 Author:     Pierre Cassat
 Date:       2024-02-04
-Version:    1.0.0-rc.9
+Version:    1.0.0-rc.10
 
 
 NAME
