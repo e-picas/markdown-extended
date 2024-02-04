@@ -22,7 +22,7 @@ plugins:
   - path: "@semantic-release/changelog"
     changelogFile: "CHANGELOG.md"
     changelogTitle: "# PHP Markdown Extended changelog"
-  - path: "@semantic-release/github"
+  - path: "@semantic-release/git"
     assets:
       - "CHANGELOG.md"
       - "src/MarkdownExtended/MarkdownExtended.php"
@@ -30,13 +30,16 @@ plugins:
       - "doc/DOCUMENTATION.md"
       - "man/markdown-extended.3.man"
       - "man/markdown-extended.7.man"
+      - "composer.json"
     message: |
       chore(release): ${nextRelease.version}
 
       ${nextRelease.notes}
   - path: "@semantic-release/exec"
     verifyReleaseCmd: "echo \"${nextRelease.version}\" > /tmp/mde-next_release"
-    prepareCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
+    publishCmd: "php bin/mde-dev --release=${nextRelease.version} make-release"
+  - path: "@semantic-release/github"
+  - path: "@ambimax/semantic-release-composer"
   - path: "@saithodev/semantic-release-backmerge"
     backmergeBranches:
       - from: "master"
