@@ -64,7 +64,7 @@ class MarkdownExtended extends Parser
 
     const NAME      = 'PHP Markdown Extended';
 
-    const VERSION   = '1.0.0';
+    const VERSION   = '1.0.0-rc.8';
 
     const DATE      = '2024-02-04';
 
