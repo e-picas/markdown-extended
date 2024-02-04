@@ -1,0 +1,50 @@
+
+name: "Test & lint PHP 7.4"
+run-name: "[php 7.4] Run PHPUnit + Mess-Detector + CS-Fixer"
+
+on:
+  push:
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+
+  run_tests_php74:
+    name: "[php 7.4] tests & validation"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Install composer dependencies
+        uses: php-actions/composer@v6
+
+      - name: Test the console
+        run: php ./bin/markdown-extended
+
+      - name: Run CS-Fixer
+        uses: php-actions/composer@v6
+        with:
+          command: run cs-fixer-ci
+
+      - name: Run Mess-Detector
+        uses: php-actions/composer@v6
+        with:
+          command: run messdetector-with-baseline
+
+      - name: Run unit tests
+        run: composer run test

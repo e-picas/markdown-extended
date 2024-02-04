@@ -3,10 +3,31 @@ PHP Markdown Extended
 
 Yet another PHP parser for the markdown (*extended*) syntax.
 
+[![Community](https://img.shields.io/badge/Join%20the%20community-on%20GitHub%20Discussions-blue)](https://github.com/e-picas/markdown-extended/discussions)
+[![License](http://poser.pugx.org/picas/markdown-extended/license)](https://packagist.org/packages/picas/markdown-extended)
+[![PHP Version Require](http://poser.pugx.org/picas/markdown-extended/require/php)](https://packagist.org/packages/picas/markdown-extended)
+[![Version](http://poser.pugx.org/picas/markdown-extended/version)](https://packagist.org/packages/picas/markdown-extended)
 [![Last Release](https://img.shields.io/github/v/tag/e-picas/markdown-extended?sort=semver&label=last%20release)](https://github.com/e-picas/markdown-extended/releases)
-[![Tests status](https://github.com/e-picas/markdown-extended/actions/workflows/test.yml/badge.svg?branch=develop-php7)](https://github.com/e-picas/markdown-extended/actions/workflows/test.yml)
 [![Dependency Status](https://www.versioneye.com/user/projects/570e45aafcd19a00415b1287/badge.svg?style=flat)](http://www.versioneye.com/user/projects/570e45aafcd19a00415b1287)
 [![Code Climate](https://codeclimate.com/github/e-picas/markdown-extended/badges/gpa.svg)](http://codeclimate.com/github/e-picas/markdown-extended)
+
+[![Tests status PHP7](https://github.com/e-picas/markdown-extended/actions/workflows/test_php7.yml/badge.svg?branch=develop-php7)](https://github.com/e-picas/markdown-extended/actions/workflows/test_php7.yml)
+[![Tests status PHP8](https://github.com/e-picas/markdown-extended/actions/workflows/test_php8.yml/badge.svg?branch=develop-php7)](https://github.com/e-picas/markdown-extended/actions/workflows/test_php8.yml)
+[![Tests status PHP5](https://github.com/e-picas/markdown-extended/actions/workflows/test_php5.yml/badge.svg?branch=develop-php7)](https://github.com/e-picas/markdown-extended/actions/workflows/test_php5.yml)
+
+[![PHP](https://img.shields.io/badge/PHP-5%2F7%2F8-e10079?logo=php)](https://www.php.net/)
+[![Composer](https://img.shields.io/badge/Composer-grey?logo=composer)](https://getcomposer.org/)
+[![Git Flow](https://img.shields.io/badge/GitFlow-grey?logo=git)](https://git-flow.readthedocs.io/en/latest/presentation.html)
+[![Semantic Release](https://img.shields.io/badge/Semantic_Release-angular-e10079?logo=semantic-release)](https://semantic-release.gitbook.io/semantic-release/)
+[![Docker](https://img.shields.io/badge/Docker-grey?logo=docker)](https://www.docker.com/)
+[![GitHub actions](https://img.shields.io/badge/Github_Actions-grey?logo=github)](https://github.com/features/actions)
+[![Conventional commits](https://img.shields.io/badge/Conventional_Commits-grey?logo=conventionalcommits)](https://www.conventionalcommits.org/en/v1.0.0/)
+
+[![PHP Unit](https://img.shields.io/badge/testing-PHP_Unit-grey?style=social&logo=packagist)](https://phpunit.de/)
+[![PHP CS Fixer](https://img.shields.io/badge/quality-PHP_CS_Fixer-grey?style=social&logo=packagist)](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+[![PHP Mess Detector](https://img.shields.io/badge/quality-PHP_Mess_Detector-grey?style=social&logo=packagist)](https://phpmd.org/)
+[![PHP Metrics](https://img.shields.io/badge/quality-PHP_Metrics-grey?style=social&logo=packagist)](https://phpmetrics.org/)
+[![PHP Doc](https://img.shields.io/badge/doc-PHP_Doc-grey?style=social&logo=packagist)](https://docs.phpdoc.org/)
 
 ----
 
