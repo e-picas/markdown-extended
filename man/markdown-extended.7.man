@@ -2,9 +2,9 @@
 .\" man-name: markdown-extended-api
 .\" section: 7
 .\" author: Pierre Cassat
-.\" date: 2015-04-16
+.\" date: 2024-02-04
 .\" version: 0.1.0-dev
-.TH  "markdown-extended-api" "7" "2015-04-16" "Version 0.1.0-dev" "PHP-Markdown-Extended Developer Manual"
+.TH  "markdown-extended-api" "7" "2024-02-04" "Version 0.1.0-dev" "PHP-Markdown-Extended Developer Manual"
 .SH NAME
 .PP
 PHP-Markdown-Extended API - Developer documentation of the internal API of the "picas/markdown-extended" package.

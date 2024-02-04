@@ -1,5 +1,12 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.8](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.7...v1.0.0-rc.8) (2024-02-04)
+
+
+### Bug Fixes
+
+* try to make a commit when publishing (step 2) ([1ebcb30](https://github.com/e-picas/markdown-extended//commit/1ebcb300bd44bb30e57f6bca91f51f39cbb67ed9))
+
 # [1.0.0-rc.6](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.5...v1.0.0-rc.6) (2024-02-04)
 
 
