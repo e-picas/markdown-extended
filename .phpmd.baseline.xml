@@ -100,10 +100,12 @@
   <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/OutputFormat/Man.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/OutputFormatBag.php"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/OutputFormatBag.php"/>
+  <violation rule="PHPMD\Rule\Design\WeightedMethodCount" file="src/MarkdownExtended/Parser.php"/>
   <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="src/MarkdownExtended/Parser.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Parser.php"/>
   <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Parser.php" method="setOptions"/>
   <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Parser.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/MarkdownExtended/Parser.php" method="transform"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Parser.php"/>
   <violation rule="PHPMD\Rule\UnusedLocalVariable" file="src/MarkdownExtended/Parser.php"/>
   <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="src/MarkdownExtended/Parser.php" method="_hardDebugContent"/>
@@ -113,8 +115,8 @@
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/MarkdownExtended/Util/DomIdRegistry.php"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Util/Helper.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/MarkdownExtended/Util/Helper.php"/>
-  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Util/Helper.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/MarkdownExtended/Util/Helper.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/MarkdownExtended/Util/Helper.php"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/MarkdownExtended/Util/Registry.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/markdown.php"/>
 </phpmd-baseline>

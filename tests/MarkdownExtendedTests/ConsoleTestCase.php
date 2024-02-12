@@ -13,6 +13,9 @@ namespace MarkdownExtendedTests;
 class ConsoleTestCase extends ParserTestCase
 {
 
+    const STATUS_OK = 0;
+    const STATUS_ERROR = 1;
+
     /**
      * Gets the basic 'php bin/markdown-extended' string
      *

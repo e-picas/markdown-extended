@@ -25,8 +25,6 @@ class UsageTest extends ConsoleTestCase
      */
     public function testSimpleStringTemplate()
     {
-        $res1 = $this->runCommand($this->getBaseCmd().' --template "'.ParserTestCase::MD_STRING.'"');
-        $res2 = $this->runCommand($this->getBaseCmd().' -t "'.ParserTestCase::MD_STRING.'"');
         $line = ParserTestCase::PARSED_STRING;
         $html = $this->stripWhitespaceAndNewLines(
             <<<MSG
@@ -43,10 +41,11 @@ class UsageTest extends ConsoleTestCase
 MSG
         );
 
+        $res1 = $this->runCommand($this->getBaseCmd().' --template "'.ParserTestCase::MD_STRING.'"');
         // status with long option
         $this->assertEquals(
             $res1['status'],
-            '0',
+            ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with "--template" long option (status)'
         );
         // stdout with long option
@@ -56,10 +55,11 @@ MSG
             '[console] test of the CLI on a simple string with "--template" long option'
         );
 
+        $res2 = $this->runCommand($this->getBaseCmd().' -t "'.ParserTestCase::MD_STRING.'"');
         // status with short option
         $this->assertEquals(
             $res2['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with "-t" short option (status)'
         );
         // stdout with short option
@@ -90,7 +90,7 @@ MSG
 
         $this->assertEquals(
             $res['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with "--template=test-template" long option (status)'
         );
         $this->assertEquals(
@@ -111,7 +111,7 @@ MSG
         // status NOT 0
         $this->assertNotEquals(
             $res['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with a wrong template path (status NOT 0)'
         );
         // stderr not empty
@@ -143,7 +143,7 @@ MSG
         // status with long option and no equal sign
         $this->assertEquals(
             $res1['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with "--response json" long option (status)'
         );
         // stdout with long option and no equal sign
@@ -156,7 +156,7 @@ MSG
         // status with long option and equal sign
         $this->assertEquals(
             $res2['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with "--response=json" long option (status)'
         );
         // stdout with long option and equal sign
@@ -169,7 +169,7 @@ MSG
         // status with short option and no equal sign
         $this->assertEquals(
             $res3['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with "-r json" short option (status)'
         );
         // stdout with short option and no equal sign
@@ -182,7 +182,7 @@ MSG
         // status with short option and equal sign
         $this->assertEquals(
             $res4['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a simple string with "-r=json" short option (status)'
         );
         // stdout with short option and equal sign
@@ -203,13 +203,13 @@ MSG
         $file       = $this->getPath([$this->getBasePath(), 'tests', 'test.md']);
         $file_meta  = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
         $body       = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
-        $html       = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
+        $html       = $this->stripWhitespaceAndNewLines($this->getFileExpectedContentLong_test());
 
         // full content without metadata
         $res1 = $this->runCommand($this->getBaseCmd().' '.$file);
         $this->assertEquals(
             $res1['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with no metadata and automatic templating (status)'
         );
         $this->assertEquals(
@@ -222,7 +222,7 @@ MSG
         $res2 = $this->runCommand($this->getBaseCmd().' '.$file_meta);
         $this->assertEquals(
             $res2['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with metadata and automatic templating (status)'
         );
         $this->assertEquals(
@@ -237,7 +237,7 @@ MSG
      *
      * @runInSeparateProcess
      */
-    public function testExtract()
+    public function testExtractFullContent()
     {
         $file = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
         $meta = [
@@ -248,14 +248,15 @@ MSG
         foreach ($meta as $var => $val) {
             $meta_str .= $var.': '.$val.PHP_EOL;
         }
-        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test());
-        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
+        $title  = $this->stripWhitespaceAndNewLines($this->getFileExpectedTitleLong_test());
+        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBodyLong_test());
+        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContentLong_test());
 
         // full content
         $res1 = $this->runCommand($this->getBaseCmd().' '.$file);
         $this->assertEquals(
             $res1['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with metadata (status)'
         );
         $this->assertEquals(
@@ -263,12 +264,33 @@ MSG
             $html,
             '[console] test of the CLI on a file with metadata'
         );
+    }
+
+    /**
+     * Test a call on a file with metadata and a custom template
+     *
+     * @runInSeparateProcess
+     */
+    public function testExtractMetadata()
+    {
+        $file = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
+        $meta = [
+            'meta1' => 'a value for meta 1',
+            'meta2' => 'another value for meta 2',
+        ];
+        $meta_str = '';
+        foreach ($meta as $var => $val) {
+            $meta_str .= $var.': '.$val.PHP_EOL;
+        }
+        $title  = $this->stripWhitespaceAndNewLines($this->getFileExpectedTitleLong_test());
+        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBodyLong_test());
+        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContentLong_test());
 
         // extraction of metadata
         $res2 = $this->runCommand($this->getBaseCmd().' -e '.$file);
         $this->assertEquals(
             $res2['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with metadata extraction without argument (short option "-e") (status)'
         );
         $this->assertStringEndsWith(
@@ -279,7 +301,7 @@ MSG
         $res3 = $this->runCommand($this->getBaseCmd().' --extract '.$file);
         $this->assertEquals(
             $res3['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with metadata extraction without argument (long option "--extract") (status)'
         );
         $this->assertStringEndsWith(
@@ -287,12 +309,33 @@ MSG
             trim($res3['stdout']),
             '[console] test of the CLI on a file with metadata extraction without argument (long option "--extract")'
         );
+    }
+
+    /**
+     * Test a call on a file with metadata and a custom template
+     *
+     * @runInSeparateProcess
+     */
+    public function testExtractSingleMetadata()
+    {
+        $file = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
+        $meta = [
+            'meta1' => 'a value for meta 1',
+            'meta2' => 'another value for meta 2',
+        ];
+        $meta_str = '';
+        foreach ($meta as $var => $val) {
+            $meta_str .= $var.': '.$val.PHP_EOL;
+        }
+        $title  = $this->stripWhitespaceAndNewLines($this->getFileExpectedTitleLong_test());
+        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBodyLong_test());
+        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContentLong_test());
 
         // extraction of a single metadata
         $res4 = $this->runCommand($this->getBaseCmd().' -e=meta1 '.$file);
         $this->assertEquals(
             $res4['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with one single metadata extraction (short option "-e=meta1") (status)'
         );
         $this->assertEquals(
@@ -303,7 +346,7 @@ MSG
         $res5 = $this->runCommand($this->getBaseCmd().' --extract=meta1 '.$file);
         $this->assertEquals(
             $res5['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with one single metadata extraction (long option "--extract=meta1") (status)'
         );
         $this->assertEquals(
@@ -311,12 +354,33 @@ MSG
             $meta['meta1'],
             '[console] test of the CLI on a file with one single metadata extraction (long option "--extract=meta1")'
         );
+    }
+
+    /**
+     * Test a call on a file with metadata and a custom template
+     *
+     * @runInSeparateProcess
+     */
+    public function testExtractBody()
+    {
+        $file = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
+        $meta = [
+            'meta1' => 'a value for meta 1',
+            'meta2' => 'another value for meta 2',
+        ];
+        $meta_str = '';
+        foreach ($meta as $var => $val) {
+            $meta_str .= $var.': '.$val.PHP_EOL;
+        }
+        $title  = $this->stripWhitespaceAndNewLines($this->getFileExpectedTitleLong_test());
+        $body   = $this->stripWhitespaceAndNewLines($this->getFileExpectedBodyLong_test());
+        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContentLong_test());
 
         // extraction of the body
         $res6 = $this->runCommand($this->getBaseCmd().' -e=body '.$file);
         $this->assertEquals(
             $res6['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with body extraction (short option "-e=body") (status)'
         );
         $this->assertEquals(
@@ -327,13 +391,48 @@ MSG
         $res7 = $this->runCommand($this->getBaseCmd().' --extract=body '.$file);
         $this->assertEquals(
             $res7['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with body extraction (short option "--extract=body") (status)'
         );
         $this->assertEquals(
             $this->stripWhitespaceAndNewLines($res7['stdout']),
             $body,
             '[console] test of the CLI on a file with body extraction (short option "--extract=body")'
+        );
+    }
+
+    /**
+     * Test a call on a file with metadata and a custom template
+     *
+     * @runInSeparateProcess
+     */
+    public function testExtractTitle()
+    {
+        $file = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
+        $title  = $this->stripWhitespaceAndNewLines($this->getFileExpectedTitleLong_test());
+
+        // extraction of the title
+        $res8 = $this->runCommand($this->getBaseCmd().' -e=title '.$file);
+        $this->assertEquals(
+            $res8['status'],
+             ConsoleTestCase::STATUS_OK,
+            '[console] test of the CLI on a file with body extraction (short option "-e=title") (status)'
+        );
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($res8['stdout']),
+            $title,
+            '[console] test of the CLI on a file with body extraction (short option "-e=title")'
+        );
+        $res9 = $this->runCommand($this->getBaseCmd().' --extract=title '.$file);
+        $this->assertEquals(
+            $res9['status'],
+             ConsoleTestCase::STATUS_OK,
+            '[console] test of the CLI on a file with body extraction (short option "--extract=title") (status)'
+        );
+        $this->assertEquals(
+            $this->stripWhitespaceAndNewLines($res9['stdout']),
+            $title,
+            '[console] test of the CLI on a file with body extraction (short option "--extract=title")'
         );
     }
 
@@ -348,14 +447,14 @@ MSG
 
         $file   = $this->getPath([$this->getBasePath(), 'tests', 'test-meta.md']);
         $output = $this->getPath([$this->getBasePath(), 'tmp', 'test-output-%s.html']);
-        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContent_test());
+        $html   = $this->stripWhitespaceAndNewLines($this->getFileExpectedContentLong_test());
 
         // short option
         $output1 = sprintf($output, '1');
         $res1 = $this->runCommand($this->getBaseCmd().' -o '.$output1.' '.$file);
         $this->assertEquals(
             $res1['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with short option output generation (status)'
         );
         $this->assertEquals(
@@ -374,7 +473,7 @@ MSG
         $res2 = $this->runCommand($this->getBaseCmd().' --output '.$output2.' '.$file);
         $this->assertEquals(
             $res2['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with long option output generation (status)'
         );
         $this->assertEquals(
@@ -408,7 +507,7 @@ MSG
         $res1 = $this->runCommand($this->getBaseCmd().' -o '.$output.' '.$file);
         $this->assertEquals(
             $res1['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with short option output generation N (status)'
         );
         $this->assertEquals(
@@ -425,7 +524,7 @@ MSG
         $res2 = $this->runCommand($this->getBaseCmd().' -o '.$output.' '.$file);
         $this->assertEquals(
             $res2['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with short option output generation N+1 (status)'
         );
         $this->assertEquals(
@@ -450,7 +549,7 @@ MSG
         $res3 = $this->runCommand($this->getBaseCmd().' --force -o '.$output.' '.$file);
         $this->assertEquals(
             $res3['status'],
-            '0',
+             ConsoleTestCase::STATUS_OK,
             '[console] test of the CLI on a file with short option output generation N+2 and the force option (status)'
         );
         $this->assertEquals(

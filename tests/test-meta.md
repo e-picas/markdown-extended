@@ -1,6 +1,8 @@
 meta1: a value for meta 1
 meta2: another value for meta 2
 
+# Document title
+
 At vero eos et accusamus et **iusto odio dignissimos ducimus qui blanditiis** praesentium
 voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.
 
@@ -9,8 +11,10 @@ voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.
     expedita distinctio.
 
 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.[^1]
 Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
 ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
 tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
 perferendis doloribus asperiores repellat.
+
+[^1]: The footnote content...
