@@ -156,6 +156,25 @@ class Helper
         return (bool) (false === strpos($str, PHP_EOL));
     }
 
+    /**
+     * Extract all contents of a specific HTML tag from a content
+     *
+     * @param string $string The HTML string to search in
+     * @param string $tagname The tagname to extract
+     *
+     * @return array
+     */
+    public static function getTextBetweenTags($string, $tagname)
+    {
+        $d = new \DOMDocument();
+        $d->loadHTML($string);
+        $return = [];
+        foreach($d->getElementsByTagName($tagname) as $item) {
+            $return[] = $item->textContent;
+        }
+        return $return;
+    }
+
     // --------------
     // Regular expressions
     // --------------
