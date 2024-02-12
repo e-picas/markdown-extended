@@ -7,7 +7,7 @@ This documentation file will introduce you the "dev-cycle" of PHP MarkdownExtend
 First of all, you may do the following two things:
 
 -   read the *How to contribute* section below to learn about forking, working and pulling,
--   from your fork of the repository, switch to the `dev` branch: this is where the dev things are done.
+-   from your fork of the repository, switch to the `develop` branch: this is where the dev things are done.
 
 
 ### How to contribute ?
@@ -36,11 +36,11 @@ comment the request with your vision of the thing or your experience.
 ### Full installation of a fork
 
 To prepare a development version of PHP MarkdownExtended, clone your fork of the repository and
-put it on the "dev" branch:
+put it on the "develop" branch:
 
     git clone http://github.com/<your-username>/markdown-extended.git
     cd markdown-extended
-    git checkout dev
+    git checkout develop
 
 Then you can create your own branch with the name of your feature:
 
@@ -64,18 +64,18 @@ and pulling new commits:
     git remote add upstream http://github.com/e-picas/markdown-extended.git
 
     // get last original remote commits
-    git checkout dev
-    git pull upstream dev
+    git checkout develop
+    git pull upstream develop
 
 
 ### Development life-cycle
 
-As said above, all development MUST be done on the `dev` branch of the repository. Doing so we
+As said above, all development MUST be done on the `develop` branch of the repository. Doing so we
 can commit our development features to let users using a clone test and improve them.
 
 When the work gets a stable stage, it seems to be time to build and publish a new release. This
 is done by creating a tag named like `vX.Y.Z[-status]` from the "master" branch after having
-merged the "dev" one in. Please see the [Semantic Versioning](http://semver.org/) work by 
+merged the "develop" one in. Please see the [Semantic Versioning](http://semver.org/) work by 
 Tom Preston-Werner for more info about the release version name construction rules.
 
 
@@ -177,10 +177,10 @@ Note that the package is integrated in [Code Climate](https://codeclimate.com/gi
 
 To make a new release of the package, you must follow these steps:
 
-1.  merge the "dev" branch into "master"
+1.  merge the "develop" branch into "master"
 
         git checkout master
-        git merge --no-ff --no-commit dev
+        git merge --no-ff --no-commit develop
 
 2.  fix code standards errors:
 
@@ -212,9 +212,9 @@ To make a new release of the package, you must follow these steps:
         rm -f bin/markdown-extended.phar && mv markdown-extended.phar bin/
         git commit -a -m "new X.Y.Z-STATE phar"
 
-9.  merge "master" into "dev":
+9.  merge "master" into "develop":
 
-        git checkout dev
+        git checkout develop
         git merge --no-ff master
 
 Finally, don't forget to push all changes to `origin` and to make a release page

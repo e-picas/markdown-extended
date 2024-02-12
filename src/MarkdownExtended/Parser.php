@@ -140,6 +140,16 @@ class Parser
         // actually parse content
         $content = $this->parseContent($content);
 
+        // guess the title if it is NOT empty
+        // @TODO - Try to make it better extracting directly from the MD source
+        // something strange is here: \MarkdownExtended\Grammar\Filter\Header::_setContentTitle()
+        if (strtolower($this->getKernel()->getConfig('output_format')) == 'html') {
+            $titles = Helper::getTextBetweenTags($content->getBody(), 'h1');
+            if (isset($titles[0])) {
+                $content->setTitle($titles[0]);
+            }
+        }
+
         // force template if needed
         $tpl = $this->getKernel()->getConfig('template');
         if (!is_null($tpl) && $tpl === 'auto') {

@@ -35,6 +35,6 @@ AddType text/html .md
 # Treat '.md' files by the Markdown handler
 # CAUTION - this requires to know exactly where the CGI is ...
 AddHandler MarkDown .md
-Action MarkDown /cgi-scripts/mde_apacheHandler.sh virtual
+Action MarkDown /demo/cgi-scripts/mde_apacheHandler.sh virtual
 
 # Endfile
