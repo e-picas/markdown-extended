@@ -1,9 +1,9 @@
 .\" man: PHP-Markdown-Extended Manual
 .\" man-name: markdown-extended
 .\" author: Pierre Cassat
-.\" date: 2024-02-04
-.\" version: 1.0.0-rc.11
-.TH  "markdown-extended" "3" "2024-02-04" "Version 1.0.0-rc.11" "PHP-Markdown-Extended Manual"
+.\" date: 2024-02-12
+.\" version: 1.0.0-rc.12
+.TH  "markdown-extended" "3" "2024-02-12" "Version 1.0.0-rc.12" "PHP-Markdown-Extended Manual"
 .SH NAME
 .PP
 PHP-Markdown-Extended - Yet another PHP parser for the markdown (\fIextended\fP) syntax.

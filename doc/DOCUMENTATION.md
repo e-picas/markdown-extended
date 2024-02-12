@@ -2,8 +2,8 @@ Man:        PHP-Markdown-Extended Developer Manual
 Man-name:   markdown-extended-api
 Section:    7
 Author:     Pierre Cassat
-Date:       2024-02-04
-Version:    1.0.0-rc.11
+Date:       2024-02-12
+Version:    1.0.0-rc.12
 
 
 NAME

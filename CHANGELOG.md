@@ -1,5 +1,12 @@
 # PHP Markdown Extended changelog
 
+# [1.0.0-rc.12](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.11...v1.0.0-rc.12) (2024-02-12)
+
+
+### Bug Fixes
+
+* review the document title extraction & fix tests ([#17](https://github.com/e-picas/markdown-extended/issues/17)) ([b9b3926](https://github.com/e-picas/markdown-extended//commit/b9b3926901865a1d9f99f646b6e6093d40e14d61))
+
 # [1.0.0-rc.11](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.10...v1.0.0-rc.11) (2024-02-04)
 
 
