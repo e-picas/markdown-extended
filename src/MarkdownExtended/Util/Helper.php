@@ -42,7 +42,7 @@ class Helper
      */
     public static function fillPlaceholders($text, $replacement)
     {
-        return str_replace('%%', $replacement, $text);
+        return !is_null($text) ? str_replace('%%', $replacement, $text) : $text;
     }
 
     /**
