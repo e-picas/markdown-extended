@@ -208,6 +208,9 @@ class MarkdownExtended extends Parser
 
                     // the default template to use if needed
                     'default_template'          => 'html5',
+
+                    // a set of classes to add per tag type
+                    'tag_classes'               => [],
                 ],
 
             ],

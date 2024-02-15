@@ -153,6 +153,12 @@ class Html extends AbstractOutputFormat implements OutputFormatInterface
     {
         $attr = '';
         $prefix = '';
+
+        $tag_class = isset($this->config['tag_classes'][$tag]) ? $this->config['tag_classes'][$tag] : null;
+        if (!empty($tag_class)) {
+            $attributes['class'] = (isset($attributes['class']) ? $attributes['class'].' ' : '').$tag_class;
+        }
+
         if (!empty($attributes)) {
             if (isset($attributes['mde-prefix'])) {
                 $prefix = $attributes['mde-prefix'];
