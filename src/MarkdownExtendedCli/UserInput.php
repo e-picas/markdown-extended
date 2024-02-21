@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace MarkdownExtended\Console;
+namespace MarkdownExtendedCli;
 
 use MarkdownExtended\Exception\InvalidArgumentException;
 use MarkdownExtended\Util\Registry;
@@ -118,7 +118,7 @@ class UserInput
      *
      * @param $name
      *
-     * @return \MarkdownExtended\Console\UserOption
+     * @return \MarkdownExtendedCli\UserOption
      */
     public function getOption($name)
     {

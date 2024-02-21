@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace MarkdownExtended\Console;
+namespace MarkdownExtendedCli;
 
 /**
  * Base object of a console script
@@ -106,14 +106,14 @@ abstract class AbstractConsole
     /**
      * The stream object
      *
-     * @var \MarkdownExtended\Console\Stream
+     * @var \MarkdownExtendedCli\Stream
      */
     protected $stream;
 
     /**
      * The user input object
      *
-     * @var \MarkdownExtended\Console\UserInput
+     * @var \MarkdownExtendedCli\UserInput
      */
     protected $user_input;
 
@@ -154,7 +154,7 @@ abstract class AbstractConsole
     /**
      * Sets console's stream handler
      *
-     * @param \MarkdownExtended\Console\Stream $stream
+     * @param \MarkdownExtendedCli\Stream $stream
      *
      * @return $this
      */
@@ -168,7 +168,7 @@ abstract class AbstractConsole
     /**
      * Sets console's user input handler
      *
-     * @param \MarkdownExtended\Console\UserInput $input
+     * @param \MarkdownExtendedCli\UserInput $input
      *
      * @return $this
      */
@@ -311,7 +311,7 @@ abstract class AbstractConsole
     /**
      * Adds a new CLI option available for the command
      *
-     * See the `\MarkdownExtended\Console\UserOption`
+     * See the `\MarkdownExtendedCli\UserOption`
      * method for a full review of what `$opt` can contain.
      *
      * @param string $name

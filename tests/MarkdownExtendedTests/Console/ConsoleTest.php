@@ -11,7 +11,7 @@
 namespace MarkdownExtendedTests;
 
 use MarkdownExtendedTests\ConsoleTestCase;
-use MarkdownExtended\Console\Console;
+use MarkdownExtendedCli\Console;
 
 /**
  * @group console
@@ -35,7 +35,7 @@ class ConsoleTest extends ConsoleTestCase
      * Test with no argument
      *
      * @runInSeparateProcess
-     * @covers MarkdownExtended\Console\Console::run()
+     * @covers MarkdownExtendedCli\Console::run()
      */
     public function testNoArgument()
     {

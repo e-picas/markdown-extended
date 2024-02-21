@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace MarkdownExtended\Console;
+namespace MarkdownExtendedCli;
 
 use MarkdownExtended\Exception\RuntimeException;
 use MarkdownExtended\Exception\UnexpectedValueException;

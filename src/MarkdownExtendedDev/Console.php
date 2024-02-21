@@ -10,8 +10,8 @@
 
 namespace MarkdownExtendedDev;
 
-use MarkdownExtended\Console\AbstractConsole;
-use MarkdownExtended\Console\UserInput;
+use MarkdownExtendedCli\AbstractConsole;
+use MarkdownExtendedCli\UserInput;
 use MarkdownExtended\Exception\FileSystemException;
 use MarkdownExtended\Exception\InvalidArgumentException;
 use MarkdownExtended\MarkdownExtended;

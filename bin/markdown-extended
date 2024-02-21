@@ -54,7 +54,7 @@ if (file_exists($bootstrapper = $bootstrapGetPath([
 }
 
 // launch app's console
-$console = new \MarkdownExtended\Console\Console();
+$console = new \MarkdownExtendedCli\Console();
 // hard debug for dev
 if (defined('HARD_DEBUG') && HARD_DEBUG) {
     $console->enableHardDebug();
