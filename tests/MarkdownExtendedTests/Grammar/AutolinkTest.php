@@ -24,8 +24,8 @@ class AutolinkTest extends ParserTestCase
         // autolink
         $md = '<http://getcomposer.org/>';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<a href="http://getcomposer.org/" title="See online http://getcomposer.org/">http://getcomposer.org/</a>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of autolink'
         );
     }
@@ -35,8 +35,8 @@ class AutolinkTest extends ParserTestCase
         // autolink email
         $md = '<piero.wbmstr@gmail.com>';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x70;&#x69;&#101;&#114;&#x6f;&#x2e;w&#98;&#109;&#x73;&#x74;&#114;&#64;&#x67;&#x6d;a&#105;&#108;&#x2e;&#x63;&#111;&#109;" title="Contact &#x70;&#x69;&#101;&#114;&#x6f;&#x2e;w&#98;&#109;&#x73;&#x74;&#114;&#64;&#x67;&#x6d;a&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x70;&#x69;&#101;&#114;&#x6f;&#x2e;w&#98;&#109;&#x73;&#x74;&#114;&#64;&#x67;&#x6d;a&#105;&#108;&#x2e;&#x63;&#111;&#109;</a>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of email autolink'
         );
     }
@@ -49,8 +49,8 @@ class AutolinkTest extends ParserTestCase
         // autolink
         $md = 'You can use http://getcomposer.org/ for instance';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             'You can use http://getcomposer.org/ for instance',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of autolink'
         );
     }

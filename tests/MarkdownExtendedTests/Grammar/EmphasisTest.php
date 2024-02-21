@@ -19,15 +19,15 @@ class EmphasisTest extends ParserTestCase
     {
         $md = '__Hello__ _World_';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello</strong> <em>World</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
 
         $md = '__Hello World__ _is common_';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello World</strong> <em>is common</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
     }
@@ -36,15 +36,15 @@ class EmphasisTest extends ParserTestCase
     {
         $md = '**Hello** *World*';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello</strong> <em>World</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
 
         $md = '**Hello World** *is common*';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello World</strong> <em>is common</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
     }
@@ -53,15 +53,15 @@ class EmphasisTest extends ParserTestCase
     {
         $md = '__Hello__ *World*';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello</strong> <em>World</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
 
         $md = '__Hello World__ *is common*';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello World</strong> <em>is common</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
     }
@@ -70,15 +70,15 @@ class EmphasisTest extends ParserTestCase
     {
         $md = '_Hello_World_';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<em>Hello_World</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
 
         $md = '__Hello_World__ _is_common_';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<strong>Hello_World</strong> <em>is_common</em>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
     }
@@ -87,8 +87,8 @@ class EmphasisTest extends ParserTestCase
     {
         $md = 'in-w*or*d em**phas**is';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             'in-w<em>or</em>d em<strong>phas</strong>is',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of emphasis'
         );
 

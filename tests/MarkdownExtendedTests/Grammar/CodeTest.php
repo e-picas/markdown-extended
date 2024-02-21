@@ -30,8 +30,8 @@ class CodeTest extends ParserTestCase
         // simple code
         $md = 'This variable `$var` can be accessed using the `->get(...)` method';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             'This variable <code>$var</code> can be accessed using the <code>-&gt;get(...)</code> method',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of code span'
         );
 
@@ -51,10 +51,10 @@ para1
 para2
 MSG;
         $this->assertEquals(
+            '<p>para1</p><pre>My code here</pre><p>para2</p>',
             $this->stripWhitespaces(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<p>para1</p><pre>My code here</pre><p>para2</p>',
             '[parsing] test of code block'
         );
     }
@@ -71,11 +71,11 @@ My code here
 ~~~~
 MSG;
         $this->assertEquals(
+            '<pre>My code here
+</pre>',
             $this->stripWhitespaces(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<pre>My code here
-</pre>',
             '[parsing] test of fenced code block'
         );
     }
@@ -94,11 +94,11 @@ My code here
 
 MSG;
         $this->assertEquals(
+            '<pre class="language-html">My code here
+</pre>',
             $this->stripWhitespaces(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<pre class="language-html">My code here
-</pre>',
             '[parsing] test of fenced code block with language info'
         );
     }

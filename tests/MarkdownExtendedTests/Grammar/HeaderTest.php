@@ -19,8 +19,8 @@ class HeaderTest extends ParserTestCase
     {
         $md = '#Hello World';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<h1 id="hello-world">Hello World</h1>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of header'
         );
     }

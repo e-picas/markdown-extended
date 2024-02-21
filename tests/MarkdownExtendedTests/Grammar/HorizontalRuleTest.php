@@ -28,10 +28,10 @@ Vestibulum enim wisi, viverra nec, fringilla in, laoreet
 vitae, risus.
 MSG;
         $this->assertEquals(
+            '<p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p><hr /><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>',
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<p>This is a definition with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p><hr /><p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>',
             '[parsing] test of horizontal rule'
         );
     }

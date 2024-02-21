@@ -21,8 +21,8 @@ class LinkTest extends ParserTestCase
         // classic link
         $md = '[Composer](http://getcomposer.org/)';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<a href="http://getcomposer.org/" title="See online http://getcomposer.org/">Composer</a>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of simple links'
         );
     }
@@ -32,8 +32,8 @@ class LinkTest extends ParserTestCase
         // link with a title
         $md = '[Composer](http://getcomposer.org/ "My title")';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<a href="http://getcomposer.org/" title="My title">Composer</a>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of links with title'
         );
     }
@@ -46,8 +46,8 @@ class LinkTest extends ParserTestCase
         // link with a title
         $md = '[Composer](http://getcomposer.org/ "My title" class=myclass)';
         $this->assertEquals(
+            '<a href="http://getcomposer.org/" title="My title" class="myclass">Composer</a>',
             (string) MarkdownExtended::parse($md, ['template' => false]),
-            '<a href="http://getcomposer.org/" title="My title" class="myclass">Composer</a>'
         );
     }
 }

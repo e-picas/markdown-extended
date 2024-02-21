@@ -12,6 +12,7 @@ namespace MarkdownExtended;
 
 use MarkdownExtended\API\ContentInterface;
 use MarkdownExtended\API\Kernel;
+use MarkdownExtended\API\Optionable;
 use MarkdownExtended\Grammar\Lexer;
 use MarkdownExtended\Grammar\GamutLoader;
 use MarkdownExtended\Exception\InvalidArgumentException;
@@ -25,7 +26,7 @@ use DateTime;
 /**
  * Global MarkdownExtended parser
  */
-class Parser
+class Parser extends Optionable
 {
     /**
      * Constructs a new parser with optional custom options or configuration file
@@ -41,7 +42,7 @@ class Parser
         ;
 
         // init all dependencies
-        $this->getKernel()
+        Kernel::getInstance()
             ->set('Parser', $this)
             ->set('OutputFormatBag', new OutputFormatBag())
             ->set('GamutLoader', new GamutLoader())
@@ -49,76 +50,9 @@ class Parser
         ;
 
         // load required format
-        $this->getKernel()
+        Kernel::getInstance()
             ->get('OutputFormatBag')
-                ->load($this->getKernel()->getConfig('output_format'));
-    }
-
-    /**
-     * Gets app's Kernel
-     *
-     * @return \MarkdownExtended\API\Kernel
-     */
-    public static function getKernel()
-    {
-        return Kernel::getInstance();
-    }
-
-    /**
-     * Resets options to defaults
-     *
-     * @return $this
-     *
-     * @see \MarkdownExtended\MarkdownExtended::getDefaults()
-     */
-    public function resetOptions()
-    {
-        $this->getKernel()->set('config', new Registry(MarkdownExtended::getDefaults()));
-        return $this;
-    }
-
-    /**
-     * Defines custom options or configuration file
-     *
-     * @param string|array $options A set of options or a configuration file path to override defaults
-     *
-     * @return $this
-     *
-     * @throws \MarkdownExtended\Exception\FileSystemException if a configuration file can not be found
-     */
-    public function setOptions($options)
-    {
-        if (is_string($options)) {
-            return $this->setOptions(['config_file' => $options]);
-        }
-
-        if (isset($options['config_file']) && !empty($options['config_file'])) {
-            $path = $options['config_file'];
-            unset($options['config_file']);
-
-            if (!file_exists($path)) {
-                $local_path = Kernel::getResourcePath($path, Kernel::RESOURCE_CONFIG);
-                if (empty($local_path) || !file_exists($local_path)) {
-                    throw new FileSystemException(
-                        sprintf('Configuration file "%s" not found', $path)
-                    );
-                }
-                $path = $local_path;
-            }
-
-            $path_options = $this->loadConfigFile($path);
-            unset($path_options['config_file']);
-            $this->setOptions($path_options);
-            $options['loaded_config_file'] = $path;
-        }
-
-        if (is_array($options) && !empty($options)) {
-            foreach ($options as $var => $val) {
-                $this->getKernel()->setConfig($var, $val);
-            }
-        }
-
-        return $this;
+                ->load(Kernel::getInstance()->getConfig('output_format'));
     }
 
     /**
@@ -143,7 +77,7 @@ class Parser
         // guess the title if it is NOT empty
         // @TODO - Try to make it better extracting directly from the MD source
         // something strange is here: \MarkdownExtended\Grammar\Filter\Header::_setContentTitle()
-        if (strtolower($this->getKernel()->getConfig('output_format')) == 'html') {
+        if (strtolower(Kernel::getInstance()->getConfig('output_format')) == 'html') {
             $titles = Helper::getTextBetweenTags($content->getBody(), 'h1');
             if (isset($titles[0])) {
                 $content->setTitle($titles[0]);
@@ -151,7 +85,7 @@ class Parser
         }
 
         // force template if needed
-        $tpl = $this->getKernel()->getConfig('template');
+        $tpl = Kernel::getInstance()->getConfig('template');
         if (!is_null($tpl) && $tpl === 'auto') {
             //            $tpl = !(Helper::isSingleLine($content->getBody()));
             $meta = $content->getMetadataFormatted();
@@ -167,7 +101,7 @@ class Parser
 
         //        $this->_hardDebugContent($content);
         // write the output in a file?
-        $output = $this->getKernel()->getConfig('output');
+        $output = Kernel::getInstance()->getConfig('output');
         if (!empty($output) && $primary) {
             // return generated file path
             return $this->writeOutputFile($output, $content);
@@ -214,57 +148,14 @@ class Parser
         }
 
         $source     = Helper::readFile($path);
-        $content    = new Content($source, $this->getKernel()->get('config')->getAll());
+        $content    = new Content($source, Kernel::getInstance()->get('config')->getAll());
         $content
             ->addMetadata('last_update', new DateTime('@'.filemtime($path)))
             ->addMetadata('file_name', $path)
         ;
-        $this->getKernel()->addConfig('base_path', realpath(dirname($path)));
-        $filename = $this->getKernel()->applyConfig('filepath_to_title', [$path]);
+        Kernel::getInstance()->addConfig('base_path', realpath(dirname($path)));
+        $filename = Kernel::getInstance()->applyConfig('filepath_to_title', [$path]);
         return $this->transform($content, $filename, $primary);
-    }
-
-    /**
-     * Loads a configuration file
-     *
-     * @param string $path
-     *
-     * @return array|mixed
-     *
-     * @throws \MarkdownExtended\Exception\FileSystemException if the file can not be found or is not readable
-     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file is of an unknown type
-     */
-    protected function loadConfigFile($path)
-    {
-        if (!file_exists($path)) {
-            throw new FileSystemException(
-                sprintf('Configuration file "%s" not found', $path)
-            );
-        }
-        if (!is_readable($path)) {
-            throw new FileSystemException(
-                sprintf('Configuration file "%s" is not readable', $path)
-            );
-        }
-
-        $ext = pathinfo($path, PATHINFO_EXTENSION);
-        switch (strtolower($ext)) {
-            case 'ini':
-                $options = parse_ini_file($path, true);
-                break;
-            case 'json':
-                $options = json_decode(Helper::readFile($path), true);
-                break;
-            case 'php':
-                $options = include $path;
-                break;
-            default:
-                throw new InvalidArgumentException(
-                    sprintf('Unknown configuration file type "%s"', $ext)
-                );
-        }
-
-        return $options;
     }
 
     /**
@@ -276,8 +167,8 @@ class Parser
      */
     protected function getApiContent($content)
     {
-        if (!is_object($content) || !$this->getKernel()->valid($content, Kernel::TYPE_CONTENT)) {
-            $content = new Content($content, $this->getKernel()->get('config')->getAll());
+        if (!is_object($content) || !Kernel::getInstance()->valid($content, Kernel::TYPE_CONTENT)) {
+            $content = new Content($content, Kernel::getInstance()->get('config')->getAll());
         }
         return $content;
     }
@@ -292,7 +183,7 @@ class Parser
     protected function parseContent(ContentInterface $content)
     {
         $this->_registerContent($content);
-        $this->getKernel()
+        Kernel::getInstance()
             ->set(Kernel::TYPE_CONTENT, function () {
                 return Kernel::get('ContentCollection')->current();
             })
@@ -301,7 +192,7 @@ class Parser
         ;
 
         // actually parse content
-        $this->getKernel()->get('Lexer')->parse($content);
+        Kernel::getInstance()->get('Lexer')->parse($content);
 
         return $content;
     }
@@ -351,7 +242,7 @@ class Parser
                 (is_string($template) && class_exists($template)) ||
                 is_object($template)
             ) &&
-            $this->getKernel()->validate($template, Kernel::TYPE_TEMPLATE)
+            Kernel::getInstance()->validate($template, Kernel::TYPE_TEMPLATE)
         ) {
             $templater = new $template();
         } else {
@@ -359,7 +250,7 @@ class Parser
         }
 
         // register the templater
-        $this->getKernel()->set(Kernel::TYPE_TEMPLATE, $templater);
+        Kernel::getInstance()->set(Kernel::TYPE_TEMPLATE, $templater);
 
         // parse content into template
         $content->setContent(
@@ -390,7 +281,7 @@ class Parser
         );
 
         // make a backup if `option[force]!==true`
-        $backup = (bool) $this->getKernel()->getConfig('force') !== true;
+        $backup = (bool) Kernel::getInstance()->getConfig('force') !== true;
 
         // write output
         Helper::writeFile($path, (string) $content, $backup);
@@ -406,7 +297,7 @@ class Parser
      */
     private function _registerContent(ContentInterface $content)
     {
-        $collection = $this->getKernel()->get('ContentCollection');
+        $collection = Kernel::getInstance()->get('ContentCollection');
         $collection->append($content);
         $index      = $collection->key();
         $collection->next();

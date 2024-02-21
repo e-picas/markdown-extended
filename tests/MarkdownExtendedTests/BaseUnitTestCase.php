@@ -13,29 +13,6 @@ namespace MarkdownExtendedTests;
 class BaseUnitTestCase extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Validates the paths getters of this class
-     */
-    public function pathsExist()
-    {
-        $this->assertFileExists(
-            $this->getPath([dirname(__DIR__), 'bootstrap.php']),
-            '[internal test] getPath() to "tests/bootstrap.php"'
-        );
-        $this->assertFileExists(
-            $this->getPath([$this->getBasePath(), 'composer.json']),
-            '[internal test] getBasePath() to "composer.json"'
-        );
-        $this->assertFileExists(
-            $this->getResourcePath('test.md'),
-            '[internal test] getResourcePath() to "tests/test.md" as a string'
-        );
-        $this->assertFileExists(
-            $this->getResourcePath(['test.md']),
-            '[internal test] getResourcePath() to "tests/test.md" as an array'
-        );
-    }
-
-    /**
      * Gets a wel-formatted path with environment-compliant directory separator
      *
      * @param array $parts

@@ -24,8 +24,8 @@ class AnchorTest extends ParserTestCase
         // header with anchor
         $md = '## My title {#my-anchor}';
         $this->assertEquals(
-            (string) MarkdownExtended::parse($md, ['template' => false]),
             '<h2 id="my-anchor">My title</h2>',
+            (string) MarkdownExtended::parse($md, ['template' => false]),
             '[parsing] test of a header with a user defined anchor'
         );
 

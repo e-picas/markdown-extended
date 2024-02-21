@@ -96,7 +96,6 @@ abstract class AbstractOutputFormat
                 $val['text'],
                 ['id' => $val['note-id']]
             );
-            //            ) . "\n\n";
         }
 
         return $this

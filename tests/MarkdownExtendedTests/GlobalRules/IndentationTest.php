@@ -23,10 +23,10 @@ class IndentationTest extends ParserTestCase
     {
         $md = '    This should be treated as a code block (indented)';
         $this->assertEquals(
+            '<pre>This should be treated as a code block (indented)</pre>',
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<pre>This should be treated as a code block (indented)</pre>',
             '[parsing] indenting by 4 spaces is considered as a tab'
         );
     }
@@ -35,10 +35,10 @@ class IndentationTest extends ParserTestCase
     {
         $md = '   This should NOT be treated as a code block (indented by 3 spaces only)';
         $this->assertEquals(
+            'This should NOT be treated as a code block (indented by 3 spaces only)',
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            'This should NOT be treated as a code block (indented by 3 spaces only)',
             '[parsing] indenting by 3 spaces is NOT considered as a tab'
         );
     }

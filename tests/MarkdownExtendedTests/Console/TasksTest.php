@@ -27,8 +27,8 @@ class TasksTest extends ConsoleTestCase
         $res = $this->runCommand($this->getBaseCmd().' license');
         // status
         $this->assertEquals(
+            ConsoleTestCase::STATUS_OK,
             $res['status'],
-            '0',
             '[console] test of the CLI license task (status)'
         );
         // output
@@ -48,8 +48,8 @@ class TasksTest extends ConsoleTestCase
         $res = $this->runCommand($this->getBaseCmd().' manifest');
         // status
         $this->assertEquals(
+            ConsoleTestCase::STATUS_OK,
             $res['status'],
-            '0',
             '[console] test of the CLI manifest task (status)'
         );
         // output
@@ -69,8 +69,8 @@ class TasksTest extends ConsoleTestCase
         $res = $this->runCommand($this->getBaseCmd().' config-list');
         // status
         $this->assertEquals(
+            ConsoleTestCase::STATUS_OK,
             $res['status'],
-            '0',
             '[console] test of the CLI config-list task (status)'
         );
         // output
@@ -90,8 +90,8 @@ class TasksTest extends ConsoleTestCase
         $res = $this->runCommand($this->getBaseCmd().' filters-list');
         // status
         $this->assertEquals(
+            ConsoleTestCase::STATUS_OK,
             $res['status'],
-            '0',
             '[console] test of the CLI filters-list task (status)'
         );
         // output

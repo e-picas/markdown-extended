@@ -19,6 +19,53 @@ use MarkdownExtended\Exception\FileSystemException;
 class Helper
 {
     // --------------
+    // Configurable
+    // --------------
+
+    /**
+     * Loads a configuration file
+     *
+     * @param string $path
+     *
+     * @return array|mixed
+     *
+     * @throws \MarkdownExtended\Exception\FileSystemException if the file can not be found or is not readable
+     * @throws \MarkdownExtended\Exception\InvalidArgumentException if the file is of an unknown type
+     */
+    public static function loadConfigFile($path)
+    {
+        if (!file_exists($path)) {
+            throw new FileSystemException(
+                sprintf('Configuration file "%s" not found', $path)
+            );
+        }
+        if (!is_readable($path)) {
+            throw new FileSystemException(
+                sprintf('Configuration file "%s" is not readable', $path)
+            );
+        }
+
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        switch (strtolower($ext)) {
+            case 'ini':
+                $options = parse_ini_file($path, true);
+                break;
+            case 'json':
+                $options = json_decode(Helper::readFile($path), true);
+                break;
+            case 'php':
+                $options = include $path;
+                break;
+            default:
+                throw new InvalidArgumentException(
+                    sprintf('Unknown configuration file type "%s"', $ext)
+                );
+        }
+
+        return $options;
+    }
+
+    // --------------
     // Strings
     // --------------
 

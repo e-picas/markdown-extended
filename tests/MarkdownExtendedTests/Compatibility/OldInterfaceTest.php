@@ -50,8 +50,8 @@ class OldInterfaceTest extends ParserTestCase
 
         // Markdown
         $this->assertEquals(
-            $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test()),
-            $this->stripWhitespaceAndNewLines(Markdown(file_get_contents($this->getTestFilepath()))->getBody()),
+            $this->stripWhitespaceAndNewLines($this->getTestFile_parsedHtmlBody()),
+            $this->stripWhitespaceAndNewLines(Markdown(file_get_contents($this->getTestFile_filepath()))->getBody()),
             'Test of the Markdown() function'
         );
     }
@@ -65,8 +65,8 @@ class OldInterfaceTest extends ParserTestCase
 
         // MarkdownFromSource
         $this->assertEquals(
-            $this->stripWhitespaceAndNewLines($this->getFileExpectedBody_test()),
-            $this->stripWhitespaceAndNewLines(MarkdownFromSource($this->getTestFilepath())->getBody()),
+            $this->stripWhitespaceAndNewLines($this->getTestFile_parsedHtmlBody()),
+            $this->stripWhitespaceAndNewLines(MarkdownFromSource($this->getTestFile_filepath())->getBody()),
             'Test of the MarkdownFromSource() function'
         );
     }

@@ -11,6 +11,7 @@
 namespace MarkdownExtendedTests;
 
 use MarkdownExtendedTests\ConsoleTestCase;
+use MarkdownExtended\Console\Console;
 
 /**
  * @group console
@@ -24,8 +25,8 @@ class ConsoleTest extends ConsoleTestCase
     {
         $res = $this->runCommand('php -r "echo \'TEST\';"');
         $this->assertEquals(
-            $res['stdout'],
             'TEST',
+            $res['stdout'],
             '[system] test if the PHP CLI is working'
         );
     }
@@ -34,20 +35,21 @@ class ConsoleTest extends ConsoleTestCase
      * Test with no argument
      *
      * @runInSeparateProcess
+     * @covers MarkdownExtended\Console\Console::run()
      */
     public function testNoArgument()
     {
         $res = $this->runCommand($this->getBaseCmd());
         // status
         $this->assertEquals(
+            ConsoleTestCase::STATUS_OK,
             $res['status'],
-            '0',
             'Test of CLI with no argument (status)'
         );
         // stdout
         $this->assertEquals(
-            substr(trim($res['stdout']), 0, strlen('usage')),
             'usage',
+            substr(trim($res['stdout']), 0, strlen('usage')),
             '[console] test if a call with no argument outputs something like "usage..."'
         );
     }
@@ -63,8 +65,8 @@ class ConsoleTest extends ConsoleTestCase
         $target = $this->getPath(array($this->getBasePath(), 'man', 'markdown-extended.3.man'));
         $res = $this->runCommand($this->getBaseCmd().' --format man '.$original);
         $this->assertEquals(
-            trim($res['stdout']),
             $this->stripWhitespaces(file_get_contents($target)),
+            trim($res['stdout']),
             '[console] test of the section 3 manpage generation with the CLI'
         );
     }

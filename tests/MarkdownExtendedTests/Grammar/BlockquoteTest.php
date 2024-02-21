@@ -29,10 +29,10 @@ class BlockquoteTest extends ParserTestCase
 >     and even a preformatted string
         ";
         $this->assertEquals(
+            '<blockquote><p>My citation</p><p>With a paragraph and some <code>code</code></p><pre>and even a preformatted string</pre></blockquote>',
             $this->stripWhitespaces(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<blockquote><p>My citation</p><p>With a paragraph and some <code>code</code></p><pre>and even a preformatted string</pre></blockquote>',
             '[parsing] test of blockquote'
         );
     }

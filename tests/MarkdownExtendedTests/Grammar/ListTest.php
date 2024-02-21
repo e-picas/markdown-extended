@@ -27,10 +27,10 @@ class ListTest extends ParserTestCase
 -   third item
 MSG;
         $this->assertEquals(
+            '<ul><li>first item</li><li>second item  <ul><li>first sub-item</li><li>second sub-item</li></ul></li><li>third item</li></ul>',
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<ul><li>first item</li><li>second item  <ul><li>first sub-item</li><li>second sub-item</li></ul></li><li>third item</li></ul>',
             '[parsing] test of unordered list'
         );
     }
@@ -46,10 +46,10 @@ MSG;
 5.   third item
 MSG;
         $this->assertEquals(
+            '<ol><li>first item</li><li>second item  <ol><li>first sub-item</li><li>second sub-item</li></ol></li><li>third item</li></ol>',
             $this->stripWhitespaceAndNewLines(
                 (string) MarkdownExtended::parse($md, ['template' => false])
             ),
-            '<ol><li>first item</li><li>second item  <ol><li>first sub-item</li><li>second sub-item</li></ol></li><li>third item</li></ol>',
             '[parsing] test of ordered list'
         );
     }
