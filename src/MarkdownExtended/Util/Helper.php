@@ -166,11 +166,17 @@ class Helper
      */
     public static function getTextBetweenTags($string, $tagname)
     {
-        $d = new \DOMDocument();
-        $d->loadHTML($string);
         $return = [];
-        foreach($d->getElementsByTagName($tagname) as $item) {
-            $return[] = $item->textContent;
+        if (empty($string)) {
+            return $return;
+        }
+        $d = new \DOMDocument();
+        try {
+            $d->loadHTML($string);
+            foreach($d->getElementsByTagName($tagname) as $item) {
+                $return[] = $item->textContent;
+            }
+        } catch (\ErrorException $e) {
         }
         return $return;
     }
