@@ -1,5 +1,53 @@
 # PHP Markdown Extended changelog
 
+# 1.0.0-rc.1 (2024-02-24)
+
+
+### Bug Fixes
+
+* arrayIterator + null string warnings ([ea09c57](https://github.com/e-picas/markdown-extended//commit/ea09c57cdc7c50e134b999650f2338933a0e8f31))
+* break the inifinite loop of bump versions on master ([0ca2883](https://github.com/e-picas/markdown-extended//commit/0ca2883da921ef16dba6b2b308ab2949c66c1450))
+* **ci:** add a CI script for running tests silently ([bf79b81](https://github.com/e-picas/markdown-extended//commit/bf79b8194b5780bc402ba6804770435c2b5644ec))
+* **ci:** force to use PHP 7 in CI ([a52bc4f](https://github.com/e-picas/markdown-extended//commit/a52bc4fde74fc1d26ecb274a2375768f069bd4ca))
+* **ci:** try to not write anything for simple testing ([1e8ef53](https://github.com/e-picas/markdown-extended//commit/1e8ef53827c9d1e14af5a1531e65869c86b1410d))
+* **code-fixer:** new run of PHPCS ([a795a7f](https://github.com/e-picas/markdown-extended//commit/a795a7f83d6bbc553dae9bbf035f2112e945718b))
+* **code:** try to be PHP8 compliant ([b487130](https://github.com/e-picas/markdown-extended//commit/b4871306469f15d821211041d7fff6e6448815f4))
+* fi/then/else in Makefile ([9570828](https://github.com/e-picas/markdown-extended//commit/9570828746f14e3cd63eba625267c9f99aef283a))
+* full renaming the author info ([0bde62d](https://github.com/e-picas/markdown-extended//commit/0bde62d8422fb632e23f267ce3ed1085a4b1b562))
+* full renaming the author info ([2cc4f51](https://github.com/e-picas/markdown-extended//commit/2cc4f5177f7d76630269396cd41f654620ff6568))
+* migrate configuration from 'git' to 'semantic-release/github' plugin ([0535e3e](https://github.com/e-picas/markdown-extended//commit/0535e3eec2b7a7d7a80c359abaab3e8449021c90))
+* **php7:** strip typing throwing errors (maybe PHP8 only?) ([11149a3](https://github.com/e-picas/markdown-extended//commit/11149a3049183fbe9229485ccbc2ee6c93c92d33))
+* review the document title extraction & fix tests ([#17](https://github.com/e-picas/markdown-extended/issues/17)) ([4fe606f](https://github.com/e-picas/markdown-extended//commit/4fe606f2eb7c2c5e03a2046b78acf196c90ef2fc))
+* rollback the composer plugin of semantic-release as it seems abandoned ([f841cd1](https://github.com/e-picas/markdown-extended//commit/f841cd114964f6514048c8385328df950f789968))
+* try to build the phar when publishing ([1a4f1b5](https://github.com/e-picas/markdown-extended//commit/1a4f1b5c462823daaedcc3287fdacf2daf3713e9))
+* try to build the phar when publishing (step 2) ([ea2ad0e](https://github.com/e-picas/markdown-extended//commit/ea2ad0e5f68c58659e7a2c319ad944f890783bab))
+* try to build the phar when publishing (step 3) ([cc625a4](https://github.com/e-picas/markdown-extended//commit/cc625a45105a13bb26ebf607aeda4c7c4bba634a))
+* try to build the phar when publishing (step 4) ([129224a](https://github.com/e-picas/markdown-extended//commit/129224aa3cbb58b0610c75d462f667c74d136100))
+* try to build the phar when publishing (step 5) ([c8872a6](https://github.com/e-picas/markdown-extended//commit/c8872a6ebdc9c5dead799f86ec9afac0a3871901))
+* try to make a commit when publishing ([599c3ed](https://github.com/e-picas/markdown-extended//commit/599c3edfc80b3faddd7d4dd2fc33819308093aaa))
+* try to make a commit when publishing (step 2) ([f59f93b](https://github.com/e-picas/markdown-extended//commit/f59f93bef037e260016fe6147b8137dd9e5481ba))
+* **type:** rollback to Exception type for the 'handleException' method ([d9c5072](https://github.com/e-picas/markdown-extended//commit/d9c50728d6745b490fe7e5bf2398658f52936d1a))
+* use the raw version parameter for the 'make-release' internal action ([16c80ce](https://github.com/e-picas/markdown-extended//commit/16c80ce4de2a0d08c36012f7bff3c6586b98872e))
+* use the raw version parameter for the 'make-release' internal action (step 2) ([ffa3221](https://github.com/e-picas/markdown-extended//commit/ffa3221c46618c5cb437a301d12849bc200e0213))
+
+
+### Features
+
+* add a new dockerfile for a complete dev image ([61b9427](https://github.com/e-picas/markdown-extended//commit/61b94275ea9e5ba488ede4435a2cb43a37a43e0f))
+* add a test runner for PHP5 ([db27428](https://github.com/e-picas/markdown-extended//commit/db27428bd82d92c53f0a4ef0de2176a1fb48d592))
+* add a test runner for PHP8 ([72ae813](https://github.com/e-picas/markdown-extended//commit/72ae8131ee495447d8fd4545d794fc97b7b83480))
+* be php 5 compilant ([53549f7](https://github.com/e-picas/markdown-extended//commit/53549f716a76a2d8b37447c1913587410c0b42b1))
+* **chore:** review the dev tools: phpcs, phpdoc, phpmd, phpunit ([f464a31](https://github.com/e-picas/markdown-extended//commit/f464a3166bfbe1c2a10cc25822874d28d400e6b7))
+* **ci:** create release from 'develop' ([af118e3](https://github.com/e-picas/markdown-extended//commit/af118e38b6abb3c3d4ac29c376ea77ca900e7540))
+* **ci:** no more Travis, replaced by GitHub Actions with Semantic Release ([62304ed](https://github.com/e-picas/markdown-extended//commit/62304ede39686119df50d8f22219e3a0951a509a))
+* force a new release ([4977fc2](https://github.com/e-picas/markdown-extended//commit/4977fc29f19ff85f18ba67b22ed4ff2e3bf0fe8b))
+* make some cleanup after experiencing a real version bump ([cebc803](https://github.com/e-picas/markdown-extended//commit/cebc803372120b932ce6230887c4843c7a44fb84))
+* **php7-migration:** push the project back to life ([faf8844](https://github.com/e-picas/markdown-extended//commit/faf8844d1f9efc5bef8d6d83fd3b76416f2cd64a))
+* **php7:** run the code standard fixer with PHP7 standards ([5a34609](https://github.com/e-picas/markdown-extended//commit/5a34609dd84d739b468404b1f862e03313fcf3b1))
+* send tests coverage to codeclimate ([00272e5](https://github.com/e-picas/markdown-extended//commit/00272e58c03aa09d7014d54ec0ddbf200cdb205a))
+* **test:** review of tests with groups and information about the manifest part treated ([e115230](https://github.com/e-picas/markdown-extended//commit/e115230ecfa76f88fcbfc1d7e0b1e0f78928ed03))
+* **tests:** review of unit tests for a better display ([ad4d0d3](https://github.com/e-picas/markdown-extended//commit/ad4d0d38d2fce16c2e7411d0f7c411789bfaf4cf))
+
 # [1.0.0-rc.12](https://github.com/e-picas/markdown-extended/compare/v1.0.0-rc.11...v1.0.0-rc.12) (2024-02-12)
 
 
